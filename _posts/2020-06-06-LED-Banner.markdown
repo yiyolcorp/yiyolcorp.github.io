@@ -5,7 +5,8 @@ date: 2020-06-06
 img: led-banner.png
 alt: image-alt
 project-date: June 2020
-client: Every one
-category: Tools
+# client: Every one
+# category: Tools
+qr: qr-led-banner.png
 description: LED Display to show banner
 ---
