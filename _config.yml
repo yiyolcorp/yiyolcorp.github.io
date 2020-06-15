@@ -1,7 +1,7 @@
 # Site settings
 title: YIYOL
 email: yiyolcorp@gmail.com
-url: https://github.com/jeromelachaud/freelancer-theme
+# url: https://github.com/jeromelachaud/freelancer-theme
 description: "WE MAKE APPS TO MAKE PEOPLE HAPPIER"
 keywords: "App creator, Life supporter"
 skills: "WE MAKE APPS TO MAKE PEOPLE HAPPIER"
@@ -35,8 +35,8 @@ color:
 footer:
   copyright: Yiyol.com
   location: Location
-  social: Around the Web
-  credits: Credits
+  social: Social Media
+  credits: Business
 
 # Social networks usernames (many more available: google-plus, flickr, dribbble, pinterest, instagram, tumblr, linkedin, etc.)
 social:
@@ -57,7 +57,7 @@ address:
   # - line: Beverly Hills, CA 90210
 
 # Credits content
-credits: 'Freelancer is a free to use, open source Bootstrap theme created by <a href="http://startbootstrap.com">Start Bootstrap</a>.'
+credits: 'We are open to your business proposal. Please contact us.'
 
 # Build settings
 markdown: kramdown
