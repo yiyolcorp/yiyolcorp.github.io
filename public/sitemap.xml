@@ -20,11 +20,15 @@
     <loc>http://localhost:1313/tags/%EC%82%AC%EC%97%85%EC%9E%90/</loc>
     <lastmod>2024-07-22T21:12:51+09:00</lastmod>
   </url><url>
+    <loc>http://localhost:1313/layouts/_default/list/</loc>
+  </url><url>
     <loc>http://localhost:1313/about/</loc>
   </url><url>
     <loc>http://localhost:1313/articles/</loc>
   </url><url>
     <loc>http://localhost:1313/categories/</loc>
+  </url><url>
+    <loc>http://localhost:1313/layouts/</loc>
   </url><url>
     <loc>http://localhost:1313/products/</loc>
   </url>
