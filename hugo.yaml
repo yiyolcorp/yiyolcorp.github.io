@@ -1,3 +1,21 @@
-baseURL: https://example.org/
-languageCode: en-us
-title: My New Hugo Site
+baseURL: https://yiyol.com/
+languageCode: ko-KR
+title: YiYOL
+theme: ananke
+
+services:
+  disqus:
+    shortname: 'yiyol'
+
+params:
+  text_color: 'gray'
+  commentoEnable: true
+  read_more_copy: Read more about this entry
+  ananke_socials:
+  - name: facebook
+    url: https://facebook.com/yiyol
+  - name: twitter
+    url: https://twitter.com/yiyolcorp
+  - name: github
+    url: https://github.com/yiyolcorp
+
