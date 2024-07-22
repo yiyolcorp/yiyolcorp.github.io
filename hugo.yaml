@@ -23,3 +23,20 @@ params:
   - name: github
     url: https://github.com/yiyolcorp
 
+menu:
+  main:
+    - identifier: "about"
+      name: "About"
+      url: "/about/"
+      weight: 10
+
+    - identifier: "products"
+      name: "Products"
+      url: "/products/"
+      weight: 20
+
+    - identifier: "articles"
+      name: "Articles"
+      url: "/articles/"
+      weight: 30
+
