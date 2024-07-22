@@ -1,7 +1,7 @@
 {
 	"version": 3,
 	"file": "main.css",
-	"sourceRoot": "/Users/tifler/work/yiyol/hugo2/yiyol",
+	"sourceRoot": "/home/tifler/work/yiyol/yiyol",
 	"sources": [
 		"ananke/css/main.css"
 	],

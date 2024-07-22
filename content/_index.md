@@ -1,8 +1,7 @@
 ---
-title: 'YiYOL Home'
-date: 2024-07-22T22:56:45+09:00
+title: 'YiYOL'
+#description: "앱과 서비스를 만드는 개발자 그룹"
 kind: home
-draft: true
+isCJKLanguage: true
+featured_image: '/images/programmer.png'
 ---
-
-Pages
