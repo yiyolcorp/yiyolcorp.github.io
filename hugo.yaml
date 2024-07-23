@@ -1,6 +1,6 @@
 baseURL: https://yiyol.com/
 languageCode: ko
-title: YiYOL
+title: yiyol
 theme: ananke
 SectionPagesMenu: 'main'
 Paginate: 4
