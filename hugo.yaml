@@ -5,9 +5,9 @@ theme: ananke
 SectionPagesMenu: 'main'
 Paginate: 4
 
-services:
-  disqus:
-    shortname: yiyol
+#services:
+#  disqus:
+#    shortname: yiyol
 
 params:
   text_color: 'gray'
