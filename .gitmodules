@@ -3,6 +3,6 @@
 	url = https://github.com/theNewDynamic/gohugo-theme-ananke.git
 [submodule "public"]
 	path = public
-  #url = https://github.com/yiyolcorp/yiyolcorp.github.io.git
-	url = git@github.com-yiyolcorp:yiyolcorp/yiyolcorp.github.io.git
+  url = https://github.com/yiyolcorp/yiyolcorp.github.io.git
+  #url = git@github.com-yiyolcorp:yiyolcorp/yiyolcorp.github.io.git
 	branch = gh-pages
