@@ -4,12 +4,13 @@ title: YiYOL
 theme: ananke
 SectionPagesMenu: 'main'
 Paginate: 4
-googleAnalytics: 'G-CKJ4GX2KHS'
 env: production
 
-#services:
-#  disqus:
-#    shortname: yiyol
+services:
+  disqus:
+    shortname: yiyol
+  googleAnalytics:
+    ID: G-CKJ4GX2KHS
 
 params:
   text_color: 'gray'
@@ -22,6 +23,7 @@ params:
     url: https://x.com/Yiyolcorp
   - name: github
     url: https://github.com/yiyolcorp
+
 
 menu:
   main:
