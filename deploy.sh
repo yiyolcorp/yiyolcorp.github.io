@@ -19,6 +19,7 @@ fi
 git commit -m "$msg"
 
 # Push source and build repos.
+echo "Push gh-pages to origin"
 git push origin gh-pages
 
 # Come back up to the project root
@@ -33,5 +34,6 @@ if [ $# -eq 1 ]
 fi
 git commit -m "$msg"
 
+echo "Push master to origin"
 git push origin master
 
