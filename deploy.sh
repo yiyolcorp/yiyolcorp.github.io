@@ -9,6 +9,7 @@ hugo -t ananke
 # Go to public folder, submodule commit
 cd public
 # Add changes to git.
+echo "*** =============="
 git add .
 echo "=============="
 
