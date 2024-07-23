@@ -3,7 +3,7 @@ languageCode: ko
 title: YiYOL
 theme: ananke
 SectionPagesMenu: 'main'
-Paginate: 3
+Paginate: 4
 
 services:
   disqus:
