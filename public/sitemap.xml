@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://yiyol.com/post/</loc>
+    <lastmod>2024-07-22T21:12:51+09:00</lastmod>
+  </url><url>
+    <loc>https://yiyol.com/</loc>
+    <lastmod>2024-07-22T21:12:51+09:00</lastmod>
+  </url><url>
+    <loc>https://yiyol.com/about/</loc>
+  </url><url>
+    <loc>https://yiyol.com/categories/</loc>
+  </url><url>
+    <loc>https://yiyol.com/products/</loc>
+  </url><url>
+    <loc>https://yiyol.com/tags/</loc>
+  </url>
+</urlset>
