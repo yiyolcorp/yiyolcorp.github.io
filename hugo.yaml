@@ -5,6 +5,7 @@ theme: ananke
 SectionPagesMenu: 'main'
 Paginate: 4
 googleAnalytics: 'G-CKJ4GX2KHS'
+env: production
 
 #services:
 #  disqus:
