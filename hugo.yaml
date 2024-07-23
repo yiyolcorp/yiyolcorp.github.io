@@ -16,10 +16,8 @@ params:
   commentoEnable: true
   read_more_copy: Read more about this entry
   ananke_socials:
-  - name: facebook
-    url: https://facebook.com/yiyol
   - name: twitter
-    url: https://twitter.com/yiyolcorp
+    url: https://x.com/Yiyolcorp
   - name: github
     url: https://github.com/yiyolcorp
 
@@ -35,8 +33,8 @@ menu:
       url: "/products/"
       weight: 20
 
-    - identifier: "articles"
-      name: "Articles"
-      url: "/articles/"
+    - identifier: "post"
+      name: "Posts"
+      url: "/post/"
       weight: 30
 
