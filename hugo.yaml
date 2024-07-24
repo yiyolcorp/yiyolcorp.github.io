@@ -23,22 +23,34 @@ params:
     url: https://x.com/Yiyolcorp
   - name: github
     url: https://github.com/yiyolcorp
+  favicon: "/img/favicon.ico"
 
+languages:
+  ko:
+    contentDir: content/ko
+    disabled: false
+    weight: 0
+    title: yiyol
+  en:
+    contentDir: content/en
+    disabled: false
+    weight: 10
+    title: yiyol
 
-menu:
+menus:
   main:
     - identifier: "about"
-      name: "About"
+      name: "about"
       url: "/about/"
       weight: 10
 
     - identifier: "products"
-      name: "Products"
+      name: "products"
       url: "/products/"
       weight: 20
 
     - identifier: "post"
-      name: "Posts"
+      name: "posts"
       url: "/post/"
       weight: 30
 
