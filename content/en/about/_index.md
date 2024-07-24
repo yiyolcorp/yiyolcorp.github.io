@@ -4,10 +4,9 @@ description: "앱과 서비스를 만드는 개발자 그룹"
 featured_image: '/images/code-screen.png'
 kind: section
 ---
+Welcome to **yiyol**, a dynamic team of developers dedicated to crafting innovative apps and services. Our expertise spans across iOS and Android app development, as well as a variety of services and SaaS solutions. We target both B2C and B2B markets, ensuring that our offerings meet the diverse needs of businesses and consumers alike.
 
-**yiyol**에 오신 것을 환영합니다. 우리는 혁신적인 앱과 서비스를 개발하는 역동적인 개발자 그룹입니다. iOS와 Android 앱 개발뿐만 아니라 다양한 서비스와 SaaS 솔루션을 제작하고 있습니다. B2C와 B2B 시장을 주로 타겟으로 하여, 다양한 비즈니스와 소비자의 요구를 충족시키고자 합니다.
+At **yiyol**, we are passionate about technology and driven by a commitment to excellence. Our team is composed of developers with rich and varied experiences across multiple fields, allowing us to bring a fresh perspective to every project we undertake. Whether you're looking for a sleek mobile app, a robust enterprise solution, or anything in between, we've got you covered.
 
-**yiyol**은 기술에 대한 열정과 우수성에 대한 헌신으로 움직입니다. 우리의 팀은 여러 분야에서 풍부하고 다양한 경험을 가진 개발자들로 구성되어 있어, 모든 프로젝트에 신선한 관점을 제공할 수 있습니다. 세련된 모바일 앱, 견고한 기업 솔루션 등 무엇을 원하시든, 저희가 해결해 드리겠습니다.
-
-디지털 경험을 혁신하고 향상시키는 여정에 함께하세요. **yiyol**과 함께라면 미래는 단지 한 번의 클릭으로 다가옵니다.
+Join us on our journey to innovate and elevate the digital experience. With **yiyol**, the future is just a click away.
 
