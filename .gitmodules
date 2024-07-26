@@ -1,6 +1,6 @@
 [submodule "themes/ananke"]
 	path = themes/ananke
-	url = https://github.com/theNewDynamic/gohugo-theme-ananke.git
+	url = https://github.com/yiyolcorp/gohugo-theme-ananke.git
 [submodule "public"]
 	path = public
 	url = https://github.com/yiyolcorp/yiyolcorp.github.io.git

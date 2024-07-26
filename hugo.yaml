@@ -1,5 +1,8 @@
 baseURL: https://yiyol.com/
-languageCode: ko
+#baseURL: http://whitebox.iptime.org
+defaultContentLanguage: ko
+defaultContentLanguageInSubdir: true
+languageCode: ko-KR
 title: yiyol
 theme: ananke
 SectionPagesMenu: 'main'
@@ -29,28 +32,27 @@ languages:
   ko:
     contentDir: content/ko
     disabled: false
-    weight: 0
+    weight: 1
     title: yiyol
   en:
     contentDir: content/en
     disabled: false
-    weight: 10
+    weight: 2
     title: yiyol
 
 menus:
   main:
     - identifier: "about"
       name: "about"
-      url: "/about/"
+      url: "about/"
       weight: 10
 
     - identifier: "products"
       name: "products"
-      url: "/products/"
+      url: "products/"
       weight: 20
 
     - identifier: "post"
       name: "posts"
-      url: "/post/"
+      url: "post/"
       weight: 30
-
