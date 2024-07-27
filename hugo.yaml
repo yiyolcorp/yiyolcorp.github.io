@@ -10,8 +10,8 @@ Paginate: 4
 env: production
 
 services:
-  disqus:
-    shortname: yiyol
+  #disqus:
+  #  shortname: yiyol
   GoogleAnalytics:
     ID: G-CKJ4GX2KHS
 
@@ -19,14 +19,20 @@ params:
   text_color: 'gray'
   background_color_class: 'bg-purple'
   show_reading_time: true
-  commentoEnable: true
+  #commentoEnable: true
   read_more_copy: Read more about this entry
   ananke_socials:
   - name: twitter
     url: https://x.com/Yiyolcorp
-  - name: github
-    url: https://github.com/yiyolcorp
+    #- name: github
+    #url: https://github.com/yiyolcorp
   favicon: "/img/favicon.ico"
+  utterances:
+    enable: true
+    repo: "yiyolcorp/yiyolcorp.github.io"
+    issueTerm: "pathname"
+    theme: "github-light"
+    crossorigin: "anonymous"
 
 languages:
   ko:
