@@ -1,5 +1,6 @@
 .serif {
-    font-family: Arial, Helvetica;
+    /* font-family: Arial, Helvetica; */
+    font-family: Helvetica;
 }
 
 body.home {
@@ -11,4 +12,28 @@ body.home {
 .container {
     max-width: 100%;
     margin: 0;
+}
+
+/* 본문 width를 66.6%로 했던 class */
+.w-two-thirds-l {
+    /* width: 66.66667%; */
+    width: 100%;
+}
+
+.gray {
+    color: #333;
+}
+
+.f4 {
+    /* font-size: 1.25rem; */
+    font-size: 1.125rem;
+}
+.tc-l {
+    text-align: center;
+    /* text-align: left; */
+}
+
+.measure-wide {
+    /* max-width: 34em; */
+    max-width: 52em;
 }
