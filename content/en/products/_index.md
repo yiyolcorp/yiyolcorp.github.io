@@ -1,6 +1,6 @@
 ---
 title: "products"
-description: "우리가 만든 앱과 서비스"
+description: "Apps ans services we made"
 featured_image: '/images/products.png'
 kind: section
 ---

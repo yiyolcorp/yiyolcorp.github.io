@@ -21,6 +21,8 @@ services:
     ID: G-CKJ4GX2KHS
 
 params:
+  custom_css: 
+    - "custom.css"
   text_color: 'gray'
   background_color_class: 'bg-purple'
   show_reading_time: true

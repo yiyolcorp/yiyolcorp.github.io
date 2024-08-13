@@ -1,0 +1,10 @@
+<ul>
+    {{ range where .Site.RegularPages "Section" "products" }}
+    <div style="text-align: left;">
+        <li>
+            <a href="{{ .RelPermalink }}" style="decoration: none;">{{ .Title }}</a>
+            <p>{{ .Summary }}</p>
+        </li>
+    </div>
+    {{ end }}
+</ul>
