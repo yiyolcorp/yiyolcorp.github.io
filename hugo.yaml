@@ -3,11 +3,16 @@ baseURL: https://yiyol.com/
 defaultContentLanguage: ko
 defaultContentLanguageInSubdir: true
 languageCode: ko-KR
-title: yiyol
+title: YIYOL
 theme: ananke
 SectionPagesMenu: 'main'
 Paginate: 4
 env: production
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
 
 services:
   #disqus:
@@ -39,12 +44,12 @@ languages:
     contentDir: content/ko
     disabled: false
     weight: 1
-    title: yiyol
+    title: YIYOL
   en:
     contentDir: content/en
     disabled: false
     weight: 2
-    title: yiyol
+    title: YIYOL
 
 menus:
   main:
