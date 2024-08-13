@@ -1,5 +1,6 @@
 ---
 title: 'YIYOL'
+description: 'Developer Group'
 kind: home
 isCJKLanguage: true
 featured_image: '/images/programmer.png'

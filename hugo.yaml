@@ -56,16 +56,16 @@ languages:
 menus:
   main:
     - identifier: "about"
-      name: "about"
+      name: "ABOUT"
       url: "about/"
       weight: 10
 
     - identifier: "products"
-      name: "products"
+      name: "PRODUCTS"
       url: "products/"
       weight: 20
 
     - identifier: "post"
-      name: "posts"
+      name: "POSTS"
       url: "post/"
       weight: 30
