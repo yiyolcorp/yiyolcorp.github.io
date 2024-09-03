@@ -52,17 +52,14 @@ Welcome to **LED Banner Master**, the powerful and user-friendly app that lets y
 
 Take a look at what you can create with LED Banner Master.
 
-<!-- <img src="images/LED Banner Master-en-0.png" alt="Splash" style="width:30%;"> -->
-<img src="images/EmotiSign-en-1.png" alt="Home Page" style="width:30%;">
-<img src="images/EmotiSign-en-2.png" alt="Home Page - Single Banner" style="width:30%;">
-<img src="images/EmotiSign-en-4.png" alt="Home Page - Multiple Banners" style="width:30%;">
-<img src="images/EmotiSign-en-5.png" alt="Home Page - Slidable Menu" style="width:30%;">
-<img src="images/EmotiSign-en-6.png" alt="Settings" style="width:30%;">
-<img src="images/EmotiSign-en-7.png" alt="Settings - Scroll" style="width:30%;">
-<!-- <img src="images/EmotiSign-en-8.png" alt="Settings - Background Type" style="width:30%;"> -->
-<img src="images/EmotiSign-en-9.png" alt="Player" style="width:92%;">
-<img src="images/EmotiSign-en-10.png" alt="Player" style="width:92%;">
-<!-- <img src="images/LED Banner Master-en-11.png" alt="Player" style="width:92%;"> -->
+<center>
+<img src="images/01.png" alt="Home Page" style="width:40%;">
+<img src="images/02.png" alt="Home Page - Single Banner" style="width:40%;">
+<img src="images/04.png" alt="Home Page - Multiple Banners" style="width:40%;">
+<img src="images/05.png" alt="Home Page - Slidable Menu" style="width:40%;">
+<img src="images/06.png" alt="Settings" style="width:40%;">
+<img src="images/07.png" alt="Settings - Scroll" style="width:40%;">
+</center>
 
 ---
 
