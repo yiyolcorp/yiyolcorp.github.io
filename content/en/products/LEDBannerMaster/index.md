@@ -15,6 +15,10 @@ description: "Create stunning LED banners with LED Banner Master, the ultimate a
 
 # LED Banner Master - The Ultimate LED Banner App
 
+<a href="https://apps.apple.com/us/app/led-banner-master/id6639608269?itscg=30200&amp;itsct=apps_box_appicon" style="width: 250px; height: 250px; border-radius: 22%; overflow: hidden; display: inline-block; vertical-align: middle;"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/42/b1/64/42b16420-1142-fb79-63ae-00fe685909dc/AppIcon-0-0-1x_U007emarketing-0-7-0-85-220.png/540x540bb.jpg" alt="LED Banner Master" style="width: 250px; height: 250px; border-radius: 22%; overflow: hidden; display: inline-block; vertical-align: middle;"></a>
+
+<a href="https://apps.apple.com/us/app/led-banner-master/id6639608269?itsct=apps_box_badge&amp;itscg=30200" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 250px; height: 83px;"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83&amp;releaseDate=1725321600" alt="Download on the App Store" style="border-radius: 13px; width: 250px; height: 83px;"></a>
+
 ## Express Yourself with Style and Creativity
 
 Welcome to **LED Banner Master**, the powerful and user-friendly app that lets you create stunning LED banners for any occasion. Whether you want to display a message at an event, advertise your business, or just have fun, **LED Banner Master** has you covered.
@@ -22,9 +26,9 @@ Welcome to **LED Banner Master**, the powerful and user-friendly app that lets y
 ### Key Features
 
 - **Primary & Secondary Text Display**: Easily create banners with primary and secondary texts to convey your messages clearly and effectively.
-- **Image & Video Backgrounds**: Customize your banners with beautiful images or dynamic video backgrounds for a unique and eye-catching display.
+- **Image Backgrounds**: Customize your banners with beautiful images backgrounds for a unique and eye-catching display.
 - **Various Effects**: Add excitement to your banners with a wide range of effects, from scrolling text to flashing animations.
-- **GIF/MP4 Export**: Export your creations as GIFs or MP4 videos to share on social media, your website, or anywhere else.
+- **MP4 Export**: Export your creations as MP4 videos to share on social media, your website, or anywhere else.
 
 ---
 
@@ -62,16 +66,14 @@ Take a look at what you can create with LED Banner Master.
 
 ---
 
-## Coming Soon: We’re Almost There!
-
-Exciting news! The **LED Banner Master** app is in the final stages of development, and we can't wait to share it with you.
-
-<!-- ## Get Started Today
+## Get Started Today
 
 Ready to make your messages stand out? Download LED Banner Master now and start creating!
 
-[![Download on the App Store](images/appstore-badge.png)](#)
-[![Get it on Google Play](images/playstore-badge.png)](#) -->
+<img src="https://tools-qr-production.s3.amazonaws.com/output/apple-toolbox/d148ee401cb07fe5831e27c96b81a81f/44e880809b8a35c4836c875e96293645.png" style="width: 250px;">
+<br/>
+<a href="https://apps.apple.com/us/app/led-banner-master/id6639608269?itsct=apps_box_badge&amp;itscg=30200" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 250px; height: 83px;"><img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83&amp;releaseDate=1725321600" alt="Download on the App Store" style="border-radius: 13px; width: 250px; height: 83px;"></a>
+<!-- <img src="https://tools-qr-production.s3.amazonaws.com/output/apple-toolbox/ff2888e225b8c3e6f412701847fe9d71/7209a8258c25f7d012727e75a08578c8.png"> -->
 
 ---
 
