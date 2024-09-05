@@ -15,6 +15,7 @@ description: "Create stunning LED banners with LED Banner Master, the ultimate a
 
 # LED Banner Master - The Ultimate LED Banner App
 
+<center>
 <div>
 <a href="https://apps.apple.com/us/app/led-banner-master/id6639608269?itscg=30200&amp;itsct=apps_box_appicon" style="width: 250px; height: 250px; border-radius: 22%; overflow: hidden; display: inline-block; vertical-align: middle;"><img src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/42/b1/64/42b16420-1142-fb79-63ae-00fe685909dc/AppIcon-0-0-1x_U007emarketing-0-7-0-85-220.png/540x540bb.jpg" alt="LED Banner Master" style="width: 250px; height: 250px; border-radius: 22%; overflow: hidden; display: inline-block; vertical-align: middle;"></a>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
@@ -26,6 +27,7 @@ description: "Create stunning LED banners with LED Banner Master, the ultimate a
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 <a href="https://play.google.com/store/apps/details?id=com.yiyol.emotisign" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 250px; height: 83px;"><img src="images/GetItOnGooglePlay_Badge_Web_color_English.png" alt="Get it on Play Store" style="border-radius: 13px; width: 250px; height: 83px;"></a>
 </div>
+</center>
 
 GetItOnGooglePlay_Badge_Web_color_English
 
@@ -77,6 +79,7 @@ Take a look at what you can create with LED Banner Master.
 
 Ready to make your messages stand out? Download LED Banner Master now and start creating!
 
+<center>
 <div>
 <img src="https://tools-qr-production.s3.amazonaws.com/output/apple-toolbox/d148ee401cb07fe5831e27c96b81a81f/44e880809b8a35c4836c875e96293645.png" style="width: 250px;">
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
@@ -87,7 +90,7 @@ Ready to make your messages stand out? Download LED Banner Master now and start 
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 <a href="https://play.google.com/store/apps/details?id=com.yiyol.emotisign" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 250px; height: 83px;"><img src="images/GetItOnGooglePlay_Badge_Web_color_English.png" alt="Get it on Play Store" style="border-radius: 13px; width: 250px; height: 83px;"></a>
 </div>
-<!-- <img src="https://tools-qr-production.s3.amazonaws.com/output/apple-toolbox/ff2888e225b8c3e6f412701847fe9d71/7209a8258c25f7d012727e75a08578c8.png"> -->
+</center>
 
 ---
 
