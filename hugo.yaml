@@ -1,8 +1,8 @@
 baseURL: https://yiyol.com/
 #baseURL: http://whitebox.iptime.org
-defaultContentLanguage: ko
+defaultContentLanguage: en
 defaultContentLanguageInSubdir: true
-languageCode: ko-KR
+languageCode: en-US
 title: YIYOL
 theme: ananke
 SectionPagesMenu: 'main'
@@ -42,15 +42,15 @@ params:
     crossorigin: "anonymous"
 
 languages:
-  ko:
-    contentDir: content/ko
+  # ko:
+  #   contentDir: content/ko
+  #   disabled: false
+  #   weight: 1
+  #   title: YIYOL
+  en:
+    contentDir: content
     disabled: false
     weight: 1
-    title: YIYOL
-  en:
-    contentDir: content/en
-    disabled: false
-    weight: 2
     title: YIYOL
 
 menus:
