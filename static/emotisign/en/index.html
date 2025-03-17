@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LED Banner Master - Create Eye-catching LED Banners</title>
+
+    <!-- Primary Meta Tags -->
+    <meta
+      name="description"
+      content="Create vibrant and eye-catching LED banners with our easy-to-use app. Perfect for businesses, events, and personal use."
+    />
+    <meta
+      name="keywords"
+      content="LED banner,digital banner,scrolling text,message display,banner app"
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ledbannermaster.com/" />
+    <meta
+      property="og:title"
+      content="LED Banner Master - Create Eye-catching LED Banners"
+    />
+    <meta
+      property="og:description"
+      content="Craft your message, add various effects, and captivate your audience while conveying your message in a memorable way"
+    />
+    <meta
+      property="og:image"
+      content="https://ledbannermaster.com/assets/og-image.jpg"
+    />
+    <meta property="og:site_name" content="LED Banner Master" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://ledbannermaster.com/" />
+    <meta
+      property="twitter:title"
+      content="LED Banner Master - Create Eye-catching LED Banners"
+    />
+    <meta
+      property="twitter:description"
+      content="Craft your message, add various effects, and captivate your audience while conveying your message in a memorable way"
+    />
+    <meta
+      property="twitter:image"
+      content="https://ledbannermaster.com/assets/og-image.jpg"
+    />
+
+    <!-- 추가 SEO 태그 -->
+    <meta name="author" content="LED Banner Master Team" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://ledbannermaster.com/" />
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-snap-type: y mandatory;
+      }
+
+      .navbar {
+        position: fixed;
+        width: 100%;
+        padding: 1rem;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(3px);
+        -webkit-backdrop-filter: blur(3px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1000;
+      }
+
+      .menu-button {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 0.5rem;
+        color: #fff;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #fff;
+        transition: color 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: #ff5e5e;
+      }
+
+      .hero,
+      .features,
+      .premium,
+      .download {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+      }
+
+      .features h2,
+      .premium h2,
+      .download h2 {
+        margin-top: 70px;
+      }
+
+      .feature-grid,
+      .premium-grid {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .hero {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+        padding: 2rem;
+        position: relative;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        transition: background-image 1s ease-in-out;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          45deg,
+          rgba(255, 0, 0, 0.7),
+          rgba(0, 0, 255, 0.7)
+        );
+      }
+
+      .hero > div {
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        white-space: nowrap;
+      }
+
+      .hero p {
+        white-space: nowrap;
+        font-size: 1.2rem;
+      }
+
+      .features {
+        padding: 5rem 2rem;
+        background: #f8f9fa;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .feature-card {
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .feature-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: #ff5e5e;
+      }
+
+      .feature-card:nth-child(1) {
+        background: linear-gradient(135deg, #ffeeee 0%, #ffffff 100%);
+      }
+
+      .feature-card:nth-child(2) {
+        background: linear-gradient(135deg, #eef6ff 0%, #ffffff 100%);
+      }
+
+      .feature-card:nth-child(3) {
+        background: linear-gradient(135deg, #eeffee 0%, #ffffff 100%);
+      }
+
+      .feature-card:nth-child(4) {
+        background: linear-gradient(135deg, #fff9ee 0%, #ffffff 100%);
+      }
+
+      .feature-card:nth-child(5) {
+        background: linear-gradient(135deg, #eeeeff 0%, #ffffff 100%);
+      }
+
+      .feature-card:nth-child(6) {
+        background: linear-gradient(135deg, #fff0f5 0%, #ffffff 100%);
+      }
+
+      .feature-card:nth-child(7) {
+        background: linear-gradient(135deg, #f0f8ff 0%, #ffffff 100%);
+      }
+
+      .feature-card:nth-child(8) {
+        background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 100%);
+      }
+
+      .premium {
+        padding: 5rem 2rem;
+        background: #000;
+        color: #fff;
+      }
+
+      .premium-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .premium-card {
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(255, 94, 94, 0.3);
+        text-align: center;
+        background: rgba(30, 30, 30, 0.8);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        transition: transform 0.3s;
+      }
+
+      .premium-card:hover {
+        transform: scale(1.03);
+      }
+
+      .premium-card ul {
+        list-style: none;
+        text-align: left;
+        padding: 1rem;
+      }
+
+      .premium-card li {
+        margin: 0.8rem 0;
+        display: flex;
+        align-items: flex-start;
+        gap: 0.8rem;
+      }
+
+      .premium-card li::before {
+        content: "\f00c";
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        color: #ff5e5e;
+        font-size: 0.9rem;
+        margin-top: 0.2rem;
+      }
+
+      .premium-card h3 {
+        color: #ff5e5e;
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+      }
+
+      .download {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        padding: 0 2rem;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      }
+
+      .download h2 {
+        margin-top: 0;
+        margin-bottom: 2rem;
+      }
+
+      .store-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .store-button {
+        padding: 1rem 2rem;
+        border-radius: 5px;
+        background: #333;
+        color: white;
+        text-decoration: none;
+        transition: transform 0.3s;
+      }
+
+      .store-button:hover {
+        transform: scale(1.05);
+      }
+
+      .app-store-button,
+      .play-store-button {
+        padding: 0;
+        background: none;
+      }
+
+      .app-store-button img {
+        height: 84px;
+        display: block;
+      }
+
+      .play-store-button img {
+        height: 120px;
+        display: block;
+      }
+
+      section h2 {
+        text-align: center;
+        margin-bottom: 3rem;
+        font-size: 2.5rem;
+        font-weight: bold;
+      }
+
+      footer {
+        min-height: 33.33vh;
+        padding: 2rem;
+        background: #1a1a1a;
+        text-align: center;
+        font-size: 0.9rem;
+        color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+      }
+
+      .footer-links {
+        margin-bottom: 1rem;
+      }
+
+      .footer-links a {
+        color: #ffffff;
+        text-decoration: none;
+        margin: 0 1rem;
+        opacity: 0.8;
+        transition: opacity 0.3s;
+      }
+
+      .footer-links a:hover {
+        opacity: 1;
+        text-decoration: underline;
+      }
+
+      .copyright {
+        color: #999;
+        margin-top: 2rem;
+      }
+
+      section {
+        scroll-margin-top: 70px;
+      }
+
+      .free-label {
+        display: inline-block;
+        background: #ff5e5e;
+        color: white;
+        padding: 2px 8px;
+        border-radius: 10px;
+        font-size: 12px;
+        font-weight: bold;
+        margin-left: 8px;
+      }
+
+      .special-label {
+        display: inline-block;
+        background: #4a6fff;
+        color: white;
+        padding: 2px 8px;
+        border-radius: 10px;
+        font-size: 12px;
+        font-weight: bold;
+        margin-left: 8px;
+        box-shadow: 0 0 5px rgba(74, 111, 255, 0.5);
+      }
+
+      @media (max-width: 600px) {
+        .menu-button {
+          display: block;
+        }
+
+        .nav-links {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: rgba(0, 0, 0, 0.9);
+          padding: 1rem;
+          flex-direction: column;
+          gap: 1rem;
+          text-align: center;
+        }
+
+        .nav-links.active {
+          display: flex;
+        }
+
+        .store-buttons {
+          flex-direction: column;
+          gap: 1rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        html {
+          scroll-snap-type: none;
+        }
+
+        .hero,
+        .features,
+        .premium,
+        .download,
+        footer {
+          scroll-snap-align: none;
+          scroll-snap-stop: normal;
+        }
+
+        .hero h1 {
+          white-space: normal;
+          word-break: keep-all;
+        }
+
+        .hero p {
+          white-space: normal;
+          word-break: keep-all;
+        }
+
+        .store-buttons {
+          gap: 1rem;
+        }
+
+        section h2 {
+          font-size: 2rem;
+        }
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        color: #fff;
+      }
+
+      .logo img {
+        width: 32px;
+        height: 32px;
+      }
+
+      .logo span {
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .led-text {
+        text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 15px #ff0000;
+        color: #ffffff;
+      }
+
+      .gallery {
+        padding: 5rem 2rem;
+        background: #111;
+        color: #fff;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+      }
+
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .gallery-item {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+        transition: transform 0.3s;
+        background-color: #222;
+        height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .gallery-item:hover {
+        transform: translateY(-5px);
+      }
+
+      .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        background-color: #222;
+      }
+
+      /* Modal styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 2000;
+        padding-top: 50px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        overflow: auto;
+      }
+
+      .modal-content {
+        display: block;
+        margin: 0 auto;
+        max-width: 80%;
+        max-height: 80vh;
+      }
+
+      .close {
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        color: #f1f1f1;
+        font-size: 40px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: #ff5e5e;
+        text-decoration: none;
+      }
+
+      /* 소셜 미디어 링크 스타일 */
+      .social-links {
+        margin-top: 3rem;
+        text-align: center;
+      }
+
+      .social-links h3 {
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+        color: #333;
+      }
+
+      .social-icons {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+      }
+
+      .social-icons a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: #333;
+        color: white;
+        font-size: 1.5rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .social-icons a:hover {
+        transform: translateY(-5px);
+      }
+
+      .social-icons a:nth-child(1):hover {
+        background: #000000;
+      }
+
+      .social-icons a:nth-child(2):hover {
+        background: #ee1d52;
+      }
+
+      .social-icons a:nth-child(3):hover {
+        background: #ff0000;
+      }
+
+      .social-icons a:nth-child(4):hover {
+        background: #3b5998;
+      }
+
+      .social-icons a:nth-child(5):hover {
+        background: linear-gradient(
+          45deg,
+          #f09433,
+          #e6683c,
+          #dc2743,
+          #cc2366,
+          #bc1888
+        );
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <a href="/" class="logo">
+        <img src="../assets/led-banner-icon.png" alt="LED Banner Master Icon" />
+        <span><span class="led-text">LED</span> Banner Master</span>
+      </a>
+      <button class="menu-button">⋮</button>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#premium">Premium</a>
+        <a href="#download">Download</a>
+      </div>
+    </nav>
+
+    <section class="hero" id="hero">
+      <div>
+        <h1>Captivate Your Audience with LED Banners</h1>
+        <p>
+          Create eye-catching LED banners for any occasion with just a few taps
+        </p>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <h2>Key Features</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <i class="fa-solid fa-photo-film feature-icon"></i>
+          <h3>Showcase</h3>
+          <p>
+            Combine up to 8 banners to create stunning advertisements. Perfect
+            for creating dynamic presentations and eye-catching displays.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <i class="fa-solid fa-users-viewfinder feature-icon"></i>
+          <h3>Group Play</h3>
+          <p>
+            Share a single banner across multiple devices, with each person
+            displaying their assigned section to create larger, collaborative
+            displays.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <i class="fa-solid fa-message feature-icon"></i>
+          <h3>Primary & Secondary Text</h3>
+          <p>
+            Display your message with two separate texts, effectively
+            highlighting key information and supporting details.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <i class="fa-solid fa-scroll feature-icon"></i>
+          <h3>Scroll & Blink Effects</h3>
+          <p>
+            Enhance visibility and make your message stand out with scrolling
+            and blinking text effects.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <i class="fa-solid fa-fill-drip feature-icon"></i>
+          <h3>Customizable Background</h3>
+          <p>
+            Choose a solid color or set a photo as the background to personalize
+            your banner even more.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <i class="fa-solid fa-mobile-screen-button feature-icon"></i>
+          <h3>Vibration Feedback <span class="free-label">FREE</span></h3>
+          <p>
+            Get immediate feedback through vibrations, ensuring your message is
+            being displayed correctly.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <i class="fa-solid fa-language feature-icon"></i>
+          <h3>
+            Multiple Languages & Fonts <span class="free-label">FREE</span>
+          </h3>
+          <p>
+            Communicate with a global audience by choosing from various
+            languages and fonts.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <i class="fa-solid fa-video feature-icon"></i>
+          <h3>Save as MP4 & GIF <span class="free-label">FREE</span></h3>
+          <p>
+            Export your finished banner as an MP4 video file or GIF animation to
+            share or play elsewhere.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <i class="fa-solid fa-book-reader feature-icon"></i>
+          <h3>Text Reader <span class="special-label">ACCESSIBILITY</span></h3>
+          <p>
+            Automatically display text documents in large font sizes for
+            individuals with visual impairments, making information more
+            accessible.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery" id="gallery">
+      <h2>Gallery</h2>
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img
+            src="../assets/01.jpeg"
+            alt="LED Banner Example 1"
+            loading="lazy"
+          />
+        </div>
+        <div class="gallery-item">
+          <img
+            src="../assets/02.jpeg"
+            alt="LED Banner Example 2"
+            loading="lazy"
+          />
+        </div>
+        <div class="gallery-item">
+          <img
+            src="../assets/03.jpeg"
+            alt="LED Banner Example 3"
+            loading="lazy"
+          />
+        </div>
+        <div class="gallery-item">
+          <img
+            src="../assets/04.jpeg"
+            alt="LED Banner Example 4"
+            loading="lazy"
+          />
+        </div>
+        <div class="gallery-item">
+          <img
+            src="../assets/05.jpeg"
+            alt="LED Banner Example 5"
+            loading="lazy"
+          />
+        </div>
+        <div class="gallery-item">
+          <img
+            src="../assets/06.jpeg"
+            alt="LED Banner Example 6"
+            loading="lazy"
+          />
+        </div>
+        <div class="gallery-item">
+          <img
+            src="../assets/07.jpeg"
+            alt="LED Banner Example 7"
+            loading="lazy"
+          />
+        </div>
+        <div class="gallery-item">
+          <img
+            src="../assets/08.jpeg"
+            alt="LED Banner Example 8"
+            loading="lazy"
+          />
+        </div>
+        <div class="gallery-item">
+          <img
+            src="../assets/09.jpeg"
+            alt="LED Banner Example 9"
+            loading="lazy"
+          />
+        </div>
+        <div class="gallery-item">
+          <img
+            src="../assets/10.jpeg"
+            alt="LED Banner Example 10"
+            loading="lazy"
+          />
+        </div>
+        <div class="gallery-item">
+          <img
+            src="../assets/11.jpeg"
+            alt="LED Banner Example 11"
+            loading="lazy"
+          />
+        </div>
+        <div class="gallery-item">
+          <img
+            src="../assets/12.jpeg"
+            alt="LED Banner Example 12"
+            loading="lazy"
+          />
+        </div>
+      </div>
+      <div id="gallery-modal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modal-img" />
+      </div>
+    </section>
+
+    <section class="premium" id="premium">
+      <h2>Premium Features</h2>
+      <div class="premium-grid">
+        <div class="premium-card">
+          <h3>Premium Upgrade</h3>
+          <ul>
+            <li>
+              Create Showcases with Up to 8 Banners: Combine multiple banners to
+              create stunning advertisements and dynamic presentations.
+            </li>
+            <li>
+              Save Up to 16 Banners: Store multiple banners and access them
+              whenever you need.
+            </li>
+            <li>
+              Banner Transition in Play Mode: Seamlessly transition between
+              banners in Play Mode, allowing you to deliver continuous messages
+              in any situation.
+            </li>
+            <li>
+              Advanced Effects: Unlock future advanced effects to create more
+              unique and stunning banners.
+            </li>
+            <li>No Ads: Enjoy a completely ad-free experience.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="download" id="download">
+      <h2>Get Started Today</h2>
+      <div class="store-buttons">
+        <a
+          href="https://apps.apple.com/us/app/led-banner-master/id6639608269"
+          class="store-button app-store-button"
+        >
+          <img
+            src="../assets/app-store-black.svg"
+            alt="Download on the App Store"
+          />
+        </a>
+        <a
+          href="https://play.google.com/store/apps/details?id=com.yiyol.emotisign"
+          class="store-button play-store-button"
+        >
+          <img
+            src="../assets/google-play-badge.png"
+            alt="Get it on Google Play"
+          />
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      <div class="social-links">
+        <!-- <h3>Connect With Us</h3> -->
+        <div class="social-icons">
+          <a
+            href="https://twitter.com/yiyolcorp"
+            target="_blank"
+            rel="noopener"
+            aria-label="Follow us on X (Twitter)"
+          >
+            <i class="fa-brands fa-x-twitter"></i>
+          </a>
+          <a
+            href="https://www.tiktok.com/@yiyolcorp"
+            target="_blank"
+            rel="noopener"
+            aria-label="Follow us on TikTok"
+          >
+            <i class="fa-brands fa-tiktok"></i>
+          </a>
+          <a
+            href="https://www.youtube.com/@yiyolapps1963"
+            target="_blank"
+            rel="noopener"
+            aria-label="Subscribe to our YouTube channel"
+          >
+            <i class="fa-brands fa-youtube"></i>
+          </a>
+          <!-- <a
+            href="https://www.facebook.com/yiyolcorp"
+            target="_blank"
+            rel="noopener"
+            aria-label="Like us on Facebook"
+          >
+            <i class="fa-brands fa-facebook"></i>
+          </a> -->
+          <a
+            href="https://www.instagram.com/yiyolcorp"
+            target="_blank"
+            rel="noopener"
+            aria-label="Follow us on Instagram"
+          >
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+        </div>
+      </div>
+      <div class="copyright">Copyright © 2025 YIYOL. All rights reserved.</div>
+    </footer>
+
+    <script>
+      document
+        .querySelector(".menu-button")
+        .addEventListener("click", function () {
+          document.querySelector(".nav-links").classList.toggle("active");
+        });
+
+      // Close menu when menu item is clicked
+      document.querySelectorAll(".nav-links a").forEach((link) => {
+        link.addEventListener("click", function () {
+          document.querySelector(".nav-links").classList.remove("active");
+        });
+      });
+
+      // Close menu when scrolling
+      window.addEventListener("scroll", function () {
+        document.querySelector(".nav-links").classList.remove("active");
+      });
+
+      // Gallery modal functionality
+      const modal = document.getElementById("gallery-modal");
+      const modalImg = document.getElementById("modal-img");
+      const galleryItems = document.querySelectorAll(".gallery-item img");
+
+      galleryItems.forEach((item) => {
+        item.addEventListener("click", function () {
+          modal.style.display = "block";
+          modalImg.src = this.src;
+        });
+      });
+
+      // Close modal when clicking on the x
+      document.querySelector(".close").addEventListener("click", function () {
+        modal.style.display = "none";
+      });
+
+      // Close modal when clicking outside the image
+      modal.addEventListener("click", function (event) {
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      });
+
+      // Hero section 배경 이미지 슬라이드쇼
+      const heroSection = document.querySelector(".hero");
+      const backgroundImages = [
+        "../assets/01.jpeg",
+        "../assets/02.jpeg",
+        "../assets/03.jpeg",
+        "../assets/04.jpeg",
+        "../assets/05.jpeg",
+        "../assets/06.jpeg",
+        "../assets/07.jpeg",
+        "../assets/08.jpeg",
+        "../assets/09.jpeg",
+        "../assets/10.jpeg",
+        "../assets/11.jpeg",
+        "../assets/12.jpeg",
+      ];
+      let currentImageIndex = 0;
+
+      // 초기 배경 이미지 설정
+      heroSection.style.backgroundImage = `url(${backgroundImages[0]})`;
+
+      // 배경 이미지 변경 함수
+      function changeBackgroundImage() {
+        currentImageIndex = (currentImageIndex + 1) % backgroundImages.length;
+        heroSection.style.backgroundImage = `url(${backgroundImages[currentImageIndex]})`;
+      }
+
+      // 5초마다 배경 이미지 변경
+      setInterval(changeBackgroundImage, 5000);
+    </script>
+  </body>
+</html>
