@@ -8,6 +8,14 @@
     <priority>1.0</priority>
   </url>
   
+  <!-- 계산기 서비스 -->
+  <url>
+    <loc>https://calc.yiyol.com/</loc>
+    <lastmod>2024-03-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
   <!-- 개인정보 처리 방침 -->
   <url>
     <loc>https://yiyol.com/privacy.ko.html</loc>
@@ -44,20 +52,6 @@
     <priority>0.3</priority>
   </url>
   
-  <url>
-    <loc>https://yiyol.com/time2money/</loc>
-    <lastmod>2024-03-17</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>https://yiyol.com/anbu/</loc>
-    <lastmod>2024-03-17</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
   <!-- 언어별 하위 페이지들 -->
   <url>
     <loc>https://yiyol.com/fitkee/ko/</loc>
@@ -68,34 +62,6 @@
   
   <url>
     <loc>https://yiyol.com/fitkee/en/</loc>
-    <lastmod>2024-03-17</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <url>
-    <loc>https://yiyol.com/time2money/ko/</loc>
-    <lastmod>2024-03-17</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <url>
-    <loc>https://yiyol.com/time2money/en/</loc>
-    <lastmod>2024-03-17</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <url>
-    <loc>https://yiyol.com/anbu/ko/</loc>
-    <lastmod>2024-03-17</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <url>
-    <loc>https://yiyol.com/anbu/en/</loc>
     <lastmod>2024-03-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
