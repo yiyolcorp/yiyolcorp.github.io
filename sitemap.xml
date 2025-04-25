@@ -38,31 +38,54 @@
     <priority>0.8</priority>
   </url>
   
+  <!-- LED 배너 마스터 메뉴얼 페이지들 -->
   <url>
-    <loc>https://yiyol.com/fitkee/</loc>
-    <lastmod>2024-03-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>https://yiyol.com/fitkee/leave.html</loc>
-    <lastmod>2024-03-17</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  
-  <!-- 언어별 하위 페이지들 -->
-  <url>
-    <loc>https://yiyol.com/fitkee/ko/</loc>
-    <lastmod>2024-03-17</lastmod>
+    <loc>https://yiyol.com/led-banner-master/manual/</loc>
+    <lastmod>2024-05-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
-    <loc>https://yiyol.com/fitkee/en/</loc>
-    <lastmod>2024-03-17</lastmod>
+    <loc>https://yiyol.com/led-banner-master/manual/Basic/</loc>
+    <lastmod>2024-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://yiyol.com/led-banner-master/manual/BannerSettings/</loc>
+    <lastmod>2024-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://yiyol.com/led-banner-master/manual/ShowcaseSettings/</loc>
+    <lastmod>2024-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://yiyol.com/led-banner-master/manual/Player/</loc>
+    <lastmod>2024-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- time2money 페이지 -->
+  <url>
+    <loc>https://yiyol.com/time2money/</loc>
+    <lastmod>2024-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- anbu 페이지 -->
+  <url>
+    <loc>https://yiyol.com/anbu/</loc>
+    <lastmod>2024-05-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
