@@ -50,49 +50,242 @@
     <!-- Canonical link -->
     <link rel="canonical" href="https://ledbanner.app/manual/" />
 
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
     <style>
+      :root {
+        --primary-color: #2c3e50;
+        --secondary-color: #3498db;
+        --accent-color: #e74c3c;
+        --bg-color: #f8f9fa;
+        --text-color: #333;
+        --card-bg: #ffffff;
+        --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        --transition: all 0.3s ease;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
       body {
-        font-family: Arial, sans-serif;
+        font-family: "Noto Sans KR", sans-serif;
         line-height: 1.6;
+        color: var(--text-color);
+        background-color: var(--bg-color);
+        padding: 0;
+        margin: 0;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      header {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 40px 0;
+        text-align: center;
+      }
+
+      header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+        font-weight: 700;
+      }
+
+      header p {
+        font-size: 1.2rem;
         max-width: 800px;
         margin: 0 auto;
-        padding: 20px;
+        font-weight: 300;
       }
-      h1 {
+
+      .cards-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        padding: 60px 0;
+      }
+
+      .card {
+        background-color: var(--card-bg);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+        position: relative;
+      }
+
+      .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .card-icon {
+        background-color: var(--secondary-color);
+        color: white;
+        font-size: 2rem;
+        padding: 30px 0;
         text-align: center;
-        margin-bottom: 30px;
       }
-      a {
-        color: #0066cc;
-        text-decoration: none;
+
+      .card-content {
+        padding: 25px;
       }
-      a:hover {
-        text-decoration: underline;
-      }
-      ul {
-        list-style-type: none;
-        padding: 0;
-      }
-      li {
+
+      .card-title {
+        font-size: 1.5rem;
         margin-bottom: 15px;
-        font-size: 18px;
+        color: var(--primary-color);
+      }
+
+      .card-description {
+        margin-bottom: 20px;
+        color: #666;
+      }
+
+      .card-link {
+        display: inline-block;
+        text-decoration: none;
+        color: var(--secondary-color);
+        font-weight: 500;
+        padding: 8px 0;
+        position: relative;
+      }
+
+      .card-link::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: var(--secondary-color);
+        transform: scaleX(0);
+        transform-origin: bottom right;
+        transition: transform 0.3s;
+      }
+
+      .card-link:hover::after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+      }
+
+      footer {
+        background-color: var(--primary-color);
+        color: white;
+        text-align: center;
+        padding: 30px 0;
+        margin-top: 40px;
+      }
+
+      @media (max-width: 768px) {
+        .cards-container {
+          grid-template-columns: 1fr;
+        }
+
+        header h1 {
+          font-size: 2rem;
+        }
       }
     </style>
   </head>
   <body>
     <header>
-      <h1>LED Banner Master Manual</h1>
+      <div class="container">
+        <h1>LED Banner Master Manual</h1>
+        <p>Official guide to creating and managing digital banners with ease</p>
+      </div>
     </header>
-    <main>
-      <ul>
-        <li><a href="Basic/">Basic</a></li>
-        <li><a href="BannerSettings/">Banner Settings</a></li>
-        <li><a href="ShowcaseSettings/">Showcase Settings</a></li>
-        <li><a href="Player/">Player</a></li>
-      </ul>
+
+    <main class="container">
+      <div class="cards-container">
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-book"></i>
+          </div>
+          <div class="card-content">
+            <h2 class="card-title">Basic Guide</h2>
+            <p class="card-description">
+              Learn about the basic features and interface of LED Banner Master.
+            </p>
+            <a href="Basic/" class="card-link"
+              >Learn More <i class="fas fa-arrow-right"></i
+            ></a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-sliders"></i>
+          </div>
+          <div class="card-content">
+            <h2 class="card-title">Banner Settings</h2>
+            <p class="card-description">
+              Discover how to configure color, size, animations, and other
+              banner settings.
+            </p>
+            <a href="BannerSettings/" class="card-link"
+              >Learn More <i class="fas fa-arrow-right"></i
+            ></a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-th-large"></i>
+          </div>
+          <div class="card-content">
+            <h2 class="card-title">Showcase Settings</h2>
+            <p class="card-description">
+              Learn how to combine multiple banners into a single showcase for
+              easier management.
+            </p>
+            <a href="ShowcaseSettings/" class="card-link"
+              >Learn More <i class="fas fa-arrow-right"></i
+            ></a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">
+            <i class="fas fa-play-circle"></i>
+          </div>
+          <div class="card-content">
+            <h2 class="card-title">Player</h2>
+            <p class="card-description">
+              Learn how to play banners and showcases and display them on
+              external devices.
+            </p>
+            <a href="Player/" class="card-link"
+              >Learn More <i class="fas fa-arrow-right"></i
+            ></a>
+          </div>
+        </div>
+      </div>
     </main>
+
     <footer>
-      <p>&copy; 2023 LED Banner Master. All rights reserved.</p>
+      <div class="container">
+        <p>&copy; 2025 LED Banner Master. All rights reserved.</p>
+      </div>
     </footer>
   </body>
 </html>
