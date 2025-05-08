@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-CKJ4GX2KHS"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-CKJ4GX2KHS");
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href=".." />
+    <title>YIYOL - Innovative Apps & Services</title>
+
+    <!-- Primary Meta Tags -->
+    <meta
+      name="description"
+      content="YIYOL creates innovative apps and services that bring happiness and comfort to people's lives. Discover our products like LED Banner Master and Fitkee."
+    />
+    <meta
+      name="keywords"
+      content="YIYOL,mobile apps,software development,LED Banner Master,Fitkee,pilates app"
+    />
+
+    <meta name="google-adsense-account" content="ca-pub-9284090567080343" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://yiyol.com/" />
+    <meta property="og:title" content="YIYOL - Innovative Apps & Services" />
+    <meta
+      property="og:description"
+      content="Creating apps and services that bring happiness and comfort to people's lives"
+    />
+    <meta property="og:image" content="https://yiyol.com/assets/og-image.jpg" />
+    <meta property="og:site_name" content="YIYOL" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://yiyol.com/" />
+    <meta
+      property="twitter:title"
+      content="YIYOL - Innovative Apps & Services"
+    />
+    <meta
+      property="twitter:description"
+      content="Creating apps and services that bring happiness and comfort to people's lives"
+    />
+    <meta
+      property="twitter:image"
+      content="https://yiyol.com/assets/og-image.jpg"
+    />
+
+    <!-- Additional SEO tags -->
+    <meta name="author" content="YIYOL" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://yiyol.com/" />
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-snap-type: y mandatory;
+      }
+
+      .navbar {
+        position: fixed;
+        width: 100%;
+        padding: 1rem;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1000;
+      }
+
+      .menu-button {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 0.5rem;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: #4f46e5;
+      }
+
+      .hero,
+      .about,
+      .products,
+      .contact {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 5rem 2rem;
+        scroll-margin-top: 70px;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+      }
+
+      .hero {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+        padding: 2rem;
+        position: relative;
+        background-image: url("assets/hero-bg.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          45deg,
+          rgba(79, 70, 229, 0.8),
+          rgba(139, 92, 246, 0.8)
+        );
+      }
+
+      .hero > div {
+        position: relative;
+        z-index: 1;
+        max-width: 800px;
+      }
+
+      .hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        line-height: 1.6;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 0.8rem 1.5rem;
+        background: white;
+        color: #4f46e5;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: 600;
+        transition: all 0.3s;
+      }
+
+      .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .about {
+        background: linear-gradient(135deg, #f4f1fa 0%, #e8e7ff 100%);
+      }
+
+      .about-content {
+        max-width: 800px;
+        text-align: center;
+      }
+
+      .about-content p {
+        margin-bottom: 1.5rem;
+        line-height: 1.8;
+        color: #4b5563;
+      }
+
+      .products {
+        background: linear-gradient(135deg, #eef8f7 0%, #dff5f2 100%);
+      }
+
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        width: 100%;
+        max-width: 1200px;
+      }
+
+      .product-card {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s;
+      }
+
+      .product-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .product-image {
+        height: 200px;
+        overflow: hidden;
+      }
+
+      .product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+      }
+
+      .product-card:hover .product-image img {
+        transform: scale(1.05);
+      }
+
+      .product-info {
+        padding: 1.5rem;
+      }
+
+      .product-info h3 {
+        margin-bottom: 0.5rem;
+        color: #1f2937;
+        display: flex;
+        align-items: center;
+      }
+
+      .product-info h3 img {
+        width: 32px;
+        height: 32px;
+        margin-right: 12px;
+        border-radius: 6px;
+      }
+
+      .product-info p {
+        color: #6b7280;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+      }
+
+      .product-link {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background: #4f46e5;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: 500;
+        transition: background 0.3s;
+      }
+
+      .product-link:hover {
+        background: #3c31d5;
+      }
+
+      .contact {
+        background: linear-gradient(135deg, #f7f4ed 0%, #f9eee1 100%);
+      }
+
+      .contact-content {
+        max-width: 600px;
+        text-align: center;
+      }
+
+      .contact-content p {
+        margin-bottom: 2rem;
+        line-height: 1.6;
+        color: #4b5563;
+      }
+
+      .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      .social-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: #4f46e5;
+        color: white;
+        font-size: 1.5rem;
+        text-decoration: none;
+        transition: all 0.3s;
+      }
+
+      .social-link:hover {
+        transform: translateY(-5px);
+        background: #3c31d5;
+      }
+
+      footer {
+        background: #1f2937;
+        color: white;
+        padding: 2rem;
+        text-align: center;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        min-height: 33.33vh;
+      }
+
+      .footer-links {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .footer-links a {
+        color: #d1d5db;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-links a:hover {
+        color: white;
+      }
+
+      .copyright {
+        color: #9ca3af;
+        font-size: 0.9rem;
+      }
+
+      section h2 {
+        text-align: center;
+        margin-bottom: 3rem;
+        font-size: 2.5rem;
+        color: #1f2937;
+        position: relative;
+        padding-bottom: 1rem;
+      }
+
+      section h2::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50px;
+        height: 3px;
+        background: #4f46e5;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        color: #333;
+      }
+
+      .logo img {
+        width: 32px;
+        height: 32px;
+      }
+
+      .logo span {
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .company-info {
+        color: #9ca3af;
+        font-size: 0.85rem;
+        line-height: 1.6;
+        max-width: 90%;
+        margin: 0 auto 1.5rem auto;
+      }
+
+      @media (max-width: 768px) {
+        .menu-button {
+          display: block;
+        }
+
+        .nav-links {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: rgba(255, 255, 255, 0.95);
+          padding: 1rem;
+          flex-direction: column;
+          gap: 1rem;
+          text-align: center;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links.active {
+          display: flex;
+        }
+
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+
+        section h2 {
+          font-size: 2rem;
+        }
+
+        .products-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <a href="/" class="logo">
+        <img src="assets/yiyol-logo.png" alt="YIYOL Logo" />
+        <span>YIYOL</span>
+      </a>
+      <button class="menu-button">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#products">Products</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+
+    <section class="hero" id="hero">
+      <div>
+        <h1>Creating Apps<br />That Make Life Better</h1>
+        <p>
+          At YIYOL, we develop innovative applications and services designed to
+          bring happiness and comfort to people's everyday lives
+        </p>
+        <a href="#products" class="btn">Explore Our Products</a>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="about-content">
+        <h2>About YIYOL</h2>
+        <p>
+          At YIYOL, our mission is to create apps and services that bring
+          happiness and comfort to people's lives. With a foundation built on
+          years of expertise across various fields, we are committed to
+          developing high-quality applications and services that meet the
+          highest standards of excellence.
+        </p>
+        <p>
+          Our passion extends beyond just creating great products; we are also
+          dedicated to contributing to the open-source community, sharing our
+          knowledge, and collaborating to push the boundaries of technology.
+        </p>
+        <p>
+          Join us on our journey to make the world a better, more comfortable
+          place—one app at a time.
+        </p>
+      </div>
+    </section>
+
+    <section class="products" id="products">
+      <h2>Our Products</h2>
+      <div class="products-grid">
+        <div class="product-card">
+          <div class="product-image">
+            <img
+              src="assets/led-banner-preview.jpeg"
+              alt="LED Banner Master App"
+            />
+          </div>
+          <div class="product-info">
+            <h3>
+              <img
+                src="assets/led-banner-icon.png"
+                alt="LED Banner Master Icon"
+              />
+              LED Banner Master
+            </h3>
+            <p>
+              Create eye-catching LED banners for any occasion with just a few
+              taps. Perfect for businesses, events, and personal use with
+              features like scrolling text, multiple languages, and vibrant
+              displays.
+            </p>
+            <a href="/led-banner-master" class="product-link">Learn More</a>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-image">
+            <img src="assets/fitkee-preview.jpeg" alt="Fitkee App" />
+          </div>
+          <div class="product-info">
+            <h3>
+              <img src="assets/fitkee-icon.png" alt="Fitkee Icon" />
+              Fitkee
+            </h3>
+            <p>
+              An AI-powered Pilates instructor assistant that helps create
+              customized sequences, manage clients, and optimize class schedules
+              for Pilates instructors and studios.
+            </p>
+            <a href="https://fitkee.com" class="product-link">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="contact-content">
+        <h2>Get In Touch</h2>
+        <p>
+          Have questions about our products or interested in working with us?
+          We'd love to hear from you! Reach out through our social media
+          channels or email us at
+          <a href="mailto:yiyol@yiyol.com">yiyol@yiyol.com</a>.
+        </p>
+        <div class="social-links">
+          <a
+            href="https://twitter.com/yiyolcorp"
+            class="social-link"
+            target="_blank"
+            rel="noopener"
+            aria-label="Follow us on X (Twitter)"
+          >
+            <i class="fa-brands fa-x-twitter"></i>
+          </a>
+          <a
+            href="https://www.tiktok.com/@yiyolcorp"
+            class="social-link"
+            target="_blank"
+            rel="noopener"
+            aria-label="Follow us on TikTok"
+          >
+            <i class="fa-brands fa-tiktok"></i>
+          </a>
+          <a
+            href="https://www.youtube.com/@yiyolapps1963"
+            class="social-link"
+            target="_blank"
+            rel="noopener"
+            aria-label="Subscribe to our YouTube channel"
+          >
+            <i class="fa-brands fa-youtube"></i>
+          </a>
+          <a
+            href="https://www.instagram.com/yiyolcorp"
+            class="social-link"
+            target="_blank"
+            rel="noopener"
+            aria-label="Follow us on Instagram"
+          >
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="company-info">
+        Address #704-4, 136 Gasan Digital 2ro, Geumcheon-gu,
+        Seoul&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Email yiyolcorp@gmail.com<br />
+        Business registration
+        186-34-01502&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Mail-order-sales
+        registration 제2024-서울금천-1806호
+      </div>
+      <div class="copyright">Copyright © 2025 YIYOL. All rights reserved.</div>
+    </footer>
+
+    <script>
+      document
+        .querySelector(".menu-button")
+        .addEventListener("click", function () {
+          document.querySelector(".nav-links").classList.toggle("active");
+        });
+
+      // Close menu when menu item is clicked
+      document.querySelectorAll(".nav-links a").forEach((link) => {
+        link.addEventListener("click", function () {
+          document.querySelector(".nav-links").classList.remove("active");
+        });
+      });
+
+      // Close menu when scrolling
+      window.addEventListener("scroll", function () {
+        document.querySelector(".nav-links").classList.remove("active");
+      });
+    </script>
+  </body>
+</html>
