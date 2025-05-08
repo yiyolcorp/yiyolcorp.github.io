@@ -84,30 +84,64 @@
         font-family: "Poppins", sans-serif;
       }
 
+      html {
+        scroll-behavior: smooth;
+      }
+
       body {
         min-height: 100vh;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(
-          45deg,
-          rgba(79, 70, 229, 0.8),
-          rgba(139, 92, 246, 0.8)
-        );
+        background-image: url("assets/hero-bg.jpg");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
         color: white;
         text-align: center;
         padding: 2rem;
+        position: relative;
+      }
+
+      body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          45deg,
+          rgba(79, 70, 229, 0.9),
+          rgba(139, 92, 246, 0.9)
+        );
+        z-index: -1;
       }
 
       .services-container {
         max-width: 900px;
+        margin: 2rem auto;
       }
 
       h1 {
         font-size: 3.5rem;
-        margin-bottom: 1rem;
+        margin-bottom: 1.5rem;
         line-height: 1.2;
+        position: relative;
+        padding-bottom: 1rem;
+      }
+
+      h1::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: white;
+        border-radius: 2px;
       }
 
       h2 {
@@ -132,28 +166,72 @@
         font-weight: 600;
         transition: all 0.3s;
         margin: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
 
       .btn:hover {
         transform: translateY(-3px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        background: #f8f8ff;
       }
 
       .service-icon {
         font-size: 4rem;
         margin-bottom: 1rem;
+        transition: transform 0.3s;
+      }
+
+      .service-card:hover .service-icon {
+        transform: scale(1.1);
       }
 
       .service-card {
         background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(5px);
-        padding: 2rem;
-        border-radius: 10px;
-        margin-bottom: 2rem;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: 2.5rem;
+        border-radius: 16px;
+        margin-bottom: 2.5rem;
+        transition: all 0.3s;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        transform: translateY(0);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .service-card::before {
+        content: "";
+        position: absolute;
+        top: -100%;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.1);
+        transform: rotate(45deg);
+        transition: all 0.5s;
+      }
+
+      .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      .service-card:hover::before {
+        top: 100%;
+        left: 100%;
       }
 
       .buttons-container {
+        margin-top: 2.5rem;
+      }
+
+      footer {
+        width: 100%;
+        padding: 1.5rem;
         margin-top: 2rem;
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.7);
       }
 
       @media (max-width: 768px) {
@@ -168,6 +246,34 @@
         p {
           font-size: 1rem;
         }
+
+        .service-card {
+          padding: 2rem;
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      h1,
+      .service-card {
+        animation: fadeIn 0.8s ease-out forwards;
+      }
+
+      .service-card:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      .service-card:nth-child(3) {
+        animation-delay: 0.4s;
       }
     </style>
   </head>
@@ -202,5 +308,7 @@
         <a href="https://yiyol.com/company" class="btn">About YIYOL</a>
       </div>
     </div>
+
+    <footer>&copy; 2025 YIYOL. All rights reserved.</footer>
   </body>
 </html>
