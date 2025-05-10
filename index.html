@@ -33,11 +33,12 @@
     />
 
     <meta name="google-adsense-account" content="ca-pub-9284090567080343" />
-    <script
+    <!-- 광고 주석처리 -->
+    <!-- <script
       async
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9284090567080343"
       crossorigin="anonymous"
-    ></script>
+    ></script> -->
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -163,7 +164,7 @@
         align-items: center;
         justify-content: center;
         padding: 1rem;
-        max-width: calc(100% - 600px);
+        /* max-width: calc(100% - 600px); */
       }
 
       .services-container {
@@ -276,6 +277,12 @@
         }
       }
 
+      @media (max-width: 1024px) {
+        .common-grid {
+          grid-template-columns: 1fr !important;
+        }
+      }
+
       @media (max-width: 768px) {
         h2 {
           font-size: 1.8rem;
@@ -291,12 +298,6 @@
 
         .section-title {
           font-size: 2.2rem;
-        }
-      }
-
-      @media (max-width: 1024px) {
-        .common-grid {
-          grid-template-columns: 1fr;
         }
       }
 
@@ -419,8 +420,8 @@
   </head>
   <body>
     <div class="page-container">
-      <div class="ad-container ad-left">
-        <!-- 반응형 수직 디스플레이 - 왼쪽 -->
+      <!-- 반응형 수직 디스플레이 - 왼쪽 -->
+      <!-- <div class="ad-container ad-left">
         <ins
           class="adsbygoogle"
           style="display: block; width: 300px; height: 600px"
@@ -432,7 +433,7 @@
         <script>
           (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
-      </div>
+      </div> -->
 
       <div class="main-content">
         <div class="services-container">
@@ -505,8 +506,8 @@
         <footer>&copy; 2025 YIYOL. All rights reserved.</footer>
       </div>
 
-      <div class="ad-container ad-right">
-        <!-- 반응형 수직 디스플레이 - 오른쪽 -->
+      <!-- 반응형 수직 디스플레이 - 오른쪽 -->
+      <!-- <div class="ad-container ad-right">
         <ins
           class="adsbygoogle"
           style="display: block; width: 300px; height: 600px"
@@ -518,7 +519,7 @@
         <script>
           (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
-      </div>
+      </div> -->
     </div>
   </body>
 </html>
