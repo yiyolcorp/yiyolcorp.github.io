@@ -474,19 +474,19 @@
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
-        background: rgba(255, 255, 255, 0.2);
+        background: transparent;
         color: white;
-        padding: 1rem 1.5rem;
+        padding: 0.5rem;
         border-radius: 12px;
         text-decoration: none;
         font-weight: 600;
         transition: all 0.3s ease;
-        border: 2px solid rgba(255, 255, 255, 0.3);
+        border: none;
       }
 
       .store-button:hover {
-        background: rgba(255, 255, 255, 0.3);
         transform: translateY(-2px);
+        opacity: 0.8;
       }
 
       /* Footer */
@@ -838,8 +838,20 @@
           작은 변화가 큰 성공을 만듭니다. 더 이상 "내일부터"라고 미루지 마세요.
         </p>
         <div class="cta-buttons">
-          <a href="#" class="store-button">🍎 App Store</a>
-          <a href="#" class="store-button">🤖 Google Play</a>
+          <a href="#" class="store-button" style="display: none">
+            <img
+              src="../assets/app-store-black.svg"
+              alt="App Store에서 다운로드"
+              style="height: 60px; width: auto"
+            />
+          </a>
+          <a href="#" class="store-button">
+            <img
+              src="../assets/google-play-badge.png"
+              alt="Google Play에서 다운로드"
+              style="height: 84px; width: auto"
+            />
+          </a>
         </div>
       </div>
     </section>
