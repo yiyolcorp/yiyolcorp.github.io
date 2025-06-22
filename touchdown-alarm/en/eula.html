@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Terms of Service - TouchDown Alarm</title>
+    <meta
+      name="description"
+      content="TouchDown Alarm Terms of Service - YIYOL"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./favicon.png" />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary-color: #2563eb;
+        --primary-dark: #1d4ed8;
+        --text-primary: #1e293b;
+        --text-secondary: #64748b;
+        --bg-primary: #ffffff;
+        --bg-secondary: #f8fafc;
+        --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        --border-color: #e2e8f0;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+          "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.7;
+        color: var(--text-primary);
+        background-color: var(--bg-secondary);
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header */
+      .header {
+        background: var(--bg-primary);
+        box-shadow: var(--shadow-light);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.95);
+      }
+
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        text-decoration: none;
+      }
+
+      .logo-icon {
+        width: 32px;
+        height: 32px;
+        background: var(--bg-gradient);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+      }
+
+      .back-btn {
+        background: var(--primary-color);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-light);
+      }
+
+      .back-btn:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-medium);
+      }
+
+      /* Main Content */
+      .main-content {
+        margin-top: 100px;
+        padding: 2rem 0 4rem;
+      }
+
+      .document-container {
+        background: white;
+        border-radius: 16px;
+        box-shadow: var(--shadow-light);
+        padding: 3rem;
+        margin-bottom: 2rem;
+      }
+
+      .document-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      .document-subtitle {
+        text-align: center;
+        font-size: 1.2rem;
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+      }
+
+      .effective-date {
+        text-align: center;
+        font-size: 1rem;
+        color: var(--text-secondary);
+        margin-bottom: 3rem;
+        padding: 1rem;
+        background: var(--bg-secondary);
+        border-radius: 8px;
+      }
+
+      /* Table of Contents */
+      .toc {
+        background: var(--bg-secondary);
+        padding: 2rem;
+        border-radius: 12px;
+        margin-bottom: 3rem;
+      }
+
+      .toc h3 {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+      }
+
+      .toc ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .toc li {
+        margin-bottom: 0.5rem;
+      }
+
+      .toc a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+        padding: 0.5rem 0;
+        display: block;
+        transition: color 0.3s ease;
+      }
+
+      .toc a:hover {
+        color: var(--primary-dark);
+      }
+
+      /* Article sections */
+      .article {
+        margin-bottom: 3rem;
+      }
+
+      .article h2 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid var(--border-color);
+      }
+
+      .article h3 {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin: 2rem 0 1rem;
+      }
+
+      .article h4 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin: 1.5rem 0 1rem;
+      }
+
+      .article p {
+        margin-bottom: 1.5rem;
+        text-align: justify;
+      }
+
+      .article ul,
+      .article ol {
+        margin: 1rem 0 1.5rem 2rem;
+      }
+
+      .article li {
+        margin-bottom: 0.5rem;
+      }
+
+      .article strong {
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+
+      /* Special sections */
+      .highlight-box {
+        background: rgba(37, 99, 235, 0.05);
+        border: 1px solid rgba(37, 99, 235, 0.2);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+      }
+
+      .contact-info {
+        background: var(--bg-secondary);
+        padding: 1.5rem;
+        border-radius: 12px;
+        margin: 1.5rem 0;
+      }
+
+      .contact-info strong {
+        color: var(--primary-color);
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .container {
+          padding: 0 15px;
+        }
+
+        .document-container {
+          padding: 2rem 1.5rem;
+        }
+
+        .document-title {
+          font-size: 2rem;
+        }
+
+        .nav {
+          padding-left: 15px;
+          padding-right: 15px;
+        }
+
+        .logo {
+          font-size: 1.3rem;
+        }
+
+        .back-btn {
+          padding: 0.5rem 1rem;
+          font-size: 0.9rem;
+        }
+
+        .article ul,
+        .article ol {
+          margin-left: 1.5rem;
+        }
+      }
+
+      /* Smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Print styles */
+      @media print {
+        .header,
+        .back-btn {
+          display: none;
+        }
+
+        .main-content {
+          margin-top: 0;
+        }
+
+        .document-container {
+          box-shadow: none;
+          border: 1px solid var(--border-color);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <nav class="nav">
+        <a href="index.html" class="logo">
+          <div class="logo-icon">🎯</div>
+          TouchDown Alarm
+        </a>
+        <a href="index.html" class="back-btn">← Back to Home</a>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="container">
+        <div class="document-container">
+          <h1 class="document-title">Terms of Service</h1>
+          <p class="document-subtitle">TouchDown Alarm App Terms of Service</p>
+
+          <div class="effective-date">
+            <strong>Effective Date:</strong> June 23, 2025
+          </div>
+
+          <!-- Table of Contents -->
+          <div class="toc">
+            <h3>Table of Contents</h3>
+            <ul>
+              <li><a href="#article1">Article 1. Purpose</a></li>
+              <li><a href="#article2">Article 2. Definitions</a></li>
+              <li>
+                <a href="#article3"
+                  >Article 3. Agreement and Amendment of Terms</a
+                >
+              </li>
+              <li>
+                <a href="#article4">Article 4. Service Provision and Changes</a>
+              </li>
+              <li>
+                <a href="#article5"
+                  >Article 5. User Registration and Account Management</a
+                >
+              </li>
+              <li>
+                <a href="#article6"
+                  >Article 6. Collection and Use of Location Information</a
+                >
+              </li>
+              <li><a href="#article7">Article 7. User Obligations</a></li>
+              <li><a href="#article8">Article 8. Company Obligations</a></li>
+              <li><a href="#article9">Article 9. Service Interruption</a></li>
+              <li>
+                <a href="#article10"
+                  >Article 10. Intellectual Property Rights</a
+                >
+              </li>
+              <li>
+                <a href="#article11">Article 11. Limitation of Liability</a>
+              </li>
+              <li><a href="#article12">Article 12. Indemnification</a></li>
+              <li><a href="#article13">Article 13. Dispute Resolution</a></li>
+              <li><a href="#article14">Article 14. Miscellaneous</a></li>
+            </ul>
+          </div>
+
+          <!-- Article 1 -->
+          <article id="article1" class="article">
+            <h2>Article 1. Purpose</h2>
+            <p>
+              These Terms of Service (hereinafter referred to as "Terms") are
+              intended to regulate the rights, obligations, and responsibilities
+              between YIYOL (hereinafter referred to as "Company") and users
+              regarding the use of the TouchDown Alarm mobile application
+              service (hereinafter referred to as "Service") provided by the
+              Company.
+            </p>
+          </article>
+
+          <!-- Article 2 -->
+          <article id="article2" class="article">
+            <h2>Article 2. Definitions</h2>
+            <p>The definitions of terms used in these Terms are as follows:</p>
+            <ul>
+              <li>
+                <strong>"Service"</strong> means the TouchDown Alarm mobile
+                application and all related services provided by the Company.
+              </li>
+              <li>
+                <strong>"User"</strong> means a person who downloads and uses
+                the Service in accordance with these Terms.
+              </li>
+              <li>
+                <strong>"Account"</strong> means the user identification set up
+                by the User to use the Service.
+              </li>
+              <li>
+                <strong>"Location Information"</strong> means information that
+                can identify the geographical location of a user or mobile
+                device.
+              </li>
+              <li>
+                <strong>"Content"</strong> means all information such as text,
+                images, videos, audio, and data that appears in the Service.
+              </li>
+            </ul>
+          </article>
+
+          <!-- Article 3 -->
+          <article id="article3" class="article">
+            <h2>Article 3. Agreement and Amendment of Terms</h2>
+            <h3>3.1 Agreement to Terms</h3>
+            <p>
+              Users are deemed to have agreed to these Terms by downloading and
+              using the Service. The Company may require users to explicitly
+              agree to these Terms when necessary.
+            </p>
+            <h3>3.2 Amendment of Terms</h3>
+            <p>
+              The Company may amend these Terms when there are significant
+              reasons. Amended Terms will be notified through the Service or the
+              Company's website at least 7 days before the effective date.
+            </p>
+            <p>
+              If a User does not agree to the amended Terms, they may
+              discontinue using the Service. Continued use of the Service after
+              the effective date of the amended Terms will be deemed as
+              acceptance of the amended Terms.
+            </p>
+          </article>
+
+          <!-- Article 4 -->
+          <article id="article4" class="article">
+            <h2>Article 4. Service Provision and Changes</h2>
+            <h3>4.1 Service Content</h3>
+            <p>The Company provides the following services:</p>
+            <ul>
+              <li>Location-based alarm service</li>
+              <li>Alarm management and settings</li>
+              <li>Usage statistics and analysis</li>
+              <li>Customer support</li>
+              <li>Other services determined by the Company</li>
+            </ul>
+            <h3>4.2 Service Changes</h3>
+            <p>
+              The Company may change, suspend, or terminate all or part of the
+              Service for operational or technical reasons. Important changes
+              will be notified to Users in advance.
+            </p>
+          </article>
+
+          <!-- Article 5 -->
+          <article id="article5" class="article">
+            <h2>Article 5. User Registration and Account Management</h2>
+            <h3>5.1 User Registration</h3>
+            <p>
+              The Service can be used without separate user registration.
+              However, some features may require user registration or login.
+            </p>
+            <h3>5.2 Account Management</h3>
+            <p>
+              Users are responsible for managing their accounts and must not
+              share account information with others. The Company is not liable
+              for damages caused by account mismanagement.
+            </p>
+          </article>
+
+          <!-- Article 6 -->
+          <article id="article6" class="article">
+            <h2>Article 6. Collection and Use of Location Information</h2>
+            <div class="highlight-box">
+              <strong>Important:</strong> This service essentially requires
+              location information to provide location-based alarm
+              functionality.
+            </div>
+            <h3>6.1 Collection of Location Information</h3>
+            <p>
+              The Company collects Users' location information for the following
+              purposes:
+            </p>
+            <ul>
+              <li>
+                Verification of arrival at destination for alarm dismissal
+              </li>
+              <li>
+                Distance calculation between current location and destination
+              </li>
+              <li>Location-based alarm service provision</li>
+            </ul>
+            <h3>6.2 Use and Protection of Location Information</h3>
+            <p>
+              Location information is used only for the purposes stated above
+              and is not stored or shared with third parties. Location
+              information is immediately deleted after use.
+            </p>
+            <h3>6.3 Consent to Location Information Collection</h3>
+            <p>
+              Users must consent to location information collection to use the
+              Service. Users may withdraw consent at any time, but this may
+              limit service functionality.
+            </p>
+          </article>
+
+          <!-- Article 7 -->
+          <article id="article7" class="article">
+            <h2>Article 7. User Obligations</h2>
+            <p>Users must observe the following obligations:</p>
+            <ul>
+              <li>Provide accurate information when using the Service</li>
+              <li>Not use the Service for illegal or improper purposes</li>
+              <li>
+                Not infringe on the rights of the Company or third parties
+              </li>
+              <li>Not interfere with the stable operation of the Service</li>
+              <li>Comply with relevant laws and these Terms</li>
+              <li>Properly manage personal information and account security</li>
+            </ul>
+          </article>
+
+          <!-- Article 8 -->
+          <article id="article8" class="article">
+            <h2>Article 8. Company Obligations</h2>
+            <h3>8.1 Service Provision</h3>
+            <p>
+              The Company shall make continuous efforts to provide stable and
+              reliable services to Users.
+            </p>
+            <h3>8.2 Personal Information Protection</h3>
+            <p>
+              The Company shall protect Users' personal information in
+              accordance with relevant laws and the Privacy Policy.
+            </p>
+            <h3>8.3 User Support</h3>
+            <p>
+              The Company shall provide appropriate support for Users' inquiries
+              and issues related to service use.
+            </p>
+          </article>
+
+          <!-- Article 9 -->
+          <article id="article9" class="article">
+            <h2>Article 9. Service Interruption</h2>
+            <h3>9.1 Temporary Interruption</h3>
+            <p>
+              The Company may temporarily interrupt the Service in the following
+              cases:
+            </p>
+            <ul>
+              <li>System maintenance or updates</li>
+              <li>Network or equipment failures</li>
+              <li>Force majeure events</li>
+              <li>Other unavoidable circumstances</li>
+            </ul>
+            <h3>9.2 Notification of Interruption</h3>
+            <p>
+              The Company shall notify Users in advance of planned service
+              interruptions. However, advance notification may not be possible
+              in emergency situations.
+            </p>
+          </article>
+
+          <!-- Article 10 -->
+          <article id="article10" class="article">
+            <h2>Article 10. Intellectual Property Rights</h2>
+            <h3>10.1 Company's Intellectual Property</h3>
+            <p>
+              All intellectual property rights related to the Service, including
+              copyrights, trademark rights, and patent rights, belong to the
+              Company.
+            </p>
+            <h3>10.2 User's Rights</h3>
+            <p>
+              Users may use the Service within the scope permitted by these
+              Terms, but may not reproduce, distribute, or commercially use the
+              Service without the Company's consent.
+            </p>
+          </article>
+
+          <!-- Article 11 -->
+          <article id="article11" class="article">
+            <h2>Article 11. Limitation of Liability</h2>
+            <h3>11.1 Company's Liability</h3>
+            <p>
+              The Company shall not be liable for damages to Users in the
+              following cases:
+            </p>
+            <ul>
+              <li>Service interruption due to force majeure</li>
+              <li>Damages caused by User's fault or negligence</li>
+              <li>Damages caused by third parties</li>
+              <li>Damages caused by free services</li>
+            </ul>
+            <h3>11.2 Limitation of Damages</h3>
+            <p>
+              Even when the Company is liable, the scope of liability is limited
+              to direct damages, and the Company shall not be liable for
+              indirect, consequential, or special damages.
+            </p>
+          </article>
+
+          <!-- Article 12 -->
+          <article id="article12" class="article">
+            <h2>Article 12. Indemnification</h2>
+            <p>
+              If a User causes damage to the Company or third parties by
+              violating these Terms or related laws, the User shall indemnify
+              such damages.
+            </p>
+          </article>
+
+          <!-- Article 13 -->
+          <article id="article13" class="article">
+            <h2>Article 13. Dispute Resolution</h2>
+            <h3>13.1 Governing Law</h3>
+            <p>
+              These Terms shall be governed by and construed in accordance with
+              the laws of the Republic of Korea.
+            </p>
+            <h3>13.2 Jurisdiction</h3>
+            <p>
+              Any disputes arising in connection with these Terms shall be
+              subject to the jurisdiction of the competent court according to
+              the Civil Procedure Act.
+            </p>
+            <h3>13.3 Alternative Dispute Resolution</h3>
+            <p>
+              The Company and Users may resolve disputes through consultation or
+              alternative dispute resolution methods before resorting to
+              litigation.
+            </p>
+          </article>
+
+          <!-- Article 14 -->
+          <article id="article14" class="article">
+            <h2>Article 14. Miscellaneous</h2>
+            <h3>14.1 Severability</h3>
+            <p>
+              If any provision of these Terms is held invalid or unenforceable,
+              the remaining provisions shall remain in full force and effect.
+            </p>
+            <h3>14.2 Entire Agreement</h3>
+            <p>
+              These Terms constitute the entire agreement between the Company
+              and Users regarding the Service.
+            </p>
+            <h3>14.3 Contact Information</h3>
+            <div class="contact-info">
+              <strong>Customer Support</strong>
+              <p>
+                <strong>Email:</strong> yiyol@yiyol.com<br />
+                <strong>Response Time:</strong> Within 3 business days
+              </p>
+            </div>
+          </article>
+
+          <div class="effective-date" style="margin-top: 3rem">
+            <p>
+              <strong>Company:</strong> YIYOL<br />
+              <strong>Email:</strong> yiyol@yiyol.com<br />
+              <strong
+                >These Terms of Service are effective from June 23,
+                2025.</strong
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      // Smooth scrolling for table of contents links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

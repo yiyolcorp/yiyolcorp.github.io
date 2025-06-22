@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>개인정보처리방침 - 터치다운 알람</title>
+    <meta
+      name="description"
+      content="터치다운 알람 개인정보처리방침 - 이욜(YIYOL)"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./favicon.png" />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary-color: #2563eb;
+        --primary-dark: #1d4ed8;
+        --text-primary: #1e293b;
+        --text-secondary: #64748b;
+        --bg-primary: #ffffff;
+        --bg-secondary: #f8fafc;
+        --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        --border-color: #e2e8f0;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+          "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.7;
+        color: var(--text-primary);
+        background-color: var(--bg-secondary);
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header */
+      .header {
+        background: var(--bg-primary);
+        box-shadow: var(--shadow-light);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.95);
+      }
+
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        text-decoration: none;
+      }
+
+      .logo-icon {
+        width: 32px;
+        height: 32px;
+        background: var(--bg-gradient);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+      }
+
+      .back-btn {
+        background: var(--primary-color);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-light);
+      }
+
+      .back-btn:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-medium);
+      }
+
+      /* Main Content */
+      .main-content {
+        margin-top: 100px;
+        padding: 2rem 0 4rem;
+      }
+
+      .document-container {
+        background: white;
+        border-radius: 16px;
+        box-shadow: var(--shadow-light);
+        padding: 3rem;
+        margin-bottom: 2rem;
+      }
+
+      .document-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      .document-date {
+        text-align: center;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 2rem;
+        padding: 0.5rem 1rem;
+        background: rgba(37, 99, 235, 0.1);
+        border-radius: 8px;
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+      }
+
+      .document-intro {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: var(--text-secondary);
+        margin-bottom: 3rem;
+        padding: 1.5rem;
+        background: var(--bg-secondary);
+        border-radius: 12px;
+        border-left: 4px solid var(--primary-color);
+      }
+
+      .section {
+        margin-bottom: 3rem;
+      }
+
+      .section-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid var(--border-color);
+      }
+
+      .subsection {
+        margin-bottom: 2rem;
+      }
+
+      .subsection-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+      }
+
+      .content-list {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .content-list li {
+        margin-bottom: 0.5rem;
+        padding-left: 1.5rem;
+        position: relative;
+      }
+
+      .content-list li::before {
+        content: "•";
+        color: var(--primary-color);
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+      }
+
+      .table-container {
+        overflow-x: auto;
+        margin: 1.5rem 0;
+      }
+
+      .info-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: var(--shadow-light);
+      }
+
+      .info-table th,
+      .info-table td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .info-table th {
+        background: var(--bg-secondary);
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+
+      .info-table tr:last-child td {
+        border-bottom: none;
+      }
+
+      .contact-info {
+        background: var(--bg-secondary);
+        padding: 1.5rem;
+        border-radius: 12px;
+        margin: 1.5rem 0;
+      }
+
+      .contact-info strong {
+        color: var(--primary-color);
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      .highlight-box {
+        background: rgba(37, 99, 235, 0.05);
+        border: 1px solid rgba(37, 99, 235, 0.2);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+      }
+
+      .footer-note {
+        text-align: center;
+        font-style: italic;
+        color: var(--text-secondary);
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--border-color);
+      }
+
+      /* Table of Contents */
+      .toc {
+        background: var(--bg-secondary);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .toc-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+      }
+
+      .toc-list {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .toc-list li {
+        margin-bottom: 0.5rem;
+      }
+
+      .toc-list a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+
+      .toc-list a:hover {
+        color: var(--primary-dark);
+        text-decoration: underline;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .container {
+          padding: 0 15px;
+        }
+
+        .document-container {
+          padding: 2rem 1.5rem;
+        }
+
+        .document-title {
+          font-size: 2rem;
+        }
+
+        .nav {
+          padding-left: 15px;
+          padding-right: 15px;
+        }
+
+        .logo {
+          font-size: 1.3rem;
+        }
+
+        .back-btn {
+          padding: 0.5rem 1rem;
+          font-size: 0.9rem;
+        }
+      }
+
+      /* Smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Print styles */
+      @media print {
+        .header,
+        .back-btn {
+          display: none;
+        }
+
+        .main-content {
+          margin-top: 0;
+        }
+
+        .document-container {
+          box-shadow: none;
+          border: 1px solid var(--border-color);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <nav class="nav">
+        <a href="index.html" class="logo">
+          <div class="logo-icon">🎯</div>
+          터치다운 알람
+        </a>
+        <a href="index.html" class="back-btn">← 메인으로</a>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="container">
+        <div class="document-container">
+          <h1 class="document-title">TouchDown 알람 개인정보처리방침</h1>
+          <div class="document-date">시행일: 2025년 6월 23일</div>
+
+          <div class="document-intro">
+            이욜(YIYOL)(이하 "회사")은 개인정보보호법, 정보통신망 이용촉진 및
+            정보보호 등에 관한 법률, 위치정보의 보호 및 이용 등에 관한 법률 등
+            개인정보 보호 관련 법령에 따라 이용자의 개인정보 보호 및 권익을
+            보호하고 개인정보와 관련한 이용자의 고충을 원활하게 처리할 수 있도록
+            다음과 같은 처리방침을 두고 있습니다.
+          </div>
+
+          <!-- Table of Contents -->
+          <div class="toc">
+            <div class="toc-title">📋 목차</div>
+            <ul class="toc-list">
+              <li><a href="#article1">제1조 개인정보의 처리목적</a></li>
+              <li><a href="#article2">제2조 처리하는 개인정보의 항목</a></li>
+              <li><a href="#article3">제3조 개인정보의 처리 및 보유기간</a></li>
+              <li><a href="#article4">제4조 위치정보의 처리</a></li>
+              <li><a href="#article5">제5조 개인정보의 제3자 제공</a></li>
+              <li><a href="#article6">제6조 개인정보 처리의 위탁</a></li>
+              <li>
+                <a href="#article7">제7조 정보주체의 권리·의무 및 행사방법</a>
+              </li>
+              <li><a href="#article8">제8조 개인정보의 파기</a></li>
+              <li><a href="#article9">제9조 개인정보의 안전성 확보조치</a></li>
+              <li><a href="#article10">제10조 개인정보 보호책임자</a></li>
+              <li><a href="#article11">제11조 개인정보 처리방침 변경</a></li>
+              <li><a href="#article12">제12조 권익침해 구제방법</a></li>
+            </ul>
+          </div>
+
+          <!-- Article 1 -->
+          <section id="article1" class="section">
+            <h2 class="section-title">제1조 (개인정보의 처리목적)</h2>
+            <p>
+              회사는 다음의 목적을 위하여 개인정보를 처리합니다. 처리하고 있는
+              개인정보는 다음의 목적 이외의 용도로는 이용되지 않으며, 이용
+              목적이 변경되는 경우에는 개인정보보호법 제18조에 따라 별도의
+              동의를 받는 등 필요한 조치를 이행할 예정입니다.
+            </p>
+
+            <div class="subsection">
+              <h3 class="subsection-title">1. 서비스 제공</h3>
+              <ul class="content-list">
+                <li>위치 기반 알람 서비스 제공</li>
+                <li>목적지 도착 확인 및 알람 해제 기능 제공</li>
+                <li>알람 이력 및 통계 제공</li>
+                <li>서비스 이용 현황 분석</li>
+              </ul>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">
+                2. 서비스 개선 및 맞춤형 서비스 제공
+              </h3>
+              <ul class="content-list">
+                <li>서비스 품질 향상을 위한 데이터 분석</li>
+                <li>신규 서비스 개발 및 기존 서비스 개선</li>
+                <li>이용자 맞춤형 콘텐츠 제공</li>
+              </ul>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">3. 고객지원</h3>
+              <ul class="content-list">
+                <li>고객 문의 및 불만 처리</li>
+                <li>공지사항 전달</li>
+                <li>서비스 관련 안내사항 전달</li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- Article 2 -->
+          <section id="article2" class="section">
+            <h2 class="section-title">제2조 (처리하는 개인정보의 항목)</h2>
+            <p>회사는 다음의 개인정보 항목을 처리하고 있습니다.</p>
+
+            <div class="subsection">
+              <h3 class="subsection-title">1. 필수항목</h3>
+              <ul class="content-list">
+                <li>
+                  <strong>디바이스 정보</strong>: 디바이스 고유 식별자(UUID),
+                  운영체제 정보, 앱 버전
+                </li>
+                <li>
+                  <strong>위치정보</strong>: GPS 좌표, 네트워크 기반 위치정보
+                </li>
+                <li>
+                  <strong>서비스 이용정보</strong>: 알람 설정 정보, 알람 이력,
+                  앱 사용 기록
+                </li>
+              </ul>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">2. 선택항목</h3>
+              <ul class="content-list">
+                <li>
+                  <strong>알림 설정 정보</strong>: 푸시 알림 수신 동의 여부
+                </li>
+              </ul>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">3. 자동 수집 정보</h3>
+              <ul class="content-list">
+                <li>
+                  <strong>접속 로그</strong>: 서비스 이용기록, 접속 시간, IP
+                  주소
+                </li>
+                <li>
+                  <strong>쿠키</strong>: 서비스 이용 편의성 향상을 위한 쿠키
+                  정보
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- Article 3 -->
+          <section id="article3" class="section">
+            <h2 class="section-title">제3조 (개인정보의 처리 및 보유기간)</h2>
+
+            <div class="subsection">
+              <h3 class="subsection-title">1. 개인정보 처리기간</h3>
+              <p>
+                회사는 법령에 따른 개인정보 보유·이용기간 또는 정보주체로부터
+                개인정보를 수집 시에 동의받은 개인정보 보유·이용기간 내에서
+                개인정보를 처리·보유합니다.
+              </p>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">
+                2. 구체적인 개인정보 처리 및 보유기간
+              </h3>
+              <ul class="content-list">
+                <li>
+                  <strong>서비스 이용정보</strong>: 서비스 이용 종료 후 1년
+                </li>
+                <li>
+                  <strong>위치정보</strong>: 서비스 제공 목적 달성 즉시 파기
+                </li>
+                <li><strong>접속 로그</strong>: 3개월</li>
+                <li><strong>고객문의 기록</strong>: 3년</li>
+              </ul>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">3. 법령에 따른 보유</h3>
+              <p>
+                관련 법령에 의해 보존할 필요가 있는 경우 해당 법령에서 정한 기간
+                동안 보유합니다.
+              </p>
+              <ul class="content-list">
+                <li>계약 또는 청약철회 등에 관한 기록: 5년 (전자상거래법)</li>
+                <li>
+                  대금결제 및 재화 등의 공급에 관한 기록: 5년 (전자상거래법)
+                </li>
+                <li>
+                  소비자의 불만 또는 분쟁처리에 관한 기록: 3년 (전자상거래법)
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- Article 4 -->
+          <section id="article4" class="section">
+            <h2 class="section-title">제4조 (위치정보의 처리)</h2>
+
+            <div class="highlight-box">
+              <strong>🔍 위치정보 특별 처리 조항</strong><br />
+              TouchDown 알람의 핵심 기능인 위치 기반 알람 서비스를 위한 위치정보
+              처리에 대한 상세 내용입니다.
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">1. 위치정보 수집 및 이용목적</h3>
+              <ul class="content-list">
+                <li>설정된 목적지 도착 여부 확인</li>
+                <li>위치 기반 알람 해제 기능 제공</li>
+                <li>서비스 품질 향상을 위한 통계 분석</li>
+              </ul>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">2. 위치정보 수집방법</h3>
+              <ul class="content-list">
+                <li>GPS 센서를 통한 정확한 위치정보 수집</li>
+                <li>네트워크(WiFi, 기지국) 기반 위치정보 수집</li>
+              </ul>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">3. 위치정보의 보유 및 이용기간</h3>
+              <ul class="content-list">
+                <li>위치정보는 수집 목적 달성 시 즉시 파기됩니다</li>
+                <li>
+                  통계 분석을 위한 경우 개인식별이 불가능한 형태로 처리 후 최대
+                  1년 보관
+                </li>
+              </ul>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">4. 위치정보 제3자 제공</h3>
+              <p>
+                회사는 이용자의 위치정보를 이용자의 동의 없이 제3자에게 제공하지
+                않습니다.
+              </p>
+            </div>
+          </section>
+
+          <!-- Article 5 -->
+          <section id="article5" class="section">
+            <h2 class="section-title">제5조 (개인정보의 제3자 제공)</h2>
+            <p>
+              회사는 이용자의 개인정보를 제1조(개인정보의 처리목적)에서 명시한
+              범위 내에서만 처리하며, 이용자의 동의, 법률의 특별한 규정 등
+              개인정보보호법 제17조에 해당하는 경우에만 개인정보를 제3자에게
+              제공합니다.
+            </p>
+            <div class="highlight-box">
+              <strong
+                >현재 회사는 이용자의 개인정보를 제3자에게 제공하고 있지
+                않습니다.</strong
+              >
+            </div>
+          </section>
+
+          <!-- Article 6 -->
+          <section id="article6" class="section">
+            <h2 class="section-title">제6조 (개인정보 처리의 위탁)</h2>
+
+            <div class="subsection">
+              <h3 class="subsection-title">1. 개인정보 처리위탁 현황</h3>
+              <p>
+                회사는 원활한 개인정보 업무처리를 위하여 다음과 같이 개인정보
+                처리업무를 위탁하고 있습니다.
+              </p>
+
+              <div class="table-container">
+                <table class="info-table">
+                  <thead>
+                    <tr>
+                      <th>위탁업체</th>
+                      <th>위탁업무 내용</th>
+                      <th>개인정보 보유 및 이용기간</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Google LLC</td>
+                      <td>클라우드 서비스 제공, 서비스 분석</td>
+                      <td>위탁계약 종료시 또는 위탁목적 달성시까지</td>
+                    </tr>
+                    <tr>
+                      <td>Apple Inc.</td>
+                      <td>앱 배포 및 결제 서비스</td>
+                      <td>위탁계약 종료시 또는 위탁목적 달성시까지</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">2. 위탁업무 변경 시 공지</h3>
+              <p>
+                위탁업무의 내용이나 수탁자가 변경될 경우에는 지체없이 본
+                개인정보 처리방침을 통하여 공개하도록 하겠습니다.
+              </p>
+            </div>
+          </section>
+
+          <!-- Article 7 -->
+          <section id="article7" class="section">
+            <h2 class="section-title">
+              제7조 (정보주체의 권리·의무 및 행사방법)
+            </h2>
+
+            <div class="subsection">
+              <h3 class="subsection-title">1. 정보주체의 권리</h3>
+              <p>
+                이용자는 개인정보주체로서 다음과 같은 권리를 행사할 수 있습니다.
+              </p>
+              <ul class="content-list">
+                <li>개인정보 처리현황 통지요구</li>
+                <li>개인정보 열람요구</li>
+                <li>개인정보 정정·삭제요구</li>
+                <li>개인정보 처리정지요구</li>
+                <li>손해배상청구</li>
+              </ul>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">2. 권리 행사방법</h3>
+              <p>
+                위의 권리는 개인정보보호법 시행령 제41조에 따라 서면, 전화,
+                전자우편, 모사전송(FAX) 등을 통하여 하실 수 있으며 회사는 이에
+                대해 지체없이 조치하겠습니다.
+              </p>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">3. 권리 행사 시 주의사항</h3>
+              <ul class="content-list">
+                <li>
+                  만 14세 미만 아동의 경우, 법정대리인이 그 아동을 대리하여
+                  권리를 행사할 수 있습니다.
+                </li>
+                <li>
+                  권리 행사는 정보주체의 법정대리인이나 위임을 받은 자 등
+                  대리인을 통하여 하실 수 있습니다.
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- Article 8 -->
+          <section id="article8" class="section">
+            <h2 class="section-title">제8조 (개인정보의 파기)</h2>
+
+            <div class="subsection">
+              <h3 class="subsection-title">1. 파기절차</h3>
+              <p>
+                이용자의 개인정보는 목적 달성 후 내부 방침 및 기타 관련 법령에
+                따라 일정기간 저장된 후 혹은 즉시 파기됩니다.
+              </p>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">2. 파기기한</h3>
+              <p>
+                이용자의 개인정보는 개인정보의 보유기간이 경과된 경우에는
+                보유기간의 종료일로부터 5일 이내에, 개인정보의 처리 목적 달성 등
+                그 개인정보가 불필요하게 되었을 때는 개인정보의 처리가 불필요한
+                것으로 인정되는 날로부터 5일 이내에 그 개인정보를 파기합니다.
+              </p>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">3. 파기방법</h3>
+              <ul class="content-list">
+                <li>
+                  <strong>전자적 파일 형태</strong>: 기록을 재생할 수 없도록
+                  로우레벨포맷(Low Level Format) 등의 방법을 이용하여 파기
+                </li>
+                <li>
+                  <strong>기타 기록물, 인쇄물, 서면 등</strong>: 분쇄하거나
+                  소각하여 파기
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- Article 9 -->
+          <section id="article9" class="section">
+            <h2 class="section-title">제9조 (개인정보의 안전성 확보조치)</h2>
+            <p>
+              회사는 개인정보보호법 제29조에 따라 다음과 같이 안전성 확보에
+              필요한 기술적/관리적 및 물리적 조치를 하고 있습니다.
+            </p>
+
+            <div class="subsection">
+              <h3 class="subsection-title">
+                1. 개인정보 취급 직원의 최소화 및 교육
+              </h3>
+              <p>
+                개인정보를 취급하는 직원을 지정하고 담당자에 한정시켜 최소화하여
+                개인정보를 관리하는 대책을 시행하고 있습니다.
+              </p>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">2. 정기적인 자체 감사 실시</h3>
+              <p>
+                개인정보 취급 관련 안정성 확보를 위해 정기적(분기 1회 이상)으로
+                자체 감사를 실시하고 있습니다.
+              </p>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">3. 내부관리계획의 수립 및 시행</h3>
+              <p>
+                개인정보의 안전한 처리를 위하여 내부관리계획을 수립하고 시행하고
+                있습니다.
+              </p>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">4. 개인정보의 암호화</h3>
+              <p>
+                이용자의 개인정보는 암호화 등을 통해 안전하게 저장 및 관리되고
+                있습니다.
+              </p>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">5. 해킹 등에 대비한 기술적 대책</h3>
+              <p>
+                해킹이나 컴퓨터 바이러스 등에 의한 개인정보 유출 및 훼손을 막기
+                위하여 보안프로그램을 설치하고 주기적인 갱신·점검을 하며
+                외부로부터 접근이 통제된 구역에 시스템을 설치하고
+                기술적/물리적으로 감시 및 차단하고 있습니다.
+              </p>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">6. 개인정보에 대한 접근 제한</h3>
+              <p>
+                개인정보를 처리하는 데이터베이스시스템에 대한 접근권한의
+                부여,변경,말소를 통하여 개인정보에 대한 접근통제를 위하여 필요한
+                조치를 하고 있으며 침입차단시스템을 이용하여 외부로부터의 무단
+                접근을 통제하고 있습니다.
+              </p>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">
+                7. 접속기록의 보관 및 위변조 방지
+              </h3>
+              <p>
+                개인정보처리시스템에 접속한 기록을 최소 1년 이상 보관, 관리하고
+                있으며, 접속 기록이 위변조 및 도난, 분실되지 않도록 보안기능을
+                사용하고 있습니다.
+              </p>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">8. 문서보안을 위한 잠금장치 사용</h3>
+              <p>
+                개인정보가 포함된 서류, 보조저장매체 등을 잠금장치가 있는 안전한
+                장소에 보관하고 있습니다.
+              </p>
+            </div>
+          </section>
+
+          <!-- Article 10 -->
+          <section id="article10" class="section">
+            <h2 class="section-title">제10조 (개인정보 보호책임자)</h2>
+
+            <div class="subsection">
+              <h3 class="subsection-title">1. 개인정보 보호책임자</h3>
+              <p>
+                회사는 개인정보 처리에 관한 업무를 총괄해서 책임지고, 개인정보
+                처리와 관련한 정보주체의 불만처리 및 피해구제 등을 위하여 아래와
+                같이 개인정보 보호책임자를 지정하고 있습니다.
+              </p>
+
+              <div class="contact-info">
+                <strong>개인정보 보호책임자</strong>
+                성명: 이영도<br />
+                직책: 대표<br />
+                연락처: yiyol@yiyol.com
+              </div>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">2. 문의 방법</h3>
+              <p>
+                정보주체께서는 회사의 서비스를 이용하시면서 발생한 모든 개인정보
+                보호 관련 문의, 불만처리, 피해구제 등에 관한 사항을 개인정보
+                보호책임자에게 문의하실 수 있습니다.
+              </p>
+            </div>
+          </section>
+
+          <!-- Article 11 -->
+          <section id="article11" class="section">
+            <h2 class="section-title">제11조 (개인정보 처리방침 변경)</h2>
+
+            <div class="subsection">
+              <h3 class="subsection-title">1. 변경 시 공지</h3>
+              <p>
+                이 개인정보처리방침은 시행일로부터 적용되며, 법령 및 방침에 따른
+                변경내용의 추가, 삭제 및 정정이 있는 경우에는 변경사항의 시행
+                7일 전부터 공지사항을 통하여 고지할 것입니다.
+              </p>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">2. 버전 정보</h3>
+              <ul class="content-list">
+                <li><strong>개인정보처리방침 버전번호</strong>: v1.0</li>
+                <li>
+                  <strong>개인정보처리방침 시행일자</strong>: 2025년 6월 23일
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- Article 12 -->
+          <section id="article12" class="section">
+            <h2 class="section-title">제12조 (권익침해 구제방법)</h2>
+            <p>
+              정보주체는 아래의 기관에 대해 개인정보 침해신고, 상담 등을
+              문의하실 수 있습니다.
+            </p>
+
+            <div class="subsection">
+              <h3 class="subsection-title">
+                1. 개인정보 침해신고센터 (privacy.go.kr)
+              </h3>
+              <ul class="content-list">
+                <li>
+                  소관업무: 개인정보 침해신고접수 및 처리, 피해구제 신청 등
+                </li>
+                <li>홈페이지: privacy.go.kr</li>
+                <li>전화: (국번없이) 182</li>
+                <li>
+                  주소: (03171) 서울특별시 종로구 세종대로 209 정부서울청사 4층
+                </li>
+              </ul>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">
+                2. 개인정보 분쟁조정위원회 (kopico.go.kr)
+              </h3>
+              <ul class="content-list">
+                <li>소관업무: 개인정보 분쟁조정신청, 집단분쟁조정 등</li>
+                <li>홈페이지: www.kopico.go.kr</li>
+                <li>전화: (국번없이) 1833-6972</li>
+                <li>
+                  주소: (03171) 서울특별시 종로구 세종대로 209 정부서울청사 4층
+                </li>
+              </ul>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">
+                3. 대검찰청 사이버범죄수사단 (www.spo.go.kr)
+              </h3>
+              <ul class="content-list">
+                <li>전화: 02-3480-3573</li>
+              </ul>
+            </div>
+
+            <div class="subsection">
+              <h3 class="subsection-title">
+                4. 경찰청 사이버테러대응센터 (www.netan.go.kr)
+              </h3>
+              <ul class="content-list">
+                <li>전화: (국번없이) 182</li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- Footer -->
+          <div class="highlight-box">
+            <strong>부칙</strong><br />
+            본 방침은 2025년 6월 23일부터 시행됩니다.
+          </div>
+
+          <div class="footer-note">
+            개인정보보호법, 정보통신망 이용촉진 및 정보보호 등에 관한 법률,
+            위치정보의 보호 및 이용 등에 관한 법률에 따른
+            개인정보처리방침입니다.
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      // Smooth scrolling for table of contents links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Highlight current section in table of contents
+      window.addEventListener("scroll", () => {
+        const sections = document.querySelectorAll("section[id]");
+        const tocLinks = document.querySelectorAll(".toc-list a");
+
+        let currentSection = "";
+        sections.forEach((section) => {
+          const sectionTop = section.offsetTop - 120;
+          if (window.pageYOffset >= sectionTop) {
+            currentSection = section.getAttribute("id");
+          }
+        });
+
+        tocLinks.forEach((link) => {
+          link.style.fontWeight = "500";
+          link.style.color = "var(--primary-color)";
+          if (link.getAttribute("href") === "#" + currentSection) {
+            link.style.fontWeight = "700";
+            link.style.color = "var(--primary-dark)";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

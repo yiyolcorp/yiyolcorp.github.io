@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Frequently Asked Questions - TouchDown Alarm</title>
+    <meta
+      name="description"
+      content="TouchDown Alarm Frequently Asked Questions - YIYOL"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./favicon.png" />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary-color: #2563eb;
+        --primary-dark: #1d4ed8;
+        --text-primary: #1e293b;
+        --text-secondary: #64748b;
+        --bg-primary: #ffffff;
+        --bg-secondary: #f8fafc;
+        --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        --border-color: #e2e8f0;
+        --success-color: #10b981;
+        --warning-color: #f59e0b;
+        --danger-color: #ef4444;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+          "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.7;
+        color: var(--text-primary);
+        background-color: var(--bg-secondary);
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header */
+      .header {
+        background: var(--bg-primary);
+        box-shadow: var(--shadow-light);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.95);
+      }
+
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        text-decoration: none;
+      }
+
+      .logo-icon {
+        width: 32px;
+        height: 32px;
+        background: var(--bg-gradient);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+      }
+
+      .back-btn {
+        background: var(--primary-color);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-light);
+      }
+
+      .back-btn:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-medium);
+      }
+
+      /* Main Content */
+      .main-content {
+        margin-top: 100px;
+        padding: 2rem 0 4rem;
+      }
+
+      .document-container {
+        background: white;
+        border-radius: 16px;
+        box-shadow: var(--shadow-light);
+        padding: 3rem;
+        margin-bottom: 2rem;
+      }
+
+      .document-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      .document-subtitle {
+        text-align: center;
+        font-size: 1.2rem;
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+      }
+
+      /* FAQ Categories */
+      .faq-categories {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 3rem;
+      }
+
+      .faq-category {
+        background: var(--bg-secondary);
+        border-radius: 12px;
+        padding: 1rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+      }
+
+      .faq-category:hover,
+      .faq-category.active {
+        background: var(--primary-color);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-light);
+      }
+
+      .faq-category-icon {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+
+      .faq-category-title {
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+
+      /* FAQ Items */
+      .faq-section {
+        margin-bottom: 2rem;
+      }
+
+      .faq-section-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid var(--border-color);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .faq-item {
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        margin-bottom: 1rem;
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .faq-item:hover {
+        box-shadow: var(--shadow-light);
+      }
+
+      .faq-question {
+        padding: 1.5rem;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 600;
+        color: var(--text-primary);
+        background: var(--bg-secondary);
+        transition: all 0.3s ease;
+      }
+
+      .faq-question:hover {
+        background: rgba(37, 99, 235, 0.05);
+      }
+
+      .faq-question.active {
+        background: var(--primary-color);
+        color: white;
+      }
+
+      .faq-toggle {
+        font-size: 1.2rem;
+        transition: transform 0.3s ease;
+      }
+
+      .faq-question.active .faq-toggle {
+        transform: rotate(180deg);
+      }
+
+      .faq-answer {
+        padding: 0 1.5rem;
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        background: white;
+      }
+
+      .faq-answer.active {
+        padding: 1.5rem;
+        max-height: 500px;
+      }
+
+      .faq-answer p {
+        margin-bottom: 1rem;
+      }
+
+      .faq-answer ul {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .faq-answer li {
+        margin-bottom: 0.5rem;
+        padding-left: 1.5rem;
+        position: relative;
+      }
+
+      .faq-answer li::before {
+        content: "•";
+        color: var(--primary-color);
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+      }
+
+      /* Highlight boxes */
+      .highlight-box {
+        background: rgba(37, 99, 235, 0.05);
+        border: 1px solid rgba(37, 99, 235, 0.2);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+      }
+
+      .success-box {
+        background: rgba(16, 185, 129, 0.05);
+        border: 1px solid rgba(16, 185, 129, 0.2);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+      }
+
+      .warning-box {
+        background: rgba(245, 158, 11, 0.05);
+        border: 1px solid rgba(245, 158, 11, 0.2);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+      }
+
+      .contact-info {
+        background: var(--bg-secondary);
+        padding: 1.5rem;
+        border-radius: 12px;
+        margin: 1.5rem 0;
+        text-align: center;
+      }
+
+      .contact-info strong {
+        color: var(--primary-color);
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      /* Search Box */
+      .search-container {
+        margin-bottom: 2rem;
+      }
+
+      .search-box {
+        width: 100%;
+        padding: 1rem 1.5rem;
+        border: 2px solid var(--border-color);
+        border-radius: 12px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .search-box:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .container {
+          padding: 0 15px;
+        }
+
+        .document-container {
+          padding: 2rem 1.5rem;
+        }
+
+        .document-title {
+          font-size: 2rem;
+        }
+
+        .nav {
+          padding-left: 15px;
+          padding-right: 15px;
+        }
+
+        .logo {
+          font-size: 1.3rem;
+        }
+
+        .back-btn {
+          padding: 0.5rem 1rem;
+          font-size: 0.9rem;
+        }
+
+        .faq-categories {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      /* Smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Print styles */
+      @media print {
+        .header,
+        .back-btn,
+        .search-container,
+        .faq-categories {
+          display: none;
+        }
+
+        .main-content {
+          margin-top: 0;
+        }
+
+        .document-container {
+          box-shadow: none;
+          border: 1px solid var(--border-color);
+        }
+
+        .faq-answer {
+          max-height: none !important;
+          padding: 1rem 1.5rem !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <nav class="nav">
+        <a href="index.html" class="logo">
+          <div class="logo-icon">🎯</div>
+          TouchDown Alarm
+        </a>
+        <a href="index.html" class="back-btn">← Back to Home</a>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="container">
+        <div class="document-container">
+          <h1 class="document-title">Frequently Asked Questions</h1>
+          <p class="document-subtitle">
+            Find answers to your questions about using TouchDown Alarm
+          </p>
+
+          <!-- Search Box -->
+          <div class="search-container">
+            <input
+              type="text"
+              class="search-box"
+              placeholder="🔍 Search for answers..."
+              id="searchInput"
+            />
+          </div>
+
+          <!-- FAQ Categories -->
+          <div class="faq-categories">
+            <div class="faq-category active" data-category="all">
+              <span class="faq-category-icon">📋</span>
+              <div class="faq-category-title">All</div>
+            </div>
+            <div class="faq-category" data-category="basic">
+              <span class="faq-category-icon">🎯</span>
+              <div class="faq-category-title">Basic Usage</div>
+            </div>
+            <div class="faq-category" data-category="location">
+              <span class="faq-category-icon">📍</span>
+              <div class="faq-category-title">Location Services</div>
+            </div>
+            <div class="faq-category" data-category="alarm">
+              <span class="faq-category-icon">⏰</span>
+              <div class="faq-category-title">Alarm Settings</div>
+            </div>
+            <div class="faq-category" data-category="troubleshoot">
+              <span class="faq-category-icon">🔧</span>
+              <div class="faq-category-title">Troubleshooting</div>
+            </div>
+            <div class="faq-category" data-category="account">
+              <span class="faq-category-icon">👤</span>
+              <div class="faq-category-title">Account Management</div>
+            </div>
+          </div>
+
+          <!-- FAQ Sections -->
+
+          <!-- Basic Usage -->
+          <section class="faq-section" data-category="basic">
+            <h2 class="faq-section-title"><span>🎯</span> Basic Usage</h2>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>What is TouchDown Alarm?</span>
+                <span class="faq-toggle">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  TouchDown Alarm is an innovative alarm app that only stops
+                  when you reach your set destination.
+                </p>
+                <p>Key features:</p>
+                <ul>
+                  <li>Location-based alarm dismissal system</li>
+                  <li>5-level difficulty settings</li>
+                  <li>Gamified motivation system</li>
+                  <li>Detailed statistics and analysis</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>How do I set up an alarm?</span>
+                <span class="faq-toggle">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p>Setting up an alarm is very simple:</p>
+                <ul>
+                  <li>Open the app and tap 'New Alarm'</li>
+                  <li>Set your desired time</li>
+                  <li>Select destination location (directly on the map)</li>
+                  <li>Choose difficulty level (Very Easy ~ Very Hard)</li>
+                  <li>Select alarm sound</li>
+                  <li>Tap 'Save' to complete</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>How does the difficulty system work?</span>
+                <span class="faq-toggle">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  The 5-level difficulty system lets you choose the intensity
+                  that suits you:
+                </p>
+                <ul>
+                  <li>
+                    <strong>Very Easy:</strong> Success +10pts / Fail -5pts
+                  </li>
+                  <li><strong>Easy:</strong> Success +20pts / Fail -10pts</li>
+                  <li><strong>Normal:</strong> Success +30pts / Fail -20pts</li>
+                  <li><strong>Hard:</strong> Success +50pts / Fail -40pts</li>
+                  <li>
+                    <strong>Very Hard:</strong> Success +80pts / Fail -80pts
+                  </li>
+                </ul>
+                <p>Higher difficulty levels earn you more points.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Location Services -->
+          <section class="faq-section" data-category="location">
+            <h2 class="faq-section-title"><span>📍</span> Location Services</h2>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>Do I need to allow location permissions?</span>
+                <span class="faq-toggle">▼</span>
+              </div>
+              <div class="faq-answer">
+                <div class="highlight-box">
+                  <strong>⚠️ Important:</strong> Location permissions are
+                  essential for TouchDown Alarm's core functionality.
+                </div>
+                <p>Why location permissions are needed:</p>
+                <ul>
+                  <li>
+                    To determine your current location for destination arrival
+                    verification
+                  </li>
+                  <li>To judge alarm dismissal conditions</li>
+                  <li>For accurate distance calculations</li>
+                </ul>
+                <p>
+                  Location data is used only for alarm functionality and is
+                  deleted immediately after the collection purpose is achieved.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>What should I do when GPS is inaccurate?</span>
+                <span class="faq-toggle">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p>Ways to improve GPS accuracy:</p>
+                <ul>
+                  <li>
+                    Enable Wi-Fi and Bluetooth (improves location accuracy)
+                  </li>
+                  <li>Use outdoors (better GPS signal reception)</li>
+                  <li>Set location services to 'High accuracy'</li>
+                  <li>Set app location permission to 'Allow all the time'</li>
+                </ul>
+                <div class="warning-box">
+                  <strong>📱 Tip:</strong> GPS accuracy may be poor indoors or
+                  underground. Try to set outdoor destinations when possible.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>How is the distance to destination calculated?</span>
+                <span class="faq-toggle">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p>Distance calculation method:</p>
+                <ul>
+                  <li>
+                    Straight-line distance calculation based on GPS coordinates
+                  </li>
+                  <li>Real-time location updates</li>
+                  <li>Alarm dismissal when within destination radius</li>
+                </ul>
+                <p>
+                  The default arrival radius is 50m, which can be adjusted in
+                  settings.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Alarm Settings -->
+          <section class="faq-section" data-category="alarm">
+            <h2 class="faq-section-title"><span>⏰</span> Alarm Settings</h2>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>My alarm isn't ringing. What should I do?</span>
+                <span class="faq-toggle">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p>Check these items if your alarm isn't ringing:</p>
+                <ul>
+                  <li>Ensure device volume is sufficiently high</li>
+                  <li>Check that silent mode is disabled</li>
+                  <li>Verify app notification permissions are enabled</li>
+                  <li>Exclude app from battery optimization</li>
+                  <li>Allow background app refresh</li>
+                </ul>
+                <div class="warning-box">
+                  <strong>🔋 Important:</strong> Some Android devices may
+                  restrict background apps to save battery. Please exclude
+                  TouchDown Alarm in your settings.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>Can I change the alarm sound?</span>
+                <span class="faq-toggle">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p>We provide various alarm sounds:</p>
+                <ul>
+                  <li>Default alarm sounds (Marimba, Mozart, Nokia, etc.)</li>
+                  <li>Special alarm sounds (One Piece, Star Wars themes)</li>
+                  <li>Device's default alarm sounds available</li>
+                </ul>
+                <p>
+                  You can change this when setting alarms or in the settings
+                  menu.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>Can I set repeating alarms?</span>
+                <span class="faq-toggle">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p>Yes, we provide various repeat options:</p>
+                <ul>
+                  <li>Daily repeat</li>
+                  <li>Weekdays only (Mon-Fri)</li>
+                  <li>Weekends only (Sat-Sun)</li>
+                  <li>Select specific days</li>
+                  <li>One-time alarm</li>
+                </ul>
+                <p>Simply select the repeat option when setting your alarm.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Troubleshooting -->
+          <section class="faq-section" data-category="troubleshoot">
+            <h2 class="faq-section-title"><span>🔧</span> Troubleshooting</h2>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>The app frequently crashes or runs slowly.</span>
+                <span class="faq-toggle">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p>Ways to improve app performance:</p>
+                <ul>
+                  <li>Completely close and restart the app</li>
+                  <li>Restart your device</li>
+                  <li>Check for app updates</li>
+                  <li>Free up device storage space</li>
+                  <li>Close other apps running in the background</li>
+                </ul>
+                <p>If problems persist, please contact customer support.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span
+                  >The alarm won't turn off even though I've reached my
+                  destination.</span
+                >
+                <span class="faq-toggle">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p>Check these cases:</p>
+                <ul>
+                  <li>Weak GPS signal areas (indoors, underground)</li>
+                  <li>Verify destination setting is accurate</li>
+                  <li>Check arrival radius setting (adjustable in settings)</li>
+                  <li>Confirm location services are enabled</li>
+                </ul>
+                <div class="success-box">
+                  <strong>💡 Solution:</strong> Try increasing the arrival
+                  radius to 100m in settings, or wait briefly outdoors.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>My data disappeared. Can it be recovered?</span>
+                <span class="faq-toggle">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p>Data recovery methods:</p>
+                <ul>
+                  <li>Check auto-sync after restarting the app</li>
+                  <li>Verify Google/Apple account login status</li>
+                  <li>Restore from cloud backup</li>
+                </ul>
+                <div class="warning-box">
+                  <strong>⚠️ Warning:</strong> Deleting or resetting the app may
+                  delete local data. Please backup regularly.
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Account Management -->
+          <section class="faq-section" data-category="account">
+            <h2 class="faq-section-title">
+              <span>👤</span> Account Management
+            </h2>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>What benefits does premium subscription offer?</span>
+                <span class="faq-toggle">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p>Premium subscription benefits:</p>
+                <ul>
+                  <li>Unlimited alarm settings (Free: 3 alarm limit)</li>
+                  <li>Ad removal</li>
+                  <li>Detailed statistics and analysis</li>
+                  <li>Premium alarm sounds</li>
+                  <li>Priority customer support</li>
+                </ul>
+                <p>You can choose between monthly and annual subscriptions.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>How do I cancel my subscription?</span>
+                <span class="faq-toggle">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p>Subscription cancellation methods:</p>
+                <ul>
+                  <li>
+                    <strong>iOS:</strong> Settings > Apple ID > Subscriptions >
+                    TouchDown Alarm > Cancel Subscription
+                  </li>
+                  <li>
+                    <strong>Android:</strong> Google Play Store > Account >
+                    Subscriptions > TouchDown Alarm > Cancel
+                  </li>
+                </ul>
+                <p>
+                  After cancellation, you can still use premium features until
+                  the end of the current billing cycle.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>I want to delete my account.</span>
+                <span class="faq-toggle">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p>Account deletion process:</p>
+                <ul>
+                  <li>App Settings > Account Management > Delete Account</li>
+                  <li>Or request account deletion through customer support</li>
+                </ul>
+                <div class="warning-box">
+                  <strong>⚠️ Warning:</strong> Account deletion permanently
+                  removes all data and cannot be recovered.
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Contact Information -->
+          <div class="contact-info">
+            <strong>💬 Have additional questions?</strong>
+            <p>
+              If you couldn't find the answer in the FAQ above, please contact
+              our customer support anytime.
+            </p>
+            <p>
+              <strong>Email:</strong> yiyol@yiyol.com<br />
+              <strong>Hours:</strong> Weekdays 09:00 ~ 18:00 (Excluding weekends
+              and holidays)
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      // FAQ Toggle functionality
+      document.querySelectorAll(".faq-question").forEach((question) => {
+        question.addEventListener("click", () => {
+          const answer = question.nextElementSibling;
+          const isActive = question.classList.contains("active");
+
+          // Close all other FAQ items
+          document.querySelectorAll(".faq-question").forEach((q) => {
+            q.classList.remove("active");
+            q.nextElementSibling.classList.remove("active");
+          });
+
+          // Toggle current item
+          if (!isActive) {
+            question.classList.add("active");
+            answer.classList.add("active");
+          }
+        });
+      });
+
+      // Category filtering
+      document.querySelectorAll(".faq-category").forEach((category) => {
+        category.addEventListener("click", () => {
+          const selectedCategory = category.dataset.category;
+
+          // Update active category
+          document.querySelectorAll(".faq-category").forEach((c) => {
+            c.classList.remove("active");
+          });
+          category.classList.add("active");
+
+          // Show/hide sections
+          document.querySelectorAll(".faq-section").forEach((section) => {
+            if (
+              selectedCategory === "all" ||
+              section.dataset.category === selectedCategory
+            ) {
+              section.style.display = "block";
+            } else {
+              section.style.display = "none";
+            }
+          });
+        });
+      });
+
+      // Search functionality
+      const searchInput = document.getElementById("searchInput");
+      searchInput.addEventListener("input", (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        const faqItems = document.querySelectorAll(".faq-item");
+
+        faqItems.forEach((item) => {
+          const question = item
+            .querySelector(".faq-question span")
+            .textContent.toLowerCase();
+          const answer = item
+            .querySelector(".faq-answer")
+            .textContent.toLowerCase();
+
+          if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+            item.style.display = "block";
+            item.parentElement.style.display = "block";
+          } else {
+            item.style.display = "none";
+          }
+        });
+
+        // Hide empty sections
+        document.querySelectorAll(".faq-section").forEach((section) => {
+          const visibleItems = section.querySelectorAll(
+            '.faq-item[style*="block"]'
+          );
+          if (visibleItems.length === 0 && searchTerm !== "") {
+            section.style.display = "none";
+          } else if (searchTerm === "") {
+            section.style.display = "block";
+          }
+        });
+      });
+
+      // Smooth scrolling for internal links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Privacy Policy - TouchDown Alarm</title>
+    <meta name="description" content="TouchDown Alarm Privacy Policy - YIYOL" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./favicon.png" />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary-color: #2563eb;
+        --primary-dark: #1d4ed8;
+        --text-primary: #1e293b;
+        --text-secondary: #64748b;
+        --bg-primary: #ffffff;
+        --bg-secondary: #f8fafc;
+        --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        --border-color: #e2e8f0;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+          "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.7;
+        color: var(--text-primary);
+        background-color: var(--bg-secondary);
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header */
+      .header {
+        background: var(--bg-primary);
+        box-shadow: var(--shadow-light);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.95);
+      }
+
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        text-decoration: none;
+      }
+
+      .logo-icon {
+        width: 32px;
+        height: 32px;
+        background: var(--bg-gradient);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+      }
+
+      .back-btn {
+        background: var(--primary-color);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-light);
+      }
+
+      .back-btn:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-medium);
+      }
+
+      /* Main Content */
+      .main-content {
+        margin-top: 100px;
+        padding: 2rem 0 4rem;
+      }
+
+      .document-container {
+        background: white;
+        border-radius: 16px;
+        box-shadow: var(--shadow-light);
+        padding: 3rem;
+        margin-bottom: 2rem;
+      }
+
+      .document-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      .document-subtitle {
+        text-align: center;
+        font-size: 1.2rem;
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+      }
+
+      .effective-date {
+        text-align: center;
+        font-size: 1rem;
+        color: var(--text-secondary);
+        margin-bottom: 3rem;
+        padding: 1rem;
+        background: var(--bg-secondary);
+        border-radius: 8px;
+      }
+
+      /* Table of Contents */
+      .toc {
+        background: var(--bg-secondary);
+        padding: 2rem;
+        border-radius: 12px;
+        margin-bottom: 3rem;
+      }
+
+      .toc h3 {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+      }
+
+      .toc ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .toc li {
+        margin-bottom: 0.5rem;
+      }
+
+      .toc a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 500;
+        padding: 0.5rem 0;
+        display: block;
+        transition: color 0.3s ease;
+      }
+
+      .toc a:hover {
+        color: var(--primary-dark);
+      }
+
+      /* Article sections */
+      .article {
+        margin-bottom: 3rem;
+      }
+
+      .article h2 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid var(--border-color);
+      }
+
+      .article h3 {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin: 2rem 0 1rem;
+      }
+
+      .article h4 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin: 1.5rem 0 1rem;
+      }
+
+      .article p {
+        margin-bottom: 1.5rem;
+        text-align: justify;
+      }
+
+      .article ul,
+      .article ol {
+        margin: 1rem 0 1.5rem 2rem;
+      }
+
+      .article li {
+        margin-bottom: 0.5rem;
+      }
+
+      .article strong {
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+
+      /* Special sections */
+      .highlight-box {
+        background: rgba(37, 99, 235, 0.05);
+        border: 1px solid rgba(37, 99, 235, 0.2);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+      }
+
+      .contact-info {
+        background: var(--bg-secondary);
+        padding: 1.5rem;
+        border-radius: 12px;
+        margin: 1.5rem 0;
+      }
+
+      .contact-info strong {
+        color: var(--primary-color);
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .container {
+          padding: 0 15px;
+        }
+
+        .document-container {
+          padding: 2rem 1.5rem;
+        }
+
+        .document-title {
+          font-size: 2rem;
+        }
+
+        .nav {
+          padding-left: 15px;
+          padding-right: 15px;
+        }
+
+        .logo {
+          font-size: 1.3rem;
+        }
+
+        .back-btn {
+          padding: 0.5rem 1rem;
+          font-size: 0.9rem;
+        }
+
+        .article ul,
+        .article ol {
+          margin-left: 1.5rem;
+        }
+      }
+
+      /* Smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Print styles */
+      @media print {
+        .header,
+        .back-btn {
+          display: none;
+        }
+
+        .main-content {
+          margin-top: 0;
+        }
+
+        .document-container {
+          box-shadow: none;
+          border: 1px solid var(--border-color);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <nav class="nav">
+        <a href="index.html" class="logo">
+          <div class="logo-icon">🎯</div>
+          TouchDown Alarm
+        </a>
+        <a href="index.html" class="back-btn">← Back to Home</a>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="container">
+        <div class="document-container">
+          <h1 class="document-title">Privacy Policy</h1>
+          <p class="document-subtitle">TouchDown Alarm App Privacy Policy</p>
+
+          <div class="effective-date">
+            <strong>Effective Date:</strong> June 23, 2025
+          </div>
+
+          <!-- Table of Contents -->
+          <div class="toc">
+            <h3>Table of Contents</h3>
+            <ul>
+              <li>
+                <a href="#article1"
+                  >Article 1. Purpose of Personal Information Processing</a
+                >
+              </li>
+              <li>
+                <a href="#article2"
+                  >Article 2. Items of Personal Information Collected</a
+                >
+              </li>
+              <li>
+                <a href="#article3"
+                  >Article 3. Period of Personal Information Processing and
+                  Retention</a
+                >
+              </li>
+              <li>
+                <a href="#article4"
+                  >Article 4. Processing of Location Information</a
+                >
+              </li>
+              <li>
+                <a href="#article5"
+                  >Article 5. Provision of Personal Information to Third
+                  Parties</a
+                >
+              </li>
+              <li>
+                <a href="#article6"
+                  >Article 6. Consignment of Personal Information Processing</a
+                >
+              </li>
+              <li>
+                <a href="#article7"
+                  >Article 7. Rights and Obligations of Data Subjects</a
+                >
+              </li>
+              <li>
+                <a href="#article8"
+                  >Article 8. Destruction of Personal Information</a
+                >
+              </li>
+              <li>
+                <a href="#article9"
+                  >Article 9. Measures to Ensure Security of Personal
+                  Information</a
+                >
+              </li>
+              <li>
+                <a href="#article10"
+                  >Article 10. Personal Information Protection Officer</a
+                >
+              </li>
+              <li>
+                <a href="#article11">Article 11. Changes to Privacy Policy</a>
+              </li>
+              <li>
+                <a href="#article12"
+                  >Article 12. Remedies for Rights Violations</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Article 1 -->
+          <article id="article1" class="article">
+            <h2>Article 1. Purpose of Personal Information Processing</h2>
+            <p>
+              YIYOL (hereinafter referred to as "Company") processes personal
+              information for the following purposes. The processed personal
+              information will not be used for purposes other than those stated
+              below, and prior consent will be obtained when the purpose of use
+              changes.
+            </p>
+            <ul>
+              <li>Service provision and improvement</li>
+              <li>User authentication and identity verification</li>
+              <li>Location-based alarm service provision</li>
+              <li>Customer support and inquiry response</li>
+              <li>Service usage statistics and analysis</li>
+              <li>Notification of important matters</li>
+            </ul>
+          </article>
+
+          <!-- Article 2 -->
+          <article id="article2" class="article">
+            <h2>Article 2. Items of Personal Information Collected</h2>
+            <p>The Company collects the following personal information:</p>
+            <h3>
+              2.1 Information Collected During Service Registration and Use
+            </h3>
+            <ul>
+              <li>
+                <strong>Required Information:</strong> Device identifier, app
+                usage data
+              </li>
+              <li>
+                <strong>Optional Information:</strong> Email address (for
+                customer support)
+              </li>
+            </ul>
+            <h3>2.2 Information Automatically Collected During Service Use</h3>
+            <ul>
+              <li>Device information (model, OS version, app version)</li>
+              <li>
+                Location information (GPS coordinates, for alarm functionality
+                only)
+              </li>
+              <li>App usage patterns and settings</li>
+              <li>Crash reports and error logs</li>
+            </ul>
+          </article>
+
+          <!-- Article 3 -->
+          <article id="article3" class="article">
+            <h2>
+              Article 3. Period of Personal Information Processing and Retention
+            </h2>
+            <p>
+              The Company processes and retains personal information within the
+              period of personal information retention/use agreed upon when
+              collecting personal information from data subjects or within the
+              period prescribed by law.
+            </p>
+            <h3>3.1 General Personal Information</h3>
+            <ul>
+              <li>
+                <strong>Retention Period:</strong> Until user requests deletion
+                or app uninstallation
+              </li>
+              <li>
+                <strong>Processing Period:</strong> During service use period
+              </li>
+            </ul>
+            <h3>3.2 Location Information</h3>
+            <ul>
+              <li>
+                <strong>Retention Period:</strong> Immediately deleted after use
+              </li>
+              <li>
+                <strong>Processing Period:</strong> Only during alarm operation
+              </li>
+            </ul>
+          </article>
+
+          <!-- Article 4 -->
+          <article id="article4" class="article">
+            <h2>Article 4. Processing of Location Information</h2>
+            <div class="highlight-box">
+              <strong>Important:</strong> TouchDown Alarm is a location-based
+              service that requires location information processing.
+            </div>
+            <h3>4.1 Purpose of Location Information Collection</h3>
+            <ul>
+              <li>
+                Verification of arrival at destination for alarm dismissal
+              </li>
+              <li>
+                Distance calculation between current location and destination
+              </li>
+              <li>Location-based alarm service provision</li>
+            </ul>
+            <h3>4.2 Location Information Collection Method</h3>
+            <ul>
+              <li>GPS-based location collection</li>
+              <li>Network-based location collection (Wi-Fi, cellular)</li>
+              <li>Collection only when app is in use</li>
+            </ul>
+            <h3>4.3 Location Information Protection Measures</h3>
+            <ul>
+              <li>Location information is used only for alarm functionality</li>
+              <li>Immediate deletion after collection purpose is achieved</li>
+              <li>No storage on external servers</li>
+              <li>No sharing with third parties</li>
+            </ul>
+          </article>
+
+          <!-- Article 5 -->
+          <article id="article5" class="article">
+            <h2>
+              Article 5. Provision of Personal Information to Third Parties
+            </h2>
+            <p>
+              The Company does not provide users' personal information to third
+              parties except in the following cases:
+            </p>
+            <ul>
+              <li>When users have given prior consent</li>
+              <li>When required by special provisions of law</li>
+              <li>
+                When necessary for investigation by investigative agencies
+                according to legal procedures
+              </li>
+            </ul>
+            <p>
+              <strong>Note:</strong> The Company does not provide location
+              information to any third parties under any circumstances.
+            </p>
+          </article>
+
+          <!-- Article 6 -->
+          <article id="article6" class="article">
+            <h2>Article 6. Consignment of Personal Information Processing</h2>
+            <p>
+              The Company consigns personal information processing operations to
+              the following companies for smooth service provision:
+            </p>
+            <h3>6.1 Current Consignment Status</h3>
+            <ul>
+              <li>
+                <strong>Google (Firebase):</strong> App analytics and crash
+                reporting
+              </li>
+              <li>
+                <strong>Apple (App Store Connect):</strong> iOS app distribution
+                and analytics
+              </li>
+            </ul>
+            <h3>6.2 Consignment Management</h3>
+            <ul>
+              <li>
+                Strict supervision of consignees' personal information
+                processing
+              </li>
+              <li>Contractual obligations for information security</li>
+              <li>Regular monitoring and inspection</li>
+            </ul>
+          </article>
+
+          <!-- Article 7 -->
+          <article id="article7" class="article">
+            <h2>Article 7. Rights and Obligations of Data Subjects</h2>
+            <p>
+              Data subjects may exercise the following rights regarding personal
+              information processing:
+            </p>
+            <h3>7.1 Rights of Data Subjects</h3>
+            <ul>
+              <li>Right to request access to personal information</li>
+              <li>Right to request correction or deletion</li>
+              <li>Right to request suspension of processing</li>
+              <li>Right to withdraw consent</li>
+            </ul>
+            <h3>7.2 Exercise of Rights</h3>
+            <ul>
+              <li>
+                Requests can be made through app settings or customer support
+              </li>
+              <li>Identity verification may be required</li>
+              <li>Response within 10 days of request</li>
+            </ul>
+          </article>
+
+          <!-- Article 8 -->
+          <article id="article8" class="article">
+            <h2>Article 8. Destruction of Personal Information</h2>
+            <p>
+              The Company destroys personal information without delay when it
+              becomes unnecessary due to expiration of the personal information
+              retention period or achievement of processing purposes.
+            </p>
+            <h3>8.1 Destruction Procedure</h3>
+            <ul>
+              <li>
+                Information is moved to a separate database after retention
+                period expires
+              </li>
+              <li>Destruction is performed after internal approval process</li>
+              <li>Complete and irreversible destruction</li>
+            </ul>
+            <h3>8.2 Destruction Method</h3>
+            <ul>
+              <li>
+                <strong>Electronic files:</strong> Technical methods that make
+                recovery impossible
+              </li>
+              <li>
+                <strong>Printed materials:</strong> Shredding or incineration
+              </li>
+            </ul>
+          </article>
+
+          <!-- Article 9 -->
+          <article id="article9" class="article">
+            <h2>
+              Article 9. Measures to Ensure Security of Personal Information
+            </h2>
+            <p>
+              The Company implements the following technical and administrative
+              measures to ensure the security of personal information:
+            </p>
+            <h3>9.1 Technical Measures</h3>
+            <ul>
+              <li>Data encryption (AES-256)</li>
+              <li>Secure data transmission (HTTPS/TLS)</li>
+              <li>Access control and authentication systems</li>
+              <li>Regular security updates and patches</li>
+            </ul>
+            <h3>9.2 Administrative Measures</h3>
+            <ul>
+              <li>Designation of personal information protection officer</li>
+              <li>Regular employee training on information security</li>
+              <li>Access control to personal information processing systems</li>
+              <li>Regular security audits and assessments</li>
+            </ul>
+          </article>
+
+          <!-- Article 10 -->
+          <article id="article10" class="article">
+            <h2>Article 10. Personal Information Protection Officer</h2>
+            <p>
+              The Company has designated a Personal Information Protection
+              Officer responsible for overall personal information processing
+              and handling data subject complaints:
+            </p>
+            <div class="contact-info">
+              <strong>Personal Information Protection Officer</strong>
+              <p>
+                <strong>Name:</strong> CEO<br />
+                <strong>Email:</strong> yiyol@yiyol.com<br />
+                <strong>Response Time:</strong> Within 3 business days
+              </p>
+            </div>
+          </article>
+
+          <!-- Article 11 -->
+          <article id="article11" class="article">
+            <h2>Article 11. Changes to Privacy Policy</h2>
+            <p>
+              This Privacy Policy may be amended according to changes in
+              government policies or security technology. When amendments are
+              made, the Company will announce the changes through the app or
+              website.
+            </p>
+            <ul>
+              <li>
+                Notice of changes will be provided at least 7 days in advance
+              </li>
+              <li>Significant changes will require user consent</li>
+              <li>Previous versions will be archived for reference</li>
+            </ul>
+          </article>
+
+          <!-- Article 12 -->
+          <article id="article12" class="article">
+            <h2>Article 12. Remedies for Rights Violations</h2>
+            <p>
+              Data subjects may apply for dispute resolution or consultation
+              regarding personal information infringement to the following
+              organizations:
+            </p>
+            <h3>12.1 Personal Information Dispute Mediation Committee</h3>
+            <ul>
+              <li><strong>Website:</strong> www.kopico.go.kr</li>
+              <li><strong>Phone:</strong> 1833-6972</li>
+            </ul>
+            <h3>12.2 Personal Information Infringement Report Center</h3>
+            <ul>
+              <li><strong>Website:</strong> privacy.go.kr</li>
+              <li><strong>Phone:</strong> 02-2100-2500</li>
+            </ul>
+            <h3>
+              12.3 Supreme Prosecutors' Office Cybercrime Investigation Unit
+            </h3>
+            <ul>
+              <li><strong>Website:</strong> www.spo.go.kr</li>
+              <li><strong>Phone:</strong> 02-3480-2000</li>
+            </ul>
+            <h3>12.4 National Police Agency Cyber Safety Bureau</h3>
+            <ul>
+              <li><strong>Website:</strong> cyberbureau.police.go.kr</li>
+              <li><strong>Phone:</strong> 182</li>
+            </ul>
+          </article>
+
+          <div class="effective-date" style="margin-top: 3rem">
+            <p>
+              <strong>Company:</strong> YIYOL<br />
+              <strong>Email:</strong> yiyol@yiyol.com<br />
+              <strong
+                >This Privacy Policy is effective from June 23, 2025.</strong
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      // Smooth scrolling for table of contents links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

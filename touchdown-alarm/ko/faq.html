@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>자주 묻는 질문 - 터치다운 알람</title>
+    <meta
+      name="description"
+      content="터치다운 알람 자주 묻는 질문 - 이욜(YIYOL)"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./favicon.png" />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary-color: #2563eb;
+        --primary-dark: #1d4ed8;
+        --text-primary: #1e293b;
+        --text-secondary: #64748b;
+        --bg-primary: #ffffff;
+        --bg-secondary: #f8fafc;
+        --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        --border-color: #e2e8f0;
+        --success-color: #10b981;
+        --warning-color: #f59e0b;
+        --danger-color: #ef4444;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+          "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.7;
+        color: var(--text-primary);
+        background-color: var(--bg-secondary);
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header */
+      .header {
+        background: var(--bg-primary);
+        box-shadow: var(--shadow-light);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.95);
+      }
+
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        text-decoration: none;
+      }
+
+      .logo-icon {
+        width: 32px;
+        height: 32px;
+        background: var(--bg-gradient);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+      }
+
+      .back-btn {
+        background: var(--primary-color);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-light);
+      }
+
+      .back-btn:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-medium);
+      }
+
+      /* Main Content */
+      .main-content {
+        margin-top: 100px;
+        padding: 2rem 0 4rem;
+      }
+
+      .document-container {
+        background: white;
+        border-radius: 16px;
+        box-shadow: var(--shadow-light);
+        padding: 3rem;
+        margin-bottom: 2rem;
+      }
+
+      .document-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      .document-subtitle {
+        text-align: center;
+        font-size: 1.2rem;
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+      }
+
+      /* FAQ Categories */
+      .faq-categories {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 3rem;
+      }
+
+      .faq-category {
+        background: var(--bg-secondary);
+        border-radius: 12px;
+        padding: 1rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+      }
+
+      .faq-category:hover,
+      .faq-category.active {
+        background: var(--primary-color);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-light);
+      }
+
+      .faq-category-icon {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+
+      .faq-category-title {
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+
+      /* FAQ Items */
+      .faq-section {
+        margin-bottom: 2rem;
+      }
+
+      .faq-section-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid var(--border-color);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .faq-item {
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        margin-bottom: 1rem;
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .faq-item:hover {
+        box-shadow: var(--shadow-light);
+      }
+
+      .faq-question {
+        padding: 1.5rem;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 600;
+        color: var(--text-primary);
+        background: var(--bg-secondary);
+        transition: all 0.3s ease;
+      }
+
+      .faq-question:hover {
+        background: rgba(37, 99, 235, 0.05);
+      }
+
+      .faq-question.active {
+        background: var(--primary-color);
+        color: white;
+      }
+
+      .faq-toggle {
+        font-size: 1.2rem;
+        transition: transform 0.3s ease;
+      }
+
+      .faq-question.active .faq-toggle {
+        transform: rotate(180deg);
+      }
+
+      .faq-answer {
+        padding: 0 1.5rem;
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        background: white;
+      }
+
+      .faq-answer.active {
+        padding: 1.5rem;
+        max-height: 500px;
+      }
+
+      .faq-answer p {
+        margin-bottom: 1rem;
+      }
+
+      .faq-answer ul {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .faq-answer li {
+        margin-bottom: 0.5rem;
+        padding-left: 1.5rem;
+        position: relative;
+      }
+
+      .faq-answer li::before {
+        content: "•";
+        color: var(--primary-color);
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+      }
+
+      /* Highlight boxes */
+      .highlight-box {
+        background: rgba(37, 99, 235, 0.05);
+        border: 1px solid rgba(37, 99, 235, 0.2);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+      }
+
+      .success-box {
+        background: rgba(16, 185, 129, 0.05);
+        border: 1px solid rgba(16, 185, 129, 0.2);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+      }
+
+      .warning-box {
+        background: rgba(245, 158, 11, 0.05);
+        border: 1px solid rgba(245, 158, 11, 0.2);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+      }
+
+      .contact-info {
+        background: var(--bg-secondary);
+        padding: 1.5rem;
+        border-radius: 12px;
+        margin: 1.5rem 0;
+        text-align: center;
+      }
+
+      .contact-info strong {
+        color: var(--primary-color);
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      /* Search Box */
+      .search-container {
+        margin-bottom: 2rem;
+      }
+
+      .search-box {
+        width: 100%;
+        padding: 1rem 1.5rem;
+        border: 2px solid var(--border-color);
+        border-radius: 12px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .search-box:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .container {
+          padding: 0 15px;
+        }
+
+        .document-container {
+          padding: 2rem 1.5rem;
+        }
+
+        .document-title {
+          font-size: 2rem;
+        }
+
+        .nav {
+          padding-left: 15px;
+          padding-right: 15px;
+        }
+
+        .logo {
+          font-size: 1.3rem;
+        }
+
+        .back-btn {
+          padding: 0.5rem 1rem;
+          font-size: 0.9rem;
+        }
+
+        .faq-categories {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      /* Smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Print styles */
+      @media print {
+        .header,
+        .back-btn,
+        .search-container,
+        .faq-categories {
+          display: none;
+        }
+
+        .main-content {
+          margin-top: 0;
+        }
+
+        .document-container {
+          box-shadow: none;
+          border: 1px solid var(--border-color);
+        }
+
+        .faq-answer {
+          max-height: none !important;
+          padding: 1rem 1.5rem !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <nav class="nav">
+        <a href="index.html" class="logo">
+          <div class="logo-icon">🎯</div>
+          터치다운 알람
+        </a>
+        <a href="index.html" class="back-btn">← 메인으로</a>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="container">
+        <div class="document-container">
+          <h1 class="document-title">자주 묻는 질문</h1>
+          <p class="document-subtitle">
+            터치다운 알람 사용에 대한 궁금증을 해결해드립니다
+          </p>
+
+          <!-- Search Box -->
+          <div class="search-container">
+            <input
+              type="text"
+              class="search-box"
+              placeholder="🔍 궁금한 내용을 검색해보세요..."
+              id="searchInput"
+            />
+          </div>
+
+          <!-- FAQ Categories -->
+          <div class="faq-categories">
+            <div class="faq-category active" data-category="all">
+              <span class="faq-category-icon">📋</span>
+              <div class="faq-category-title">전체</div>
+            </div>
+            <div class="faq-category" data-category="basic">
+              <span class="faq-category-icon">🎯</span>
+              <div class="faq-category-title">기본 사용법</div>
+            </div>
+            <div class="faq-category" data-category="location">
+              <span class="faq-category-icon">📍</span>
+              <div class="faq-category-title">위치 서비스</div>
+            </div>
+            <div class="faq-category" data-category="alarm">
+              <span class="faq-category-icon">⏰</span>
+              <div class="faq-category-title">알람 설정</div>
+            </div>
+            <div class="faq-category" data-category="troubleshoot">
+              <span class="faq-category-icon">🔧</span>
+              <div class="faq-category-title">문제 해결</div>
+            </div>
+            <div class="faq-category" data-category="account">
+              <span class="faq-category-icon">👤</span>
+              <div class="faq-category-title">계정 관리</div>
+            </div>
+          </div>
+
+          <!-- FAQ Sections -->
+
+          <!-- Basic Usage -->
+          <section class="faq-section" data-category="basic">
+            <h2 class="faq-section-title"><span>🎯</span> 기본 사용법</h2>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>터치다운 알람이 무엇인가요?</span>
+                <span class="faq-toggle">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  터치다운 알람은 설정한 목적지에 도착해야만 알람이 꺼지는
+                  혁신적인 알람 앱입니다.
+                </p>
+                <p>주요 특징:</p>
+                <ul>
+                  <li>위치 기반 알람 해제 시스템</li>
+                  <li>5단계 난이도 설정</li>
+                  <li>게임화된 동기부여 시스템</li>
+                  <li>상세한 통계 및 분석</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>어떻게 알람을 설정하나요?</span>
+                <span class="faq-toggle">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p>알람 설정은 매우 간단합니다:</p>
+                <ul>
+                  <li>앱을 열고 '새 알람' 버튼을 터치</li>
+                  <li>원하는 시간 설정</li>
+                  <li>목적지 위치 선택 (지도에서 직접 선택 가능)</li>
+                  <li>난이도 선택 (매우 쉬움 ~ 매우 어려움)</li>
+                  <li>알람음 선택</li>
+                  <li>'저장' 버튼으로 완료</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>난이도 시스템은 어떻게 작동하나요?</span>
+                <span class="faq-toggle">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  5단계 난이도 시스템으로 자신에게 맞는 강도를 선택할 수
+                  있습니다:
+                </p>
+                <ul>
+                  <li><strong>매우 쉬움:</strong> 성공 +10점 / 실패 -5점</li>
+                  <li><strong>쉬움:</strong> 성공 +20점 / 실패 -10점</li>
+                  <li><strong>보통:</strong> 성공 +30점 / 실패 -20점</li>
+                  <li><strong>어려움:</strong> 성공 +50점 / 실패 -40점</li>
+                  <li><strong>매우 어려움:</strong> 성공 +80점 / 실패 -80점</li>
+                </ul>
+                <p>높은 난이도일수록 더 많은 포인트를 획득할 수 있습니다.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Location Services -->
+          <section class="faq-section" data-category="location">
+            <h2 class="faq-section-title"><span>📍</span> 위치 서비스</h2>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>위치 권한을 허용해야 하나요?</span>
+                <span class="faq-toggle">▼</span>
+              </div>
+              <div class="faq-answer">
+                <div class="highlight-box">
+                  <strong>⚠️ 중요:</strong> 터치다운 알람의 핵심 기능을 위해
+                  위치 권한이 반드시 필요합니다.
+                </div>
+                <p>위치 권한이 필요한 이유:</p>
+                <ul>
+                  <li>목적지 도착 확인을 위한 현재 위치 파악</li>
+                  <li>알람 해제 조건 판단</li>
+                  <li>정확한 거리 계산</li>
+                </ul>
+                <p>
+                  위치 정보는 알람 기능에만 사용되며, 수집 목적 달성 후 즉시
+                  삭제됩니다.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>GPS가 정확하지 않을 때는 어떻게 하나요?</span>
+                <span class="faq-toggle">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p>GPS 정확도를 높이는 방법:</p>
+                <ul>
+                  <li>Wi-Fi 및 블루투스 활성화 (위치 정확도 향상)</li>
+                  <li>실외에서 사용 (GPS 신호 수신 개선)</li>
+                  <li>위치 서비스 '정확도 높음' 설정</li>
+                  <li>앱의 위치 권한을 '항상 허용'으로 설정</li>
+                </ul>
+                <div class="warning-box">
+                  <strong>📱 팁:</strong> 실내나 지하에서는 GPS 정확도가 떨어질
+                  수 있습니다. 가능한 실외 목적지를 설정하세요.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>목적지까지의 거리는 어떻게 계산되나요?</span>
+                <span class="faq-toggle">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p>거리 계산 방식:</p>
+                <ul>
+                  <li>GPS 좌표를 기반으로 한 직선 거리 계산</li>
+                  <li>실시간 위치 업데이트</li>
+                  <li>목적지 반경 내 도착 시 알람 해제</li>
+                </ul>
+                <p>기본 도착 반경은 50m이며, 설정에서 조정할 수 있습니다.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Alarm Settings -->
+          <section class="faq-section" data-category="alarm">
+            <h2 class="faq-section-title"><span>⏰</span> 알람 설정</h2>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>알람이 울리지 않아요. 어떻게 해야 하나요?</span>
+                <span class="faq-toggle">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p>알람이 울리지 않는 경우 확인사항:</p>
+                <ul>
+                  <li>기기의 볼륨이 충분히 큰지 확인</li>
+                  <li>무음 모드가 해제되어 있는지 확인</li>
+                  <li>앱의 알림 권한이 허용되어 있는지 확인</li>
+                  <li>배터리 최적화에서 앱을 제외 설정</li>
+                  <li>백그라운드 앱 새로고침 허용</li>
+                </ul>
+                <div class="warning-box">
+                  <strong>🔋 중요:</strong> 일부 안드로이드 기기에서는 배터리
+                  절약을 위해 백그라운드 앱을 제한할 수 있습니다. 설정에서
+                  터치다운 알람을 제외해주세요.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>알람음을 바꿀 수 있나요?</span>
+                <span class="faq-toggle">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p>다양한 알람음을 제공합니다:</p>
+                <ul>
+                  <li>기본 알람음 (마림바, 모차르트, 노키아 등)</li>
+                  <li>특별 알람음 (원피스, 스타워즈 테마)</li>
+                  <li>기기의 기본 알람음 사용 가능</li>
+                </ul>
+                <p>알람 설정 시 또는 설정 메뉴에서 변경할 수 있습니다.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>반복 알람을 설정할 수 있나요?</span>
+                <span class="faq-toggle">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p>네, 다양한 반복 옵션을 제공합니다:</p>
+                <ul>
+                  <li>매일 반복</li>
+                  <li>평일만 (월~금)</li>
+                  <li>주말만 (토~일)</li>
+                  <li>특정 요일 선택</li>
+                  <li>일회성 알람</li>
+                </ul>
+                <p>알람 설정 시 반복 옵션을 선택하면 됩니다.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Troubleshooting -->
+          <section class="faq-section" data-category="troubleshoot">
+            <h2 class="faq-section-title"><span>🔧</span> 문제 해결</h2>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>앱이 자주 종료되거나 느려요.</span>
+                <span class="faq-toggle">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p>앱 성능 개선 방법:</p>
+                <ul>
+                  <li>앱을 완전히 종료 후 재시작</li>
+                  <li>기기 재부팅</li>
+                  <li>앱 업데이트 확인</li>
+                  <li>기기 저장공간 확보</li>
+                  <li>백그라운드에서 실행 중인 다른 앱 종료</li>
+                </ul>
+                <p>문제가 지속되면 고객센터로 문의해주세요.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>알람이 목적지에 도착했는데도 꺼지지 않아요.</span>
+                <span class="faq-toggle">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p>이런 경우를 확인해보세요:</p>
+                <ul>
+                  <li>GPS 신호가 약한 곳 (실내, 지하)</li>
+                  <li>목적지 설정이 정확한지 확인</li>
+                  <li>도착 반경 설정 확인 (설정에서 조정 가능)</li>
+                  <li>위치 서비스가 활성화되어 있는지 확인</li>
+                </ul>
+                <div class="success-box">
+                  <strong>💡 해결책:</strong> 설정에서 도착 반경을 100m로
+                  늘려보거나, 실외에서 잠시 대기해보세요.
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>데이터가 사라졌어요. 복구할 수 있나요?</span>
+                <span class="faq-toggle">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p>데이터 복구 방법:</p>
+                <ul>
+                  <li>앱 재시작 후 자동 동기화 확인</li>
+                  <li>구글/애플 계정 로그인 상태 확인</li>
+                  <li>클라우드 백업에서 복원</li>
+                </ul>
+                <div class="warning-box">
+                  <strong>⚠️ 주의:</strong> 앱을 삭제하거나 초기화하면 로컬
+                  데이터가 삭제될 수 있습니다. 정기적으로 백업하세요.
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Account Management -->
+          <section class="faq-section" data-category="account">
+            <h2 class="faq-section-title"><span>👤</span> 계정 관리</h2>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>프리미엄 구독은 어떤 혜택이 있나요?</span>
+                <span class="faq-toggle">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p>프리미엄 구독 혜택:</p>
+                <ul>
+                  <li>무제한 알람 설정 (무료: 3개 제한)</li>
+                  <li>광고 제거</li>
+                  <li>상세한 통계 및 분석</li>
+                  <li>프리미엄 알람음</li>
+                  <li>우선 고객지원</li>
+                </ul>
+                <p>월간 구독과 연간 구독 중 선택할 수 있습니다.</p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>구독을 취소하려면 어떻게 해야 하나요?</span>
+                <span class="faq-toggle">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p>구독 취소 방법:</p>
+                <ul>
+                  <li>
+                    <strong>iOS:</strong> 설정 > Apple ID > 구독 > 터치다운 알람
+                    > 구독 취소
+                  </li>
+                  <li>
+                    <strong>Android:</strong> Google Play 스토어 > 계정 > 구독 >
+                    터치다운 알람 > 취소
+                  </li>
+                </ul>
+                <p>
+                  구독 취소 후에도 현재 결제 주기 종료까지는 프리미엄 기능을
+                  사용할 수 있습니다.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-item">
+              <div class="faq-question">
+                <span>계정을 삭제하고 싶어요.</span>
+                <span class="faq-toggle">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p>계정 삭제 절차:</p>
+                <ul>
+                  <li>앱 설정 > 계정 관리 > 계정 삭제</li>
+                  <li>또는 고객센터로 계정 삭제 요청</li>
+                </ul>
+                <div class="warning-box">
+                  <strong>⚠️ 주의:</strong> 계정 삭제 시 모든 데이터가
+                  영구적으로 삭제되며 복구할 수 없습니다.
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Contact Information -->
+          <div class="contact-info">
+            <strong>💬 추가 문의사항이 있으신가요?</strong>
+            <p>
+              위의 FAQ에서 답을 찾지 못하셨다면 언제든지 고객센터로
+              문의해주세요.
+            </p>
+            <p>
+              <strong>이메일:</strong> yiyol@yiyol.com<br />
+              <strong>운영시간:</strong> 평일 09:00 ~ 18:00 (주말, 공휴일 제외)
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      // FAQ Toggle functionality
+      document.querySelectorAll(".faq-question").forEach((question) => {
+        question.addEventListener("click", () => {
+          const answer = question.nextElementSibling;
+          const isActive = question.classList.contains("active");
+
+          // Close all other FAQ items
+          document.querySelectorAll(".faq-question").forEach((q) => {
+            q.classList.remove("active");
+            q.nextElementSibling.classList.remove("active");
+          });
+
+          // Toggle current item
+          if (!isActive) {
+            question.classList.add("active");
+            answer.classList.add("active");
+          }
+        });
+      });
+
+      // Category filtering
+      document.querySelectorAll(".faq-category").forEach((category) => {
+        category.addEventListener("click", () => {
+          const selectedCategory = category.dataset.category;
+
+          // Update active category
+          document.querySelectorAll(".faq-category").forEach((c) => {
+            c.classList.remove("active");
+          });
+          category.classList.add("active");
+
+          // Show/hide sections
+          document.querySelectorAll(".faq-section").forEach((section) => {
+            if (
+              selectedCategory === "all" ||
+              section.dataset.category === selectedCategory
+            ) {
+              section.style.display = "block";
+            } else {
+              section.style.display = "none";
+            }
+          });
+        });
+      });
+
+      // Search functionality
+      const searchInput = document.getElementById("searchInput");
+      searchInput.addEventListener("input", (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        const faqItems = document.querySelectorAll(".faq-item");
+
+        faqItems.forEach((item) => {
+          const question = item
+            .querySelector(".faq-question span")
+            .textContent.toLowerCase();
+          const answer = item
+            .querySelector(".faq-answer")
+            .textContent.toLowerCase();
+
+          if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+            item.style.display = "block";
+            item.parentElement.style.display = "block";
+          } else {
+            item.style.display = "none";
+          }
+        });
+
+        // Hide empty sections
+        document.querySelectorAll(".faq-section").forEach((section) => {
+          const visibleItems = section.querySelectorAll(
+            '.faq-item[style*="block"]'
+          );
+          if (visibleItems.length === 0 && searchTerm !== "") {
+            section.style.display = "none";
+          } else if (searchTerm === "") {
+            section.style.display = "block";
+          }
+        });
+      });
+
+      // Smooth scrolling for internal links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
