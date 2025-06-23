@@ -36,14 +36,14 @@
       }
 
       :root {
-        --primary-color: #2563eb;
-        --primary-dark: #1d4ed8;
+        --primary-color: #dc2626;
+        --primary-dark: #b91c1c;
         --secondary-color: #64748b;
         --text-primary: #1e293b;
         --text-secondary: #64748b;
         --bg-primary: #ffffff;
         --bg-secondary: #f8fafc;
-        --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --bg-gradient: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
         --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         --shadow-heavy: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
@@ -96,13 +96,14 @@
       .logo-icon {
         width: 32px;
         height: 32px;
-        background: var(--bg-gradient);
+        background: white;
         border-radius: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
         color: white;
         font-size: 1.2rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
 
       .nav-links {
@@ -211,7 +212,7 @@
       }
 
       .btn-primary {
-        background: white;
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
         color: var(--primary-color);
         padding: 1rem 2rem;
         border-radius: 12px;
@@ -219,15 +220,17 @@
         font-weight: 700;
         font-size: 1.1rem;
         transition: all 0.3s ease;
-        box-shadow: var(--shadow-medium);
+        box-shadow: 0 8px 20px rgba(220, 38, 38, 0.2);
         display: flex;
         align-items: center;
         gap: 0.5rem;
+        border: 1px solid rgba(220, 38, 38, 0.1);
       }
 
       .btn-primary:hover {
         transform: translateY(-3px);
-        box-shadow: var(--shadow-heavy);
+        box-shadow: 0 12px 30px rgba(220, 38, 38, 0.3);
+        background: linear-gradient(135deg, #ffffff 0%, #fef2f2 100%);
       }
 
       .btn-secondary {
@@ -289,13 +292,24 @@
 
       .feature-card:hover {
         transform: translateY(-5px);
-        box-shadow: var(--shadow-medium);
+        box-shadow: 0 15px 30px rgba(220, 38, 38, 0.15);
+        border: 1px solid rgba(220, 38, 38, 0.1);
+      }
+
+      .feature-card:hover .feature-icon {
+        transform: scale(1.1);
+        box-shadow: 0 6px 12px rgba(220, 38, 38, 0.4);
       }
 
       .feature-icon {
         width: 60px;
         height: 60px;
-        background: var(--bg-gradient);
+        background: linear-gradient(
+          135deg,
+          #ef4444 0%,
+          #dc2626 50%,
+          #b91c1c 100%
+        );
         border-radius: 12px;
         display: flex;
         align-items: center;
@@ -303,6 +317,8 @@
         color: white;
         font-size: 1.5rem;
         margin-bottom: 1.5rem;
+        box-shadow: 0 4px 8px rgba(220, 38, 38, 0.3);
+        transition: all 0.3s ease;
       }
 
       .feature-title {
@@ -339,7 +355,12 @@
       .step-number {
         width: 50px;
         height: 50px;
-        background: var(--primary-color);
+        background: linear-gradient(
+          135deg,
+          #ef4444 0%,
+          #dc2626 50%,
+          #b91c1c 100%
+        );
         color: white;
         border-radius: 50%;
         display: flex;
@@ -348,7 +369,13 @@
         font-weight: 700;
         font-size: 1.2rem;
         margin: 0 auto 1.5rem;
-        box-shadow: var(--shadow-light);
+        box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+        transition: all 0.3s ease;
+      }
+
+      .step-number:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 16px rgba(220, 38, 38, 0.5);
       }
 
       .step-title {
@@ -611,7 +638,13 @@
       <nav class="container">
         <div class="nav">
           <a href="#" class="logo">
-            <div class="logo-icon">🎯</div>
+            <div class="logo-icon">
+              <img
+                src="../assets/touchdown-alarm-removebg.png"
+                alt="TouchDown Alarm"
+                style="width: 28px; height: 28px; object-fit: contain"
+              />
+            </div>
             TouchDown Alarm
           </a>
           <div class="nav-links">
