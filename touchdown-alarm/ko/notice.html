@@ -520,6 +520,26 @@
     </main>
 
     <script>
+      // Check for headless parameter and hide header if present
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get("headless") === "true") {
+        const header = document.querySelector("header");
+        if (header) {
+          header.style.display = "none";
+        }
+        // Adjust main content to remove top margin and reduce padding
+        const mainContent = document.querySelector(".main-content");
+        if (mainContent) {
+          mainContent.style.marginTop = "0";
+          mainContent.style.paddingTop = "1rem";
+        }
+        // Reduce document container padding
+        const documentContainer = document.querySelector(".document-container");
+        if (documentContainer) {
+          documentContainer.style.paddingTop = "1.5rem";
+        }
+      }
+
       function toggleNotice(header) {
         const noticeItem = header.parentElement;
         const content = noticeItem.querySelector(".notice-content");
