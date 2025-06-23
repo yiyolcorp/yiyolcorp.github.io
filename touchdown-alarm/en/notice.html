@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Announcements - TouchDown Alarm</title>
+    <meta
+      name="description"
+      content="TouchDown Alarm announcements - Check the latest updates and important news"
+    />
+    <meta
+      name="keywords"
+      content="TouchDown Alarm, announcements, updates, launch, YIYOL"
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Announcements - TouchDown Alarm" />
+    <meta
+      property="og:description"
+      content="Check the latest news and updates for TouchDown Alarm"
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/favicon.png" />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary-color: #dc2626;
+        --primary-dark: #b91c1c;
+        --secondary-color: #64748b;
+        --text-primary: #1e293b;
+        --text-secondary: #64748b;
+        --bg-primary: #ffffff;
+        --bg-secondary: #f8fafc;
+        --bg-gradient: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        --shadow-heavy: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        --border-color: #e2e8f0;
+        --success-color: #10b981;
+        --warning-color: #f59e0b;
+        --danger-color: #ef4444;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+          "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.7;
+        color: var(--text-primary);
+        background-color: var(--bg-secondary);
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header */
+      .header {
+        background: var(--bg-primary);
+        box-shadow: var(--shadow-light);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.95);
+      }
+
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        text-decoration: none;
+      }
+
+      .logo-icon {
+        width: 32px;
+        height: 32px;
+        background: white;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .back-btn {
+        background: var(--primary-color);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-light);
+      }
+
+      .back-btn:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-medium);
+      }
+
+      /* Main Content */
+      .main-content {
+        margin-top: 100px;
+        padding: 2rem 0 4rem;
+      }
+
+      .document-container {
+        background: white;
+        border-radius: 16px;
+        box-shadow: var(--shadow-light);
+        padding: 3rem;
+        margin-bottom: 2rem;
+      }
+
+      .document-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      .document-subtitle {
+        text-align: center;
+        font-size: 1.2rem;
+        color: var(--text-secondary);
+        margin-bottom: 3rem;
+      }
+
+      /* Notice Items */
+      .notice-item {
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        margin-bottom: 1.5rem;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-light);
+      }
+
+      .notice-item:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-medium);
+      }
+
+      .notice-header {
+        padding: 1.5rem;
+        background: var(--bg-secondary);
+        border-bottom: 1px solid var(--border-color);
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .notice-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin: 0;
+      }
+
+      .notice-meta {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+      }
+
+      .notice-date {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+      }
+
+      .notice-tag {
+        background: var(--primary-color);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 500;
+      }
+
+      .notice-tag.update {
+        background: var(--success-color);
+      }
+
+      .notice-tag.maintenance {
+        background: var(--warning-color);
+      }
+
+      .notice-content {
+        padding: 1.5rem;
+        border-top: none;
+        display: none;
+      }
+
+      .notice-content.active {
+        display: block;
+      }
+
+      .notice-content p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+
+      .notice-content p:last-child {
+        margin-bottom: 0;
+      }
+
+      .notice-content ul {
+        margin: 1rem 0;
+        padding-left: 1.5rem;
+      }
+
+      .notice-content li {
+        margin-bottom: 0.5rem;
+      }
+
+      .toggle-icon {
+        font-size: 1.2rem;
+        transition: transform 0.3s ease;
+      }
+
+      .notice-item.expanded .toggle-icon {
+        transform: rotate(180deg);
+      }
+
+      .highlight-box {
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        margin: 1.5rem 0;
+        text-align: center;
+      }
+
+      .highlight-box h3 {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .highlight-box p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .container {
+          padding: 0 15px;
+        }
+
+        .document-container {
+          padding: 2rem 1.5rem;
+        }
+
+        .document-title {
+          font-size: 2rem;
+        }
+
+        .notice-header {
+          padding: 1rem;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.5rem;
+        }
+
+        .notice-meta {
+          gap: 0.5rem;
+        }
+
+        .notice-content {
+          padding: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <nav class="container">
+        <div class="nav">
+          <a href="index.html" class="logo">
+            <div class="logo-icon">
+              <img
+                src="../assets/touchdown-alarm-removebg.png"
+                alt="TouchDown Alarm"
+                style="width: 28px; height: 28px; object-fit: contain"
+              />
+            </div>
+            TouchDown Alarm
+          </a>
+          <a href="index.html" class="back-btn">← Back to Home</a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="container">
+        <div class="document-container">
+          <h1 class="document-title">Announcements</h1>
+          <p class="document-subtitle">
+            Stay updated with the latest news and important updates from
+            TouchDown Alarm
+          </p>
+
+          <!-- July 1st Launch Notice -->
+          <div class="notice-item">
+            <div class="notice-header" onclick="toggleNotice(this)">
+              <h2 class="notice-title">
+                🎉 TouchDown Alarm Official Launch Announcement
+              </h2>
+              <div class="notice-meta">
+                <span class="notice-tag">Important</span>
+                <span class="notice-date"> 📅 June 15, 2025 </span>
+                <span class="toggle-icon">▼</span>
+              </div>
+            </div>
+            <div class="notice-content">
+              <div class="highlight-box">
+                <h3>🚀 Official Launch on July 1st, 2025!</h3>
+                <p>TouchDown Alarm is finally coming to Google Play Store</p>
+              </div>
+
+              <p>Hello! This is the YIYOL team developing TouchDown Alarm.</p>
+
+              <p>
+                We are excited to announce that
+                <strong>TouchDown Alarm</strong>, which we have been preparing
+                for a long time, will be officially launched on
+                <strong>July 1st, 2025</strong>! 🎊
+              </p>
+
+              <p>
+                <strong>TouchDown Alarm</strong> is not just a regular
+                time-based alarm. It's an innovative location-based alarm app
+                that only stops when you actually arrive at your target
+                destination.
+              </p>
+
+              <h4>✨ Key Features:</h4>
+              <ul>
+                <li>
+                  <strong>Location-based Alarm</strong> - Alarm only stops when
+                  you reach your destination via GPS
+                </li>
+                <li>
+                  <strong>5-Level Difficulty System</strong> - Choose intensity
+                  that matches your personality
+                </li>
+                <li>
+                  <strong>Gamified Motivation</strong> - Points, combos, and
+                  statistics system
+                </li>
+                <li>
+                  <strong>Smart Notifications</strong> - Departure time alerts
+                  and various alarm sounds
+                </li>
+                <li>
+                  <strong>Privacy Protection</strong> - All data stored locally
+                  on your device
+                </li>
+              </ul>
+
+              <p>
+                TouchDown Alarm will be your reliable companion for all
+                situations where you need to go, whether it's work, exercise, or
+                appointments - even when you
+                <strong>"don't want to go but have to"</strong>.
+              </p>
+
+              <p>
+                We'll share more features and update news along with the July
+                1st launch. Thank you for your interest and anticipation!
+              </p>
+            </div>
+          </div>
+
+          <!-- Beta Test Completion Notice -->
+          <div class="notice-item">
+            <div class="notice-header" onclick="toggleNotice(this)">
+              <h2 class="notice-title">
+                📱 Beta Testing Program Completion Notice
+              </h2>
+              <div class="notice-meta">
+                <span class="notice-tag update">Update</span>
+                <span class="notice-date"> 📅 June 10, 2025 </span>
+                <span class="toggle-icon">▼</span>
+              </div>
+            </div>
+            <div class="notice-content">
+              <p>Hello, this is the TouchDown Alarm development team.</p>
+
+              <p>
+                Our <strong>beta testing program</strong>, which ran for the
+                past 3 months, has been successfully completed.
+              </p>
+
+              <p>
+                We sincerely thank everyone who participated in the beta test.
+                Thanks to your valuable feedback, we were able to develop a more
+                polished app.
+              </p>
+
+              <h4>Beta Test Key Results:</h4>
+              <ul>
+                <li>Total of 1,200 beta testers participated</li>
+                <li>Average user satisfaction rating of 4.7/5.0</li>
+                <li>Over 120 improvements implemented</li>
+                <li>95% improvement in stability</li>
+              </ul>
+
+              <p>
+                All issues discovered during the beta testing period have been
+                resolved, and you'll experience more stable and enhanced
+                features in the official release version.
+              </p>
+            </div>
+          </div>
+
+          <!-- Development Progress Update -->
+          <div class="notice-item">
+            <div class="notice-header" onclick="toggleNotice(this)">
+              <h2 class="notice-title">⚡ Development Progress Update</h2>
+              <div class="notice-meta">
+                <span class="notice-tag update">Development</span>
+                <span class="notice-date"> 📅 June 5, 2025 </span>
+                <span class="toggle-icon">▼</span>
+              </div>
+            </div>
+            <div class="notice-content">
+              <p>
+                We're sharing the latest development progress of TouchDown
+                Alarm.
+              </p>
+
+              <h4>✅ Completed Features:</h4>
+              <ul>
+                <li>Core location-based alarm system</li>
+                <li>5-level difficulty settings</li>
+                <li>User interface optimization</li>
+                <li>Points and statistics system</li>
+                <li>Multi-language support (Korean, English)</li>
+              </ul>
+
+              <h4>🔄 Work in Progress:</h4>
+              <ul>
+                <li>Final performance optimization</li>
+                <li>Google Play Store registration process</li>
+                <li>User guide and help documentation</li>
+                <li>Post-launch support system setup</li>
+              </ul>
+
+              <p>
+                All development work is progressing smoothly as planned, and
+                we're doing our best to ensure the timely launch on July 1st.
+              </p>
+            </div>
+          </div>
+
+          <!-- Future Plans -->
+          <div class="notice-item">
+            <div class="notice-header" onclick="toggleNotice(this)">
+              <h2 class="notice-title">🗺️ Future Update Plans</h2>
+              <div class="notice-meta">
+                <span class="notice-tag">Planning</span>
+                <span class="notice-date"> 📅 June 1, 2025 </span>
+                <span class="toggle-icon">▼</span>
+              </div>
+            </div>
+            <div class="notice-content">
+              <p>Here are our future update plans for TouchDown Alarm.</p>
+
+              <h4>📅 2025 Second Half Update Roadmap:</h4>
+              <ul>
+                <li>
+                  <strong>August</strong> - iOS version release preparation
+                </li>
+                <li>
+                  <strong>September</strong> - Social features (compete and
+                  share with friends)
+                </li>
+                <li>
+                  <strong>October</strong> - Custom alarm sounds and themes
+                </li>
+                <li><strong>November</strong> - Smartwatch integration</li>
+                <li>
+                  <strong>December</strong> - AI-based personalized
+                  recommendation system
+                </li>
+              </ul>
+
+              <p>
+                We will actively incorporate your opinions and requests to
+                continuously develop TouchDown Alarm.
+              </p>
+
+              <p>
+                If you have any questions or suggestions, please feel free to
+                contact us at <strong>yiyol@yiyol.com</strong>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      function toggleNotice(header) {
+        const noticeItem = header.parentElement;
+        const content = noticeItem.querySelector(".notice-content");
+        const isExpanded = noticeItem.classList.contains("expanded");
+
+        // Close all other notices
+        document.querySelectorAll(".notice-item").forEach((item) => {
+          if (item !== noticeItem) {
+            item.classList.remove("expanded");
+            item.querySelector(".notice-content").classList.remove("active");
+          }
+        });
+
+        // Toggle current notice
+        if (isExpanded) {
+          noticeItem.classList.remove("expanded");
+          content.classList.remove("active");
+        } else {
+          noticeItem.classList.add("expanded");
+          content.classList.add("active");
+        }
+      }
+
+      // Close notices when clicking outside
+      document.addEventListener("click", function (event) {
+        if (!event.target.closest(".notice-item")) {
+          document.querySelectorAll(".notice-item").forEach((item) => {
+            item.classList.remove("expanded");
+            item.querySelector(".notice-content").classList.remove("active");
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

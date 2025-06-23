@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>공지사항 - 터치다운 알람</title>
+    <meta
+      name="description"
+      content="터치다운 알람 공지사항 - 최신 업데이트 및 중요 소식을 확인하세요"
+    />
+    <meta
+      name="keywords"
+      content="터치다운 알람, 공지사항, 업데이트, 출시, 이욜"
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="공지사항 - 터치다운 알람" />
+    <meta
+      property="og:description"
+      content="터치다운 알람의 최신 소식과 업데이트를 확인하세요"
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/favicon.png" />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary-color: #dc2626;
+        --primary-dark: #b91c1c;
+        --secondary-color: #64748b;
+        --text-primary: #1e293b;
+        --text-secondary: #64748b;
+        --bg-primary: #ffffff;
+        --bg-secondary: #f8fafc;
+        --bg-gradient: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        --shadow-heavy: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        --border-color: #e2e8f0;
+        --success-color: #10b981;
+        --warning-color: #f59e0b;
+        --danger-color: #ef4444;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+          "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.7;
+        color: var(--text-primary);
+        background-color: var(--bg-secondary);
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header */
+      .header {
+        background: var(--bg-primary);
+        box-shadow: var(--shadow-light);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.95);
+      }
+
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        text-decoration: none;
+      }
+
+      .logo-icon {
+        width: 32px;
+        height: 32px;
+        background: white;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .back-btn {
+        background: var(--primary-color);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-light);
+      }
+
+      .back-btn:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-medium);
+      }
+
+      /* Main Content */
+      .main-content {
+        margin-top: 100px;
+        padding: 2rem 0 4rem;
+      }
+
+      .document-container {
+        background: white;
+        border-radius: 16px;
+        box-shadow: var(--shadow-light);
+        padding: 3rem;
+        margin-bottom: 2rem;
+      }
+
+      .document-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      .document-subtitle {
+        text-align: center;
+        font-size: 1.2rem;
+        color: var(--text-secondary);
+        margin-bottom: 3rem;
+      }
+
+      /* Notice Items */
+      .notice-item {
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        margin-bottom: 1.5rem;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-light);
+      }
+
+      .notice-item:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-medium);
+      }
+
+      .notice-header {
+        padding: 1.5rem;
+        background: var(--bg-secondary);
+        border-bottom: 1px solid var(--border-color);
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .notice-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin: 0;
+      }
+
+      .notice-meta {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+      }
+
+      .notice-date {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+      }
+
+      .notice-tag {
+        background: var(--primary-color);
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 500;
+      }
+
+      .notice-tag.update {
+        background: var(--success-color);
+      }
+
+      .notice-tag.maintenance {
+        background: var(--warning-color);
+      }
+
+      .notice-content {
+        padding: 1.5rem;
+        border-top: none;
+        display: none;
+      }
+
+      .notice-content.active {
+        display: block;
+      }
+
+      .notice-content p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+
+      .notice-content p:last-child {
+        margin-bottom: 0;
+      }
+
+      .notice-content ul {
+        margin: 1rem 0;
+        padding-left: 1.5rem;
+      }
+
+      .notice-content li {
+        margin-bottom: 0.5rem;
+      }
+
+      .toggle-icon {
+        font-size: 1.2rem;
+        transition: transform 0.3s ease;
+      }
+
+      .notice-item.expanded .toggle-icon {
+        transform: rotate(180deg);
+      }
+
+      .highlight-box {
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 12px;
+        margin: 1.5rem 0;
+        text-align: center;
+      }
+
+      .highlight-box h3 {
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .highlight-box p {
+        font-size: 1.1rem;
+        opacity: 0.9;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .container {
+          padding: 0 15px;
+        }
+
+        .document-container {
+          padding: 2rem 1.5rem;
+        }
+
+        .document-title {
+          font-size: 2rem;
+        }
+
+        .notice-header {
+          padding: 1rem;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.5rem;
+        }
+
+        .notice-meta {
+          gap: 0.5rem;
+        }
+
+        .notice-content {
+          padding: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <nav class="container">
+        <div class="nav">
+          <a href="index.html" class="logo">
+            <div class="logo-icon">
+              <img
+                src="../assets/touchdown-alarm-removebg.png"
+                alt="터치다운 알람"
+                style="width: 28px; height: 28px; object-fit: contain"
+              />
+            </div>
+            터치다운 알람
+          </a>
+          <a href="index.html" class="back-btn">← 메인으로</a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="container">
+        <div class="document-container">
+          <h1 class="document-title">공지사항</h1>
+          <p class="document-subtitle">
+            터치다운 알람의 최신 소식과 중요한 업데이트 정보를 확인하세요
+          </p>
+
+          <!-- 7월 1일 출시 공지 -->
+          <div class="notice-item">
+            <div class="notice-header" onclick="toggleNotice(this)">
+              <h2 class="notice-title">🎉 터치다운 알람 공식 출시 예정 안내</h2>
+              <div class="notice-meta">
+                <span class="notice-tag">중요</span>
+                <span class="notice-date"> 📅 2025.06.15 </span>
+                <span class="toggle-icon">▼</span>
+              </div>
+            </div>
+            <div class="notice-content">
+              <div class="highlight-box">
+                <h3>🚀 2025년 7월 1일 정식 출시!</h3>
+                <p>
+                  드디어 터치다운 알람이 Google Play Store에서 만나보실 수
+                  있습니다
+                </p>
+              </div>
+
+              <p>안녕하세요, 터치다운 알람을 개발 중인 이욜(YIYOL) 팀입니다.</p>
+
+              <p>
+                오랜 기간 준비해온 <strong>터치다운 알람</strong>이 드디어
+                <strong>2025년 7월 1일</strong>에 정식 출시됩니다! 🎊
+              </p>
+
+              <p>
+                <strong>터치다운 알람</strong>은 단순히 시간에 맞춰 울리는
+                알람이 아닙니다. 목표 위치에 실제로 도착해야만 멈출 수 있는
+                혁신적인 위치 기반 알람 앱입니다.
+              </p>
+
+              <h4>✨ 주요 기능:</h4>
+              <ul>
+                <li>
+                  <strong>위치 기반 알람</strong> - GPS를 통해 목적지 도착
+                  시에만 알람 해제
+                </li>
+                <li>
+                  <strong>5단계 난이도 시스템</strong> - 개인의 성향에 맞는 강도
+                  선택
+                </li>
+                <li>
+                  <strong>게임화된 동기부여</strong> - 포인트, 콤보, 통계 시스템
+                </li>
+                <li>
+                  <strong>스마트 알림</strong> - 출발 시간 안내 및 다양한 알람음
+                </li>
+                <li>
+                  <strong>개인정보 보호</strong> - 모든 데이터는 기기 내에서만
+                  저장
+                </li>
+              </ul>
+
+              <p>
+                출근, 운동, 약속 등
+                <strong>"가기 싫어도 가야 하는"</strong> 모든 상황에서 여러분의
+                든든한 동반자가 되어드리겠습니다.
+              </p>
+
+              <p>
+                7월 1일 출시와 함께 더 많은 기능과 업데이트 소식을
+                전해드리겠습니다. 많은 관심과 기대 부탁드립니다!
+              </p>
+            </div>
+          </div>
+
+          <!-- 베타 테스트 종료 공지 -->
+          <div class="notice-item">
+            <div class="notice-header" onclick="toggleNotice(this)">
+              <h2 class="notice-title">📱 베타 테스트 프로그램 종료 안내</h2>
+              <div class="notice-meta">
+                <span class="notice-tag update">업데이트</span>
+                <span class="notice-date"> 📅 2025.06.10 </span>
+                <span class="toggle-icon">▼</span>
+              </div>
+            </div>
+            <div class="notice-content">
+              <p>안녕하세요, 터치다운 알람 개발팀입니다.</p>
+
+              <p>
+                지난 3개월간 진행되었던 <strong>베타 테스트 프로그램</strong>이
+                성공적으로 마무리되었습니다.
+              </p>
+
+              <p>
+                베타 테스트에 참여해주신 모든 분들께 진심으로 감사드립니다.
+                여러분의 소중한 피드백 덕분에 더욱 완성도 높은 앱으로 발전할 수
+                있었습니다.
+              </p>
+
+              <h4>베타 테스트 주요 성과:</h4>
+              <ul>
+                <li>총 1,200명의 베타 테스터 참여</li>
+                <li>평균 사용자 만족도 4.7/5.0</li>
+                <li>120개 이상의 개선사항 반영</li>
+                <li>안정성 95% 향상</li>
+              </ul>
+
+              <p>
+                베타 테스트 기간 중 발견된 모든 이슈들이 해결되었으며, 정식 출시
+                버전에서는 더욱 안정적이고 향상된 기능을 경험하실 수 있습니다.
+              </p>
+            </div>
+          </div>
+
+          <!-- 개발 진행 상황 -->
+          <div class="notice-item">
+            <div class="notice-header" onclick="toggleNotice(this)">
+              <h2 class="notice-title">⚡ 개발 진행 상황 업데이트</h2>
+              <div class="notice-meta">
+                <span class="notice-tag update">개발</span>
+                <span class="notice-date"> 📅 2025.06.05 </span>
+                <span class="toggle-icon">▼</span>
+              </div>
+            </div>
+            <div class="notice-content">
+              <p>터치다운 알람의 최신 개발 진행 상황을 공유합니다.</p>
+
+              <h4>✅ 완료된 기능:</h4>
+              <ul>
+                <li>핵심 위치 기반 알람 시스템</li>
+                <li>5단계 난이도 설정</li>
+                <li>사용자 인터페이스 최적화</li>
+                <li>포인트 및 통계 시스템</li>
+                <li>다국어 지원 (한국어, 영어)</li>
+              </ul>
+
+              <h4>🔄 진행 중인 작업:</h4>
+              <ul>
+                <li>최종 성능 최적화</li>
+                <li>Google Play Store 등록 절차</li>
+                <li>사용자 가이드 및 도움말 작성</li>
+                <li>출시 후 지원 체계 구축</li>
+              </ul>
+
+              <p>
+                모든 개발 작업이 계획대로 순조롭게 진행되고 있으며, 7월 1일 정시
+                출시를 위해 최선을 다하고 있습니다.
+              </p>
+            </div>
+          </div>
+
+          <!-- 향후 계획 -->
+          <div class="notice-item">
+            <div class="notice-header" onclick="toggleNotice(this)">
+              <h2 class="notice-title">🗺️ 향후 업데이트 계획</h2>
+              <div class="notice-meta">
+                <span class="notice-tag">계획</span>
+                <span class="notice-date"> 📅 2025.06.01 </span>
+                <span class="toggle-icon">▼</span>
+              </div>
+            </div>
+            <div class="notice-content">
+              <p>터치다운 알람의 향후 업데이트 계획을 안내드립니다.</p>
+
+              <h4>📅 2025년 하반기 업데이트 로드맵:</h4>
+              <ul>
+                <li><strong>8월</strong> - iOS 버전 출시 준비</li>
+                <li>
+                  <strong>9월</strong> - 소셜 기능 추가 (친구와 경쟁, 공유)
+                </li>
+                <li><strong>10월</strong> - 맞춤형 알람음 및 테마 추가</li>
+                <li><strong>11월</strong> - 스마트워치 연동 기능</li>
+                <li><strong>12월</strong> - AI 기반 개인화 추천 시스템</li>
+              </ul>
+
+              <p>
+                사용자 여러분의 의견과 요청사항을 적극 반영하여 지속적으로
+                발전하는 터치다운 알람이 되겠습니다.
+              </p>
+
+              <p>
+                문의사항이나 제안사항이 있으시면 언제든
+                <strong>yiyol@yiyol.com</strong>으로 연락해주세요.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      function toggleNotice(header) {
+        const noticeItem = header.parentElement;
+        const content = noticeItem.querySelector(".notice-content");
+        const isExpanded = noticeItem.classList.contains("expanded");
+
+        // Close all other notices
+        document.querySelectorAll(".notice-item").forEach((item) => {
+          if (item !== noticeItem) {
+            item.classList.remove("expanded");
+            item.querySelector(".notice-content").classList.remove("active");
+          }
+        });
+
+        // Toggle current notice
+        if (isExpanded) {
+          noticeItem.classList.remove("expanded");
+          content.classList.remove("active");
+        } else {
+          noticeItem.classList.add("expanded");
+          content.classList.add("active");
+        }
+      }
+
+      // Close notices when clicking outside
+      document.addEventListener("click", function (event) {
+        if (!event.target.closest(".notice-item")) {
+          document.querySelectorAll(".notice-item").forEach((item) => {
+            item.classList.remove("expanded");
+            item.querySelector(".notice-content").classList.remove("active");
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
