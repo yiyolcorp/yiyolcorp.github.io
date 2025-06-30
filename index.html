@@ -12,44 +12,35 @@
         dataLayer.push(arguments);
       }
       gtag("js", new Date());
-
       gtag("config", "G-CKJ4GX2KHS");
     </script>
+
     <meta charset="UTF-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
-    <title>YIYOL Services - Image Editor & Life Calculator</title>
+    <title>YIYOL - Innovative Apps & Services</title>
 
     <!-- Primary Meta Tags -->
     <meta
       name="description"
-      content="YIYOL provides innovative services like Image Editor and Life Calculator to make your daily life easier and more efficient."
+      content="YIYOL creates innovative mobile apps and web services including LED Banner Master, Fitkee, TouchDown Alarm, and more."
     />
     <meta
       name="keywords"
-      content="YIYOL,mobile apps,software development,LED Banner Master,Fitkee,pilates app"
+      content="YIYOL,mobile apps,software development,LED Banner Master,Fitkee,TouchDown Alarm,web services"
     />
 
     <meta name="google-adsense-account" content="ca-pub-9284090567080343" />
-    <!-- 광고 주석처리 -->
-    <!-- <script
-      async
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9284090567080343"
-      crossorigin="anonymous"
-    ></script> -->
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://yiyol.com/" />
-    <meta
-      property="og:title"
-      content="YIYOL Services - Image Editor & Life Calculator"
-    />
+    <meta property="og:title" content="YIYOL - Innovative Apps & Services" />
     <meta
       property="og:description"
-      content="Discover YIYOL's services: Image Editor supporting English and Korean, and Life Calculator, a Korean service for various daily calculations."
+      content="YIYOL creates innovative mobile apps and web services for a better digital experience."
     />
     <meta property="og:image" content="https://yiyol.com/assets/og-image.jpg" />
     <meta property="og:site_name" content="YIYOL" />
@@ -60,11 +51,11 @@
     <meta property="twitter:url" content="https://yiyol.com/" />
     <meta
       property="twitter:title"
-      content="YIYOL Services - Image Editor & Life Calculator"
+      content="YIYOL - Innovative Apps & Services"
     />
     <meta
       property="twitter:description"
-      content="Discover YIYOL's services: Image Editor supporting English and Korean, and Life Calculator, a Korean service for various daily calculations."
+      content="YIYOL creates innovative mobile apps and web services for a better digital experience."
     />
     <meta
       property="twitter:image"
@@ -78,19 +69,37 @@
 
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
+
     <style>
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: "Poppins", sans-serif;
+      }
+
+      :root {
+        --primary-color: #2563eb;
+        --primary-light: #3b82f6;
+        --secondary-color: #64748b;
+        --accent-color: #f59e0b;
+        --text-primary: #1e293b;
+        --text-secondary: #64748b;
+        --text-light: #94a3b8;
+        --bg-primary: #ffffff;
+        --bg-secondary: #f8fafc;
+        --bg-accent: #f1f5f9;
+        --border-color: #e2e8f0;
+        --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
       }
 
       html {
@@ -98,213 +107,341 @@
       }
 
       body {
-        min-height: 100vh;
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        line-height: 1.6;
+        color: var(--text-primary);
+        background-color: var(--bg-primary);
+        overflow-x: hidden;
+      }
+
+      /* Header */
+      .header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border-color);
+        z-index: 1000;
+        transition: all 0.3s ease;
+      }
+
+      .nav {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
         display: flex;
-        flex-direction: column;
+        justify-content: space-between;
         align-items: center;
-        justify-content: center;
-        background-image: url("assets/hero-bg.jpg");
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        color: white;
-        text-align: center;
-        padding: 0;
+        height: 70px;
+      }
+
+      .logo {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .logo:hover {
+        color: var(--primary-light);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+
+      .nav-link {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
         position: relative;
       }
 
-      body::before {
+      .nav-link:hover {
+        color: var(--primary-color);
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--primary-color);
+        transition: width 0.3s ease;
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      /* Hero Section */
+      .hero {
+        padding: 120px 0 80px;
+        text-align: center;
+        background: linear-gradient(
+          135deg,
+          var(--bg-primary) 0%,
+          var(--bg-secondary) 100%
+        );
+      }
+
+      .hero-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .hero h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--primary-light)
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1.2;
+      }
+
+      .hero p {
+        font-size: 1.25rem;
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* Main Content */
+      .main {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .section {
+        padding: 80px 0;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 3rem;
+        color: var(--text-primary);
+      }
+
+      .section-subtitle {
+        font-size: 1.125rem;
+        color: var(--text-secondary);
+        text-align: center;
+        margin-bottom: 4rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* Grid Layout */
+      .grid {
+        display: grid;
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .grid-2 {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      }
+
+      .grid-3 {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      }
+
+      /* Cards */
+      .card {
+        background: var(--bg-primary);
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        padding: 2rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card .new-badge {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        color: white;
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+        z-index: 10;
+      }
+
+      .card::before {
         content: "";
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
-        bottom: 0;
+        height: 4px;
         background: linear-gradient(
-          45deg,
-          rgba(79, 70, 229, 0.9),
-          rgba(139, 92, 246, 0.9)
+          90deg,
+          var(--primary-color),
+          var(--primary-light)
         );
-        z-index: -1;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease;
       }
 
-      .page-container {
+      .card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-xl);
+        border-color: var(--primary-color);
+      }
+
+      .card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .card-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--primary-light)
+        );
+        border-radius: 12px;
         display: flex;
-        width: 100%;
-        min-height: 100vh;
-        justify-content: space-between;
-      }
-
-      .ad-container {
-        width: auto;
-        min-width: 300px;
-        position: sticky;
-        top: 0;
-        padding: 10px;
-        height: auto;
-        min-height: 600px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        overflow: visible;
-        padding-top: 30px;
-      }
-
-      .ad-container ins {
-        width: 300px;
-        height: 600px;
-        display: block;
-      }
-
-      .main-content {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 1rem;
-        /* max-width: calc(100% - 600px); */
-      }
-
-      .services-container {
-        max-width: 900px;
-        margin: 2rem auto;
-      }
-
-      h2 {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-        margin-top: 2rem;
-      }
-
-      p {
-        font-size: 1.2rem;
         margin-bottom: 1.5rem;
-        line-height: 1.6;
+        transition: all 0.3s ease;
       }
 
-      .btn {
-        display: inline-block;
-        padding: 0.8rem 1.5rem;
-        background: white;
-        color: #4f46e5;
-        text-decoration: none;
-        border-radius: 5px;
-        font-weight: 600;
-        transition: all 0.3s;
-        margin: 0.5rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      .card-icon i {
+        font-size: 1.5rem;
+        color: white;
       }
 
-      .btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        background: #f8f8ff;
-      }
-
-      .service-icon {
-        font-size: 4rem;
-        margin-bottom: 1rem;
-        transition: transform 0.3s;
-      }
-
-      .service-card:hover .service-icon {
+      .card:hover .card-icon {
         transform: scale(1.1);
       }
 
-      .service-card {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        padding: 2.5rem;
+      .card h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+      }
+
+      .card p {
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+        line-height: 1.7;
+      }
+
+      /* Buttons */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background: var(--primary-color);
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        background: var(--primary-light);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: var(--primary-color);
+        border: 1px solid var(--primary-color);
+      }
+
+      .btn-outline:hover {
+        background: var(--primary-color);
+        color: white;
+      }
+
+      /* Company Section */
+      .company-section {
+        background: var(--bg-accent);
+        padding: 60px 0;
+        text-align: center;
+      }
+
+      .company-card {
+        background: var(--bg-primary);
+        border: 1px solid var(--border-color);
         border-radius: 16px;
-        margin-bottom: 2.5rem;
-        transition: all 0.3s;
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        transform: translateY(0);
-        overflow: hidden;
-        position: relative;
+        padding: 3rem;
+        max-width: 600px;
+        margin: 0 auto;
+        box-shadow: var(--shadow-lg);
       }
 
-      .service-card::before {
-        content: "";
-        position: absolute;
-        top: -100%;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: rgba(255, 255, 255, 0.1);
-        transform: rotate(45deg);
-        transition: all 0.5s;
+      .company-card h3 {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
       }
 
-      .service-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      .company-card p {
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+        font-size: 1.125rem;
       }
 
-      .service-card:hover::before {
-        top: 100%;
-        left: 100%;
+      /* Footer */
+      .footer {
+        background: var(--text-primary);
+        color: white;
+        padding: 40px 0;
+        text-align: center;
       }
 
-      .buttons-container {
-        margin-top: 2.5rem;
+      .footer p {
+        color: rgba(255, 255, 255, 0.8);
+        margin: 0;
       }
 
-      footer {
-        width: 100%;
-        padding: 1.5rem;
-        margin-top: 2rem;
-        font-size: 0.9rem;
-        color: rgba(255, 255, 255, 0.7);
-      }
-
-      @media (max-width: 1200px) {
-        .ad-container {
-          display: none;
-        }
-
-        body {
-          padding: 2rem;
-        }
-
-        .main-content {
-          padding: 0;
-          max-width: 100%;
-        }
-      }
-
-      @media (max-width: 1024px) {
-        .common-grid {
-          grid-template-columns: 1fr !important;
-        }
-      }
-
-      @media (max-width: 768px) {
-        h2 {
-          font-size: 1.8rem;
-        }
-
-        p {
-          font-size: 1rem;
-        }
-
-        .service-card {
-          padding: 2rem;
-        }
-
-        .section-title {
-          font-size: 2.2rem;
-        }
-      }
-
-      @keyframes fadeIn {
+      /* Animations */
+      @keyframes fadeInUp {
         from {
           opacity: 0;
-          transform: translateY(20px);
+          transform: translateY(30px);
         }
         to {
           opacity: 1;
@@ -312,242 +449,286 @@
         }
       }
 
-      .section-title,
-      .service-card {
-        animation: fadeIn 0.8s ease-out forwards;
+      .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s ease;
       }
 
-      .service-card:nth-child(2) {
-        animation-delay: 0.2s;
+      .animate-on-scroll.visible {
+        opacity: 1;
+        transform: translateY(0);
       }
 
-      .service-card:nth-child(3) {
-        animation-delay: 0.4s;
+      /* Responsive */
+      @media (max-width: 768px) {
+        .nav {
+          padding: 0 1rem;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+
+        .hero p {
+          font-size: 1.125rem;
+        }
+
+        .hero-content,
+        .main {
+          padding: 0 1rem;
+        }
+
+        .section {
+          padding: 60px 0;
+        }
+
+        .section-title {
+          font-size: 2rem;
+        }
+
+        .grid-2,
+        .grid-3 {
+          grid-template-columns: 1fr;
+        }
+
+        .card {
+          padding: 1.5rem;
+        }
+
+        .company-card {
+          padding: 2rem;
+          margin: 0 1rem;
+        }
       }
 
-      .section-title {
-        font-size: 2.8rem;
-        margin: 3rem 0 2rem;
-        position: relative;
-        padding-bottom: 1rem;
-      }
+      @media (max-width: 480px) {
+        .hero h1 {
+          font-size: 2rem;
+        }
 
-      .section-title::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 60px;
-        height: 3px;
-        background: white;
-        border-radius: 2px;
-      }
-
-      .common-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2rem;
-        width: 100%;
-        max-width: 900px;
-      }
-
-      .company-link-container {
-        margin-top: 3rem;
-        padding: 1.5rem;
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border-radius: 16px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-        animation: fadeIn 0.8s ease-out forwards;
-        animation-delay: 0.6s;
-      }
-
-      .company-link-container:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-      }
-
-      .company-link-container h3 {
-        font-size: 1.8rem;
-        margin-bottom: 1rem;
-        color: white;
-      }
-
-      .company-link-container p {
-        margin-bottom: 1.5rem;
-      }
-
-      .company-link {
-        display: inline-flex;
-        align-items: center;
-        padding: 0.8rem 2rem;
-        background: white;
-        color: #4f46e5;
-        text-decoration: none;
-        border-radius: 50px;
-        font-weight: 600;
-        transition: all 0.3s;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      }
-
-      .company-link i {
-        margin-right: 0.5rem;
-        font-size: 1.2rem;
-      }
-
-      .company-link:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        background: #f8f8ff;
-        padding: 0.8rem 2.2rem;
-      }
-
-      .apps-grid {
-        display: none;
-      }
-
-      .services-grid {
-        display: none;
+        .section-title {
+          font-size: 1.75rem;
+        }
       }
     </style>
   </head>
   <body>
-    <div class="page-container">
-      <!-- 반응형 수직 디스플레이 - 왼쪽 -->
-      <!-- <div class="ad-container ad-left">
-        <ins
-          class="adsbygoogle"
-          style="display: block; width: 300px; height: 600px"
-          data-ad-client="ca-pub-9284090567080343"
-          data-ad-slot="7544438740"
-          data-ad-format="vertical"
-          data-full-width-responsive="false"
-        ></ins>
-        <script>
-          (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-      </div> -->
+    <!-- Header -->
+    <header class="header">
+      <nav class="nav">
+        <a href="#" class="logo">YIYOL</a>
+        <ul class="nav-links">
+          <li><a href="#apps" class="nav-link">Apps</a></li>
+          <li><a href="#services" class="nav-link">Services</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+        </ul>
+      </nav>
+    </header>
 
-      <div class="main-content">
-        <div class="services-container">
-          <h2 class="section-title">YIYOL Apps</h2>
-          <div class="common-grid">
-            <div class="service-card">
-              <i class="fas fa-mobile-alt service-icon"></i>
-              <h2>LED Banner Master</h2>
-              <p>
-                Create eye-catching LED banners for any occasion with just a few
-                taps. Perfect for businesses, events, and personal use with
-                features like scrolling text, multiple languages, and vibrant
-                displays.
-              </p>
-              <a href="/led-banner-master" class="btn">Learn More</a>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Innovative Apps & Services</h1>
+        <p>
+          We create digital solutions that make life easier, more productive,
+          and more enjoyable. From mobile apps to web services, we're here to
+          innovate your digital experience.
+        </p>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main">
+      <!-- Apps Section -->
+      <section id="apps" class="section">
+        <h2 class="section-title animate-on-scroll">Mobile Apps</h2>
+        <p class="section-subtitle animate-on-scroll">
+          Discover our innovative mobile applications designed to enhance your
+          daily life
+        </p>
+
+        <div class="grid grid-3">
+          <div class="card animate-on-scroll">
+            <span class="new-badge">New</span>
+            <div class="card-icon">
+              <i class="fas fa-bell"></i>
             </div>
-
-            <div class="service-card">
-              <i class="fas fa-dumbbell service-icon"></i>
-              <h2>Fitkee</h2>
-              <p>
-                An AI-powered Pilates instructor assistant that helps create
-                customized sequences, manage clients, and optimize class
-                schedules for Pilates instructors and studios.
-              </p>
-              <a href="https://fitkee.com" class="btn">Learn More</a>
-            </div>
-          </div>
-
-          <div class="common-grid">
-            <div class="service-card">
-              <i class="fas fa-bell service-icon"></i>
-              <h2>TouchDown Alarm</h2>
-              <p>
-                A tough alarm that only stops when you reach your target
-                location. Revolutionary location-based alarm app that forces you
-                to go even when you don't want to. Build better habits with
-                gamified motivation and GPS-based accountability.
-              </p>
-              <a href="/touchdown-alarm/en" class="btn">Learn More</a>
-            </div>
-          </div>
-
-          <h2 class="section-title">YIYOL Services</h2>
-          <div class="common-grid">
-            <div class="service-card">
-              <i class="fas fa-image service-icon"></i>
-              <h2>Image Editor</h2>
-              <p>
-                A powerful online image editor supporting both English and
-                Korean interfaces. Currently offering Crop and Scale
-                functionalities, with more features coming soon! Perfect for
-                quick image adjustments without installing software.
-              </p>
-              <a href="https://image.yiyol.com" class="btn">Try Image Editor</a>
-            </div>
-
-            <div class="service-card">
-              <i class="fas fa-keyboard service-icon"></i>
-              <h2>Retro Typist</h2>
-              <p>
-                A digital homage to traditional typewriters, providing an
-                authentic typing experience right in your browser. Features
-                include authentic sound effects, multiple fonts and paper
-                options, document saving, and export to PNG, PDF, or plain text.
-              </p>
-              <a href="https://retrotypist.com" class="btn">Try Retro Typist</a>
-            </div>
-          </div>
-
-          <div class="common-grid">
-            <div class="service-card">
-              <i class="fas fa-calculator service-icon"></i>
-              <h2>생활 계산기</h2>
-              <p>
-                한국인의 일상생활에 필요한 다양한 계산 기능을 제공하는 한글 전용
-                서비스입니다. 복잡한 계산을 간편하게 해결하고, 일상 생활을 더
-                효율적으로 만들어 보세요.
-              </p>
-              <a href="https://calc.yiyol.com" class="btn"
-                >생활 계산기 사용하기</a
-              >
-            </div>
-          </div>
-
-          <div class="company-link-container">
-            <h3>Want to know more?</h3>
+            <h3>TouchDown Alarm</h3>
             <p>
-              YIYOL strives to create innovative apps and services that make
-              people's lives happier and more comfortable.
+              Location-based alarm that only stops when you reach your
+              destination. Build better habits with GPS accountability and
+              gamified motivation.
             </p>
-            <a href="https://yiyol.com/company" class="company-link">
-              <i class="fas fa-building"></i> About YIYOL Company
+            <a href="/touchdown-alarm/en" class="btn">
+              <i class="fas fa-arrow-right"></i>
+              Learn More
+            </a>
+          </div>
+
+          <div class="card animate-on-scroll">
+            <div class="card-icon">
+              <i class="fas fa-mobile-alt"></i>
+            </div>
+            <h3>LED Banner Master</h3>
+            <p>
+              Create stunning LED banners with scrolling text, multiple
+              languages, and vibrant displays. Perfect for businesses, events,
+              and personal use.
+            </p>
+            <a href="/led-banner-master" class="btn">
+              <i class="fas fa-arrow-right"></i>
+              Learn More
+            </a>
+          </div>
+
+          <div class="card animate-on-scroll">
+            <div class="card-icon">
+              <i class="fas fa-dumbbell"></i>
+            </div>
+            <h3>Fitkee</h3>
+            <p>
+              AI-powered Pilates instructor assistant for creating customized
+              sequences, managing clients, and optimizing studio schedules.
+            </p>
+            <a href="https://fitkee.com" class="btn">
+              <i class="fas fa-external-link-alt"></i>
+              Visit Site
             </a>
           </div>
         </div>
+      </section>
 
-        <footer>&copy; 2025 YIYOL. All rights reserved.</footer>
+      <!-- Services Section -->
+      <section id="services" class="section">
+        <h2 class="section-title animate-on-scroll">Web Services</h2>
+        <p class="section-subtitle animate-on-scroll">
+          Powerful web-based tools accessible from any device, anywhere
+        </p>
+
+        <div class="grid grid-3">
+          <div class="card animate-on-scroll">
+            <div class="card-icon">
+              <i class="fas fa-image"></i>
+            </div>
+            <h3>Image Editor</h3>
+            <p>
+              Online image editor with crop, scale, and more features. Supports
+              English and Korean interfaces for global accessibility.
+            </p>
+            <a href="https://image.yiyol.com" class="btn">
+              <i class="fas fa-external-link-alt"></i>
+              Try Editor
+            </a>
+          </div>
+
+          <div class="card animate-on-scroll">
+            <div class="card-icon">
+              <i class="fas fa-keyboard"></i>
+            </div>
+            <h3>Retro Typist</h3>
+            <p>
+              Digital typewriter experience with authentic sounds, multiple
+              fonts, and export options. Nostalgic typing in your browser.
+            </p>
+            <a href="https://retrotypist.com" class="btn">
+              <i class="fas fa-external-link-alt"></i>
+              Try Typist
+            </a>
+          </div>
+
+          <div class="card animate-on-scroll">
+            <div class="card-icon">
+              <i class="fas fa-calculator"></i>
+            </div>
+            <h3>생활 계산기</h3>
+            <p>
+              한국인의 일상생활에 필요한 다양한 계산 기능을 제공하는 한글 전용
+              서비스입니다.
+            </p>
+            <a href="https://calc.yiyol.com" class="btn">
+              <i class="fas fa-external-link-alt"></i>
+              계산기 사용
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Company Section -->
+    <section id="about" class="company-section">
+      <div class="company-card animate-on-scroll">
+        <h3>About YIYOL</h3>
+        <p>
+          We strive to create innovative apps and services that make people's
+          lives happier and more comfortable through thoughtful design and
+          cutting-edge technology.
+        </p>
+        <a href="https://yiyol.com/company" class="btn">
+          <i class="fas fa-building"></i>
+          Learn More About Us
+        </a>
       </div>
+    </section>
 
-      <!-- 반응형 수직 디스플레이 - 오른쪽 -->
-      <!-- <div class="ad-container ad-right">
-        <ins
-          class="adsbygoogle"
-          style="display: block; width: 300px; height: 600px"
-          data-ad-client="ca-pub-9284090567080343"
-          data-ad-slot="7544438740"
-          data-ad-format="vertical"
-          data-full-width-responsive="false"
-        ></ins>
-        <script>
-          (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-      </div> -->
-    </div>
+    <!-- Footer -->
+    <footer class="footer">
+      <p>&copy; 2025 YIYOL. All rights reserved.</p>
+    </footer>
+
+    <script>
+      // Smooth scrolling for navigation
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            const headerHeight = 70;
+            const elementPosition = target.getBoundingClientRect().top;
+            const offsetPosition =
+              elementPosition + window.pageYOffset - headerHeight;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth",
+            });
+          }
+        });
+      });
+
+      // Animate on scroll
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll(".animate-on-scroll").forEach((el) => {
+        observer.observe(el);
+      });
+
+      // Header background on scroll
+      window.addEventListener("scroll", () => {
+        const header = document.querySelector(".header");
+        if (window.scrollY > 100) {
+          header.style.background = "rgba(255, 255, 255, 0.98)";
+          header.style.boxShadow = "0 4px 6px -1px rgba(0, 0, 0, 0.1)";
+        } else {
+          header.style.background = "rgba(255, 255, 255, 0.95)";
+          header.style.boxShadow = "none";
+        }
+      });
+    </script>
   </body>
 </html>
