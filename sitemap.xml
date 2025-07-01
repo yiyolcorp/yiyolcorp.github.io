@@ -97,4 +97,76 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url> -->
+  
+  <!-- touchdown-alarm 페이지 (한국어) -->
+  <url>
+    <loc>https://yiyol.com/touchdown-alarm/ko/</loc>
+    <lastmod>2025-07-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://yiyol.com/touchdown-alarm/ko/notice.html</loc>
+    <lastmod>2025-07-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://yiyol.com/touchdown-alarm/ko/faq.html</loc>
+    <lastmod>2025-07-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://yiyol.com/touchdown-alarm/ko/privacy.html</loc>
+    <lastmod>2025-07-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://yiyol.com/touchdown-alarm/ko/eula.html</loc>
+    <lastmod>2025-07-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <!-- touchdown-alarm 페이지 (영어) -->
+  <url>
+    <loc>https://yiyol.com/touchdown-alarm/en/</loc>
+    <lastmod>2025-07-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://yiyol.com/touchdown-alarm/en/notice.html</loc>
+    <lastmod>2025-07-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://yiyol.com/touchdown-alarm/en/faq.html</loc>
+    <lastmod>2025-07-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://yiyol.com/touchdown-alarm/en/privacy.html</loc>
+    <lastmod>2025-07-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://yiyol.com/touchdown-alarm/en/eula.html</loc>
+    <lastmod>2025-07-01</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
 </urlset>
