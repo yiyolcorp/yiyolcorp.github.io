@@ -142,6 +142,7 @@
         scroll-snap-stop: always;
       }
 
+      .gallery h2,
       .features h2,
       .premium h2,
       .download h2 {
@@ -577,7 +578,9 @@
         transform: translateY(-5px);
       }
 
-      .gallery-item img {
+      .gallery-item img,
+      .gallery-item video,
+      .gallery-item iframe {
         width: 100%;
         height: 100%;
         object-fit: contain;
@@ -589,13 +592,18 @@
         display: none;
         position: fixed;
         z-index: 2000;
-        padding-top: 50px;
         left: 0;
         top: 0;
         width: 100%;
         height: 100%;
         background-color: rgba(0, 0, 0, 0.9);
         overflow: auto;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .modal.show {
+        display: flex;
       }
 
       .modal-content {
@@ -603,6 +611,15 @@
         margin: 0 auto;
         max-width: 80%;
         max-height: 80vh;
+        text-align: center;
+      }
+
+      .modal-content img,
+      .modal-content video,
+      .modal-content iframe {
+        max-width: 100%;
+        max-height: 80vh;
+        object-fit: contain;
       }
 
       .close {
@@ -693,8 +710,8 @@
       </a>
       <button class="menu-button">⋮</button>
       <div class="nav-links">
-        <a href="#features">Features</a>
         <a href="#gallery">Gallery</a>
+        <a href="#features">Features</a>
         <a href="#premium">Premium</a>
         <a href="#download">Download</a>
         <a href="manual/">Manual</a>
@@ -707,6 +724,90 @@
         <p>
           Create eye-catching LED banners for any occasion with just a few taps
         </p>
+      </div>
+    </section>
+
+    <section class="gallery" id="gallery">
+      <h2>Gallery</h2>
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <iframe
+            src="https://www.youtube.com/embed/oghNOzR6tE0?autoplay=1&mute=1&loop=1&playlist=oghNOzR6tE0&controls=0&modestbranding=1&rel=0&showinfo=0"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            alt="YouTube LED Banner Demo"
+          ></iframe>
+        </div>
+        <div class="gallery-item">
+          <iframe
+            src="https://www.youtube.com/embed/xF9lS0xD35U?autoplay=1&mute=1&loop=1&playlist=xF9lS0xD35U&controls=0&modestbranding=1&rel=0&showinfo=0"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            alt="YouTube LED Banner Demo"
+          ></iframe>
+        </div>
+        <div class="gallery-item">
+          <iframe
+            src="https://www.youtube.com/embed/DD2I5vyULA8?autoplay=1&mute=1&loop=1&playlist=DD2I5vyULA8&controls=0&modestbranding=1&rel=0&showinfo=0"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            alt="YouTube LED Banner Demo"
+          ></iframe>
+        </div>
+        <div class="gallery-item">
+          <iframe
+            src="https://www.youtube.com/embed/KOWZtwRjOHQ?autoplay=1&mute=1&loop=1&playlist=KOWZtwRjOHQ&controls=0&modestbranding=1&rel=0&showinfo=0"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            alt="YouTube LED Banner Demo"
+          ></iframe>
+        </div>
+        <div class="gallery-item">
+          <iframe
+            src="https://www.youtube.com/embed/bzruQIm50WI?autoplay=1&mute=1&loop=1&playlist=bzruQIm50WI&controls=0&modestbranding=1&rel=0&showinfo=0"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            alt="YouTube LED Banner Demo"
+          ></iframe>
+        </div>
+        <div class="gallery-item">
+          <iframe
+            src="https://www.youtube.com/embed/wftVxLAemAo?autoplay=1&mute=1&loop=1&playlist=wftVxLAemAo&controls=0&modestbranding=1&rel=0&showinfo=0"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            alt="YouTube LED Banner Demo"
+          ></iframe>
+        </div>
+        <div class="gallery-item">
+          <video
+            src="assets/LED-With-BackgroundVideo.MP4"
+            autoplay
+            loop
+            muted
+            playsinline
+            alt="LED Banner Background Video"
+          ></video>
+        </div>
+        <div class="gallery-item">
+          <video
+            src="assets/DefaultBanner.MP4"
+            autoplay
+            loop
+            muted
+            playsinline
+            alt="Default Banner Video"
+          ></video>
+        </div>
+      </div>
+      <div id="gallery-modal" class="modal">
+        <span class="close">&times;</span>
+        <div class="modal-content" id="modal-content"></div>
       </div>
     </section>
 
@@ -796,64 +897,6 @@
             accessible.
           </p>
         </div>
-      </div>
-    </section>
-
-    <section class="gallery" id="gallery">
-      <h2>Gallery</h2>
-      <div class="gallery-grid">
-        <div class="gallery-item">
-          <img src="assets/01.jpeg" alt="LED Banner Example 1" loading="lazy" />
-        </div>
-        <div class="gallery-item">
-          <img src="assets/02.jpeg" alt="LED Banner Example 2" loading="lazy" />
-        </div>
-        <div class="gallery-item">
-          <img src="assets/03.jpeg" alt="LED Banner Example 3" loading="lazy" />
-        </div>
-        <div class="gallery-item">
-          <img src="assets/04.jpeg" alt="LED Banner Example 4" loading="lazy" />
-        </div>
-        <div class="gallery-item">
-          <img src="assets/05.jpeg" alt="LED Banner Example 5" loading="lazy" />
-        </div>
-        <div class="gallery-item">
-          <img src="assets/06.jpeg" alt="LED Banner Example 6" loading="lazy" />
-        </div>
-        <div class="gallery-item">
-          <img src="assets/07.jpeg" alt="LED Banner Example 7" loading="lazy" />
-        </div>
-        <div class="gallery-item">
-          <img src="assets/08.jpeg" alt="LED Banner Example 8" loading="lazy" />
-        </div>
-        <div class="gallery-item">
-          <img src="assets/09.jpeg" alt="LED Banner Example 9" loading="lazy" />
-        </div>
-        <div class="gallery-item">
-          <img
-            src="assets/10.jpeg"
-            alt="LED Banner Example 10"
-            loading="lazy"
-          />
-        </div>
-        <div class="gallery-item">
-          <img
-            src="assets/11.jpeg"
-            alt="LED Banner Example 11"
-            loading="lazy"
-          />
-        </div>
-        <div class="gallery-item">
-          <img
-            src="assets/12.jpeg"
-            alt="LED Banner Example 12"
-            loading="lazy"
-          />
-        </div>
-      </div>
-      <div id="gallery-modal" class="modal">
-        <span class="close">&times;</span>
-        <img class="modal-content" id="modal-img" />
       </div>
     </section>
 
@@ -981,25 +1024,72 @@
 
       // Gallery modal functionality
       const modal = document.getElementById("gallery-modal");
-      const modalImg = document.getElementById("modal-img");
-      const galleryItems = document.querySelectorAll(".gallery-item img");
+      const modalContent = document.getElementById("modal-content");
+      const galleryItems = document.querySelectorAll(
+        ".gallery-item img, .gallery-item video, .gallery-item iframe"
+      );
 
       galleryItems.forEach((item) => {
         item.addEventListener("click", function () {
-          modal.style.display = "block";
-          modalImg.src = this.src;
+          modal.classList.add("show");
+          modalContent.innerHTML = ""; // 기존 콘텐츠 초기화
+
+          if (item.tagName === "VIDEO") {
+            const modalVideo = document.createElement("video");
+            modalVideo.src = item.src;
+            modalVideo.controls = true;
+            modalVideo.autoplay = true;
+            modalVideo.loop = true;
+            modalVideo.muted = true;
+            modalContent.appendChild(modalVideo);
+          } else if (item.tagName === "IFRAME") {
+            const modalIframe = document.createElement("iframe");
+            modalIframe.src = item.src;
+            modalIframe.frameBorder = "0";
+            modalIframe.allow = item.getAttribute("allow");
+            modalIframe.allowFullscreen = true;
+            modalIframe.style.width = "80vw";
+            modalIframe.style.height = "80vh";
+            modalContent.appendChild(modalIframe);
+          } else {
+            const modalImg = document.createElement("img");
+            modalImg.src = item.src;
+            modalImg.alt = item.alt;
+            modalContent.appendChild(modalImg);
+          }
         });
       });
 
+      // Close modal function
+      function closeModal() {
+        modal.classList.remove("show");
+        // 비디오 재생 중지
+        const video = modalContent.querySelector("video");
+        if (video) {
+          video.pause();
+          video.currentTime = 0;
+        }
+        // iframe 제거 (YouTube 동영상 중지)
+        const iframe = modalContent.querySelector("iframe");
+        if (iframe) {
+          iframe.src = "";
+        }
+      }
+
       // Close modal when clicking on the x
-      document.querySelector(".close").addEventListener("click", function () {
-        modal.style.display = "none";
-      });
+      document.querySelector(".close").addEventListener("click", closeModal);
 
       // Close modal when clicking outside the image
       modal.addEventListener("click", function (event) {
         if (event.target === modal) {
-          modal.style.display = "none";
+          closeModal();
+        }
+      });
+
+      // Close modal when pressing escape key
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && modal.classList.contains("show")) {
+          closeModal();
         }
       });
 
