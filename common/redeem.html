@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>안드로이드 리딤코드 사용법</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Noto Sans KR", sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 40px 20px;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 60px;
+        color: white;
+      }
+
+      .header h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .header p {
+        font-size: 1.2rem;
+        opacity: 0.9;
+      }
+
+      .steps {
+        display: grid;
+        gap: 40px;
+      }
+
+      .step {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .step:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      .step-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      .step-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        align-items: center;
+      }
+
+      .step-text h3 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        color: #2c3e50;
+      }
+
+      .step-text p {
+        font-size: 1.1rem;
+        color: #555;
+        line-height: 1.8;
+      }
+
+      .step-image {
+        text-align: center;
+      }
+
+      .step-image img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .tip {
+        background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+        padding: 25px;
+        border-radius: 15px;
+        margin-top: 40px;
+        text-align: center;
+      }
+
+      .tip h4 {
+        color: #2d3436;
+        margin-bottom: 10px;
+        font-size: 1.3rem;
+      }
+
+      .tip p {
+        color: #636e72;
+        font-size: 1.1rem;
+      }
+
+      .platform-section {
+        margin-bottom: 80px;
+      }
+
+      .platform-header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .platform-header h2 {
+        font-size: 2rem;
+        color: white;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 20px 40px;
+        border-radius: 50px;
+        display: inline-block;
+        margin: 0;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      @media (max-width: 768px) {
+        .header h1 {
+          font-size: 2rem;
+        }
+
+        .header p {
+          font-size: 1rem;
+        }
+
+        .step-content {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+
+        .step {
+          padding: 20px;
+        }
+
+        .container {
+          padding: 20px 15px;
+        }
+
+        .platform-header h2 {
+          font-size: 1.5rem;
+          padding: 15px 30px;
+        }
+
+        .platform-section {
+          margin-bottom: 60px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .header h1 {
+          font-size: 1.8rem;
+        }
+
+        .step-text h3 {
+          font-size: 1.3rem;
+        }
+
+        .step-text p {
+          font-size: 1rem;
+        }
+
+        .platform-header h2 {
+          font-size: 1.3rem;
+          padding: 12px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>🎁 리딤코드 사용법</h1>
+        <p>
+          iOS와 안드로이드에서 간단하게 리딤코드를 사용하는 방법을 알아보세요
+        </p>
+      </div>
+
+      <!-- iOS 섹션 -->
+      <div class="platform-section">
+        <div class="platform-header">
+          <h2>📱 iOS (아이폰/아이패드)</h2>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <div class="step-text">
+                <h3>App Store 열고 프로필 터치</h3>
+                <p>
+                  iOS 기기에서 App Store 앱을 실행하고, 오른쪽 상단의 프로필
+                  아이콘을 터치합니다.
+                </p>
+              </div>
+              <div class="step-image">
+                <img
+                  src="assets/ios-code-1.jpg"
+                  alt="App Store 열고 프로필 터치"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <div class="step-text">
+                <h3>기프트 카드 또는 코드 교환</h3>
+                <p>
+                  프로필 메뉴에서 "기프트 카드 또는 코드 교환" 옵션을 찾아
+                  터치합니다.
+                </p>
+              </div>
+              <div class="step-image">
+                <img
+                  src="assets/ios-code-2.jpg"
+                  alt="기프트 카드 또는 코드 교환"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <div class="step-text">
+                <h3>리딤코드 입력</h3>
+                <p>
+                  코드 입력 화면에서 받으신 리딤코드를 정확히 입력하고 "교환"
+                  버튼을 터치합니다. 코드가 정상적으로 처리되면 크레딧이나 앱이
+                  계정에 추가됩니다.
+                </p>
+              </div>
+              <div class="step-image">
+                <img
+                  src="assets/ios-code-3.jpg"
+                  alt="리딤코드 입력"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Android 섹션 -->
+      <div class="platform-section">
+        <div class="platform-header">
+          <h2>🤖 안드로이드</h2>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <div class="step-text">
+                <h3>구글 플레이 스토어 접속</h3>
+                <p>
+                  안드로이드 기기에서 구글 플레이 스토어 앱을 실행합니다. 홈
+                  화면에서 플레이 스토어 아이콘을 찾아 터치하세요.
+                </p>
+              </div>
+              <div class="step-image">
+                <img
+                  src="assets/android-code-1.jpg"
+                  alt="구글 플레이 스토어 접속"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <div class="step-text">
+                <h3>메뉴 열기</h3>
+                <p>
+                  플레이 스토어에서 왼쪽 상단의 햄버거 메뉴(≡) 버튼을
+                  터치하거나, 오른쪽 상단의 프로필 아이콘을 터치하여 메뉴를
+                  엽니다.
+                </p>
+              </div>
+              <div class="step-image">
+                <img
+                  src="assets/android-code-2.jpg"
+                  alt="메뉴 열기"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <div class="step-text">
+                <h3>코드 사용 선택</h3>
+                <p>
+                  메뉴에서 "코드 사용" 또는 "기프트카드 및 프로모션 코드"를 찾아
+                  터치합니다. 이 옵션은 보통 결제 관련 메뉴에서 찾을 수
+                  있습니다.
+                </p>
+              </div>
+              <div class="step-image">
+                <img
+                  src="assets/android-code-3.jpg"
+                  alt="코드 사용 선택"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <div class="step-text">
+                <h3>리딤코드 입력</h3>
+                <p>
+                  리딤코드 입력 화면에서 받으신 코드를 정확히 입력하고 "사용"
+                  버튼을 터치합니다. 코드가 정상적으로 처리되면 크레딧이나 앱이
+                  계정에 추가됩니다.
+                </p>
+              </div>
+              <div class="step-image">
+                <img
+                  src="assets/android-code-4.jpg"
+                  alt="리딤코드 입력"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip">
+        <h4>💡 유용한 팁</h4>
+        <p>
+          리딤코드는 대소문자를 구분하니 정확히 입력하세요. 코드에 문제가 있다면
+          고객센터에 문의하시기 바랍니다.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
