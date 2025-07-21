@@ -131,7 +131,6 @@
 
       .hero,
       .features,
-      .premium,
       .download {
         min-height: 100vh;
         display: flex;
@@ -144,13 +143,11 @@
 
       .gallery h2,
       .features h2,
-      .premium h2,
       .download h2 {
         margin-top: 70px;
       }
 
-      .feature-grid,
-      .premium-grid {
+      .feature-grid {
         width: 100%;
         max-width: 1200px;
         margin: 0 auto;
@@ -261,61 +258,6 @@
 
       .feature-card:nth-child(8) {
         background: linear-gradient(135deg, #f5f5dc 0%, #ffffff 100%);
-      }
-
-      .premium {
-        padding: 5rem 2rem;
-        background: #000;
-        color: #fff;
-      }
-
-      .premium-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-      }
-
-      .premium-card {
-        padding: 2rem;
-        border-radius: 10px;
-        box-shadow: 0 4px 20px rgba(255, 94, 94, 0.3);
-        text-align: center;
-        background: rgba(30, 30, 30, 0.8);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        transition: transform 0.3s;
-      }
-
-      .premium-card:hover {
-        transform: scale(1.03);
-      }
-
-      .premium-card ul {
-        list-style: none;
-        text-align: left;
-        padding: 1rem;
-      }
-
-      .premium-card li {
-        margin: 0.8rem 0;
-        display: flex;
-        align-items: flex-start;
-        gap: 0.8rem;
-      }
-
-      .premium-card li::before {
-        content: "\f00c";
-        font-family: "Font Awesome 6 Free";
-        font-weight: 900;
-        color: #ff5e5e;
-        font-size: 0.9rem;
-        margin-top: 0.2rem;
-      }
-
-      .premium-card h3 {
-        color: #ff5e5e;
-        font-size: 1.8rem;
-        margin-bottom: 1rem;
       }
 
       .download {
@@ -443,18 +385,6 @@
         box-shadow: 0 0 5px rgba(74, 111, 255, 0.5);
       }
 
-      .premium-label {
-        display: inline-block;
-        background: linear-gradient(135deg, #ffd700, #ffcc00);
-        color: #333;
-        padding: 2px 8px;
-        border-radius: 10px;
-        font-size: 12px;
-        font-weight: bold;
-        margin-left: 8px;
-        box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
-      }
-
       @media (max-width: 600px) {
         .menu-button {
           display: block;
@@ -490,7 +420,6 @@
 
         .hero,
         .features,
-        .premium,
         .download,
         footer {
           scroll-snap-align: none;
@@ -712,7 +641,6 @@
       <div class="nav-links">
         <a href="#gallery">Gallery</a>
         <a href="#features">Features</a>
-        <a href="#premium">Premium</a>
         <a href="#download">Download</a>
         <a href="manual/">Manual</a>
       </div>
@@ -720,7 +648,7 @@
 
     <section class="hero" id="hero">
       <div>
-        <h1>Captivate Your Audience with LED Banners</h1>
+        <h1>Steal the spotlight 🔥</h1>
         <p>
           Create eye-catching LED banners for any occasion with just a few taps
         </p>
@@ -843,9 +771,7 @@
       <div class="feature-grid">
         <div class="feature-card">
           <i class="fa-solid fa-wand-magic-sparkles feature-icon"></i>
-          <h3>
-            Dynamic Text Animations <span class="premium-label">PREMIUM</span>
-          </h3>
+          <h3>Dynamic Text Animations</h3>
           <p>
             Choose from a variety of text animations including scroll, slide,
             fade, bounce, and more. Create captivating displays with smooth
@@ -855,7 +781,7 @@
 
         <div class="feature-card">
           <i class="fa-solid fa-film feature-icon"></i>
-          <h3>Video Backgrounds <span class="premium-label">PREMIUM</span></h3>
+          <h3>Video Backgrounds</h3>
           <p>
             Add MP4 (iOS Only) and GIF backgrounds to your banners. Deliver your
             messages on top of dynamic video backgrounds for more engaging
@@ -916,45 +842,6 @@
             Export your finished banner as an MP4 video file or GIF animation to
             share or play elsewhere.
           </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="premium" id="premium">
-      <h2>Premium Features</h2>
-      <div class="premium-grid">
-        <div class="premium-card">
-          <h3>Premium Upgrade</h3>
-          <ul>
-            <li>
-              Dynamic Text Animations: Access a variety of text animations
-              including scroll, slide, fade, bounce, and more to create
-              captivating displays with smooth transitions and eye-catching
-              effects.
-            </li>
-            <li>
-              Create Showcases with Up to 8 Banners: Combine multiple banners to
-              create stunning advertisements and dynamic presentations.
-            </li>
-            <li>
-              Video Backgrounds: Add MP4 (iOS Only) and GIF backgrounds to your
-              banners for more engaging and dynamic content.
-            </li>
-            <li>
-              Save Up to 16 Banners: Store multiple banners and access them
-              whenever you need.
-            </li>
-            <li>
-              Banner Transition in Play Mode: Seamlessly transition between
-              banners in Play Mode, allowing you to deliver continuous messages
-              in any situation.
-            </li>
-            <li>
-              Advanced Effects: Unlock future advanced effects to create more
-              unique and stunning banners.
-            </li>
-            <li>No Ads: Enjoy a completely ad-free experience.</li>
-          </ul>
         </div>
       </div>
     </section>
