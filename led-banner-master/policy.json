@@ -1,7 +1,10 @@
 {
-	"version": 1,
+	"version": 2,
 	"bannerTickSeconds": 1,
       	"bannerCreditsPerTick": 0.015,
 	"showcaseTickSeconds": 1,
-      	"showcaseCreditsPerTick": 0.03
+	"showcaseCreditsPerTick": 0.03,
+	"fitkeeProjectId": "eb4c2f0d-0a07-4888-b8ea-39290878c259",
+	"fitkeeAPIKey": "fk_5644351f85fb2bc796b122d86cba60bdaabc0185e10dc1558113b18d3f4fc2a6",
+	"fitkeeAPIKeyId": "1ed71e27-af98-4421-877b-63881dbc6a03"
 }
