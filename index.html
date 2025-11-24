@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <!-- Google tag (gtag.js) -->
     <script
@@ -20,16 +20,16 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
-    <title>YIYOL - Innovative Apps & Services</title>
+    <title>YIYOL - NOX Edge NVR/VMS & Innovative Solutions</title>
 
     <!-- Primary Meta Tags -->
     <meta
       name="description"
-      content="YIYOL creates innovative mobile apps and web services including LED Banner Master, Fitkee, TouchDown Alarm, and more."
+      content="NOX Edge NVR/VMS - 현장에서 클라우드까지. 라즈베리파이부터 멀티테넌트 클라우드까지 커버하는 차세대 보안 플랫폼. YIYOL의 혁신적인 NVR/VMS 솔루션과 모바일 앱 서비스."
     />
     <meta
       name="keywords"
-      content="YIYOL,mobile apps,software development,LED Banner Master,Fitkee,TouchDown Alarm,web services"
+      content="NOX,NVR,VMS,Edge NVR,Cloud NVR,CCTV,보안,멀티테넌트,라즈베리파이,엣지컴퓨팅,YIYOL,설치업체,SI,관제,보안플랫폼"
     />
 
     <meta name="google-adsense-account" content="ca-pub-9284090567080343" />
@@ -37,25 +37,25 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://yiyol.com/" />
-    <meta property="og:title" content="YIYOL - Innovative Apps & Services" />
+    <meta property="og:title" content="YIYOL - NOX Edge NVR/VMS Solutions" />
     <meta
       property="og:description"
-      content="YIYOL creates innovative mobile apps and web services for a better digital experience."
+      content="현장에서 클라우드까지. NOX는 모든 규모의 보안 운영을 연결합니다."
     />
     <meta property="og:image" content="https://yiyol.com/assets/og-image.jpg" />
     <meta property="og:site_name" content="YIYOL" />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale" content="ko_KR" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://yiyol.com/" />
     <meta
       property="twitter:title"
-      content="YIYOL - Innovative Apps & Services"
+      content="YIYOL - NOX Edge NVR/VMS Solutions"
     />
     <meta
       property="twitter:description"
-      content="YIYOL creates innovative mobile apps and web services for a better digital experience."
+      content="현장에서 클라우드까지. NOX는 모든 규모의 보안 운영을 연결합니다."
     />
     <meta
       property="twitter:image"
@@ -69,7 +69,7 @@
 
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap"
       rel="stylesheet"
     />
     <link
@@ -87,14 +87,18 @@
       :root {
         --primary-color: #2563eb;
         --primary-light: #3b82f6;
+        --primary-dark: #1e40af;
         --secondary-color: #64748b;
         --accent-color: #f59e0b;
+        --accent-green: #10b981;
+        --accent-purple: #8b5cf6;
         --text-primary: #1e293b;
         --text-secondary: #64748b;
         --text-light: #94a3b8;
         --bg-primary: #ffffff;
         --bg-secondary: #f8fafc;
         --bg-accent: #f1f5f9;
+        --bg-dark: #0f172a;
         --border-color: #e2e8f0;
         --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
         --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -183,45 +187,213 @@
         width: 100%;
       }
 
-      /* Hero Section */
+      .lang-switch {
+        position: relative;
+        display: inline-block;
+      }
+
+      .lang-selector {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        background: transparent;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        color: var(--text-secondary);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        font-size: 0.9rem;
+        min-width: 120px;
+      }
+
+      .lang-selector:hover {
+        border-color: var(--primary-color);
+        color: var(--primary-color);
+      }
+
+      .lang-selector i {
+        font-size: 0.75rem;
+        margin-left: auto;
+        transition: transform 0.3s ease;
+      }
+
+      .lang-switch.active .lang-selector i {
+        transform: rotate(180deg);
+      }
+
+      .lang-dropdown {
+        position: absolute;
+        top: calc(100% + 0.5rem);
+        right: 0;
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        box-shadow: var(--shadow-lg);
+        min-width: 120px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all 0.3s ease;
+        z-index: 1000;
+      }
+
+      .lang-switch.active .lang-dropdown {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      .lang-option {
+        padding: 0.75rem 1rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        color: var(--text-secondary);
+        font-weight: 500;
+        font-size: 0.9rem;
+        display: block;
+        text-decoration: none;
+      }
+
+      .lang-option:first-child {
+        border-radius: 8px 8px 0 0;
+      }
+
+      .lang-option:last-child {
+        border-radius: 0 0 8px 8px;
+      }
+
+      .lang-option:hover {
+        background: var(--bg-secondary);
+        color: var(--primary-color);
+      }
+
+      .lang-option.active {
+        background: var(--primary-color);
+        color: white;
+      }
+
+      [lang]:not([lang="ko"]) .ko-only,
+      [lang]:not([lang="en"]) .en-only {
+        display: none;
+      }
+
+      /* Hero Section - NOX */
       .hero {
-        padding: 120px 0 80px;
-        text-align: center;
-        background: linear-gradient(
-          135deg,
-          var(--bg-primary) 0%,
-          var(--bg-secondary) 100%
-        );
+        padding: 140px 0 100px;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background:
+          radial-gradient(circle at 20% 50%, rgba(37, 99, 235, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at 80% 50%, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
+        animation: pulse 8s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%, 100% { opacity: 0.5; }
+        50% { opacity: 1; }
       }
 
       .hero-content {
-        max-width: 800px;
+        max-width: 1000px;
         margin: 0 auto;
         padding: 0 2rem;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(139, 92, 246, 0.2));
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #fff;
+        padding: 0.5rem 1.5rem;
+        border-radius: 50px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin-bottom: 2rem;
+        backdrop-filter: blur(10px);
       }
 
       .hero h1 {
-        font-size: 3.5rem;
-        font-weight: 700;
+        font-family: "Poppins", sans-serif;
+        font-size: 4rem;
+        font-weight: 800;
         margin-bottom: 1.5rem;
-        background: linear-gradient(
-          135deg,
-          var(--primary-color),
-          var(--primary-light)
-        );
+        color: #fff;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+      }
+
+      .hero h1 .highlight {
+        background: linear-gradient(135deg, #3b82f6, #8b5cf6);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
-        line-height: 1.2;
       }
 
-      .hero p {
-        font-size: 1.25rem;
-        color: var(--text-secondary);
-        margin-bottom: 2rem;
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
+      .hero .subtitle {
+        font-size: 1.5rem;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 3rem;
+        font-weight: 500;
+      }
+
+      .hero-cta {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem 2rem;
+        background: var(--primary-color);
+        color: white;
+        text-decoration: none;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        background: var(--primary-light);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: white;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .btn-outline:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: white;
+        transform: translateY(-2px);
       }
 
       /* Main Content */
@@ -237,9 +409,9 @@
 
       .section-title {
         font-size: 2.5rem;
-        font-weight: 600;
+        font-weight: 700;
         text-align: center;
-        margin-bottom: 3rem;
+        margin-bottom: 1rem;
         color: var(--text-primary);
       }
 
@@ -248,38 +420,482 @@
         color: var(--text-secondary);
         text-align: center;
         margin-bottom: 4rem;
-        max-width: 600px;
+        max-width: 700px;
         margin-left: auto;
         margin-right: auto;
       }
 
-      /* Grid Layout */
-      .grid {
+      /* Target Customers Section */
+      .target-grid {
         display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 2rem;
-        margin-bottom: 2rem;
+        margin-bottom: 3rem;
       }
 
-      .grid-2 {
+      .target-card {
+        background: var(--bg-primary);
+        border: 2px solid var(--border-color);
+        border-radius: 16px;
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.3s ease;
+      }
+
+      .target-card:hover {
+        border-color: var(--primary-color);
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .target-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+      }
+
+      .target-icon i {
+        font-size: 1.5rem;
+        color: white;
+      }
+
+      .target-card h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--text-primary);
+      }
+
+      .target-card p {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+      }
+
+      /* Problem Solution Section */
+      .comparison-grid {
+        display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
       }
 
-      .grid-3 {
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      .comparison-card {
+        background: var(--bg-primary);
+        border-radius: 16px;
+        padding: 2.5rem;
+        position: relative;
+        overflow: hidden;
       }
 
-      /* Cards */
-      .card {
+      .comparison-card.problem {
+        border: 2px solid #ef4444;
+        background: linear-gradient(135deg, #fff 0%, #fef2f2 100%);
+      }
+
+      .comparison-card.solution {
+        border: 2px solid #10b981;
+        background: linear-gradient(135deg, #fff 0%, #f0fdf4 100%);
+      }
+
+      .comparison-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .comparison-icon {
+        font-size: 1.5rem;
+      }
+
+      .problem .comparison-icon {
+        color: #ef4444;
+      }
+
+      .solution .comparison-icon {
+        color: #10b981;
+      }
+
+      .comparison-card h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+
+      .problem h3 {
+        color: #dc2626;
+      }
+
+      .solution h3 {
+        color: #059669;
+      }
+
+      .comparison-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .comparison-list li {
+        padding: 0.75rem 0;
+        padding-left: 2rem;
+        position: relative;
+        color: var(--text-secondary);
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .comparison-list li:last-child {
+        border-bottom: none;
+      }
+
+      .comparison-list li::before {
+        position: absolute;
+        left: 0;
+        top: 0.9rem;
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+      }
+
+      .problem .comparison-list li::before {
+        content: "\f00d";
+        color: #ef4444;
+      }
+
+      .solution .comparison-list li::before {
+        content: "\f00c";
+        color: #10b981;
+      }
+
+      /* Features Grid */
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+      }
+
+      .feature-card {
         background: var(--bg-primary);
         border: 1px solid var(--border-color);
         border-radius: 16px;
         padding: 2rem;
         transition: all 0.3s ease;
         position: relative;
-        overflow: hidden;
       }
 
-      .card .new-badge {
+      .feature-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--primary-color), var(--accent-purple));
+        border-radius: 16px 16px 0 0;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-xl);
+        border-color: var(--primary-color);
+      }
+
+      .feature-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .feature-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .feature-icon i {
+        font-size: 1.5rem;
+        color: white;
+      }
+
+      .feature-card h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+      }
+
+      .feature-card p {
+        color: var(--text-secondary);
+        line-height: 1.7;
+      }
+
+      /* Scalability Section */
+      .scalability-steps {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        position: relative;
+      }
+
+      .step-card {
+        background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+        border: 2px solid var(--border-color);
+        border-radius: 16px;
+        padding: 2.5rem;
+        text-align: center;
+        position: relative;
+      }
+
+      .step-number {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, var(--primary-color), var(--accent-purple));
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin: 0 auto 1.5rem;
+      }
+
+      .step-card h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+      }
+
+      .step-card .step-title {
+        color: var(--primary-color);
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .step-card p {
+        color: var(--text-secondary);
+        line-height: 1.7;
+      }
+
+      /* Differentiators Section */
+      .diff-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+      }
+
+      .diff-card {
+        background: var(--bg-primary);
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        padding: 2rem;
+        transition: all 0.3s ease;
+      }
+
+      .diff-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--accent-green);
+      }
+
+      .diff-icon {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, var(--accent-green), #059669);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .diff-icon i {
+        font-size: 1.25rem;
+        color: white;
+      }
+
+      .diff-card h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+      }
+
+      .diff-card p {
+        color: var(--text-secondary);
+        line-height: 1.7;
+      }
+
+      /* Architecture Section */
+      .arch-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .arch-card {
+        background: linear-gradient(135deg, #f8fafc 0%, #fff 100%);
+        border: 2px solid var(--border-color);
+        border-radius: 16px;
+        padding: 2.5rem;
+        text-align: center;
+      }
+
+      .arch-diagram {
+        background: white;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+        min-height: 150px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      .arch-node {
+        background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+
+      .arch-arrow {
+        color: var(--text-light);
+        font-size: 1.5rem;
+      }
+
+      .arch-card h3 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+      }
+
+      .arch-card p {
+        color: var(--text-secondary);
+        line-height: 1.7;
+      }
+
+      /* Pricing Section */
+      .pricing-list {
+        max-width: 700px;
+        margin: 0 auto;
+        background: var(--bg-primary);
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        padding: 2.5rem;
+      }
+
+      .pricing-list ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .pricing-list li {
+        padding: 1rem 0;
+        padding-left: 2.5rem;
+        position: relative;
+        color: var(--text-primary);
+        border-bottom: 1px solid var(--border-color);
+        font-size: 1.05rem;
+      }
+
+      .pricing-list li:last-child {
+        border-bottom: none;
+      }
+
+      .pricing-list li::before {
+        content: "\f00c";
+        position: absolute;
+        left: 0;
+        top: 1.1rem;
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        color: var(--primary-color);
+        font-size: 1.2rem;
+      }
+
+      /* CTA Section */
+      .cta-section {
+        background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+        padding: 80px 0;
+        text-align: center;
+        color: white;
+      }
+
+      .cta-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .cta-section h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+      }
+
+      .cta-section p {
+        font-size: 1.25rem;
+        margin-bottom: 2.5rem;
+        opacity: 0.9;
+      }
+
+      .cta-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .btn-white {
+        background: white;
+        color: var(--primary-color);
+      }
+
+      .btn-white:hover {
+        background: var(--bg-secondary);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Apps Section */
+      .apps-section {
+        background: var(--bg-secondary);
+        padding: 80px 0;
+      }
+
+      .apps-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .app-card {
+        background: var(--bg-primary);
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        padding: 2rem;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .app-card .new-badge {
         position: absolute;
         top: 1rem;
         right: 1rem;
@@ -292,141 +908,46 @@
         text-transform: uppercase;
         letter-spacing: 0.5px;
         box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
-        z-index: 10;
       }
 
-      .card::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(
-          90deg,
-          var(--primary-color),
-          var(--primary-light)
-        );
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: transform 0.3s ease;
-      }
-
-      .card:hover {
-        transform: translateY(-8px);
-        box-shadow: var(--shadow-xl);
+      .app-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
         border-color: var(--primary-color);
       }
 
-      .card:hover::before {
-        transform: scaleX(1);
-      }
-
-      .card-icon {
+      .app-icon {
         width: 60px;
         height: 60px;
-        background: linear-gradient(
-          135deg,
-          var(--primary-color),
-          var(--primary-light)
-        );
+        background: linear-gradient(135deg, var(--secondary-color), #475569);
         border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
         margin-bottom: 1.5rem;
-        transition: all 0.3s ease;
       }
 
-      .card-icon i {
+      .app-icon i {
         font-size: 1.5rem;
         color: white;
       }
 
-      .card:hover .card-icon {
-        transform: scale(1.1);
-      }
-
-      .card h3 {
+      .app-card h3 {
         font-size: 1.5rem;
         font-weight: 600;
         margin-bottom: 1rem;
         color: var(--text-primary);
       }
 
-      .card p {
+      .app-card p {
         color: var(--text-secondary);
         margin-bottom: 1.5rem;
         line-height: 1.7;
       }
 
-      /* Buttons */
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.75rem 1.5rem;
-        background: var(--primary-color);
-        color: white;
-        text-decoration: none;
-        border-radius: 8px;
-        font-weight: 500;
-        font-size: 0.95rem;
-        transition: all 0.3s ease;
-        border: none;
-        cursor: pointer;
-      }
-
-      .btn:hover {
-        background: var(--primary-light);
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-md);
-      }
-
-      .btn-outline {
-        background: transparent;
-        color: var(--primary-color);
-        border: 1px solid var(--primary-color);
-      }
-
-      .btn-outline:hover {
-        background: var(--primary-color);
-        color: white;
-      }
-
-      /* Company Section */
-      .company-section {
-        background: var(--bg-accent);
-        padding: 60px 0;
-        text-align: center;
-      }
-
-      .company-card {
-        background: var(--bg-primary);
-        border: 1px solid var(--border-color);
-        border-radius: 16px;
-        padding: 3rem;
-        max-width: 600px;
-        margin: 0 auto;
-        box-shadow: var(--shadow-lg);
-      }
-
-      .company-card h3 {
-        font-size: 2rem;
-        font-weight: 600;
-        margin-bottom: 1rem;
-        color: var(--text-primary);
-      }
-
-      .company-card p {
-        color: var(--text-secondary);
-        margin-bottom: 2rem;
-        font-size: 1.125rem;
-      }
-
       /* Footer */
       .footer {
-        background: var(--text-primary);
+        background: var(--bg-dark);
         color: white;
         padding: 40px 0;
         text-align: center;
@@ -464,22 +985,51 @@
       @media (max-width: 768px) {
         .nav {
           padding: 0 1rem;
+          height: auto;
+          min-height: 70px;
+        }
+
+        .nav > div {
+          flex-direction: column;
+          gap: 1rem !important;
+          width: 100%;
+          padding: 1rem 0;
         }
 
         .nav-links {
-          display: none;
+          gap: 1rem;
+        }
+
+        .lang-switch {
+          width: 100%;
+        }
+
+        .lang-selector {
+          width: 100%;
+          justify-content: space-between;
+        }
+
+        .lang-dropdown {
+          left: 0;
+          right: 0;
+          width: 100%;
+        }
+
+        .hero {
+          padding: 120px 0 80px;
         }
 
         .hero h1 {
           font-size: 2.5rem;
         }
 
-        .hero p {
+        .hero .subtitle {
           font-size: 1.125rem;
         }
 
         .hero-content,
-        .main {
+        .main,
+        .cta-content {
           padding: 0 1rem;
         }
 
@@ -487,22 +1037,29 @@
           padding: 60px 0;
         }
 
-        .section-title {
+        .section-title,
+        .cta-section h2 {
           font-size: 2rem;
         }
 
-        .grid-2,
-        .grid-3 {
+        .target-grid,
+        .comparison-grid,
+        .features-grid,
+        .scalability-steps,
+        .diff-grid,
+        .arch-grid,
+        .apps-grid {
           grid-template-columns: 1fr;
         }
 
-        .card {
-          padding: 1.5rem;
+        .hero-cta,
+        .cta-buttons {
+          flex-direction: column;
         }
 
-        .company-card {
-          padding: 2rem;
-          margin: 0 1rem;
+        .btn {
+          width: 100%;
+          justify-content: center;
         }
       }
 
@@ -522,156 +1079,556 @@
     <header class="header">
       <nav class="nav">
         <a href="#" class="logo">YIYOL</a>
-        <ul class="nav-links">
-          <li><a href="#apps" class="nav-link">Apps</a></li>
-          <li><a href="#services" class="nav-link">Services</a></li>
-          <li><a href="#about" class="nav-link">About</a></li>
-        </ul>
+        <div style="display: flex; align-items: center; gap: 2rem;">
+          <ul class="nav-links">
+            <li><a href="#nox" class="nav-link">NOX NVR/VMS</a></li>
+            <li><a href="#about" class="nav-link"><span class="ko-only">회사소개</span><span class="en-only">About</span></a></li>
+          </ul>
+          <div class="lang-switch">
+            <button class="lang-selector">
+              <span class="lang-current">한국어</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="lang-dropdown">
+              <a href="#" class="lang-option" data-lang="ko">한국어</a>
+              <a href="#" class="lang-option" data-lang="en">English</a>
+            </div>
+          </div>
+        </div>
       </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
+    <!-- Hero Section - NOX -->
+    <section class="hero" id="nox">
       <div class="hero-content">
-        <h1>Innovative Apps & Services</h1>
-        <p>
-          We create digital solutions that make life easier, more productive,
-          and more enjoyable. From mobile apps to web services, we're here to
-          innovate your digital experience.
+        <div class="hero-badge">NOX Edge NVR/VMS</div>
+        <h1 class="ko-only">
+          현장에서 클라우드까지.<br />
+          NOX는 모든 규모의<br />
+          <span class="highlight">보안 운영을 연결</span>합니다.
+        </h1>
+        <h1 class="en-only">
+          From Edge to Cloud.<br />
+          NOX connects security operations<br />
+          <span class="highlight">of all scales</span>.
+        </h1>
+        <p class="subtitle ko-only">
+          설치업체를 위한 올인원 Edge NVR & Cloud-ready 보안 플랫폼
         </p>
+        <p class="subtitle en-only">
+          All-in-One Edge NVR & Cloud-ready Security Platform for Installers
+        </p>
+        <div class="hero-cta">
+          <a href="#contact" class="btn btn-primary">
+            <i class="fas fa-play-circle"></i>
+            <span class="ko-only">데모 보기</span>
+            <span class="en-only">Request Demo</span>
+          </a>
+          <a href="#contact" class="btn btn-outline">
+            <i class="fas fa-handshake"></i>
+            <span class="ko-only">사업 제휴 문의</span>
+            <span class="en-only">Partnership Inquiry</span>
+          </a>
+        </div>
       </div>
     </section>
 
     <!-- Main Content -->
     <main class="main">
-      <!-- Apps Section -->
-      <section id="apps" class="section">
-        <h2 class="section-title animate-on-scroll">Mobile Apps</h2>
-        <p class="section-subtitle animate-on-scroll">
-          Discover our innovative mobile applications designed to enhance your
-          daily life
+      <!-- Target Customers Section -->
+      <section class="section">
+        <h2 class="section-title animate-on-scroll ko-only">NOX는 누구를 위한 솔루션인가요?</h2>
+        <h2 class="section-title animate-on-scroll en-only">Who is NOX for?</h2>
+        <p class="section-subtitle animate-on-scroll ko-only">
+          다양한 규모와 요구사항을 가진 보안 비즈니스를 위해 설계되었습니다
+        </p>
+        <p class="section-subtitle animate-on-scroll en-only">
+          Designed for security businesses of all sizes and requirements
         </p>
 
-        <div class="grid grid-3">
-          <div class="card animate-on-scroll">
-            <span class="new-badge">New</span>
-            <div class="card-icon">
-              <i class="fas fa-bell"></i>
+        <div class="target-grid">
+          <div class="target-card animate-on-scroll">
+            <div class="target-icon">
+              <i class="fas fa-tools"></i>
             </div>
-            <h3>TouchDown Alarm</h3>
-            <p>
-              Location-based alarm that only stops when you reach your
-              destination. Build better habits with GPS accountability and
-              gamified motivation.
-            </p>
-            <a href="/touchdown-alarm/en" class="btn">
-              <i class="fas fa-arrow-right"></i>
-              Learn More
-            </a>
+            <h3 class="ko-only">중·소형 설치업체</h3>
+            <h3 class="en-only">Small to Medium Installers</h3>
+            <p class="ko-only">CCTV 설치 및 SI 기업을 위한 완벽한 솔루션</p>
+            <p class="en-only">Perfect solution for CCTV installation and SI companies</p>
           </div>
 
-          <div class="card animate-on-scroll">
-            <div class="card-icon">
-              <i class="fas fa-mobile-alt"></i>
+          <div class="target-card animate-on-scroll">
+            <div class="target-icon">
+              <i class="fas fa-shield-alt"></i>
             </div>
-            <h3>LED Banner Master</h3>
-            <p>
-              Create stunning LED banners with scrolling text, multiple
-              languages, and vibrant displays. Perfect for businesses, events,
-              and personal use.
-            </p>
-            <a href="/led-banner-master" class="btn">
-              <i class="fas fa-arrow-right"></i>
-              Learn More
-            </a>
+            <h3 class="ko-only">보안 관제 서비스</h3>
+            <h3 class="en-only">Security Monitoring Services</h3>
+            <p class="ko-only">MSP 운영사를 위한 통합 관제 플랫폼</p>
+            <p class="en-only">Integrated monitoring platform for MSP operators</p>
           </div>
 
-          <div class="card animate-on-scroll">
-            <div class="card-icon">
-              <i class="fas fa-dumbbell"></i>
+          <div class="target-card animate-on-scroll">
+            <div class="target-icon">
+              <i class="fas fa-building"></i>
             </div>
-            <h3>Fitkee</h3>
-            <p>
-              AI-powered Pilates instructor assistant for creating customized
-              sequences, managing clients, and optimizing studio schedules.
-            </p>
-            <a href="https://fitkee.com" class="btn">
-              <i class="fas fa-external-link-alt"></i>
-              Visit Site
-            </a>
+            <h3 class="ko-only">분산 현장 고객</h3>
+            <h3 class="en-only">Multi-Site Customers</h3>
+            <p class="ko-only">매장·창고·공장 등 여러 지점을 운영하는 기업</p>
+            <p class="en-only">Companies operating multiple stores, warehouses, and factories</p>
+          </div>
+
+          <div class="target-card animate-on-scroll">
+            <div class="target-icon">
+              <i class="fas fa-cloud"></i>
+            </div>
+            <h3 class="ko-only">클라우드 전환 고려 기업</h3>
+            <h3 class="en-only">Cloud-Ready Organizations</h3>
+            <p class="ko-only">향후 클라우드 기반 통합관제를 계획 중인 조직</p>
+            <p class="en-only">Organizations planning cloud-based unified monitoring</p>
           </div>
         </div>
       </section>
 
-      <!-- Services Section -->
-      <section id="services" class="section">
-        <h2 class="section-title animate-on-scroll">Web Services</h2>
-        <p class="section-subtitle animate-on-scroll">
-          Powerful web-based tools accessible from any device, anywhere
+      <!-- Problem vs Solution Section -->
+      <section class="section">
+        <h2 class="section-title animate-on-scroll ko-only">NOX가 해결하는 문제</h2>
+        <h2 class="section-title animate-on-scroll en-only">Problems NOX Solves</h2>
+        <p class="section-subtitle animate-on-scroll ko-only">
+          기존 NVR의 한계를 뛰어넘는 새로운 표준
+        </p>
+        <p class="section-subtitle animate-on-scroll en-only">
+          A new standard that surpasses the limitations of traditional NVRs
         </p>
 
-        <div class="grid grid-3">
-          <div class="card animate-on-scroll">
-            <div class="card-icon">
-              <i class="fas fa-image"></i>
+        <div class="comparison-grid">
+          <div class="comparison-card problem animate-on-scroll">
+            <div class="comparison-header">
+              <i class="fas fa-times-circle comparison-icon"></i>
+              <h3 class="ko-only">기존 NVR의 문제점</h3>
+              <h3 class="en-only">Traditional NVR Issues</h3>
             </div>
-            <h3>Image Editor</h3>
-            <p>
-              Online image editor with crop, scale, and more features. Supports
-              English and Korean interfaces for global accessibility.
-            </p>
-            <a href="https://image.yiyol.com" class="btn">
-              <i class="fas fa-external-link-alt"></i>
-              Try Editor
-            </a>
+            <ul class="comparison-list ko-only">
+              <li>설치 과정이 복잡함</li>
+              <li>제조사별 UI/호환성 편차</li>
+              <li>장애 발생 시 현장 출동 필수</li>
+              <li>단일 장비 중심 구조 → 확장 어려움</li>
+              <li>여러 현장을 통합 관리하기 어려움</li>
+            </ul>
+            <ul class="comparison-list en-only">
+              <li>Complex installation process</li>
+              <li>Inconsistent UI/compatibility across vendors</li>
+              <li>On-site visit required for failures</li>
+              <li>Single device architecture → difficult to scale</li>
+              <li>Hard to manage multiple sites</li>
+            </ul>
           </div>
 
-          <div class="card animate-on-scroll">
-            <div class="card-icon">
-              <i class="fas fa-keyboard"></i>
+          <div class="comparison-card solution animate-on-scroll">
+            <div class="comparison-header">
+              <i class="fas fa-check-circle comparison-icon"></i>
+              <h3 class="ko-only">NOX의 솔루션</h3>
+              <h3 class="en-only">NOX Solutions</h3>
             </div>
-            <h3>Retro Typist</h3>
-            <p>
-              Digital typewriter experience with authentic sounds, multiple
-              fonts, and export options. Nostalgic typing in your browser.
+            <ul class="comparison-list ko-only">
+              <li>현장 설치 즉시 자동 구성</li>
+              <li>대부분의 카메라와 높은 호환성</li>
+              <li>실시간 원격 모니터링</li>
+              <li>엣지 중심, 클라우드 확장 가능</li>
+              <li>하나의 계정으로 다중 현장 관리</li>
+            </ul>
+            <ul class="comparison-list en-only">
+              <li>Auto-configuration on installation</li>
+              <li>High compatibility with most cameras</li>
+              <li>Real-time remote monitoring</li>
+              <li>Edge-centric, cloud-expandable</li>
+              <li>Multi-site management with single account</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Core Features Section -->
+      <section class="section">
+        <h2 class="section-title animate-on-scroll ko-only">핵심 기능</h2>
+        <h2 class="section-title animate-on-scroll en-only">Core Features</h2>
+        <p class="section-subtitle animate-on-scroll ko-only">
+          설치부터 운영까지, 모든 단계를 혁신합니다
+        </p>
+        <p class="section-subtitle animate-on-scroll en-only">
+          Innovating every step from installation to operation
+        </p>
+
+        <div class="features-grid">
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-icon">
+              <i class="fas fa-bolt"></i>
+            </div>
+            <h3 class="ko-only">쉽게 설치되는 Edge NVR</h3>
+            <h3 class="en-only">Easy-to-Install Edge NVR</h3>
+            <p class="ko-only">
+              현장에 장비만 설치하면 기본 환경이 자동으로 구성됩니다.
+              설치기술자의 부담을 최소화하도록 설계되었습니다.
             </p>
-            <a href="https://retrotypist.com" class="btn">
-              <i class="fas fa-external-link-alt"></i>
-              Try Typist
-            </a>
+            <p class="en-only">
+              Auto-configuration upon on-site installation.
+              Designed to minimize burden on installation technicians.
+            </p>
           </div>
 
-          <div class="card animate-on-scroll">
-            <div class="card-icon">
-              <i class="fas fa-calculator"></i>
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-icon">
+              <i class="fas fa-video"></i>
             </div>
-            <h3>생활 계산기</h3>
-            <p>
-              한국인의 일상생활에 필요한 다양한 계산 기능을 제공하는 한글 전용
-              서비스입니다.
+            <h3 class="ko-only">실시간 모니터링 & 녹화 재생</h3>
+            <h3 class="en-only">Real-time Monitoring & Playback</h3>
+            <p class="ko-only">
+              PC와 모바일에서 즉시 접근 가능하며,
+              여러 현장의 영상을 한 화면에서 확인할 수 있습니다.
             </p>
-            <a href="https://calc.yiyol.com" class="btn">
-              <i class="fas fa-external-link-alt"></i>
-              계산기 사용
-            </a>
+            <p class="en-only">
+              Instant access from PC and mobile.
+              Monitor multiple sites on a single screen.
+            </p>
           </div>
+
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-icon">
+              <i class="fas fa-server"></i>
+            </div>
+            <h3 class="ko-only">여러 대의 장비를 하나처럼 관리</h3>
+            <h3 class="en-only">Unified Multi-Device Management</h3>
+            <p class="ko-only">
+              여러 매장·지점·건물을 운영하는 고객도
+              한 계정으로 모든 장비의 상태와 영상을 손쉽게 확인할 수 있습니다.
+            </p>
+            <p class="en-only">
+              Even customers with multiple stores, branches, or buildings
+              can easily check all device status and footage with a single account.
+            </p>
+          </div>
+
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-icon">
+              <i class="fas fa-user-shield"></i>
+            </div>
+            <h3 class="ko-only">사용자/권한 기반의 안전한 접근</h3>
+            <h3 class="en-only">Secure Role-Based Access</h3>
+            <p class="ko-only">
+              관리자, 운영자, 조회자 등 역할 기반 접근 제어 지원.
+              기업 고객에게 적합한 보안 중심 운영.
+            </p>
+            <p class="en-only">
+              Role-based access control for administrators, operators, and viewers.
+              Security-focused operation suitable for enterprise customers.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Scalability Section -->
+      <section class="section">
+        <h2 class="section-title animate-on-scroll ko-only">Edge → Multi-Tenant Cloud까지 확장 가능</h2>
+        <h2 class="section-title animate-on-scroll en-only">Scalable from Edge → Multi-Tenant Cloud</h2>
+        <p class="section-subtitle animate-on-scroll ko-only">
+          소규모 매장 1곳부터, 전국 단위 관제센터까지 대응 가능한 구조
+        </p>
+        <p class="section-subtitle animate-on-scroll en-only">
+          Architecture that scales from a single small store to nationwide monitoring centers
+        </p>
+
+        <div class="scalability-steps">
+          <div class="step-card animate-on-scroll">
+            <div class="step-number">1</div>
+            <h3 class="ko-only">엣지 단독 모드</h3>
+            <h3 class="en-only">Standalone Edge Mode</h3>
+            <p class="step-title ko-only">현장 중심 운영</p>
+            <p class="step-title en-only">On-Site Operation</p>
+            <p class="ko-only">
+              현장에 설치한 장비 한 대로 모든 기능 사용 가능.
+              인터넷 연결이 불안정한 환경에서도 안정적인 운영.
+            </p>
+            <p class="en-only">
+              All features available with a single on-site device.
+              Stable operation even in unstable internet environments.
+            </p>
+          </div>
+
+          <div class="step-card animate-on-scroll">
+            <div class="step-number">2</div>
+            <h3 class="ko-only">엣지 + 중앙관리 모드</h3>
+            <h3 class="en-only">Edge + Central Management</h3>
+            <p class="step-title ko-only">다중 현장 통합</p>
+            <p class="step-title en-only">Multi-Site Integration</p>
+            <p class="ko-only">
+              여러 대의 NOX 장비를 한 화면에서 일괄 관리.
+              출장 없이 장애 대응이 가능해 유지보수 비용 절감.
+            </p>
+            <p class="en-only">
+              Manage multiple NOX devices on one screen.
+              Reduce maintenance costs with remote troubleshooting.
+            </p>
+          </div>
+
+          <div class="step-card animate-on-scroll">
+            <div class="step-number">3</div>
+            <h3 class="ko-only">멀티테넌트 클라우드</h3>
+            <h3 class="en-only">Multi-Tenant Cloud</h3>
+            <p class="step-title ko-only">엔터프라이즈 스케일</p>
+            <p class="step-title en-only">Enterprise Scale</p>
+            <p class="ko-only">
+              기업·조직·설치업체별로 분리된 계정 구조.
+              수십~수백 곳의 현장도 하나의 시스템으로 안전하게 관리.
+            </p>
+            <p class="en-only">
+              Isolated account structure for each company, organization, and installer.
+              Safely manage dozens to hundreds of sites with a single system.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Differentiators Section -->
+      <section class="section">
+        <h2 class="section-title animate-on-scroll ko-only">차별화 포인트</h2>
+        <h2 class="section-title animate-on-scroll en-only">Key Differentiators</h2>
+        <p class="section-subtitle animate-on-scroll ko-only">
+          NOX만의 경쟁력으로 비즈니스 성공을 가속화하세요
+        </p>
+        <p class="section-subtitle animate-on-scroll en-only">
+          Accelerate business success with NOX's competitive advantages
+        </p>
+
+        <div class="diff-grid">
+          <div class="diff-card animate-on-scroll">
+            <div class="diff-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <h3 class="ko-only">설치 시간 절감</h3>
+            <h3 class="en-only">Reduced Installation Time</h3>
+            <p class="ko-only">
+              설정 대부분을 자동화하여 현장 설치 시간을 획기적으로 단축합니다.
+            </p>
+            <p class="en-only">
+              Dramatically reduce on-site installation time with automated configuration.
+            </p>
+          </div>
+
+          <div class="diff-card animate-on-scroll">
+            <div class="diff-icon">
+              <i class="fas fa-dollar-sign"></i>
+            </div>
+            <h3 class="ko-only">유지보수 비용 절감</h3>
+            <h3 class="en-only">Lower Maintenance Costs</h3>
+            <p class="ko-only">
+              장비 상태를 원격으로 확인하고
+              문제가 생기기 전에 사전 알림을 제공합니다.
+            </p>
+            <p class="en-only">
+              Monitor device status remotely and receive proactive alerts before issues occur.
+            </p>
+          </div>
+
+          <div class="diff-card animate-on-scroll">
+            <div class="diff-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <h3 class="ko-only">고객 규모에 따라 자연스럽게 확장</h3>
+            <h3 class="en-only">Naturally Scalable</h3>
+            <p class="ko-only">
+              단일 매장부터 전국 관제센터까지,
+              하나의 플랫폼으로 모든 단계를 지원합니다.
+            </p>
+            <p class="en-only">
+              From a single store to nationwide monitoring centers,
+              one platform supports all stages.
+            </p>
+          </div>
+
+          <div class="diff-card animate-on-scroll">
+            <div class="diff-icon">
+              <i class="fas fa-cogs"></i>
+            </div>
+            <h3 class="ko-only">유연한 커스터마이징</h3>
+            <h3 class="en-only">Flexible Customization</h3>
+            <p class="ko-only">
+              기업 요구에 맞춘 기능/정책 확장이 유연하게 가능합니다.
+            </p>
+            <p class="en-only">
+              Flexibly extend features and policies to meet enterprise requirements.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Architecture Section -->
+      <section class="section">
+        <h2 class="section-title animate-on-scroll ko-only">운영 구조</h2>
+        <h2 class="section-title animate-on-scroll en-only">Architecture</h2>
+        <p class="section-subtitle animate-on-scroll ko-only">
+          간단한 구조부터 복잡한 엔터프라이즈 환경까지
+        </p>
+        <p class="section-subtitle animate-on-scroll en-only">
+          From simple structures to complex enterprise environments
+        </p>
+
+        <div class="arch-grid">
+          <div class="arch-card animate-on-scroll">
+            <div class="arch-diagram">
+              <div class="arch-node">Camera</div>
+              <div class="arch-arrow">↓</div>
+              <div class="arch-node">NOX</div>
+              <div class="arch-arrow">↓</div>
+              <div class="arch-node">PC/Mobile</div>
+            </div>
+            <h3 class="ko-only">단일 Edge</h3>
+            <h3 class="en-only">Single Edge</h3>
+            <p class="ko-only">
+              한 곳의 현장에서 독립적으로 운영.
+              소규모 매장이나 사무실에 최적화.
+            </p>
+            <p class="en-only">
+              Independent operation at a single site.
+              Optimized for small stores or offices.
+            </p>
+          </div>
+
+          <div class="arch-card animate-on-scroll">
+            <div class="arch-diagram">
+              <div class="arch-node ko-only">현장 A, B, C</div>
+              <div class="arch-node en-only">Sites A, B, C</div>
+              <div class="arch-arrow">↓</div>
+              <div class="arch-node ko-only">중앙관리 화면</div>
+              <div class="arch-node en-only">Central Dashboard</div>
+            </div>
+            <h3 class="ko-only">다중 Edge 클러스터</h3>
+            <h3 class="en-only">Multi-Edge Cluster</h3>
+            <p class="ko-only">
+              여러 현장을 한 화면에서 모니터링.
+              프랜차이즈나 다중 지점 운영에 적합.
+            </p>
+            <p class="en-only">
+              Monitor multiple sites on one screen.
+              Suitable for franchises or multi-branch operations.
+            </p>
+          </div>
+
+          <div class="arch-card animate-on-scroll">
+            <div class="arch-diagram">
+              <div class="arch-node ko-only">설치업체</div>
+              <div class="arch-node en-only">Installer</div>
+              <div class="arch-node ko-only">기업 고객</div>
+              <div class="arch-node en-only">Enterprise</div>
+              <div class="arch-arrow">↓</div>
+              <div class="arch-node">Cloud</div>
+            </div>
+            <h3>Multi-Tenant Cloud</h3>
+            <p class="ko-only">
+              각 고객사별로 안전하게 분리된 계정.
+              대규모 MSP나 관제센터 운영.
+            </p>
+            <p class="en-only">
+              Securely isolated accounts for each customer.
+              Large-scale MSP or monitoring center operations.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pricing Section -->
+      <section class="section">
+        <h2 class="section-title animate-on-scroll ko-only">도입 및 과금 모델</h2>
+        <h2 class="section-title animate-on-scroll en-only">Pricing & Licensing</h2>
+        <p class="section-subtitle animate-on-scroll ko-only">
+          비즈니스 규모와 요구사항에 맞는 유연한 라이선스
+        </p>
+        <p class="section-subtitle animate-on-scroll en-only">
+          Flexible licensing tailored to your business size and requirements
+        </p>
+
+        <div class="pricing-list animate-on-scroll">
+          <ul class="ko-only">
+            <li>장비 단위 라이선스</li>
+            <li>카메라 채널 수 기반 과금</li>
+            <li>설치업체/MSP 전용 요금제 제공</li>
+            <li>기업·지점 단위 멀티테넌트 계정 구성 가능</li>
+            <li>선택형 클라우드 중앙관제 서비스</li>
+          </ul>
+          <ul class="en-only">
+            <li>Per-device licensing</li>
+            <li>Camera channel-based pricing</li>
+            <li>Dedicated plans for installers and MSPs</li>
+            <li>Multi-tenant account configuration by enterprise/branch</li>
+            <li>Optional cloud central monitoring service</li>
+          </ul>
         </div>
       </section>
     </main>
 
-    <!-- Company Section -->
-    <section id="about" class="company-section">
-      <div class="company-card animate-on-scroll">
-        <h3>About YIYOL</h3>
-        <p>
-          We strive to create innovative apps and services that make people's
-          lives happier and more comfortable through thoughtful design and
-          cutting-edge technology.
+    <!-- CTA Section -->
+    <section class="cta-section" id="contact">
+      <div class="cta-content">
+        <h2 class="ko-only">NOX와 함께 보안 비즈니스를 성장시키세요</h2>
+        <h2 class="en-only">Grow Your Security Business with NOX</h2>
+        <p class="ko-only">
+          데모를 통해 NOX의 강력한 기능을 직접 경험해보세요.<br />
+          파트너십 문의도 환영합니다.
         </p>
-        <a href="https://yiyol.com/company" class="btn">
-          <i class="fas fa-building"></i>
-          Learn More About Us
-        </a>
+        <p class="en-only">
+          Experience NOX's powerful features through a demo.<br />
+          Partnership inquiries are welcome.
+        </p>
+        <div class="cta-buttons">
+          <a href="mailto:contact@yiyol.com?subject=NOX Demo Request" class="btn btn-white ko-only">
+            <i class="fas fa-envelope"></i>
+            데모 요청
+          </a>
+          <a href="mailto:contact@yiyol.com?subject=NOX Demo Request" class="btn btn-white en-only">
+            <i class="fas fa-envelope"></i>
+            Request Demo
+          </a>
+          <a href="mailto:contact@yiyol.com?subject=NOX Quote Request" class="btn btn-white ko-only">
+            <i class="fas fa-file-invoice-dollar"></i>
+            견적 문의
+          </a>
+          <a href="mailto:contact@yiyol.com?subject=NOX Quote Request" class="btn btn-white en-only">
+            <i class="fas fa-file-invoice-dollar"></i>
+            Get Quote
+          </a>
+          <a href="mailto:contact@yiyol.com?subject=NOX Partnership Inquiry" class="btn btn-outline ko-only">
+            <i class="fas fa-handshake"></i>
+            파트너스 프로그램 문의
+          </a>
+          <a href="mailto:contact@yiyol.com?subject=NOX Partnership Inquiry" class="btn btn-outline en-only">
+            <i class="fas fa-handshake"></i>
+            Partnership Inquiry
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+      <div class="main">
+        <div style="max-width: 700px; margin: 0 auto; text-align: center;">
+          <h2 class="section-title animate-on-scroll">About YIYOL</h2>
+          <p class="section-subtitle animate-on-scroll ko-only">
+            혁신적인 기술과 세심한 디자인으로 사람들의 삶을
+            더 행복하고 편안하게 만드는 솔루션을 만들어갑니다.
+          </p>
+          <p class="section-subtitle animate-on-scroll en-only">
+            We strive to create innovative solutions that make people's
+            lives happier and more comfortable through thoughtful design and
+            cutting-edge technology.
+          </p>
+          <a href="https://yiyol.com/company" class="btn btn-primary animate-on-scroll ko-only">
+            <i class="fas fa-building"></i>
+            회사 소개 자세히 보기
+          </a>
+          <a href="https://yiyol.com/company" class="btn btn-primary animate-on-scroll en-only">
+            <i class="fas fa-building"></i>
+            Learn More About Us
+          </a>
+        </div>
       </div>
     </section>
 
@@ -681,6 +1638,65 @@
     </footer>
 
     <script>
+      // Language switching
+      const langLabels = {
+        'ko': '한국어',
+        'en': 'English'
+      };
+
+      const setLanguage = (lang) => {
+        document.documentElement.setAttribute('lang', lang);
+        localStorage.setItem('preferredLanguage', lang);
+
+        // Update current language display
+        const langCurrent = document.querySelector('.lang-current');
+        if (langCurrent) {
+          langCurrent.textContent = langLabels[lang];
+        }
+
+        // Update active state in dropdown
+        document.querySelectorAll('.lang-option').forEach(option => {
+          if (option.dataset.lang === lang) {
+            option.classList.add('active');
+          } else {
+            option.classList.remove('active');
+          }
+        });
+
+        // Close dropdown
+        document.querySelector('.lang-switch').classList.remove('active');
+      };
+
+      // Initialize language
+      const savedLang = localStorage.getItem('preferredLanguage') || 'ko';
+      setLanguage(savedLang);
+
+      // Language selector toggle
+      const langSelector = document.querySelector('.lang-selector');
+      const langSwitch = document.querySelector('.lang-switch');
+
+      if (langSelector) {
+        langSelector.addEventListener('click', (e) => {
+          e.preventDefault();
+          langSwitch.classList.toggle('active');
+        });
+      }
+
+      // Language option click handlers
+      document.querySelectorAll('.lang-option').forEach(option => {
+        option.addEventListener('click', (e) => {
+          e.preventDefault();
+          setLanguage(option.dataset.lang);
+        });
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!langSwitch.contains(e.target)) {
+          langSwitch.classList.remove('active');
+        }
+      });
+
       // Smooth scrolling for navigation
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
