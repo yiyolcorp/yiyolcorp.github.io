@@ -1,172 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- 메인 페이지 -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://yiyol.com/</loc>
-    <lastmod>2025-04-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-  </url>
-
-  <!-- 이미지 편집 서비스 -->
-  <url>
-    <loc>https://image.yiyol.com/</loc>
-    <lastmod>2025-05-08</lastmod>
+    <lastmod>2025-01-24</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://yiyol.com/?lang=ko"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://yiyol.com/?lang=en"/>
   </url>
-  
-  <!-- 계산기 서비스 -->
   <url>
-    <loc>https://calc.yiyol.com/</loc>
-    <lastmod>2025-04-25</lastmod>
+    <loc>https://yiyol.com/#nox</loc>
+    <lastmod>2025-01-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://yiyol.com/#about</loc>
+    <lastmod>2025-01-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  
-  <!-- 개인정보 처리 방침 -->
   <url>
-    <loc>https://yiyol.com/privacy.ko.html</loc>
-    <lastmod>2025-04-25</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://yiyol.com/privacy.en.html</loc>
-    <lastmod>2025-04-25</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <!-- 제품 페이지 -->
-  <url>
-    <loc>https://yiyol.com/led-banner-master/</loc>
-    <lastmod>2025-04-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <!-- LED 배너 마스터 메뉴얼 페이지들 -->
-  <url>
-    <loc>https://yiyol.com/led-banner-master/manual/</loc>
-    <lastmod>2025-04-25</lastmod>
+    <loc>https://yiyol.com/company</loc>
+    <lastmod>2025-01-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-  </url>
-  
-  <url>
-    <loc>https://yiyol.com/led-banner-master/manual/Basic/</loc>
-    <lastmod>2025-04-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://yiyol.com/led-banner-master/manual/BannerSettings/</loc>
-    <lastmod>2025-04-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://yiyol.com/led-banner-master/manual/ShowcaseSettings/</loc>
-    <lastmod>2025-04-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://yiyol.com/led-banner-master/manual/Player/</loc>
-    <lastmod>2025-04-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <!-- time2money 페이지 -->
-  <!-- <url>
-    <loc>https://yiyol.com/time2money/</loc>
-    <lastmod>2024-05-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url> -->
-  
-  <!-- anbu 페이지 -->
-  <!-- <url>
-    <loc>https://yiyol.com/anbu/</loc>
-    <lastmod>2024-05-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url> -->
-  
-  <!-- touchdown-alarm 페이지 (한국어) -->
-  <url>
-    <loc>https://yiyol.com/touchdown-alarm/ko/</loc>
-    <lastmod>2025-07-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>https://yiyol.com/touchdown-alarm/ko/notice.html</loc>
-    <lastmod>2025-07-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://yiyol.com/touchdown-alarm/ko/faq.html</loc>
-    <lastmod>2025-07-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://yiyol.com/touchdown-alarm/ko/privacy.html</loc>
-    <lastmod>2025-07-01</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://yiyol.com/touchdown-alarm/ko/eula.html</loc>
-    <lastmod>2025-07-01</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <!-- touchdown-alarm 페이지 (영어) -->
-  <url>
-    <loc>https://yiyol.com/touchdown-alarm/en/</loc>
-    <lastmod>2025-07-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>https://yiyol.com/touchdown-alarm/en/notice.html</loc>
-    <lastmod>2025-07-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://yiyol.com/touchdown-alarm/en/faq.html</loc>
-    <lastmod>2025-07-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://yiyol.com/touchdown-alarm/en/privacy.html</loc>
-    <lastmod>2025-07-01</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://yiyol.com/touchdown-alarm/en/eula.html</loc>
-    <lastmod>2025-07-01</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
   </url>
 </urlset>
