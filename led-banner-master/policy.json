@@ -4,5 +4,5 @@
       	"bannerCreditsPerTick": 0.03,
 	"showcaseTickSeconds": 1,
 	"showcaseCreditsPerTick": 0.06,
-	"events": [{ "ISRG", "2026-01-31T23:59:59+09:00", "c75f90c9cbf16b85df141489d75157a00bf2cf13" }]
+	"events": [{ "name": "ISRG", "expire": "2026-01-31T23:59:59+09:00", "code": "c75f90c9cbf16b85df141489d75157a00bf2cf13" }]
 }
