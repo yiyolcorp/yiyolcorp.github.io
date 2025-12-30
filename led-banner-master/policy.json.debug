@@ -1,8 +1,8 @@
 {
-	"version": 2,
+	"version": 3,
 	"bannerTickSeconds": 1,
-      	"bannerCreditsPerTick": 0.015,
+    "bannerCreditsPerTick": 0.03,
 	"showcaseTickSeconds": 1,
-	"showcaseCreditsPerTick": 0.03,
-	"events": [{ "name": "ISRG", "expire": "2025-12-29T21:30:00+09:00", "code": "c75f90c9cbf16b85df141489d75157a00bf2cf13" }]
+	"showcaseCreditsPerTick": 0.06,
+	"events": [{ "name": "ISRG", "expire": "2026-01-31T23:59:59+09:00", "code": "c75f90c9cbf16b85df141489d75157a00bf2cf13" }]
 }
