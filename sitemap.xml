@@ -3,28 +3,22 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://yiyol.com/</loc>
-    <lastmod>2025-01-24</lastmod>
+    <lastmod>2026-03-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://yiyol.com/?lang=ko"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://yiyol.com/?lang=en"/>
   </url>
   <url>
-    <loc>https://yiyol.com/#nox</loc>
-    <lastmod>2025-01-24</lastmod>
+    <loc>https://yiyol.com/nox/</loc>
+    <lastmod>2026-03-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://yiyol.com/#about</loc>
-    <lastmod>2025-01-24</lastmod>
+    <lastmod>2026-03-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://yiyol.com/company</loc>
-    <lastmod>2025-01-24</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
   </url>
 </urlset>
