@@ -21,6 +21,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     /* ===== RESET & BASE ===== */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -130,6 +131,88 @@
     @media (prefers-reduced-motion: reduce) {
       .animate-on-scroll { opacity: 1; transform: none; transition: none; }
       .hero-orb { animation: none !important; }
+    }
+
+    /* ===== LANGUAGE SWITCHING ===== */
+    [lang]:not([lang="ko"]) .ko-only,
+    [lang]:not([lang="en"]) .en-only {
+      display: none !important;
+    }
+
+    .lang-switch {
+      position: relative;
+    }
+
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-weight: 500;
+      font-size: 0.85rem;
+      font-family: var(--font-sans);
+    }
+
+    .lang-selector:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .lang-selector i {
+      font-size: 0.7rem;
+      transition: transform 0.2s;
+    }
+
+    .lang-switch.active .lang-selector i {
+      transform: rotate(180deg);
+    }
+
+    .lang-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      min-width: 120px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: all 0.2s;
+      overflow: hidden;
+      z-index: 200;
+    }
+
+    .lang-switch.active .lang-dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .lang-option {
+      padding: 10px 16px;
+      display: block;
+      color: var(--text-secondary);
+      font-weight: 500;
+      font-size: 0.85rem;
+      transition: all 0.15s;
+    }
+
+    .lang-option:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--accent);
+    }
+
+    .lang-option.active {
+      background: rgba(0, 180, 216, 0.1);
+      color: var(--accent);
     }
 
     /* ===== NAV ===== */
@@ -1220,12 +1303,24 @@
         <span></span>
       </label>
       <ul class="nav-links">
-        <li><a href="#features">기능</a></li>
-        <li><a href="#usecases">활용 사례</a></li>
-        <li><a href="#specs">사양</a></li>
-        <li><a href="#compat">호환성</a></li>
-        <li><a href="#arch">아키텍처</a></li>
-        <li><a href="#contact" class="btn btn-primary">데모 요청</a></li>
+        <li><a href="#features"><span class="ko-only">기능</span><span class="en-only">Features</span></a></li>
+        <li><a href="#usecases"><span class="ko-only">활용 사례</span><span class="en-only">Use Cases</span></a></li>
+        <li><a href="#specs"><span class="ko-only">사양</span><span class="en-only">Specs</span></a></li>
+        <li><a href="#compat"><span class="ko-only">호환성</span><span class="en-only">Compatibility</span></a></li>
+        <li><a href="#arch"><span class="ko-only">아키텍처</span><span class="en-only">Architecture</span></a></li>
+        <li><a href="#contact" class="btn btn-primary"><span class="ko-only">데모 요청</span><span class="en-only">Request Demo</span></a></li>
+        <li>
+          <div class="lang-switch">
+            <button class="lang-selector">
+              <span class="lang-current">한국어</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="lang-dropdown">
+              <a href="#" class="lang-option" data-lang="ko">한국어</a>
+              <a href="#" class="lang-option" data-lang="en">English</a>
+            </div>
+          </div>
+        </li>
       </ul>
     </div>
   </nav>
@@ -1241,30 +1336,37 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
           </svg>
-          가정부터 엔터프라이즈까지
+          <span class="ko-only">가정부터 엔터프라이즈까지</span>
+          <span class="en-only">From Home to Enterprise</span>
         </div>
-        <h1 class="hero-title">
+        <h1 class="hero-title ko-only">
           어디든 적용 가능한<br><span class="gradient-text">지능형 NVR/VMS</span>
         </h1>
-        <p class="hero-desc">
+        <h1 class="hero-title en-only">
+          Adaptable Anywhere<br><span class="gradient-text">Intelligent NVR/VMS</span>
+        </h1>
+        <p class="hero-desc ko-only">
           가정, 차량, 매장부터 대규모 시설까지 — 환경에 맞게 유연하게 구성됩니다. ONVIF 카메라와 스마트폰을 하나의 솔루션으로 통합하고, AI 영상 분석으로 위협을 사전에 감지합니다.
         </p>
+        <p class="hero-desc en-only">
+          From homes and vehicles to retail stores and large-scale facilities — flexibly configured for any environment. Integrate ONVIF cameras and smartphones into one unified solution with AI-powered video analytics for proactive threat detection.
+        </p>
         <div class="hero-actions">
-          <a href="#contact" class="btn btn-primary btn-large">데모 요청하기</a>
-          <a href="#specs" class="btn btn-ghost btn-large">제품 사양 보기</a>
+          <a href="#contact" class="btn btn-primary btn-large"><span class="ko-only">데모 요청하기</span><span class="en-only">Request Demo</span></a>
+          <a href="#specs" class="btn btn-ghost btn-large"><span class="ko-only">제품 사양 보기</span><span class="en-only">View Specs</span></a>
         </div>
         <div class="hero-stats">
           <div>
             <div class="hero-stat-value">128+</div>
-            <div class="hero-stat-label">동시 채널</div>
+            <div class="hero-stat-label"><span class="ko-only">동시 채널</span><span class="en-only">Channels</span></div>
           </div>
           <div>
             <div class="hero-stat-value">&lt;500ms</div>
-            <div class="hero-stat-label">응답 시간</div>
+            <div class="hero-stat-label"><span class="ko-only">응답 시간</span><span class="en-only">Response</span></div>
           </div>
           <div>
             <div class="hero-stat-value">4K</div>
-            <div class="hero-stat-label">해상도 지원</div>
+            <div class="hero-stat-label"><span class="ko-only">해상도 지원</span><span class="en-only">Resolution</span></div>
           </div>
         </div>
       </div>
@@ -1304,8 +1406,10 @@
   <section class="features" id="features">
     <div class="container">
       <div class="features-header">
-        <h2 class="section-title animate-on-scroll">왜 NOX인가?</h2>
-        <p class="section-subtitle animate-on-scroll stagger-1">마이크로서비스 아키텍처 기반으로 설계된 차세대 NVR/VMS 솔루션</p>
+        <h2 class="section-title animate-on-scroll ko-only">왜 NOX인가?</h2>
+        <h2 class="section-title animate-on-scroll en-only">Why NOX?</h2>
+        <p class="section-subtitle animate-on-scroll stagger-1 ko-only">마이크로서비스 아키텍처 기반으로 설계된 차세대 NVR/VMS 솔루션</p>
+        <p class="section-subtitle animate-on-scroll stagger-1 en-only">Next-generation NVR/VMS solution built on microservices architecture</p>
       </div>
       <div class="bento-grid">
 
@@ -1317,8 +1421,10 @@
               <path d="M8 21h8M12 17v4"/>
             </svg>
           </div>
-          <h3>실시간 모니터링</h3>
-          <p>최대 128채널을 동시에 감시하고, 다중 분할 레이아웃을 자유롭게 구성하세요. 디지털 줌 16배까지 지원하여 세밀한 확인이 가능합니다.</p>
+          <h3 class="ko-only">실시간 모니터링</h3>
+          <h3 class="en-only">Real-time Monitoring</h3>
+          <p class="ko-only">최대 128채널을 동시에 감시하고, 다중 분할 레이아웃을 자유롭게 구성하세요. 디지털 줌 16배까지 지원하여 세밀한 확인이 가능합니다.</p>
+          <p class="en-only">Monitor up to 128 channels simultaneously with customizable multi-split layouts. Supports up to 16x digital zoom for detailed inspection.</p>
           <div class="bento-visual">
             <div class="bento-grid-dots">
               <div class="bento-grid-dot active"></div>
@@ -1344,13 +1450,21 @@
               <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
             </svg>
           </div>
-          <h3>AI 영상 분석</h3>
-          <p>모션 감지, 번호판 인식(LPR), 라인 크로싱, 침입 감지를 지원합니다. 자동 이벤트 녹화, 이메일 알림, 웹훅 연동까지 원스톱으로 처리합니다.</p>
-          <div class="bento-tag-list">
+          <h3 class="ko-only">AI 영상 분석</h3>
+          <h3 class="en-only">AI Video Analytics</h3>
+          <p class="ko-only">모션 감지, 번호판 인식(LPR), 라인 크로싱, 침입 감지를 지원합니다. 자동 이벤트 녹화, 이메일 알림, 웹훅 연동까지 원스톱으로 처리합니다.</p>
+          <p class="en-only">Supports motion detection, license plate recognition (LPR), line crossing, and intrusion detection. Automated event recording, email alerts, and webhook integration — all in one.</p>
+          <div class="bento-tag-list ko-only">
             <span class="bento-tag">모션 감지</span>
             <span class="bento-tag">번호판 인식</span>
             <span class="bento-tag">라인 크로싱</span>
             <span class="bento-tag">침입 감지</span>
+          </div>
+          <div class="bento-tag-list en-only">
+            <span class="bento-tag">Motion Detection</span>
+            <span class="bento-tag">LPR</span>
+            <span class="bento-tag">Line Crossing</span>
+            <span class="bento-tag">Intrusion Detection</span>
           </div>
         </div>
 
@@ -1363,8 +1477,10 @@
               <path d="M12 2v2M12 20v2"/>
             </svg>
           </div>
-          <h3>녹화 관리</h3>
-          <p>연속, 이벤트, 스케줄 녹화 모드를 스트림별로 개별 설정. 최대 365일 보관.</p>
+          <h3 class="ko-only">녹화 관리</h3>
+          <h3 class="en-only">Recording Management</h3>
+          <p class="ko-only">연속, 이벤트, 스케줄 녹화 모드를 스트림별로 개별 설정. 최대 365일 보관.</p>
+          <p class="en-only">Configure continuous, event-triggered, and scheduled recording per stream. Up to 365-day retention.</p>
         </div>
 
         <!-- 검색 및 재생 (1x1) -->
@@ -1376,8 +1492,10 @@
               <path d="M11 8v6l4 2"/>
             </svg>
           </div>
-          <h3>검색 및 재생</h3>
-          <p>타임라인, 이벤트, AI 메타데이터 검색. 다중 카메라 동기 재생, 0.25x~16x 배속.</p>
+          <h3 class="ko-only">검색 및 재생</h3>
+          <h3 class="en-only">Search & Playback</h3>
+          <p class="ko-only">타임라인, 이벤트, AI 메타데이터 검색. 다중 카메라 동기 재생, 0.25x~16x 배속.</p>
+          <p class="en-only">Timeline, event, and AI metadata search. Multi-camera synchronized playback at 0.25x–16x speed.</p>
         </div>
 
         <!-- ONVIF 카메라 관리 (1x1) -->
@@ -1387,8 +1505,10 @@
               <path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
             </svg>
           </div>
-          <h3>ONVIF 카메라 관리</h3>
-          <p>자동 디스커버리로 손쉬운 카메라 등록. RTSP, WebRTC, PTZ 제어를 지원합니다.</p>
+          <h3 class="ko-only">ONVIF 카메라 관리</h3>
+          <h3 class="en-only">ONVIF Camera Management</h3>
+          <p class="ko-only">자동 디스커버리로 손쉬운 카메라 등록. RTSP, WebRTC, PTZ 제어를 지원합니다.</p>
+          <p class="en-only">Easy camera registration with auto-discovery. Supports RTSP, WebRTC, and PTZ control.</p>
         </div>
 
         <!-- 모바일 카메라 (1x1) -->
@@ -1400,8 +1520,10 @@
               <path d="M9 6h6"/>
             </svg>
           </div>
-          <h3>모바일 카메라</h3>
-          <p>스마트폰을 IP 카메라로 활용. RTSP Push, WebRTC WHIP 프로토콜 지원.</p>
+          <h3 class="ko-only">모바일 카메라</h3>
+          <h3 class="en-only">Mobile Camera</h3>
+          <p class="ko-only">스마트폰을 IP 카메라로 활용. RTSP Push, WebRTC WHIP 프로토콜 지원.</p>
+          <p class="en-only">Use your smartphone as an IP camera. Supports RTSP Push and WebRTC WHIP protocols.</p>
         </div>
 
         <!-- 보안 및 권한 (2x1) -->
@@ -1412,8 +1534,10 @@
               <path d="M9 12l2 2 4-4"/>
             </svg>
           </div>
-          <h3>보안 및 권한</h3>
-          <p>RBAC 기반 세밀한 권한 관리, 리소스 그룹 접근 제어, 완전한 감사 로그. HTTPS/TLS 1.2+, JWT RS256, bcrypt 암호화로 엔터프라이즈급 보안을 제공합니다.</p>
+          <h3 class="ko-only">보안 및 권한</h3>
+          <h3 class="en-only">Security & Access Control</h3>
+          <p class="ko-only">RBAC 기반 세밀한 권한 관리, 리소스 그룹 접근 제어, 완전한 감사 로그. HTTPS/TLS 1.2+, JWT RS256, bcrypt 암호화로 엔터프라이즈급 보안을 제공합니다.</p>
+          <p class="en-only">Fine-grained RBAC permission management, resource group access control, and complete audit logs. Enterprise-grade security with HTTPS/TLS 1.2+, JWT RS256, and bcrypt encryption.</p>
         </div>
 
         <!-- 엔터프라이즈 확장성 (1x1) -->
@@ -1426,8 +1550,10 @@
               <circle cx="6" cy="18" r="1" fill="currentColor"/>
             </svg>
           </div>
-          <h3>유연한 확장성</h3>
-          <p>1채널 소규모부터 128채널 이상까지. 마이크로서비스 아키텍처로 필요에 따라 자유롭게 확장.</p>
+          <h3 class="ko-only">유연한 확장성</h3>
+          <h3 class="en-only">Flexible Scalability</h3>
+          <p class="ko-only">1채널 소규모부터 128채널 이상까지. 마이크로서비스 아키텍처로 필요에 따라 자유롭게 확장.</p>
+          <p class="en-only">From 1 channel to 128+. Scale freely with microservices architecture as your needs grow.</p>
         </div>
 
       </div>
@@ -1438,50 +1564,55 @@
   <section class="specs" id="specs">
     <div class="container">
       <div class="specs-header">
-        <h2 class="section-title animate-on-scroll">검증된 성능</h2>
-        <p class="section-subtitle animate-on-scroll stagger-1">소규모 환경에서도 엔터프라이즈급 안정성과 성능을 제공합니다</p>
+        <h2 class="section-title animate-on-scroll ko-only">검증된 성능</h2>
+        <h2 class="section-title animate-on-scroll en-only">Proven Performance</h2>
+        <p class="section-subtitle animate-on-scroll stagger-1 ko-only">소규모 환경에서도 엔터프라이즈급 안정성과 성능을 제공합니다</p>
+        <p class="section-subtitle animate-on-scroll stagger-1 en-only">Enterprise-grade stability and performance, even for small-scale deployments</p>
       </div>
       <div class="specs-grid">
         <div class="spec-card animate-on-scroll stagger-1">
           <div class="spec-value" data-count="128">128+</div>
-          <div class="spec-label">동시 스트리밍 채널</div>
-          <div class="spec-detail">H.264 / H.265 / 4K 지원</div>
+          <div class="spec-label"><span class="ko-only">동시 스트리밍 채널</span><span class="en-only">Simultaneous Channels</span></div>
+          <div class="spec-detail"><span class="ko-only">H.264 / H.265 / 4K 지원</span><span class="en-only">H.264 / H.265 / 4K Support</span></div>
         </div>
         <div class="spec-card animate-on-scroll stagger-2">
           <div class="spec-value">&lt;500ms</div>
-          <div class="spec-label">응답 시간</div>
-          <div class="spec-detail">로그인, 검색, API 응답</div>
+          <div class="spec-label"><span class="ko-only">응답 시간</span><span class="en-only">Response Time</span></div>
+          <div class="spec-detail"><span class="ko-only">로그인, 검색, API 응답</span><span class="en-only">Login, Search, API Response</span></div>
         </div>
         <div class="spec-card animate-on-scroll stagger-3">
           <div class="spec-value" data-count="20">20+</div>
-          <div class="spec-label">동시 사용자</div>
-          <div class="spec-detail">동시 재생 세션 지원</div>
+          <div class="spec-label"><span class="ko-only">동시 사용자</span><span class="en-only">Concurrent Users</span></div>
+          <div class="spec-detail"><span class="ko-only">동시 재생 세션 지원</span><span class="en-only">Concurrent Playback Sessions</span></div>
         </div>
         <div class="spec-card animate-on-scroll stagger-4">
           <div class="spec-value">S/T/M</div>
-          <div class="spec-label">ONVIF 프로파일</div>
+          <div class="spec-label"><span class="ko-only">ONVIF 프로파일</span><span class="en-only">ONVIF Profiles</span></div>
           <div class="spec-detail">RTSP, WebRTC WHIP</div>
         </div>
         <div class="spec-card animate-on-scroll stagger-5">
-          <div class="spec-value">365일</div>
-          <div class="spec-label">최대 보관 기간</div>
-          <div class="spec-detail">스트림별 개별 설정 가능</div>
+          <div class="spec-value"><span class="ko-only">365일</span><span class="en-only">365 Days</span></div>
+          <div class="spec-label"><span class="ko-only">최대 보관 기간</span><span class="en-only">Max Retention</span></div>
+          <div class="spec-detail"><span class="ko-only">스트림별 개별 설정 가능</span><span class="en-only">Per-stream Configuration</span></div>
         </div>
         <div class="spec-card animate-on-scroll stagger-6">
           <div class="spec-value">TLS 1.2+</div>
-          <div class="spec-label">전송 보안</div>
+          <div class="spec-label"><span class="ko-only">전송 보안</span><span class="en-only">Transport Security</span></div>
           <div class="spec-detail">HTTPS, JWT RS256, bcrypt</div>
         </div>
         <div class="spec-card animate-on-scroll stagger-7">
           <div class="spec-value">LUKS</div>
-          <div class="spec-label">저장 보안</div>
-          <div class="spec-detail">디스크 암호화, 데이터 보호</div>
+          <div class="spec-label"><span class="ko-only">저장 보안</span><span class="en-only">Storage Security</span></div>
+          <div class="spec-detail"><span class="ko-only">디스크 암호화, 데이터 보호</span><span class="en-only">Disk Encryption, Data Protection</span></div>
         </div>
         <div class="spec-card animate-on-scroll stagger-8">
           <div class="spec-value">RAID</div>
-          <div class="spec-label">소프트웨어 RAID 지원</div>
+          <div class="spec-label"><span class="ko-only">소프트웨어 RAID 지원</span><span class="en-only">Software RAID Support</span></div>
           <div class="spec-detail">RAID 1, 5, 6, 10</div>
         </div>
+      </div>
+      <div style="text-align: center; margin-top: 48px;">
+        <a href="/nox/specifications/" class="btn btn-ghost btn-large"><span class="ko-only">상세 기술 사양 보기 &rarr;</span><span class="en-only">View Full Specifications &rarr;</span></a>
       </div>
     </div>
   </section>
@@ -1490,8 +1621,10 @@
   <section class="usecases" id="usecases">
     <div class="container">
       <div class="usecases-header">
-        <h2 class="section-title animate-on-scroll">모든 규모에 맞는 영상 보안</h2>
-        <p class="section-subtitle animate-on-scroll stagger-1">1채널 가정용부터 128채널 엔터프라이즈까지, 환경에 맞게 유연하게 구성됩니다</p>
+        <h2 class="section-title animate-on-scroll ko-only">모든 규모에 맞는 영상 보안</h2>
+        <h2 class="section-title animate-on-scroll en-only">Video Security for Every Scale</h2>
+        <p class="section-subtitle animate-on-scroll stagger-1 ko-only">1채널 가정용부터 128채널 엔터프라이즈까지, 환경에 맞게 유연하게 구성됩니다</p>
+        <p class="section-subtitle animate-on-scroll stagger-1 en-only">From 1-channel home setups to 128-channel enterprise deployments — flexibly configured for any environment</p>
       </div>
       <div class="usecases-grid">
 
@@ -1502,9 +1635,11 @@
               <polyline points="9 22 9 12 15 12 15 22"/>
             </svg>
           </div>
-          <h3>가정</h3>
-          <p>현관, 주차장, 실내를 스마트폰과 IP 카메라로 간편하게 모니터링. 모션 감지 알림으로 빈집도 안심.</p>
-          <span class="usecase-tag">1~4채널</span>
+          <h3 class="ko-only">가정</h3>
+          <h3 class="en-only">Home</h3>
+          <p class="ko-only">현관, 주차장, 실내를 스마트폰과 IP 카메라로 간편하게 모니터링. 모션 감지 알림으로 빈집도 안심.</p>
+          <p class="en-only">Easily monitor entrances, parking lots, and interiors with smartphones and IP cameras. Motion detection alerts keep your home safe even when you're away.</p>
+          <span class="usecase-tag"><span class="ko-only">1~4채널</span><span class="en-only">1–4 Ch</span></span>
         </div>
 
         <div class="usecase-card animate-on-scroll stagger-2">
@@ -1515,9 +1650,11 @@
               <circle cx="8" cy="12" r="2"/>
             </svg>
           </div>
-          <h3>차량</h3>
-          <p>블랙박스 대체 또는 보완용으로 차량 내외부 영상을 실시간 확인. RTSP Push로 이동 중에도 녹화.</p>
-          <span class="usecase-tag">1~2채널</span>
+          <h3 class="ko-only">차량</h3>
+          <h3 class="en-only">Vehicle</h3>
+          <p class="ko-only">블랙박스 대체 또는 보완용으로 차량 내외부 영상을 실시간 확인. RTSP Push로 이동 중에도 녹화.</p>
+          <p class="en-only">Replace or supplement dashcams with real-time interior/exterior monitoring. Record on the go with RTSP Push.</p>
+          <span class="usecase-tag"><span class="ko-only">1~2채널</span><span class="en-only">1–2 Ch</span></span>
         </div>
 
         <div class="usecase-card animate-on-scroll stagger-3">
@@ -1526,9 +1663,11 @@
               <path d="M3 3h18v18H3zM3 9h18M9 21V9"/>
             </svg>
           </div>
-          <h3>중소 매장</h3>
-          <p>매장 내외부, 창고, 주차장까지 통합 관리. 번호판 인식과 침입 감지로 무인 운영도 가능합니다.</p>
-          <span class="usecase-tag">4~16채널</span>
+          <h3 class="ko-only">중소 매장</h3>
+          <h3 class="en-only">Small Business</h3>
+          <p class="ko-only">매장 내외부, 창고, 주차장까지 통합 관리. 번호판 인식과 침입 감지로 무인 운영도 가능합니다.</p>
+          <p class="en-only">Unified management of store interiors, exteriors, warehouses, and parking lots. License plate recognition and intrusion detection enable unmanned operation.</p>
+          <span class="usecase-tag"><span class="ko-only">4~16채널</span><span class="en-only">4–16 Ch</span></span>
         </div>
 
         <div class="usecase-card animate-on-scroll stagger-4">
@@ -1539,9 +1678,11 @@
               <path d="M2 14h12"/>
             </svg>
           </div>
-          <h3>엔터프라이즈</h3>
-          <p>빌딩, 공장, 캠퍼스 등 대규모 시설. 128채널 이상 확장, RBAC 권한 관리, 완전한 감사 로그 지원.</p>
-          <span class="usecase-tag">16~128+채널</span>
+          <h3 class="ko-only">엔터프라이즈</h3>
+          <h3 class="en-only">Enterprise</h3>
+          <p class="ko-only">빌딩, 공장, 캠퍼스 등 대규모 시설. 128채널 이상 확장, RBAC 권한 관리, 완전한 감사 로그 지원.</p>
+          <p class="en-only">Large-scale facilities including buildings, factories, and campuses. 128+ channel scalability, RBAC access control, and full audit logging.</p>
+          <span class="usecase-tag"><span class="ko-only">16~128+채널</span><span class="en-only">16–128+ Ch</span></span>
         </div>
 
       </div>
@@ -1552,8 +1693,10 @@
   <section class="compat" id="compat">
     <div class="container">
       <div class="compat-header">
-        <h2 class="section-title animate-on-scroll">검증된 카메라 호환성</h2>
-        <p class="section-subtitle animate-on-scroll stagger-1">주요 글로벌 카메라 제조사와의 호환성이 검증되었습니다</p>
+        <h2 class="section-title animate-on-scroll ko-only">검증된 카메라 호환성</h2>
+        <h2 class="section-title animate-on-scroll en-only">Verified Camera Compatibility</h2>
+        <p class="section-subtitle animate-on-scroll stagger-1 ko-only">주요 글로벌 카메라 제조사와의 호환성이 검증되었습니다</p>
+        <p class="section-subtitle animate-on-scroll stagger-1 en-only">Compatibility verified with major global camera manufacturers</p>
       </div>
       <div class="compat-grid">
         <div class="compat-card animate-on-scroll stagger-1">
@@ -1561,46 +1704,47 @@
             <svg class="compat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
             Hanwha Vision
           </div>
-          <div class="compat-models">XNV, XND, XNP 시리즈</div>
+          <div class="compat-models"><span class="ko-only">XNV, XND, XNP 시리즈</span><span class="en-only">XNV, XND, XNP Series</span></div>
         </div>
         <div class="compat-card animate-on-scroll stagger-2">
           <div class="compat-brand">
             <svg class="compat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
             Hikvision
           </div>
-          <div class="compat-models">DS 시리즈</div>
+          <div class="compat-models"><span class="ko-only">DS 시리즈</span><span class="en-only">DS Series</span></div>
         </div>
         <div class="compat-card animate-on-scroll stagger-3">
           <div class="compat-brand">
             <svg class="compat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
             Dahua
           </div>
-          <div class="compat-models">IPC 시리즈</div>
+          <div class="compat-models"><span class="ko-only">IPC 시리즈</span><span class="en-only">IPC Series</span></div>
         </div>
         <div class="compat-card animate-on-scroll stagger-4">
           <div class="compat-brand">
             <svg class="compat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
             Axis
           </div>
-          <div class="compat-models">P, Q, M 시리즈</div>
+          <div class="compat-models"><span class="ko-only">P, Q, M 시리즈</span><span class="en-only">P, Q, M Series</span></div>
         </div>
         <div class="compat-card animate-on-scroll stagger-5">
           <div class="compat-brand">
             <svg class="compat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
             Vivotek
           </div>
-          <div class="compat-models">IP 시리즈</div>
+          <div class="compat-models"><span class="ko-only">IP 시리즈</span><span class="en-only">IP Series</span></div>
         </div>
         <div class="compat-card animate-on-scroll stagger-6">
           <div class="compat-brand">
             <svg class="compat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
             Uniview
           </div>
-          <div class="compat-models">IPC 시리즈</div>
+          <div class="compat-models"><span class="ko-only">IPC 시리즈</span><span class="en-only">IPC Series</span></div>
         </div>
       </div>
       <div class="compat-note animate-on-scroll">
-        <strong>ONVIF Profile S/T</strong>를 지원하는 모든 IP 카메라와 호환됩니다
+        <span class="ko-only"><strong>ONVIF Profile S/T</strong>를 지원하는 모든 IP 카메라와 호환됩니다</span>
+        <span class="en-only">Compatible with all IP cameras supporting <strong>ONVIF Profile S/T</strong></span>
       </div>
     </div>
   </section>
@@ -1609,8 +1753,10 @@
   <section class="arch" id="arch">
     <div class="container">
       <div class="arch-header">
-        <h2 class="section-title animate-on-scroll">현대적 마이크로서비스 아키텍처</h2>
-        <p class="section-subtitle animate-on-scroll stagger-1">16개의 독립된 서비스가 유기적으로 연동되어 안정성과 확장성을 보장합니다</p>
+        <h2 class="section-title animate-on-scroll ko-only">현대적 마이크로서비스 아키텍처</h2>
+        <h2 class="section-title animate-on-scroll en-only">Modern Microservices Architecture</h2>
+        <p class="section-subtitle animate-on-scroll stagger-1 ko-only">16개의 독립된 서비스가 유기적으로 연동되어 안정성과 확장성을 보장합니다</p>
+        <p class="section-subtitle animate-on-scroll stagger-1 en-only">16 independent services working in harmony to ensure stability and scalability</p>
       </div>
       <div class="arch-content">
         <div class="arch-features">
@@ -1621,8 +1767,10 @@
               </svg>
             </div>
             <div>
-              <h4>독립 배포 가능</h4>
-              <p>각 서비스를 독립적으로 업데이트하고 확장할 수 있어 무중단 운영이 가능합니다.</p>
+              <h4 class="ko-only">독립 배포 가능</h4>
+              <h4 class="en-only">Independent Deployment</h4>
+              <p class="ko-only">각 서비스를 독립적으로 업데이트하고 확장할 수 있어 무중단 운영이 가능합니다.</p>
+              <p class="en-only">Update and scale each service independently for zero-downtime operation.</p>
             </div>
           </div>
           <div class="arch-feature animate-on-scroll stagger-2">
@@ -1632,8 +1780,10 @@
               </svg>
             </div>
             <div>
-              <h4>실시간 이벤트 기반</h4>
-              <p>Redis Pub/Sub을 통한 서비스 간 비동기 통신으로 실시간 이벤트를 즉각 처리합니다.</p>
+              <h4 class="ko-only">실시간 이벤트 기반</h4>
+              <h4 class="en-only">Real-time Event-Driven</h4>
+              <p class="ko-only">Redis Pub/Sub을 통한 서비스 간 비동기 통신으로 실시간 이벤트를 즉각 처리합니다.</p>
+              <p class="en-only">Asynchronous inter-service communication via Redis Pub/Sub for instant real-time event processing.</p>
             </div>
           </div>
           <div class="arch-feature animate-on-scroll stagger-3">
@@ -1643,8 +1793,10 @@
               </svg>
             </div>
             <div>
-              <h4>웹 기반 원격 접속</h4>
-              <p>브라우저만으로 어디서든 동일한 기능을 사용할 수 있습니다. 별도 클라이언트 설치가 필요 없습니다.</p>
+              <h4 class="ko-only">웹 기반 원격 접속</h4>
+              <h4 class="en-only">Web-Based Remote Access</h4>
+              <p class="ko-only">브라우저만으로 어디서든 동일한 기능을 사용할 수 있습니다. 별도 클라이언트 설치가 필요 없습니다.</p>
+              <p class="en-only">Access full functionality from any browser, anywhere. No client installation required.</p>
             </div>
           </div>
           <div class="arch-feature animate-on-scroll stagger-4">
@@ -1654,13 +1806,15 @@
               </svg>
             </div>
             <div>
-              <h4>Docker 컨테이너화</h4>
-              <p>Docker Compose로 간편하게 배포하고, 멀티 아키텍처(amd64/arm64)를 지원합니다.</p>
+              <h4 class="ko-only">Docker 컨테이너화</h4>
+              <h4 class="en-only">Docker Containerized</h4>
+              <p class="ko-only">Docker Compose로 간편하게 배포하고, 멀티 아키텍처(amd64/arm64)를 지원합니다.</p>
+              <p class="en-only">Easy deployment with Docker Compose, supporting multi-architecture (amd64/arm64).</p>
             </div>
           </div>
         </div>
         <div class="arch-diagram animate-on-scroll stagger-2">
-          <div class="arch-diagram-title">서비스 아키텍처</div>
+          <div class="arch-diagram-title"><span class="ko-only">서비스 아키텍처</span><span class="en-only">Service Architecture</span></div>
           <div class="arch-services">
             <div class="arch-service">Camera</div>
             <div class="arch-service">Record</div>
@@ -1679,7 +1833,7 @@
             <div class="arch-service">System</div>
             <div class="arch-service">ONVIF Server</div>
           </div>
-          <div class="arch-middleware">Redis Pub/Sub — 실시간 이벤트 버스</div>
+          <div class="arch-middleware"><span class="ko-only">Redis Pub/Sub — 실시간 이벤트 버스</span><span class="en-only">Redis Pub/Sub — Real-time Event Bus</span></div>
           <div class="arch-infra">
             <div class="arch-infra-item">PostgreSQL</div>
             <div class="arch-infra-item">Redis</div>
@@ -1695,11 +1849,15 @@
     <div class="cta-bg"></div>
     <div class="container">
       <div class="cta-content animate-on-scroll">
-        <h2 class="cta-title">NOX를 직접 경험해 보세요</h2>
-        <p class="cta-desc">데모 시연, 기술 상담, OEM/리셀러 파트너십 문의를 환영합니다.<br>전문 엔지니어가 귀사의 요구사항에 맞는 솔루션을 제안해 드립니다.</p>
+        <h2 class="cta-title ko-only">NOX를 직접 경험해 보세요</h2>
+        <h2 class="cta-title en-only">Experience NOX Firsthand</h2>
+        <p class="cta-desc ko-only">데모 시연, 기술 상담, OEM/리셀러 파트너십 문의를 환영합니다.<br>전문 엔지니어가 귀사의 요구사항에 맞는 솔루션을 제안해 드립니다.</p>
+        <p class="cta-desc en-only">We welcome demo requests, technical consultations, and OEM/reseller partnership inquiries.<br>Our expert engineers will propose a solution tailored to your requirements.</p>
         <div class="cta-actions">
-          <a href="mailto:sales@yiyol.com?subject=NOX 데모 요청" class="btn btn-primary btn-large">데모 요청하기</a>
-          <a href="mailto:support@yiyol.com?subject=NOX 기술 문의" class="btn btn-ghost btn-large">기술 문의</a>
+          <a href="mailto:sales@yiyol.com?subject=NOX Demo Request" class="btn btn-primary btn-large ko-only">데모 요청하기</a>
+          <a href="mailto:sales@yiyol.com?subject=NOX Demo Request" class="btn btn-primary btn-large en-only">Request Demo</a>
+          <a href="mailto:support@yiyol.com?subject=NOX Technical Inquiry" class="btn btn-ghost btn-large ko-only">기술 문의</a>
+          <a href="mailto:support@yiyol.com?subject=NOX Technical Inquiry" class="btn btn-ghost btn-large en-only">Technical Inquiry</a>
         </div>
       </div>
     </div>
@@ -1711,24 +1869,27 @@
       <div class="footer-content">
         <div>
           <div class="footer-brand">NOX</div>
-          <p class="footer-desc">가정부터 엔터프라이즈까지, 모든 규모에 맞는 AI 기반 NVR/VMS 영상 보안 솔루션.</p>
+          <p class="footer-desc ko-only">가정부터 엔터프라이즈까지, 모든 규모에 맞는 AI 기반 NVR/VMS 영상 보안 솔루션.</p>
+          <p class="footer-desc en-only">AI-powered NVR/VMS video security solution for every scale — from home to enterprise.</p>
         </div>
         <div>
-          <h4 class="footer-heading">제품</h4>
+          <h4 class="footer-heading ko-only">제품</h4>
+          <h4 class="footer-heading en-only">Product</h4>
           <ul class="footer-links">
-            <li><a href="#features">주요 기능</a></li>
-            <li><a href="#usecases">활용 사례</a></li>
-            <li><a href="#specs">제품 사양</a></li>
-            <li><a href="#compat">카메라 호환성</a></li>
-            <li><a href="#arch">아키텍처</a></li>
+            <li><a href="#features"><span class="ko-only">주요 기능</span><span class="en-only">Features</span></a></li>
+            <li><a href="#usecases"><span class="ko-only">활용 사례</span><span class="en-only">Use Cases</span></a></li>
+            <li><a href="#specs"><span class="ko-only">제품 사양</span><span class="en-only">Specs</span></a></li>
+            <li><a href="#compat"><span class="ko-only">카메라 호환성</span><span class="en-only">Compatibility</span></a></li>
+            <li><a href="#arch"><span class="ko-only">아키텍처</span><span class="en-only">Architecture</span></a></li>
           </ul>
         </div>
         <div>
-          <h4 class="footer-heading">문의</h4>
+          <h4 class="footer-heading ko-only">문의</h4>
+          <h4 class="footer-heading en-only">Contact</h4>
           <ul class="footer-links">
-            <li><a href="mailto:sales@yiyol.com">영업 문의</a></li>
-            <li><a href="mailto:support@yiyol.com">기술 지원</a></li>
-            <li><a href="mailto:partner@yiyol.com">파트너십</a></li>
+            <li><a href="mailto:sales@yiyol.com"><span class="ko-only">영업 문의</span><span class="en-only">Sales</span></a></li>
+            <li><a href="mailto:support@yiyol.com"><span class="ko-only">기술 지원</span><span class="en-only">Support</span></a></li>
+            <li><a href="mailto:partner@yiyol.com"><span class="ko-only">파트너십</span><span class="en-only">Partnership</span></a></li>
           </ul>
         </div>
       </div>
@@ -1739,6 +1900,7 @@
   </footer>
 
   <!-- ===== SCRIPTS ===== -->
+  <script src="/assets/js/i18n.js"></script>
   <script>
     // 네비게이션 스크롤 효과
     const nav = document.getElementById('nav');

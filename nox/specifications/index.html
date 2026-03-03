@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKJ4GX2KHS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-CKJ4GX2KHS');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NOX — 기술 사양</title>
+  <link rel="canonical" href="https://yiyol.com/nox/specifications/">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <meta name="description" content="NOX NVR/VMS 상세 기술 사양 — 시스템 요구사양, 카메라 호환성, 네트워크 포트, 저장소, 보안, 성능 사양 등">
+  <meta property="og:title" content="NOX — 기술 사양">
+  <meta property="og:description" content="NOX NVR/VMS 상세 기술 사양. 시스템 요구사양부터 성능, 보안까지.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --bg-primary: #0a0a1a;
+      --bg-secondary: #0e0e24;
+      --bg-card: #14142b;
+      --bg-card-hover: #1c1c3a;
+      --text-primary: #e8e8f0;
+      --text-secondary: #9898b8;
+      --text-muted: #5a5a7a;
+      --accent: #00b4d8;
+      --accent-light: #48cae4;
+      --accent-glow: rgba(0, 180, 216, 0.25);
+      --accent-dark: #0077b6;
+      --border: rgba(255, 255, 255, 0.06);
+      --border-hover: rgba(0, 180, 216, 0.35);
+      --font-sans: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ===== NAV ===== */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 16px 0;
+      background: rgba(10, 10, 26, 0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-logo .logo-accent { color: var(--accent); }
+
+    .nav-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+
+    .nav-back:hover { color: var(--accent); }
+
+    .nav-back svg { width: 16px; height: 16px; }
+
+    /* ===== LAYOUT ===== */
+    .page-wrapper {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 24px 60px;
+      gap: 48px;
+    }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      position: sticky;
+      top: 80px;
+      align-self: start;
+      max-height: calc(100vh - 100px);
+      overflow-y: auto;
+      padding: 24px 0;
+    }
+
+    .sidebar-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .sidebar-nav {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .sidebar-nav a {
+      display: block;
+      padding: 8px 14px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      border-radius: var(--radius-sm);
+      border-left: 2px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .sidebar-nav a:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .sidebar-nav a.active {
+      color: var(--accent);
+      border-left-color: var(--accent);
+      background: rgba(0, 180, 216, 0.06);
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    .content {
+      min-width: 0;
+    }
+
+    .content-header {
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .content-header h1 {
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .content-header h1 .gradient-text {
+      background: linear-gradient(135deg, var(--accent), var(--accent-light), #90e0ef);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .content-header p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+    }
+
+    /* ===== SPEC SECTIONS ===== */
+    .spec-section {
+      margin-bottom: 56px;
+      scroll-margin-top: 80px;
+    }
+
+    .spec-section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .spec-section-title .section-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(0, 180, 216, 0.1);
+      border: 1px solid rgba(0, 180, 216, 0.2);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .spec-section-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      padding-left: 42px;
+    }
+
+    /* ===== SUBSECTION ===== */
+    .subsection {
+      margin-bottom: 28px;
+    }
+
+    .subsection-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 14px;
+      padding-left: 4px;
+    }
+
+    /* ===== TABLE ===== */
+    .table-wrapper {
+      overflow-x: auto;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    thead {
+      background: rgba(0, 180, 216, 0.08);
+    }
+
+    th {
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--accent-light);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    th:not(:first-child) { text-align: center; }
+
+    td {
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+
+    td:not(:first-child) { text-align: center; }
+
+    td:first-child {
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .check-mark {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* ===== NOTE ===== */
+    .note {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 14px 18px;
+      background: rgba(0, 180, 216, 0.05);
+      border: 1px solid rgba(0, 180, 216, 0.12);
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-top: 12px;
+    }
+
+    .note-icon {
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ===== CODE BLOCK ===== */
+    .code-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      overflow-x: auto;
+      line-height: 1.7;
+    }
+
+    .code-block .key { color: var(--accent-light); }
+    .code-block .str { color: #a3be8c; }
+    .code-block .num { color: #d08770; }
+    .code-block .comment { color: var(--text-muted); }
+
+    /* ===== ANIMATIONS ===== */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .animate-on-scroll { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ===== LANGUAGE SWITCHING ===== */
+    [lang]:not([lang="ko"]) .ko-only,
+    [lang]:not([lang="en"]) .en-only {
+      display: none !important;
+    }
+
+    .lang-switch {
+      position: relative;
+    }
+
+    .lang-selector {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-weight: 500;
+      font-size: 0.85rem;
+      font-family: var(--font-sans);
+    }
+
+    .lang-selector:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .lang-selector i {
+      font-size: 0.7rem;
+      transition: transform 0.2s;
+    }
+
+    .lang-switch.active .lang-selector i {
+      transform: rotate(180deg);
+    }
+
+    .lang-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      min-width: 120px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: all 0.2s;
+      overflow: hidden;
+      z-index: 200;
+    }
+
+    .lang-switch.active .lang-dropdown {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .lang-option {
+      padding: 10px 16px;
+      display: block;
+      color: var(--text-secondary);
+      font-weight: 500;
+      font-size: 0.85rem;
+      transition: all 0.15s;
+    }
+
+    .lang-option:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--accent);
+    }
+
+    .lang-option.active {
+      background: rgba(0, 180, 216, 0.1);
+      color: var(--accent);
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 24px;
+      text-align: center;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .footer-link {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+
+    .footer-link:hover { color: var(--accent); }
+
+    /* ===== MOBILE NAV TOGGLE ===== */
+    .mobile-toc-toggle {
+      display: none;
+      width: 100%;
+      padding: 12px 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-secondary);
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      margin-bottom: 24px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .mobile-toc-toggle svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.2s;
+    }
+
+    .mobile-toc-toggle.open svg {
+      transform: rotate(180deg);
+    }
+
+    .mobile-toc {
+      display: none;
+      list-style: none;
+      margin-bottom: 24px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 8px;
+    }
+
+    .mobile-toc.open { display: block; }
+
+    .mobile-toc a {
+      display: block;
+      padding: 10px 14px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .mobile-toc a:hover {
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-primary);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .page-wrapper {
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding: 80px 20px 40px;
+      }
+
+      .sidebar { display: none; }
+
+      .mobile-toc-toggle { display: flex; }
+
+      .footer-inner {
+        flex-direction: column;
+        gap: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAV ===== -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/nox/" class="nav-logo">
+        <span class="logo-accent">NOX</span>
+      </a>
+      <div style="display: flex; align-items: center; gap: 16px;">
+        <a href="/nox/" class="nav-back">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+          <span class="ko-only">NOX 메인으로</span>
+          <span class="en-only">Back to NOX</span>
+        </a>
+        <div class="lang-switch">
+          <button class="lang-selector">
+            <span class="lang-current">한국어</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="lang-dropdown">
+            <a href="#" class="lang-option" data-lang="ko">한국어</a>
+            <a href="#" class="lang-option" data-lang="en">English</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar">
+      <div class="sidebar-title"><span class="ko-only">목차</span><span class="en-only">Contents</span></div>
+      <ul class="sidebar-nav">
+        <li><a href="#system-requirements"><span class="ko-only">시스템 요구사양</span><span class="en-only">System Requirements</span></a></li>
+        <li><a href="#client-requirements"><span class="ko-only">클라이언트 요구사양</span><span class="en-only">Client Requirements</span></a></li>
+        <li><a href="#camera-compatibility"><span class="ko-only">카메라 호환성</span><span class="en-only">Camera Compatibility</span></a></li>
+        <li><a href="#network-ports"><span class="ko-only">네트워크 포트</span><span class="en-only">Network Ports</span></a></li>
+        <li><a href="#storage"><span class="ko-only">저장소 사양</span><span class="en-only">Storage</span></a></li>
+        <li><a href="#database"><span class="ko-only">데이터베이스 사양</span><span class="en-only">Database</span></a></li>
+        <li><a href="#api"><span class="ko-only">API 사양</span><span class="en-only">API</span></a></li>
+        <li><a href="#security"><span class="ko-only">보안 사양</span><span class="en-only">Security</span></a></li>
+        <li><a href="#performance"><span class="ko-only">성능 사양</span><span class="en-only">Performance</span></a></li>
+        <li><a href="#compatible-cameras"><span class="ko-only">호환 카메라 제조사</span><span class="en-only">Compatible Cameras</span></a></li>
+        <li><a href="#limitations"><span class="ko-only">제한 사항</span><span class="en-only">Limitations</span></a></li>
+      </ul>
+    </aside>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="content">
+
+      <div class="content-header">
+        <h1 class="ko-only"><span class="gradient-text">기술 사양</span></h1>
+        <h1 class="en-only"><span class="gradient-text">Technical Specifications</span></h1>
+        <p class="ko-only">NOX NVR/VMS의 상세 기술 사양입니다. 시스템 요구사양부터 성능, 보안까지 모든 기술 정보를 확인하세요.</p>
+        <p class="en-only">Detailed technical specifications for NOX NVR/VMS. Review all technical information from system requirements to performance and security.</p>
+      </div>
+
+      <!-- Mobile TOC -->
+      <button class="mobile-toc-toggle" onclick="this.classList.toggle('open'); document.getElementById('mobileToc').classList.toggle('open');">
+        <span class="ko-only">목차 보기</span><span class="en-only">Table of Contents</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <ul class="mobile-toc" id="mobileToc">
+        <li><a href="#system-requirements" onclick="closeMobileToc()"><span class="ko-only">시스템 요구사양</span><span class="en-only">System Requirements</span></a></li>
+        <li><a href="#client-requirements" onclick="closeMobileToc()"><span class="ko-only">클라이언트 요구사양</span><span class="en-only">Client Requirements</span></a></li>
+        <li><a href="#camera-compatibility" onclick="closeMobileToc()"><span class="ko-only">카메라 호환성</span><span class="en-only">Camera Compatibility</span></a></li>
+        <li><a href="#network-ports" onclick="closeMobileToc()"><span class="ko-only">네트워크 포트</span><span class="en-only">Network Ports</span></a></li>
+        <li><a href="#storage" onclick="closeMobileToc()"><span class="ko-only">저장소 사양</span><span class="en-only">Storage</span></a></li>
+        <li><a href="#database" onclick="closeMobileToc()"><span class="ko-only">데이터베이스 사양</span><span class="en-only">Database</span></a></li>
+        <li><a href="#api" onclick="closeMobileToc()"><span class="ko-only">API 사양</span><span class="en-only">API</span></a></li>
+        <li><a href="#security" onclick="closeMobileToc()"><span class="ko-only">보안 사양</span><span class="en-only">Security</span></a></li>
+        <li><a href="#performance" onclick="closeMobileToc()"><span class="ko-only">성능 사양</span><span class="en-only">Performance</span></a></li>
+        <li><a href="#compatible-cameras" onclick="closeMobileToc()"><span class="ko-only">호환 카메라 제조사</span><span class="en-only">Compatible Cameras</span></a></li>
+        <li><a href="#limitations" onclick="closeMobileToc()"><span class="ko-only">제한 사항</span><span class="en-only">Limitations</span></a></li>
+      </ul>
+
+      <!-- ===== A.1 시스템 요구사양 ===== -->
+      <section class="spec-section animate-on-scroll" id="system-requirements">
+        <h2 class="spec-section-title">
+          <span class="section-number">01</span>
+          <span class="ko-only">시스템 요구사양</span><span class="en-only">System Requirements</span>
+        </h2>
+        <p class="spec-section-desc ko-only">NOX 서버의 하드웨어 및 운영체제 요구사양입니다.</p>
+        <p class="spec-section-desc en-only">Hardware and OS requirements for the NOX server.</p>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">최소 사양</h3>
+          <h3 class="subsection-title en-only">Minimum Requirements</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th><span class="ko-only">항목</span><span class="en-only">Item</span></th><th><span class="ko-only">사양</span><span class="en-only">Spec</span></th></tr></thead>
+              <tbody>
+                <tr><td>CPU</td><td>4 Core (x86_64)</td></tr>
+                <tr><td>RAM</td><td>8 GB</td></tr>
+                <tr><td><span class="ko-only">저장소</span><span class="en-only">Storage</span></td><td>SSD 100 GB</td></tr>
+                <tr><td><span class="ko-only">네트워크</span><span class="en-only">Network</span></td><td>1 Gbps</td></tr>
+                <tr><td>OS</td><td>Ubuntu 24.04 LTS</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">권장 사양</h3>
+          <h3 class="subsection-title en-only">Recommended</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th><span class="ko-only">항목</span><span class="en-only">Item</span></th><th><span class="ko-only">사양</span><span class="en-only">Spec</span></th></tr></thead>
+              <tbody>
+                <tr><td>CPU</td><td><span class="ko-only">8 Core 이상 (x86_64)</span><span class="en-only">8 Core+ (x86_64)</span></td></tr>
+                <tr><td>RAM</td><td><span class="ko-only">16 GB 이상</span><span class="en-only">16 GB+</span></td></tr>
+                <tr><td><span class="ko-only">저장소</span><span class="en-only">Storage</span></td><td><span class="ko-only">SSD 500 GB 이상</span><span class="en-only">SSD 500 GB+</span></td></tr>
+                <tr><td><span class="ko-only">네트워크</span><span class="en-only">Network</span></td><td>10 Gbps</td></tr>
+                <tr><td>OS</td><td>Ubuntu 24.04 LTS</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">대규모 환경 (64채널 이상)</h3>
+          <h3 class="subsection-title en-only">Large Scale (64+ Channels)</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th><span class="ko-only">항목</span><span class="en-only">Item</span></th><th><span class="ko-only">사양</span><span class="en-only">Spec</span></th></tr></thead>
+              <tbody>
+                <tr><td>CPU</td><td><span class="ko-only">16 Core 이상</span><span class="en-only">16 Core+</span></td></tr>
+                <tr><td>RAM</td><td><span class="ko-only">32 GB 이상</span><span class="en-only">32 GB+</span></td></tr>
+                <tr><td><span class="ko-only">저장소</span><span class="en-only">Storage</span></td><td><span class="ko-only">RAID 구성 SSD/HDD</span><span class="en-only">RAID SSD/HDD</span></td></tr>
+                <tr><td><span class="ko-only">네트워크</span><span class="en-only">Network</span></td><td><span class="ko-only">10 Gbps 이상</span><span class="en-only">10 Gbps+</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== A.2 클라이언트 요구사양 ===== -->
+      <section class="spec-section animate-on-scroll" id="client-requirements">
+        <h2 class="spec-section-title">
+          <span class="section-number">02</span>
+          <span class="ko-only">클라이언트 요구사양</span><span class="en-only">Client Requirements</span>
+        </h2>
+        <p class="spec-section-desc ko-only">NOX에 접속하기 위한 클라이언트 환경 요구사양입니다.</p>
+        <p class="spec-section-desc en-only">Client environment requirements for accessing NOX.</p>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">로컬 클라이언트</h3>
+          <h3 class="subsection-title en-only">Local Client</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th><span class="ko-only">항목</span><span class="en-only">Item</span></th><th><span class="ko-only">사양</span><span class="en-only">Spec</span></th></tr></thead>
+              <tbody>
+                <tr><td><span class="ko-only">연결</span><span class="en-only">Connection</span></td><td><span class="ko-only">NOX 서버에 모니터 직접 연결</span><span class="en-only">Direct monitor connection to NOX server</span></td></tr>
+                <tr><td><span class="ko-only">해상도</span><span class="en-only">Resolution</span></td><td><span class="ko-only">1920x1080 이상 권장</span><span class="en-only">1920x1080+ recommended</span></td></tr>
+                <tr><td><span class="ko-only">실행 방식</span><span class="en-only">Launch Mode</span></td><td><span class="ko-only">시스템 시작 시 키오스크 모드 자동 실행</span><span class="en-only">Auto-launch in kiosk mode on system boot</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">지원 브라우저</h3>
+          <h3 class="subsection-title en-only">Supported Browsers</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th><span class="ko-only">브라우저</span><span class="en-only">Browser</span></th><th><span class="ko-only">최소 버전</span><span class="en-only">Min Version</span></th><th><span class="ko-only">권장 버전</span><span class="en-only">Recommended</span></th></tr></thead>
+              <tbody>
+                <tr><td>Google Chrome</td><td>120</td><td><span class="ko-only">최신</span><span class="en-only">Latest</span></td></tr>
+                <tr><td>Mozilla Firefox</td><td>120</td><td><span class="ko-only">최신</span><span class="en-only">Latest</span></td></tr>
+                <tr><td>Microsoft Edge</td><td>120</td><td><span class="ko-only">최신</span><span class="en-only">Latest</span></td></tr>
+                <tr><td>Apple Safari</td><td>17</td><td><span class="ko-only">최신</span><span class="en-only">Latest</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">화면 해상도</h3>
+          <h3 class="subsection-title en-only">Screen Resolution</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th><span class="ko-only">해상도</span><span class="en-only">Resolution</span></th><th><span class="ko-only">지원</span><span class="en-only">Support</span></th></tr></thead>
+              <tbody>
+                <tr><td>1920x1080 (Full HD)</td><td><span class="ko-only">권장</span><span class="en-only">Recommended</span></td></tr>
+                <tr><td>1366x768</td><td><span class="ko-only">지원</span><span class="en-only">Supported</span></td></tr>
+                <tr><td>2560x1440 (QHD)</td><td><span class="ko-only">지원</span><span class="en-only">Supported</span></td></tr>
+                <tr><td>3840x2160 (4K)</td><td><span class="ko-only">지원</span><span class="en-only">Supported</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">네트워크 대역폭</h3>
+          <h3 class="subsection-title en-only">Network Bandwidth</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th><span class="ko-only">채널 수</span><span class="en-only">Channels</span></th><th><span class="ko-only">권장 대역폭</span><span class="en-only">Recommended BW</span></th></tr></thead>
+              <tbody>
+                <tr><td><span class="ko-only">4채널</span><span class="en-only">4 Ch</span></td><td>16 Mbps</td></tr>
+                <tr><td><span class="ko-only">8채널</span><span class="en-only">8 Ch</span></td><td>32 Mbps</td></tr>
+                <tr><td><span class="ko-only">16채널</span><span class="en-only">16 Ch</span></td><td>64 Mbps</td></tr>
+                <tr><td><span class="ko-only">32채널</span><span class="en-only">32 Ch</span></td><td>128 Mbps</td></tr>
+                <tr><td><span class="ko-only">64채널</span><span class="en-only">64 Ch</span></td><td>256 Mbps</td></tr>
+                <tr><td><span class="ko-only">81채널</span><span class="en-only">81 Ch</span></td><td>324 Mbps</td></tr>
+                <tr><td><span class="ko-only">128채널</span><span class="en-only">128 Ch</span></td><td>512 Mbps</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="note">
+            <span class="note-icon">i</span>
+            <span class="ko-only">계산 기준: 채널당 평균 4 Mbps (1080p H.264 기준)</span>
+            <span class="en-only">Based on avg. 4 Mbps per channel (1080p H.264)</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== A.3 카메라 호환성 ===== -->
+      <section class="spec-section animate-on-scroll" id="camera-compatibility">
+        <h2 class="spec-section-title">
+          <span class="section-number">03</span>
+          <span class="ko-only">카메라 호환성</span><span class="en-only">Camera Compatibility</span>
+        </h2>
+        <p class="spec-section-desc ko-only">지원하는 카메라 프로토콜, 코덱, 해상도 정보입니다.</p>
+        <p class="spec-section-desc en-only">Supported camera protocols, codecs, and resolutions.</p>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">지원 프로토콜</h3>
+          <h3 class="subsection-title en-only">Supported Protocols</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th><span class="ko-only">프로토콜</span><span class="en-only">Protocol</span></th><th><span class="ko-only">버전</span><span class="en-only">Version</span></th><th><span class="ko-only">기능</span><span class="en-only">Function</span></th></tr></thead>
+              <tbody>
+                <tr><td>ONVIF</td><td>Profile S</td><td><span class="ko-only">스트리밍, PTZ</span><span class="en-only">Streaming, PTZ</span></td></tr>
+                <tr><td>ONVIF</td><td>Profile T</td><td><span class="ko-only">고급 스트리밍</span><span class="en-only">Advanced Streaming</span></td></tr>
+                <tr><td>ONVIF</td><td>Profile M</td><td><span class="ko-only">메타데이터, 이벤트, 분석</span><span class="en-only">Metadata, Events, Analytics</span></td></tr>
+                <tr><td>RTSP</td><td>1.0/2.0</td><td><span class="ko-only">비디오 스트리밍 (Pull 방식)</span><span class="en-only">Video Streaming (Pull)</span></td></tr>
+                <tr><td>RTSP Push</td><td>1.0/2.0</td><td><span class="ko-only">모바일 카메라 스트리밍 (Push 방식)</span><span class="en-only">Mobile Camera Streaming (Push)</span></td></tr>
+                <tr><td>WebRTC WHIP</td><td>—</td><td><span class="ko-only">모바일 카메라 저지연 스트리밍</span><span class="en-only">Mobile Camera Low-latency Streaming</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">지원 비디오 코덱</h3>
+          <h3 class="subsection-title en-only">Supported Video Codecs</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th><span class="ko-only">코덱</span><span class="en-only">Codec</span></th><th><span class="ko-only">지원</span><span class="en-only">Support</span></th></tr></thead>
+              <tbody>
+                <tr><td>H.264 (AVC)</td><td><span class="check-mark">&#10003;</span></td></tr>
+                <tr><td>H.265 (HEVC)</td><td><span class="check-mark">&#10003;</span></td></tr>
+                <tr><td>MJPEG</td><td><span class="check-mark">&#10003;</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">지원 오디오 코덱</h3>
+          <h3 class="subsection-title en-only">Supported Audio Codecs</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th><span class="ko-only">코덱</span><span class="en-only">Codec</span></th><th><span class="ko-only">지원</span><span class="en-only">Support</span></th></tr></thead>
+              <tbody>
+                <tr><td>AAC</td><td><span class="check-mark">&#10003;</span></td></tr>
+                <tr><td>G.711</td><td><span class="check-mark">&#10003;</span></td></tr>
+                <tr><td>G.726</td><td><span class="check-mark">&#10003;</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">지원 해상도</h3>
+          <h3 class="subsection-title en-only">Supported Resolutions</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th><span class="ko-only">해상도</span><span class="en-only">Resolution</span></th><th><span class="ko-only">지원</span><span class="en-only">Support</span></th></tr></thead>
+              <tbody>
+                <tr><td>4K (3840x2160)</td><td><span class="check-mark">&#10003;</span></td></tr>
+                <tr><td>1440p (2560x1440)</td><td><span class="check-mark">&#10003;</span></td></tr>
+                <tr><td>1080p (1920x1080)</td><td><span class="check-mark">&#10003;</span></td></tr>
+                <tr><td>720p (1280x720)</td><td><span class="check-mark">&#10003;</span></td></tr>
+                <tr><td>VGA (640x480)</td><td><span class="check-mark">&#10003;</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== A.4 네트워크 포트 ===== -->
+      <section class="spec-section animate-on-scroll" id="network-ports">
+        <h2 class="spec-section-title">
+          <span class="section-number">04</span>
+          <span class="ko-only">네트워크 포트</span><span class="en-only">Network Ports</span>
+        </h2>
+        <p class="spec-section-desc ko-only">NOX 시스템에서 사용하는 네트워크 포트 정보입니다.</p>
+        <p class="spec-section-desc en-only">Network port information used by the NOX system.</p>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">서비스 포트</h3>
+          <h3 class="subsection-title en-only">Service Ports</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th><span class="ko-only">기능</span><span class="en-only">Function</span></th><th><span class="ko-only">포트</span><span class="en-only">Port</span></th><th><span class="ko-only">프로토콜</span><span class="en-only">Protocol</span></th><th><span class="ko-only">설명</span><span class="en-only">Description</span></th></tr></thead>
+              <tbody>
+                <tr><td><span class="ko-only">카메라 관리</span><span class="en-only">Camera Mgmt</span></td><td>8000</td><td>HTTP</td><td><span class="ko-only">카메라 관리</span><span class="en-only">Camera Management</span></td></tr>
+                <tr><td><span class="ko-only">녹화 관리</span><span class="en-only">Recording Mgmt</span></td><td>8001</td><td>HTTP</td><td><span class="ko-only">녹화 관리</span><span class="en-only">Recording Management</span></td></tr>
+                <tr><td><span class="ko-only">검색</span><span class="en-only">Search</span></td><td>8002</td><td>HTTP</td><td><span class="ko-only">녹화 검색</span><span class="en-only">Recording Search</span></td></tr>
+                <tr><td><span class="ko-only">재생</span><span class="en-only">Playback</span></td><td>8003</td><td>HTTP</td><td><span class="ko-only">녹화 재생</span><span class="en-only">Recording Playback</span></td></tr>
+                <tr><td><span class="ko-only">영상 분석</span><span class="en-only">Video Analytics</span></td><td>8004</td><td>HTTP</td><td><span class="ko-only">영상 분석</span><span class="en-only">Video Analytics</span></td></tr>
+                <tr><td><span class="ko-only">웹 인터페이스</span><span class="en-only">Web UI</span></td><td>8005</td><td>HTTP</td><td><span class="ko-only">사용자 화면 처리</span><span class="en-only">User Interface</span></td></tr>
+                <tr><td><span class="ko-only">리소스 관리</span><span class="en-only">Resource Mgmt</span></td><td>8006</td><td>HTTP</td><td><span class="ko-only">리소스 관리</span><span class="en-only">Resource Management</span></td></tr>
+                <tr><td><span class="ko-only">인증</span><span class="en-only">Auth</span></td><td>8010</td><td>HTTP</td><td><span class="ko-only">사용자 인증</span><span class="en-only">User Authentication</span></td></tr>
+                <tr><td><span class="ko-only">권한 관리</span><span class="en-only">Permissions</span></td><td>8011</td><td>HTTP</td><td><span class="ko-only">접근 권한 제어</span><span class="en-only">Access Control</span></td></tr>
+                <tr><td><span class="ko-only">시스템 관리</span><span class="en-only">System Mgmt</span></td><td>8012</td><td>HTTP</td><td><span class="ko-only">시스템 설정, 유지보수 관리</span><span class="en-only">System Config & Maintenance</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">외부 서비스 포트</h3>
+          <h3 class="subsection-title en-only">External Service Ports</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th><span class="ko-only">서비스</span><span class="en-only">Service</span></th><th><span class="ko-only">포트</span><span class="en-only">Port</span></th><th><span class="ko-only">프로토콜</span><span class="en-only">Protocol</span></th><th><span class="ko-only">설명</span><span class="en-only">Description</span></th></tr></thead>
+              <tbody>
+                <tr><td>HTTP</td><td>80</td><td>HTTP</td><td><span class="ko-only">웹 서버</span><span class="en-only">Web Server</span></td></tr>
+                <tr><td>HTTPS</td><td>443</td><td>HTTPS</td><td><span class="ko-only">보안 웹 서버</span><span class="en-only">Secure Web Server</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">카메라 통신 포트</h3>
+          <h3 class="subsection-title en-only">Camera Communication Ports</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th><span class="ko-only">프로토콜</span><span class="en-only">Protocol</span></th><th><span class="ko-only">포트</span><span class="en-only">Port</span></th><th><span class="ko-only">설명</span><span class="en-only">Description</span></th></tr></thead>
+              <tbody>
+                <tr><td>ONVIF Discovery</td><td>3702</td><td>WS-Discovery</td></tr>
+                <tr><td>ONVIF HTTP</td><td>80</td><td><span class="ko-only">ONVIF 서비스</span><span class="en-only">ONVIF Service</span></td></tr>
+                <tr><td>RTSP</td><td>554</td><td><span class="ko-only">스트리밍</span><span class="en-only">Streaming</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">모바일 카메라 통신 포트</h3>
+          <h3 class="subsection-title en-only">Mobile Camera Ports</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th><span class="ko-only">프로토콜</span><span class="en-only">Protocol</span></th><th><span class="ko-only">포트</span><span class="en-only">Port</span></th><th><span class="ko-only">설명</span><span class="en-only">Description</span></th></tr></thead>
+              <tbody>
+                <tr><td>RTSP Push</td><td>8554</td><td><span class="ko-only">모바일 카메라 RTSP Push 수신 (MediaMTX)</span><span class="en-only">Mobile Camera RTSP Push (MediaMTX)</span></td></tr>
+                <tr><td>WebRTC WHIP</td><td>8889</td><td><span class="ko-only">모바일 카메라 WebRTC Push 수신 (MediaMTX)</span><span class="en-only">Mobile Camera WebRTC Push (MediaMTX)</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== A.5 저장소 사양 ===== -->
+      <section class="spec-section animate-on-scroll" id="storage">
+        <h2 class="spec-section-title">
+          <span class="section-number">05</span>
+          <span class="ko-only">저장소 사양</span><span class="en-only">Storage</span>
+        </h2>
+        <p class="spec-section-desc ko-only">녹화 데이터 저장 형식 및 용량 계산 정보입니다.</p>
+        <p class="spec-section-desc en-only">Recording data storage format and capacity calculations.</p>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">녹화 저장 형식</h3>
+          <h3 class="subsection-title en-only">Recording Format</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th><span class="ko-only">항목</span><span class="en-only">Item</span></th><th><span class="ko-only">사양</span><span class="en-only">Spec</span></th></tr></thead>
+              <tbody>
+                <tr><td><span class="ko-only">컨테이너</span><span class="en-only">Container</span></td><td>fMP4 (Fragmented MP4)</td></tr>
+                <tr><td><span class="ko-only">비디오 코덱</span><span class="en-only">Video Codec</span></td><td><span class="ko-only">원본 유지 (H.264/H.265)</span><span class="en-only">Passthrough (H.264/H.265)</span></td></tr>
+                <tr><td><span class="ko-only">오디오 코덱</span><span class="en-only">Audio Codec</span></td><td>AAC</td></tr>
+                <tr><td><span class="ko-only">메타데이터</span><span class="en-only">Metadata</span></td><td>JSON</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">저장 용량 계산</h3>
+          <h3 class="subsection-title en-only">Storage Calculation</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th><span class="ko-only">해상도</span><span class="en-only">Resolution</span></th><th><span class="ko-only">비트레이트</span><span class="en-only">Bitrate</span></th><th><span class="ko-only">1시간</span><span class="en-only">1 Hour</span></th><th><span class="ko-only">24시간</span><span class="en-only">24 Hours</span></th><th><span class="ko-only">30일</span><span class="en-only">30 Days</span></th></tr></thead>
+              <tbody>
+                <tr><td>1080p</td><td>4 Mbps</td><td>1.8 GB</td><td>43 GB</td><td>1.3 TB</td></tr>
+                <tr><td>1080p</td><td>8 Mbps</td><td>3.6 GB</td><td>86 GB</td><td>2.6 TB</td></tr>
+                <tr><td>4K</td><td>16 Mbps</td><td>7.2 GB</td><td>173 GB</td><td>5.2 TB</td></tr>
+                <tr><td>4K</td><td>25 Mbps</td><td>11.2 GB</td><td>270 GB</td><td>8.1 TB</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="note">
+            <span class="note-icon">i</span>
+            <span class="ko-only">계산 공식: 용량(GB) = 비트레이트(Mbps) &times; 시간(초) &times; 0.125 / 1000</span>
+            <span class="en-only">Formula: Size(GB) = Bitrate(Mbps) &times; Duration(sec) &times; 0.125 / 1000</span>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">파일 시스템 요구사항</h3>
+          <h3 class="subsection-title en-only">File System Requirements</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th><span class="ko-only">항목</span><span class="en-only">Item</span></th><th><span class="ko-only">권장</span><span class="en-only">Recommended</span></th></tr></thead>
+              <tbody>
+                <tr><td><span class="ko-only">파일 시스템</span><span class="en-only">File System</span></td><td>ext4, XFS</td></tr>
+                <tr><td><span class="ko-only">블록 크기</span><span class="en-only">Block Size</span></td><td>4 KB</td></tr>
+                <tr><td><span class="ko-only">최대 파일 크기</span><span class="en-only">Max File Size</span></td><td>16 TB</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== A.6 데이터베이스 사양 ===== -->
+      <section class="spec-section animate-on-scroll" id="database">
+        <h2 class="spec-section-title">
+          <span class="section-number">06</span>
+          <span class="ko-only">데이터베이스 사양</span><span class="en-only">Database</span>
+        </h2>
+        <p class="spec-section-desc ko-only">NOX에서 사용하는 데이터베이스 구성 정보입니다.</p>
+        <p class="spec-section-desc en-only">Database configuration used by NOX.</p>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">PostgreSQL 요구사항</h3>
+          <h3 class="subsection-title en-only">PostgreSQL Requirements</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th><span class="ko-only">항목</span><span class="en-only">Item</span></th><th><span class="ko-only">사양</span><span class="en-only">Spec</span></th></tr></thead>
+              <tbody>
+                <tr><td><span class="ko-only">버전</span><span class="en-only">Version</span></td><td><span class="ko-only">14 이상</span><span class="en-only">14+</span></td></tr>
+                <tr><td><span class="ko-only">인코딩</span><span class="en-only">Encoding</span></td><td>UTF-8</td></tr>
+                <tr><td><span class="ko-only">연결 방식</span><span class="en-only">Connection</span></td><td>TCP/IP</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">데이터베이스 목록</h3>
+          <h3 class="subsection-title en-only">Database List</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th><span class="ko-only">데이터베이스</span><span class="en-only">Database</span></th><th><span class="ko-only">용도</span><span class="en-only">Purpose</span></th></tr></thead>
+              <tbody>
+                <tr><td>nox-camera</td><td><span class="ko-only">카메라, 채널, 스트림 정보</span><span class="en-only">Camera, Channel, Stream Data</span></td></tr>
+                <tr><td>nox-record</td><td><span class="ko-only">녹화, 세션, 세그먼트 정보</span><span class="en-only">Recording, Session, Segment Data</span></td></tr>
+                <tr><td>nox-resource</td><td><span class="ko-only">레이아웃, 리소스 정보</span><span class="en-only">Layout, Resource Data</span></td></tr>
+                <tr><td>nox-analysis</td><td><span class="ko-only">분석 작업, 감지 결과</span><span class="en-only">Analysis Tasks, Detection Results</span></td></tr>
+                <tr><td>nox-admin</td><td><span class="ko-only">사용자, 권한, 설정</span><span class="en-only">Users, Permissions, Settings</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== A.7 API 사양 ===== -->
+      <section class="spec-section animate-on-scroll" id="api">
+        <h2 class="spec-section-title">
+          <span class="section-number">07</span>
+          <span class="ko-only">API 사양</span><span class="en-only">API</span>
+        </h2>
+        <p class="spec-section-desc ko-only">NOX REST API의 인증 및 응답 형식 정보입니다.</p>
+        <p class="spec-section-desc en-only">Authentication and response format for the NOX REST API.</p>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">인증 방식</h3>
+          <h3 class="subsection-title en-only">Authentication</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th><span class="ko-only">항목</span><span class="en-only">Item</span></th><th><span class="ko-only">사양</span><span class="en-only">Spec</span></th></tr></thead>
+              <tbody>
+                <tr><td><span class="ko-only">방식</span><span class="en-only">Method</span></td><td>JWT (JSON Web Token)</td></tr>
+                <tr><td><span class="ko-only">알고리즘</span><span class="en-only">Algorithm</span></td><td>RS256</td></tr>
+                <tr><td><span class="ko-only">Access Token 기본 유효기간</span><span class="en-only">Access Token TTL</span></td><td><span class="ko-only">10분</span><span class="en-only">10 min</span></td></tr>
+                <tr><td><span class="ko-only">Refresh Token 기본 유효기간</span><span class="en-only">Refresh Token TTL</span></td><td><span class="ko-only">24시간</span><span class="en-only">24 hours</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">API 버전</h3>
+          <h3 class="subsection-title en-only">API Version</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th><span class="ko-only">버전</span><span class="en-only">Version</span></th><th><span class="ko-only">경로</span><span class="en-only">Path</span></th><th><span class="ko-only">상태</span><span class="en-only">Status</span></th></tr></thead>
+              <tbody>
+                <tr><td>v1</td><td>/api/v1/*</td><td><span class="ko-only">현재 버전</span><span class="en-only">Current</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">응답 형식</h3>
+          <h3 class="subsection-title en-only">Response Format</h3>
+          <div class="code-block">{
+  <span class="key">"status"</span>: <span class="num">200</span>,
+  <span class="key">"data"</span>: { ... }
+}</div>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">오류 응답</h3>
+          <h3 class="subsection-title en-only">Error Response</h3>
+          <div class="code-block">{
+  <span class="key">"error"</span>: <span class="str ko-only">"에러 메시지"</span><span class="str en-only">"Error message"</span>,
+  <span class="key">"details"</span>: <span class="str ko-only">"상세 정보"</span><span class="str en-only">"Details"</span>
+}</div>
+        </div>
+      </section>
+
+      <!-- ===== A.8 보안 사양 ===== -->
+      <section class="spec-section animate-on-scroll" id="security">
+        <h2 class="spec-section-title">
+          <span class="section-number">08</span>
+          <span class="ko-only">보안 사양</span><span class="en-only">Security</span>
+        </h2>
+        <p class="spec-section-desc ko-only">NOX의 암호화, RAID, 권한 관리 보안 사양입니다.</p>
+        <p class="spec-section-desc en-only">Encryption, RAID, and access control security specifications.</p>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">암호화</h3>
+          <h3 class="subsection-title en-only">Encryption</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th><span class="ko-only">항목</span><span class="en-only">Item</span></th><th><span class="ko-only">사양</span><span class="en-only">Spec</span></th></tr></thead>
+              <tbody>
+                <tr><td>HTTPS</td><td><span class="ko-only">TLS 1.2 이상</span><span class="en-only">TLS 1.2+</span></td></tr>
+                <tr><td><span class="ko-only">JWT 서명</span><span class="en-only">JWT Signing</span></td><td>RS256</td></tr>
+                <tr><td><span class="ko-only">비밀번호 해시</span><span class="en-only">Password Hash</span></td><td>bcrypt</td></tr>
+                <tr><td><span class="ko-only">스토리지 암호화</span><span class="en-only">Storage Encryption</span></td><td>LUKS (Linux Unified Key Setup)</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">소프트웨어 RAID</h3>
+          <h3 class="subsection-title en-only">Software RAID</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th><span class="ko-only">항목</span><span class="en-only">Item</span></th><th><span class="ko-only">사양</span><span class="en-only">Spec</span></th></tr></thead>
+              <tbody>
+                <tr><td><span class="ko-only">엔진</span><span class="en-only">Engine</span></td><td>mdadm (Linux Software RAID)</td></tr>
+                <tr><td><span class="ko-only">지원 레벨</span><span class="en-only">Supported Levels</span></td><td>RAID 1, 5, 6, 10</td></tr>
+                <tr><td><span class="ko-only">관리 방식</span><span class="en-only">Management</span></td><td><span class="ko-only">유지보수 모드에서 웹 UI로 관리</span><span class="en-only">Web UI in maintenance mode</span></td></tr>
+                <tr><td><span class="ko-only">통합</span><span class="en-only">Integration</span></td><td><span class="ko-only">파티션/포맷/LUKS 암호화 지원</span><span class="en-only">Partition/Format/LUKS encryption</span></td></tr>
+                <tr><td><span class="ko-only">자동 설정</span><span class="en-only">Auto Config</span></td><td><span class="ko-only">mdadm.conf + initramfs 자동 업데이트</span><span class="en-only">mdadm.conf + initramfs auto-update</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">권한 관리</h3>
+          <h3 class="subsection-title en-only">Access Control</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th><span class="ko-only">항목</span><span class="en-only">Item</span></th><th><span class="ko-only">사양</span><span class="en-only">Spec</span></th></tr></thead>
+              <tbody>
+                <tr><td><span class="ko-only">방식</span><span class="en-only">Method</span></td><td><span class="ko-only">역할 기반 접근 제어 (RBAC)</span><span class="en-only">Role-Based Access Control (RBAC)</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== A.9 성능 사양 ===== -->
+      <section class="spec-section animate-on-scroll" id="performance">
+        <h2 class="spec-section-title">
+          <span class="section-number">09</span>
+          <span class="ko-only">성능 사양</span><span class="en-only">Performance</span>
+        </h2>
+        <p class="spec-section-desc ko-only">NOX 시스템의 동시 처리 능력 및 응답 시간 목표입니다.</p>
+        <p class="spec-section-desc en-only">Concurrency capabilities and response time targets.</p>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">동시 처리 능력</h3>
+          <h3 class="subsection-title en-only">Concurrency</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th><span class="ko-only">항목</span><span class="en-only">Item</span></th><th><span class="ko-only">권장 사양 기준</span><span class="en-only">Recommended Spec</span></th></tr></thead>
+              <tbody>
+                <tr><td><span class="ko-only">동시 스트리밍 채널</span><span class="en-only">Streaming Channels</span></td><td><span class="ko-only">최대 128채널</span><span class="en-only">Up to 128 Ch</span></td></tr>
+                <tr><td><span class="ko-only">동시 녹화 채널</span><span class="en-only">Recording Channels</span></td><td><span class="ko-only">최대 128채널</span><span class="en-only">Up to 128 Ch</span></td></tr>
+                <tr><td><span class="ko-only">동시 재생 세션</span><span class="en-only">Playback Sessions</span></td><td><span class="ko-only">최대 20세션</span><span class="en-only">Up to 20</span></td></tr>
+                <tr><td><span class="ko-only">동시 사용자</span><span class="en-only">Concurrent Users</span></td><td><span class="ko-only">최대 20명</span><span class="en-only">Up to 20</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">응답 시간</h3>
+          <h3 class="subsection-title en-only">Response Time</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th><span class="ko-only">작업</span><span class="en-only">Operation</span></th><th><span class="ko-only">목표 응답 시간</span><span class="en-only">Target</span></th></tr></thead>
+              <tbody>
+                <tr><td><span class="ko-only">로그인</span><span class="en-only">Login</span></td><td>&lt; 500ms</td></tr>
+                <tr><td><span class="ko-only">카메라 목록 조회</span><span class="en-only">Camera List</span></td><td>&lt; 200ms</td></tr>
+                <tr><td><span class="ko-only">타임라인 검색</span><span class="en-only">Timeline Search</span></td><td>&lt; 500ms</td></tr>
+                <tr><td><span class="ko-only">재생 시작</span><span class="en-only">Playback Start</span></td><td><span class="ko-only">&lt; 1초</span><span class="en-only">&lt; 1 sec</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== A.10 호환 카메라 제조사 ===== -->
+      <section class="spec-section animate-on-scroll" id="compatible-cameras">
+        <h2 class="spec-section-title">
+          <span class="section-number">10</span>
+          <span class="ko-only">호환 카메라 제조사</span><span class="en-only">Compatible Cameras</span>
+        </h2>
+        <p class="spec-section-desc ko-only">테스트 완료된 카메라 제조사 및 호환 모델 정보입니다.</p>
+        <p class="spec-section-desc en-only">Tested and verified camera manufacturers and models.</p>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">테스트 완료 제조사</h3>
+          <h3 class="subsection-title en-only">Verified Manufacturers</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th><span class="ko-only">제조사</span><span class="en-only">Manufacturer</span></th><th><span class="ko-only">모델 예시</span><span class="en-only">Example Models</span></th></tr></thead>
+              <tbody>
+                <tr><td>Hanwha Vision</td><td><span class="ko-only">XNV, XND, XNP 시리즈</span><span class="en-only">XNV, XND, XNP Series</span></td></tr>
+                <tr><td>Hikvision</td><td><span class="ko-only">DS 시리즈</span><span class="en-only">DS Series</span></td></tr>
+                <tr><td>Dahua</td><td><span class="ko-only">IPC 시리즈</span><span class="en-only">IPC Series</span></td></tr>
+                <tr><td>Axis</td><td><span class="ko-only">P/Q/M 시리즈</span><span class="en-only">P/Q/M Series</span></td></tr>
+                <tr><td>Vivotek</td><td><span class="ko-only">IP 시리즈</span><span class="en-only">IP Series</span></td></tr>
+                <tr><td>Uniview</td><td><span class="ko-only">IPC 시리즈</span><span class="en-only">IPC Series</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="note">
+            <span class="note-icon">i</span>
+            <span class="ko-only">ONVIF Profile S/T를 지원하는 모든 카메라와 호환됩니다.</span>
+            <span class="en-only">Compatible with all cameras supporting ONVIF Profile S/T.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== A.11 제한 사항 ===== -->
+      <section class="spec-section animate-on-scroll" id="limitations">
+        <h2 class="spec-section-title">
+          <span class="section-number">11</span>
+          <span class="ko-only">제한 사항</span><span class="en-only">Limitations</span>
+        </h2>
+        <p class="spec-section-desc ko-only">시스템 및 기능에 대한 알려진 제한 사항입니다.</p>
+        <p class="spec-section-desc en-only">Known system and feature limitations.</p>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">시스템 제한</h3>
+          <h3 class="subsection-title en-only">System Limits</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th><span class="ko-only">항목</span><span class="en-only">Item</span></th><th><span class="ko-only">제한</span><span class="en-only">Limit</span></th></tr></thead>
+              <tbody>
+                <tr><td><span class="ko-only">최대 카메라 수</span><span class="en-only">Max Cameras</span></td><td><span class="ko-only">하드웨어 의존</span><span class="en-only">Hardware Dependent</span></td></tr>
+                <tr><td><span class="ko-only">최대 사용자 수</span><span class="en-only">Max Users</span></td><td><span class="ko-only">제한 없음</span><span class="en-only">Unlimited</span></td></tr>
+                <tr><td><span class="ko-only">최대 역할 수</span><span class="en-only">Max Roles</span></td><td><span class="ko-only">제한 없음</span><span class="en-only">Unlimited</span></td></tr>
+                <tr><td><span class="ko-only">최대 레이아웃 수</span><span class="en-only">Max Layouts</span></td><td><span class="ko-only">제한 없음</span><span class="en-only">Unlimited</span></td></tr>
+                <tr><td><span class="ko-only">최대 녹화 규칙 수</span><span class="en-only">Max Recording Rules</span></td><td><span class="ko-only">카메라 수 &times; 스트림 수</span><span class="en-only">Cameras &times; Streams</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="subsection">
+          <h3 class="subsection-title ko-only">기능 제한</h3>
+          <h3 class="subsection-title en-only">Feature Limits</h3>
+          <div class="table-wrapper">
+            <table>
+              <thead><tr><th><span class="ko-only">항목</span><span class="en-only">Item</span></th><th><span class="ko-only">제한</span><span class="en-only">Limit</span></th></tr></thead>
+              <tbody>
+                <tr><td><span class="ko-only">디지털 줌 배율</span><span class="en-only">Digital Zoom</span></td><td><span class="ko-only">최대 16배</span><span class="en-only">Up to 16x</span></td></tr>
+                <tr><td><span class="ko-only">타임라인 줌 레벨</span><span class="en-only">Timeline Zoom</span></td><td><span class="ko-only">1~8 레벨</span><span class="en-only">Level 1–8</span></td></tr>
+                <tr><td><span class="ko-only">동시 재생 카메라</span><span class="en-only">Concurrent Playback</span></td><td><span class="ko-only">UI 성능에 따라 다름</span><span class="en-only">Depends on UI performance</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <p>&copy; 2026 YIYOL Corp. All rights reserved.</p>
+      <a href="/nox/" class="footer-link"><span class="ko-only">NOX 메인으로 돌아가기</span><span class="en-only">Back to NOX</span></a>
+    </div>
+  </footer>
+
+  <script src="/assets/js/i18n.js"></script>
+  <script>
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+    // Active sidebar link
+    const sections = document.querySelectorAll('.spec-section');
+    const sidebarLinks = document.querySelectorAll('.sidebar-nav a');
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute('id');
+          sidebarLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+
+    sections.forEach(section => sectionObserver.observe(section));
+
+    // Mobile TOC close on click
+    function closeMobileToc() {
+      document.querySelector('.mobile-toc-toggle').classList.remove('open');
+      document.getElementById('mobileToc').classList.remove('open');
+    }
+  </script>
+
+</body>
+</html>

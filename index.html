@@ -430,61 +430,8 @@
       <p class="footer-copyright">&copy; 2026 YIYOL. All rights reserved.</p>
     </footer>
 
+    <script src="assets/js/i18n.js"></script>
     <script>
-      // Language switching
-      const langLabels = {
-        'ko': '한국어',
-        'en': 'English'
-      };
-
-      const setLanguage = (lang) => {
-        document.documentElement.setAttribute('lang', lang);
-        localStorage.setItem('preferredLanguage', lang);
-
-        const langCurrent = document.querySelector('.lang-current');
-        if (langCurrent) {
-          langCurrent.textContent = langLabels[lang];
-        }
-
-        document.querySelectorAll('.lang-option').forEach(option => {
-          if (option.dataset.lang === lang) {
-            option.classList.add('active');
-          } else {
-            option.classList.remove('active');
-          }
-        });
-
-        document.querySelector('.lang-switch').classList.remove('active');
-      };
-
-      // Initialize language
-      const savedLang = localStorage.getItem('preferredLanguage') || 'ko';
-      setLanguage(savedLang);
-
-      // Language selector toggle
-      const langSelector = document.querySelector('.lang-selector');
-      const langSwitch = document.querySelector('.lang-switch');
-
-      if (langSelector) {
-        langSelector.addEventListener('click', (e) => {
-          e.preventDefault();
-          langSwitch.classList.toggle('active');
-        });
-      }
-
-      document.querySelectorAll('.lang-option').forEach(option => {
-        option.addEventListener('click', (e) => {
-          e.preventDefault();
-          setLanguage(option.dataset.lang);
-        });
-      });
-
-      document.addEventListener('click', (e) => {
-        if (!langSwitch.contains(e.target)) {
-          langSwitch.classList.remove('active');
-        }
-      });
-
       // Smooth scrolling for navigation
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
