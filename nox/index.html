@@ -271,6 +271,9 @@
     .nav-links a:hover {
       color: var(--text-primary);
     }
+    .nav-links a.btn-primary {
+      color: #ffffff;
+    }
 
     .btn {
       display: inline-flex;
@@ -1303,12 +1306,13 @@
         <span></span>
       </label>
       <ul class="nav-links">
+        <li><a href="/"><i class="fas fa-arrow-left" style="font-size:0.75rem;margin-right:0.25rem;"></i> YIYOL</a></li>
         <li><a href="#features"><span class="ko-only">기능</span><span class="en-only">Features</span></a></li>
         <li><a href="#usecases"><span class="ko-only">활용 사례</span><span class="en-only">Use Cases</span></a></li>
         <li><a href="#specs"><span class="ko-only">사양</span><span class="en-only">Specs</span></a></li>
         <li><a href="#compat"><span class="ko-only">호환성</span><span class="en-only">Compatibility</span></a></li>
         <li><a href="#arch"><span class="ko-only">아키텍처</span><span class="en-only">Architecture</span></a></li>
-        <li><a href="#contact" class="btn btn-primary"><span class="ko-only">데모 요청</span><span class="en-only">Request Demo</span></a></li>
+        <li><a href="#contact" class="btn btn-primary"><span class="ko-only">자료 요청</span><span class="en-only">Request Info</span></a></li>
         <li>
           <div class="lang-switch">
             <button class="lang-selector">
@@ -1352,7 +1356,7 @@
           From homes and vehicles to retail stores and large-scale facilities — flexibly configured for any environment. Integrate ONVIF cameras and smartphones into one unified solution with AI-powered video analytics for proactive threat detection.
         </p>
         <div class="hero-actions">
-          <a href="#contact" class="btn btn-primary btn-large"><span class="ko-only">데모 요청하기</span><span class="en-only">Request Demo</span></a>
+          <a href="#contact" class="btn btn-primary btn-large"><span class="ko-only">자료 요청하기</span><span class="en-only">Request Info</span></a>
           <a href="#specs" class="btn btn-ghost btn-large"><span class="ko-only">제품 사양 보기</span><span class="en-only">View Specs</span></a>
         </div>
         <div class="hero-stats">
@@ -1851,11 +1855,11 @@
       <div class="cta-content animate-on-scroll">
         <h2 class="cta-title ko-only">NOX를 직접 경험해 보세요</h2>
         <h2 class="cta-title en-only">Experience NOX Firsthand</h2>
-        <p class="cta-desc ko-only">데모 시연, 기술 상담, OEM/리셀러 파트너십 문의를 환영합니다.<br>전문 엔지니어가 귀사의 요구사항에 맞는 솔루션을 제안해 드립니다.</p>
-        <p class="cta-desc en-only">We welcome demo requests, technical consultations, and OEM/reseller partnership inquiries.<br>Our expert engineers will propose a solution tailored to your requirements.</p>
+        <p class="cta-desc ko-only">자료 요청, 기술 상담, OEM/리셀러 파트너십 문의를 환영합니다.<br>전문 엔지니어가 귀사의 요구사항에 맞는 솔루션을 제안해 드립니다.</p>
+        <p class="cta-desc en-only">We welcome info requests, technical consultations, and OEM/reseller partnership inquiries.<br>Our expert engineers will propose a solution tailored to your requirements.</p>
         <div class="cta-actions">
-          <a href="mailto:yiyol@yiyol.com?subject=NOX Demo Request" class="btn btn-primary btn-large ko-only">데모 요청하기</a>
-          <a href="mailto:yiyol@yiyol.com?subject=NOX Demo Request" class="btn btn-primary btn-large en-only">Request Demo</a>
+          <a href="mailto:yiyol@yiyol.com?subject=NOX Info Request" class="btn btn-primary btn-large ko-only">자료 요청하기</a>
+          <a href="mailto:yiyol@yiyol.com?subject=NOX Info Request" class="btn btn-primary btn-large en-only">Request Info</a>
           <a href="mailto:yiyol@yiyol.com?subject=NOX Technical Inquiry" class="btn btn-ghost btn-large ko-only">기술 문의</a>
           <a href="mailto:yiyol@yiyol.com?subject=NOX Technical Inquiry" class="btn btn-ghost btn-large en-only">Technical Inquiry</a>
         </div>
@@ -1899,6 +1903,466 @@
     </div>
   </footer>
 
+  <!-- Distributor Popup -->
+  <style>
+    .popup-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.7);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+      padding: 1rem;
+      backdrop-filter: blur(4px);
+    }
+    .popup-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .popup-card {
+      background: #fff;
+      border-radius: 4px;
+      max-width: 540px;
+      width: 100%;
+      position: relative;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+      transform: translateY(20px);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+    }
+    .popup-overlay.active .popup-card {
+      transform: translateY(0);
+    }
+    .popup-header {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      padding: 1.75rem 2rem;
+      position: relative;
+    }
+    .popup-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #3b82f6, #60a5fa, #3b82f6);
+    }
+    .popup-header-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #60a5fa;
+      border: 1px solid rgba(96, 165, 250, 0.3);
+      padding: 0.25rem 0.6rem;
+      border-radius: 2px;
+      margin-bottom: 0.75rem;
+    }
+    .popup-card h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+      line-height: 1.4;
+    }
+    .popup-close {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      font-size: 1.1rem;
+      color: #94a3b8;
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 2px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .popup-close:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+    }
+    .popup-content {
+      padding: 1.75rem 2rem 2rem;
+    }
+    .popup-body {
+      font-size: 0.92rem;
+      color: #334155;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+    .popup-body p {
+      margin: 0 0 1rem;
+    }
+    .popup-body .popup-terms {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin: 1rem 0;
+      padding: 0;
+    }
+    .popup-body .popup-term-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.6rem 0.85rem;
+      background: #f8fafc;
+      border-left: 3px solid #3b82f6;
+      font-size: 0.88rem;
+      color: #1e293b;
+    }
+    .popup-body .popup-term-item i {
+      color: #3b82f6;
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+      flex-shrink: 0;
+    }
+    .popup-region-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.35rem 1rem;
+      margin: 0.75rem 0;
+      padding: 0.75rem 0.85rem;
+      background: #f8fafc;
+      border-left: 3px solid #3b82f6;
+      font-size: 0.82rem;
+      color: #1e293b;
+    }
+    .popup-region-grid .region-header {
+      grid-column: 1 / -1;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: #0f172a;
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .popup-region-grid .region-header i {
+      color: #3b82f6;
+      font-size: 0.75rem;
+    }
+    .popup-region-grid span {
+      padding: 0.15rem 0;
+    }
+    .popup-exclusive {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: #0f172a;
+      color: #fff;
+      padding: 0.75rem 1rem;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      margin-top: 1rem;
+    }
+    .popup-exclusive i {
+      color: #fbbf24;
+      font-size: 0.9rem;
+    }
+    .popup-footer {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e2e8f0;
+      margin-top: 1.5rem;
+    }
+    .popup-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #0f172a;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.02em;
+      transition: background 0.2s;
+    }
+    .popup-cta:hover {
+      background: #1e293b;
+    }
+    .popup-cta i {
+      font-size: 0.85rem;
+    }
+    .popup-email-hint {
+      font-size: 0.78rem;
+      color: #94a3b8;
+    }
+    @media (max-width: 540px) {
+      .popup-header {
+        padding: 1.25rem 1.25rem;
+      }
+      .popup-content {
+        padding: 1.25rem 1.25rem 1.5rem;
+      }
+      .popup-card h3 {
+        font-size: 1.15rem;
+      }
+      .popup-body {
+        font-size: 0.88rem;
+      }
+      .popup-footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+
+  <div class="popup-overlay" id="resellerPopup">
+    <div class="popup-card">
+      <div class="popup-header">
+        <button class="popup-close" id="popupClose" aria-label="Close"><i class="fas fa-xmark"></i></button>
+        <div class="popup-header-badge">Official Partnership</div>
+        <h3 class="ko-only">NOX 국내 공식 총판 모집</h3>
+        <h3 class="en-only">NOX Official Distributor Recruitment</h3>
+      </div>
+
+      <div class="popup-content">
+        <div class="popup-body ko-only">
+          <p>NVR/VMS 솔루션 <strong>NOX</strong>의 국내 지역별 공식 총판을 모집합니다.</p>
+          <div class="popup-region-grid">
+            <div class="region-header"><i class="fas fa-map-marker-alt"></i> 모집 권역</div>
+            <span>수도권 동남</span>
+            <span>수도권 동북</span>
+            <span>수도권 서북</span>
+            <span>수도권 서남</span>
+            <span>강원도</span>
+            <span>충청북도</span>
+            <span>대전 / 세종 / 충청남도</span>
+            <span>전북특별자치도</span>
+            <span>광주 / 전라남도</span>
+            <span>대구 / 경상북도</span>
+            <span>부산 / 울산 / 경상남도</span>
+            <span>제주특별자치도</span>
+          </div>
+          <div class="popup-exclusive">
+            <i class="fas fa-crown"></i>
+            최초 2년간 최고의 계약조건으로 독점계약 보장
+          </div>
+          <div class="popup-exclusive" style="margin-top: 0.5rem;">
+            <i class="fas fa-handshake"></i>
+            최초 계약 종료 후 차기 계약 우선협상권 보장
+          </div>
+        </div>
+
+        <div class="popup-body en-only">
+          <p>YIYOL is recruiting official distributors for our NVR/VMS solution, <strong>NOX</strong>.</p>
+          <div class="popup-terms">
+            <div class="popup-term-item">
+              <i class="fas fa-globe"></i>
+              <span>Exclusive distributor per country &mdash; all regions available</span>
+            </div>
+          </div>
+          <div class="popup-exclusive">
+            <i class="fas fa-crown"></i>
+            Best exclusive contract terms guaranteed for the first 2 years
+          </div>
+          <div class="popup-exclusive" style="margin-top: 0.5rem;">
+            <i class="fas fa-handshake"></i>
+            Priority negotiation rights for the subsequent contract guaranteed
+          </div>
+        </div>
+
+        <div class="popup-footer">
+          <a href="mailto:yiyol@yiyol.com?subject=NOX%20%EC%B4%9D%ED%8C%90%20%EB%AC%B8%EC%9D%98" class="popup-cta ko-only">
+            <i class="fas fa-envelope"></i> 총판 문의하기
+          </a>
+          <a href="mailto:yiyol@yiyol.com?subject=NOX%20Distributor%20Inquiry" class="popup-cta en-only">
+            <i class="fas fa-envelope"></i> Contact Us
+          </a>
+          <span class="popup-email-hint">yiyol@yiyol.com</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Partner Recruitment Popup (Korean only) -->
+  <style>
+    .partner-popup .popup-intro {
+      font-size: 0.88rem;
+      color: #475569;
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+    }
+    .partner-popup .popup-intro strong {
+      color: #0f172a;
+    }
+    .partner-popup .popup-notice {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      background: #fef3c7;
+      border-left: 3px solid #f59e0b;
+      padding: 0.6rem 0.85rem;
+      font-size: 0.8rem;
+      color: #92400e;
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+    }
+    .partner-popup .popup-notice i {
+      color: #f59e0b;
+      margin-top: 0.2rem;
+      flex-shrink: 0;
+    }
+    .partner-popup .popup-section-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .partner-popup .popup-section-title i {
+      color: #3b82f6;
+      font-size: 0.72rem;
+    }
+    .partner-popup .popup-sector-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-bottom: 1.25rem;
+    }
+    .partner-popup .popup-sector-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      padding: 0.3rem 0.65rem;
+      border-radius: 3px;
+      font-size: 0.78rem;
+      color: #334155;
+      white-space: nowrap;
+    }
+    .partner-popup .popup-sector-tag i {
+      color: #3b82f6;
+      font-size: 0.65rem;
+    }
+    .partner-popup .popup-benefit-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+    .partner-popup .popup-benefit-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      color: #334155;
+      line-height: 1.5;
+    }
+    .partner-popup .popup-benefit-item i {
+      color: #10b981;
+      font-size: 0.7rem;
+      margin-top: 0.2rem;
+      flex-shrink: 0;
+    }
+    .partner-popup .popup-sector-note {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      margin-top: 0.5rem;
+    }
+    .partner-popup .popup-footer {
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+    .partner-popup .popup-cta-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #fff;
+      color: #0f172a;
+      border: 1.5px solid #0f172a;
+      padding: 0.7rem 1.3rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.02em;
+      transition: background 0.2s, color 0.2s;
+    }
+    .partner-popup .popup-cta-outline:hover {
+      background: #f1f5f9;
+    }
+    .partner-popup .popup-cta-outline i {
+      font-size: 0.8rem;
+    }
+    @media (max-width: 540px) {
+      .partner-popup .popup-sector-tag {
+        font-size: 0.74rem;
+        padding: 0.25rem 0.5rem;
+      }
+    }
+  </style>
+
+  <div class="popup-overlay partner-popup" id="partnerPopup">
+    <div class="popup-card">
+      <div class="popup-header">
+        <button class="popup-close" id="partnerPopupClose" aria-label="Close"><i class="fas fa-xmark"></i></button>
+        <div class="popup-header-badge">Initial Partner Program</div>
+        <h3>NOX 초기 파트너 모집</h3>
+      </div>
+
+      <div class="popup-content">
+        <div class="popup-body">
+          <p class="popup-intro">
+            중·소형 현장에 최적화된 NVR/VMS 소프트웨어 <strong>NOX</strong>의 초기 파트너를 모집합니다.<br>
+            섹터별 대표 현장에서 설치·운영을 함께 검증하고 성공 사례를 만들 파트너를 찾습니다.
+          </p>
+
+          <div class="popup-notice">
+            <i class="fas fa-info-circle"></i>
+            <span>NOX는 상용 소프트웨어이며, H/W(서버·카메라 등)는 파트너사가 구성합니다. NOX는 소프트웨어 및 기술지원을 제공합니다.</span>
+          </div>
+
+          <div class="popup-section-title"><i class="fas fa-crosshairs"></i> 모집 섹터 (각 1~2개 한정)</div>
+          <div class="popup-sector-list">
+            <span class="popup-sector-tag"><i class="fas fa-building"></i> 아파트 / 공동주택</span>
+            <span class="popup-sector-tag"><i class="fas fa-store"></i> 상가 / 프랜차이즈</span>
+            <span class="popup-sector-tag"><i class="fas fa-industry"></i> 공장 / 창고 / 물류</span>
+            <span class="popup-sector-tag"><i class="fas fa-hard-hat"></i> 건설현장 / 임시현장</span>
+            <span class="popup-sector-tag"><i class="fas fa-school"></i> 교육 / 의료 / 공공</span>
+          </div>
+
+          <div class="popup-section-title"><i class="fas fa-gift"></i> 초기 파트너 혜택</div>
+          <div class="popup-benefit-list">
+            <div class="popup-benefit-item"><i class="fas fa-check"></i> 프로젝트 성공 시 섹터/지역 우선 협업 협상권 부여</div>
+            <div class="popup-benefit-item"><i class="fas fa-check"></i> 향후 리셀러/총판 우선 협의 기회</div>
+            <div class="popup-benefit-item"><i class="fas fa-check"></i> 파트너용 제안 자료 및 운영 가이드 우선 제공</div>
+            <div class="popup-benefit-item"><i class="fas fa-check"></i> 초기 파트너 조건(가격/지원) 우선 적용</div>
+          </div>
+          <div class="popup-sector-note">※ 우선 협업 협상권은 독점권이 아닌, 성과 기반 우선 협의 권리입니다.</div>
+
+          <div class="popup-footer">
+            <a href="https://forms.gle/wheF8BkWzrSQjPej6" target="_blank" rel="noopener noreferrer" class="popup-cta">
+              <i class="fas fa-paper-plane"></i> 초기 파트너 지원하기
+            </a>
+            <a href="mailto:yiyol@yiyol.com?subject=NOX%20%ED%8C%8C%EC%9D%BC%EB%9F%BF%20%EC%83%81%EB%8B%B4%20%EC%9A%94%EC%B2%AD" class="popup-cta-outline">
+              <i class="fas fa-comments"></i> 파일럿 상담 요청
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ===== SCRIPTS ===== -->
   <script src="/assets/js/i18n.js"></script>
   <script>
@@ -1929,6 +2393,52 @@
         document.getElementById('nav-toggle').checked = false;
       });
     });
+
+    // Distributor Popup — disabled (kept for future use)
+    // (function () { ... })();
+
+    // Partner Recruitment Popup (Korean only)
+    (function () {
+      var popup = document.getElementById('partnerPopup');
+      var closeBtn = document.getElementById('partnerPopupClose');
+      if (!popup) return;
+
+      function isKorean() {
+        return document.documentElement.getAttribute('lang') === 'ko';
+      }
+
+      function showPopup() {
+        if (!isKorean()) return;
+        setTimeout(function () {
+          popup.classList.add('active');
+        }, 800);
+      }
+
+      function closePopup() {
+        popup.classList.remove('active');
+      }
+
+      closeBtn.addEventListener('click', closePopup);
+      popup.addEventListener('click', function (e) {
+        if (e.target === popup) closePopup();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && popup.classList.contains('active')) closePopup();
+      });
+
+      // Show on initial load
+      showPopup();
+
+      // Re-show when language changes
+      var origSetLanguage = window.setLanguage;
+      window.setLanguage = function (lang) {
+        origSetLanguage(lang);
+        closePopup();
+        if (lang === 'ko') {
+          setTimeout(showPopup, 400);
+        }
+      };
+    })();
   </script>
 
 </body>
