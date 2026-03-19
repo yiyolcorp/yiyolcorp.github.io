@@ -904,123 +904,54 @@
 
     <!-- NIS Security Certification Popup -->
     <style>
-      .nis-popup-overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(10, 22, 40, 0.75);
+      .nis-popup {
         z-index: 10001;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.35s ease, visibility 0.35s ease;
-        padding: 1rem;
-        backdrop-filter: blur(4px);
       }
-      .nis-popup-overlay.active {
-        opacity: 1;
-        visibility: visible;
-      }
-      .nis-popup-card {
-        background: linear-gradient(135deg, #0a1628 0%, #132244 50%, #0d3b4e 100%);
-        border-radius: 12px;
-        max-width: 460px;
-        width: 100%;
-        padding: 2.5rem 2rem 2rem;
-        position: relative;
-        box-shadow: 0 25px 60px rgba(0,0,0,0.4);
-        text-align: center;
-        color: #fff;
-        border: 1px solid rgba(74,237,196,0.15);
-        transform: translateY(20px);
-        transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
-      }
-      .nis-popup-overlay.active .nis-popup-card {
-        transform: translateY(0);
-      }
-      .nis-popup-close {
-        position: absolute;
-        top: 12px;
-        right: 14px;
-        background: rgba(255,255,255,0.08);
-        border: none;
-        color: #64748b;
-        font-size: 1.1rem;
-        cursor: pointer;
-        width: 30px;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 4px;
-        transition: background 0.2s, color 0.2s;
-      }
-      .nis-popup-close:hover { background: rgba(255,255,255,0.15); color: #fff; }
-      .nis-popup-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
-      .nis-popup-card h3 {
-        font-family: 'Poppins', sans-serif;
-        font-size: 1.25rem;
-        font-weight: 700;
-        color: #4aedc4;
-        margin-bottom: 0.5rem;
-      }
-      .nis-popup-card .nis-popup-desc {
-        font-size: 0.9rem;
-        color: #c8d6e5;
-        line-height: 1.7;
-        margin-bottom: 1.5rem;
-      }
-      .nis-popup-card .nis-popup-desc strong { color: #fff; }
-      .nis-popup-cta {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        background: linear-gradient(135deg, #4aedc4, #00a67d);
-        color: #0f172a;
-        padding: 0.75rem 2rem;
-        border-radius: 6px;
-        text-decoration: none;
-        font-weight: 700;
-        font-size: 0.9rem;
-        transition: transform 0.2s;
-      }
-      .nis-popup-cta:hover { transform: scale(1.04); }
-      .nis-popup-dismiss {
-        margin-top: 1.25rem;
+      .nis-popup .popup-dismiss {
+        margin-top: 1rem;
         font-size: 0.75rem;
-        color: #4b5e73;
+        color: #94a3b8;
+        text-align: center;
       }
-      .nis-popup-dismiss label { cursor: pointer; }
-      .nis-popup-dismiss input { margin-right: 4px; cursor: pointer; }
+      .nis-popup .popup-dismiss label { cursor: pointer; }
+      .nis-popup .popup-dismiss input { margin-right: 4px; cursor: pointer; }
     </style>
 
-    <div class="nis-popup-overlay" id="nisPopup">
-      <div class="nis-popup-card">
-        <button class="nis-popup-close" id="nisPopupClose" aria-label="Close"><i class="fas fa-xmark"></i></button>
-        <div class="nis-popup-icon">🛡️</div>
-        <h3>NOX NVR</h3>
-        <p class="nis-popup-desc ko-only">
-          국가정보원 「국가용 보안요구사항 V3.0」<br>
-          영상정보처리기기(NVR) <strong>전 항목 대응 완료</strong>
-        </p>
-        <p class="nis-popup-desc en-only">
-          Full compliance with NIS<br>
-          National Security Requirements V3.0<br>
-          for NVR — <strong>All categories covered</strong>
-        </p>
-        <a href="/nox/nis-security.html" class="nis-popup-cta ko-only">
-          <i class="fas fa-arrow-right"></i> 자세히 보기
-        </a>
-        <a href="/nox/nis-security.html?lang=en" class="nis-popup-cta en-only">
-          <i class="fas fa-arrow-right"></i> Learn More
-        </a>
-        <div class="nis-popup-dismiss">
-          <label>
-            <input type="checkbox" id="nisPopupDismissCheck">
-            <span class="ko-only">하루 동안 보지 않기</span>
-            <span class="en-only">Don't show for 24 hours</span>
-          </label>
+    <div class="popup-overlay nis-popup" id="nisPopup">
+      <div class="popup-card">
+        <div class="popup-header">
+          <button class="popup-close" id="nisPopupClose" aria-label="Close"><i class="fas fa-xmark"></i></button>
+          <div class="popup-header-badge">NIS Security Certification</div>
+          <h3 class="ko-only">국정원 보안요구사항 대응 완료</h3>
+          <h3 class="en-only">NIS Security Requirements Compliance</h3>
+        </div>
+        <div class="popup-content">
+          <div class="popup-body">
+            <p class="ko-only">
+              <strong>NOX 26.04</strong>가 국가정보원 「국가용 보안요구사항 V3.0」<br>
+              영상정보처리기기(NVR) <strong>전 항목 대응을 완료</strong>하였습니다.
+            </p>
+            <p class="en-only">
+              <strong>NOX 26.04</strong> has achieved full compliance with NIS
+              National Security Requirements V3.0<br>
+              for NVR — <strong>All categories covered</strong>
+            </p>
+          </div>
+          <div class="popup-footer">
+            <a href="/nox/nis-security.html" class="popup-cta ko-only">
+              <i class="fas fa-arrow-right"></i> 자세히 보기
+            </a>
+            <a href="/nox/nis-security.html?lang=en" class="popup-cta en-only">
+              <i class="fas fa-arrow-right"></i> Learn More
+            </a>
+          </div>
+          <div class="popup-dismiss">
+            <label>
+              <input type="checkbox" id="nisPopupDismissCheck">
+              <span class="ko-only">하루 동안 보지 않기</span>
+              <span class="en-only">Don't show for 24 hours</span>
+            </label>
+          </div>
         </div>
       </div>
     </div>
