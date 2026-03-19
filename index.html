@@ -851,106 +851,116 @@
       }
     </style>
 
-    <div class="popup-overlay partner-popup" id="partnerPopup">
-      <div class="popup-card">
-        <div class="popup-header">
-          <button class="popup-close" id="partnerPopupClose" aria-label="Close"><i class="fas fa-xmark"></i></button>
-          <div class="popup-header-badge">Initial Partner Program</div>
-          <h3>NOX 초기 파트너 모집</h3>
-        </div>
-
-        <div class="popup-content">
-          <div class="popup-body">
-            <p class="popup-intro">
-              중·소형 현장에 최적화된 NVR/VMS 소프트웨어 <strong>NOX</strong>의 초기 파트너를 모집합니다.<br>
-              섹터별 대표 현장에서 설치·운영을 함께 검증하고 성공 사례를 만들 파트너를 찾습니다.
-            </p>
-
-            <div class="popup-notice">
-              <i class="fas fa-info-circle"></i>
-              <span>NOX는 상용 소프트웨어이며, H/W(서버·카메라 등)는 파트너사가 구성합니다. NOX는 소프트웨어 및 기술지원을 제공합니다.</span>
-            </div>
-
-            <div class="popup-section-title"><i class="fas fa-crosshairs"></i> 모집 섹터 (각 1~2개 한정)</div>
-            <div class="popup-sector-list">
-              <span class="popup-sector-tag"><i class="fas fa-building"></i> 아파트 / 공동주택</span>
-              <span class="popup-sector-tag"><i class="fas fa-store"></i> 상가 / 프랜차이즈</span>
-              <span class="popup-sector-tag"><i class="fas fa-industry"></i> 공장 / 창고 / 물류</span>
-              <span class="popup-sector-tag"><i class="fas fa-hard-hat"></i> 건설현장 / 임시현장</span>
-              <span class="popup-sector-tag"><i class="fas fa-school"></i> 교육 / 의료 / 공공</span>
-            </div>
-
-            <div class="popup-section-title"><i class="fas fa-gift"></i> 초기 파트너 혜택</div>
-            <div class="popup-benefit-list">
-              <div class="popup-benefit-item"><i class="fas fa-check"></i> 프로젝트 성공 시 섹터/지역 우선 협업 협상권 부여</div>
-              <div class="popup-benefit-item"><i class="fas fa-check"></i> 향후 리셀러/총판 우선 협의 기회</div>
-              <div class="popup-benefit-item"><i class="fas fa-check"></i> 파트너용 제안 자료 및 운영 가이드 우선 제공</div>
-              <div class="popup-benefit-item"><i class="fas fa-check"></i> 초기 파트너 조건(가격/지원) 우선 적용</div>
-            </div>
-            <div class="popup-sector-note">※ 우선 협업 협상권은 독점권이 아닌, 성과 기반 우선 협의 권리입니다.</div>
-
-            <div class="popup-footer">
-              <a href="https://forms.gle/wheF8BkWzrSQjPej6" target="_blank" rel="noopener noreferrer" class="popup-cta">
-                <i class="fas fa-paper-plane"></i> 초기 파트너 지원하기
-              </a>
-              <a href="mailto:yiyol@yiyol.com?subject=NOX%20%ED%8C%8C%EC%9D%BC%EB%9F%BF%20%EC%83%81%EB%8B%B4%20%EC%9A%94%EC%B2%AD" class="popup-cta-outline">
-                <i class="fas fa-comments"></i> 파일럿 상담 요청
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- NIS Security Certification Popup -->
+    <!-- Dual Popup (NIS + Partner) -->
     <style>
-      .nis-popup {
-        z-index: 10001;
+      .dual-popup-container {
+        display: flex;
+        gap: 1.5rem;
+        justify-content: center;
+        align-items: flex-start;
+        max-width: 1040px;
+        width: 100%;
       }
-      .nis-popup .popup-dismiss {
-        margin-top: 1rem;
-        font-size: 0.75rem;
-        color: #94a3b8;
-        text-align: center;
+      .dual-popup-container > .popup-card {
+        flex: 1;
+        min-width: 0;
+        max-width: 500px;
       }
-      .nis-popup .popup-dismiss label { cursor: pointer; }
-      .nis-popup .popup-dismiss input { margin-right: 4px; cursor: pointer; }
+      .dual-popup-container > .popup-card.dismissed {
+        display: none;
+      }
+      @media (max-width: 960px) {
+        .dual-popup-container {
+          flex-direction: column;
+          align-items: center;
+        }
+        .dual-popup-container > .popup-card {
+          max-width: 540px;
+          width: 100%;
+        }
+      }
+      @media (max-width: 540px) {
+        .dual-popup-container > .popup-card {
+          max-height: none;
+        }
+      }
     </style>
 
-    <div class="popup-overlay nis-popup" id="nisPopup">
-      <div class="popup-card">
-        <div class="popup-header">
-          <button class="popup-close" id="nisPopupClose" aria-label="Close"><i class="fas fa-xmark"></i></button>
-          <div class="popup-header-badge">NIS Security Certification</div>
-          <h3 class="ko-only">국정원 보안요구사항 대응 완료</h3>
-          <h3 class="en-only">NIS Security Requirements Compliance</h3>
+    <div class="popup-overlay" id="dualPopup">
+      <div class="dual-popup-container">
+        <!-- NIS Security Certification -->
+        <div class="popup-card nis-popup" id="nisCard">
+          <div class="popup-header">
+            <button class="popup-close" id="nisPopupClose" aria-label="Close"><i class="fas fa-xmark"></i></button>
+            <div class="popup-header-badge">NIS Security Certification</div>
+            <h3 class="ko-only">국정원 보안요구사항 대응 완료</h3>
+            <h3 class="en-only">NIS Security Requirements Compliance</h3>
+          </div>
+          <div class="popup-content">
+            <div class="popup-body">
+              <p class="ko-only">
+                <strong>NOX 26.04</strong>가 국가정보원 「국가용 보안요구사항 V3.0」<br>
+                영상정보처리기기(NVR) <strong>전 항목 대응을 완료</strong>하였습니다.
+              </p>
+              <p class="en-only">
+                <strong>NOX 26.04</strong> has achieved full compliance with NIS
+                National Security Requirements V3.0<br>
+                for NVR — <strong>All categories covered</strong>
+              </p>
+            </div>
+            <div class="popup-footer">
+              <a href="/nox/nis-security.html" class="popup-cta ko-only">
+                <i class="fas fa-arrow-right"></i> 자세히 보기
+              </a>
+              <a href="/nox/nis-security.html?lang=en" class="popup-cta en-only">
+                <i class="fas fa-arrow-right"></i> Learn More
+              </a>
+            </div>
+          </div>
         </div>
-        <div class="popup-content">
-          <div class="popup-body">
-            <p class="ko-only">
-              <strong>NOX 26.04</strong>가 국가정보원 「국가용 보안요구사항 V3.0」<br>
-              영상정보처리기기(NVR) <strong>전 항목 대응을 완료</strong>하였습니다.
-            </p>
-            <p class="en-only">
-              <strong>NOX 26.04</strong> has achieved full compliance with NIS
-              National Security Requirements V3.0<br>
-              for NVR — <strong>All categories covered</strong>
-            </p>
+
+        <!-- Partner Recruitment (Korean only) -->
+        <div class="popup-card partner-popup" id="partnerCard">
+          <div class="popup-header">
+            <button class="popup-close" id="partnerPopupClose" aria-label="Close"><i class="fas fa-xmark"></i></button>
+            <div class="popup-header-badge">Initial Partner Program</div>
+            <h3>NOX 초기 파트너 모집</h3>
           </div>
-          <div class="popup-footer">
-            <a href="/nox/nis-security.html" class="popup-cta ko-only">
-              <i class="fas fa-arrow-right"></i> 자세히 보기
-            </a>
-            <a href="/nox/nis-security.html?lang=en" class="popup-cta en-only">
-              <i class="fas fa-arrow-right"></i> Learn More
-            </a>
-          </div>
-          <div class="popup-dismiss">
-            <label>
-              <input type="checkbox" id="nisPopupDismissCheck">
-              <span class="ko-only">하루 동안 보지 않기</span>
-              <span class="en-only">Don't show for 24 hours</span>
-            </label>
+          <div class="popup-content">
+            <div class="popup-body">
+              <p class="popup-intro">
+                중·소형 현장에 최적화된 NVR/VMS 소프트웨어 <strong>NOX</strong>의 초기 파트너를 모집합니다.<br>
+                섹터별 대표 현장에서 설치·운영을 함께 검증하고 성공 사례를 만들 파트너를 찾습니다.
+              </p>
+              <div class="popup-notice">
+                <i class="fas fa-info-circle"></i>
+                <span>NOX는 상용 소프트웨어이며, H/W(서버·카메라 등)는 파트너사가 구성합니다. NOX는 소프트웨어 및 기술지원을 제공합니다.</span>
+              </div>
+              <div class="popup-section-title"><i class="fas fa-crosshairs"></i> 모집 섹터 (각 1~2개 한정)</div>
+              <div class="popup-sector-list">
+                <span class="popup-sector-tag"><i class="fas fa-building"></i> 아파트 / 공동주택</span>
+                <span class="popup-sector-tag"><i class="fas fa-store"></i> 상가 / 프랜차이즈</span>
+                <span class="popup-sector-tag"><i class="fas fa-industry"></i> 공장 / 창고 / 물류</span>
+                <span class="popup-sector-tag"><i class="fas fa-hard-hat"></i> 건설현장 / 임시현장</span>
+                <span class="popup-sector-tag"><i class="fas fa-school"></i> 교육 / 의료 / 공공</span>
+              </div>
+              <div class="popup-section-title"><i class="fas fa-gift"></i> 초기 파트너 혜택</div>
+              <div class="popup-benefit-list">
+                <div class="popup-benefit-item"><i class="fas fa-check"></i> 프로젝트 성공 시 섹터/지역 우선 협업 협상권 부여</div>
+                <div class="popup-benefit-item"><i class="fas fa-check"></i> 향후 리셀러/총판 우선 협의 기회</div>
+                <div class="popup-benefit-item"><i class="fas fa-check"></i> 파트너용 제안 자료 및 운영 가이드 우선 제공</div>
+                <div class="popup-benefit-item"><i class="fas fa-check"></i> 초기 파트너 조건(가격/지원) 우선 적용</div>
+              </div>
+              <div class="popup-sector-note">※ 우선 협업 협상권은 독점권이 아닌, 성과 기반 우선 협의 권리입니다.</div>
+              <div class="popup-footer">
+                <a href="https://forms.gle/wheF8BkWzrSQjPej6" target="_blank" rel="noopener noreferrer" class="popup-cta">
+                  <i class="fas fa-paper-plane"></i> 초기 파트너 지원하기
+                </a>
+                <a href="mailto:yiyol@yiyol.com?subject=NOX%20%ED%8C%8C%EC%9D%BC%EB%9F%BF%20%EC%83%81%EB%8B%B4%20%EC%9A%94%EC%B2%AD" class="popup-cta-outline">
+                  <i class="fas fa-comments"></i> 파일럿 상담 요청
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1007,72 +1017,63 @@
         }
       });
 
-      // Distributor Popup — disabled (kept for future use)
-      // (function () { ... })();
-
-      // NIS Security Certification Popup
+      // Dual Popup (NIS + Partner)
       (function () {
-        var popup = document.getElementById('nisPopup');
-        var closeBtn = document.getElementById('nisPopupClose');
-        if (!popup) return;
-        var key = 'nis_popup_dismissed';
-        var dismissed = localStorage.getItem(key);
-        if (dismissed && Date.now() < parseInt(dismissed)) { /* skip */ } else {
-          setTimeout(function () { popup.classList.add('active'); }, 600);
-        }
-        function closeNis() {
-          var cb = document.getElementById('nisPopupDismissCheck');
-          if (cb && cb.checked) localStorage.setItem(key, Date.now() + 86400000);
-          popup.classList.remove('active');
-        }
-        closeBtn.addEventListener('click', closeNis);
-        popup.addEventListener('click', function (e) { if (e.target === popup) closeNis(); });
-        document.addEventListener('keydown', function (e) {
-          if (e.key === 'Escape' && popup.classList.contains('active')) closeNis();
-        });
-      })();
-
-      // Partner Recruitment Popup (Korean only)
-      (function () {
-        var popup = document.getElementById('partnerPopup');
-        var closeBtn = document.getElementById('partnerPopupClose');
-        if (!popup) return;
+        var overlay = document.getElementById('dualPopup');
+        var nisCard = document.getElementById('nisCard');
+        var partnerCard = document.getElementById('partnerCard');
+        var nisCloseBtn = document.getElementById('nisPopupClose');
+        var partnerCloseBtn = document.getElementById('partnerPopupClose');
+        if (!overlay) return;
 
         function isKorean() {
           return document.documentElement.getAttribute('lang') === 'ko';
         }
 
-        function showPopup() {
-          if (!isKorean()) return;
-          setTimeout(function () {
-            popup.classList.add('active');
-          }, 800);
+        // Determine which cards to show
+        var showNis = true;
+
+        var showPartner = isKorean();
+
+        if (!showNis) nisCard.classList.add('dismissed');
+        if (!showPartner) partnerCard.classList.add('dismissed');
+
+        if (showNis || showPartner) {
+          setTimeout(function () { overlay.classList.add('active'); }, 600);
         }
 
-        function closePopup() {
-          popup.classList.remove('active');
+        function checkClose() {
+          if (nisCard.classList.contains('dismissed') && partnerCard.classList.contains('dismissed')) {
+            overlay.classList.remove('active');
+          }
         }
 
-        closeBtn.addEventListener('click', closePopup);
-        popup.addEventListener('click', function (e) {
-          if (e.target === popup) closePopup();
+        function closeNis() {
+          nisCard.classList.add('dismissed');
+          checkClose();
+        }
+
+        function closePartner() {
+          partnerCard.classList.add('dismissed');
+          checkClose();
+        }
+
+        nisCloseBtn.addEventListener('click', closeNis);
+        partnerCloseBtn.addEventListener('click', closePartner);
+
+        overlay.addEventListener('click', function (e) {
+          if (e.target === overlay || e.target.classList.contains('dual-popup-container')) {
+            closeNis();
+            closePartner();
+          }
         });
+
         document.addEventListener('keydown', function (e) {
-          if (e.key === 'Escape' && popup.classList.contains('active')) closePopup();
+          if (e.key === 'Escape' && overlay.classList.contains('active')) {
+            closeNis();
+            closePartner();
+          }
         });
-
-        // Show on initial load — disabled in favor of NIS security popup
-        // showPopup();
-
-        // Re-show when language changes — disabled in favor of NIS security popup
-        // var origSetLanguage = window.setLanguage;
-        // window.setLanguage = function (lang) {
-        //   origSetLanguage(lang);
-        //   closePopup();
-        //   if (lang === 'ko') {
-        //     setTimeout(showPopup, 400);
-        //   }
-        // };
       })();
     </script>
   </body>
