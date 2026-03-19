@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKJ4GX2KHS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-CKJ4GX2KHS');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NOX NVR — 국정원 보안요구사항 전 항목 대응 완료</title>
+  <link rel="canonical" href="https://yiyol.com/nox/nis-security.html">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <meta name="description" content="NOX NVR이 국가정보원 「국가용 보안요구사항 V3.0」 영상정보처리기기(NVR) 전체 10개 보안기능 카테고리 대응을 완료하였습니다.">
+  <meta property="og:title" content="NOX NVR — 국정원 보안요구사항 전 항목 대응 완료">
+  <meta property="og:description" content="국가용 보안요구사항 V3.0 영상정보처리기기(NVR) 전 항목 대응 완료. AES-256-GCM, TPM, RBAC 등 최고 수준 보안.">
+  <meta property="og:type" content="article">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+    .lang-toggle { display: none; }
+
+    /* Header */
+    .page-header {
+      background: linear-gradient(135deg, #0a1628 0%, #132244 40%, #0d3b4e 100%);
+      color: #fff;
+      padding: 3.5rem 1.5rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 70%, rgba(74,237,196,0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 30%, rgba(59,130,246,0.08) 0%, transparent 50%);
+    }
+    .page-header > * { position: relative; z-index: 1; }
+    .header-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #4aedc4;
+      border: 1px solid rgba(74,237,196,0.3);
+      padding: 0.3rem 0.8rem;
+      border-radius: 3px;
+      margin-bottom: 1rem;
+    }
+    .page-header h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+    .page-header h1 .accent { color: #4aedc4; }
+    .page-header p {
+      font-size: 1rem;
+      color: #94a3b8;
+      max-width: 640px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    .header-nav {
+      position: absolute;
+      top: 1rem;
+      left: 1.5rem;
+    }
+    .header-nav a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: color 0.2s;
+    }
+    .header-nav a:hover { color: #fff; }
+    .lang-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #94a3b8;
+      padding: 0.3rem 0.7rem;
+      border-radius: 4px;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .lang-btn:hover { background: rgba(255,255,255,0.2); color: #fff; }
+
+    /* Content */
+    .content { max-width: 860px; margin: 0 auto; padding: 2.5rem 1.5rem 3rem; }
+
+    /* Intro */
+    .intro {
+      background: #fff;
+      border-radius: 8px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      border-left: 4px solid #4aedc4;
+    }
+    .intro p { font-size: 0.95rem; color: #334155; }
+    .intro strong { color: #0f172a; }
+
+    /* Section title */
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 2.5rem 0 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Security cards */
+    .security-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 1rem;
+    }
+    .security-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      display: flex;
+      gap: 1rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .security-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .security-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .security-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 0.35rem;
+    }
+    .security-card p {
+      font-size: 0.85rem;
+      color: #64748b;
+      line-height: 1.6;
+    }
+
+    /* Colors for icons */
+    .ic-1 { background: #dbeafe; color: #2563eb; }
+    .ic-2 { background: #fce7f3; color: #db2777; }
+    .ic-3 { background: #d1fae5; color: #059669; }
+    .ic-4 { background: #e0e7ff; color: #4f46e5; }
+    .ic-5 { background: #fef3c7; color: #d97706; }
+    .ic-6 { background: #cffafe; color: #0891b2; }
+    .ic-7 { background: #f3e8ff; color: #7c3aed; }
+    .ic-8 { background: #fee2e2; color: #dc2626; }
+    .ic-9 { background: #ecfdf5; color: #047857; }
+    .ic-10 { background: #f1f5f9; color: #475569; }
+
+    /* Tech table */
+    .tech-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      margin-top: 1rem;
+    }
+    .tech-table th {
+      background: #0f172a;
+      color: #fff;
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+    .tech-table td {
+      padding: 0.7rem 1rem;
+      font-size: 0.85rem;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .tech-table tr:last-child td { border-bottom: none; }
+    .tech-table td:first-child { font-weight: 600; color: #0f172a; white-space: nowrap; }
+
+    /* CTA */
+    .cta-section {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      border-radius: 12px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      color: #fff;
+      margin-top: 2.5rem;
+    }
+    .cta-section h2 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .cta-section p { color: #94a3b8; font-size: 0.9rem; margin-bottom: 1.5rem; }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, #4aedc4, #00a67d);
+      color: #0f172a;
+      padding: 0.8rem 2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: transform 0.2s;
+    }
+    .cta-btn:hover { transform: scale(1.03); }
+    .cta-info {
+      margin-top: 1.25rem;
+      font-size: 0.82rem;
+      color: #64748b;
+    }
+    .cta-info a { color: #4aedc4; text-decoration: none; }
+
+    /* Footer */
+    .page-footer {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      font-size: 0.78rem;
+      color: #94a3b8;
+    }
+    .page-footer a { color: #64748b; text-decoration: none; }
+    .page-footer a:hover { color: #0f172a; }
+
+    @media (max-width: 480px) {
+      .security-grid { grid-template-columns: 1fr; }
+      .page-header { padding: 3rem 1rem 2.5rem; }
+      .content { padding: 1.5rem 1rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <div class="header-nav">
+      <a href="/nox/"><i class="fas fa-arrow-left"></i> <span class="ko-text">NOX</span><span class="en-text">NOX</span></a>
+    </div>
+    <button class="lang-btn" onclick="toggleLang()">
+      <span class="ko-text">EN</span><span class="en-text">한국어</span>
+    </button>
+    <div class="header-badge">
+      <span class="ko-text">국가용 보안요구사항 V3.0 대응</span>
+      <span class="en-text">NIS Security Requirements V3.0</span>
+    </div>
+    <h1>
+      <span class="ko-text">NOX NVR — <span class="accent">보안요구사항 전 항목</span> 대응 완료</span>
+      <span class="en-text">NOX NVR — <span class="accent">Full Compliance</span> with NIS Security Requirements</span>
+    </h1>
+    <p>
+      <span class="ko-text">국가정보원 「국가용 보안요구사항 V3.0」 영상정보처리기기(NVR) 전체 10개 보안기능 카테고리 대응 완료</span>
+      <span class="en-text">Complete coverage of all 10 security categories specified in the NIS National Security Requirements V3.0 for NVR devices</span>
+    </p>
+  </header>
+
+  <div class="content">
+    <div class="intro">
+      <p>
+        <span class="ko-text"><strong>(주)이욜</strong>은 자사 영상녹화장치 <strong>NOX NVR v1.0</strong>이 국가정보원 「<strong>국가용 보안요구사항 V3.0</strong>」 영상정보처리기기(NVR) 부문의 <strong>전체 10개 보안기능 카테고리</strong>에 대한 기술적 대응을 완료하였음을 알려드립니다. NOX NVR은 공공기관 및 국가기관에서 요구하는 최고 수준의 보안 기준을 충족하도록 설계되었으며, 영상 데이터의 수집부터 저장, 전송, 관리에 이르기까지 <strong>전 구간 보안</strong>을 실현합니다.</span>
+        <span class="en-text"><strong>YIYOL Corp.</strong> is proud to announce that <strong>NOX NVR v1.0</strong> has achieved full technical compliance with all <strong>10 security function categories</strong> of the National Intelligence Service (NIS) <strong>"National Security Requirements V3.0"</strong> for Network Video Recorders. NOX NVR delivers <strong>end-to-end security</strong> across the entire video data lifecycle — from capture to storage, transmission, and management.</span>
+      </p>
+    </div>
+
+    <h2 class="section-title"><i class="fas fa-shield-halved"></i>
+      <span class="ko-text">10대 보안기능 대응 현황</span>
+      <span class="en-text">10 Security Function Categories</span>
+    </h2>
+
+    <div class="security-grid">
+      <div class="security-card">
+        <div class="security-icon ic-1"><i class="fas fa-video"></i></div>
+        <div>
+          <h3><span class="ko-text">1. 영상 보안</span><span class="en-text">1. Video Security</span></h3>
+          <p><span class="ko-text">AES-256-GCM 알고리즘으로 영상 데이터를 실시간 암호화하여 저장합니다. 비인가 접근으로부터 영상의 기밀성과 무결성을 보장합니다.</span><span class="en-text">Real-time video encryption using AES-256-GCM, ensuring confidentiality and integrity against unauthorized access.</span></p>
+        </div>
+      </div>
+      <div class="security-card">
+        <div class="security-icon ic-2"><i class="fas fa-fingerprint"></i></div>
+        <div>
+          <h3><span class="ko-text">2. 식별 및 인증</span><span class="en-text">2. Identification & Authentication</span></h3>
+          <p><span class="ko-text">JWT 기반 토큰 인증과 강력한 패스워드 정책으로 사용자를 안전하게 식별·인증합니다.</span><span class="en-text">Secure user identification through JWT-based token authentication and robust password policies.</span></p>
+        </div>
+      </div>
+      <div class="security-card">
+        <div class="security-icon ic-3"><i class="fas fa-user-lock"></i></div>
+        <div>
+          <h3><span class="ko-text">3. 접근통제</span><span class="en-text">3. Access Control</span></h3>
+          <p><span class="ko-text">역할 기반 접근제어(RBAC)로 사용자 역할에 따라 기능과 데이터 접근 권한을 세밀하게 관리합니다.</span><span class="en-text">Role-Based Access Control (RBAC) provides granular permission management based on user roles.</span></p>
+        </div>
+      </div>
+      <div class="security-card">
+        <div class="security-icon ic-4"><i class="fas fa-database"></i></div>
+        <div>
+          <h3><span class="ko-text">4. 데이터 보호</span><span class="en-text">4. Data Protection</span></h3>
+          <p><span class="ko-text">DEK/KEK 2계층 키 관리와 TPM 봉인으로 저장 데이터를 보호합니다. HMAC-SHA256으로 무결성을 검증합니다.</span><span class="en-text">DEK/KEK dual-layer key management with TPM-sealed keys. Data integrity verified via HMAC-SHA256.</span></p>
+        </div>
+      </div>
+      <div class="security-card">
+        <div class="security-icon ic-5"><i class="fas fa-shield-virus"></i></div>
+        <div>
+          <h3><span class="ko-text">5. 자체보호</span><span class="en-text">5. Self-Protection</span></h3>
+          <p><span class="ko-text">시스템 바이너리·설정 파일의 무결성을 실시간 모니터링하고 변조 시도를 즉시 탐지합니다.</span><span class="en-text">Real-time integrity monitoring of system binaries and configuration files with immediate tamper detection.</span></p>
+        </div>
+      </div>
+      <div class="security-card">
+        <div class="security-icon ic-6"><i class="fas fa-cloud-arrow-down"></i></div>
+        <div>
+          <h3><span class="ko-text">6. 업데이트 보호</span><span class="en-text">6. Update Protection</span></h3>
+          <p><span class="ko-text">GPG 전자서명으로 정당한 업데이트만 설치되도록 보장합니다. 변조된 패키지의 설치를 원천 차단합니다.</span><span class="en-text">GPG digital signatures ensure only authentic, unmodified update packages are installed.</span></p>
+        </div>
+      </div>
+      <div class="security-card">
+        <div class="security-icon ic-7"><i class="fas fa-clock"></i></div>
+        <div>
+          <h3><span class="ko-text">7. 세션 관리</span><span class="en-text">7. Session Management</span></h3>
+          <p><span class="ko-text">사용자 세션의 생성·유지·만료를 체계적으로 관리하여 세션 탈취·재사용 공격을 방지합니다.</span><span class="en-text">Systematic session lifecycle management to prevent session hijacking and replay attacks.</span></p>
+        </div>
+      </div>
+      <div class="security-card">
+        <div class="security-icon ic-8"><i class="fas fa-clipboard-list"></i></div>
+        <div>
+          <h3><span class="ko-text">8. 감사기록</span><span class="en-text">8. Audit Logging</span></h3>
+          <p><span class="ko-text">보안 관련 이벤트를 빠짐없이 기록하고, 감사기록의 무결성을 보장하여 추적·분석이 가능합니다.</span><span class="en-text">Comprehensive logging of all security events with tamper-proof audit records for forensic analysis.</span></p>
+        </div>
+      </div>
+      <div class="security-card">
+        <div class="security-icon ic-9"><i class="fas fa-key"></i></div>
+        <div>
+          <h3><span class="ko-text">9. 암호 지원</span><span class="en-text">9. Cryptographic Support</span></h3>
+          <p><span class="ko-text">AES-256-GCM, HMAC-SHA256, TLS 1.2/1.3 등 검증된 암호 알고리즘으로 기밀성·무결성을 보장합니다.</span><span class="en-text">Industry-standard algorithms including AES-256-GCM, HMAC-SHA256, and TLS 1.2/1.3.</span></p>
+        </div>
+      </div>
+      <div class="security-card">
+        <div class="security-icon ic-10"><i class="fas fa-bug-slash"></i></div>
+        <div>
+          <h3><span class="ko-text">10. 보안 취약점 관리</span><span class="en-text">10. Vulnerability Management</span></h3>
+          <p><span class="ko-text">알려진 보안 취약점에 대한 체계적 관리와 패치 프로세스로 시스템을 안전하게 유지합니다.</span><span class="en-text">Systematic vulnerability tracking and patch management to maintain system security posture.</span></p>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-title"><i class="fas fa-microchip"></i>
+      <span class="ko-text">주요 기술 특장점</span>
+      <span class="en-text">Key Technical Highlights</span>
+    </h2>
+
+    <table class="tech-table">
+      <thead>
+        <tr>
+          <th><span class="ko-text">기술</span><span class="en-text">Technology</span></th>
+          <th><span class="ko-text">설명</span><span class="en-text">Description</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>AES-256-GCM</td><td><span class="ko-text">영상 데이터 실시간 암호화</span><span class="en-text">Real-time video data encryption</span></td></tr>
+        <tr><td>DEK/KEK</td><td><span class="ko-text">2계층 암호 키 관리 체계</span><span class="en-text">Dual-layer encryption key management</span></td></tr>
+        <tr><td>TPM</td><td><span class="ko-text">하드웨어 기반 키 봉인 및 보호</span><span class="en-text">Hardware-based key sealing and protection</span></td></tr>
+        <tr><td>RBAC (Casbin)</td><td><span class="ko-text">유연한 역할 기반 접근제어</span><span class="en-text">Flexible role-based access control</span></td></tr>
+        <tr><td>TLS/HTTPS</td><td><span class="ko-text">네트워크 구간 암호화 (Caddy)</span><span class="en-text">Encrypted network communication (Caddy)</span></td></tr>
+        <tr><td>GPG</td><td><span class="ko-text">업데이트 패키지 전자서명·무결성 보장</span><span class="en-text">Update package digital signature verification</span></td></tr>
+        <tr><td>ONVIF Profile S/T</td><td><span class="ko-text">표준 카메라 프로토콜 지원</span><span class="en-text">Standard camera protocol support</span></td></tr>
+      </tbody>
+    </table>
+
+    <div class="cta-section">
+      <h2>
+        <span class="ko-text">NOX NVR 도입 문의</span>
+        <span class="en-text">Inquire About NOX NVR</span>
+      </h2>
+      <p>
+        <span class="ko-text">공공기관, 국가기관, 기업의 영상보안 환경에 최적화된 NOX NVR로<br>안전한 영상 관리를 시작하세요.</span>
+        <span class="en-text">Start secure video management with NOX NVR —<br>optimized for government, public institutions, and enterprises.</span>
+      </p>
+      <a href="mailto:yiyol@yiyol.com?subject=NOX%20NVR%20도입%20문의" class="cta-btn">
+        <i class="fas fa-envelope"></i>
+        <span class="ko-text">도입 문의하기</span>
+        <span class="en-text">Contact Us</span>
+      </a>
+      <div class="cta-info">
+        <span class="ko-text">(주)이욜 · </span>
+        <span class="en-text">YIYOL Corp. · </span>
+        <a href="mailto:yiyol@yiyol.com">yiyol@yiyol.com</a> ·
+        <a href="https://yiyol.com">yiyol.com</a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    <p>&copy; 2026 YIYOL. All rights reserved. · <a href="/">Home</a> · <a href="/nox/">NOX</a></p>
+  </footer>
+
+  <script>
+    // Language toggle
+    var currentLang = 'ko';
+    function toggleLang() {
+      currentLang = currentLang === 'ko' ? 'en' : 'ko';
+      document.documentElement.lang = currentLang;
+      applyLang();
+    }
+    function applyLang() {
+      document.querySelectorAll('.ko-text').forEach(function(el) {
+        el.style.display = currentLang === 'ko' ? '' : 'none';
+      });
+      document.querySelectorAll('.en-text').forEach(function(el) {
+        el.style.display = currentLang === 'en' ? '' : 'none';
+      });
+    }
+    // Init: detect from URL or default ko
+    (function() {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('lang') === 'en') currentLang = 'en';
+      applyLang();
+    })();
+  </script>
+</body>
+</html>
