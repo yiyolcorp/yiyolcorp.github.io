@@ -1,0 +1,225 @@
+<html>
+<head><meta charset="UTF-8"></head>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+.sec{margin-bottom:1.5rem}
+.sec-t{font-size:17px;font-weight:500;margin-bottom:10px;padding-bottom:6px;border-bottom:0.5px solid var(--color-border-tertiary)}
+.badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:4px;margin-left:8px;background:#FAEEDA;color:#633806}
+@media(prefers-color-scheme:dark){.badge{background:#633806;color:#FAC775}}
+.abox{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:16px;font-size:12px}
+@media(max-width:600px){.abox{grid-template-columns:1fr}}
+.ac{border-radius:var(--border-radius-lg);padding:10px 12px;border:0.5px solid var(--color-border-tertiary)}
+.ac-h{font-size:13px;font-weight:500;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.ac-row{display:flex;justify-content:space-between;padding:3px 0;font-size:12px;color:var(--color-text-secondary)}
+.ac-row span:last-child{font-weight:500;color:var(--color-text-primary)}
+.dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.tab{padding:7px 12px;font-size:12px;border-radius:var(--border-radius-md);cursor:pointer;border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-primary);transition:all .15s}
+.tab:hover{background:var(--color-background-secondary)}
+.tab.on{background:var(--color-text-primary);color:var(--color-background-primary);border-color:var(--color-text-primary)}
+.leg{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:6px;font-size:11px;color:var(--color-text-secondary)}
+.leg span{display:flex;align-items:center;gap:4px}
+.ld{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+.note{font-size:12px;color:var(--color-text-secondary);margin-top:8px;line-height:1.6;padding:10px 12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md)}
+.rg{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+@media(max-width:640px){.rg{grid-template-columns:repeat(2,1fr)}}
+.rc{border-radius:var(--border-radius-md);padding:10px 12px;border:0.5px solid var(--color-border-tertiary)}
+.rc-t{font-size:11px;color:var(--color-text-tertiary);margin-bottom:3px}
+.rc-v{font-size:18px;font-weight:500}
+.rc-s{font-size:11px;margin-top:3px;color:var(--color-text-secondary)}
+</style>
+
+<div style="padding:.5rem 0">
+
+<div class="sec">
+<div class="sec-t">아파트 가격 보합 가정<span class="badge">17억·13억 유지</span></div>
+<div class="abox">
+<div class="ac">
+<div class="ac-h"><span class="dot" style="background:#D85A30"></span>A. 17억 매수 (대출 4억)</div>
+<div class="ac-row"><span>아파트 가격</span><span>17억 → 17억 (변동 없음)</span></div>
+<div class="ac-row"><span>취득세 3.5%</span><span>5,950만</span></div>
+<div class="ac-row"><span>월 대출이자+보유세</span><span>-183만</span></div>
+</div>
+<div class="ac">
+<div class="ac-h"><span class="dot" style="background:#1D9E75"></span>B. 13억 매수 (무대출)</div>
+<div class="ac-row"><span>아파트 가격</span><span>13억 → 13억 (변동 없음)</span></div>
+<div class="ac-row"><span>취득세 3%</span><span>3,900만</span></div>
+<div class="ac-row"><span>월 보유세</span><span>-17만</span></div>
+</div>
+<div class="ac">
+<div class="ac-h"><span class="dot" style="background:#378ADD"></span>C. 월세 + 은행예금 (3.5%)</div>
+<div class="ac-row"><span>보증금 1억 / 예금 12억</span><span>세후 월 296만</span></div>
+<div class="ac-row"><span>월세 150만 (연3%↑)</span><span>순 +146만</span></div>
+</div>
+<div class="ac">
+<div class="ac-h"><span class="dot" style="background:#7F77DD"></span>D. 월세 + 주식투자 (연 5%)</div>
+<div class="ac-row"><span>보증금 1억 / 투자 12억</span><span>세후 월 423만</span></div>
+<div class="ac-row"><span>월세 150만 (연3%↑)</span><span>순 +273만</span></div>
+</div>
+</div>
+</div>
+
+<div class="sec">
+<div class="sec-t">시뮬레이션 (2026.3 → 2030.6, 51개월)</div>
+<div class="tabs">
+<button class="tab on" onclick="setV('nw')">순자산 추이</button>
+<button class="tab" onclick="setV('cost')">누적 비용</button>
+<button class="tab" onclick="setV('flow')">월간 현금흐름</button>
+</div>
+<div class="leg" id="lg"></div>
+<div style="position:relative;width:100%;height:360px"><canvas id="ch"></canvas></div>
+<div class="note" id="nt"></div>
+</div>
+
+<div class="sec">
+<div class="sec-t">2030년 6월 최종 순자산</div>
+<div class="rg" id="res"></div>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const isDk=matchMedia('(prefers-color-scheme:dark)').matches;
+const gC=isDk?'rgba(255,255,255,.06)':'rgba(0,0,0,.06)';
+const CA='#D85A30',CB='#1D9E75',CC='#378ADD',CD='#7F77DD';
+const MO=51;
+
+function sim(){
+  const LOAN=4, LOAN_MR=0.045/12;
+  const DEP_MR=0.035*(1-0.154)/12;
+  const STK_MR=0.05*(1-0.154)/12;
+  const TAX17=0.0033, TAX13=0.0017;
+
+  const d={nwA:[],nwB:[],nwC:[],nwD:[],
+           costA:[],costB:[],costC:[],costD:[],
+           flowA:[],flowB:[],flowC:[],flowD:[],labels:[]};
+
+  let cashA=-0.595, cumA=0.595;
+  let cashB=-0.39, cumB=0.39;
+  let cashC=12, cumC=0;
+  let cashD=12, cumD=0;
+  let rent=0.015;
+
+  for(let m=0;m<=MO;m++){
+    const aptA=17;
+    const aptB=13;
+    const nwA=aptA-LOAN+cashA;
+    const nwB=aptB+cashB;
+    const nwC=cashC+1;
+    const nwD=cashD+1;
+
+    if(m%3===0){
+      const mm=3+(m%12);
+      const yy=26+Math.floor(m/12);
+      const lbl=m===0?'26.3':m>=51?'30.6':(mm<=12?yy+'.'+(mm<10?'0':'')+mm:(yy+1)+'.'+(mm-12<10?'0':'')+(mm-12));
+      d.labels.push(lbl);
+      d.nwA.push(Math.round(nwA*100)/100);
+      d.nwB.push(Math.round(nwB*100)/100);
+      d.nwC.push(Math.round(nwC*100)/100);
+      d.nwD.push(Math.round(nwD*100)/100);
+      d.costA.push(Math.round(cumA*1000)/1000);
+      d.costB.push(Math.round(cumB*1000)/1000);
+      d.costC.push(Math.round(cumC*1000)/1000);
+      d.costD.push(Math.round(cumD*1000)/1000);
+      d.flowA.push(Math.round(-(LOAN*LOAN_MR+TAX17)*10000));
+      d.flowB.push(Math.round(-TAX13*10000));
+      d.flowC.push(Math.round((cashC*DEP_MR-rent)*10000));
+      d.flowD.push(Math.round((cashD*STK_MR-rent)*10000));
+    }
+
+    if(m<MO){
+      cashA-=(LOAN*LOAN_MR+TAX17); cumA+=(LOAN*LOAN_MR+TAX17);
+      cashB-=TAX13; cumB+=TAX13;
+      const iC=cashC*DEP_MR; cashC+=iC-rent; cumC+=rent;
+      const iD=cashD*STK_MR; cashD+=iD-rent; cumD+=rent;
+      if(m>0&&m%12===0) rent=Math.round(rent*1.03*10000)/10000;
+    }
+  }
+  return d;
+}
+const data=sim();
+
+const cfgs={
+  nw:{
+    datasets:[
+      {label:'A. 17억 매수(대출4억)',data:data.nwA,borderColor:CA,borderWidth:2.5,pointRadius:2,tension:.35,fill:false},
+      {label:'B. 13억 매수(무대출)',data:data.nwB,borderColor:CB,borderWidth:2.5,pointRadius:2,tension:.35,fill:false},
+      {label:'C. 월세+은행(3.5%)',data:data.nwC,borderColor:CC,borderWidth:2.5,pointRadius:2,tension:.35,fill:false},
+      {label:'D. 월세+주식(5%)',data:data.nwD,borderColor:CD,borderWidth:2.5,pointRadius:2,tension:.35,fill:false},
+    ],
+    yTitle:'순자산 (억 원)',
+    note:'아파트 가격이 51개월 내내 보합(17억·13억 유지)일 때 순자산 추이. 가격 변동이 없으므로 매수 케이스의 차이는 순전히 "비용 차이"만 반영됩니다. A(17억)는 취득세+이자+보유세로 꾸준히 빠져 순자산이 하락합니다. B(13억)는 보유세만 나가므로 거의 횡보. C(은행)와 D(주식)는 투자수익이 월세를 상쇄하고도 남아 순자산이 우상향합니다.'
+  },
+  cost:{
+    datasets:[
+      {label:'A. 17억 누적비용',data:data.costA,borderColor:CA,backgroundColor:CA+'25',borderWidth:2.5,pointRadius:2,tension:.35,fill:true},
+      {label:'B. 13억 누적비용',data:data.costB,borderColor:CB,backgroundColor:CB+'25',borderWidth:2.5,pointRadius:2,tension:.35,fill:true},
+      {label:'C. 월세 누적비용',data:data.costC,borderColor:CC,backgroundColor:CC+'25',borderWidth:2.5,pointRadius:2,tension:.35,fill:true},
+      {label:'D. 월세 누적비용',data:data.costD,borderColor:CD,backgroundColor:CD+'25',borderWidth:2.5,pointRadius:2,tension:.35,fill:true},
+    ],
+    yTitle:'누적 비용 (억 원)',
+    note:'A: 취득세 0.60억 + 이자·보유세 51개월 0.93억 = 총 1.53억. B: 취득세 0.39억 + 보유세 51개월 0.09억 = 총 0.48억. C·D: 월세 51개월 합계 약 0.81억 (동일). 아파트 가격 보합이라면 비용만 순수하게 비교되므로, 13억 무대출의 비용 효율이 가장 좋습니다.'
+  },
+  flow:{
+    datasets:[
+      {label:'A. 17억 매수',data:data.flowA,borderColor:CA,backgroundColor:CA+'30',borderWidth:2,pointRadius:2,tension:.35,fill:true},
+      {label:'B. 13억 매수',data:data.flowB,borderColor:CB,backgroundColor:CB+'30',borderWidth:2,pointRadius:2,tension:.35,fill:true},
+      {label:'C. 월세+은행',data:data.flowC,borderColor:CC,backgroundColor:CC+'30',borderWidth:2,pointRadius:2,tension:.35,fill:true},
+      {label:'D. 월세+주식',data:data.flowD,borderColor:CD,backgroundColor:CD+'30',borderWidth:2,pointRadius:2,tension:.35,fill:true},
+    ],
+    yTitle:'월 현금흐름 (만 원)',
+    note:'A: 매달 -183만 고정(이자150만+보유세33만). B: 매달 -17만 고정(보유세). C: 초기 +146만 → 복리효과+월세인상으로 점차 변동. D: 초기 +273만 → 복리로 투자원금이 불어나 현금흐름이 점점 증가. 주식투자(D)는 시간이 갈수록 월세 부담을 압도합니다.'
+  }
+};
+
+let chart;
+function render(mode){
+  if(chart)chart.destroy();
+  const c=cfgs[mode];
+  chart=new Chart(document.getElementById('ch'),{
+    type:'line',data:{labels:data.labels,datasets:c.datasets},
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{
+        label:ctx=>{const v=ctx.parsed.y;return ctx.dataset.label+': '+(mode==='flow'?v+'만':v.toFixed(2)+'억')}
+      }}},
+      scales:{
+        y:{title:{display:true,text:c.yTitle,font:{size:11}},grid:{color:gC}},
+        x:{ticks:{maxRotation:50,font:{size:10},autoSkip:true,maxTicksLimit:10},grid:{display:false}}
+      }
+    }
+  });
+  document.getElementById('lg').innerHTML=c.datasets.map(d=>`<span><span class="ld" style="background:${d.borderColor}"></span>${d.label}</span>`).join('');
+  document.getElementById('nt').textContent=c.note;
+}
+
+function setV(mode){
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+  event.target.classList.add('on');
+  render(mode);
+}
+render('nw');
+
+const nA=data.nwA[data.nwA.length-1];
+const nB=data.nwB[data.nwB.length-1];
+const nC=data.nwC[data.nwC.length-1];
+const nD=data.nwD[data.nwD.length-1];
+const best=Math.max(nA,nB,nC,nD);
+const f=v=>(v>=0?'+':'')+v.toFixed(2)+'억';
+
+function rc(v,c,t,sub){
+  const is=Math.abs(v-best)<0.03;
+  return `<div class="rc" style="${is?'border:2px solid '+c:''}">
+    <div class="rc-t">${t}</div>
+    <div class="rc-v" style="color:${c}">${v.toFixed(2)}억</div>
+    <div class="rc-s">${sub}</div>
+    ${is?'<div style="font-size:10px;margin-top:3px;color:'+c+'">최고 순자산</div>':''}
+  </div>`;
+}
+document.getElementById('res').innerHTML=
+  rc(nA,CA,'A. 17억 매수','대비 '+f(nA-13))+
+  rc(nB,CB,'B. 13억 매수','대비 '+f(nB-13))+
+  rc(nC,CC,'C. 월세+은행','대비 '+f(nC-13))+
+  rc(nD,CD,'D. 월세+주식','대비 '+f(nD-13));
+</script>
+</html>
