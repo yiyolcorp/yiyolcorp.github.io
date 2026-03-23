@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2주택자 양도세 중과유예 비교 계산기</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; color: #1a1a1a; background: #f5f5f0; min-height: 100vh; display: flex; justify-content: center; padding: 2rem 1rem; }
+.container { max-width: 640px; width: 100%; }
+h1 { font-size: 20px; font-weight: 500; margin-bottom: 1.5rem; text-align: center; }
+.section { margin-bottom: 1.5rem; }
+.label { font-size: 13px; color: #888; margin-bottom: 6px; }
+.val { font-size: 15px; font-weight: 500; min-width: 60px; text-align: right; }
+.row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.row input[type=range] { flex: 1; height: 4px; -webkit-appearance: none; appearance: none; background: #d3d1c7; border-radius: 2px; outline: none; }
+.row input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%; background: #1a1a1a; cursor: pointer; }
+.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.5rem; }
+.card { background: #fff; border: 0.5px solid #e0e0db; border-radius: 12px; padding: 1rem 1.25rem; }
+.card h3 { font-size: 14px; font-weight: 500; margin-bottom: 12px; }
+.card .big { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
+.card .sub { font-size: 12px; color: #888; }
+.detail-row { display: flex; justify-content: space-between; font-size: 13px; padding: 5px 0; border-bottom: 0.5px solid #e0e0db; }
+.detail-row:last-child { border-bottom: none; }
+.detail-row .dl { color: #888; }
+.detail-row.total { font-weight: 500; border-bottom: none; padding-top: 8px; margin-top: 4px; border-top: 1.5px solid #b4b2a9; }
+.safe { background: #eaf7f0; border-color: #b0dfc8; }
+.highlight { background: #fceef0; border-color: #f0b8be; }
+.diff-card { background: #fef8ec; border: 0.5px solid #f0ddb0; border-radius: 12px; padding: 1rem 1.25rem; text-align: center; margin-bottom: 1.5rem; }
+.diff-card .big { font-size: 26px; font-weight: 500; color: #854F0B; }
+.diff-card .sub { font-size: 13px; color: #888; margin-top: 4px; }
+.bar-wrap { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.bar-label { font-size: 12px; color: #888; width: 60px; text-align: right; }
+.bar-track { flex: 1; height: 24px; background: #eceae3; border-radius: 8px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 8px; transition: width 0.3s; }
+.bar-val { font-size: 12px; font-weight: 500; min-width: 80px; }
+.note { font-size: 12px; color: #aaa; margin-top: 1rem; line-height: 1.6; }
+
+@media (prefers-color-scheme: dark) {
+  body { background: #1a1a18; color: #e8e6df; }
+  .card { background: #2c2c2a; border-color: #444; }
+  .safe { background: #0a2e20; border-color: #1a5a3a; }
+  .highlight { background: #3a1818; border-color: #6a2a2a; }
+  .diff-card { background: #2e2510; border-color: #5a4820; }
+  .diff-card .big { color: #f0c050; }
+  .detail-row { border-bottom-color: #444; }
+  .detail-row.total { border-top-color: #666; }
+  .bar-track { background: #333; }
+  .row input[type=range] { background: #555; }
+  .row input[type=range]::-webkit-slider-thumb { background: #ddd; }
+  .label, .sub, .note, .dl, .bar-label { color: #999 !important; }
+}
+
+@media (max-width: 500px) {
+  .cards { grid-template-columns: 1fr; }
+  .card .big { font-size: 18px; }
+  .diff-card .big { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>2주택자 양도세 중과유예 비교 계산기</h1>
+
+<div class="section">
+  <div class="row">
+    <span class="label" style="min-width:70px">취득가</span>
+    <input type="range" min="20000" max="120000" step="1000" value="70000" id="buy" />
+    <span class="val" id="buyV">7억</span>
+  </div>
+  <div class="row">
+    <span class="label" style="min-width:70px">매도가</span>
+    <input type="range" min="80000" max="200000" step="1000" value="140000" id="sell" />
+    <span class="val" id="sellV">14억</span>
+  </div>
+  <div class="row">
+    <span class="label" style="min-width:70px">보유기간</span>
+    <input type="range" min="2" max="15" step="1" value="10" id="hold" />
+    <span class="val" id="holdV">10년</span>
+  </div>
+  <div class="row">
+    <span class="label" style="min-width:70px">필요경비</span>
+    <input type="range" min="0" max="5000" step="100" value="2000" id="exp" />
+    <span class="val" id="expV">2,000만</span>
+  </div>
+</div>
+
+<div class="cards">
+  <div class="card safe">
+    <h3>유예기간 내 매도</h3>
+    <div class="sub">납부세액</div>
+    <div style="font-size:16px; font-weight:500; margin-bottom:8px;" id="taxA">-</div>
+    <div class="sub">실수령액</div>
+    <div class="big" id="netA" style="color:#0F6E56;">-</div>
+    <div class="sub">기본세율 + 장특공제 적용</div>
+  </div>
+  <div class="card highlight">
+    <h3>유예기간 후 매도</h3>
+    <div class="sub">납부세액</div>
+    <div style="font-size:16px; font-weight:500; margin-bottom:8px;" id="taxB">-</div>
+    <div class="sub">실수령액</div>
+    <div class="big" id="netB" style="color:#A32D2D;">-</div>
+    <div class="sub">중과세율(+20%p) + 장특공제 배제</div>
+  </div>
+</div>
+
+<div class="diff-card">
+  <div style="font-size:13px; color:#888; margin-bottom:4px;">실수령액 차이</div>
+  <div class="big" id="diffVal">-</div>
+  <div class="sub" id="diffPct"></div>
+</div>
+
+<div style="margin-bottom: 1.5rem;">
+  <div style="font-size:13px; color:#888; margin-bottom:8px;">실수령액 비교</div>
+  <div class="bar-wrap">
+    <span class="bar-label">유예 내</span>
+    <div class="bar-track"><div class="bar-fill" id="barNA" style="background:#1D9E75;"></div></div>
+    <span class="bar-val" id="barNAV"></span>
+  </div>
+  <div class="bar-wrap">
+    <span class="bar-label">유예 후</span>
+    <div class="bar-track"><div class="bar-fill" id="barNB" style="background:#E24B4A;"></div></div>
+    <span class="bar-val" id="barNBV"></span>
+  </div>
+  <div style="font-size:13px; color:#888; margin-bottom:8px; margin-top:16px;">세금 비교</div>
+  <div class="bar-wrap">
+    <span class="bar-label">유예 내</span>
+    <div class="bar-track"><div class="bar-fill" id="barA" style="background:#5DCAA5;"></div></div>
+    <span class="bar-val" id="barAV"></span>
+  </div>
+  <div class="bar-wrap">
+    <span class="bar-label">유예 후</span>
+    <div class="bar-track"><div class="bar-fill" id="barB" style="background:#F09595;"></div></div>
+    <span class="bar-val" id="barBV"></span>
+  </div>
+</div>
+
+<div class="card" style="margin-bottom:1rem;">
+  <h3 style="margin-bottom:8px;">유예기간 내 상세</h3>
+  <div id="detailA"></div>
+</div>
+<div class="card">
+  <h3 style="margin-bottom:8px;">유예기간 후 상세</h3>
+  <div id="detailB"></div>
+</div>
+
+<div class="note">
+  * 지방소득세(양도세의 10%) 포함 금액입니다.<br>
+  * 2주택자 기준, 조정대상지역 내 주택, 거주요건 미충족 가정입니다.<br>
+  * 실수령액 = 매도가 - 총 납부세액<br>
+  * 실제 세액은 개별 상황에 따라 달라질 수 있으니 세무사 상담을 권장합니다.
+</div>
+</div>
+
+<script>
+const brackets = [
+  [14000000, 0.06, 0],
+  [50000000, 0.15, 1260000],
+  [88000000, 0.24, 5760000],
+  [150000000, 0.35, 15440000],
+  [300000000, 0.38, 19940000],
+  [500000000, 0.40, 25940000],
+  [1000000000, 0.42, 35940000],
+  [Infinity, 0.45, 65940000]
+];
+
+function calcBasicTax(taxBase) {
+  if (taxBase <= 0) return 0;
+  for (const [limit, rate, deduction] of brackets) {
+    if (taxBase <= limit) return taxBase * rate - deduction;
+  }
+  return 0;
+}
+
+function fmt(n) {
+  if (Math.abs(n) >= 100000000) {
+    const eok = Math.floor(n / 100000000);
+    const man = Math.round((n % 100000000) / 10000);
+    return man > 0 ? eok + '억 ' + man.toLocaleString() + '만원' : eok + '억원';
+  }
+  return Math.round(n / 10000).toLocaleString() + '만원';
+}
+
+function fmtShort(n) {
+  if (Math.abs(n) >= 100000000) {
+    const v = n / 100000000;
+    return v === Math.floor(v) ? Math.floor(v) + '억' : v.toFixed(1) + '억';
+  }
+  return Math.round(n / 10000).toLocaleString() + '만';
+}
+
+function detailHTML(rows) {
+  return rows.map(function(r) {
+    return '<div class="detail-row' + (r[2] ? ' total' : '') + '"><span class="dl">' + r[0] + '</span><span>' + r[1] + '</span></div>';
+  }).join('');
+}
+
+function update() {
+  var buyPrice = +document.getElementById('buy').value * 10000;
+  var sellPrice = +document.getElementById('sell').value * 10000;
+  var holdYears = +document.getElementById('hold').value;
+  var expenses = +document.getElementById('exp').value * 10000;
+
+  document.getElementById('buyV').textContent = fmtShort(buyPrice);
+  document.getElementById('sellV').textContent = fmtShort(sellPrice);
+  document.getElementById('holdV').textContent = holdYears + '년';
+  document.getElementById('expV').textContent = Math.round(expenses / 10000).toLocaleString() + '만';
+
+  var gain = sellPrice - buyPrice - expenses;
+  if (gain <= 0) {
+    ['taxA','taxB','netA','netB'].forEach(function(id) { document.getElementById(id).textContent = '-'; });
+    document.getElementById('diffVal').textContent = '0원';
+    document.getElementById('diffPct').textContent = '양도차익 없음';
+    ['barA','barB','barNA','barNB'].forEach(function(id) { document.getElementById(id).style.width = '0%'; });
+    ['barAV','barBV','barNAV','barNBV'].forEach(function(id) { document.getElementById(id).textContent = ''; });
+    document.getElementById('detailA').innerHTML = '';
+    document.getElementById('detailB').innerHTML = '';
+    return;
+  }
+
+  var ltcgRate = Math.min(holdYears * 2, 30) / 100;
+  var ltcgDeduction = Math.round(gain * ltcgRate);
+  var incomeA = gain - ltcgDeduction;
+  var basicDeduction = 2500000;
+  var taxBaseA = Math.max(incomeA - basicDeduction, 0);
+  var taxAmtA = calcBasicTax(taxBaseA);
+  var localTaxA = Math.round(taxAmtA * 0.1);
+  var totalA = taxAmtA + localTaxA;
+  var netA = sellPrice - totalA;
+
+  var incomeB = gain;
+  var taxBaseB = Math.max(incomeB - basicDeduction, 0);
+  var basicTaxB = calcBasicTax(taxBaseB);
+  var surchargeTaxB = Math.round(taxBaseB * 0.20);
+  var taxAmtB = basicTaxB + surchargeTaxB;
+  var localTaxB = Math.round(taxAmtB * 0.1);
+  var totalB = taxAmtB + localTaxB;
+  var netB = sellPrice - totalB;
+
+  var netDiff = netA - netB;
+
+  document.getElementById('taxA').textContent = fmt(totalA);
+  document.getElementById('taxB').textContent = fmt(totalB);
+  document.getElementById('netA').textContent = fmt(netA);
+  document.getElementById('netB').textContent = fmt(netB);
+  document.getElementById('diffVal').textContent = fmt(netDiff);
+  document.getElementById('diffPct').textContent = '유예기간 내 매도 시 ' + fmt(netDiff) + ' 더 수령';
+
+  var maxNet = Math.max(netA, netB, 1);
+  document.getElementById('barNA').style.width = Math.round(netA / maxNet * 100) + '%';
+  document.getElementById('barNB').style.width = Math.round(netB / maxNet * 100) + '%';
+  document.getElementById('barNAV').textContent = fmt(netA);
+  document.getElementById('barNBV').textContent = fmt(netB);
+
+  var maxTax = Math.max(totalA, totalB, 1);
+  document.getElementById('barA').style.width = Math.round(totalA / maxTax * 100) + '%';
+  document.getElementById('barB').style.width = Math.round(totalB / maxTax * 100) + '%';
+  document.getElementById('barAV').textContent = fmt(totalA);
+  document.getElementById('barBV').textContent = fmt(totalB);
+
+  var rateA = 0, rateB = 0;
+  for (var i = 0; i < brackets.length; i++) { if (taxBaseA <= brackets[i][0]) { rateA = brackets[i][1]; break; } }
+  for (var i = 0; i < brackets.length; i++) { if (taxBaseB <= brackets[i][0]) { rateB = brackets[i][1]; break; } }
+
+  document.getElementById('detailA').innerHTML = detailHTML([
+    ['양도가액', fmt(sellPrice)],
+    ['취득가액 + 필요경비', '- ' + fmt(buyPrice + expenses)],
+    ['양도차익', fmt(gain)],
+    ['장기보유특별공제 (' + Math.round(ltcgRate * 100) + '%)', '- ' + fmt(ltcgDeduction)],
+    ['양도소득금액', fmt(incomeA)],
+    ['기본공제', '- 250만원'],
+    ['과세표준', fmt(taxBaseA)],
+    ['적용 최고세율', Math.round(rateA * 100) + '%'],
+    ['산출세액', fmt(taxAmtA)],
+    ['지방소득세', fmt(localTaxA)],
+    ['총 납부세액', fmt(totalA), true],
+    ['실수령액 (매도가 - 세금)', fmt(netA), true]
+  ]);
+
+  document.getElementById('detailB').innerHTML = detailHTML([
+    ['양도가액', fmt(sellPrice)],
+    ['취득가액 + 필요경비', '- ' + fmt(buyPrice + expenses)],
+    ['양도차익', fmt(gain)],
+    ['장기보유특별공제', '배제 (0원)'],
+    ['양도소득금액', fmt(incomeB)],
+    ['기본공제', '- 250만원'],
+    ['과세표준', fmt(taxBaseB)],
+    ['기본세율 최고구간', Math.round(rateB * 100) + '%'],
+    ['중과 가산 (+20%p)', fmt(surchargeTaxB)],
+    ['산출세액 합계', fmt(taxAmtB)],
+    ['지방소득세', fmt(localTaxB)],
+    ['총 납부세액', fmt(totalB), true],
+    ['실수령액 (매도가 - 세금)', fmt(netB), true]
+  ]);
+}
+
+document.querySelectorAll('input[type=range]').forEach(function(el) { el.addEventListener('input', update); });
+update();
+</script>
+</body>
+</html>
