@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKJ4GX2KHS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-CKJ4GX2KHS');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NOX 총판 파트너 모집 — 차세대 NVR/VMS 솔루션</title>
+  <link rel="canonical" href="https://yiyol.com/nox/partner.html">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <meta name="description" content="국정원 보안요구사항 V3.0 대응 완료. 차세대 NVR/VMS 솔루션 NOX의 총판 파트너를 모집합니다. WebRTC, 마이크로서비스, 1~128채널.">
+  <meta property="og:title" content="NOX 총판 파트너 모집 — 차세대 NVR/VMS 솔루션">
+  <meta property="og:description" content="국정원 V3.0 대응 완료. WebRTC 초저지연, 1~128채널, 라즈베리파이~클라우드. NOX 총판 파트너를 모집합니다.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      line-height: 1.7;
+    }
+
+    /* Header */
+    .page-header {
+      background: linear-gradient(135deg, #0a1628 0%, #132244 40%, #0d3b4e 100%);
+      color: #fff;
+      padding: 4rem 1.5rem 3.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+      background: radial-gradient(circle at 30% 70%, rgba(0,180,216,0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 30%, rgba(59,130,246,0.08) 0%, transparent 50%);
+    }
+    .page-header > * { position: relative; z-index: 1; }
+    .header-badge {
+      display: inline-block; font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: #00b4d8; border: 1px solid rgba(0,180,216,0.3);
+      padding: 0.3rem 0.8rem; border-radius: 3px; margin-bottom: 1rem;
+    }
+    .page-header h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 800; margin-bottom: 0.75rem; line-height: 1.3;
+    }
+    .page-header h1 .accent { color: #00b4d8; }
+    .page-header p {
+      font-size: 1rem; color: #94a3b8;
+      max-width: 640px; margin: 0 auto; line-height: 1.7;
+    }
+    .header-nav {
+      position: absolute; top: 1rem; left: 1.5rem;
+    }
+    .header-nav a {
+      color: #94a3b8; text-decoration: none; font-size: 0.85rem;
+      display: inline-flex; align-items: center; gap: 0.4rem; transition: color 0.2s;
+    }
+    .header-nav a:hover { color: #fff; }
+    .lang-btn {
+      position: absolute; top: 1rem; right: 1.5rem;
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+      color: #94a3b8; padding: 0.3rem 0.7rem; border-radius: 4px;
+      font-size: 0.78rem; cursor: pointer; transition: all 0.2s;
+    }
+    .lang-btn:hover { background: rgba(255,255,255,0.2); color: #fff; }
+    /* Content */
+    .content { max-width: 900px; margin: 0 auto; padding: 2.5rem 1.5rem 3rem; }
+
+    /* Section title */
+    .s-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.3rem; font-weight: 700; color: #0f172a;
+      margin: 2.5rem 0 1.25rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .s-title i { color: #00b4d8; font-size: 1rem; }
+
+    /* Stats row */
+    .stats-row {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: #fff; border-radius: 8px; padding: 1.5rem 1rem;
+      text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .stat-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .stat-num { font-family: 'Poppins', sans-serif; font-size: 1.5rem; font-weight: 800; color: #00b4d8; margin-bottom: 0.25rem; }
+    .stat-label { font-size: 0.82rem; color: #64748b; line-height: 1.5; }
+    /* Highlight box */
+    .highlight-box {
+      background: #0f172a; border-radius: 8px; padding: 1rem 1.5rem;
+      color: #fff; font-weight: 600; font-size: 0.95rem;
+      display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2rem;
+    }
+    .highlight-box i { color: #fbbf24; font-size: 1rem; }
+
+    /* Feature grid */
+    .feature-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem; margin-bottom: 0.5rem;
+    }
+    .feature-card {
+      background: #fff; border-radius: 8px; padding: 1.25rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      display: flex; gap: 0.85rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .feature-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .feature-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+    }
+    .feature-card h3 { font-size: 0.9rem; font-weight: 700; color: #0f172a; margin-bottom: 0.25rem; }
+    .feature-card p { font-size: 0.82rem; color: #64748b; line-height: 1.6; }
+    .ic-cyan { background: #cffafe; color: #0891b2; }
+    .ic-blue { background: #dbeafe; color: #2563eb; }
+    .ic-green { background: #d1fae5; color: #059669; }
+    .ic-purple { background: #e0e7ff; color: #4f46e5; }
+    .ic-amber { background: #fef3c7; color: #d97706; }
+    .ic-rose { background: #fce7f3; color: #db2777; }
+    /* Comparison table */
+    .cmp-table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+    .cmp-table th { background: #0f172a; color: #fff; padding: 0.7rem 1rem; text-align: left; font-size: 0.82rem; font-weight: 600; }
+    .cmp-table th.nox-col { background: #00b4d8; }
+    .cmp-table td { padding: 0.65rem 1rem; font-size: 0.82rem; border-bottom: 1px solid #f1f5f9; }
+    .cmp-table td:first-child { font-weight: 600; color: #0f172a; }
+    .cmp-table td:nth-child(2) { color: #0f172a; text-align: center; }
+    .cmp-table td:nth-child(3) { color: #94a3b8; text-align: center; }
+    .cmp-table tr:last-child td { border-bottom: none; }
+
+    /* Scale bar */
+    .scale-row { display: flex; gap: 3px; margin-bottom: 2rem; border-radius: 8px; overflow: hidden; }
+    .scale-item { flex: 1; text-align: center; padding: 1.25rem 0.5rem; color: #fff; }
+    .scale-item h4 { font-size: 0.85rem; margin-bottom: 0.2rem; }
+    .scale-item span { font-size: 0.72rem; opacity: 0.8; }
+
+    /* Benefit cards */
+    .benefit-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .benefit-card {
+      background: #fff; border-radius: 8px; padding: 1.25rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      border-top: 3px solid #00b4d8;
+    }
+    .benefit-card h3 { font-size: 0.9rem; font-weight: 700; color: #0f172a; margin-bottom: 0.4rem; }
+    .benefit-card p { font-size: 0.82rem; color: #64748b; line-height: 1.6; }
+    /* CTA */
+    .cta-section {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      border-radius: 12px; padding: 2.5rem 2rem;
+      text-align: center; color: #fff; margin-top: 2.5rem;
+    }
+    .cta-section h2 { font-family: 'Poppins', sans-serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .cta-section p { color: #94a3b8; font-size: 0.9rem; margin-bottom: 1.5rem; }
+    .cta-btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: linear-gradient(135deg, #00b4d8, #0077b6);
+      color: #fff; padding: 0.8rem 2rem; border-radius: 6px;
+      text-decoration: none; font-weight: 700; font-size: 0.95rem;
+      transition: transform 0.2s;
+    }
+    .cta-btn:hover { transform: scale(1.03); }
+    .cta-btn-outline {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: transparent; border: 1.5px solid rgba(255,255,255,0.3);
+      color: #fff; padding: 0.75rem 1.5rem; border-radius: 6px;
+      text-decoration: none; font-weight: 600; font-size: 0.9rem;
+      transition: all 0.2s; margin-left: 0.75rem;
+    }
+    .cta-btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.05); }
+    .cta-info { margin-top: 1.25rem; font-size: 0.82rem; color: #64748b; }
+    .cta-info a { color: #00b4d8; text-decoration: none; }
+
+    /* Footer */
+    .page-footer { text-align: center; padding: 2rem 1.5rem; font-size: 0.78rem; color: #94a3b8; }
+    .page-footer a { color: #64748b; text-decoration: none; }
+    .page-footer a:hover { color: #0f172a; }
+    /* Responsive */
+    @media (max-width: 640px) {
+      .stats-row { grid-template-columns: 1fr; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .scale-row { flex-direction: column; }
+      .benefit-grid { grid-template-columns: 1fr; }
+      .page-header { padding: 3rem 1rem 2.5rem; }
+      .content { padding: 1.5rem 1rem 2rem; }
+      .cta-btn-outline { margin-left: 0; margin-top: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <div class="header-nav">
+      <a href="/nox/"><i class="fas fa-arrow-left"></i> <span class="ko-text">NOX</span><span class="en-text">NOX</span></a>
+    </div>
+    <button class="lang-btn" onclick="toggleLang()">
+      <span class="ko-text">EN</span><span class="en-text">한국어</span>
+    </button>
+    <div class="header-badge">
+      <span class="ko-text">총판 파트너 모집</span>
+      <span class="en-text">Distributor Partnership</span>
+    </div>
+    <h1>
+      <span class="ko-text">보안의 새로운 기준, <span class="accent">NOX</span>와 함께 성장하세요</span>
+      <span class="en-text">Set the New Standard in Security — <span class="accent">Grow with NOX</span></span>
+    </h1>
+    <p>
+      <span class="ko-text">국정원 보안요구사항 V3.0 대응 완료 · WebRTC 초저지연 · 1~128채널 · 라즈베리파이~클라우드</span>
+      <span class="en-text">NIS Security V3.0 Compliant · WebRTC Ultra-low Latency · 1–128 Channels · Raspberry Pi to Cloud</span>
+    </p>
+  </header>
+  <div class="content">
+
+    <!-- Market Opportunity -->
+    <h2 class="s-title"><i class="fas fa-chart-line"></i>
+      <span class="ko-text">시장 기회</span><span class="en-text">Market Opportunity</span>
+    </h2>
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-num">2025.04</div>
+        <div class="stat-label"><span class="ko-text">국정원 보안기능<br>시험제도 시행</span><span class="en-text">NIS Security Testing<br>System Launched</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">53<span style="font-size:0.8em">개</span></div>
+        <div class="stat-label"><span class="ko-text">10개 분야<br>보안 요구사항</span><span class="en-text">10 Categories<br>Security Requirements</span></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">0<span style="font-size:0.8em"><span class="ko-text">곳</span><span class="en-text"> vendors</span></span></div>
+        <div class="stat-label"><span class="ko-text">VMS 보안기능확인서<br>취득 업체</span><span class="en-text">VMS Security<br>Certified Vendors</span></div>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <i class="fas fa-bolt"></i>
+      <span class="ko-text">NOX는 국내 VMS 최초 수준으로 보안요구사항 V3.0 인증 대응을 완료했습니다</span>
+      <span class="en-text">NOX is the first VMS in Korea to achieve full NIS V3.0 compliance readiness</span>
+    </div>
+    <!-- Key Features -->
+    <h2 class="s-title"><i class="fas fa-microchip"></i>
+      <span class="ko-text">NOX 핵심 기술</span><span class="en-text">NOX Key Technologies</span>
+    </h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-icon ic-cyan"><i class="fas fa-shield-halved"></i></div>
+        <div>
+          <h3><span class="ko-text">국정원 V3.0 보안</span><span class="en-text">NIS V3.0 Security</span></h3>
+          <p><span class="ko-text">전 항목 구현 완료. TPM 2.0 키 관리, AES-256-GCM 암호화</span><span class="en-text">Full compliance. TPM 2.0 key management, AES-256-GCM encryption</span></p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon ic-blue"><i class="fas fa-bolt"></i></div>
+        <div>
+          <h3><span class="ko-text">WebRTC 초저지연</span><span class="en-text">WebRTC Ultra-low Latency</span></h3>
+          <p><span class="ko-text">브라우저에서 바로 실시간 모니터링. 별도 설치 불필요</span><span class="en-text">Real-time monitoring directly in browser. No installation required</span></p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon ic-green"><i class="fas fa-globe"></i></div>
+        <div>
+          <h3><span class="ko-text">풀 웹 기반</span><span class="en-text">Full Web-based</span></h3>
+          <p><span class="ko-text">웹 브라우저만으로 모든 기능. HLS 검색/재생, ONVIF 제어</span><span class="en-text">All features via browser. HLS search/playback, ONVIF control</span></p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon ic-purple"><i class="fas fa-mobile-screen"></i></div>
+        <div>
+          <h3><span class="ko-text">모바일 카메라 연동</span><span class="en-text">Mobile Camera Integration</span></h3>
+          <p><span class="ko-text">스마트폰을 카메라로 등록. 현장 실시간 모니터링/저장</span><span class="en-text">Register phones as cameras. Real-time field monitoring/recording</span></p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon ic-amber"><i class="fas fa-volume-high"></i></div>
+        <div>
+          <h3>Audio Backchannel</h3>
+          <p><span class="ko-text">카메라 스피커를 통한 원격 음성 전달. 현장 즉각 대응</span><span class="en-text">Remote audio via camera speakers. Immediate on-site response</span></p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon ic-rose"><i class="fas fa-cubes"></i></div>
+        <div>
+          <h3><span class="ko-text">마이크로서비스</span><span class="en-text">Microservices</span></h3>
+          <p><span class="ko-text">뛰어난 안정성. REST API 전체 기능 개방, 외부 연동 자유</span><span class="en-text">Superior stability. Full REST API, seamless external integration</span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scale -->
+    <h2 class="s-title"><i class="fas fa-expand"></i>
+      <span class="ko-text">모든 규모를 하나로</span><span class="en-text">One Solution, Every Scale</span>
+    </h2>
+    <div class="scale-row">
+      <div class="scale-item" style="background:#00b4d8;"><h4><span class="ko-text">차량/가정</span><span class="en-text">Home</span></h4><span>1–4CH</span></div>
+      <div class="scale-item" style="background:#0097b8;"><h4><span class="ko-text">중소 매장</span><span class="en-text">Retail</span></h4><span>4–16CH</span></div>
+      <div class="scale-item" style="background:#0077b6;"><h4><span class="ko-text">공장/학교</span><span class="en-text">Factory</span></h4><span>16–32CH</span></div>
+      <div class="scale-item" style="background:#15325A;"><h4><span class="ko-text">아파트/빌딩</span><span class="en-text">Building</span></h4><span>32–64CH</span></div>
+      <div class="scale-item" style="background:#0f172a;"><h4><span class="ko-text">엔터프라이즈</span><span class="en-text">Enterprise</span></h4><span>64–128CH</span></div>
+    </div>
+    <!-- Comparison -->
+    <h2 class="s-title"><i class="fas fa-code-compare"></i>
+      <span class="ko-text">경쟁 제품 대비</span><span class="en-text">Competitive Comparison</span>
+    </h2>
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th><span class="ko-text">비교 항목</span><span class="en-text">Feature</span></th>
+          <th class="nox-col">NOX</th>
+          <th><span class="ko-text">기존 VMS</span><span class="en-text">Legacy VMS</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="ko-text">국정원 V3.0</span><span class="en-text">NIS V3.0</span></td><td><strong><span class="ko-text">전체 구현 완료</span><span class="en-text">Full Compliance</span></strong></td><td><span class="ko-text">미대응</span><span class="en-text">Not ready</span></td></tr>
+        <tr><td><span class="ko-text">라이브 방식</span><span class="en-text">Live Protocol</span></td><td><strong>WebRTC</strong></td><td>ActiveX / RTSP</td></tr>
+        <tr><td><span class="ko-text">클라이언트</span><span class="en-text">Client</span></td><td><strong><span class="ko-text">웹 브라우저</span><span class="en-text">Web Browser</span></strong></td><td><span class="ko-text">전용 프로그램</span><span class="en-text">Desktop App</span></td></tr>
+        <tr><td><span class="ko-text">모바일 카메라</span><span class="en-text">Mobile Camera</span></td><td><strong><span class="ko-text">폰을 카메라로 등록</span><span class="en-text">Phone as Camera</span></strong></td><td><span class="ko-text">미지원</span><span class="en-text">N/A</span></td></tr>
+        <tr><td>Audio Backchannel</td><td><strong><span class="ko-text">지원</span><span class="en-text">Supported</span></strong></td><td><span class="ko-text">일부만</span><span class="en-text">Partial</span></td></tr>
+        <tr><td><span class="ko-text">아키텍처</span><span class="en-text">Architecture</span></td><td><strong><span class="ko-text">마이크로서비스</span><span class="en-text">Microservices</span></strong></td><td><span class="ko-text">모놀리식</span><span class="en-text">Monolithic</span></td></tr>
+        <tr><td>API</td><td><strong><span class="ko-text">REST API 전체 개방</span><span class="en-text">Full REST API</span></strong></td><td><span class="ko-text">제한적</span><span class="en-text">Limited</span></td></tr>
+        <tr><td><span class="ko-text">하드웨어</span><span class="en-text">Hardware</span></td><td><strong><span class="ko-text">RPi ~ 클라우드</span><span class="en-text">RPi ~ Cloud</span></strong></td><td><span class="ko-text">전용 H/W</span><span class="en-text">Proprietary</span></td></tr>
+      </tbody>
+    </table>
+
+
+    <!-- Partner Benefits -->
+    <h2 class="s-title"><i class="fas fa-handshake"></i>
+      <span class="ko-text">파트너 혜택</span><span class="en-text">Partner Benefits</span>
+    </h2>
+    <div class="benefit-grid">
+      <div class="benefit-card">
+        <h3><i class="fas fa-won-sign" style="color:#00b4d8;margin-right:0.3rem;"></i>
+          <span class="ko-text">수익 구조</span><span class="en-text">Revenue</span></h3>
+        <p><span class="ko-text">경쟁력 있는 마진 구조와 다양한 고객층 대응으로 안정적인 수익 기반 확보</span>
+           <span class="en-text">Competitive margins with diverse customer segments for stable revenue</span></p>
+      </div>
+      <div class="benefit-card">
+        <h3><i class="fas fa-certificate" style="color:#00b4d8;margin-right:0.3rem;"></i>
+          <span class="ko-text">보안인증 공동 추진</span><span class="en-text">Joint Certification</span></h3>
+        <p><span class="ko-text">국정원 보안기능확인서 취득을 공동으로 추진. 공공시장 진입 지원</span>
+           <span class="en-text">Joint pursuit of NIS security certification for public sector market entry</span></p>
+      </div>
+      <div class="benefit-card">
+        <h3><i class="fas fa-headset" style="color:#00b4d8;margin-right:0.3rem;"></i>
+          <span class="ko-text">기술 지원 &amp; 교육</span><span class="en-text">Tech Support</span></h3>
+        <p><span class="ko-text">전담 엔지니어 배정, 제품 교육, 기술 문서 제공. 신속한 이슈 대응</span>
+           <span class="en-text">Dedicated engineer, product training, documentation, and rapid issue resolution</span></p>
+      </div>
+      <div class="benefit-card">
+        <h3><i class="fas fa-users" style="color:#00b4d8;margin-right:0.3rem;"></i>
+          <span class="ko-text">영업 동행 지원</span><span class="en-text">Sales Support</span></h3>
+        <p><span class="ko-text">주요 고객사 영업 동행, 데모 지원, 제안서 및 마케팅 자료 공동 제작</span>
+           <span class="en-text">Joint sales calls, demo support, co-branded proposals and marketing materials</span></p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+      <h2>
+        <span class="ko-text">지금 NOX 총판 파트너가 되세요</span>
+        <span class="en-text">Become a NOX Distribution Partner</span>
+      </h2>
+      <p>
+        <span class="ko-text">보안인증 의무화 시대, 선점하는 파트너가 시장을 가져갑니다.<br>아래 신청서를 작성하시면 담당자가 빠르게 연락드리겠습니다.</span>
+        <span class="en-text">In the era of mandatory security certification, early movers win.<br>Submit the form below and we'll get back to you promptly.</span>
+      </p>
+      <a href="https://forms.gle/wheF8BkWzrSQjPej6" target="_blank" class="cta-btn">
+        <i class="fas fa-paper-plane"></i>
+        <span class="ko-text">파트너 신청하기</span><span class="en-text">Apply Now</span>
+      </a>
+      <a href="mailto:yiyol@yiyol.com" class="cta-btn-outline">
+        <i class="fas fa-envelope"></i>
+        <span class="ko-text">이메일 문의</span><span class="en-text">Email Us</span>
+      </a>
+      <div class="cta-info">
+        <span class="ko-text">이메일: <a href="mailto:yiyol@yiyol.com">yiyol@yiyol.com</a></span>
+        <span class="en-text">Email: <a href="mailto:yiyol@yiyol.com">yiyol@yiyol.com</a></span>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+
+  <footer class="page-footer">
+    <a href="/"><span class="ko-text">YIYOL 홈</span><span class="en-text">YIYOL Home</span></a> &nbsp;·&nbsp;
+    <a href="/nox/"><span class="ko-text">NOX 제품</span><span class="en-text">NOX Product</span></a> &nbsp;·&nbsp;
+    <a href="/nox/nis-security.html"><span class="ko-text">보안인증</span><span class="en-text">NIS Security</span></a>
+    <br><br>
+    <span class="ko-text">&copy; 2026 YIYOL. All rights reserved.</span>
+    <span class="en-text">&copy; 2026 YIYOL. All rights reserved.</span>
+  </footer>
+
+  <script>
+    let currentLang = 'ko';
+    function toggleLang() {
+      currentLang = currentLang === 'ko' ? 'en' : 'ko';
+      document.querySelectorAll('.ko-text').forEach(el => {
+        el.style.display = currentLang === 'ko' ? '' : 'none';
+      });
+      document.querySelectorAll('.en-text').forEach(el => {
+        el.style.display = currentLang === 'en' ? '' : 'none';
+      });
+    }
+    // Init: hide EN
+    document.querySelectorAll('.en-text').forEach(el => el.style.display = 'none');
+  </script>
+</body>
+</html>
