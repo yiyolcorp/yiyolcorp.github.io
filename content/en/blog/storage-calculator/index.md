@@ -68,6 +68,14 @@ Storage requirements vary greatly depending on the number of cameras, resolution
 
 <div class="sc-row">
 <div class="sc-field">
+<label>Frame Rate (FPS)</label>
+<input type="number" id="sc-fps-en" value="20" min="1" max="60">
+<span style="font-size:12px;color:#666;">Default 20fps / Presets based on 30fps</span>
+</div>
+</div>
+
+<div class="sc-row">
+<div class="sc-field">
 <label>Daily Recording Hours</label>
 <input type="number" id="sc-hours-en" value="24" min="1" max="24">
 </div>
@@ -88,7 +96,7 @@ Storage requirements vary greatly depending on the number of cameras, resolution
 <details class="sc-ref">
 <summary>📋 Bitrate Reference Guide by Resolution</summary>
 <table>
-<tr><th>Resolution</th><th>Quality</th><th>Bitrate</th><th>Daily per Channel</th></tr>
+<tr><th>Resolution</th><th>Quality</th><th>Bitrate</th><th>Daily per Channel (30fps)</th></tr>
 <tr><td>4K (8MP)</td><td>Ultra</td><td>25 Mbps</td><td>~270 GB</td></tr>
 <tr><td>4K (8MP)</td><td>Standard</td><td>16 Mbps</td><td>~173 GB</td></tr>
 <tr><td>1080p (2MP)</td><td>High</td><td>8 Mbps</td><td>~86 GB</td></tr>
@@ -112,7 +120,8 @@ function calc(){
   var ch=Math.max(1,Math.min(256,parseInt($('sc-ch-en').value)||1));
   var br=getBr();
   var hrs=Math.max(1,Math.min(24,parseInt($('sc-hours-en').value)||24));
-  var daily=br*3600*hrs*ch/8/1000;
+  var fps=Math.max(1,Math.min(60,parseInt($('sc-fps-en').value)||20));
+  var daily=br*(fps/30)*3600*hrs*ch/8/1000;
   var monthly=daily*30;
   var r=$('sc-results-en');
   var h=$('sc-hdd-en');

@@ -522,6 +522,16 @@
             </div>
             <div class="calc-field">
               <label class="calc-label">
+                <i class="fas fa-gauge-high"></i>
+                <span class="ko-only">프레임 레이트 (FPS)</span>
+                <span class="en-only">Frame Rate (FPS)</span>
+              </label>
+              <input type="number" class="calc-input" id="dur-fps" min="1" max="60" value="20" oninput="calcDuration()">
+              <span class="calc-input-hint ko-only">1 ~ 60 (기본: 20fps, 프리셋 기준: 30fps)</span>
+              <span class="calc-input-hint en-only">1 ~ 60 (default: 20fps, preset basis: 30fps)</span>
+            </div>
+            <div class="calc-field">
+              <label class="calc-label">
                 <i class="fas fa-database"></i>
                 <span class="ko-only">총 저장 용량 (TB)</span>
                 <span class="en-only">Total Storage (TB)</span>
@@ -602,6 +612,16 @@
             </div>
             <div class="calc-field">
               <label class="calc-label">
+                <i class="fas fa-gauge-high"></i>
+                <span class="ko-only">프레임 레이트 (FPS)</span>
+                <span class="en-only">Frame Rate (FPS)</span>
+              </label>
+              <input type="number" class="calc-input" id="cap-fps" min="1" max="60" value="20" oninput="calcCapacity()">
+              <span class="calc-input-hint ko-only">1 ~ 60 (기본: 20fps, 프리셋 기준: 30fps)</span>
+              <span class="calc-input-hint en-only">1 ~ 60 (default: 20fps, preset basis: 30fps)</span>
+            </div>
+            <div class="calc-field">
+              <label class="calc-label">
                 <i class="fas fa-calendar-alt"></i>
                 <span class="ko-only">보관 기간 (일)</span>
                 <span class="en-only">Retention Period (days)</span>
@@ -661,8 +681,8 @@
               <th class="en-only">Pixels</th>
               <th class="ko-only">일반 비트레이트</th>
               <th class="en-only">Typical Bitrate</th>
-              <th class="ko-only">1채널 일일 용량 (24h)</th>
-              <th class="en-only">1ch Daily (24h)</th>
+              <th class="ko-only">1채널 일일 용량 (24h, 30fps)</th>
+              <th class="en-only">1ch Daily (24h, 30fps)</th>
             </tr>
           </thead>
           <tbody>
@@ -707,14 +727,18 @@
           </div>
           <code>
             <span class="ko-only">
-              일일 용량(GB) = 비트레이트(Mbps) × 3,600 × 녹화시간(h) × 채널수 ÷ 8 ÷ 1,000<br>
+              일일 용량(GB) = 비트레이트(Mbps) × (FPS ÷ 30) × 3,600 × 녹화시간(h) × 채널수 ÷ 8 ÷ 1,000<br>
               저장 일수 = 총 용량(TB) × 1,000 ÷ 일일 용량(GB)<br>
-              필요 용량(TB) = 일일 용량(GB) × 보관일수 ÷ 1,000
+              필요 용량(TB) = 일일 용량(GB) × 보관일수 ÷ 1,000<br>
+              <br>
+              ※ 비트레이트 프리셋은 30fps 기준입니다. FPS 변경 시 비트레이트가 비례 조정됩니다.
             </span>
             <span class="en-only">
-              Daily(GB) = Bitrate(Mbps) × 3,600 × Hours(h) × Channels ÷ 8 ÷ 1,000<br>
+              Daily(GB) = Bitrate(Mbps) × (FPS ÷ 30) × 3,600 × Hours(h) × Channels ÷ 8 ÷ 1,000<br>
               Retention Days = Total(TB) × 1,000 ÷ Daily(GB)<br>
-              Required(TB) = Daily(GB) × Days ÷ 1,000
+              Required(TB) = Daily(GB) × Days ÷ 1,000<br>
+              <br>
+              ※ Bitrate presets are based on 30fps. Changing FPS scales the bitrate proportionally.
             </span>
           </code>
         </div>
@@ -768,8 +792,8 @@
       }
 
       // Daily data in GB
-      function dailyGB(bitrate, hours, channels) {
-        return bitrate * 3600 * hours * channels / 8 / 1000;
+      function dailyGB(bitrate, hours, channels, fps) {
+        return bitrate * (fps / 30) * 3600 * hours * channels / 8 / 1000;
       }
 
       // Mode 1: Duration calc
@@ -777,9 +801,10 @@
         var channels = parseInt(document.getElementById('dur-channels').value) || 1;
         var bitrate = getBitrate('dur');
         var hours = parseInt(document.getElementById('dur-hours').value) || 24;
+        var fps = Math.max(1, Math.min(60, parseInt(document.getElementById('dur-fps').value) || 20));
         var storageTB = parseFloat(document.getElementById('dur-storage').value) || 1;
 
-        var daily = dailyGB(bitrate, hours, channels);
+        var daily = dailyGB(bitrate, hours, channels, fps);
         var days = (storageTB * 1000) / daily;
         var monthly = daily * 30;
 
@@ -805,9 +830,10 @@
         var channels = parseInt(document.getElementById('cap-channels').value) || 1;
         var bitrate = getBitrate('cap');
         var hours = parseInt(document.getElementById('cap-hours').value) || 24;
+        var fps = Math.max(1, Math.min(60, parseInt(document.getElementById('cap-fps').value) || 20));
         var retDays = parseInt(document.getElementById('cap-days').value) || 30;
 
-        var daily = dailyGB(bitrate, hours, channels);
+        var daily = dailyGB(bitrate, hours, channels, fps);
         var totalTB = (daily * retDays) / 1000;
         var monthly = daily * 30;
 
