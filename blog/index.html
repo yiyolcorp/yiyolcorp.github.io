@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKJ4GX2KHS"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-CKJ4GX2KHS');
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Blog - YIYOL</title>
+
+    <meta name="description" content="YIYOL 블로그 — 영상 보안, CCTV, NVR/VMS 관련 기술 정보와 유용한 도구를 제공합니다." />
+    <meta name="keywords" content="YIYOL,블로그,CCTV,NVR,VMS,영상보안,기술블로그" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://yiyol.com/blog/" />
+    <meta property="og:title" content="Blog - YIYOL" />
+    <meta property="og:description" content="YIYOL 블로그 — 영상 보안, CCTV, NVR/VMS 관련 기술 정보와 유용한 도구를 제공합니다." />
+    <meta property="og:site_name" content="YIYOL" />
+
+    <link rel="canonical" href="https://yiyol.com/blog/" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+
+    <style>
+      .blog-hero {
+        padding: 140px 0 60px;
+        background: radial-gradient(circle at top right, #1e293b, #0f172a);
+        color: white;
+        text-align: center;
+      }
+      .blog-hero h1 {
+        font-family: 'Poppins', sans-serif;
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 0.5rem;
+      }
+      .blog-hero p {
+        color: #94a3b8;
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      .blog-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 60px 2rem 100px;
+      }
+      .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+      .blog-card {
+        background: #fff;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        overflow: hidden;
+        transition: var(--transition-base);
+        display: flex;
+        flex-direction: column;
+      }
+      .blog-card:hover {
+        box-shadow: var(--shadow-lg);
+        transform: translateY(-4px);
+        border-color: var(--accent-color);
+      }
+      .blog-card-icon {
+        height: 180px;
+        background: linear-gradient(135deg, #0f172a, #1e3a5f);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #60a5fa;
+        font-size: 3.5rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .blog-card-icon::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -30%;
+        width: 80%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 60%);
+        pointer-events: none;
+      }
+      .blog-card-body {
+        padding: 1.5rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .blog-card-tag {
+        display: inline-block;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: var(--accent-color);
+        background: rgba(59,130,246,0.08);
+        padding: 0.25rem 0.6rem;
+        border-radius: 4px;
+        margin-bottom: 0.75rem;
+        width: fit-content;
+      }
+      .blog-card-title {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+        line-height: 1.4;
+      }
+      .blog-card-desc {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+        flex: 1;
+        margin-bottom: 1rem;
+      }
+      .blog-card-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 0.8rem;
+        color: var(--text-light);
+      }
+      .blog-card-link {
+        color: var(--accent-color);
+        font-weight: 600;
+        font-size: 0.85rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+      }
+      .blog-card-link i {
+        font-size: 0.75rem;
+        transition: transform 0.2s;
+      }
+      .blog-card:hover .blog-card-link i {
+        transform: translateX(3px);
+      }
+      @media (max-width: 640px) {
+        .blog-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header" role="banner">
+      <nav class="nav" role="navigation" aria-label="Main navigation">
+        <a href="/" class="logo" aria-label="YIYOL Home">YIYOL</a>
+        <div style="display: flex; align-items: center; gap: 2rem;">
+          <ul class="nav-links">
+            <li>
+              <a href="/#about" class="nav-link">
+                <span class="ko-only">회사 소개</span>
+                <span class="en-only">About</span>
+              </a>
+            </li>
+            <li>
+              <a href="/#products" class="nav-link">
+                <span class="ko-only">제품</span>
+                <span class="en-only">Products</span>
+              </a>
+            </li>
+            <li>
+              <a href="/blog/" class="nav-link" style="color: var(--accent-color);">
+                <span class="ko-only">블로그</span>
+                <span class="en-only">Blog</span>
+              </a>
+            </li>
+            <li>
+              <a href="/#contact" class="nav-link">
+                <span class="ko-only">문의</span>
+                <span class="en-only">Contact</span>
+              </a>
+            </li>
+          </ul>
+          <div class="lang-switch">
+            <button class="lang-selector">
+              <span class="lang-current">한국어</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="lang-dropdown">
+              <a href="#" class="lang-option" data-lang="ko">한국어</a>
+              <a href="#" class="lang-option" data-lang="en">English</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="blog-hero">
+      <h1 class="ko-only">블로그</h1>
+      <h1 class="en-only">Blog</h1>
+      <p class="ko-only">영상 보안 기술 정보와 유용한 도구</p>
+      <p class="en-only">Video security insights and useful tools</p>
+    </section>
+
+    <!-- Blog List -->
+    <main class="blog-container">
+      <div class="blog-grid">
+
+        <!-- Post: Storage Calculator -->
+        <a href="/blog/storage-calculator.html" class="blog-card" style="text-decoration:none;">
+          <div class="blog-card-icon">
+            <i class="fas fa-calculator"></i>
+          </div>
+          <div class="blog-card-body">
+            <span class="blog-card-tag">Tool</span>
+            <h2 class="blog-card-title ko-only">CCTV 녹화 저장 용량 계산기</h2>
+            <h2 class="blog-card-title en-only">CCTV Storage Calculator</h2>
+            <p class="blog-card-desc ko-only">
+              카메라 수, 해상도, 녹화 시간을 입력하면 필요한 저장 용량과 보관 기간을 자동으로 계산합니다.
+            </p>
+            <p class="blog-card-desc en-only">
+              Automatically calculate required storage capacity and retention period based on camera count, resolution, and recording hours.
+            </p>
+            <div class="blog-card-meta">
+              <span>2026.03.29</span>
+              <span class="blog-card-link">
+                <span class="ko-only">바로가기</span>
+                <span class="en-only">Open</span>
+                <i class="fas fa-arrow-right"></i>
+              </span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+      <div class="footer-info">
+        <span class="ko-only">서울특별시 금천구 가산디지털2로 136, 704-4호</span>
+        <span class="en-only">#704-4, 136 Gasan Digital 2ro, Geumcheon-gu, Seoul</span>
+        <span class="footer-divider">|</span>
+        <span>yiyol@yiyol.com</span>
+      </div>
+      <p class="footer-copyright">&copy; 2026 YIYOL. All rights reserved.</p>
+    </footer>
+
+    <script src="/assets/js/i18n.js"></script>
+  </body>
+</html>

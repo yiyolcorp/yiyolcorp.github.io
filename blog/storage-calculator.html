@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKJ4GX2KHS"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-CKJ4GX2KHS');
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>CCTV 저장 용량 계산기 - YIYOL Blog</title>
+
+    <meta name="description" content="CCTV 카메라 수, 해상도, 녹화 시간을 입력하면 필요한 저장 용량과 보관 기간을 자동으로 계산합니다." />
+    <meta name="keywords" content="CCTV,저장용량,계산기,NVR,HDD,녹화시간,비트레이트,storage calculator" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://yiyol.com/blog/storage-calculator.html" />
+    <meta property="og:title" content="CCTV 저장 용량 계산기 — YIYOL" />
+    <meta property="og:description" content="카메라 수, 해상도, 녹화 시간으로 필요한 저장 용량과 보관 기간을 자동 계산" />
+    <meta property="og:site_name" content="YIYOL" />
+
+    <link rel="canonical" href="https://yiyol.com/blog/storage-calculator.html" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+
+    <style>
+      /* Calculator Page Styles */
+      .calc-hero {
+        padding: 130px 0 50px;
+        background: radial-gradient(circle at top right, #1e293b, #0f172a);
+        color: white;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .calc-hero::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 80%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 60%);
+        pointer-events: none;
+      }
+      .calc-hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+      .calc-hero h1 {
+        font-family: 'Poppins', sans-serif;
+        font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 0.5rem;
+      }
+      .calc-hero p {
+        color: #94a3b8;
+        font-size: 1rem;
+      }
+      .calc-breadcrumb {
+        margin-bottom: 1rem;
+        font-size: 0.85rem;
+      }
+      .calc-breadcrumb a {
+        color: #60a5fa;
+        text-decoration: none;
+      }
+      .calc-breadcrumb a:hover {
+        text-decoration: underline;
+      }
+      .calc-breadcrumb span {
+        color: #64748b;
+        margin: 0 0.4rem;
+      }
+
+      .calc-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px 2rem 100px;
+      }
+
+      /* Tabs */
+      .calc-tabs {
+        display: flex;
+        background: var(--bg-accent);
+        border-radius: 12px;
+        padding: 4px;
+        margin-bottom: 2rem;
+        gap: 4px;
+      }
+      .calc-tab {
+        flex: 1;
+        padding: 0.8rem 1rem;
+        text-align: center;
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        background: transparent;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .calc-tab:hover {
+        color: var(--text-primary);
+      }
+      .calc-tab.active {
+        background: #fff;
+        color: var(--accent-color);
+        box-shadow: var(--shadow-sm);
+      }
+
+      /* Form */
+      .calc-panel {
+        display: none;
+      }
+      .calc-panel.active {
+        display: block;
+      }
+      .calc-form {
+        background: #fff;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+      }
+      .calc-form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+      }
+      .calc-field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+      }
+      .calc-field.full-width {
+        grid-column: 1 / -1;
+      }
+      .calc-label {
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+      }
+      .calc-label i {
+        color: var(--accent-color);
+        font-size: 0.75rem;
+      }
+      .calc-input, .calc-select {
+        padding: 0.7rem 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        font-size: 0.95rem;
+        font-family: inherit;
+        color: var(--text-primary);
+        background: var(--bg-secondary);
+        transition: border-color 0.2s;
+        width: 100%;
+      }
+      .calc-input:focus, .calc-select:focus {
+        outline: none;
+        border-color: var(--accent-color);
+        box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+      }
+      .calc-input-hint {
+        font-size: 0.75rem;
+        color: var(--text-light);
+      }
+      .custom-bitrate-row {
+        display: none;
+        grid-column: 1 / -1;
+      }
+      .custom-bitrate-row.show {
+        display: block;
+      }
+
+      /* Results */
+      .calc-results {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+      .calc-result-card {
+        background: linear-gradient(135deg, #0f172a, #1e3a5f);
+        border-radius: 12px;
+        padding: 1.5rem;
+        color: #fff;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .calc-result-card::before {
+        content: '';
+        position: absolute;
+        top: -40%;
+        right: -30%;
+        width: 70%;
+        height: 160%;
+        background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 60%);
+        pointer-events: none;
+      }
+      .calc-result-label {
+        font-size: 0.78rem;
+        color: #94a3b8;
+        font-weight: 500;
+        margin-bottom: 0.3rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .calc-result-value {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: #60a5fa;
+        line-height: 1.2;
+      }
+      .calc-result-unit {
+        font-size: 0.85rem;
+        color: #94a3b8;
+        font-weight: 400;
+        margin-left: 0.2rem;
+      }
+      .calc-result-sub {
+        font-size: 0.78rem;
+        color: #64748b;
+        margin-top: 0.3rem;
+      }
+
+      /* HDD Recommendation */
+      .calc-hdd-rec {
+        background: #fff;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-top: 1.5rem;
+      }
+      .calc-hdd-title {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+      .calc-hdd-title i {
+        color: var(--accent-color);
+      }
+      .calc-hdd-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .calc-hdd-item {
+        background: var(--bg-accent);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 0.5rem 1rem;
+        font-size: 0.82rem;
+        color: var(--text-primary);
+        font-weight: 500;
+      }
+      .calc-hdd-item.recommended {
+        background: rgba(59,130,246,0.08);
+        border-color: var(--accent-color);
+        color: var(--accent-color);
+      }
+
+      /* Reference Table */
+      .calc-ref-section {
+        margin-top: 3rem;
+      }
+      .calc-ref-title {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+      }
+      .calc-ref-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #fff;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        overflow: hidden;
+        font-size: 0.88rem;
+      }
+      .calc-ref-table th {
+        background: var(--bg-dark);
+        color: #fff;
+        font-weight: 600;
+        padding: 0.8rem 1rem;
+        text-align: left;
+        font-size: 0.8rem;
+        letter-spacing: 0.03em;
+      }
+      .calc-ref-table td {
+        padding: 0.7rem 1rem;
+        border-bottom: 1px solid var(--border-color);
+        color: var(--text-primary);
+      }
+      .calc-ref-table tr:last-child td {
+        border-bottom: none;
+      }
+      .calc-ref-table tr:hover td {
+        background: var(--bg-secondary);
+      }
+
+      /* Formula Section */
+      .calc-formula {
+        margin-top: 2rem;
+        background: var(--bg-accent);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 1.5rem;
+      }
+      .calc-formula-title {
+        font-weight: 700;
+        font-size: 0.9rem;
+        color: var(--text-primary);
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+      .calc-formula-title i {
+        color: var(--accent-color);
+      }
+      .calc-formula code {
+        display: block;
+        font-family: 'SF Mono', 'Fira Code', monospace;
+        font-size: 0.82rem;
+        color: var(--text-secondary);
+        line-height: 1.8;
+      }
+
+      @media (max-width: 640px) {
+        .calc-form-grid {
+          grid-template-columns: 1fr;
+        }
+        .calc-results {
+          grid-template-columns: 1fr;
+        }
+        .calc-form {
+          padding: 1.25rem;
+        }
+        .calc-result-value {
+          font-size: 1.5rem;
+        }
+        .calc-tabs {
+          flex-direction: column;
+        }
+      }
+    </style>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "CCTV Storage Calculator",
+      "url": "https://yiyol.com/blog/storage-calculator.html",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web Browser",
+      "description": "Calculate CCTV recording storage capacity based on camera count, resolution, and recording hours.",
+      "provider": {
+        "@type": "Organization",
+        "name": "YIYOL"
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header" role="banner">
+      <nav class="nav" role="navigation" aria-label="Main navigation">
+        <a href="/" class="logo" aria-label="YIYOL Home">YIYOL</a>
+        <div style="display: flex; align-items: center; gap: 2rem;">
+          <ul class="nav-links">
+            <li>
+              <a href="/#about" class="nav-link">
+                <span class="ko-only">회사 소개</span>
+                <span class="en-only">About</span>
+              </a>
+            </li>
+            <li>
+              <a href="/#products" class="nav-link">
+                <span class="ko-only">제품</span>
+                <span class="en-only">Products</span>
+              </a>
+            </li>
+            <li>
+              <a href="/blog/" class="nav-link" style="color: var(--accent-color);">
+                <span class="ko-only">블로그</span>
+                <span class="en-only">Blog</span>
+              </a>
+            </li>
+            <li>
+              <a href="/#contact" class="nav-link">
+                <span class="ko-only">문의</span>
+                <span class="en-only">Contact</span>
+              </a>
+            </li>
+          </ul>
+          <div class="lang-switch">
+            <button class="lang-selector">
+              <span class="lang-current">한국어</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="lang-dropdown">
+              <a href="#" class="lang-option" data-lang="ko">한국어</a>
+              <a href="#" class="lang-option" data-lang="en">English</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="calc-hero">
+      <div class="calc-hero-content">
+        <div class="calc-breadcrumb">
+          <a href="/">YIYOL</a>
+          <span>›</span>
+          <a href="/blog/">
+            <span class="ko-only">블로그</span>
+            <span class="en-only">Blog</span>
+          </a>
+          <span>›</span>
+          <span class="ko-only" style="color:#cbd5e1;">저장 용량 계산기</span>
+          <span class="en-only" style="color:#cbd5e1;">Storage Calculator</span>
+        </div>
+        <h1 class="ko-only"><i class="fas fa-calculator" style="margin-right:0.4rem;color:#60a5fa;"></i>CCTV 저장 용량 계산기</h1>
+        <h1 class="en-only"><i class="fas fa-calculator" style="margin-right:0.4rem;color:#60a5fa;"></i>CCTV Storage Calculator</h1>
+        <p class="ko-only">카메라 수, 해상도, 녹화 시간으로 필요한 저장 용량을 계산하세요</p>
+        <p class="en-only">Calculate required storage based on camera count, resolution, and recording hours</p>
+      </div>
+    </section>
+
+    <!-- Calculator -->
+    <main class="calc-container">
+
+      <!-- Mode Tabs -->
+      <div class="calc-tabs">
+        <button class="calc-tab active" data-mode="duration" onclick="switchMode('duration')">
+          <i class="fas fa-clock" style="margin-right:0.3rem;"></i>
+          <span class="ko-only">저장 기간 계산</span>
+          <span class="en-only">Retention Period</span>
+        </button>
+        <button class="calc-tab" data-mode="capacity" onclick="switchMode('capacity')">
+          <i class="fas fa-hdd" style="margin-right:0.3rem;"></i>
+          <span class="ko-only">필요 용량 계산</span>
+          <span class="en-only">Required Capacity</span>
+        </button>
+      </div>
+
+      <!-- Mode 1: Duration Calculation (Capacity → Period) -->
+      <div class="calc-panel active" id="panel-duration">
+        <div class="calc-form">
+          <div class="calc-form-grid">
+            <div class="calc-field">
+              <label class="calc-label">
+                <i class="fas fa-video"></i>
+                <span class="ko-only">카메라 채널 수</span>
+                <span class="en-only">Camera Channels</span>
+              </label>
+              <input type="number" class="calc-input" id="dur-channels" min="1" max="256" value="4" oninput="calcDuration()">
+              <span class="calc-input-hint">1 ~ 256</span>
+            </div>
+            <div class="calc-field">
+              <label class="calc-label">
+                <i class="fas fa-film"></i>
+                <span class="ko-only">해상도 / 품질</span>
+                <span class="en-only">Resolution / Quality</span>
+              </label>
+              <select class="calc-select" id="dur-preset" onchange="onPresetChange('dur'); calcDuration();">
+                <option value="25">4K (25 Mbps)</option>
+                <option value="16">4K (16 Mbps)</option>
+                <option value="8">1080p (8 Mbps)</option>
+                <option value="4" selected>1080p (4 Mbps)</option>
+                <option value="2">720p (2 Mbps)</option>
+                <option value="custom">
+                  <span class="ko-only">커스텀 비트레이트</span>
+                  <span class="en-only">Custom Bitrate</span>
+                </option>
+              </select>
+            </div>
+            <div class="calc-field custom-bitrate-row" id="dur-custom-row">
+              <label class="calc-label">
+                <i class="fas fa-sliders-h"></i>
+                <span class="ko-only">비트레이트 (Mbps)</span>
+                <span class="en-only">Bitrate (Mbps)</span>
+              </label>
+              <input type="number" class="calc-input" id="dur-custom-bitrate" min="0.5" max="100" step="0.5" value="4" oninput="calcDuration()">
+            </div>
+            <div class="calc-field">
+              <label class="calc-label">
+                <i class="fas fa-clock"></i>
+                <span class="ko-only">일일 녹화 시간</span>
+                <span class="en-only">Recording Hours/Day</span>
+              </label>
+              <input type="number" class="calc-input" id="dur-hours" min="1" max="24" value="24" oninput="calcDuration()">
+              <span class="calc-input-hint ko-only">1 ~ 24시간 (기본: 24시간 연속 녹화)</span>
+              <span class="calc-input-hint en-only">1 ~ 24 hours (default: 24h continuous)</span>
+            </div>
+            <div class="calc-field">
+              <label class="calc-label">
+                <i class="fas fa-database"></i>
+                <span class="ko-only">총 저장 용량 (TB)</span>
+                <span class="en-only">Total Storage (TB)</span>
+              </label>
+              <input type="number" class="calc-input" id="dur-storage" min="0.1" max="1000" step="0.1" value="4" oninput="calcDuration()">
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-results" id="dur-results">
+          <div class="calc-result-card">
+            <div class="calc-result-label ko-only">예상 저장 기간</div>
+            <div class="calc-result-label en-only">Retention Period</div>
+            <div class="calc-result-value"><span id="dur-days">0</span><span class="calc-result-unit ko-only">일</span><span class="calc-result-unit en-only">days</span></div>
+            <div class="calc-result-sub" id="dur-days-detail"></div>
+          </div>
+          <div class="calc-result-card">
+            <div class="calc-result-label ko-only">일일 데이터량</div>
+            <div class="calc-result-label en-only">Daily Data</div>
+            <div class="calc-result-value"><span id="dur-daily">0</span><span class="calc-result-unit">GB</span></div>
+          </div>
+          <div class="calc-result-card">
+            <div class="calc-result-label ko-only">월간 데이터량</div>
+            <div class="calc-result-label en-only">Monthly Data</div>
+            <div class="calc-result-value"><span id="dur-monthly">0</span><span class="calc-result-unit">GB</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mode 2: Capacity Calculation (Period → Capacity) -->
+      <div class="calc-panel" id="panel-capacity">
+        <div class="calc-form">
+          <div class="calc-form-grid">
+            <div class="calc-field">
+              <label class="calc-label">
+                <i class="fas fa-video"></i>
+                <span class="ko-only">카메라 채널 수</span>
+                <span class="en-only">Camera Channels</span>
+              </label>
+              <input type="number" class="calc-input" id="cap-channels" min="1" max="256" value="4" oninput="calcCapacity()">
+              <span class="calc-input-hint">1 ~ 256</span>
+            </div>
+            <div class="calc-field">
+              <label class="calc-label">
+                <i class="fas fa-film"></i>
+                <span class="ko-only">해상도 / 품질</span>
+                <span class="en-only">Resolution / Quality</span>
+              </label>
+              <select class="calc-select" id="cap-preset" onchange="onPresetChange('cap'); calcCapacity();">
+                <option value="25">4K (25 Mbps)</option>
+                <option value="16">4K (16 Mbps)</option>
+                <option value="8">1080p (8 Mbps)</option>
+                <option value="4" selected>1080p (4 Mbps)</option>
+                <option value="2">720p (2 Mbps)</option>
+                <option value="custom">
+                  <span class="ko-only">커스텀 비트레이트</span>
+                  <span class="en-only">Custom Bitrate</span>
+                </option>
+              </select>
+            </div>
+            <div class="calc-field custom-bitrate-row" id="cap-custom-row">
+              <label class="calc-label">
+                <i class="fas fa-sliders-h"></i>
+                <span class="ko-only">비트레이트 (Mbps)</span>
+                <span class="en-only">Bitrate (Mbps)</span>
+              </label>
+              <input type="number" class="calc-input" id="cap-custom-bitrate" min="0.5" max="100" step="0.5" value="4" oninput="calcCapacity()">
+            </div>
+            <div class="calc-field">
+              <label class="calc-label">
+                <i class="fas fa-clock"></i>
+                <span class="ko-only">일일 녹화 시간</span>
+                <span class="en-only">Recording Hours/Day</span>
+              </label>
+              <input type="number" class="calc-input" id="cap-hours" min="1" max="24" value="24" oninput="calcCapacity()">
+              <span class="calc-input-hint ko-only">1 ~ 24시간</span>
+              <span class="calc-input-hint en-only">1 ~ 24 hours</span>
+            </div>
+            <div class="calc-field">
+              <label class="calc-label">
+                <i class="fas fa-calendar-alt"></i>
+                <span class="ko-only">보관 기간 (일)</span>
+                <span class="en-only">Retention Period (days)</span>
+              </label>
+              <input type="number" class="calc-input" id="cap-days" min="1" max="365" value="30" oninput="calcCapacity()">
+              <span class="calc-input-hint ko-only">원하는 녹화 보관 일수</span>
+              <span class="calc-input-hint en-only">Desired retention days</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-results" id="cap-results">
+          <div class="calc-result-card">
+            <div class="calc-result-label ko-only">필요 저장 용량</div>
+            <div class="calc-result-label en-only">Required Storage</div>
+            <div class="calc-result-value"><span id="cap-total">0</span><span class="calc-result-unit">TB</span></div>
+          </div>
+          <div class="calc-result-card">
+            <div class="calc-result-label ko-only">일일 데이터량</div>
+            <div class="calc-result-label en-only">Daily Data</div>
+            <div class="calc-result-value"><span id="cap-daily">0</span><span class="calc-result-unit">GB</span></div>
+          </div>
+          <div class="calc-result-card">
+            <div class="calc-result-label ko-only">월간 데이터량</div>
+            <div class="calc-result-label en-only">Monthly Data</div>
+            <div class="calc-result-value"><span id="cap-monthly">0</span><span class="calc-result-unit">GB</span></div>
+          </div>
+        </div>
+
+        <!-- HDD Recommendation -->
+        <div class="calc-hdd-rec" id="cap-hdd-rec">
+          <div class="calc-hdd-title">
+            <i class="fas fa-hard-drive"></i>
+            <span class="ko-only">권장 HDD 구성</span>
+            <span class="en-only">Recommended HDD Configuration</span>
+          </div>
+          <div class="calc-hdd-list" id="cap-hdd-list"></div>
+        </div>
+      </div>
+
+      <!-- Reference Table -->
+      <div class="calc-ref-section">
+        <h2 class="calc-ref-title ko-only">
+          <i class="fas fa-table" style="color:var(--accent-color);margin-right:0.3rem;font-size:0.95rem;"></i>
+          해상도별 비트레이트 참고표
+        </h2>
+        <h2 class="calc-ref-title en-only">
+          <i class="fas fa-table" style="color:var(--accent-color);margin-right:0.3rem;font-size:0.95rem;"></i>
+          Bitrate Reference by Resolution
+        </h2>
+        <table class="calc-ref-table">
+          <thead>
+            <tr>
+              <th class="ko-only">해상도</th>
+              <th class="en-only">Resolution</th>
+              <th class="ko-only">화소수</th>
+              <th class="en-only">Pixels</th>
+              <th class="ko-only">일반 비트레이트</th>
+              <th class="en-only">Typical Bitrate</th>
+              <th class="ko-only">1채널 일일 용량 (24h)</th>
+              <th class="en-only">1ch Daily (24h)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>4K (3840×2160)</td>
+              <td>~8.3MP</td>
+              <td>16 ~ 25 Mbps</td>
+              <td>172.8 ~ 270.0 GB</td>
+            </tr>
+            <tr>
+              <td>1440p (2560×1440)</td>
+              <td>~3.7MP</td>
+              <td>8 ~ 12 Mbps</td>
+              <td>86.4 ~ 129.6 GB</td>
+            </tr>
+            <tr>
+              <td>1080p (1920×1080)</td>
+              <td>~2.1MP</td>
+              <td>4 ~ 8 Mbps</td>
+              <td>43.2 ~ 86.4 GB</td>
+            </tr>
+            <tr>
+              <td>720p (1280×720)</td>
+              <td>~0.9MP</td>
+              <td>1.5 ~ 3 Mbps</td>
+              <td>16.2 ~ 32.4 GB</td>
+            </tr>
+            <tr>
+              <td>480p (720×480)</td>
+              <td>~0.3MP</td>
+              <td>0.5 ~ 1.5 Mbps</td>
+              <td>5.4 ~ 16.2 GB</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="calc-formula">
+          <div class="calc-formula-title">
+            <i class="fas fa-square-root-variable"></i>
+            <span class="ko-only">계산 공식</span>
+            <span class="en-only">Formula</span>
+          </div>
+          <code>
+            <span class="ko-only">
+              일일 용량(GB) = 비트레이트(Mbps) × 3,600 × 녹화시간(h) × 채널수 ÷ 8 ÷ 1,000<br>
+              저장 일수 = 총 용량(TB) × 1,000 ÷ 일일 용량(GB)<br>
+              필요 용량(TB) = 일일 용량(GB) × 보관일수 ÷ 1,000
+            </span>
+            <span class="en-only">
+              Daily(GB) = Bitrate(Mbps) × 3,600 × Hours(h) × Channels ÷ 8 ÷ 1,000<br>
+              Retention Days = Total(TB) × 1,000 ÷ Daily(GB)<br>
+              Required(TB) = Daily(GB) × Days ÷ 1,000
+            </span>
+          </code>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+      <div class="footer-info">
+        <span class="ko-only">서울특별시 금천구 가산디지털2로 136, 704-4호</span>
+        <span class="en-only">#704-4, 136 Gasan Digital 2ro, Geumcheon-gu, Seoul</span>
+        <span class="footer-divider">|</span>
+        <span>yiyol@yiyol.com</span>
+      </div>
+      <p class="footer-copyright">&copy; 2026 YIYOL. All rights reserved.</p>
+    </footer>
+
+    <script src="/assets/js/i18n.js"></script>
+    <script>
+      // Mode switching
+      function switchMode(mode) {
+        document.querySelectorAll('.calc-tab').forEach(function(t) {
+          t.classList.toggle('active', t.dataset.mode === mode);
+        });
+        document.querySelectorAll('.calc-panel').forEach(function(p) {
+          p.classList.toggle('active', p.id === 'panel-' + mode);
+        });
+        if (mode === 'duration') calcDuration();
+        else calcCapacity();
+      }
+
+      // Custom bitrate toggle
+      function onPresetChange(prefix) {
+        var sel = document.getElementById(prefix + '-preset');
+        var row = document.getElementById(prefix + '-custom-row');
+        if (sel.value === 'custom') {
+          row.classList.add('show');
+        } else {
+          row.classList.remove('show');
+        }
+      }
+
+      // Get bitrate from preset or custom
+      function getBitrate(prefix) {
+        var sel = document.getElementById(prefix + '-preset');
+        if (sel.value === 'custom') {
+          return parseFloat(document.getElementById(prefix + '-custom-bitrate').value) || 4;
+        }
+        return parseFloat(sel.value);
+      }
+
+      // Daily data in GB
+      function dailyGB(bitrate, hours, channels) {
+        return bitrate * 3600 * hours * channels / 8 / 1000;
+      }
+
+      // Mode 1: Duration calc
+      function calcDuration() {
+        var channels = parseInt(document.getElementById('dur-channels').value) || 1;
+        var bitrate = getBitrate('dur');
+        var hours = parseInt(document.getElementById('dur-hours').value) || 24;
+        var storageTB = parseFloat(document.getElementById('dur-storage').value) || 1;
+
+        var daily = dailyGB(bitrate, hours, channels);
+        var days = (storageTB * 1000) / daily;
+        var monthly = daily * 30;
+
+        document.getElementById('dur-days').textContent = days < 1 ? days.toFixed(2) : Math.floor(days);
+        document.getElementById('dur-daily').textContent = daily < 10 ? daily.toFixed(2) : daily.toFixed(1);
+        document.getElementById('dur-monthly').textContent = monthly < 10 ? monthly.toFixed(2) : monthly.toFixed(1);
+
+        // Detail text
+        var detail = '';
+        var isKo = document.documentElement.getAttribute('lang') === 'ko';
+        if (days >= 30) {
+          var months = Math.floor(days / 30);
+          var remDays = Math.floor(days % 30);
+          detail = isKo
+            ? '약 ' + months + '개월 ' + (remDays > 0 ? remDays + '일' : '')
+            : '≈ ' + months + ' month' + (months > 1 ? 's' : '') + (remDays > 0 ? ' ' + remDays + ' day' + (remDays > 1 ? 's' : '') : '');
+        }
+        document.getElementById('dur-days-detail').textContent = detail;
+      }
+
+      // Mode 2: Capacity calc
+      function calcCapacity() {
+        var channels = parseInt(document.getElementById('cap-channels').value) || 1;
+        var bitrate = getBitrate('cap');
+        var hours = parseInt(document.getElementById('cap-hours').value) || 24;
+        var retDays = parseInt(document.getElementById('cap-days').value) || 30;
+
+        var daily = dailyGB(bitrate, hours, channels);
+        var totalTB = (daily * retDays) / 1000;
+        var monthly = daily * 30;
+
+        document.getElementById('cap-total').textContent = totalTB < 1 ? totalTB.toFixed(2) : totalTB.toFixed(1);
+        document.getElementById('cap-daily').textContent = daily < 10 ? daily.toFixed(2) : daily.toFixed(1);
+        document.getElementById('cap-monthly').textContent = monthly < 10 ? monthly.toFixed(2) : monthly.toFixed(1);
+
+        // HDD recommendations
+        var hddSizes = [1, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20];
+        var isKo = document.documentElement.getAttribute('lang') === 'ko';
+        var list = document.getElementById('cap-hdd-list');
+        list.innerHTML = '';
+
+        hddSizes.forEach(function(size) {
+          var count = Math.ceil(totalTB / size);
+          if (count > 24 || count < 1) return;
+          var div = document.createElement('div');
+          div.className = 'calc-hdd-item';
+
+          // Mark best fit
+          if (count >= 1 && count <= 4 && size >= totalTB * 0.8) {
+            div.className += ' recommended';
+          }
+
+          div.textContent = isKo
+            ? size + 'TB × ' + count + '개 = ' + (size * count) + 'TB'
+            : size + 'TB × ' + count + ' = ' + (size * count) + 'TB';
+          list.appendChild(div);
+        });
+      }
+
+      // Initial calculations
+      calcDuration();
+      calcCapacity();
+    </script>
+  </body>
+</html>
