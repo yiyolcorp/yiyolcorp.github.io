@@ -1,8 +1,8 @@
 ---
 title: "CCTV Recording Storage Calculator"
 date: 2026-03-29
-description: "Calculate CCTV storage requirements based on camera channels, resolution, and recording hours. A free online tool for NVR/DVR storage planning."
-tags: ["CCTV", "NVR", "Storage", "Calculator", "Security"]
+description: "Calculate CCTV storage requirements based on camera channels, resolution, FPS, and recording hours. A free online tool for NVR/DVR storage planning."
+tags: ["CCTV", "NVR", "Storage", "Calculator", "Security", "FPS"]
 ---
 
 One of the most common questions when setting up a CCTV system is **"How much HDD storage do I need?"**
