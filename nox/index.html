@@ -127,6 +127,9 @@
     .stagger-6 { transition-delay: 0.3s; }
     .stagger-7 { transition-delay: 0.35s; }
     .stagger-8 { transition-delay: 0.4s; }
+    .stagger-9 { transition-delay: 0.45s; }
+    .stagger-10 { transition-delay: 0.5s; }
+    .stagger-11 { transition-delay: 0.55s; }
 
     @media (prefers-reduced-motion: reduce) {
       .animate-on-scroll { opacity: 1; transform: none; transition: none; }
@@ -1418,8 +1421,77 @@
       </div>
       <div class="bento-grid">
 
-        <!-- 실시간 모니터링 (2x2) -->
+        <!-- 국정원 보안요구사항 준수 (2x2) -->
         <div class="bento-card bento-large animate-on-scroll stagger-1">
+          <div class="bento-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+          </div>
+          <h3 class="ko-only">국정원 보안요구사항 대응 완료</h3>
+          <h3 class="en-only">NIS Security Requirements Compliance</h3>
+          <p class="ko-only"><strong>NOX 26.04</strong>가 국가정보원 「국가용 보안요구사항 V3.0」 영상정보처리기기(NVR) 전 항목 대응을 완료하여, 공공기관 및 국가 주요 시설에 안심하고 도입할 수 있습니다.</p>
+          <p class="en-only"><strong>NOX 26.04</strong> has achieved full compliance with NIS National Security Requirements V3.0 for NVR — all categories covered. Confidently deploy in government agencies and critical national infrastructure.</p>
+          <div class="bento-visual">
+            <div class="bento-grid-dots">
+              <div class="bento-grid-dot active"></div>
+              <div class="bento-grid-dot active"></div>
+              <div class="bento-grid-dot active"></div>
+              <div class="bento-grid-dot active"></div>
+              <div class="bento-grid-dot active"></div>
+              <div class="bento-grid-dot active"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ONVIF 카메라 설정 (1x1) -->
+        <div class="bento-card animate-on-scroll stagger-2">
+          <div class="bento-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+              <circle cx="8" cy="12" r="2"/>
+              <path d="M10 12h1"/>
+            </svg>
+          </div>
+          <h3 class="ko-only">ONVIF 카메라 설정</h3>
+          <h3 class="en-only">ONVIF Camera Configuration</h3>
+          <p class="ko-only">ONVIF 표준 프로토콜로 해상도, 프레임레이트, 비트레이트, 이미지 설정 등을 NVR에서 직접 제어.</p>
+          <p class="en-only">Control resolution, frame rate, bitrate, and image settings directly from the NVR via ONVIF.</p>
+        </div>
+
+        <!-- ONVIF 카메라 관리 (1x1) -->
+        <div class="bento-card animate-on-scroll stagger-3">
+          <div class="bento-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <h3 class="ko-only">ONVIF 카메라 관리</h3>
+          <h3 class="en-only">ONVIF Camera Management</h3>
+          <p class="ko-only">자동 디스커버리로 손쉬운 카메라 등록. RTSP, WebRTC, PTZ 제어를 지원합니다.</p>
+          <p class="en-only">Easy camera registration with auto-discovery. Supports RTSP, WebRTC, and PTZ control.</p>
+        </div>
+
+        <!-- 멀티캐스트 지원 (1x1) -->
+        <div class="bento-card animate-on-scroll stagger-4">
+          <div class="bento-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M16.24 7.76a6 6 0 010 8.49"/>
+              <path d="M19.07 4.93a10 10 0 010 14.14"/>
+              <path d="M7.76 16.24a6 6 0 010-8.49"/>
+              <path d="M4.93 19.07a10 10 0 010-14.14"/>
+            </svg>
+          </div>
+          <h3 class="ko-only">멀티캐스트 지원</h3>
+          <h3 class="en-only">Multicast Streaming</h3>
+          <p class="ko-only">멀티캐스트 스트리밍으로 네트워크 대역폭을 절약하고 다수의 클라이언트에 효율적으로 영상을 전달합니다.</p>
+          <p class="en-only">Save network bandwidth with multicast streaming, efficiently delivering video to multiple clients simultaneously.</p>
+        </div>
+
+        <!-- 실시간 모니터링 (1x1) -->
+        <div class="bento-card animate-on-scroll stagger-5">
           <div class="bento-card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <rect x="2" y="3" width="20" height="14" rx="2"/>
@@ -1428,28 +1500,12 @@
           </div>
           <h3 class="ko-only">실시간 모니터링</h3>
           <h3 class="en-only">Real-time Monitoring</h3>
-          <p class="ko-only">최대 128채널을 동시에 감시하고, 다중 분할 레이아웃을 자유롭게 구성하세요. 디지털 줌 16배까지 지원하여 세밀한 확인이 가능합니다.</p>
-          <p class="en-only">Monitor up to 128 channels simultaneously with customizable multi-split layouts. Supports up to 16x digital zoom for detailed inspection.</p>
-          <div class="bento-visual">
-            <div class="bento-grid-dots">
-              <div class="bento-grid-dot active"></div>
-              <div class="bento-grid-dot active"></div>
-              <div class="bento-grid-dot"></div>
-              <div class="bento-grid-dot active"></div>
-              <div class="bento-grid-dot"></div>
-              <div class="bento-grid-dot active"></div>
-              <div class="bento-grid-dot active"></div>
-              <div class="bento-grid-dot"></div>
-              <div class="bento-grid-dot active"></div>
-              <div class="bento-grid-dot"></div>
-              <div class="bento-grid-dot active"></div>
-              <div class="bento-grid-dot active"></div>
-            </div>
-          </div>
+          <p class="ko-only">최대 128채널 동시 감시. 다중 분할 레이아웃, 디지털 줌 16배 지원.</p>
+          <p class="en-only">Monitor up to 128 channels simultaneously. Customizable multi-split layouts with up to 16x digital zoom.</p>
         </div>
 
         <!-- AI 영상 분석 (2x1) -->
-        <div class="bento-card bento-wide animate-on-scroll stagger-2">
+        <div class="bento-card bento-wide animate-on-scroll stagger-6">
           <div class="bento-card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
@@ -1474,7 +1530,7 @@
         </div>
 
         <!-- 녹화 관리 (1x1) -->
-        <div class="bento-card animate-on-scroll stagger-3">
+        <div class="bento-card animate-on-scroll stagger-7">
           <div class="bento-card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <circle cx="12" cy="12" r="10"/>
@@ -1489,7 +1545,7 @@
         </div>
 
         <!-- 검색 및 재생 (1x1) -->
-        <div class="bento-card animate-on-scroll stagger-4">
+        <div class="bento-card animate-on-scroll stagger-8">
           <div class="bento-card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <circle cx="11" cy="11" r="8"/>
@@ -1503,21 +1559,8 @@
           <p class="en-only">Timeline, event, and AI metadata search. Multi-camera synchronized playback at 0.25x–16x speed.</p>
         </div>
 
-        <!-- ONVIF 카메라 관리 (1x1) -->
-        <div class="bento-card animate-on-scroll stagger-5">
-          <div class="bento-card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-            </svg>
-          </div>
-          <h3 class="ko-only">ONVIF 카메라 관리</h3>
-          <h3 class="en-only">ONVIF Camera Management</h3>
-          <p class="ko-only">자동 디스커버리로 손쉬운 카메라 등록. RTSP, WebRTC, PTZ 제어를 지원합니다.</p>
-          <p class="en-only">Easy camera registration with auto-discovery. Supports RTSP, WebRTC, and PTZ control.</p>
-        </div>
-
         <!-- 모바일 카메라 (1x1) -->
-        <div class="bento-card animate-on-scroll stagger-6">
+        <div class="bento-card animate-on-scroll stagger-9">
           <div class="bento-card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <rect x="5" y="2" width="14" height="20" rx="2"/>
@@ -1532,7 +1575,7 @@
         </div>
 
         <!-- 보안 및 권한 (2x1) -->
-        <div class="bento-card bento-wide animate-on-scroll stagger-7">
+        <div class="bento-card bento-wide animate-on-scroll stagger-10">
           <div class="bento-card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
@@ -1546,7 +1589,7 @@
         </div>
 
         <!-- 엔터프라이즈 확장성 (1x1) -->
-        <div class="bento-card animate-on-scroll stagger-8">
+        <div class="bento-card animate-on-scroll stagger-11">
           <div class="bento-card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
               <rect x="2" y="2" width="20" height="8" rx="2"/>
