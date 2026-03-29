@@ -1,0 +1,74 @@
+baseURL: https://yiyol.com/
+#baseURL: http://whitebox.iptime.org
+defaultContentLanguage: ko
+defaultContentLanguageInSubdir: true
+languageCode: ko-KR
+title: YIYOL
+theme: ananke
+SectionPagesMenu: 'main'
+Paginate: 4
+env: production
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
+services:
+  #disqus:
+  #  shortname: yiyol
+  GoogleAnalytics:
+    ID: G-CKJ4GX2KHS
+
+params:
+  text_color: 'gray'
+  background_color_class: 'bg-purple'
+  show_reading_time: true
+  #commentoEnable: true
+  read_more_copy: Read more about this entry
+  ananke_socials:
+  - name: twitter
+    url: https://x.com/Yiyolcorp
+    #- name: github
+    #url: https://github.com/yiyolcorp
+  favicon: "/img/favicon.ico"
+  utterances:
+    enable: true
+    repo: "yiyolcorp/yiyolcorp.github.io"
+    issueTerm: "pathname"
+    theme: "github-light"
+    crossorigin: "anonymous"
+
+languages:
+  ko:
+    contentDir: content/ko
+    disabled: false
+    weight: 1
+    title: YIYOL
+  en:
+    contentDir: content/en
+    disabled: false
+    weight: 2
+    title: YIYOL
+
+menus:
+  main:
+    - identifier: "about"
+      name: "about"
+      url: "about/"
+      weight: 10
+
+    - identifier: "products"
+      name: "products"
+      url: "products/"
+      weight: 20
+
+    - identifier: "blog"
+      name: "blog"
+      url: "blog/"
+      weight: 25
+
+    - identifier: "post"
+      name: "posts"
+      url: "post/"
+      weight: 30
