@@ -12,15 +12,15 @@
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>국정원 보안요구사항 V3.0 완벽 가이드: CC인증, 보안기능확인서, KCMVP까지 - YIYOL Blog</title>
+  <title>NVR/VMS 국정원 보안요구사항 V3.0 인증 가이드: 영상보안 제품의 보안적합성 검증 전략 - YIYOL Blog</title>
 
-  <meta name="description" content="국정원 보안요구사항 V3.0의 핵심 내용, CC인증과 보안기능확인서 인증 절차, KCMVP 등 필수 기술 요소를 실무 관점에서 체계적으로 정리한 가이드입니다." />
-  <meta name="keywords" content="국정원 보안요구사항,보안요구사항 V3.0,CC인증,보안기능확인서,KCMVP,보안적합성 검증,정보보호제품 인증,국가사이버안보센터,보호프로파일,EAL" />
+  <meta name="description" content="NVR, VMS 등 영상정보처리기기에 적용되는 국정원 보안요구사항 V3.0의 핵심 내용과 보안기능확인서 인증 절차, 필수 기술 요소를 실무 관점에서 체계적으로 정리한 가이드입니다." />
+  <meta name="keywords" content="NVR 보안요구사항,VMS 보안인증,영상정보처리기기 보안적합성 검증,국정원 보안요구사항 V3.0,보안기능확인서,KCMVP,NVR 공공기관 납품,VMS 인증,IP카메라 보안,CCTV 보안인증" />
 
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://yiyol.com/blog/nis-security-requirements-v3-guide.html" />
-  <meta property="og:title" content="국정원 보안요구사항 V3.0 완벽 가이드: CC인증, 보안기능확인서, KCMVP까지 — YIYOL" />
-  <meta property="og:description" content="국정원 보안요구사항 V3.0의 핵심 내용, CC인증과 보안기능확인서 인증 절차, KCMVP 등 필수 기술 요소를 실무 관점에서 체계적으로 정리한 가이드입니다." />
+  <meta property="og:title" content="NVR/VMS 국정원 보안요구사항 V3.0 인증 가이드: 영상보안 제품의 보안적합성 검증 전략 — YIYOL" />
+  <meta property="og:description" content="NVR, VMS 등 영상정보처리기기에 적용되는 국정원 보안요구사항 V3.0의 핵심 내용과 보안기능확인서 인증 절차, 필수 기술 요소를 실무 관점에서 체계적으로 정리한 가이드입니다." />
   <meta property="og:site_name" content="YIYOL" />
 
   <link rel="canonical" href="https://yiyol.com/blog/nis-security-requirements-v3-guide.html" />
@@ -256,18 +256,19 @@
       <nav class="post-breadcrumb">
         <a href="/">YIYOL</a><span>›</span><a href="/blog/">블로그</a><span>›</span> 현재 글
       </nav>
-      <h1>국정원 보안요구사항 V3.0 완벽 가이드: CC인증, 보안기능확인서, KCMVP까지</h1>
+      <h1>NVR/VMS 국정원 보안요구사항 V3.0 인증 가이드: 영상보안 제품의 보안적합성 검증 전략</h1>
       <div class="post-meta">
         <span class="post-meta-date"><i class="far fa-calendar-alt"></i> 2026.04.01</span>
         <div class="post-tags">
           <span class="post-tag">국정원 보안요구사항</span>
           <span class="post-tag">보안요구사항 V3.0</span>
-          <span class="post-tag">CC인증</span>
+          <span class="post-tag">NVR 보안인증</span>
+          <span class="post-tag">VMS 보안인증</span>
+          <span class="post-tag">영상정보처리기기</span>
           <span class="post-tag">보안기능확인서</span>
           <span class="post-tag">KCMVP</span>
           <span class="post-tag">보안적합성 검증</span>
-          <span class="post-tag">정보보호제품</span>
-          <span class="post-tag">공공기관 보안</span>
+          <span class="post-tag">영상보안</span>
         </div>
       </div>
     </div>
@@ -277,444 +278,332 @@
   <main class="post-container">
     <article class="post-article">
 
-      <p>공공기관에 보안 제품을 납품하려면 반드시 넘어야 할 관문이 있다. 바로 국가정보원의 보안적합성 검증이다. 국정원 보안요구사항 V3.0은 그 검증의 기준이 되는 문서로, 정보보호시스템부터 네트워크 장비, 영상정보처리기기까지 보안기능이 탑재된 모든 IT 제품이 충족해야 할 요건을 담고 있다. 2026년 국내 보안시장이 <a href="https://m.boannews.com/html/detail.html?idx=140969" target="_blank" rel="noopener">10조 6,082억 원 규모로 성장할 것으로 전망</a>되는 가운데, 이 기준을 정확히 이해하는 것은 보안 솔루션 기업의 생존과 직결된다.</p>
+      <p>2024년 4월부터 NVR(네트워크 비디오 레코더)과 VMS(영상관리시스템)를 공공기관에 납품하려면 국정원 보안적합성 검증을 반드시 통과해야 한다. <a href="https://zdnet.co.kr/view/?no=20240328101353" target="_blank" rel="noopener">중국산 CCTV의 해킹과 백도어 위협</a>이 사회적 이슈로 부각되면서, 영상정보처리기기가 국정원 보안요구사항 V3.0의 신규 제품군으로 추가된 것이다.</p>
 
-      <p>이 글에서는 보안요구사항 V3.0의 핵심 내용을 체계적으로 정리하고, CC인증과 보안기능확인서 절차를 구분하여 안내하며, KCMVP를 포함한 인증 필수 기술 요소를 실무자 관점에서 설명한다. V2.0 대비 무엇이 달라졌는지도 함께 비교한다.</p>
+      <p>2026년 국내 보안시장이 <a href="https://m.boannews.com/html/detail.html?idx=140969" target="_blank" rel="noopener">10조 6,082억 원 규모로 성장할 것으로 전망</a>되는 가운데, 영상보안 분야는 가장 빠르게 인증 수요가 증가하는 영역이다. 이 글에서는 NVR/VMS 제조사가 보안요구사항 V3.0 인증을 준비하기 위해 알아야 할 모든 것을 다룬다. 인증 체계의 구조, NVR/VMS에 적용되는 보안기능 요구사항, 보안기능확인서 발급 절차와 비용, 그리고 실무 체크리스트까지 정리한다.</p>
 
-      <h2>국정원 보안요구사항 V3.0이란 무엇인가</h2>
+      <h2>NVR/VMS에 보안적합성 검증이 의무화된 배경</h2>
 
-      <p>국가용 보안요구사항은 국정원이 국가 및 공공기관에 도입되는 보안 제품의 안전성을 검증하기 위해 수립한 기준 문서다. 쉽게 말해, 공공기관이 사용하는 방화벽, VPN, 백신 같은 보안 제품이 "정말 안전한가"를 판단하는 잣대다.</p>
+      <h3>영상보안 위협의 현실</h3>
 
-      <h3>법적 근거와 관리 체계</h3>
+      <p>공공기관의 CCTV 인프라는 국가 안보와 직결된다. 정부청사, 군사시설, 교통 인프라에 설치된 영상장비가 해킹당하면, 실시간 영상 유출은 물론 녹화 데이터 탈취, 시스템 무력화까지 이어질 수 있다. 실제로 중국산 IP카메라와 NVR에서 백도어가 발견된 사례가 잇따르면서, 영상정보처리기기의 보안성 검증이 시급한 과제로 떠올랐다.</p>
 
-      <p>보안요구사항 V3.0은 단순한 권고 사항이 아니다. <a href="https://www.nis.go.kr/AF/1_7_2_1.do" target="_blank" rel="noopener">국가정보원법 제4조</a>, 전자정부법 제56조, 사이버안보 업무규정 제9조에 근거한 법적 구속력을 가진 기준이다. 국가정보원이 총괄하고, <a href="https://www.ncsc.go.kr/" target="_blank" rel="noopener">국가사이버안보센터(NCSC)</a>와 국가보안기술연구소(NSR)가 실무를 담당한다.</p>
+      <h3>V3.0에서 영상정보처리기기가 추가된 이유</h3>
 
-      <h3>보안요구사항 V3.0의 적용 대상</h3>
+      <p>국정원 보안요구사항 V2.0에는 영상보안 제품에 대한 규정이 없었다. V3.0에서 IP카메라, NVR, VMS가 신규 제품군으로 추가되면서, 2024년 4월부터 이들 제품에 대한 보안적합성 검증이 본격 시행되었다. 이는 단순한 제도 확대가 아니라, 공공기관 영상 인프라를 체계적으로 보호하겠다는 국가 차원의 의지 표명이다.</p>
 
-      <p>적용 대상은 광범위하다. 정보보호시스템, 네트워크 장비, 가상화 제품, 영상정보처리기기 등 보안기능이 탑재된 모든 IT 제품이 해당된다. 국가 및 공공기관에 제품을 납품하려는 보안 솔루션 기업이라면 예외 없이 이 기준을 충족해야 한다.</p>
+      <h3>NVR/VMS 제조사에 미치는 영향</h3>
 
-      <h3>V3.0 배포 및 개정 이력</h3>
+      <p>공공기관 납품을 목표로 하는 NVR/VMS 제조사라면 선택의 여지가 없다. 보안기능확인서를 취득하지 못하면 공공시장 진입 자체가 불가능하다. <a href="https://m.boannews.com/html/detail.html?idx=129447" target="_blank" rel="noopener">보안뉴스 조사</a>에 따르면 71.4%의 업체가 보안기능확인서 신청을 계획하고 있어, 인증 경쟁이 치열해지고 있다.</p>
 
-      <p>V3.0은 2021년 4월 6일 최초 배포되었고, 같은 해 9월 1일 R1 개정판이 나왔다. 이후 2022년 11월, 2023년 2월, 2023년 8월에 후속 업데이트가 이루어졌다. 보안 위협이 진화하는 속도에 맞춰 기준도 지속적으로 갱신되고 있다.</p>
+      <h2>국정원 보안요구사항 V3.0의 구조와 NVR/VMS의 위치</h2>
 
-      <h2>보안요구사항 V3.0의 문서 구조와 34종 제품군 분류</h2>
+      <h3>보안요구사항 V3.0 개요</h3>
 
-      <p>V3.0은 크게 <strong>공통보안요구사항</strong>과 <strong>제품별 보안요구사항</strong> 두 축으로 구성된다. 각 요구사항은 "대분류 - 소분류 - 기능명세 - 요구항목"의 계층적 구조를 따른다.</p>
+      <p>국가용 보안요구사항은 국정원이 국가 및 공공기관에 도입되는 보안 제품의 안전성을 검증하기 위해 수립한 기준 문서다. <a href="https://www.nis.go.kr/AF/1_7_2_1.do" target="_blank" rel="noopener">국가정보원법 제4조</a>, 전자정부법 제56조, 사이버안보 업무규정 제9조에 근거한 법적 구속력을 가진다. 국가정보원이 총괄하고, <a href="https://www.ncsc.go.kr/" target="_blank" rel="noopener">국가사이버안보센터(NCSC)</a>와 국가보안기술연구소(NSR)가 실무를 담당한다.</p>
 
-      <h3>공통보안요구사항 (2종)</h3>
+      <p>V3.0은 크게 <strong>공통보안요구사항</strong>과 <strong>제품별 보안요구사항</strong> 두 축으로 구성된다. 모든 제품은 공통보안요구사항을 충족해야 하고, 여기에 자사 제품군의 제품별 보안요구사항이 추가된다.</p>
 
-      <p>모든 보안 제품이 공통으로 충족해야 하는 기본 요건이다.</p>
+      <h3>NVR/VMS는 어디에 해당하는가</h3>
 
-      <ul>
-        <li><strong>서버 공통보안요구사항</strong>: 서버 환경에서 동작하는 제품에 적용</li>
-        <li><strong>엔드포인트 공통보안요구사항</strong>: 사용자 단말에서 동작하는 제품에 적용</li>
-      </ul>
-
-      <h3>제품별 보안요구사항 (34종)</h3>
-
-      <p>제품 유형에 따라 추가로 충족해야 하는 세부 요건이다. <a href="https://www.nis.go.kr/AF/1_7_2_4/list.do" target="_blank" rel="noopener">NIS 보안요구사항 목록</a>에서 34종의 제품군은 다음과 같이 분류된다.</p>
+      <p><a href="https://www.nis.go.kr/AF/1_7_2_4/list.do" target="_blank" rel="noopener">NIS 보안요구사항 목록</a>에서 V3.0은 34종의 제품군을 정의하는데, NVR과 VMS는 <strong>영상정보처리기기</strong> 제품군에 속한다.</p>
 
       <table>
         <thead>
-          <tr>
-            <th>제품군</th>
-            <th>포함 제품</th>
-          </tr>
+          <tr><th>제품군</th><th>포함 제품</th></tr>
         </thead>
         <tbody>
-          <tr>
-            <td><strong>침입차단/방지</strong></td>
-            <td>침입차단시스템(FW), 웹방화벽(WAF), DDoS 대응장비, 침입방지시스템(IPS), 무선침입방지시스템</td>
-          </tr>
-          <tr>
-            <td><strong>전송/관리</strong></td>
-            <td>스팸메일차단, 보안USB, 자료유출방지(DLP), 통합보안관리(SIEM), 패치관리, DB 접근통제, 시스템접근관리, 패스워드관리</td>
-          </tr>
-          <tr>
-            <td><strong>구간보안</strong></td>
-            <td>가상사설망(VPN), 망간자료전송, 무선랜 인증, 네트워크 접근통제(NAC)</td>
-          </tr>
-          <tr>
-            <td><strong>엔드포인트</strong></td>
-            <td>안티바이러스, 스마트폰 보안관리(MDM), 랜섬웨어 대응, OS 접근통제</td>
-          </tr>
-          <tr>
-            <td><strong>가상화</strong></td>
-            <td>가상화 관리제품</td>
-          </tr>
-          <tr>
-            <td><strong>네트워크 장비</strong></td>
-            <td>L3 이상 스위치, 라우터, SDN 장비</td>
-          </tr>
-          <tr>
-            <td><strong>신규 제품군</strong></td>
-            <td>양자암호통신장비, 영상정보처리기기(IP카메라, NVR, VMS)</td>
-          </tr>
+          <tr><td><strong>침입차단/방지</strong></td><td>침입차단시스템(FW), 웹방화벽(WAF), DDoS 대응장비, IPS, 무선IPS</td></tr>
+          <tr><td><strong>구간보안</strong></td><td>VPN, 망간자료전송, 무선랜 인증, NAC</td></tr>
+          <tr><td><strong>엔드포인트</strong></td><td>안티바이러스, MDM, 랜섬웨어 대응, OS 접근통제</td></tr>
+          <tr><td><strong>네트워크 장비</strong></td><td>L3 이상 스위치, 라우터, SDN 장비</td></tr>
+          <tr><td><strong>영상정보처리기기</strong></td><td><strong>IP카메라, NVR, VMS</strong></td></tr>
+          <tr><td><strong>신규 제품군</strong></td><td>양자암호통신장비</td></tr>
         </tbody>
       </table>
 
-      <p>실무자라면 자사 제품이 어느 제품군에 해당하는지 먼저 파악하는 것이 인증 준비의 첫걸음이다. 공통보안요구사항은 반드시 충족해야 하고, 여기에 제품군별 추가 요구사항이 더해진다.</p>
+      <p>NVR/VMS는 CC인증 대상이 아닌 <strong>보안기능확인서</strong> 대상 제품이다. 이 점이 인증 전략 수립의 출발점이 된다. CC인증 대상인 침입차단시스템 등 21종과 달리, NVR/VMS는 상대적으로 간소한 보안기능확인서 절차를 통해 인증을 받게 된다.</p>
 
-      <h2>보안요구사항 V3.0의 7대 핵심 보안기능 요구사항(SFR)</h2>
+      <h2>NVR/VMS에 적용되는 7대 보안기능 요구사항</h2>
 
-      <p>V3.0의 보안기능 요구사항(SFR)은 7개 영역으로 나뉜다. 각 항목에는 "필수", "조건부 필수", "선택"의 준수 수준이 지정되어 있다. 필수 항목은 예외 없이 구현해야 하고, 조건부 필수는 특정 조건 충족 시 필수가 되며, 선택은 개발자 재량에 맡긴다.</p>
+      <p>V3.0의 보안기능 요구사항(SFR)은 7개 영역으로 나뉜다. 각 항목에는 "필수", "조건부 필수", "선택"의 준수 수준이 지정되어 있다. NVR/VMS 제조사가 각 영역에서 구체적으로 무엇을 구현해야 하는지 살펴보자.</p>
 
       <h3>1. 식별 및 인증 (Identification &amp; Authentication)</h3>
 
-      <p>사용자가 누구인지 확인하고, 정당한 사용자만 시스템에 접근하도록 하는 기능이다.</p>
+      <p>NVR/VMS에 접근하는 관리자와 운용자를 정확히 식별하고, 정당한 사용자만 시스템에 접근하도록 해야 한다.</p>
 
       <ul>
-        <li>사용자 계정 및 패스워드 기반 식별/인증 필수</li>
-        <li>FIDO 표준 2단계 인증, 인증서, OTP 등 조건부 지원 가능</li>
-        <li>연속 인증 실패 시 계정 잠금 (실패 횟수 5회 이하, 재활성화 대기 5분 이상)</li>
-        <li>패스워드 보안: 키보드에서 좌우로 연속한 문자/숫자 4개 이상 입력 금지 (특수문자 제외)</li>
+        <li><strong>계정/패스워드 기반 인증 필수</strong>: NVR/VMS 관리 콘솔, 웹 인터페이스, 모바일 클라이언트 모두 적용</li>
+        <li><strong>초기 패스워드 변경 강제</strong>: 출고 시 기본 패스워드(admin/admin 등)를 그대로 사용하지 못하도록 최초 로그인 시 변경 강제</li>
+        <li><strong>인증 실패 대응</strong>: 연속 5회 이하 실패 시 계정 잠금, 5분 이상 잠금 유지</li>
+        <li><strong>패스워드 복잡도</strong>: 키보드에서 좌우로 연속한 문자/숫자 4개 이상 입력 금지, 최소 길이 및 특수문자 포함 등</li>
+        <li><strong>다중인증(MFA) 지원</strong>: FIDO, OTP, 인증서 기반 인증 — 조건부 필수</li>
       </ul>
+
+      <p>NVR/VMS는 다수의 원격 사용자가 동시 접속하는 환경이므로, 세션 관리와 동시 접속 제한도 고려해야 한다.</p>
 
       <h3>2. 접근통제 (Access Control)</h3>
 
-      <p>인증된 사용자가 권한 범위 내에서만 시스템 자원에 접근하도록 제한하는 기능이다.</p>
+      <p>NVR/VMS는 녹화 영상이라는 민감 데이터를 다루므로, 역할별 접근통제가 특히 중요하다.</p>
 
       <ul>
-        <li>역할 기반 접근통제(RBAC) 구현 필수</li>
-        <li>관리자, 운용자, 감사자 등 역할 분리</li>
-        <li>V3.0 R1부터 외부 디렉토리 서비스(Active Directory 등) 활용 허용</li>
+        <li><strong>역할 기반 접근통제(RBAC) 필수</strong>: 관리자, 운용자, 감사자 등 역할 분리
+          <ul>
+            <li><strong>관리자</strong>: 시스템 설정, 사용자 관리, 보안정책 변경</li>
+            <li><strong>운용자</strong>: 실시간 모니터링, 녹화 영상 검색/재생 (설정 변경 불가)</li>
+            <li><strong>감사자</strong>: 감사 로그 열람 (영상 데이터 접근 제한 가능)</li>
+          </ul>
+        </li>
+        <li><strong>카메라/채널별 접근통제</strong>: 특정 사용자에게 특정 카메라 그룹만 열람 권한 부여</li>
+        <li><strong>외부 디렉토리 서비스 연동</strong>: Active Directory, LDAP 등과의 통합 (V3.0 R1부터 허용)</li>
       </ul>
 
-      <h3>3. 암호화 및 데이터 보호 -- KCMVP 검증필 암호모듈의 역할</h3>
+      <p>공공기관의 경우 건물별, 부서별로 영상 접근 권한을 세분화해야 하는 요구가 빈번하므로, 유연한 RBAC 구조가 필수다.</p>
 
-      <p>데이터를 전송하거나 저장할 때 암호화를 통해 보호하는 기능이다. KCMVP 검증필 암호모듈 탑재가 핵심 요건이다.</p>
+      <h3>3. 암호화 및 데이터 보호</h3>
+
+      <p>NVR/VMS에서 가장 기술적으로 까다로운 영역이다. 영상 데이터의 전송과 저장 모두 암호화로 보호해야 한다.</p>
 
       <ul>
-        <li><strong>전송 데이터</strong>: HTTPS, TLS, SSH 등으로 암호화 필수</li>
-        <li><strong>저장 데이터</strong>: 암호화 보호 필요</li>
-        <li><strong>로그 전송</strong>: syslog over TLS(RFC 5424), syslog over DTLS(RFC 6012) 지원 필수</li>
-        <li><strong>KCMVP 검증필 암호모듈</strong> 탑재 요구 대상: VPN, S/W 기반 보안USB, 호스트 자료유출방지 등</li>
+        <li><strong>전송 데이터 암호화</strong>: NVR/VMS와 IP카메라 간, NVR/VMS와 클라이언트 간 통신을 HTTPS, TLS 1.2 이상으로 암호화</li>
+        <li><strong>저장 데이터 보호</strong>: 녹화 영상의 무결성 검증 기능 — 영상이 변조되지 않았음을 증명할 수 있어야 한다</li>
+        <li><strong>로그 전송 암호화</strong>: syslog over TLS(RFC 5424), syslog over DTLS(RFC 6012) 지원 필수</li>
         <li><strong>검증 대상 알고리즘</strong>: ARIA, SEED(블록암호), SHA-2(해시), HMAC(메시지 인증), CTR_DRBG(난수 발생), ECDSA(전자서명), ECDH(키 설정)</li>
       </ul>
 
+      <p><strong>중요</strong>: DES, AES는 KCMVP 검증 대상이 아니다. 국제적으로 널리 쓰이는 AES라도, 국내 공공기관 납품용 NVR/VMS에는 ARIA 또는 SEED를 사용해야 한다. 현재 NVR/VMS는 KCMVP 검증필 암호모듈 탑재가 직접적으로 요구되는 3종(VPN, 보안USB, 자료유출방지)에는 해당하지 않지만, 암호화 구현 시 <a href="https://seed.kisa.or.kr/kisa/kcmvp/EgovSummary.do" target="_blank" rel="noopener">KCMVP</a> 검증필 암호모듈을 활용하면 인증 심사에서 유리하다.</p>
+
       <h3>4. 감사기록 (Audit)</h3>
 
-      <p>누가 언제 무엇을 했는지 추적할 수 있도록 기록을 남기는 기능이다.</p>
+      <p>누가 언제 어떤 영상에 접근했는지, 시스템 설정을 누가 변경했는지 추적할 수 있어야 한다.</p>
 
       <ul>
-        <li>사용자 접근, 보안정책 변경, 보안사건 등 감사 기록 저장</li>
-        <li>감사기록이 소진되지 않도록 외부 로그서버 또는 별도 저장장치로 백업 보장</li>
-        <li>관리자의 주기적 감사 데이터 백업 수행</li>
+        <li><strong>필수 감사 이벤트</strong>: 사용자 로그인/로그아웃, 영상 재생/다운로드, 보안정책 변경, 카메라 연결/해제, 녹화 설정 변경 등</li>
+        <li><strong>감사기록 보호</strong>: 감사 로그의 위변조 방지 — 관리자라도 로그를 삭제하거나 수정할 수 없어야 한다</li>
+        <li><strong>외부 로그 서버 연동</strong>: syslog over TLS를 통한 중앙 로그 서버 전송</li>
+        <li><strong>저장 공간 관리</strong>: 감사기록이 소진되지 않도록 외부 백업 또는 별도 저장장치 확보</li>
       </ul>
+
+      <p>NVR/VMS는 대용량 영상과 함께 감사 로그도 장기간 보관해야 하므로, 저장 공간 설계 시 감사기록 용량도 반드시 산정해야 한다.</p>
 
       <h3>5. 보안관리 (Security Management)</h3>
 
-      <p>보안정책을 설정하고 관리하는 기능이다. 관리자 인터페이스 자체의 보안도 포함된다.</p>
+      <p>보안정책을 설정하고 관리하는 기능이다. NVR/VMS의 관리 인터페이스 자체가 보안적으로 안전해야 한다.</p>
+
+      <ul>
+        <li><strong>보안정책 설정/변경 기능</strong>: 패스워드 정책, 접근통제 정책, 암호화 정책 등을 관리자가 GUI로 설정</li>
+        <li><strong>관리 인터페이스 보안</strong>: 웹 관리 콘솔 접속 시 HTTPS 강제, 관리 포트 변경 가능</li>
+        <li><strong>펌웨어/소프트웨어 업데이트 보안</strong>: 업데이트 파일의 무결성 검증(서명 확인) 후 적용</li>
+      </ul>
 
       <h3>6. 자체보호 (Self-Protection)</h3>
 
-      <p>제품의 보안 기능(TSF, TOE Security Functionality) 자체를 보호하는 기능이다. 영역분리와 우회불가에 대한 취약점 점검이 핵심이다.</p>
-
-      <h3>7. 랜섬웨어 대응 (V3.0 신규 추가)</h3>
-
-      <p>V3.0에서 새롭게 추가된 영역이다. 랜섬웨어 감시, 탐지, 알림, 대응, 데이터 보호, 보안관리, 감사기록 등 7개 핵심 분야를 다룬다. 랜섬웨어 공격이 급증하면서 전용 대응 제품에 대한 인증 체계가 마련된 것이다.</p>
-
-      <h2>CC인증 절차는 어떻게 진행되는가</h2>
-
-      <p>CC(Common Criteria) 인증은 정보보호제품의 보안성을 국제 표준에 따라 평가하는 제도다. 침입차단시스템 등 21종의 정보보호제품이 대상이며, CCRA(국제상호인정협정)를 통해 해외에서도 인정받을 수 있다. 국가보안기술연구소(NSR)가 보안요구사항 V3.0의 Part 2를 CC 보호프로파일(PP)로 변환하여 <a href="https://commoncriteriaportal.org/" target="_blank" rel="noopener">국제 CC 포털에 등록</a>하고 있다.</p>
-
-      <h3>1단계: 준비</h3>
-
-      <p>CC인증의 시작은 평가기관과의 사전 협의다.</p>
+      <p>NVR/VMS의 보안 기능(TSF) 자체가 공격으로부터 보호되어야 한다.</p>
 
       <ul>
-        <li><a href="https://www.ksel.co.kr/cc_request.php" target="_blank" rel="noopener">한국아이티평가원(KSEL)</a> 등 6개 공인 평가기관에 문의</li>
-        <li>평가신청서(국내용/국제용) 작성</li>
-        <li>보안목표명세서(ST, Security Target) 작성 -- 제품의 보안기능과 보증 수준을 정의하는 핵심 문서</li>
-        <li>평가제출물 샘플 준비</li>
+        <li><strong>영역 분리(Domain Separation)</strong>: 보안 기능과 일반 기능(영상 처리 등)의 분리</li>
+        <li><strong>우회 불가(Non-bypassability)</strong>: 보안 기능을 우회하여 영상에 직접 접근할 수 없도록 설계</li>
+        <li><strong>안전한 부팅(Secure Boot)</strong>: NVR 하드웨어의 경우, 펌웨어 무결성을 부팅 시 검증</li>
+        <li><strong>TSF 무결성 검증</strong>: 보안 기능 모듈의 변조 여부를 주기적으로 확인</li>
       </ul>
 
-      <h3>2단계: 평가</h3>
+      <p>NVR은 하드웨어 장비이므로 물리적 보안(하드디스크 직접 탈취 대응)도 고려해야 하며, VMS는 소프트웨어이므로 설치 환경의 OS 보안과 연계한 자체보호 설계가 중요하다.</p>
 
-      <p>본격적인 기술 심사가 이루어지는 단계다.</p>
+      <h3>7. 영상정보 보호 (V3.0 신규 — NVR/VMS 핵심 요구사항)</h3>
+
+      <p>V3.0에서 영상정보처리기기 전용으로 추가된 요구사항이다. NVR/VMS 인증의 핵심 차별점이다.</p>
 
       <ul>
-        <li>제품 설명 및 기능 시연</li>
-        <li>평가기관이 평가수행계획서 작성</li>
-        <li><a href="https://www.itscc.kr/" target="_blank" rel="noopener">인증기관(IT보안인증사무국)</a>, 평가신청기관과 평가범위 및 일정 협의</li>
-        <li>CC(공통평가기준) 및 CEM(공통평가방법론)에 따라 평가 수행</li>
+        <li><strong>영상 데이터 무결성</strong>: 녹화된 영상이 위변조되지 않았음을 검증하는 메커니즘 (해시, 워터마크 등)</li>
+        <li><strong>영상 반출 통제</strong>: 영상 다운로드/내보내기 시 권한 확인 및 이력 기록</li>
+        <li><strong>프라이버시 보호</strong>: 영상 내 개인정보(얼굴 등) 마스킹 기능 지원 — 개인정보보호법 연계</li>
+        <li><strong>영상 삭제 보호</strong>: 보존 기간 내 영상의 무단 삭제 방지</li>
       </ul>
 
-      <h3>3단계: 인증</h3>
+      <h2>NVR/VMS의 인증 경로: 보안기능확인서</h2>
 
-      <p>평가 결과를 심의하고 인증 여부를 결정하는 단계다.</p>
-
-      <ul>
-        <li>인증위원회 개최</li>
-        <li>평가결과의 타당성과 공정성 심의</li>
-        <li>인증 여부 결정 후 인증서 및 인증마크 발급</li>
-        <li><strong>유효기간</strong>: 신규제품 5년, 기존제품 3년</li>
-      </ul>
-
-      <h3>4단계: 사후관리</h3>
-
-      <p>CC인증 취득 후에도 관리는 계속된다.</p>
-
-      <ul>
-        <li>제품 변경 시 보안 영향 분석서 작성 필수</li>
-        <li>인증효력 유지 또는 연장 신청</li>
-      </ul>
-
-      <h2>보안기능확인서 발급 절차와 비용 안내</h2>
-
-      <p>보안기능확인서는 CC인증 대상이 아닌 제품, 즉 네트워크 장비, S/W 보안USB, 자료유출방지 제품 등을 대상으로 하는 국내 사전인증 제도다. CC인증보다 절차가 간소하고 기간이 짧아 실무적으로 선호되는 경우가 많다.</p>
+      <p>NVR/VMS는 CC인증 대상이 아닌 <strong>보안기능확인서</strong> 대상 제품이다. CC인증보다 절차가 간소하고 기간이 짧아 실무적으로 더 접근하기 쉽다.</p>
 
       <h3>보안기능확인서 발급 5단계</h3>
 
       <ol>
         <li><strong>문서 제출</strong>: 제조사가 5가지 문서를 준비하여 제출한다.
           <ul>
-            <li>제품설명서</li>
-            <li>보안기능 구현명세서</li>
-            <li>보안기능 운용설명서</li>
-            <li>시험결과서</li>
-            <li>취약점 개선 내역서</li>
+            <li>제품설명서 — NVR/VMS의 하드웨어/소프트웨어 구성, 지원 카메라 프로토콜 등</li>
+            <li>보안기능 구현명세서 — 7대 보안기능이 어떻게 구현되었는지 상세 기술</li>
+            <li>보안기능 운용설명서 — 관리자/운용자가 보안기능을 설정하고 사용하는 방법</li>
+            <li>시험결과서 — 자체 시험을 통해 보안기능이 정상 동작함을 입증</li>
+            <li>취약점 개선 내역서 — 알려진 취약점에 대한 대응 내역</li>
           </ul>
         </li>
         <li><strong>보안기능 시험</strong>: <a href="https://www.kosyas.com/html/security/security01.php" target="_blank" rel="noopener">한국시스템보증(KOSYAS)</a> 등 공인시험기관이 보안기능 시험을 수행한다. 소요 기간은 약 30일이다.</li>
-        <li><strong>결과 확인</strong>: 국가보안기술연구소가 시험결과를 검토한다.</li>
+        <li><strong>결과 확인</strong>: 국가보안기술연구소(NSR)가 시험결과를 검토한다.</li>
         <li><strong>확인서 발급</strong>: 국가정보원 검토 후 보안기능확인서를 발급한다.</li>
+        <li><strong>사후관리</strong>: 제품 변경 시 동일성 확인(311만 원, 3일 소요) 또는 재시험이 필요하다.</li>
       </ol>
 
-      <h3>보안기능확인서 비용과 유효기간</h3>
+      <h3>NVR/VMS 보안기능확인서 비용과 유효기간</h3>
 
-      <p>시험 비용은 제품 유형에 따라 다르다. <a href="https://m.boannews.com/html/detail.html?idx=129447" target="_blank" rel="noopener">보안뉴스 보도</a>에 따르면 IP카메라는 1,490만 원, 저장/관리 제품은 1,630만 원 수준이며, 중소기업에는 20% 할인이 적용된다. 동일성 확인은 311만 원(3일 소요)이다.</p>
-
-      <p>유효기간은 적용 기준에 따라 달라진다. 보안요구사항 V3.0 적용 시 5년, 기본 보안요구사항(V2.0) 적용 시 2년이다. V3.0 기준으로 인증받는 것이 유효기간 측면에서 유리하다.</p>
-
-      <h3>CC인증과 보안기능확인서의 차이점 비교</h3>
+      <p><a href="https://m.boannews.com/html/detail.html?idx=129447" target="_blank" rel="noopener">보안뉴스 보도</a>에 따르면 시험 비용은 제품 유형에 따라 다르다.</p>
 
       <table>
         <thead>
-          <tr>
-            <th>구분</th>
-            <th>CC인증</th>
-            <th>보안기능확인서</th>
-          </tr>
+          <tr><th>구분</th><th>비용</th><th>비고</th></tr>
         </thead>
         <tbody>
-          <tr>
-            <td><strong>대상</strong></td>
-            <td>침입차단시스템 등 21종 정보보호제품</td>
-            <td>네트워크 장비, S/W 보안USB, 자료유출방지 등</td>
-          </tr>
-          <tr>
-            <td><strong>국제 인정</strong></td>
-            <td>CCRA 회원국 상호인정</td>
-            <td>국내 한정</td>
-          </tr>
-          <tr>
-            <td><strong>평가 기간</strong></td>
-            <td>수개월~1년 이상</td>
-            <td>약 30일 (시험 기간)</td>
-          </tr>
-          <tr>
-            <td><strong>유효기간</strong></td>
-            <td>신규 5년, 기존 3년</td>
-            <td>V3.0 적용 시 5년, V2.0 적용 시 2년</td>
-          </tr>
-          <tr>
-            <td><strong>비용</strong></td>
-            <td>상대적으로 높음</td>
-            <td>상대적으로 낮음</td>
-          </tr>
-          <tr>
-            <td><strong>KCMVP 필수</strong></td>
-            <td>VPN, S/W 보안USB, 호스트 자료유출방지 3종</td>
-            <td>해당 제품 동일 적용</td>
-          </tr>
+          <tr><td>IP카메라</td><td>1,490만 원</td><td>중소기업 20% 할인 적용 가능</td></tr>
+          <tr><td>NVR/VMS (저장 · 관리 제품)</td><td>1,630만 원</td><td>중소기업 20% 할인 적용 가능</td></tr>
+          <tr><td>동일성 확인</td><td>311만 원</td><td>3일 소요, 제품 변경 시</td></tr>
         </tbody>
       </table>
 
-      <p>자사 제품이 CC인증 대상인지 보안기능확인서 대상인지를 먼저 확인하는 것이 인증 전략 수립의 출발점이다. <a href="https://www.kisia.or.kr/industry_support/security_compatibility_check_info/" target="_blank" rel="noopener">KISIA 보안적합성 검증 안내 페이지</a>에서 제품군별 인증 유형을 확인할 수 있다.</p>
+      <p>유효기간은 보안요구사항 V3.0 적용 시 <strong>5년</strong>, 기본 보안요구사항(V2.0) 적용 시 2년이다. V3.0 기준으로 인증받는 것이 유효기간 측면에서 절대적으로 유리하다.</p>
 
-      <h2>보안요구사항 V3.0 인증을 위한 6대 필수 기술 요소</h2>
-
-      <p>보안요구사항 V3.0 인증을 통과하려면 제품에 다음 기술 요소를 구현해야 한다. 단순히 기능을 갖추는 것이 아니라, 요구사항에서 정의한 수준으로 구현해야 한다는 점이 중요하다.</p>
-
-      <h3>1. KCMVP 검증필 암호모듈과 국내 검증 대상 알고리즘</h3>
-
-      <p>암호 기술은 보안요구사항 V3.0 인증의 가장 기술적으로 까다로운 영역이다.</p>
-
-      <ul>
-        <li><strong>KCMVP 검증필 암호모듈 탑재</strong>: VPN, 보안USB, 자료유출방지 제품은 필수다. <a href="https://seed.kisa.or.kr/kisa/kcmvp/EgovSummary.do" target="_blank" rel="noopener">KCMVP</a>는 KS X ISO/IEC 19790:2015 표준을 기반으로 1~4등급(4등급이 최고)의 보안 수준을 검증한다. 현재 약 200여 개 제품이 <a href="https://nis.go.kr/AF/1_7_3_3/list.do" target="_blank" rel="noopener">검증필 목록</a>에 등재되어 있다.</li>
-        <li><strong>국내 검증 대상 알고리즘</strong>: ARIA, SEED(블록암호), SHA-2(해시), HMAC(메시지 인증), CTR_DRBG(난수 발생), ECDSA(전자서명), ECDH(키 설정), KBKDF(키 유도)</li>
-        <li><strong>주의사항</strong>: DES와 AES는 KCMVP 검증 대상이 아니다. 국제적으로 널리 쓰이는 AES라도 국내 공공기관 납품용에는 ARIA 또는 SEED를 사용해야 한다.</li>
-        <li><strong>전송 프로토콜</strong>: TLS 1.2 이상, SSH 등 안전한 전송 프로토콜 구현 필수</li>
-        <li><strong>로그 전송</strong>: syslog over TLS/DTLS 지원 필수</li>
-      </ul>
-
-      <h3>2. 식별/인증 기술</h3>
-
-      <ul>
-        <li>계정/패스워드 기반 인증 시스템 구현</li>
-        <li>다중 인증(MFA) 기능: FIDO, OTP, 인증서 기반 인증 지원</li>
-        <li>인증 실패 대응 메커니즘: 연속 5회 이하 실패 시 계정 잠금, 5분 이상 잠금 유지</li>
-        <li>패스워드 복잡도 정책 엔진: 연속 문자/숫자 제한, 최소 길이, 특수문자 포함 등</li>
-      </ul>
-
-      <h3>3. 접근통제 기술</h3>
-
-      <ul>
-        <li>역할 기반 접근통제(RBAC) 엔진: 관리자, 운용자, 감사자 등 역할별 권한 분리</li>
-        <li>외부 디렉토리 서비스 연동: Active Directory, LDAP 등과의 통합 (V3.0 R1부터 허용)</li>
-        <li>최소 권한 원칙 적용</li>
-      </ul>
-
-      <h3>4. 감사/로깅 기술</h3>
-
-      <ul>
-        <li>보안 이벤트 로깅 시스템: 접근, 정책 변경, 보안사건 등 기록</li>
-        <li>감사 기록 무결성 보장 메커니즘</li>
-        <li>외부 로그 서버 연동 (syslog over TLS)</li>
-        <li>감사 데이터 백업 및 아카이빙 기능</li>
-      </ul>
-
-      <h3>5. 자체보호 기술</h3>
-
-      <ul>
-        <li>TSF(보안 기능) 무결성 검증</li>
-        <li>영역 분리(Domain Separation): 보안 기능과 일반 기능의 분리</li>
-        <li>우회 불가(Non-bypassability) 메커니즘: 보안 기능을 우회할 수 없도록 설계</li>
-        <li>안전한 부팅(Secure Boot) 지원</li>
-      </ul>
-
-      <h3>6. 랜섬웨어 대응 기술 (해당 제품군)</h3>
-
-      <p>랜섬웨어 대응 제품으로 보안기능확인서를 받으려면 다음 기능이 필요하다.</p>
-
-      <ul>
-        <li>행위 기반 탐지 엔진: 파일 암호화 패턴, 대량 파일 변경 등 비정상 행위 탐지</li>
-        <li>실시간 감시 및 알림 시스템</li>
-        <li>파일 복구/롤백 메커니즘</li>
-        <li>데이터 보호(백업/격리) 기능</li>
-      </ul>
-
-      <h2>보안요구사항 V2.0에서 V3.0으로 무엇이 달라졌나</h2>
-
-      <p>V3.0은 단순한 버전 업데이트가 아니다. 변화하는 보안 환경을 반영한 실질적인 개정이다. 핵심 변경사항을 정리하면 다음과 같다.</p>
+      <h3>CC인증과 보안기능확인서 비교 — NVR/VMS는 어디에 해당하는가</h3>
 
       <table>
         <thead>
-          <tr>
-            <th>항목</th>
-            <th>V2.0</th>
-            <th>V3.0</th>
-          </tr>
+          <tr><th>구분</th><th>CC인증</th><th>보안기능확인서</th></tr>
         </thead>
         <tbody>
-          <tr>
-            <td><strong>접근통제</strong></td>
-            <td>제품 자체 구현만 허용</td>
-            <td>외부 디렉토리 서비스(AD 등) 활용 허용</td>
-          </tr>
-          <tr>
-            <td><strong>패스워드 정책</strong></td>
-            <td>순차 입력 금지 기준 모호</td>
-            <td>"좌우로 연속한 문자/숫자 4개 이상" 명확화</td>
-          </tr>
-          <tr>
-            <td><strong>전송 데이터 보호</strong></td>
-            <td>기본 암호화 요구</td>
-            <td>syslog over TLS/DTLS 명시적 요구 추가</td>
-          </tr>
-          <tr>
-            <td><strong>제품군</strong></td>
-            <td>기존 제품군</td>
-            <td>랜섬웨어 대응, 영상정보처리기기, 양자암호통신장비 신규 추가</td>
-          </tr>
-          <tr>
-            <td><strong>보안기능확인서 유효기간</strong></td>
-            <td>2년</td>
-            <td>V3.0 적용 시 5년으로 확대</td>
-          </tr>
-          <tr>
-            <td><strong>가상화 관리</strong></td>
-            <td>자체 접근통제만 인정</td>
-            <td>외부 IT실체의 접근통제 기능 활용 가능</td>
-          </tr>
-          <tr>
-            <td><strong>영상보안</strong></td>
-            <td>미포함</td>
-            <td>IP카메라/NVR/VMS 보안적합성 검증 시행</td>
-          </tr>
+          <tr><td><strong>대상</strong></td><td>침입차단시스템 등 21종 정보보호제품</td><td>네트워크 장비, <strong>NVR/VMS</strong>, IP카메라 등</td></tr>
+          <tr><td><strong>국제 인정</strong></td><td>CCRA 회원국 상호인정</td><td>국내 한정</td></tr>
+          <tr><td><strong>평가 기간</strong></td><td>수개월~1년 이상</td><td>약 30일 (시험 기간)</td></tr>
+          <tr><td><strong>유효기간</strong></td><td>신규 5년, 기존 3년</td><td>V3.0 적용 시 5년, V2.0 적용 시 2년</td></tr>
+          <tr><td><strong>비용</strong></td><td>상대적으로 높음</td><td>NVR/VMS 기준 1,630만 원</td></tr>
+          <tr><td><strong>NVR/VMS 해당</strong></td><td>✕</td><td><strong>✓</strong></td></tr>
         </tbody>
       </table>
 
-      <h3>V3.0 개정의 배경</h3>
+      <p>NVR/VMS 제조사는 보안기능확인서 경로로 인증을 추진해야 한다. <a href="https://www.kisia.or.kr/industry_support/security_compatibility_check_info/" target="_blank" rel="noopener">KISIA 보안적합성 검증 안내 페이지</a>에서 제품군별 인증 유형을 확인할 수 있다.</p>
 
-      <p>이런 변화에는 분명한 이유가 있다.</p>
+      <h2>NVR/VMS 인증을 위한 필수 기술 구현 사항</h2>
+
+      <p>보안요구사항 V3.0 인증을 통과하려면 단순히 기능을 갖추는 것이 아니라, 요구사항에서 정의한 수준으로 구현해야 한다. NVR/VMS 제품 개발 시 중점적으로 구현해야 할 기술 요소를 정리한다.</p>
+
+      <h3>1. 영상 전송 구간 암호화</h3>
 
       <ul>
-        <li><strong>클라우드/가상화 환경의 보편화</strong>: 대부분의 기업이 Active Directory 같은 외부 디렉토리 서비스를 사용하는 현실을 반영했다. 제품마다 독립적인 접근통제를 구현하도록 강제하는 것은 비효율적이었다.</li>
-        <li><strong>랜섬웨어 공격 급증</strong>: 공공기관을 겨냥한 랜섬웨어 공격이 늘면서, 전용 대응 제품에 대한 체계적인 인증 기준이 필요해졌다.</li>
-        <li><strong>영상보안 위협 증가</strong>: <a href="https://zdnet.co.kr/view/?no=20240328101353" target="_blank" rel="noopener">중국산 CCTV의 해킹과 백도어 위협</a>이 부각되면서 2024년 4월부터 영상정보처리기기에 대한 보안적합성 검증이 의무화되었다.</li>
-        <li><strong>양자 컴퓨팅 대비</strong>: 양자 컴퓨터가 기존 암호 체계를 위협할 수 있다는 전망에 따라, 양자암호통신장비가 신규 제품군으로 추가되었다.</li>
+        <li>IP카메라 → NVR 구간: RTSP over TLS 또는 SRTP 적용</li>
+        <li>NVR/VMS → 클라이언트 구간: HTTPS(TLS 1.2 이상) 필수</li>
+        <li>NVR → VMS 연동 구간: 암호화된 API 통신</li>
+        <li>국내 검증 대상 알고리즘(ARIA, SEED) 기반 구현 필수</li>
       </ul>
 
-      <h2>실무자를 위한 보안적합성 검증 인증 전략 체크리스트</h2>
+      <h3>2. 녹화 영상 무결성 보장</h3>
 
-      <p>인증 준비를 시작하는 실무자를 위해 핵심 체크리스트를 정리한다.</p>
+      <ul>
+        <li>녹화 파일에 대한 해시값(SHA-256) 생성 및 검증 기능</li>
+        <li>영상 내보내기 시 워터마크 또는 전자서명 삽입</li>
+        <li>녹화 데이터의 무단 삭제 방지 메커니즘</li>
+      </ul>
+
+      <h3>3. 사용자 인증 및 접근통제 체계</h3>
+
+      <ul>
+        <li>RBAC 기반 카메라/채널 단위 접근통제</li>
+        <li>초기 패스워드 변경 강제 — 출고 상태 기본 계정 사용 차단</li>
+        <li>연속 인증 실패 시 자동 잠금 (5회/5분)</li>
+        <li>ONVIF 프로토콜 인증 보안 강화</li>
+      </ul>
+
+      <h3>4. 감사 로깅 및 중앙 관리</h3>
+
+      <ul>
+        <li>영상 재생/다운로드/삭제 이력 전수 기록</li>
+        <li>syslog over TLS를 통한 외부 SIEM 연동</li>
+        <li>감사 로그 위변조 방지 및 장기 보관</li>
+      </ul>
+
+      <h3>5. 자체보호 및 펌웨어 보안</h3>
+
+      <ul>
+        <li>NVR: Secure Boot 지원, 펌웨어 서명 검증</li>
+        <li>VMS: 설치 파일 무결성 검증, OS 보안 연계</li>
+        <li>보안 기능 우회 불가 설계 — HDD 직접 접근으로 영상 탈취 방지</li>
+      </ul>
+
+      <h2>NVR/VMS 제조사를 위한 인증 준비 체크리스트</h2>
+
+      <p>인증 준비를 시작하는 NVR/VMS 제조사 실무자를 위해 핵심 체크리스트를 정리한다.</p>
 
       <h3>사전 점검</h3>
 
       <ul>
-        <li>자사 제품의 제품군 분류 확인 (34종 중 해당 제품군 파악)</li>
-        <li>CC인증 대상인지, 보안기능확인서 대상인지 확인</li>
-        <li>KCMVP 검증필 암호모듈 탑재 필요 여부 확인 (VPN, 보안USB, 자료유출방지)</li>
+        <li>자사 제품이 NVR인지 VMS인지, 또는 통합 제품인지 명확히 분류</li>
+        <li>보안기능확인서 대상임을 확인 (CC인증 대상이 아님)</li>
+        <li>공통보안요구사항(서버) + 영상정보처리기기 제품별 요구사항 확보</li>
+        <li>인증 대상 제품의 하드웨어/소프트웨어 버전 확정</li>
       </ul>
 
-      <h3>기술 준비</h3>
+      <h3>기술 구현</h3>
 
       <ul>
-        <li>ARIA/SEED 기반 암호화 구현 (AES가 아닌 국내 검증 대상 알고리즘)</li>
-        <li>TLS 1.2 이상 전송 프로토콜 지원</li>
+        <li>ARIA/SEED 기반 영상 전송 암호화 구현 (AES 아님)</li>
+        <li>TLS 1.2 이상 — 관리 콘솔, API, 영상 전송 전 구간</li>
         <li>syslog over TLS/DTLS 연동 구현</li>
-        <li>RBAC 기반 접근통제 및 역할 분리</li>
-        <li>인증 실패 대응 메커니즘 (5회 잠금, 5분 대기)</li>
-        <li>감사 기록 및 외부 로그 서버 연동</li>
+        <li>RBAC 기반 접근통제 — 관리자/운용자/감사자 역할 분리</li>
+        <li>카메라/채널 단위 접근통제</li>
+        <li>초기 패스워드 변경 강제</li>
+        <li>인증 실패 대응 (5회 잠금, 5분 대기)</li>
+        <li>녹화 영상 무결성 검증 (해시/워터마크)</li>
+        <li>영상 반출 통제 및 이력 관리</li>
+        <li>감사 기록 — 접근, 재생, 다운로드, 설정 변경 전수 기록</li>
+        <li>자체보호 — Secure Boot(NVR), 펌웨어 서명 검증</li>
       </ul>
 
-      <h3>문서 준비 (보안기능확인서 기준)</h3>
+      <h3>문서 준비</h3>
 
       <ul>
-        <li>제품설명서</li>
-        <li>보안기능 구현명세서</li>
-        <li>보안기능 운용설명서</li>
-        <li>시험결과서</li>
-        <li>취약점 개선 내역서</li>
+        <li>제품설명서 — 하드웨어 사양, 소프트웨어 구성, 지원 프로토콜</li>
+        <li>보안기능 구현명세서 — 7대 보안기능별 구현 방법 상세 기술</li>
+        <li>보안기능 운용설명서 — 관리자/운용자 매뉴얼</li>
+        <li>시험결과서 — 자체 보안기능 테스트 결과</li>
+        <li>취약점 개선 내역서 — CVE 대응 내역 포함</li>
       </ul>
 
       <h3>일정 및 비용 계획</h3>
 
       <ul>
         <li>보안기능 시험 기간: 약 30일</li>
-        <li>시험 비용: 제품 유형별 1,490만~1,630만 원 (중소기업 20% 할인)</li>
-        <li>CC인증의 경우 수개월~1년 이상 소요 가능</li>
+        <li>시험 비용: NVR/VMS 기준 1,630만 원 (중소기업 20% 할인 가능)</li>
+        <li>동일성 확인(제품 변경 시): 311만 원 / 3일</li>
+        <li>사전 컨설팅 기간: 제품 상태에 따라 3~6개월 기술 보완 필요 가능</li>
       </ul>
 
-      <h2>국정원 보안요구사항과 보안 인증의 앞으로의 전망</h2>
+      <h2>V2.0에서 V3.0으로의 전환 — NVR/VMS 관점에서 달라진 점</h2>
 
-      <p>보안 인증 환경은 계속 변화하고 있다. 몇 가지 흐름을 주목할 필요가 있다.</p>
+      <table>
+        <thead>
+          <tr><th>항목</th><th>V2.0</th><th>V3.0</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>영상보안 제품</strong></td><td>미포함</td><td>IP카메라/NVR/VMS 보안적합성 검증 시행</td></tr>
+          <tr><td><strong>접근통제</strong></td><td>제품 자체 구현만 허용</td><td>외부 디렉토리 서비스(AD 등) 활용 허용</td></tr>
+          <tr><td><strong>전송 데이터 보호</strong></td><td>기본 암호화 요구</td><td>syslog over TLS/DTLS 명시적 요구 추가</td></tr>
+          <tr><td><strong>보안기능확인서 유효기간</strong></td><td>2년</td><td>V3.0 적용 시 5년으로 확대</td></tr>
+          <tr><td><strong>패스워드 정책</strong></td><td>기준 모호</td><td>"좌우로 연속한 문자/숫자 4개 이상" 명확화</td></tr>
+        </tbody>
+      </table>
+
+      <p>NVR/VMS 제조사에게 가장 중요한 변화는 명확하다. <strong>V2.0에서는 인증 대상조차 아니었지만, V3.0에서는 의무 인증 대상이 되었다</strong>는 것이다. V3.0 기준으로 인증받으면 유효기간 5년이라는 이점도 있으므로, 처음부터 V3.0 기준으로 준비하는 것이 합리적이다.</p>
+
+      <h2>앞으로의 전망 — NVR/VMS 보안 인증 시장</h2>
 
       <ul>
         <li><strong>TTA 인증 전환</strong>: 기존 TTA(한국정보통신기술협회) 인증은 2025년 4월부터 신규 신청이 중단되며, 2028년 4월 효력이 소멸된다. 국정원 보안기능확인서 체계로 일원화되는 추세다.</li>
-        <li><strong>보안기능 시험제도 확대</strong>: 2024년 4월 영상정보처리기기를 시작으로, 보안기능 시험 대상 제품군이 점진적으로 확대되고 있다.</li>
-        <li><strong>업계 동향</strong>: <a href="https://m.boannews.com/html/detail.html?idx=129447" target="_blank" rel="noopener">보안뉴스 조사</a>에 따르면 71.4%의 업체가 보안기능확인서 신청을 계획하고 있어, 인증 수요가 폭발적으로 증가할 전망이다.</li>
+        <li><strong>인증 수요 폭발</strong>: 영상보안 제품의 보안적합성 검증이 의무화되면서, NVR/VMS 인증 수요가 급증하고 있다. 시험기관의 대기 기간이 길어질 수 있으므로 조기 신청이 유리하다.</li>
+        <li><strong>요구사항 강화 예상</strong>: 양자암호통신장비가 추가된 것처럼, 영상정보처리기기에 대한 요구사항도 점진적으로 강화될 전망이다. AI 기반 영상분석, 클라우드 VMS 등 신기술에 대한 보안 기준이 추가될 가능성이 높다.</li>
+        <li><strong>공공기관 교체 수요</strong>: 보안적합성 검증을 통과하지 못한 기존 설치 제품의 교체 수요가 발생하면서, 인증을 조기에 취득한 제조사가 시장 선점 기회를 잡게 된다.</li>
       </ul>
 
-      <h2>결론: 보안요구사항 V3.0, 지금 준비해야 하는 이유</h2>
+      <h2>결론: NVR/VMS 제조사, 지금 V3.0 인증을 시작해야 하는 이유</h2>
 
-      <p>국정원 보안요구사항 V3.0은 공공기관 보안 제품 시장의 진입 기준이자, 제품의 보안 수준을 증명하는 공신력 있는 기준이다. 핵심을 정리하면 다음과 같다.</p>
+      <p>국정원 보안요구사항 V3.0은 NVR/VMS 제조사에게 위기이자 기회다. 핵심을 정리하면 다음과 같다.</p>
 
-      <p>첫째, V3.0은 7개 영역의 보안기능 요구사항을 정의하며, 공통(2종)과 제품별(34종) 요구사항으로 구성된다. 둘째, CC인증(21종 대상, 국제 인정)과 보안기능확인서(그 외 제품, 국내 사전인증)로 인증 체계가 이원화되어 있으므로, 자사 제품에 맞는 인증 경로를 선택해야 한다. 셋째, KCMVP 검증필 암호모듈, RBAC, 다중인증, 감사 로깅 등 필수 기술 요소를 정확히 구현해야 한다.</p>
+      <p>첫째, 2024년 4월부터 NVR/VMS는 공공기관 납품 시 보안기능확인서가 의무다. 인증 없이는 시장 진입 자체가 불가능하다. 둘째, NVR/VMS는 보안기능확인서 경로로 인증을 받으며, 시험 기간 약 30일, 비용 1,630만 원 수준이다. V3.0 기준 적용 시 유효기간 5년이라는 이점이 크다. 셋째, ARIA/SEED 기반 암호화, RBAC, 영상 무결성 검증, 감사 로깅 등 핵심 기술 요소를 정확히 구현해야 한다.</p>
 
-      <p>V2.0에서 V3.0으로의 전환은 선택이 아닌 필수다. 보안기능확인서의 유효기간이 V3.0 적용 시 5년으로 늘어난 점만 봐도, 국정원이 V3.0 기준 적용을 강하게 유도하고 있음을 알 수 있다. 지금 인증을 준비하고 있다면, 반드시 V3.0 기준으로 시작하라.</p>
+      <p>인증 수요가 폭발적으로 증가하고 있는 지금, 시험기관 대기 시간은 점점 길어지고 있다. 기술 보완에 3~6개월, 시험에 1개월이 걸린다면, 지금 시작해야 올해 안에 인증을 취득할 수 있다. NVR/VMS 제조사라면, V3.0 인증 준비를 더 이상 미루지 말라.</p>
 
       <h2>참고 자료</h2>
 
@@ -727,15 +616,11 @@
         <li><a href="https://kisia.or.kr/bucket/uploads/2025/04/11/2025-04-11%20%EA%B5%AD%EA%B0%80%EC%9A%A9%20%EB%B3%B4%EC%95%88%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD%20v3.0%20%EA%B8%B0%EB%B0%98%EC%9D%98%20%EA%B5%AD%EB%82%B4%EC%9A%A9%20%EB%B3%B4%EC%95%88%EB%AA%A9%ED%91%9C%EB%AA%85%EC%84%B8%EC%84%9C%20%EC%9E%91%EC%84%B1%20%EA%B0%80%EC%9D%B4%EB%93%9C%20v1.0.pdf" target="_blank" rel="noopener">KISIA - 보안목표명세서 작성 가이드 V1.0</a></li>
         <li><a href="https://m.boannews.com/html/detail.html?idx=129447" target="_blank" rel="noopener">보안뉴스 - 보안기능 시험제도 톺아보기</a></li>
         <li><a href="https://zdnet.co.kr/view/?no=20240328101353" target="_blank" rel="noopener">ZDNet - 국정원 CCTV 보안적합성 검증 시행</a></li>
-        <li><a href="https://www.ksel.co.kr/cc_request.php" target="_blank" rel="noopener">한국아이티평가원(KSEL) - CC평가 절차</a></li>
-        <li><a href="https://www.itscc.kr/" target="_blank" rel="noopener">IT보안인증사무국</a></li>
-        <li><a href="https://www.keypair.co.kr/pages/blog-article1.html" target="_blank" rel="noopener">키페어 - KCMVP 암호모듈 인증</a></li>
-        <li><a href="https://seed.kisa.or.kr/kisa/kcmvp/EgovSummary.do" target="_blank" rel="noopener">KISA 암호이용활성화 - 암호모듈검증</a></li>
-        <li><a href="https://nis.go.kr/AF/1_7_3_3/list.do" target="_blank" rel="noopener">NIS 국가정보원 - 검증필 암호모듈 목록</a></li>
         <li><a href="https://www.kosyas.com/html/security/security01.php" target="_blank" rel="noopener">한국시스템보증(KOSYAS) - 보안기능확인서</a></li>
         <li><a href="https://m.boannews.com/html/detail.html?idx=140969" target="_blank" rel="noopener">보안뉴스 - 2026 보안 시장 백서</a></li>
         <li><a href="https://www.ncsc.go.kr/" target="_blank" rel="noopener">국가사이버안보센터(NCSC)</a></li>
-        <li><a href="https://commoncriteriaportal.org/" target="_blank" rel="noopener">Common Criteria Portal</a></li>
+        <li><a href="https://seed.kisa.or.kr/kisa/kcmvp/EgovSummary.do" target="_blank" rel="noopener">KISA 암호이용활성화 - 암호모듈검증</a></li>
+        <li><a href="https://nis.go.kr/AF/1_7_3_3/list.do" target="_blank" rel="noopener">NIS 국가정보원 - 검증필 암호모듈 목록</a></li>
       </ul>
 
     </article>
