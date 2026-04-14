@@ -14,13 +14,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Agentic AI NVR이란? AI NVR과의 결정적 차이 - YIYOL Blog</title>
 
-  <meta name="description" content="AI NVR과 Agentic AI NVR은 무엇이 다른가? 단순 감지에서 자율 실행으로 — 영상감시 AI 진화의 3단계와 NOX NVR이 Agentic AI를 어떻게 구현하는지 설명합니다." />
-  <meta name="keywords" content="Agentic AI NVR,AI NVR 차이,영상감시 AI,자율 AI 보안,NOX NVR,WebHook NVR,Agentic AI 영상감시,VMS 자동화,AI NVR,영상보안" />
+  <meta name="description" content="AI NVR과 Agentic AI NVR은 무엇이 다른가? 단순 감지에서 자율 실행으로 — 영상감시 AI 진화의 3단계와 NOX NVR이 LLM 기반 Agent로 비정형 이벤트까지 인식·실행하는 방법을 설명합니다." />
+  <meta name="keywords" content="Agentic AI NVR,AI NVR 차이,영상감시 AI,자율 AI 보안,NOX NVR,WebHook NVR,Agentic AI 영상감시,VMS 자동화,LLM NVR,비정형 이벤트 감지,LLM 영상보안" />
 
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://yiyol.com/blog/agentic-ai-nvr-vs-ai-nvr-difference.html" />
   <meta property="og:title" content="Agentic AI NVR이란? AI NVR과의 결정적 차이 — YIYOL" />
-  <meta property="og:description" content="AI NVR과 Agentic AI NVR은 무엇이 다른가? 단순 감지에서 자율 실행으로 — 영상감시 AI 진화의 3단계와 NOX NVR이 Agentic AI를 어떻게 구현하는지 설명합니다." />
+  <meta property="og:description" content="AI NVR과 Agentic AI NVR은 무엇이 다른가? 단순 감지에서 자율 실행으로 — 영상감시 AI 진화의 3단계와 NOX NVR이 LLM 기반 Agent로 비정형 이벤트까지 인식·실행하는 방법을 설명합니다." />
   <meta property="og:site_name" content="YIYOL" />
 
   <link rel="canonical" href="https://yiyol.com/blog/agentic-ai-nvr-vs-ai-nvr-difference.html" />
@@ -267,6 +267,7 @@
           <span class="post-tag">영상감시</span>
           <span class="post-tag">보안솔루션</span>
           <span class="post-tag">WebHook</span>
+          <span class="post-tag">LLM</span>
         </div>
       </div>
     </div>
@@ -321,6 +322,11 @@
             <td><strong>AI의 역할</strong></td>
             <td>감지 + 분류</td>
             <td>감지 + 판단 + 실행</td>
+          </tr>
+          <tr>
+            <td><strong>이벤트 인식 범위</strong></td>
+            <td>사전 정의된 정형 이벤트</td>
+            <td>LLM으로 비정형 상황까지 인식</td>
           </tr>
           <tr>
             <td><strong>외부 시스템 연동</strong></td>
@@ -379,6 +385,41 @@
       <p>이것이 왜 중요한가? <strong>기존 시스템에 NOX를 통합</strong>할 수 있기 때문이다. 건물 관리 시스템(BMS), 출입통제 시스템, ERP — NOX는 이 시스템들의 센서 데이터 소스가 된다.</p>
 
       <p>중국산 NVR 벤더들이 폐쇄적인 생태계를 유지하는 이유가 여기 있다. API를 열면 교체하기 쉬워진다. NOX는 반대 방향을 선택했다. API를 열어서 통합을 쉽게 만들고, 고객이 떠나지 않는 이유를 통합 가치에서 찾는다.</p>
+
+      <h3>LLM Agent: 비정형 이벤트를 이해하는 AI</h3>
+
+      <p>기존 AI NVR은 <strong>정형 이벤트</strong>만 처리한다. "사람이 감지됨", "번호판 12가3456 인식", "라인 크로싱 발생" — 미리 정의된 카테고리에 맞는 상황만 인식할 수 있다.</p>
+
+      <p>현실의 보안 이벤트는 훨씬 복잡하다. "손님이 계산대 앞에서 오랫동안 서성이고 있다", "주차장에서 사람이 쓰러져 있는 것 같다", "야간에 특정 구역에 사람이 반복적으로 접근하고 있다" — 이런 <strong>비정형 상황</strong>은 규칙 기반 AI로는 감지가 불가능하다.</p>
+
+      <p>NOX NVR은 여기서 LLM(대형 언어 모델) 기반 Agent를 도입하고 있다.</p>
+
+      <p><strong>작동 방식:</strong></p>
+
+      <pre><code>[카메라 영상 프레임]
+       ↓
+[NOX Vision Agent]
+ - 장면 분석 (Object Detection + Scene Understanding)
+ - LLM에게 맥락 전달: "입구 카메라, 오후 11시, 후드 착용 남성이
+   15분째 출입구 주변을 배회 중, 3회 접근 시도"
+       ↓
+[LLM 상황 판단]
+ → "비정상적인 배회 패턴 — 보안 알림 발송 권장"
+       ↓
+[자동 액션 실행]
+ → 보안 담당자 긴급 알림 + 영상 클립 첨부 + 경비 호출</code></pre>
+
+      <p>LLM은 사전에 정의되지 않은 상황도 자연어로 해석하고, 그 판단에 따라 적절한 액션을 트리거한다. "규칙을 작성하지 않아도 이해하는 AI"가 영상감시 현장에 투입되는 것이다.</p>
+
+      <p><strong>NOX LLM Agent의 강점:</strong></p>
+      <ul>
+        <li><strong>오픈 감지 범위:</strong> 사전 정의 없이 새로운 상황 유형을 즉시 인식</li>
+        <li><strong>맥락 이해:</strong> 단순 객체 감지를 넘어 시간, 장소, 행동 패턴의 복합적 의미를 판단</li>
+        <li><strong>자연어 알림:</strong> "카메라 3번에서 침입자 감지" 대신 "남성 2명이 후문을 통해 무단 침입, 현재 창고 방향으로 이동 중"</li>
+        <li><strong>Agentic 실행:</strong> 판단 이후 WebHook, API 호출을 통한 자동 대응까지 연결</li>
+      </ul>
+
+      <p>이것이 NOX가 단순한 AI NVR이 아닌 <strong>Agentic AI NVR</strong>인 이유다. 정형 이벤트는 룰 기반으로 빠르게, 비정형 상황은 LLM Agent가 깊이 이해하고 실행한다.</p>
 
       <h2>왜 지금인가 — 시장이 Agentic AI를 요구하는 이유</h2>
 

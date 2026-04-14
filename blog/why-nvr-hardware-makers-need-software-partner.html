@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKJ4GX2KHS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-CKJ4GX2KHS');
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>NVR 하드웨어 제조사가 소프트웨어 파트너를 선택해야 하는 이유 - YIYOL Blog</title>
+
+  <meta name="description" content="좋은 하드웨어를 만드는 것과 팔리게 만드는 것은 전혀 다른 일입니다. NVR 하드웨어 제조사가 소프트웨어 파트너십을 통해 Time-to-Market을 단축하고 개발 비용을 절감하는 전략을 설명합니다." />
+  <meta name="keywords" content="NVR 소프트웨어 파트너십,VMS OEM,NVR 하드웨어 제조사,영상보안 소프트웨어,NOX NVR,ONVIF,AI NVR,총판 우선협상권,POC 프로그램,OEM NVR,AI NVR 개발 비용" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://yiyol.com/blog/why-nvr-hardware-makers-need-software-partner.html" />
+  <meta property="og:title" content="NVR 하드웨어 제조사가 소프트웨어 파트너를 선택해야 하는 이유 — YIYOL" />
+  <meta property="og:description" content="좋은 하드웨어를 만드는 것과 팔리게 만드는 것은 전혀 다른 일입니다. NVR 하드웨어 제조사가 소프트웨어 파트너십을 통해 Time-to-Market을 단축하고 개발 비용을 절감하는 전략을 설명합니다." />
+  <meta property="og:site_name" content="YIYOL" />
+
+  <link rel="canonical" href="https://yiyol.com/blog/why-nvr-hardware-makers-need-software-partner.html" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+  <!-- Fonts & CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+
+  <style>
+    /* Post Hero */
+    .post-hero {
+      padding: 130px 0 50px;
+      background: radial-gradient(circle at top right, #1e293b, #0f172a);
+      color: white;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .post-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%; right: -20%;
+      width: 80%; height: 200%;
+      background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .post-hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .post-breadcrumb {
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+    .post-breadcrumb a {
+      color: #60a5fa;
+      text-decoration: none;
+    }
+    .post-breadcrumb a:hover { text-decoration: underline; }
+    .post-breadcrumb span { color: #64748b; margin: 0 0.4rem; }
+    .post-hero h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+    .post-meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+    .post-meta-date { display: inline-flex; align-items: center; gap: 0.4rem; }
+    .post-meta-date i { font-size: 0.8rem; }
+    .post-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
+    .post-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: #60a5fa;
+      background: rgba(59,130,246,0.15);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    /* Post Content */
+    .post-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 50px 2rem 100px;
+    }
+    .post-article {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: var(--text-color, #1e293b);
+    }
+    .post-article h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-color, #0f172a);
+      margin: 2.5rem 0 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--border-color, #e2e8f0);
+    }
+    .post-article h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--primary-color, #0f172a);
+      margin: 2rem 0 0.75rem;
+    }
+    .post-article p {
+      margin-bottom: 1.2rem;
+    }
+    .post-article a {
+      color: var(--accent-color, #3b82f6);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .post-article a:hover { color: #2563eb; }
+    .post-article ul, .post-article ol {
+      margin: 1rem 0 1.5rem 1.5rem;
+    }
+    .post-article li {
+      margin-bottom: 0.5rem;
+    }
+    .post-article table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.95rem;
+    }
+    .post-article thead th {
+      background: var(--bg-accent, #f8fafc);
+      font-weight: 600;
+      text-align: left;
+      padding: 0.75rem 1rem;
+      border-bottom: 2px solid var(--border-color, #e2e8f0);
+    }
+    .post-article tbody td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border-color, #e2e8f0);
+    }
+    .post-article pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    .post-article code {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.88em;
+    }
+    .post-article :not(pre) > code {
+      background: rgba(59,130,246,0.08);
+      color: #1e40af;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+    }
+    .post-article blockquote {
+      border-left: 4px solid var(--accent-color, #3b82f6);
+      background: var(--bg-accent, #f8fafc);
+      margin: 1.5rem 0;
+      padding: 1rem 1.5rem;
+      border-radius: 0 8px 8px 0;
+      color: var(--text-secondary, #475569);
+    }
+    .post-article blockquote p { margin-bottom: 0; }
+    .post-article hr {
+      border: none;
+      border-top: 1px solid var(--border-color, #e2e8f0);
+      margin: 2rem 0;
+    }
+    .post-article img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin: 1.5rem 0;
+    }
+
+    @media (max-width: 640px) {
+      .post-container { padding: 30px 1rem 60px; }
+      .post-article { font-size: 1rem; }
+      .post-article h2 { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <a href="/" class="logo" aria-label="YIYOL Home">YIYOL</a>
+      <div style="display: flex; align-items: center; gap: 2rem;">
+        <ul class="nav-links">
+          <li>
+            <a href="/#about" class="nav-link">
+              <span class="ko-only">회사 소개</span>
+              <span class="en-only">About</span>
+            </a>
+          </li>
+          <li>
+            <a href="/#products" class="nav-link">
+              <span class="ko-only">제품</span>
+              <span class="en-only">Products</span>
+            </a>
+          </li>
+          <li>
+            <a href="/blog/" class="nav-link" style="color: var(--accent-color);">
+              <span class="ko-only">블로그</span>
+              <span class="en-only">Blog</span>
+            </a>
+          </li>
+          <li>
+            <a href="/#contact" class="nav-link">
+              <span class="ko-only">문의</span>
+              <span class="en-only">Contact</span>
+            </a>
+          </li>
+        </ul>
+        <div class="lang-switch">
+          <button class="lang-selector">
+            <span class="lang-current">한국어</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="lang-dropdown">
+            <a href="#" class="lang-option" data-lang="ko">한국어</a>
+            <a href="#" class="lang-option" data-lang="en">English</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="post-hero">
+    <div class="post-hero-content">
+      <nav class="post-breadcrumb">
+        <a href="/">YIYOL</a><span>›</span><a href="/blog/">블로그</a><span>›</span> 현재 글
+      </nav>
+      <h1>NVR 하드웨어 제조사가 소프트웨어 파트너를 선택해야 하는 이유</h1>
+      <div class="post-meta">
+        <span class="post-meta-date"><i class="far fa-calendar-alt"></i> 2026.04.28</span>
+        <div class="post-tags">
+          <span class="post-tag">NVR</span>
+          <span class="post-tag">VMS</span>
+          <span class="post-tag">하드웨어 파트너십</span>
+          <span class="post-tag">영상보안 소프트웨어</span>
+          <span class="post-tag">B2B</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main -->
+  <main class="post-container">
+    <article class="post-article">
+
+      <p>좋은 하드웨어를 만드는 것과, 그 하드웨어를 팔리게 만드는 것은 전혀 다른 일이다.</p>
+
+      <p>국내 NVR 제조사들은 탁월한 하드웨어 설계 역량을 가지고 있다. 열 설계, EMI 인증, 공급망 최적화 — 이 모든 영역에서 세계 수준의 기술력을 자랑한다. 그런데 왜 영업 현장에서는 중국산 번들 소프트웨어를 탑재한 제품들과 가격 경쟁을 벌이고 있는가?</p>
+
+      <p><strong>소프트웨어가 없으면 하드웨어는 부품에 불과하다.</strong></p>
+
+      <h2>소프트웨어 자체 개발의 현실</h2>
+
+      <p>NVR용 VMS 소프트웨어를 자체 개발하면 다음과 같은 비용이 발생한다:</p>
+
+      <ul>
+        <li><strong>개발 기간:</strong> 최소 18~24개월 (기본 기능 완성 기준)</li>
+        <li><strong>개발 인력:</strong> 백엔드 3명, 프론트엔드 2명, QA 1명 최소 6명</li>
+        <li><strong>연간 유지보수:</strong> 개발 비용의 20~30%</li>
+        <li><strong>보안 인증(국정원 보안기능확인서):</strong> 별도 6~12개월 추가</li>
+      </ul>
+
+      <p>총 초기 투자비용은 최소 5억~10억 원. 그리고 이 비용을 투자해도 결과물이 시장에서 검증된 소프트웨어를 넘어서리라는 보장이 없다.</p>
+
+      <h2>소프트웨어 파트너십이 만드는 차별화</h2>
+
+      <p>NOX NVR을 탑재한 하드웨어는 즉시 다음을 제공할 수 있다:</p>
+
+      <p><strong>1. 즉시 검증된 기능셋</strong></p>
+      <ul>
+        <li>ONVIF Profile S/T/M 범용 호환</li>
+        <li>128채널 동시 스트리밍·녹화</li>
+        <li>AI 분석 (LPR, 침입감지, 라인크로싱, 모션감지)</li>
+        <li>국정원 NIS 보안요구사항 V3.0 준수</li>
+      </ul>
+
+      <p><strong>2. API-First 아키텍처로 빠른 커스터마이징</strong></p>
+
+      <p>하드웨어 브랜드에 맞는 UI 커스터마이징, 특정 수직시장 기능 추가 — NOX는 API 기반으로 설계되어 있어 기존 하드웨어 제어 시스템과의 연동이 수월하다. WebHook을 통한 외부 시스템 연동도 즉시 가능하다.</p>
+
+      <p><strong>3. 총판 우선협상권 혜택</strong></p>
+
+      <p>조기 파트너십을 맺은 하드웨어 제조사는 해당 지역 또는 수직시장에 대한 총판 우선협상권을 받을 수 있다. 경쟁사가 같은 소프트웨어를 탑재하기 전에 시장을 선점하는 기회다.</p>
+
+      <h2>실제 사례: SI 업체의 선택 기준</h2>
+
+      <p>대형 SI 업체의 구매 담당자들은 이렇게 말한다:</p>
+
+      <blockquote>
+        <p>"하드웨어 스펙은 요즘 비슷비슷해요. 우리가 보는 건 소프트웨어 완성도, 유지보수 지원, 그리고 AI 기능입니다. 그 기준에서 탈락하면 가격이 아무리 낮아도 소용없어요."</p>
+      </blockquote>
+
+      <p>공공기관 납품에서는 더욱 명확하다. 국정원 보안기능확인서가 없으면 입찰 자체가 불가능하다. 자체 소프트웨어로 이 인증을 받으려면 최소 1년이 더 걸린다.</p>
+
+      <h2>결론: 핵심 역량에 집중하라</h2>
+
+      <p>하드웨어 제조사의 핵심 역량은 하드웨어에 있다. 소프트웨어 개발팀을 꾸려 5년을 투자하는 것보다, 검증된 소프트웨어 파트너와 6개월 안에 시장에 진입하는 것이 더 나은 전략이다.</p>
+
+      <p><strong>"하드웨어는 너희가 만들어. 소프트웨어는 우리가 공급해 줄게."</strong></p>
+
+      <p>NOX NVR은 파트너사의 하드웨어에 탑재되어 즉시 판매 가능한 제품으로 만들어 드립니다. POC 프로그램을 통해 실제 하드웨어에서 30일 무료로 검증해 보세요.</p>
+
+      <hr />
+
+      <p><em>NOX NVR 파트너십 및 POC 프로그램 문의: <a href="https://yiyolcorp.github.io" target="_blank" rel="noopener">yiyolcorp.github.io</a></em></p>
+
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-info">
+      <span class="ko-only">서울특별시 금천구 가산디지털2로 136, 704-4호</span>
+      <span class="en-only">#704-4, 136 Gasan Digital 2ro, Geumcheon-gu, Seoul</span>
+      <span class="footer-divider">|</span>
+      <span>yiyol@yiyol.com</span>
+    </div>
+    <p class="footer-copyright">&copy; 2026 YIYOL. All rights reserved.</p>
+  </footer>
+
+  <script src="/assets/js/i18n.js"></script>
+</body>
+</html>
