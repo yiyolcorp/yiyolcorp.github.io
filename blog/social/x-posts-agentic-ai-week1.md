@@ -25,17 +25,19 @@ status: ready
 
 ## Post 2 (2026-04-16, 수요일)
 
-> 🧵 AI NVR vs Agentic AI NVR, 무엇이 다른가
+> 🧵 AI NVR vs Agentic AI NVR, 결정적 차이
 >
-> ❌ AI NVR: 침입 감지 → "사람이 들어왔습니다" 알림 → 보안 담당자가 대응
+> ❌ AI NVR: 사전 정의된 이벤트만 인식 + 알림 → 사람이 대응
 >
-> ✅ Agentic AI NVR: 침입 감지 → 경보 자동 발령 → 관련 부서 알림 → 이벤트 기록 → 완료
+> ✅ Agentic AI NVR:
+> - 정형 이벤트 → 룰 기반 즉시 실행
+> - 비정형 상황 → LLM Agent가 맥락 이해 후 자동 실행
 >
-> 차이는 "알리는 것"과 "실행하는 것"입니다.
+> "야간에 누군가 배회 중" — 규칙으로 못 잡는 상황을 LLM이 판단하고 경비를 호출합니다.
 >
-> 2026년, 영상감시 AI는 3세대로 넘어가고 있습니다.
+> 2026년, 영상감시 AI는 LLM으로 한 단계 더 진화했습니다.
 >
-> #AgenticAI #NVR #AI보안 #영상감시 #스마트빌딩
+> #AgenticAI #LLM #NVR #AI보안 #영상감시
 
 ---
 
@@ -77,13 +79,13 @@ status: ready
 
 ## Post 5 (2026-04-23, 수요일) — WebHook 활용 예시
 
-> 주차장 자동화를 코드 한 줄 없이 구현하는 방법:
+> 주차장 자동화를 코드로 구현하는 방법:
 >
 > NOX NVR WebHook 설정 → 번호판 인식 이벤트 → 주차 서버에 자동 POST → 차단기 API 호출
 >
-> No-code로 완전 자동화. 이게 Agentic AI입니다.
+> Python/Node.js 100줄 미만으로 완성. 이게 Agentic AI입니다.
 >
-> 다음 블로그: "WebHook으로 구현하는 Agentic AI: 주차장 자동화 완전 구축 가이드"
+> 👉 실전 구축 가이드: https://yiyol.com/blog/webhook-agentic-ai-parking-automation-guide.html
 >
 > #AgenticAI #WebHook #주차자동화 #LPR #NVR
 
@@ -106,3 +108,55 @@ status: ready
 > 개발 5년을 단축할 수 있습니다.
 >
 > #AgenticAI #NVR #OEM #하드웨어제조사 #보안솔루션
+
+---
+
+# X (Twitter) 포스트 — Week 3 (2026-04-28~05-02)
+
+## Post 7 (2026-04-28, 월요일) — Blog 3 발행 연동
+
+> NVR 하드웨어를 잘 만든다고 팔리지는 않습니다.
+>
+> "좋은 제품"과 "팔리는 제품" 사이의 차이:
+>
+> ❌ 자체 개발: 4~5년, 수십억, 전담팀
+> ✅ NOX 파트너십: 30일 POC → 즉시 시장 출시
+>
+> NVR 하드웨어 제조사가 소프트웨어 파트너를 선택해야 하는 이유 👉
+> https://yiyol.com/blog/why-nvr-hardware-makers-need-software-partner.html
+>
+> #AgenticAI #NVR #하드웨어제조사 #B2B #OEM
+
+---
+
+## Post 8 (2026-04-30, 수요일) — POC 집중 캠페인
+
+> NOX NVR 30일 무료 POC 프로그램
+>
+> ✅ Agentic AI NVR 완전 기능 사용
+> ✅ WebHook + REST API + LPR 포함
+> ✅ NIS V3.0 아키텍처
+> ✅ 자체 브랜드 탑재 가능
+>
+> 5년 개발 대신 30일 검증.
+>
+> NVR 하드웨어 제조사, SI 업체 문의: yiyolcorp.github.io
+>
+> #AgenticAI #NVR #POC #30일무료 #보안솔루션
+
+---
+
+## Post 9 (2026-05-02, 금요일) — 시리즈 마무리 + 전체 링크
+
+> 📚 Agentic AI NVR 시리즈 정리
+>
+> 1편: AI NVR vs Agentic AI NVR — 무엇이 다른가
+> 👉 https://yiyol.com/blog/agentic-ai-nvr-vs-ai-nvr-difference.html
+>
+> 2편: WebHook으로 주차장 자동화 구현하기
+> 👉 https://yiyol.com/blog/webhook-agentic-ai-parking-automation-guide.html
+>
+> 3편: 하드웨어 제조사가 파트너십을 선택해야 하는 이유
+> 👉 https://yiyol.com/blog/why-nvr-hardware-makers-need-software-partner.html
+>
+> #AgenticAI #NVR #영상감시 #보안솔루션 #AIoT
