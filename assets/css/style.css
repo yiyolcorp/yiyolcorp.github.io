@@ -743,6 +743,198 @@ ul {
   border: 1px solid var(--border-color);
 }
 
+.products-section {
+  max-width: none;
+}
+
+.products-section .showroom-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Show Room Section */
+.showroom-section {
+  background: var(--bg-secondary);
+  padding: 100px 0;
+}
+
+.showroom-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.showroom-video-wrap {
+  max-width: 900px;
+  margin: 0 auto 2rem;
+}
+
+.video-responsive {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+.video-responsive iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 16px;
+}
+
+.showroom-video-caption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.showroom-badge {
+  display: inline-block;
+  padding: 0.35rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  letter-spacing: 0.02em;
+}
+
+.showroom-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.showroom-tags .tag {
+  background: white;
+  color: var(--text-secondary);
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px solid var(--border-color);
+}
+
+.showroom-features {
+  margin-top: 4rem;
+}
+
+.showroom-cta {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+/* Vision Roadmap */
+.vision-roadmap {
+  margin-top: 4rem;
+  padding: 4rem 3rem;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  border-radius: 24px;
+  color: white;
+}
+
+.vision-roadmap-title {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: white;
+}
+
+.vision-roadmap-subtitle {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 3rem;
+  font-size: 1.05rem;
+}
+
+.roadmap-timeline {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.roadmap-step {
+  flex: 1;
+  max-width: 320px;
+  text-align: center;
+  padding: 2rem 1.5rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.roadmap-step:hover {
+  transform: translateY(-6px);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.roadmap-step-badge {
+  display: inline-block;
+  padding: 0.3rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: white;
+}
+
+.roadmap-step-badge.now {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+}
+
+.roadmap-step-badge.soon {
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+}
+
+.roadmap-step-badge.goal {
+  background: linear-gradient(135deg, #10b981, #3b82f6);
+}
+
+.roadmap-step-icon {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  color: #60a5fa;
+}
+
+.roadmap-step h4 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: white;
+}
+
+.roadmap-step p {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.roadmap-arrow {
+  display: flex;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
 /* Social Links in CTA */
 .social-links {
   display: flex;
@@ -844,4 +1036,13 @@ ul {
   .product-showcase-content h3 { font-size: 1.75rem; }
   .cta-buttons { flex-direction: column; }
   .social-links { gap: 0.75rem; }
+
+  .showroom-section { padding: 60px 0; }
+  .showroom-video-caption { flex-direction: column; gap: 0.75rem; }
+  .showroom-tags { justify-content: center; }
+  .roadmap-timeline { flex-direction: column; align-items: center; }
+  .roadmap-step { max-width: 100%; }
+  .roadmap-arrow { transform: rotate(90deg); padding: 0.5rem 0; }
+  .vision-roadmap { padding: 2.5rem 1.5rem; }
+  .vision-roadmap-title { font-size: 1.4rem; }
 }

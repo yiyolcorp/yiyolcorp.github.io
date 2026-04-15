@@ -191,6 +191,12 @@
               </a>
             </li>
             <li>
+              <a href="#showroom" class="nav-link">
+                <span class="ko-only">쇼룸</span>
+                <span class="en-only">Show Room</span>
+              </a>
+            </li>
+            <li>
               <a href="#products" class="nav-link">
                 <span class="ko-only">제품</span>
                 <span class="en-only">Products</span>
@@ -323,9 +329,151 @@
           </div>
         </div>
       </section>
+    </main>
 
-      <!-- Products Section -->
-      <section class="section" id="products">
+    <!-- Show Room Section (full-width, outside main) -->
+    <section class="showroom-section" id="showroom">
+      <div class="showroom-inner">
+        <h2 class="section-title animate-on-scroll ko-only">AI 쇼룸</h2>
+        <h2 class="section-title animate-on-scroll en-only">AI Show Room</h2>
+        <p class="section-subtitle animate-on-scroll ko-only">
+          AI 영상 분석부터 완전 자동화 관제까지 — NOX가 그리는 AI 관제의 미래를 확인하세요
+        </p>
+        <p class="section-subtitle animate-on-scroll en-only">
+          From AI video analytics to fully automated surveillance — discover the future of AI-powered security with NOX
+        </p>
+
+        <!-- Video Showcase -->
+        <div class="showroom-video-wrap animate-on-scroll">
+          <div class="video-responsive">
+            <iframe
+              src="https://www.youtube.com/embed/Sp9hwsLvOB0?rel=0&modestbranding=1"
+              title="NOX Vision AI Demo"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+          </div>
+          <div class="showroom-video-caption">
+            <span class="showroom-badge">Vision AI Demo</span>
+            <div class="showroom-tags">
+              <span class="tag">Motion Detection</span>
+              <span class="tag">Line Crossing</span>
+              <span class="tag">Intrusion Detection</span>
+              <span class="tag">Real-time AI</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature Cards -->
+        <div class="grid grid-3 showroom-features">
+          <div class="card animate-on-scroll">
+            <div class="card-icon">
+              <i class="fas fa-running"></i>
+            </div>
+            <h3 class="ko-only">모션 감지</h3>
+            <h3 class="en-only">Motion Detection</h3>
+            <p class="ko-only">
+              카메라 영역 내 움직임을 실시간으로 감지하고,
+              이벤트 발생 시 즉시 녹화와 알림을 자동 실행합니다.
+            </p>
+            <p class="en-only">
+              Detect movement in real-time within camera zones,
+              with automatic recording and alerts on event triggers.
+            </p>
+          </div>
+
+          <div class="card animate-on-scroll">
+            <div class="card-icon">
+              <i class="fas fa-road"></i>
+            </div>
+            <h3 class="ko-only">라인 크로싱 감지</h3>
+            <h3 class="en-only">Line Crossing Detection</h3>
+            <p class="ko-only">
+              가상 경계선을 설정하고 객체의 방향별 이동을
+              추적하여 정밀한 보안 이벤트를 생성합니다.
+            </p>
+            <p class="en-only">
+              Set virtual boundary lines and track directional movement
+              for precise security event generation.
+            </p>
+          </div>
+
+          <div class="card animate-on-scroll">
+            <div class="card-icon">
+              <i class="fas fa-shield-halved"></i>
+            </div>
+            <h3 class="ko-only">침입 감지</h3>
+            <h3 class="en-only">Intrusion Detection</h3>
+            <p class="ko-only">
+              지정 영역에 객체가 진입하면 즉시 감지하고,
+              무단 침입을 실시간으로 탐지·대응합니다.
+            </p>
+            <p class="en-only">
+              Instantly detect when objects enter designated zones
+              and respond to unauthorized intrusions in real-time.
+            </p>
+          </div>
+        </div>
+
+        <!-- Vision Roadmap -->
+        <div class="vision-roadmap animate-on-scroll">
+          <h3 class="vision-roadmap-title ko-only">NOX AI 로드맵</h3>
+          <h3 class="vision-roadmap-title en-only">NOX AI Roadmap</h3>
+          <p class="vision-roadmap-subtitle ko-only">
+            Agentic AI 기반 완전 자동화 관제센터를 향해 나아갑니다
+          </p>
+          <p class="vision-roadmap-subtitle en-only">
+            Toward a fully automated control center powered by Agentic AI
+          </p>
+
+          <div class="roadmap-timeline">
+            <div class="roadmap-step">
+              <span class="roadmap-step-badge now">Now</span>
+              <div class="roadmap-step-icon"><i class="fas fa-eye"></i></div>
+              <h4>Vision AI</h4>
+              <p class="ko-only">모션 감지, 라인 크로싱, 침입 감지 등 실시간 AI 영상 분석</p>
+              <p class="en-only">Real-time AI video analytics — motion, line crossing, intrusion detection</p>
+            </div>
+
+            <div class="roadmap-arrow"><i class="fas fa-chevron-right"></i></div>
+
+            <div class="roadmap-step">
+              <span class="roadmap-step-badge soon">Coming Soon</span>
+              <div class="roadmap-step-icon"><i class="fas fa-brain"></i></div>
+              <h4 class="ko-only">VLM 복합 이벤트</h4>
+              <h4 class="en-only">VLM Complex Events</h4>
+              <p class="ko-only">싸움, 화재, 쓰러짐, 배회 등 복잡한 사건을 VLM으로 이해하고 감지</p>
+              <p class="en-only">Detect fights, fires, falls, and loitering using Vision Language Models</p>
+            </div>
+
+            <div class="roadmap-arrow"><i class="fas fa-chevron-right"></i></div>
+
+            <div class="roadmap-step">
+              <span class="roadmap-step-badge goal">Ultimate Goal</span>
+              <div class="roadmap-step-icon"><i class="fas fa-robot"></i></div>
+              <h4 class="ko-only">Agentic AI 관제</h4>
+              <h4 class="en-only">Agentic AI Control</h4>
+              <p class="ko-only">AI 에이전트가 판단·대응·보고까지 수행하는 완전 자동화 관제 시스템</p>
+              <p class="en-only">Fully automated surveillance — agents assess, respond, and report autonomously</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="showroom-cta animate-on-scroll">
+          <a href="/nox/" class="btn btn-primary">
+            <i class="fas fa-arrow-right"></i>
+            <span class="ko-only">NOX 자세히 보기</span>
+            <span class="en-only">Explore NOX</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="section products-section" id="products">
+      <div class="showroom-inner">
         <h2 class="section-title animate-on-scroll ko-only">제품</h2>
         <h2 class="section-title animate-on-scroll en-only">Products</h2>
         <p class="section-subtitle animate-on-scroll ko-only">
@@ -367,8 +515,8 @@
             </a>
           </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
 
     <!-- CTA / Contact Section -->
     <section class="cta-section" id="contact">
