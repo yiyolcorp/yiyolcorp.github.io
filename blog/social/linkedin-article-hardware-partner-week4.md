@@ -4,7 +4,7 @@ type: article
 title: "NVR 하드웨어를 잘 만드는 것과 팔리게 만드는 것은 다른 문제입니다"
 target_audience: "NVR 하드웨어 제조사 임원, 보안장비 제조사 대표, 영업 담당 이사"
 publish_week: "Week 4 (2026-05-05~)"
-status: draft
+status: ready
 source_blog: "why-nvr-hardware-makers-need-software-partner.md"
 ---
 

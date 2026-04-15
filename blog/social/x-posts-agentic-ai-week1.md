@@ -1,7 +1,7 @@
 ---
 platform: X (Twitter)
-weeks: "Week 1~3 (2026-04-14~05-02)"
-frequency: "주 3회 (총 9편)"
+weeks: "Week 1~4 (2026-04-14~05-09)"
+frequency: "주 3회 (총 12편)"
 hashtags: "#AgenticAI #NVR #영상감시 #보안솔루션 #AIoT"
 status: ready
 ---
@@ -164,3 +164,56 @@ status: ready
 > 🎬 실제 동작 데모: https://yiyol.com/#showroom
 >
 > #AgenticAI #NVR #영상감시 #보안솔루션 #AIoT
+
+---
+
+# X (Twitter) 포스트 — Week 4 (2026-05-05~05-09)
+
+## Post 10 (2026-05-05, 월요일) — LinkedIn 아티클 3편 발행 연동
+
+> LinkedIn에 새 아티클을 올렸습니다.
+>
+> 📌 "NVR 하드웨어를 잘 만드는 것과 팔리게 만드는 것은 다른 문제입니다"
+>
+> NVR 하드웨어 제조사 임원이라면 꼭 읽어보세요.
+>
+> 자체 소프트웨어 개발 5년 대신, 30일 POC로 시장에 먼저 나가는 방법.
+>
+> 🎬 데모: https://yiyol.com/#showroom
+>
+> #AgenticAI #NVR #하드웨어제조사 #OEM #B2B
+
+---
+
+## Post 11 (2026-05-07, 수요일) — 캠페인 총정리
+
+> 4주간의 Agentic AI NVR 캠페인을 마무리합니다.
+>
+> 우리가 말하고 싶었던 것:
+>
+> ❌ AI NVR = 보고하는 AI
+> ✅ Agentic AI NVR = 스스로 처리하는 AI
+>
+> "보는 AI"에서 "행동하는 AI"로.
+> NOX NVR이 그 전환의 파트너입니다.
+>
+> 30일 무료 POC: yiyolcorp.github.io
+>
+> #AgenticAI #NVR #영상감시 #보안솔루션 #AIoT
+
+---
+
+## Post 12 (2026-05-09, 금요일) — 최종 POC CTA
+
+> NVR 하드웨어 제조사, SI 업체에 드리는 마지막 제안.
+>
+> 5년을 개발하지 마세요.
+>
+> 30일이면 고객에게 보여줄 데모가 생깁니다.
+> 30일이면 영업 현장의 소프트웨어 문제가 해결됩니다.
+> 30일이면 NIS V3.0 인증 아키텍처를 갖춥니다.
+>
+> 🎬 먼저 보기: https://yiyol.com/#showroom
+> 📩 문의: yiyolcorp.github.io
+>
+> #AgenticAI #NVR #POC #보안솔루션 #하드웨어제조사

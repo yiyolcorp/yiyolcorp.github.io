@@ -4,7 +4,7 @@ type: article
 title: "Agentic AI NVR이란? — AI NVR과의 결정적 차이"
 target_audience: "보안장비 제조사 임원, SI 대표, 조달 담당자"
 publish_week: "Week 2 (2026-04-21~)"
-status: draft
+status: ready
 source_blog: "agentic-ai-nvr-vs-ai-nvr-difference.md"
 ---
 
@@ -96,6 +96,7 @@ NOX NVR은 소프트웨어 플랫폼입니다. 하드웨어 제조사가 NOX를 
 
 ---
 
+🎬 실제 동작 데모: [NOX Vision AI 쇼룸](https://yiyol.com/#showroom) — AI 영상 분석부터 완전 자동화 관제까지  
 👉 30일 무료 POC 문의: yiyolcorp.github.io  
 📖 블로그 1편: [Agentic AI NVR이란? AI NVR과의 결정적 차이](https://yiyol.com/blog/agentic-ai-nvr-vs-ai-nvr-difference.html)  
 📖 블로그 2편: [WebHook으로 구현하는 Agentic AI: 주차장 자동화 완전 구축 가이드](https://yiyol.com/blog/webhook-agentic-ai-parking-automation-guide.html)

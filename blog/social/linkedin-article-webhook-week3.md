@@ -4,7 +4,7 @@ type: article
 title: "코드 100줄로 주차장을 자동화하는 방법 — NOX NVR WebHook 실전 가이드"
 target_audience: "NVR 하드웨어 제조사 임원, SI 개발팀장, 스마트빌딩 담당자"
 publish_week: "Week 3 (2026-04-28~)"
-status: draft
+status: ready
 source_blog: "webhook-agentic-ai-parking-automation-guide.md"
 ---
 
@@ -76,6 +76,7 @@ NOX NVR은 REST API-First입니다. 모든 기능이 API로 열려 있습니다.
 
 Python, Node.js 예시 코드와 DB 스키마, 운영 팁이 모두 포함되어 있습니다.
 
+🎬 실제 동작 데모: [NOX Vision AI 쇼룸](https://yiyol.com/#showroom) — WebHook 자동화가 실제로 어떻게 동작하는지 확인하세요  
 30일 무료 POC로 먼저 검증하고 결정하세요. 👉 yiyolcorp.github.io
 
 ---
