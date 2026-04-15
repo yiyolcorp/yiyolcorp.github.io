@@ -1,7 +1,7 @@
 ---
 platform: X (Twitter)
-week: "Week 1 (2026-04-14~04-18)"
-frequency: "주 3회"
+weeks: "Week 1~3 (2026-04-14~05-02)"
+frequency: "주 3회 (총 9편)"
 hashtags: "#AgenticAI #NVR #영상감시 #보안솔루션 #AIoT"
 status: ready
 ---
@@ -140,6 +140,8 @@ status: ready
 >
 > 5년 개발 대신 30일 검증.
 >
+> 🎬 실제 동작 데모 먼저 보기: https://yiyol.com/#showroom
+>
 > NVR 하드웨어 제조사, SI 업체 문의: yiyolcorp.github.io
 >
 > #AgenticAI #NVR #POC #30일무료 #보안솔루션
@@ -158,5 +160,7 @@ status: ready
 >
 > 3편: 하드웨어 제조사가 파트너십을 선택해야 하는 이유
 > 👉 https://yiyol.com/blog/why-nvr-hardware-makers-need-software-partner.html
+>
+> 🎬 실제 동작 데모: https://yiyol.com/#showroom
 >
 > #AgenticAI #NVR #영상감시 #보안솔루션 #AIoT

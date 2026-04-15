@@ -72,6 +72,7 @@ NOX NVR을 탑재한 하드웨어는 즉시 다음을 제공합니다:
 
 ---
 
+🎬 실제 동작 데모 먼저 보기: [NOX Vision AI 쇼룸](https://yiyol.com/#showroom) — 고객사에 바로 보여줄 수 있는 라이브 데모  
 👉 30일 무료 POC 문의: yiyolcorp.github.io  
 📖 블로그 3편: [NVR 하드웨어 제조사가 소프트웨어 파트너를 선택해야 하는 이유](https://yiyol.com/blog/why-nvr-hardware-makers-need-software-partner.html)  
 📖 블로그 시리즈:  
