@@ -113,6 +113,17 @@
       .site-nav-links .nav-cta { background: #00b4d8; color: #fff !important; padding: 0.4rem 0.9rem; border-radius: 4px; font-weight: 600; transition: background 0.2s; }
       .site-nav-links .nav-cta:hover { background: #0096b7; }
       @media (max-width: 600px) { .site-nav-links .nav-hide { display: none; } }
+      .site-nav-right { display: flex; align-items: center; gap: 1rem; }
+      .site-nav .lang-switch { position: relative; }
+      .site-nav .lang-selector { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #e2e8f0; padding: 0.28rem 0.7rem; border-radius: 4px; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; }
+      .site-nav .lang-selector:hover { background: rgba(255,255,255,0.14); }
+      .site-nav .lang-selector .fa-chevron-down { font-size: 0.6rem; transition: transform 0.2s; }
+      .site-nav .lang-switch.active .fa-chevron-down { transform: rotate(180deg); }
+      .site-nav .lang-dropdown { position: absolute; top: calc(100% + 8px); right: 0; background: #1e293b; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; overflow: hidden; display: none; min-width: 110px; z-index: 1100; box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+      .site-nav .lang-switch.active .lang-dropdown { display: block; }
+      .site-nav .lang-option { display: block; padding: 0.5rem 1rem; font-size: 0.82rem; color: #94a3b8; text-decoration: none; }
+      .site-nav .lang-option:hover { background: rgba(255,255,255,0.06); color: #fff; }
+      .site-nav .lang-option.active { color: #00b4d8; font-weight: 600; }
     </style>
 
     <!-- Structured Data (JSON-LD) -->
@@ -150,11 +161,23 @@
     <nav class="site-nav" role="navigation" aria-label="Main navigation">
       <div class="site-nav-inner">
         <a href="/" class="site-nav-logo">YIYOL<span>.</span></a>
-        <ul class="site-nav-links">
-          <li class="nav-hide"><a href="/nox/">NOX</a></li>
-          <li class="nav-hide"><a href="/blog/">블로그</a></li>
-          <li><a href="#contact" class="nav-cta">문의하기</a></li>
-        </ul>
+        <div class="site-nav-right">
+          <ul class="site-nav-links">
+            <li class="nav-hide"><a href="/nox/">NOX</a></li>
+            <li class="nav-hide"><a href="/blog/"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a></li>
+            <li><a href="#contact" class="nav-cta"><span class="ko-only">문의하기</span><span class="en-only">Contact</span></a></li>
+          </ul>
+          <div class="lang-switch">
+            <button class="lang-selector">
+              <span class="lang-current">한국어</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="lang-dropdown">
+              <a href="#" class="lang-option" data-lang="ko">한국어</a>
+              <a href="#" class="lang-option" data-lang="en">English</a>
+            </div>
+          </div>
+        </div>
       </div>
     </nav>
 

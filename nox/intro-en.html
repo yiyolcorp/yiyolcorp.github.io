@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NOX NVR — Build Your Own NVR/VMS Platform</title>
+  <meta name="description" content="NOX is a fully customizable NVR/VMS platform. From legacy features to Vision AI, VLM, and Agentic AI. Complete it with your brand and workflow.">
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/x-icon" href="https://yiyol.com/favicon.ico">
+  <meta property="og:title" content="NOX NVR — Build Your Own NVR/VMS Platform">
+  <meta property="og:description" content="Customizable NVR/VMS platform. Vision AI → VLM → Agentic AI. Complete with your brand.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f8fafc; color: #1e293b; line-height: 1.7;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(140deg, #03080f 0%, #081428 40%, #0a1e35 70%, #062030 100%);
+      color: #fff; padding: 5.5rem 1.5rem 5rem;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 55% 45% at 15% 85%, rgba(0,180,216,0.15) 0%, transparent 65%),
+        radial-gradient(ellipse 55% 45% at 85% 15%, rgba(139,92,246,0.10) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 40% at 50% 50%, rgba(0,180,216,0.04) 0%, transparent 70%);
+    }
+    .hero > * { position: relative; z-index: 1; }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+      color: #00b4d8; border: 1px solid rgba(0,180,216,0.35);
+      padding: 0.3rem 0.9rem; border-radius: 3px; margin-bottom: 1.4rem;
+    }
+    .hero h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(2rem, 5.5vw, 3.2rem);
+      font-weight: 800; line-height: 1.18; margin-bottom: 1.1rem;
+    }
+    .hero h1 em { color: #00b4d8; font-style: normal; }
+    .hero h1 .em2 { color: #a78bfa; font-style: normal; }
+    .hero-sub {
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      color: #94a3b8; max-width: 660px; margin: 0 auto 2.5rem; line-height: 1.8;
+    }
+    .hero-cta-group {
+      display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center;
+    }
+    .btn-primary {
+      background: #00b4d8; color: #fff; font-weight: 700;
+      padding: 0.9rem 2.1rem; border-radius: 6px; text-decoration: none;
+      font-size: 0.95rem; transition: background 0.2s, transform 0.15s;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-primary:hover { background: #0096b7; transform: translateY(-1px); }
+    .btn-ghost {
+      background: transparent; color: #e2e8f0; font-weight: 600;
+      padding: 0.9rem 2.1rem; border-radius: 6px; text-decoration: none;
+      font-size: 0.95rem; border: 1px solid rgba(255,255,255,0.25);
+      transition: border-color 0.2s, color 0.2s;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.6); color: #fff; }
+
+    /* ── Proof bar ── */
+    .proof-bar {
+      background: #0a0f1a; border-bottom: 1px solid #1e293b; padding: 1rem 1.5rem;
+    }
+    .proof-bar-inner {
+      max-width: 960px; margin: 0 auto;
+      display: flex; flex-wrap: wrap; gap: 0.5rem 2rem;
+      justify-content: center; align-items: center;
+    }
+    .proof-item {
+      display: flex; align-items: center; gap: 0.45rem;
+      font-size: 0.8rem; color: #94a3b8; white-space: nowrap;
+    }
+    .proof-item i { color: #00b4d8; font-size: 0.82rem; }
+    .proof-item strong { color: #e2e8f0; }
+
+    /* ── Sections ── */
+    .section { padding: 4.5rem 1.5rem; }
+    .section-alt { background: #fff; }
+    .section-dark { background: #070d18; }
+    .wrap { max-width: 940px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+      color: #00b4d8; margin-bottom: 0.5rem;
+    }
+    .section-label-purple { color: #a78bfa; }
+    .section-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+      font-weight: 800; color: #0f172a; margin-bottom: 0.75rem; line-height: 1.28;
+    }
+    .section-title-light { color: #f1f5f9; }
+    .section-desc { font-size: 0.95rem; color: #64748b; max-width: 600px; line-height: 1.85; }
+    .section-desc-light { color: #94a3b8; }
+    .section-head { margin-bottom: 2.5rem; }
+
+    /* ── Customization ── */
+    .custom-hero {
+      background: linear-gradient(135deg, #0a0f1a 0%, #0e1b2e 100%);
+      border-radius: 16px; overflow: hidden;
+      border: 1px solid rgba(0,180,216,0.15);
+      box-shadow: 0 0 60px rgba(0,180,216,0.05);
+    }
+    .custom-hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .custom-hero-text { padding: 3rem 2.5rem; }
+    .custom-hero-text h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+      font-weight: 800; color: #f1f5f9; line-height: 1.3; margin-bottom: 1rem;
+    }
+    .custom-hero-text h3 em { color: #00b4d8; font-style: normal; }
+    .custom-hero-text p { font-size: 0.9rem; color: #94a3b8; line-height: 1.85; margin-bottom: 1.25rem; }
+    .custom-list { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+    .custom-list li { display: flex; align-items: flex-start; gap: 0.55rem; font-size: 0.87rem; color: #cbd5e1; }
+    .custom-list li i { color: #00b4d8; margin-top: 0.22rem; flex-shrink: 0; }
+    .custom-hero-visual {
+      background: #060c17; border-left: 1px solid rgba(0,180,216,0.1);
+      padding: 2.5rem 2rem; display: flex; flex-direction: column; gap: 1rem; justify-content: center;
+    }
+    .custom-layer {
+      border-radius: 8px; padding: 0.75rem 1rem;
+      display: flex; align-items: center; gap: 0.65rem;
+      border: 1px solid transparent; transition: border-color 0.2s;
+    }
+    .custom-layer:hover { border-color: rgba(0,180,216,0.3); }
+    .cl-1 { background: rgba(0,180,216,0.08); border-color: rgba(0,180,216,0.15); }
+    .cl-2 { background: rgba(59,130,246,0.07); }
+    .cl-3 { background: rgba(139,92,246,0.07); }
+    .cl-4 { background: rgba(236,72,153,0.06); }
+    .cl-icon { width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; }
+    .cl-1 .cl-icon { background: rgba(0,180,216,0.2); color: #00b4d8; }
+    .cl-2 .cl-icon { background: rgba(59,130,246,0.2); color: #60a5fa; }
+    .cl-3 .cl-icon { background: rgba(139,92,246,0.2); color: #a78bfa; }
+    .cl-4 .cl-icon { background: rgba(236,72,153,0.2); color: #f472b6; }
+    .cl-text h4 { font-size: 0.82rem; font-weight: 700; color: #e2e8f0; margin-bottom: 0.1rem; }
+    .cl-text p  { font-size: 0.74rem; color: #64748b; line-height: 1.4; }
+    .custom-cta {
+      margin-top: 0.5rem; display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.85rem; font-weight: 700; color: #00b4d8; text-decoration: none;
+      border: 1px solid rgba(0,180,216,0.35); padding: 0.55rem 1.1rem; border-radius: 5px;
+      transition: background 0.2s;
+    }
+    .custom-cta:hover { background: rgba(0,180,216,0.1); }
+
+    /* ── AI Roadmap ── */
+    .ai-road {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+      border-radius: 12px; overflow: hidden; border: 1px solid #1e293b;
+    }
+    .ai-stage { padding: 2rem 1.5rem; border-right: 1px solid #1e293b; position: relative; }
+    .ai-stage:last-child { border-right: none; }
+    .ai-stage-1 { background: #0d1117; }
+    .ai-stage-2 { background: #0a1628; }
+    .ai-stage-3 { background: #0c1a30; }
+    .ai-stage-4 { background: linear-gradient(160deg, #0e1535, #120d28); }
+    .stage-badge {
+      display: inline-block; font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.2rem 0.55rem; border-radius: 3px; margin-bottom: 0.85rem;
+    }
+    .badge-gray   { background: rgba(100,116,139,0.15); color: #94a3b8; border: 1px solid rgba(100,116,139,0.25); }
+    .badge-cyan   { background: rgba(0,180,216,0.15);  color: #00b4d8;  border: 1px solid rgba(0,180,216,0.3);  }
+    .badge-violet { background: rgba(139,92,246,0.15); color: #a78bfa;  border: 1px solid rgba(139,92,246,0.3); }
+    .badge-future { background: rgba(236,72,153,0.12); color: #f472b6;  border: 1px solid rgba(236,72,153,0.25);}
+    .stage-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; margin-bottom: 0.85rem; }
+    .si-gray   { background: rgba(100,116,139,0.12); color: #64748b; }
+    .si-cyan   { background: rgba(0,180,216,0.12);   color: #00b4d8; }
+    .si-violet { background: rgba(139,92,246,0.12);  color: #a78bfa; }
+    .si-pink   { background: rgba(236,72,153,0.12);  color: #f472b6; }
+    .ai-stage h3 { font-size: 0.9rem; font-weight: 700; color: #e2e8f0; margin-bottom: 0.5rem; }
+    .ai-stage p  { font-size: 0.78rem; color: #64748b; line-height: 1.7; }
+    .stage-items { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.65rem; }
+    .stage-items li { font-size: 0.75rem; color: #94a3b8; display: flex; align-items: flex-start; gap: 0.4rem; }
+    .stage-items li i { font-size: 0.65rem; margin-top: 0.28rem; flex-shrink: 0; }
+    .now-label {
+      position: absolute; top: 0.75rem; right: 0.75rem;
+      background: rgba(0,180,216,0.18); border: 1px solid rgba(0,180,216,0.35);
+      color: #67e8f9; font-size: 0.62rem; font-weight: 700;
+      padding: 0.15rem 0.45rem; border-radius: 3px; letter-spacing: 0.08em;
+    }
+    .next-label {
+      position: absolute; top: 0.75rem; right: 0.75rem;
+      background: rgba(139,92,246,0.15); border: 1px solid rgba(139,92,246,0.3);
+      color: #c4b5fd; font-size: 0.62rem; font-weight: 700;
+      padding: 0.15rem 0.45rem; border-radius: 3px; letter-spacing: 0.08em;
+    }
+
+    /* ── Split feature ── */
+    .split-feature { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: center; }
+    .split-text h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.35rem; font-weight: 800; color: #0f172a; margin-bottom: 0.75rem; line-height: 1.3;
+    }
+    .split-text h3 em { color: #00b4d8; font-style: normal; }
+    .split-text p { font-size: 0.9rem; color: #475569; line-height: 1.85; margin-bottom: 1rem; }
+    .feature-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .feature-list li { display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.87rem; color: #334155; }
+    .feature-list li i { color: #00b4d8; margin-top: 0.22rem; flex-shrink: 0; }
+    .split-visual { background: #0f172a; border-radius: 14px; padding: 1.75rem 1.5rem; }
+    .flow-row { display: flex; align-items: center; gap: 0.45rem; justify-content: center; }
+    .flow-node {
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 7px; padding: 0.45rem 0.8rem;
+      font-size: 0.76rem; font-weight: 600; color: #e2e8f0; text-align: center; white-space: nowrap;
+    }
+    .flow-node.hl { background: rgba(0,180,216,0.18); border-color: rgba(0,180,216,0.45); color: #67e8f9; }
+    .flow-arrow { color: #334155; font-size: 0.72rem; }
+    .flow-label { font-size: 0.68rem; color: #475569; text-align: center; margin-top: 0.3rem; }
+    .latency-badge {
+      background: rgba(0,180,216,0.1); border: 1px solid rgba(0,180,216,0.25);
+      border-radius: 8px; padding: 0.7rem 1rem; text-align: center; margin-top: 0.85rem;
+    }
+    .latency-badge .val { font-family: 'Poppins', sans-serif; font-size: 1.4rem; font-weight: 800; color: #00b4d8; }
+    .latency-badge .unit { font-size: 0.8rem; color: #94a3b8; }
+
+    /* ── Phone visual ── */
+    .phone-visual {
+      background: linear-gradient(135deg, #0a1628, #0d2b40);
+      border-radius: 14px; padding: 2rem 1.5rem; border: 1px solid rgba(0,180,216,0.12);
+    }
+    .phone-diagram { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
+    .phone-icon {
+      width: 52px; height: 52px; border-radius: 12px;
+      background: rgba(0,180,216,0.15); border: 1px solid rgba(0,180,216,0.3);
+      display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: #00b4d8;
+    }
+    .arrow-down { color: #334155; font-size: 1.1rem; }
+    .nox-box { background: #00b4d8; border-radius: 8px; padding: 0.6rem 2rem; font-size: 0.88rem; font-weight: 800; color: #fff; letter-spacing: 0.05em; }
+    .nox-outputs { display: flex; gap: 0.45rem; flex-wrap: wrap; justify-content: center; }
+    .output-chip { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 5px; padding: 0.28rem 0.6rem; font-size: 0.71rem; font-weight: 600; color: #94a3b8; }
+    .push-label { font-size: 0.7rem; color: #475569; }
+
+    /* ── Stats ── */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; }
+    .stat-card {
+      background: #fff; border-radius: 10px; padding: 1.35rem 1rem;
+      text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+      border: 1px solid #e2e8f0; transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .stat-card:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,0.1); }
+    .stat-num { font-family: 'Poppins', sans-serif; font-size: 1.85rem; font-weight: 800; color: #00b4d8; line-height: 1; margin-bottom: 0.35rem; }
+    .stat-label { font-size: 0.76rem; color: #64748b; line-height: 1.5; }
+
+    /* ── USP grid ── */
+    .usp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; }
+    .usp-card {
+      background: #fff; border-radius: 10px; padding: 1.5rem;
+      border: 1px solid #e8edf2; box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .usp-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.09); }
+    .usp-icon-wrap { width: 46px; height: 46px; border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 1.05rem; margin-bottom: 0.9rem; }
+    .ic-cyan   { background: #cffafe; color: #0891b2; }
+    .ic-blue   { background: #dbeafe; color: #2563eb; }
+    .ic-amber  { background: #fef3c7; color: #d97706; }
+    .ic-purple { background: #ede9fe; color: #7c3aed; }
+    .ic-rose   { background: #fce7f3; color: #db2777; }
+    .usp-card h3 { font-size: 0.97rem; font-weight: 700; color: #0f172a; margin-bottom: 0.45rem; }
+    .usp-card p  { font-size: 0.83rem; color: #64748b; line-height: 1.72; }
+    .usp-tag { display: inline-block; margin-top: 0.7rem; font-size: 0.69rem; font-weight: 600; padding: 0.18rem 0.52rem; border-radius: 3px; }
+    .tag-cyan   { background: #e0f9fd; color: #0891b2; }
+    .tag-blue   { background: #dbeafe; color: #1d4ed8; }
+    .tag-amber  { background: #fef9c3; color: #a16207; }
+    .tag-purple { background: #ede9fe; color: #6d28d9; }
+    .tag-rose   { background: #fce7f3; color: #be185d; }
+
+    /* ── Security callout ── */
+    .security-callout {
+      background: #0f172a; border-radius: 12px; padding: 1.6rem 1.75rem;
+      display: grid; grid-template-columns: auto 1fr; gap: 1.4rem; align-items: center; margin-top: 1.5rem;
+    }
+    .security-callout-icon {
+      width: 52px; height: 52px; border-radius: 12px;
+      background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.22);
+      display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: #4ade80; flex-shrink: 0;
+    }
+    .security-callout h3 { font-size: 0.97rem; font-weight: 700; color: #e2e8f0; margin-bottom: 0.3rem; }
+    .security-callout p  { font-size: 0.83rem; color: #64748b; line-height: 1.7; }
+    .security-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.55rem; }
+    .sec-tag { background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.18); color: #86efac; font-size: 0.69rem; font-weight: 600; padding: 0.18rem 0.52rem; border-radius: 3px; }
+
+    /* ── Persona ── */
+    .persona-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1rem; }
+    .persona-card { background: #0f172a; border-radius: 10px; padding: 1.4rem 1.2rem; color: #fff; }
+    .persona-header { display: flex; align-items: center; gap: 0.55rem; margin-bottom: 0.8rem; }
+    .persona-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(0,180,216,0.15); border: 1px solid rgba(0,180,216,0.28); display: flex; align-items: center; justify-content: center; color: #00b4d8; font-size: 0.95rem; flex-shrink: 0; }
+    .persona-name  { font-size: 0.84rem; font-weight: 700; color: #e2e8f0; }
+    .persona-badge { font-size: 0.63rem; color: #64748b; }
+    .persona-quote { font-size: 0.8rem; color: #94a3b8; line-height: 1.7; font-style: italic; border-left: 2px solid rgba(0,180,216,0.35); padding-left: 0.7rem; margin-bottom: 0.8rem; }
+    .persona-usp { font-size: 0.74rem; font-weight: 600; color: #00b4d8; }
+
+    /* ── Steps ── */
+    .steps-container { border-radius: 10px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+    .steps-wrap { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+    .step-card { background: #fff; padding: 1.7rem 1.2rem; border-right: 1px solid #e2e8f0; text-align: center; }
+    .step-card:last-child { border-right: none; }
+    .step-num { font-family: 'Poppins', sans-serif; font-size: 1.9rem; font-weight: 800; color: #e2e8f0; line-height: 1; margin-bottom: 0.5rem; }
+    .step-card h3 { font-size: 0.88rem; font-weight: 700; color: #0f172a; margin-bottom: 0.35rem; }
+    .step-card p  { font-size: 0.79rem; color: #64748b; line-height: 1.65; }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: linear-gradient(135deg, #050d1a 0%, #0a1f3d 50%, #00374d 100%);
+      color: #fff; padding: 4.5rem 1.5rem; text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,180,216,0.09) 0%, transparent 70%); }
+    .cta-section > * { position: relative; z-index: 1; }
+    .cta-section h2 { font-family: 'Poppins', sans-serif; font-size: clamp(1.4rem, 3.5vw, 2rem); font-weight: 800; margin-bottom: 0.75rem; }
+    .cta-section h2 em { color: #00b4d8; font-style: normal; }
+    .cta-section p { color: #94a3b8; margin-bottom: 2rem; font-size: 0.95rem; }
+    .cta-contact-grid { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 2rem; }
+    .contact-chip {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15);
+      color: #e2e8f0; padding: 0.6rem 1.1rem; border-radius: 6px;
+      font-size: 0.82rem; display: flex; align-items: center; gap: 0.5rem;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .contact-chip:hover { background: rgba(255,255,255,0.12); }
+    .contact-chip i { color: #00b4d8; }
+
+    /* ── Footer ── */
+    .footer {
+      background: #0a0f1a; color: #475569; text-align: center;
+      padding: 1.75rem 1.5rem; font-size: 0.8rem; border-top: 1px solid #1e293b;
+    }
+    .footer a { color: #94a3b8; text-decoration: none; }
+    .footer a:hover { color: #fff; }
+
+    /* ── Responsive ── */
+    @media (max-width: 760px) {
+      .split-feature  { grid-template-columns: 1fr; }
+      .custom-hero-inner { grid-template-columns: 1fr; }
+      .custom-hero-visual { border-left: none; border-top: 1px solid rgba(0,180,216,0.1); }
+      .ai-road { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .hero { padding: 3.5rem 1rem 3rem; }
+      .steps-wrap { grid-template-columns: 1fr; }
+      .step-card { border-right: none; border-bottom: 1px solid #e2e8f0; }
+      .step-card:last-child { border-bottom: none; }
+      .ai-road { grid-template-columns: 1fr; }
+      .security-callout { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero">
+  <span class="hero-eyebrow">NOX NVR/VMS Platform</span>
+  <h1>Build Your Own<br><em>NVR/VMS</em> Platform</h1>
+  <p class="hero-sub">
+    Full legacy support + WebRTC ultra-low latency + YOLO Vision AI.<br>
+    Together we're shaping the future of surveillance with <span style="color:#a78bfa;">VLM</span> and <span style="color:#f472b6;">Agentic AI</span>.<br>
+    Fully customizable — from UI to features — with your brand and workflow.
+  </p>
+  <div class="hero-cta-group">
+    <a href="mailto:yiyol@yiyol.com?subject=NOX NVR Customization Inquiry&body=Hello. I am interested in NOX NVR customization. Please send me more details." class="btn-primary">
+      <i class="fas fa-envelope"></i> Customization Inquiry
+    </a>
+    <a href="https://yiyol.com/nox/" class="btn-ghost">
+      <i class="fas fa-arrow-right"></i> View Product Details
+    </a>
+  </div>
+</section>
+
+<!-- Proof bar -->
+<div class="proof-bar">
+  <div class="proof-bar-inner">
+    <div class="proof-item"><i class="fas fa-palette"></i><span><strong>UI/Features</strong> Full Customization</span></div>
+    <div class="proof-item"><i class="fas fa-bolt"></i><span><strong>WebRTC</strong> Ultra-Low Latency</span></div>
+    <div class="proof-item"><i class="fas fa-brain"></i><span><strong>YOLO</strong> Vision AI</span></div>
+    <div class="proof-item"><i class="fas fa-comments"></i><span><strong>VLM</strong> Natural Language Understanding</span></div>
+    <div class="proof-item"><i class="fas fa-robot"></i><span><strong>Agentic AI</strong> Autonomous Surveillance</span></div>
+    <div class="proof-item"><i class="fas fa-video"></i><span>ONVIF Profile <strong>S/T/M</strong></span></div>
+    <div class="proof-item"><i class="fas fa-mobile-screen"></i><span><strong>Smartphone</strong> Camera Support</span></div>
+  </div>
+</div>
+
+<!-- CUSTOMIZATION -->
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-label">Your Own NVR/VMS</div>
+      <h2 class="section-title">NOX is not a product.<br>It's your platform.</h2>
+      <p class="section-desc">Every feature of NOX can be combined like building blocks. Complete it as your own product — with your brand, your UI, your workflow.</p>
+    </div>
+    <div class="custom-hero">
+      <div class="custom-hero-inner">
+        <div class="custom-hero-text">
+          <h3>How to Own a Branded<br><em>NVR/VMS</em></h3>
+          <p>No need to build from scratch at enormous cost. On top of NOX's microservice architecture and open APIs, select only the features you need and complete your own solution.</p>
+          <ul class="custom-list">
+            <li><i class="fas fa-check-circle"></i> <strong>Full UI Customization</strong> — Logo, colors, layout, and menu structure — all in your brand</li>
+            <li><i class="fas fa-check-circle"></i> <strong>Modular Feature Selection</strong> — Pick and combine only the microservices you need from 16 available</li>
+            <li><i class="fas fa-check-circle"></i> <strong>Custom Workflow</strong> — Configure notifications and automation rules to fit your business processes</li>
+            <li><i class="fas fa-check-circle"></i> <strong>External System Integration</strong> — Connect to ERP, access control, and smart buildings via Webhook & open API</li>
+            <li><i class="fas fa-check-circle"></i> <strong>AI Model Swap & Extension</strong> — Add industry-specific AI models beyond the default YOLO</li>
+            <li><i class="fas fa-check-circle"></i> <strong>OEM / White Label</strong> — SI firms and solution providers can ship it as their own product</li>
+          </ul>
+          <br>
+          <a href="mailto:yiyol@yiyol.com?subject=NOX NVR Customization Inquiry" class="custom-cta">
+            <i class="fas fa-envelope"></i> Request Customization
+          </a>
+        </div>
+        <div class="custom-hero-visual">
+          <div class="cl-text" style="margin-bottom:0.25rem;">
+            <p style="font-size:0.7rem; color:#475569; letter-spacing:0.08em; text-transform:uppercase; font-weight:600;">Customization Layers</p>
+          </div>
+          <div class="custom-layer cl-1">
+            <div class="cl-icon"><i class="fas fa-palette"></i></div>
+            <div class="cl-text">
+              <h4>UI / Brand</h4>
+              <p>Logo · colors · layout · i18n — apply your design system</p>
+            </div>
+          </div>
+          <div class="custom-layer cl-2">
+            <div class="cl-icon"><i class="fas fa-puzzle-piece"></i></div>
+            <div class="cl-text">
+              <h4>Feature Config</h4>
+              <p>Select only the services you need. Combine AI analytics, recording, and alert modules</p>
+            </div>
+          </div>
+          <div class="custom-layer cl-3">
+            <div class="cl-icon"><i class="fas fa-brain"></i></div>
+            <div class="cl-text">
+              <h4>AI Model</h4>
+              <p>YOLO default + swap or add industry-specific models & VLM</p>
+            </div>
+          </div>
+          <div class="custom-layer cl-4">
+            <div class="cl-icon"><i class="fas fa-plug"></i></div>
+            <div class="cl-text">
+              <h4>External Integration</h4>
+              <p>Connect ERP · access control · smart buildings via Webhook & API</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI Evolution Roadmap -->
+<section class="section section-dark">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-label section-label-purple">AI Roadmap</div>
+      <h2 class="section-title section-title-light">From Legacy to Agentic AI:<br>The Surveillance Revolution</h2>
+      <p class="section-desc section-desc-light">NOX built Vision AI on top of proven legacy features, and is now redefining surveillance with VLM and Agentic AI.</p>
+    </div>
+    <div class="ai-road">
+
+      <div class="ai-stage ai-stage-1">
+        <span class="stage-badge badge-gray">Legacy</span>
+        <div class="stage-icon si-gray"><i class="fas fa-video"></i></div>
+        <h3>Traditional NVR/VMS</h3>
+        <p>The unshakeable foundation. ONVIF, RTSP, multi-channel recording, playback, PTZ control.</p>
+        <ul class="stage-items">
+          <li><i class="fas fa-circle" style="color:#334155;"></i>ONVIF Profile S/T/M</li>
+          <li><i class="fas fa-circle" style="color:#334155;"></i>Multi-channel simultaneous recording</li>
+          <li><i class="fas fa-circle" style="color:#334155;"></i>Motion detection & event alerts</li>
+          <li><i class="fas fa-circle" style="color:#334155;"></i>WebRTC ultra-low latency playback</li>
+          <li><i class="fas fa-circle" style="color:#334155;"></i>Smartphone camera support</li>
+        </ul>
+      </div>
+
+      <div class="ai-stage ai-stage-2" style="position:relative;">
+        <span class="now-label">NOW</span>
+        <span class="stage-badge badge-cyan">Vision AI</span>
+        <div class="stage-icon si-cyan"><i class="fas fa-eye"></i></div>
+        <h3>Intelligent Video Analytics</h3>
+        <p>Beyond watching — understanding. YOLO-based automatic detection, classification, and response.</p>
+        <ul class="stage-items">
+          <li><i class="fas fa-circle" style="color:#0891b2;"></i>YOLO object detection</li>
+          <li><i class="fas fa-circle" style="color:#0891b2;"></i>Line crossing & intrusion detection</li>
+          <li><i class="fas fa-circle" style="color:#0891b2;"></i>License plate recognition (LPR)</li>
+          <li><i class="fas fa-circle" style="color:#0891b2;"></i>Auto alert · recording · Webhook</li>
+          <li><i class="fas fa-circle" style="color:#0891b2;"></i>3-Tier detection pipeline</li>
+        </ul>
+      </div>
+
+      <div class="ai-stage ai-stage-3" style="position:relative;">
+        <span class="next-label">NEXT</span>
+        <span class="stage-badge badge-violet">VLM</span>
+        <div class="stage-icon si-violet"><i class="fas fa-comments"></i></div>
+        <h3>Natural Language Surveillance</h3>
+        <p>Vision Language Model. Understands video as language and enables natural language search queries.</p>
+        <ul class="stage-items">
+          <li><i class="fas fa-circle" style="color:#7c3aed;"></i>"When did the man with the red bag pass?"</li>
+          <li><i class="fas fa-circle" style="color:#7c3aed;"></i>Automatic scene summary & description</li>
+          <li><i class="fas fa-circle" style="color:#7c3aed;"></i>Complex situational context understanding</li>
+          <li><i class="fas fa-circle" style="color:#7c3aed;"></i>Text-based video segment search</li>
+        </ul>
+      </div>
+
+      <div class="ai-stage ai-stage-4">
+        <span class="stage-badge badge-future">Agentic AI</span>
+        <div class="stage-icon si-pink"><i class="fas fa-robot"></i></div>
+        <h3>Autonomous Decision-Making</h3>
+        <p>A self-governing security agent that assesses and responds to situations without human intervention.</p>
+        <ul class="stage-items">
+          <li><i class="fas fa-circle" style="color:#be185d;"></i>Multi-camera simultaneous inference</li>
+          <li><i class="fas fa-circle" style="color:#be185d;"></i>Autonomous threat assessment & escalation</li>
+          <li><i class="fas fa-circle" style="color:#be185d;"></i>Predictive anomaly detection</li>
+          <li><i class="fas fa-circle" style="color:#be185d;"></i>Operator workflow automation</li>
+        </ul>
+      </div>
+
+    </div>
+    <p style="font-size:0.76rem; color:#334155; text-align:center; margin-top:1.25rem;">
+      * VLM &amp; Agentic AI are on the roadmap and can be applied early through custom development.
+    </p>
+  </div>
+</section>
+
+<!-- WebRTC -->
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-label">Real-Time Streaming</div>
+      <h2 class="section-title">WebRTC — Zero-Delay Live Video</h2>
+      <p class="section-desc">Replace the tens-of-seconds HLS delay with WebRTC. Instantly grasp and respond to on-site situations.</p>
+    </div>
+    <div class="split-feature">
+      <div class="split-text">
+        <h3>Stop waiting.<br>See <em>this very moment</em>.</h3>
+        <p>NOX delivers live streams via the WebRTC WHIP/WHEP protocol. Plays instantly in any browser without plugins, with sub-second latency for real-time response.</p>
+        <ul class="feature-list">
+          <li><i class="fas fa-check-circle"></i>WebRTC WHIP/WHEP standard protocol support</li>
+          <li><i class="fas fa-check-circle"></i>Automatic ICE server discovery — no complex network config</li>
+          <li><i class="fas fa-check-circle"></i>HLS / WebRTC selectable per user</li>
+          <li><i class="fas fa-check-circle"></i>Instant browser playback — no plugins required</li>
+        </ul>
+      </div>
+      <div class="split-visual">
+        <div class="flow-row">
+          <div class="flow-node">Camera</div>
+          <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+          <div class="flow-node hl">NOX</div>
+          <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+          <div class="flow-node">Monitor</div>
+        </div>
+        <div class="flow-label">WebRTC WHIP → MediaMTX → WHEP</div>
+        <div class="latency-badge">
+          <div class="val">Sub-second <span class="unit">latency</span></div>
+          <div class="unit" style="margin-top:0.2rem;">Far lower latency than HLS</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Mobile Camera -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-label">Mobile Camera</div>
+      <h2 class="section-title">Your Smartphone is a Security Camera</h2>
+      <p class="section-desc">Connect a smartphone to NOX via RTSP Push — no extra hardware needed. Live monitoring and recording start immediately.</p>
+    </div>
+    <div class="split-feature">
+      <div class="phone-visual">
+        <div class="phone-diagram">
+          <div class="phone-icon"><i class="fas fa-mobile-screen"></i></div>
+          <div class="push-label">RTSP Push (No static IP needed)</div>
+          <div class="arrow-down"><i class="fas fa-arrow-down"></i></div>
+          <div class="nox-box">NOX NVR</div>
+          <div class="arrow-down"><i class="fas fa-arrow-down"></i></div>
+          <div class="nox-outputs">
+            <div class="output-chip"><i class="fas fa-eye" style="margin-right:3px;"></i>Live Monitoring</div>
+            <div class="output-chip"><i class="fas fa-circle-dot" style="margin-right:3px;"></i>Auto Recording</div>
+            <div class="output-chip"><i class="fas fa-brain" style="margin-right:3px;"></i>AI Analytics</div>
+            <div class="output-chip"><i class="fas fa-bell" style="margin-right:3px;"></i>Event Alerts</div>
+          </div>
+        </div>
+      </div>
+      <div class="split-text">
+        <h3>When you need a temporary camera,<br><em>grab your smartphone</em>.</h3>
+        <p>Event venues, construction sites, temporary security zones — connect a smartphone to NOX without a static IP and instantly start monitoring, recording, and AI analytics.</p>
+        <ul class="feature-list">
+          <li><i class="fas fa-check-circle"></i>RTSP Push — no static IP required</li>
+          <li><i class="fas fa-check-circle"></i>Instant live stream monitoring in NOX</li>
+          <li><i class="fas fa-check-circle"></i>Records and stores exactly like a fixed camera</li>
+          <li><i class="fas fa-check-circle"></i>AI analytics (intrusion, object detection) applied identically</li>
+          <li><i class="fas fa-check-circle"></i>Secure stream connection via JWT authentication</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-label">By the Numbers</div>
+      <h2 class="section-title">NOX by the Numbers</h2>
+      <p class="section-desc">Only verified technical facts.</p>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num">16</div>
+        <div class="stat-label">Independent microservices<br>Zero-downtime ops</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">5</div>
+        <div class="stat-label">AI detection types<br>Object · Motion · Intrusion · Line · LPR</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3</div>
+        <div class="stat-label">ONVIF profiles<br>Profile S / T / M</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">18</div>
+        <div class="stat-label">ONVIF in-house library<br>sub-packages</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">16<span style="font-size:0.9rem;font-weight:600;">ch</span></div>
+        <div class="stat-label">Multi-channel simultaneous<br>encrypted backup</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">9</div>
+        <div class="stat-label">NIS security domains<br>Gov · Defense · Finance</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Core USPs -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-label">Core Features</div>
+      <h2 class="section-title">Why Choose NOX</h2>
+      <p class="section-desc">Features designed to solve real-world operational challenges.</p>
+    </div>
+    <div class="usp-grid">
+      <div class="usp-card">
+        <div class="usp-icon-wrap ic-cyan"><i class="fas fa-brain"></i></div>
+        <h3>YOLO Vision AI Analytics</h3>
+        <p>YOLO-based object detection (line crossing · intrusion) and license plate recognition (LPR) handled in a single system. Automatic alerts, recording, and Webhook execution on anomaly detection.</p>
+        <span class="usp-tag tag-cyan">Auto Alerts</span>
+        <span class="usp-tag tag-cyan">LPR</span>
+        <span class="usp-tag tag-cyan">3-Tier Pipeline</span>
+      </div>
+      <div class="usp-card">
+        <div class="usp-icon-wrap ic-amber"><i class="fas fa-plug"></i></div>
+        <h3>Full ONVIF Profile S/T/M Compatibility</h3>
+        <p>Supports Profile S (streaming), T (advanced video), M (metadata · events · analytics). Connect existing IP cameras as-is — no replacement needed — via an in-house library with 18 sub-packages.</p>
+        <span class="usp-tag tag-amber">Existing Asset Reuse</span>
+        <span class="usp-tag tag-amber">Auto Discovery</span>
+      </div>
+      <div class="usp-card">
+        <div class="usp-icon-wrap ic-blue"><i class="fas fa-cubes"></i></div>
+        <h3>Microservice Architecture</h3>
+        <p>16 independent services. A failure in one service never brings down the whole system. Update only the services you need and maintain zero-downtime operations.</p>
+        <span class="usp-tag tag-blue">Zero-Downtime Updates</span>
+        <span class="usp-tag tag-blue">Horizontal Scaling</span>
+      </div>
+      <div class="usp-card">
+        <div class="usp-icon-wrap ic-purple"><i class="fas fa-server"></i></div>
+        <h3>Flexible Multi-Platform Deployment</h3>
+        <p>Docker multi-arch (linux/amd64, linux/arm64) runs everywhere — from Raspberry Pi edge devices to cloud data centers and Kubernetes clusters.</p>
+        <span class="usp-tag tag-purple">On-Premises</span>
+        <span class="usp-tag tag-purple">Cloud / K8s</span>
+        <span class="usp-tag tag-purple">Edge ARM</span>
+      </div>
+      <div class="usp-card">
+        <div class="usp-icon-wrap ic-rose"><i class="fas fa-code-branch"></i></div>
+        <h3>Open API + Webhook</h3>
+        <p>Deliver detection events to external systems in real time via Webhook. Freely integrate with CMS, smart buildings, and security systems through open APIs and the ONVIF standard.</p>
+        <span class="usp-tag tag-rose">Webhook</span>
+        <span class="usp-tag tag-rose">Open API</span>
+      </div>
+    </div>
+    <div class="security-callout">
+      <div class="security-callout-icon"><i class="fas fa-shield-halved"></i></div>
+      <div>
+        <h3>NIS Security Requirements — 9 Domains Compliant. Ready for Gov, Defense &amp; Finance.</h3>
+        <p>Korea's NIS Video Device Security Requirements V3.0 were incorporated from the design stage. Regulated agencies can deploy immediately without adding separate security solutions.</p>
+        <div class="security-tags">
+          <span class="sec-tag">AES-256-GCM Encryption</span>
+          <span class="sec-tag">HMAC-SHA256 Integrity</span>
+          <span class="sec-tag">RBAC Access Control</span>
+          <span class="sec-tag">Audit Log Protection</span>
+          <span class="sec-tag">TLS/HTTPS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Persona -->
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-label">Value by Customer Type</div>
+      <h2 class="section-title">When Does NOX Make Sense?</h2>
+    </div>
+    <div class="persona-grid">
+      <div class="persona-card">
+        <div class="persona-header">
+          <div class="persona-icon"><i class="fas fa-building"></i></div>
+          <div>
+            <div class="persona-name">SI / Solution Providers</div>
+            <div class="persona-badge">OEM · White Label</div>
+          </div>
+        </div>
+        <p class="persona-quote">"I want a branded NVR solution of our own. Building from scratch is far too costly."</p>
+        <div class="persona-usp"><i class="fas fa-check-circle" style="margin-right:4px;"></i>UI Customization · OEM Supply · Modular Features</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-header">
+          <div class="persona-icon"><i class="fas fa-store"></i></div>
+          <div>
+            <div class="persona-name">Retail / Industrial / Building</div>
+            <div class="persona-badge">Facility Manager / Security Ops</div>
+          </div>
+        </div>
+        <p class="persona-quote">"I want AI alerts while keeping existing cameras. I want to reduce operational staff."</p>
+        <div class="persona-usp"><i class="fas fa-check-circle" style="margin-right:4px;"></i>ONVIF Existing Assets · YOLO AI Auto Alerts · Smartphone Camera</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-header">
+          <div class="persona-icon"><i class="fas fa-network-wired"></i></div>
+          <div>
+            <div class="persona-name">Enterprise IT</div>
+            <div class="persona-badge">Infrastructure Lead / SecOps</div>
+          </div>
+        </div>
+        <p class="persona-quote">"Can it run without downtime? Does it integrate with K8s and our existing infrastructure?"</p>
+        <div class="persona-usp"><i class="fas fa-check-circle" style="margin-right:4px;"></i>16 Microservices · Zero-Downtime Updates · K8s / Docker</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-header">
+          <div class="persona-icon"><i class="fas fa-landmark"></i></div>
+          <div>
+            <div class="persona-name">Government / Defense / Finance</div>
+            <div class="persona-badge">Security Officer / IT Manager</div>
+          </div>
+        </div>
+        <p class="persona-quote">"Does it meet NIS certification requirements? Can it handle compliance audits?"</p>
+        <div class="persona-usp"><i class="fas fa-check-circle" style="margin-right:4px;"></i>NIS 9 Domains Compliant · AES-256 Encryption · Audit Logs</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How it works -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-label">Onboarding Process</div>
+      <h2 class="section-title">How Do You Get Started with NOX?</h2>
+      <p class="section-desc">4 simple steps, no complex procedures.</p>
+    </div>
+    <div class="steps-container">
+      <div class="steps-wrap">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <h3>Consultation &amp; Requirements</h3>
+          <p>We identify the features you need, the scope of customization, and your existing infrastructure. OEM/white label decisions are made at this stage.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <h3>Demo &amp; Technical Validation</h3>
+          <p>Verify WebRTC streaming, AI detection, and ONVIF integration in a real environment. PoC support available.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <h3>Customization &amp; Deployment</h3>
+          <p>Configure UI, features, and AI models to your requirements. Install using the optimal deployment method — on-premises, Docker, or K8s.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">04</div>
+          <h3>Operations &amp; Growth</h3>
+          <p>Zero-downtime updates via microservice architecture. We evolve together from Vision AI toward VLM and Agentic AI.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <span class="hero-eyebrow" style="margin-bottom:1rem; display:inline-block;">Get Started</span>
+  <h2>Your Own NVR/VMS,<br><em>Built with NOX</em></h2>
+  <p>Customization inquiries, demo requests, OEM partnerships — all welcome.<br>We'll respond within 1 business day.</p>
+  <a href="mailto:yiyol@yiyol.com?subject=NOX NVR Customization Inquiry&body=Hello. I am interested in NOX NVR customization.%0A%0ACompany:%0AContact name:%0APhone:%0AArea of interest (Customization/OEM/Deployment):%0AFeature or UI requirements:%0AOther questions:" class="btn-primary" style="font-size:1rem; padding:1rem 2.5rem;">
+    <i class="fas fa-envelope"></i>&nbsp; Send Customization Inquiry
+  </a>
+  <div class="cta-contact-grid">
+    <a href="https://yiyol.com/nox/" class="contact-chip">
+      <i class="fas fa-globe"></i> Official Product Page
+    </a>
+    <a href="https://yiyol.com/nox/nis-security.html" class="contact-chip">
+      <i class="fas fa-shield-halved"></i> NIS Security Details
+    </a>
+    <a href="https://yiyol.com/nox/partner.html" class="contact-chip">
+      <i class="fas fa-handshake"></i> Partner / Distributor
+    </a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <p>
+    &copy; 2025 <a href="https://yiyol.com">YIYOL Corp.</a> &nbsp;|&nbsp;
+    <a href="https://yiyol.com/nox/">NOX NVR</a> &nbsp;|&nbsp;
+    <a href="mailto:yiyol@yiyol.com">yiyol@yiyol.com</a>
+  </p>
+  <p style="margin-top:0.4rem; font-size:0.74rem; color:#334155;">
+    This document was sent to you because of your potential interest in NOX NVR solutions.
+    To unsubscribe, please <a href="mailto:yiyol@yiyol.com?subject=Unsubscribe">contact us</a>.
+  </p>
+</footer>
+
+</body>
+</html>

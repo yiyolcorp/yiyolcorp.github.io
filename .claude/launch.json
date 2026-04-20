@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "http-server",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "18000"],
+      "port": 18000
+    }
+  ]
+}
