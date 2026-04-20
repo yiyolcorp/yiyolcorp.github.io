@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKJ4GX2KHS"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -11,2566 +10,1030 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NOX — 차세대 NVR/VMS 영상 보안 솔루션</title>
+  <title>NOX NVR — 귀사만의 NVR/VMS 시스템을 만드세요</title>
+  <meta name="description" content="NOX는 커스터마이징 가능한 NVR/VMS 플랫폼입니다. Legacy 기능부터 Vision AI, VLM, Agentic AI까지. 귀사의 브랜드와 워크플로우로 완성하세요.">
   <link rel="canonical" href="https://yiyol.com/nox/">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <meta name="description" content="가정, 차량, 매장부터 엔터프라이즈까지 — AI 기반 NVR/VMS 영상 보안 솔루션. 최대 128채널을 하나의 솔루션으로 관리하세요.">
-  <meta property="og:title" content="NOX — 차세대 NVR/VMS 영상 보안 솔루션">
-  <meta property="og:description" content="가정, 차량, 매장부터 엔터프라이즈까지. AI 영상 분석, 최대 128채널, 유연한 확장성.">
+  <meta property="og:title" content="NOX NVR — 귀사만의 NVR/VMS 시스템을 만드세요">
+  <meta property="og:description" content="커스터마이징 가능한 NVR/VMS 플랫폼. Vision AI → VLM → Agentic AI. 귀사의 브랜드로 완성.">
   <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
-    /* ===== RESET & BASE ===== */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-
-    :root {
-      --bg-primary: #0a0a1a;
-      --bg-secondary: #0e0e24;
-      --bg-card: #14142b;
-      --bg-card-hover: #1c1c3a;
-      --text-primary: #e8e8f0;
-      --text-secondary: #9898b8;
-      --text-muted: #5a5a7a;
-      --accent: #00b4d8;
-      --accent-light: #48cae4;
-      --accent-glow: rgba(0, 180, 216, 0.25);
-      --accent-dark: #0077b6;
-      --border: rgba(255, 255, 255, 0.06);
-      --border-hover: rgba(0, 180, 216, 0.35);
-      --font-sans: 'Inter', -apple-system, 'Segoe UI', sans-serif;
-      --section-padding: 100px;
-      --container-max: 1200px;
-      --radius-sm: 8px;
-      --radius-md: 12px;
-      --radius-lg: 16px;
-      --radius-xl: 24px;
-    }
-
     body {
-      font-family: var(--font-sans);
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      line-height: 1.6;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f8fafc; color: #1e293b; line-height: 1.7;
     }
 
-    a { color: inherit; text-decoration: none; }
-
-    .container {
-      max-width: var(--container-max);
-      margin: 0 auto;
-      padding: 0 24px;
+    /* ── Nav ── */
+    .site-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+      background: rgba(3,8,15,0.9); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      padding: 0 1.5rem;
     }
-
-    /* ===== TYPOGRAPHY ===== */
-    .hero-title {
-      font-size: clamp(2.2rem, 5vw, 3.8rem);
-      font-weight: 800;
-      line-height: 1.15;
-      letter-spacing: -0.02em;
-      color: var(--text-primary);
+    .site-nav-inner {
+      max-width: 960px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 52px;
     }
-
-    .section-title {
-      font-size: clamp(1.75rem, 3vw, 2.5rem);
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      text-align: center;
+    .site-nav-logo {
+      font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 800;
+      color: #fff; text-decoration: none; letter-spacing: 0.04em;
     }
-
-    .section-subtitle {
-      font-size: 1.1rem;
-      color: var(--text-secondary);
-      text-align: center;
-      max-width: 600px;
-      margin: 16px auto 0;
+    .site-nav-logo span { color: #00b4d8; }
+    .site-nav-links {
+      display: flex; align-items: center; gap: 1.5rem; list-style: none;
     }
-
-    /* ===== ANIMATIONS ===== */
-    @keyframes float {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      33% { transform: translate(30px, -20px) scale(1.05); }
-      66% { transform: translate(-20px, 15px) scale(0.95); }
-    }
-
-    @keyframes pulse-glow {
-      0%, 100% { box-shadow: 0 0 20px var(--accent-glow), 0 0 60px rgba(0,180,216,0.1); }
-      50% { box-shadow: 0 0 30px var(--accent-glow), 0 0 80px rgba(0,180,216,0.15); }
-    }
-
-    @keyframes shimmer {
-      0% { background-position: -200% 0; }
-      100% { background-position: 200% 0; }
-    }
-
-    .animate-on-scroll {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .animate-on-scroll.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .stagger-1 { transition-delay: 0.05s; }
-    .stagger-2 { transition-delay: 0.1s; }
-    .stagger-3 { transition-delay: 0.15s; }
-    .stagger-4 { transition-delay: 0.2s; }
-    .stagger-5 { transition-delay: 0.25s; }
-    .stagger-6 { transition-delay: 0.3s; }
-    .stagger-7 { transition-delay: 0.35s; }
-    .stagger-8 { transition-delay: 0.4s; }
-    .stagger-9 { transition-delay: 0.45s; }
-    .stagger-10 { transition-delay: 0.5s; }
-    .stagger-11 { transition-delay: 0.55s; }
-
-    @media (prefers-reduced-motion: reduce) {
-      .animate-on-scroll { opacity: 1; transform: none; transition: none; }
-      .hero-orb { animation: none !important; }
-    }
-
-    /* ===== LANGUAGE SWITCHING ===== */
-    [lang]:not([lang="ko"]) .ko-only,
-    [lang]:not([lang="en"]) .en-only {
-      display: none !important;
-    }
-
-    .lang-switch {
-      position: relative;
-    }
-
-    .lang-selector {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 14px;
-      background: transparent;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all 0.2s;
-      font-weight: 500;
-      font-size: 0.85rem;
-      font-family: var(--font-sans);
-    }
-
-    .lang-selector:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .lang-selector i {
-      font-size: 0.7rem;
-      transition: transform 0.2s;
-    }
-
-    .lang-switch.active .lang-selector i {
-      transform: rotate(180deg);
-    }
-
-    .lang-dropdown {
-      position: absolute;
-      top: calc(100% + 8px);
-      right: 0;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-      min-width: 120px;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(-8px);
-      transition: all 0.2s;
-      overflow: hidden;
-      z-index: 200;
-    }
-
-    .lang-switch.active .lang-dropdown {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    .lang-option {
-      padding: 10px 16px;
-      display: block;
-      color: var(--text-secondary);
-      font-weight: 500;
-      font-size: 0.85rem;
-      transition: all 0.15s;
-    }
-
-    .lang-option:hover {
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--accent);
-    }
-
-    .lang-option.active {
-      background: rgba(0, 180, 216, 0.1);
-      color: var(--accent);
-    }
-
-    /* ===== NAV ===== */
-    .nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      padding: 16px 0;
-      background: rgba(10, 10, 26, 0.6);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid transparent;
-      transition: background 0.3s, border-color 0.3s;
-    }
-
-    .nav.scrolled {
-      background: rgba(10, 10, 26, 0.95);
-      border-bottom-color: var(--border);
-    }
-
-    .nav .container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 1.5rem;
-      font-weight: 800;
-      letter-spacing: 0.05em;
-    }
-
-    .nav-logo .logo-accent {
-      color: var(--accent);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: var(--text-secondary);
+    .site-nav-links a {
+      font-size: 0.85rem; font-weight: 500; color: #94a3b8; text-decoration: none;
       transition: color 0.2s;
     }
-
-    .nav-links a:hover {
-      color: var(--text-primary);
+    .site-nav-links a:hover { color: #fff; }
+    .site-nav-links .nav-cta {
+      background: #00b4d8; color: #fff; padding: 0.4rem 0.9rem;
+      border-radius: 4px; font-weight: 600; transition: background 0.2s;
     }
-    .nav-links a.btn-primary {
-      color: #ffffff;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 24px;
-      border-radius: var(--radius-sm);
-      font-size: 0.9rem;
-      font-weight: 600;
-      cursor: pointer;
-      border: none;
-      transition: all 0.25s;
-      font-family: var(--font-sans);
+    .site-nav-links .nav-cta:hover { background: #0096b7; color: #fff; }
+    @media (max-width: 600px) {
+      .site-nav-links .nav-hide { display: none; }
     }
 
-    .btn-primary {
-      background: var(--accent-dark);
-      color: #ffffff;
-    }
-
-    .btn-primary:hover {
-      background: var(--accent-light);
-      transform: translateY(-1px);
-    }
-
-    .btn-ghost {
-      background: transparent;
-      color: var(--text-secondary);
-      border: 1px solid rgba(255,255,255,0.12);
-    }
-
-    .btn-ghost:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .btn-large {
-      padding: 14px 32px;
-      font-size: 1rem;
-      border-radius: var(--radius-md);
-    }
-
-    /* Hamburger */
-    .nav-toggle { display: none; }
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 4px;
-    }
-    .hamburger span {
-      width: 24px;
-      height: 2px;
-      background: var(--text-primary);
-      border-radius: 2px;
-      transition: all 0.3s;
-    }
-
-    @media (max-width: 768px) {
-      .hamburger { display: flex; }
-      .nav-links {
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        width: 280px;
-        flex-direction: column;
-        background: var(--bg-secondary);
-        padding: 80px 32px 32px;
-        gap: 24px;
-        transform: translateX(100%);
-        transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        border-left: 1px solid var(--border);
-      }
-      .nav-toggle:checked ~ .nav-links {
-        transform: translateX(0);
-      }
-      .nav-toggle:checked ~ .hamburger span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-      }
-      .nav-toggle:checked ~ .hamburger span:nth-child(2) {
-        opacity: 0;
-      }
-      .nav-toggle:checked ~ .hamburger span:nth-child(3) {
-        transform: rotate(-45deg) translate(5px, -5px);
-      }
-      .nav-links .btn-primary {
-        width: 100%;
-        justify-content: center;
-      }
-    }
-
-    /* ===== HERO ===== */
+    /* ── Hero ── */
     .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 120px 0 80px;
-      overflow: hidden;
+      background: linear-gradient(140deg, #03080f 0%, #081428 40%, #0a1e35 70%, #062030 100%);
+      color: #fff; padding: 7rem 1.5rem 5rem;
+      text-align: center; position: relative; overflow: hidden;
     }
-
-    .hero-orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(100px);
-      pointer-events: none;
-    }
-
-    .hero-orb-1 {
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(0,180,216,0.15), transparent 70%);
-      top: 10%;
-      right: 10%;
-      animation: float 15s ease-in-out infinite;
-    }
-
-    .hero-orb-2 {
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(0,119,182,0.12), transparent 70%);
-      bottom: 10%;
-      left: 5%;
-      animation: float 20s ease-in-out infinite reverse;
-    }
-
-    .hero .container {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-content {
-      animation: fadeInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
-    }
-
-    @keyframes fadeInLeft {
-      from { opacity: 0; transform: translateX(-30px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 16px;
-      background: rgba(0, 180, 216, 0.1);
-      border: 1px solid rgba(0, 180, 216, 0.2);
-      border-radius: 100px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--accent);
-      margin-bottom: 24px;
-    }
-
-    .hero-badge svg {
-      width: 16px;
-      height: 16px;
-    }
-
-    .hero-title {
-      margin-bottom: 24px;
-    }
-
-    .hero-title .gradient-text {
-      background: linear-gradient(135deg, var(--accent), var(--accent-light), #90e0ef);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-desc {
-      font-size: 1.15rem;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      margin-bottom: 36px;
-      max-width: 520px;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .hero-stats {
-      display: flex;
-      gap: 40px;
-      margin-top: 48px;
-      padding-top: 32px;
-      border-top: 1px solid var(--border);
-    }
-
-    .hero-stat-value {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--accent);
-    }
-
-    .hero-stat-label {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-top: 4px;
-    }
-
-    .hero-visual {
-      position: relative;
-      animation: fadeInRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
-    }
-
-    @keyframes fadeInRight {
-      from { opacity: 0; transform: translateX(30px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-
-    .hero-mockup {
-      position: relative;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      box-shadow: 0 40px 80px rgba(0,0,0,0.4);
-      aspect-ratio: 16/10;
-    }
-
-    .hero-mockup img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    /* 히어로 목업: nox-ui 스타일 시뮬레이션 */
-    .mockup-ui {
-      width: 100%;
-      height: 100%;
-      display: grid;
-      grid-template-rows: 36px 1fr;
-      background: #0d1117;
-    }
-
-    .mockup-titlebar {
-      display: flex;
-      align-items: center;
-      padding: 0 12px;
-      gap: 8px;
-      background: #161b22;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .mockup-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-    }
-
-    .mockup-dot-r { background: #ff5f57; }
-    .mockup-dot-y { background: #febc2e; }
-    .mockup-dot-g { background: #28c840; }
-
-    .mockup-titlebar-text {
-      font-size: 10px;
-      color: var(--text-muted);
-      margin-left: auto;
-    }
-
-    .mockup-body {
-      display: grid;
-      grid-template-columns: 40px 1fr;
-    }
-
-    .mockup-sidebar {
-      background: #161b22;
-      border-right: 1px solid rgba(255,255,255,0.06);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      padding-top: 12px;
-    }
-
-    .mockup-sidebar-icon {
-      width: 20px;
-      height: 20px;
-      border-radius: 4px;
-      background: rgba(255,255,255,0.06);
-    }
-
-    .mockup-sidebar-icon.active {
-      background: var(--accent);
-      opacity: 0.8;
-    }
-
-    .mockup-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: repeat(2, 1fr);
-      gap: 2px;
-      padding: 2px;
-    }
-
-    .mockup-cam {
-      background: #1a1f2e;
-      border-radius: 2px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .mockup-cam::after {
+    .hero::before {
       content: '';
-      position: absolute;
-      top: 4px;
-      left: 4px;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #28c840;
-      box-shadow: 0 0 4px rgba(40, 200, 64, 0.5);
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 55% 45% at 15% 85%, rgba(0,180,216,0.15) 0%, transparent 65%),
+        radial-gradient(ellipse 55% 45% at 85% 15%, rgba(139,92,246,0.10) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 40% at 50% 50%, rgba(0,180,216,0.04) 0%, transparent 70%);
     }
-
-    .mockup-cam-lines {
-      position: absolute;
-      inset: 20%;
-      border: 1px solid rgba(0, 180, 216, 0.2);
-      border-radius: 2px;
-    }
-
-    .mockup-cam:nth-child(2) .mockup-cam-lines,
-    .mockup-cam:nth-child(5) .mockup-cam-lines {
-      border-color: rgba(254, 188, 46, 0.2);
-    }
-
-    @media (max-width: 1024px) {
-      .hero .container { grid-template-columns: 1fr; gap: 40px; }
-      .hero-content { text-align: center; }
-      .hero-desc { margin-left: auto; margin-right: auto; }
-      .hero-actions { justify-content: center; }
-      .hero-stats { justify-content: center; }
-      .hero-visual { max-width: 600px; margin: 0 auto; }
-    }
-
-    @media (max-width: 640px) {
-      .hero { padding: 100px 0 60px; }
-      .hero-stats { gap: 24px; }
-    }
-
-    /* ===== BRANDS BAR ===== */
-    .brands {
-      padding: 60px 0;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      background: var(--bg-secondary);
-    }
-
-    .brands-label {
-      text-align: center;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-bottom: 32px;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      font-weight: 500;
-    }
-
-    .brands-list {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 40px;
-      flex-wrap: wrap;
-    }
-
-    .brand-item {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--text-muted);
-      letter-spacing: 0.02em;
-      transition: color 0.3s;
-      cursor: default;
-    }
-
-    .brand-item:hover {
-      color: var(--text-primary);
-    }
-
-    @media (max-width: 640px) {
-      .brands-list { gap: 24px; }
-      .brand-item { font-size: 0.95rem; }
-    }
-
-    /* ===== FEATURES BENTO ===== */
-    .features {
-      padding: var(--section-padding) 0;
-    }
-
-    .features-header {
-      margin-bottom: 64px;
-    }
-
-    .bento-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-
-    .bento-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 28px;
-      position: relative;
-      overflow: hidden;
-      transition: border-color 0.3s, transform 0.3s, background 0.3s;
-    }
-
-    .bento-card:hover {
-      border-color: var(--border-hover);
-      transform: translateY(-3px);
-      background: var(--bg-card-hover);
-    }
-
-    .bento-card-icon {
-      width: 44px;
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: var(--radius-sm);
-      background: rgba(0, 180, 216, 0.08);
-      color: var(--accent);
-      margin-bottom: 20px;
-    }
-
-    .bento-card-icon svg {
-      width: 22px;
-      height: 22px;
-    }
-
-    .bento-card h3 {
-      font-size: 1.15rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    .bento-card p {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    /* 벤토 그리드 스팬 */
-    .bento-large { grid-column: span 2; grid-row: span 2; }
-    .bento-wide { grid-column: span 2; }
-
-    .bento-large .bento-card-icon {
-      width: 56px;
-      height: 56px;
-    }
-
-    .bento-large .bento-card-icon svg {
-      width: 28px;
-      height: 28px;
-    }
-
-    .bento-large h3 {
-      font-size: 1.35rem;
-    }
-
-    .bento-large p {
-      font-size: 1rem;
-      max-width: 360px;
-    }
-
-    /* 벤토 카드 내부 장식 */
-    .bento-card::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 150px;
-      height: 150px;
-      background: radial-gradient(circle at top right, rgba(0,180,216,0.04), transparent 70%);
-      pointer-events: none;
-    }
-
-    .bento-large::after {
-      width: 250px;
-      height: 250px;
-    }
-
-    /* 벤토 카드 내부 시각 요소 */
-    .bento-visual {
-      margin-top: 20px;
-      position: relative;
-    }
-
-    .bento-grid-dots {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: repeat(3, 1fr);
-      gap: 4px;
-      max-width: 200px;
-    }
-
-    .bento-grid-dot {
-      aspect-ratio: 16/9;
-      background: rgba(0, 180, 216, 0.08);
-      border-radius: 3px;
-      border: 1px solid rgba(0, 180, 216, 0.12);
-    }
-
-    .bento-grid-dot.active {
-      background: rgba(0, 180, 216, 0.15);
-      border-color: rgba(0, 180, 216, 0.3);
-    }
-
-    .bento-tag-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 16px;
-    }
-
-    .bento-tag {
-      padding: 4px 12px;
-      border-radius: 100px;
-      font-size: 0.75rem;
-      font-weight: 500;
-      background: rgba(0, 180, 216, 0.08);
-      color: var(--accent);
-      border: 1px solid rgba(0, 180, 216, 0.15);
-    }
-
-    @media (max-width: 1024px) {
-      .bento-grid { grid-template-columns: repeat(2, 1fr); }
-      .bento-large { grid-column: span 2; grid-row: span 1; }
-    }
-
-    @media (max-width: 640px) {
-      .bento-grid { grid-template-columns: 1fr; }
-      .bento-large, .bento-wide { grid-column: span 1; }
-    }
-
-    /* ===== SPECS ===== */
-    .specs {
-      padding: var(--section-padding) 0;
-      background: var(--bg-secondary);
-    }
-
-    .specs-header {
-      margin-bottom: 64px;
-    }
-
-    .specs-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-
-    .spec-card {
-      text-align: center;
-      padding: 40px 24px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      transition: border-color 0.3s;
-    }
-
-    .spec-card:hover {
-      border-color: var(--border-hover);
-    }
-
-    .spec-value {
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 800;
-      color: var(--accent);
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-
-    .spec-label {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .spec-detail {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    @media (max-width: 768px) {
-      .specs-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    @media (max-width: 480px) {
-      .specs-grid { grid-template-columns: 1fr; }
-    }
-
-    /* ===== USE CASES ===== */
-    .usecases {
-      padding: var(--section-padding) 0;
-    }
-
-    .usecases-header {
-      margin-bottom: 64px;
-    }
-
-    .usecases-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-
-    .usecase-card {
-      padding: 32px 24px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      text-align: center;
-      transition: border-color 0.3s, transform 0.3s, background 0.3s;
-    }
-
-    .usecase-card:hover {
-      border-color: var(--border-hover);
-      transform: translateY(-3px);
-      background: var(--bg-card-hover);
-    }
-
-    .usecase-icon {
-      width: 56px;
-      height: 56px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: var(--radius-md);
-      background: rgba(0, 180, 216, 0.08);
-      color: var(--accent);
-      margin: 0 auto 20px;
-    }
-
-    .usecase-icon svg {
-      width: 28px;
-      height: 28px;
-    }
-
-    .usecase-card h3 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .usecase-card p {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    .usecase-tag {
+    .hero > * { position: relative; z-index: 1; }
+    .hero-eyebrow {
       display: inline-block;
-      margin-top: 12px;
-      padding: 4px 12px;
-      border-radius: 100px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      background: rgba(0, 180, 216, 0.08);
-      color: var(--accent);
-      border: 1px solid rgba(0, 180, 216, 0.15);
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+      color: #00b4d8; border: 1px solid rgba(0,180,216,0.35);
+      padding: 0.3rem 0.9rem; border-radius: 3px; margin-bottom: 1.4rem;
+    }
+    .hero h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(2rem, 5.5vw, 3.2rem);
+      font-weight: 800; line-height: 1.18; margin-bottom: 1.1rem;
+    }
+    .hero h1 em { color: #00b4d8; font-style: normal; }
+    .hero h1 .em2 { color: #a78bfa; font-style: normal; }
+    .hero-sub {
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      color: #94a3b8; max-width: 660px; margin: 0 auto 2.5rem; line-height: 1.8;
+    }
+    .hero-cta-group {
+      display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center;
+    }
+    .btn-primary {
+      background: #00b4d8; color: #fff; font-weight: 700;
+      padding: 0.9rem 2.1rem; border-radius: 6px; text-decoration: none;
+      font-size: 0.95rem; transition: background 0.2s, transform 0.15s;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-primary:hover { background: #0096b7; transform: translateY(-1px); }
+    .btn-ghost {
+      background: transparent; color: #e2e8f0; font-weight: 600;
+      padding: 0.9rem 2.1rem; border-radius: 6px; text-decoration: none;
+      font-size: 0.95rem; border: 1px solid rgba(255,255,255,0.25);
+      transition: border-color 0.2s, color 0.2s;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.6); color: #fff; }
+
+    /* ── Proof bar ── */
+    .proof-bar {
+      background: #0a0f1a; border-bottom: 1px solid #1e293b; padding: 1rem 1.5rem;
+    }
+    .proof-bar-inner {
+      max-width: 960px; margin: 0 auto;
+      display: flex; flex-wrap: wrap; gap: 0.5rem 2rem;
+      justify-content: center; align-items: center;
+    }
+    .proof-item {
+      display: flex; align-items: center; gap: 0.45rem;
+      font-size: 0.8rem; color: #94a3b8; white-space: nowrap;
+    }
+    .proof-item i { color: #00b4d8; font-size: 0.82rem; }
+    .proof-item strong { color: #e2e8f0; }
+
+    /* ── Sections ── */
+    .section { padding: 4.5rem 1.5rem; }
+    .section-alt { background: #fff; }
+    .section-dark { background: #070d18; }
+    .wrap { max-width: 940px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+      color: #00b4d8; margin-bottom: 0.5rem;
+    }
+    .section-label-purple { color: #a78bfa; }
+    .section-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+      font-weight: 800; color: #0f172a; margin-bottom: 0.75rem; line-height: 1.28;
+    }
+    .section-title-light { color: #f1f5f9; }
+    .section-desc { font-size: 0.95rem; color: #64748b; max-width: 600px; line-height: 1.85; }
+    .section-desc-light { color: #94a3b8; }
+    .section-head { margin-bottom: 2.5rem; }
+
+    /* ── Customization ── */
+    .custom-hero {
+      background: linear-gradient(135deg, #0a0f1a 0%, #0e1b2e 100%);
+      border-radius: 16px; overflow: hidden;
+      border: 1px solid rgba(0,180,216,0.15);
+      box-shadow: 0 0 60px rgba(0,180,216,0.05);
+    }
+    .custom-hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .custom-hero-text { padding: 3rem 2.5rem; }
+    .custom-hero-text h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+      font-weight: 800; color: #f1f5f9; line-height: 1.3; margin-bottom: 1rem;
+    }
+    .custom-hero-text h3 em { color: #00b4d8; font-style: normal; }
+    .custom-hero-text p { font-size: 0.9rem; color: #94a3b8; line-height: 1.85; margin-bottom: 1.25rem; }
+    .custom-list { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+    .custom-list li { display: flex; align-items: flex-start; gap: 0.55rem; font-size: 0.87rem; color: #cbd5e1; }
+    .custom-list li i { color: #00b4d8; margin-top: 0.22rem; flex-shrink: 0; }
+    .custom-hero-visual {
+      background: #060c17; border-left: 1px solid rgba(0,180,216,0.1);
+      padding: 2.5rem 2rem; display: flex; flex-direction: column; gap: 1rem; justify-content: center;
+    }
+    .custom-layer {
+      border-radius: 8px; padding: 0.75rem 1rem;
+      display: flex; align-items: center; gap: 0.65rem;
+      border: 1px solid transparent; transition: border-color 0.2s;
+    }
+    .custom-layer:hover { border-color: rgba(0,180,216,0.3); }
+    .cl-1 { background: rgba(0,180,216,0.08); border-color: rgba(0,180,216,0.15); }
+    .cl-2 { background: rgba(59,130,246,0.07); }
+    .cl-3 { background: rgba(139,92,246,0.07); }
+    .cl-4 { background: rgba(236,72,153,0.06); }
+    .cl-icon { width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; }
+    .cl-1 .cl-icon { background: rgba(0,180,216,0.2); color: #00b4d8; }
+    .cl-2 .cl-icon { background: rgba(59,130,246,0.2); color: #60a5fa; }
+    .cl-3 .cl-icon { background: rgba(139,92,246,0.2); color: #a78bfa; }
+    .cl-4 .cl-icon { background: rgba(236,72,153,0.2); color: #f472b6; }
+    .cl-text h4 { font-size: 0.82rem; font-weight: 700; color: #e2e8f0; margin-bottom: 0.1rem; }
+    .cl-text p  { font-size: 0.74rem; color: #64748b; line-height: 1.4; }
+    .custom-cta {
+      margin-top: 0.5rem; display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.85rem; font-weight: 700; color: #00b4d8; text-decoration: none;
+      border: 1px solid rgba(0,180,216,0.35); padding: 0.55rem 1.1rem; border-radius: 5px;
+      transition: background 0.2s;
+    }
+    .custom-cta:hover { background: rgba(0,180,216,0.1); }
+
+    /* ── AI Roadmap ── */
+    .ai-road {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+      border-radius: 12px; overflow: hidden; border: 1px solid #1e293b;
+    }
+    .ai-stage { padding: 2rem 1.5rem; border-right: 1px solid #1e293b; position: relative; }
+    .ai-stage:last-child { border-right: none; }
+    .ai-stage-1 { background: #0d1117; }
+    .ai-stage-2 { background: #0a1628; }
+    .ai-stage-3 { background: #0c1a30; }
+    .ai-stage-4 { background: linear-gradient(160deg, #0e1535, #120d28); }
+    .stage-badge {
+      display: inline-block; font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.2rem 0.55rem; border-radius: 3px; margin-bottom: 0.85rem;
+    }
+    .badge-gray   { background: rgba(100,116,139,0.15); color: #94a3b8; border: 1px solid rgba(100,116,139,0.25); }
+    .badge-cyan   { background: rgba(0,180,216,0.15);  color: #00b4d8;  border: 1px solid rgba(0,180,216,0.3);  }
+    .badge-violet { background: rgba(139,92,246,0.15); color: #a78bfa;  border: 1px solid rgba(139,92,246,0.3); }
+    .badge-future { background: rgba(236,72,153,0.12); color: #f472b6;  border: 1px solid rgba(236,72,153,0.25);}
+    .stage-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; margin-bottom: 0.85rem; }
+    .si-gray   { background: rgba(100,116,139,0.12); color: #64748b; }
+    .si-cyan   { background: rgba(0,180,216,0.12);   color: #00b4d8; }
+    .si-violet { background: rgba(139,92,246,0.12);  color: #a78bfa; }
+    .si-pink   { background: rgba(236,72,153,0.12);  color: #f472b6; }
+    .ai-stage h3 { font-size: 0.9rem; font-weight: 700; color: #e2e8f0; margin-bottom: 0.5rem; }
+    .ai-stage p  { font-size: 0.78rem; color: #64748b; line-height: 1.7; }
+    .stage-items { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.65rem; }
+    .stage-items li { font-size: 0.75rem; color: #94a3b8; display: flex; align-items: flex-start; gap: 0.4rem; }
+    .stage-items li i { font-size: 0.65rem; margin-top: 0.28rem; flex-shrink: 0; }
+    .now-label {
+      position: absolute; top: 0.75rem; right: 0.75rem;
+      background: rgba(0,180,216,0.18); border: 1px solid rgba(0,180,216,0.35);
+      color: #67e8f9; font-size: 0.62rem; font-weight: 700;
+      padding: 0.15rem 0.45rem; border-radius: 3px; letter-spacing: 0.08em;
+    }
+    .next-label {
+      position: absolute; top: 0.75rem; right: 0.75rem;
+      background: rgba(139,92,246,0.15); border: 1px solid rgba(139,92,246,0.3);
+      color: #c4b5fd; font-size: 0.62rem; font-weight: 700;
+      padding: 0.15rem 0.45rem; border-radius: 3px; letter-spacing: 0.08em;
     }
 
-    @media (max-width: 1024px) {
-      .usecases-grid { grid-template-columns: repeat(2, 1fr); }
+    /* ── Split feature ── */
+    .split-feature { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: center; }
+    .split-text h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.35rem; font-weight: 800; color: #0f172a; margin-bottom: 0.75rem; line-height: 1.3;
     }
-
-    @media (max-width: 640px) {
-      .usecases-grid { grid-template-columns: 1fr; }
+    .split-text h3 em { color: #00b4d8; font-style: normal; }
+    .split-text p { font-size: 0.9rem; color: #475569; line-height: 1.85; margin-bottom: 1rem; }
+    .feature-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .feature-list li { display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.87rem; color: #334155; }
+    .feature-list li i { color: #00b4d8; margin-top: 0.22rem; flex-shrink: 0; }
+    .split-visual { background: #0f172a; border-radius: 14px; padding: 1.75rem 1.5rem; }
+    .flow-row { display: flex; align-items: center; gap: 0.45rem; justify-content: center; }
+    .flow-node {
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 7px; padding: 0.45rem 0.8rem;
+      font-size: 0.76rem; font-weight: 600; color: #e2e8f0; text-align: center; white-space: nowrap;
     }
-
-    /* ===== COMPATIBILITY ===== */
-    .compat {
-      padding: var(--section-padding) 0;
+    .flow-node.hl { background: rgba(0,180,216,0.18); border-color: rgba(0,180,216,0.45); color: #67e8f9; }
+    .flow-arrow { color: #334155; font-size: 0.72rem; }
+    .flow-label { font-size: 0.68rem; color: #475569; text-align: center; margin-top: 0.3rem; }
+    .latency-badge {
+      background: rgba(0,180,216,0.1); border: 1px solid rgba(0,180,216,0.25);
+      border-radius: 8px; padding: 0.7rem 1rem; text-align: center; margin-top: 0.85rem;
     }
+    .latency-badge .val { font-family: 'Poppins', sans-serif; font-size: 1.4rem; font-weight: 800; color: #00b4d8; }
+    .latency-badge .unit { font-size: 0.8rem; color: #94a3b8; }
 
-    .compat-header {
-      margin-bottom: 64px;
+    /* ── Phone visual ── */
+    .phone-visual {
+      background: linear-gradient(135deg, #0a1628, #0d2b40);
+      border-radius: 14px; padding: 2rem 1.5rem; border: 1px solid rgba(0,180,216,0.12);
     }
-
-    .compat-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-bottom: 40px;
+    .phone-diagram { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
+    .phone-icon {
+      width: 52px; height: 52px; border-radius: 12px;
+      background: rgba(0,180,216,0.15); border: 1px solid rgba(0,180,216,0.3);
+      display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: #00b4d8;
     }
+    .arrow-down { color: #334155; font-size: 1.1rem; }
+    .nox-box { background: #00b4d8; border-radius: 8px; padding: 0.6rem 2rem; font-size: 0.88rem; font-weight: 800; color: #fff; letter-spacing: 0.05em; }
+    .nox-outputs { display: flex; gap: 0.45rem; flex-wrap: wrap; justify-content: center; }
+    .output-chip { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 5px; padding: 0.28rem 0.6rem; font-size: 0.71rem; font-weight: 600; color: #94a3b8; }
+    .push-label { font-size: 0.7rem; color: #475569; }
 
-    .compat-card {
-      padding: 28px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      transition: border-color 0.3s;
+    /* ── Stats ── */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; }
+    .stat-card {
+      background: #fff; border-radius: 10px; padding: 1.35rem 1rem;
+      text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+      border: 1px solid #e2e8f0; transition: transform 0.2s, box-shadow 0.2s;
     }
+    .stat-card:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,0.1); }
+    .stat-num { font-family: 'Poppins', sans-serif; font-size: 1.85rem; font-weight: 800; color: #00b4d8; line-height: 1; margin-bottom: 0.35rem; }
+    .stat-unit { font-size: 0.9rem; font-weight: 600; }
+    .stat-label { font-size: 0.76rem; color: #64748b; line-height: 1.5; }
 
-    .compat-card:hover {
-      border-color: var(--border-hover);
+    /* ── USP grid ── */
+    .usp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; }
+    .usp-card {
+      background: #fff; border-radius: 10px; padding: 1.5rem;
+      border: 1px solid #e8edf2; box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
     }
+    .usp-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.09); }
+    .usp-icon-wrap { width: 46px; height: 46px; border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 1.05rem; margin-bottom: 0.9rem; }
+    .ic-cyan   { background: #cffafe; color: #0891b2; }
+    .ic-blue   { background: #dbeafe; color: #2563eb; }
+    .ic-amber  { background: #fef3c7; color: #d97706; }
+    .ic-purple { background: #ede9fe; color: #7c3aed; }
+    .ic-rose   { background: #fce7f3; color: #db2777; }
+    .usp-card h3 { font-size: 0.97rem; font-weight: 700; color: #0f172a; margin-bottom: 0.45rem; }
+    .usp-card p  { font-size: 0.83rem; color: #64748b; line-height: 1.72; }
+    .usp-tag { display: inline-block; margin-top: 0.7rem; font-size: 0.69rem; font-weight: 600; padding: 0.18rem 0.52rem; border-radius: 3px; }
+    .tag-cyan   { background: #e0f9fd; color: #0891b2; }
+    .tag-blue   { background: #dbeafe; color: #1d4ed8; }
+    .tag-amber  { background: #fef9c3; color: #a16207; }
+    .tag-purple { background: #ede9fe; color: #6d28d9; }
+    .tag-rose   { background: #fce7f3; color: #be185d; }
 
-    .compat-brand {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    /* ── Security callout ── */
+    .security-callout {
+      background: #0f172a; border-radius: 12px; padding: 1.6rem 1.75rem;
+      display: grid; grid-template-columns: auto 1fr; gap: 1.4rem; align-items: center; margin-top: 1.5rem;
     }
-
-    .compat-check {
-      color: var(--accent);
-      width: 18px;
-      height: 18px;
+    .security-callout-icon {
+      width: 52px; height: 52px; border-radius: 12px;
+      background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.22);
+      display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: #4ade80; flex-shrink: 0;
     }
+    .security-callout h3 { font-size: 0.97rem; font-weight: 700; color: #e2e8f0; margin-bottom: 0.3rem; }
+    .security-callout p  { font-size: 0.83rem; color: #64748b; line-height: 1.7; }
+    .security-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.55rem; }
+    .sec-tag { background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.18); color: #86efac; font-size: 0.69rem; font-weight: 600; padding: 0.18rem 0.52rem; border-radius: 3px; }
 
-    .compat-models {
-      font-size: 0.85rem;
-      color: var(--text-muted);
+    /* ── Persona ── */
+    .persona-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1rem; }
+    .persona-card { background: #0f172a; border-radius: 10px; padding: 1.4rem 1.2rem; color: #fff; }
+    .persona-header { display: flex; align-items: center; gap: 0.55rem; margin-bottom: 0.8rem; }
+    .persona-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(0,180,216,0.15); border: 1px solid rgba(0,180,216,0.28); display: flex; align-items: center; justify-content: center; color: #00b4d8; font-size: 0.95rem; flex-shrink: 0; }
+    .persona-name  { font-size: 0.84rem; font-weight: 700; color: #e2e8f0; }
+    .persona-badge { font-size: 0.63rem; color: #64748b; }
+    .persona-quote { font-size: 0.8rem; color: #94a3b8; line-height: 1.7; font-style: italic; border-left: 2px solid rgba(0,180,216,0.35); padding-left: 0.7rem; margin-bottom: 0.8rem; }
+    .persona-usp { font-size: 0.74rem; font-weight: 600; color: #00b4d8; }
+
+    /* ── Steps ── */
+    .steps-container { border-radius: 10px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+    .steps-wrap { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+    .step-card { background: #fff; padding: 1.7rem 1.2rem; border-right: 1px solid #e2e8f0; text-align: center; }
+    .step-card:last-child { border-right: none; }
+    .step-num { font-family: 'Poppins', sans-serif; font-size: 1.9rem; font-weight: 800; color: #e2e8f0; line-height: 1; margin-bottom: 0.5rem; }
+    .step-card h3 { font-size: 0.88rem; font-weight: 700; color: #0f172a; margin-bottom: 0.35rem; }
+    .step-card p  { font-size: 0.79rem; color: #64748b; line-height: 1.65; }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: linear-gradient(135deg, #050d1a 0%, #0a1f3d 50%, #00374d 100%);
+      color: #fff; padding: 4.5rem 1.5rem; text-align: center; position: relative; overflow: hidden;
     }
-
-    .compat-note {
-      text-align: center;
-      padding: 24px;
-      background: rgba(0, 180, 216, 0.05);
-      border: 1px solid rgba(0, 180, 216, 0.12);
-      border-radius: var(--radius-md);
-      color: var(--text-secondary);
-      font-size: 0.95rem;
+    .cta-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,180,216,0.09) 0%, transparent 70%); }
+    .cta-section > * { position: relative; z-index: 1; }
+    .cta-section h2 { font-family: 'Poppins', sans-serif; font-size: clamp(1.4rem, 3.5vw, 2rem); font-weight: 800; margin-bottom: 0.75rem; }
+    .cta-section h2 em { color: #00b4d8; font-style: normal; }
+    .cta-section p { color: #94a3b8; margin-bottom: 2rem; font-size: 0.95rem; }
+    .cta-contact-grid { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 2rem; }
+    .contact-chip {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15);
+      color: #e2e8f0; padding: 0.6rem 1.1rem; border-radius: 6px;
+      font-size: 0.82rem; display: flex; align-items: center; gap: 0.5rem;
+      text-decoration: none; transition: background 0.2s;
     }
+    .contact-chip:hover { background: rgba(255,255,255,0.12); }
+    .contact-chip i { color: #00b4d8; }
 
-    .compat-note strong {
-      color: var(--accent);
-    }
-
-    @media (max-width: 768px) {
-      .compat-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    @media (max-width: 480px) {
-      .compat-grid { grid-template-columns: 1fr; }
-    }
-
-    /* ===== ARCHITECTURE ===== */
-    .arch {
-      padding: var(--section-padding) 0;
-      background: var(--bg-secondary);
-    }
-
-    .arch-header {
-      margin-bottom: 64px;
-    }
-
-    .arch-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: center;
-    }
-
-    .arch-features {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    .arch-feature {
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-    }
-
-    .arch-feature-icon {
-      flex-shrink: 0;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: var(--radius-sm);
-      background: rgba(0, 180, 216, 0.08);
-      color: var(--accent);
-    }
-
-    .arch-feature-icon svg {
-      width: 20px;
-      height: 20px;
-    }
-
-    .arch-feature h4 {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .arch-feature p {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-    }
-
-    /* 아키텍처 다이어그램 시각화 */
-    .arch-diagram {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 32px;
-    }
-
-    .arch-diagram-title {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 20px;
-    }
-
-    .arch-services {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-    }
-
-    .arch-service {
-      padding: 8px;
-      text-align: center;
-      font-size: 0.65rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      background: rgba(0, 180, 216, 0.05);
-      border: 1px solid rgba(0, 180, 216, 0.1);
-      border-radius: 6px;
-      transition: all 0.3s;
-    }
-
-    .arch-service:hover {
-      background: rgba(0, 180, 216, 0.1);
-      border-color: rgba(0, 180, 216, 0.25);
-      color: var(--accent);
-    }
-
-    .arch-middleware {
-      margin: 12px 0;
-      padding: 10px;
-      text-align: center;
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: var(--accent);
-      background: rgba(0, 180, 216, 0.06);
-      border-radius: 6px;
-      border: 1px dashed rgba(0, 180, 216, 0.2);
-    }
-
-    .arch-infra {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-    }
-
-    .arch-infra-item {
-      padding: 8px;
-      text-align: center;
-      font-size: 0.65rem;
-      font-weight: 500;
-      color: var(--text-muted);
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.04);
-      border-radius: 6px;
-    }
-
-    @media (max-width: 1024px) {
-      .arch-content { grid-template-columns: 1fr; gap: 40px; }
-    }
-
-    /* ===== CTA ===== */
-    .cta {
-      padding: var(--section-padding) 0;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .cta-bg {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at center, rgba(0,180,216,0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .cta-content {
-      text-align: center;
-      position: relative;
-      z-index: 1;
-      max-width: 640px;
-      margin: 0 auto;
-    }
-
-    .cta-title {
-      font-size: clamp(1.75rem, 3vw, 2.5rem);
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-
-    .cta-desc {
-      font-size: 1.1rem;
-      color: var(--text-secondary);
-      margin-bottom: 36px;
-      line-height: 1.7;
-    }
-
-    .cta-actions {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .cta .btn-primary {
-      animation: pulse-glow 3s ease-in-out infinite;
-    }
-
-    /* ===== FOOTER ===== */
+    /* ── Footer ── */
     .footer {
-      padding: 48px 0;
-      border-top: 1px solid var(--border);
-      background: var(--bg-secondary);
+      background: #0a0f1a; color: #475569; text-align: center;
+      padding: 1.75rem 1.5rem; font-size: 0.8rem; border-top: 1px solid #1e293b;
     }
+    .footer a { color: #94a3b8; text-decoration: none; }
+    .footer a:hover { color: #fff; }
 
-    .footer-content {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      gap: 48px;
+    /* ── Popup ── */
+    .popup-overlay {
+      position: fixed; inset: 0; background: rgba(15,23,42,0.7); z-index: 10000;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; visibility: hidden; transition: opacity 0.35s ease, visibility 0.35s ease;
+      padding: 1rem; backdrop-filter: blur(4px);
     }
-
-    .footer-brand {
-      font-size: 1.25rem;
-      font-weight: 800;
-      margin-bottom: 12px;
-      letter-spacing: 0.05em;
+    .popup-overlay.active { opacity: 1; visibility: visible; }
+    .popup-card {
+      background: #fff; border-radius: 4px; max-width: 540px; width: 100%;
+      position: relative; box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+      transform: translateY(20px); transition: transform 0.35s cubic-bezier(0.4,0,0.2,1); overflow: hidden;
     }
+    .popup-overlay.active .popup-card { transform: translateY(0); }
+    .popup-header { background: linear-gradient(135deg, #0f172a, #1e293b); padding: 1.75rem 2rem; position: relative; }
+    .popup-header::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #3b82f6, #60a5fa, #3b82f6); }
+    .popup-header-badge { display: inline-block; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #60a5fa; border: 1px solid rgba(96,165,250,0.3); padding: 0.25rem 0.6rem; border-radius: 2px; margin-bottom: 0.75rem; }
+    .popup-card h3 { font-family: 'Poppins', sans-serif; font-size: 1.35rem; font-weight: 700; color: #fff; margin: 0; line-height: 1.4; }
+    .popup-close { position: absolute; top: 1.25rem; right: 1.25rem; background: rgba(255,255,255,0.1); border: none; font-size: 1.1rem; color: #94a3b8; cursor: pointer; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 2px; transition: background 0.2s, color 0.2s; }
+    .popup-close:hover { background: rgba(255,255,255,0.2); color: #fff; }
+    .popup-content { padding: 1.75rem 2rem 2rem; }
+    .popup-body { font-size: 0.92rem; color: #334155; line-height: 1.8; margin-bottom: 1.5rem; }
+    .popup-body p { margin: 0 0 1rem; }
+    .popup-footer { display: flex; align-items: center; gap: 1rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0; margin-top: 1.5rem; }
+    .popup-cta { display: inline-flex; align-items: center; gap: 0.5rem; background: #0f172a; color: #fff; padding: 0.75rem 1.5rem; border-radius: 4px; text-decoration: none; font-weight: 600; font-size: 0.9rem; letter-spacing: 0.02em; transition: background 0.2s; }
+    .popup-cta:hover { background: #1e293b; }
+    .popup-cta i { font-size: 0.85rem; }
+    .partner-popup .popup-intro { font-size: 0.88rem; color: #475569; line-height: 1.7; margin-bottom: 1.25rem; }
+    .partner-popup .popup-intro strong { color: #0f172a; }
+    .partner-popup .popup-notice { display: flex; align-items: flex-start; gap: 0.5rem; background: #fef3c7; border-left: 3px solid #f59e0b; padding: 0.6rem 0.85rem; font-size: 0.8rem; color: #92400e; line-height: 1.6; margin-bottom: 1.25rem; }
+    .partner-popup .popup-notice i { color: #f59e0b; margin-top: 0.2rem; flex-shrink: 0; }
+    .partner-popup .popup-section-title { font-size: 0.82rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem; }
+    .partner-popup .popup-section-title i { color: #3b82f6; font-size: 0.72rem; }
+    .partner-popup .popup-sector-list { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 1.25rem; }
+    .partner-popup .popup-sector-tag { display: inline-flex; align-items: center; gap: 0.3rem; background: #f1f5f9; border: 1px solid #e2e8f0; padding: 0.3rem 0.65rem; border-radius: 3px; font-size: 0.78rem; color: #334155; white-space: nowrap; }
+    .partner-popup .popup-sector-tag i { color: #3b82f6; font-size: 0.65rem; }
+    .partner-popup .popup-benefit-list { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
+    .partner-popup .popup-benefit-item { display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.82rem; color: #334155; line-height: 1.5; }
+    .partner-popup .popup-benefit-item i { color: #10b981; font-size: 0.7rem; margin-top: 0.2rem; flex-shrink: 0; }
+    .partner-popup .popup-sector-note { font-size: 0.75rem; color: #94a3b8; margin-top: 0.5rem; }
+    .partner-popup .popup-footer { flex-wrap: wrap; gap: 0.6rem; }
+    .partner-popup .popup-cta-outline { display: inline-flex; align-items: center; gap: 0.5rem; background: #fff; color: #0f172a; border: 1.5px solid #0f172a; padding: 0.7rem 1.3rem; border-radius: 4px; text-decoration: none; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.02em; transition: background 0.2s; }
+    .partner-popup .popup-cta-outline:hover { background: #f1f5f9; }
+    .partner-popup .popup-cta-outline i { font-size: 0.8rem; }
+    .dual-popup-container { display: flex; gap: 1.5rem; justify-content: center; align-items: flex-start; max-width: 1040px; width: 100%; }
+    .dual-popup-container > .popup-card { flex: 1; min-width: 0; max-width: 500px; }
+    .dual-popup-container > .popup-card.dismissed { display: none; }
+    .popup-today-label { display: flex; align-items: center; gap: 0.45rem; width: 100%; padding-top: 0.6rem; margin-top: 0.5rem; border-top: 1px dashed #e2e8f0; cursor: pointer; font-size: 0.78rem; color: #64748b; user-select: none; }
+    .popup-today-label input[type="checkbox"] { width: 14px; height: 14px; flex-shrink: 0; cursor: pointer; accent-color: #3b82f6; }
+    .popup-today-close-btn { margin-left: auto; background: none; border: 1px solid #cbd5e1; padding: 0.1rem 0.5rem; font-size: 0.73rem; color: #64748b; cursor: pointer; border-radius: 3px; flex-shrink: 0; line-height: 1.6; }
+    .popup-today-close-btn:hover { background: #f1f5f9; color: #334155; }
 
-    .footer-brand .logo-accent { color: var(--accent); }
-
-    .footer-desc {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      max-width: 300px;
-      line-height: 1.6;
+    /* ── Responsive ── */
+    @media (max-width: 960px) {
+      .dual-popup-container { flex-direction: column; align-items: center; }
+      .dual-popup-container > .popup-card { max-width: 540px; width: 100%; }
     }
-
-    .footer-heading {
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 16px;
-      color: var(--text-primary);
+    @media (max-width: 760px) {
+      .split-feature  { grid-template-columns: 1fr; }
+      .custom-hero-inner { grid-template-columns: 1fr; }
+      .custom-hero-visual { border-left: none; border-top: 1px solid rgba(0,180,216,0.1); }
+      .ai-road { grid-template-columns: 1fr 1fr; }
     }
-
-    .footer-links {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+    @media (max-width: 640px) {
+      .hero { padding: 5.5rem 1rem 3rem; }
+      .steps-wrap { grid-template-columns: 1fr; }
+      .step-card { border-right: none; border-bottom: 1px solid #e2e8f0; }
+      .step-card:last-child { border-bottom: none; }
+      .ai-road { grid-template-columns: 1fr; }
+      .security-callout { grid-template-columns: 1fr; }
     }
-
-    .footer-links a {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      transition: color 0.2s;
-    }
-
-    .footer-links a:hover {
-      color: var(--accent);
-    }
-
-    .footer-bottom {
-      margin-top: 40px;
-      padding-top: 24px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    @media (max-width: 768px) {
-      .footer-content { grid-template-columns: 1fr; gap: 32px; }
-      .footer-bottom { flex-direction: column; gap: 8px; }
-    }
-
-    /* ===== GRID BACKGROUND ===== */
-    .grid-bg {
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-      background-size: 60px 60px;
-      pointer-events: none;
-      mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-      -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+    @media (max-width: 540px) {
+      .popup-overlay { align-items: flex-start; overflow-y: auto; }
+      .popup-card { max-height: calc(100vh - 2rem); display: flex; flex-direction: column; }
+      .popup-header { padding: 1.25rem; flex-shrink: 0; }
+      .popup-content { padding: 1.25rem; overflow-y: auto; }
+      .popup-card h3 { font-size: 1.15rem; }
+      .popup-body { font-size: 0.88rem; }
+      .popup-footer { flex-direction: column; align-items: flex-start; }
+      .dual-popup-container > .popup-card { max-height: none; }
+      .partner-popup .popup-sector-tag { font-size: 0.74rem; padding: 0.25rem 0.5rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ===== NAV ===== -->
-  <nav class="nav" id="nav">
-    <div class="container">
-      <a href="#" class="nav-logo">
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-          <rect width="32" height="32" rx="8" fill="var(--accent)" opacity="0.15"/>
-          <circle cx="16" cy="16" r="6" fill="var(--accent)" opacity="0.3"/>
-          <circle cx="16" cy="16" r="3" fill="var(--accent)"/>
-        </svg>
-        NOX
-      </a>
-      <input type="checkbox" id="nav-toggle" class="nav-toggle">
-      <label for="nav-toggle" class="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </label>
-      <ul class="nav-links">
-        <li><a href="/"><i class="fas fa-arrow-left" style="font-size:0.75rem;margin-right:0.25rem;"></i> YIYOL</a></li>
-        <li><a href="#features"><span class="ko-only">기능</span><span class="en-only">Features</span></a></li>
-        <li><a href="#usecases"><span class="ko-only">활용 사례</span><span class="en-only">Use Cases</span></a></li>
-        <li><a href="#specs"><span class="ko-only">사양</span><span class="en-only">Specs</span></a></li>
-        <li><a href="#compat"><span class="ko-only">호환성</span><span class="en-only">Compatibility</span></a></li>
-        <li><a href="#arch"><span class="ko-only">아키텍처</span><span class="en-only">Architecture</span></a></li>
-        <li><a href="/blog/"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a></li>
-        <li><a href="/nox/intro.html"><span class="ko-only">도입 소개</span><span class="en-only">Why NOX</span></a></li>
-        <li><a href="https://forms.gle/ikvv1K388KYHUHoj7" target="_blank" class="btn btn-primary"><span class="ko-only">자료 요청</span><span class="en-only">Request Info</span></a></li>
-        <li>
-          <div class="lang-switch">
-            <button class="lang-selector">
-              <span class="lang-current">한국어</span>
-              <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="lang-dropdown">
-              <a href="#" class="lang-option" data-lang="ko">한국어</a>
-              <a href="#" class="lang-option" data-lang="en">English</a>
-            </div>
-          </div>
-        </li>
-      </ul>
+<!-- Nav -->
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="/" class="site-nav-logo">YIYOL<span>.</span></a>
+    <ul class="site-nav-links">
+      <li class="nav-hide"><a href="/blog/">블로그</a></li>
+      <li><a href="mailto:yiyol@yiyol.com?subject=NOX 문의" class="nav-cta">문의하기</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <span class="hero-eyebrow">NOX NVR/VMS Platform</span>
+  <h1>귀사만의 <em>NVR/VMS</em>를<br>직접 만드세요</h1>
+  <p class="hero-sub">
+    Legacy 완전 지원 + WebRTC 초저지연 + YOLO Vision AI.<br>
+    더 나아가 <span style="color:#a78bfa;">VLM</span>과 <span style="color:#f472b6;">Agentic AI</span>로 관제의 미래를 함께 만들어갑니다.<br>
+    UI부터 기능까지 — 귀사의 브랜드와 워크플로우로 완전히 커스터마이징하세요.
+  </p>
+  <div class="hero-cta-group">
+    <a href="mailto:yiyol@yiyol.com?subject=NOX NVR 커스텀 개발 문의&body=안녕하세요. NOX NVR 커스터마이징에 관심이 있습니다. 자세한 내용 부탁드립니다." class="btn-primary">
+      <i class="fas fa-envelope"></i> 커스터마이징 문의
+    </a>
+    <a href="https://www.youtube.com/@YiyolNox" target="_blank" rel="noopener noreferrer" class="btn-ghost">
+      <i class="fa-brands fa-youtube"></i> 데모 영상 보기
+    </a>
+  </div>
+</section>
+
+<!-- Proof bar -->
+<div class="proof-bar">
+  <div class="proof-bar-inner">
+    <div class="proof-item"><i class="fas fa-palette"></i><span><strong>UI/기능</strong> 완전 커스터마이징</span></div>
+    <div class="proof-item"><i class="fas fa-bolt"></i><span><strong>WebRTC</strong> 초저지연</span></div>
+    <div class="proof-item"><i class="fas fa-brain"></i><span><strong>YOLO</strong> Vision AI</span></div>
+    <div class="proof-item"><i class="fas fa-comments"></i><span><strong>VLM</strong> 자연어 영상 이해</span></div>
+    <div class="proof-item"><i class="fas fa-robot"></i><span><strong>Agentic AI</strong> 자율 관제</span></div>
+    <div class="proof-item"><i class="fas fa-video"></i><span>ONVIF Profile <strong>S/T/M</strong></span></div>
+    <div class="proof-item"><i class="fas fa-mobile-screen"></i><span><strong>스마트폰</strong> 카메라 지원</span></div>
+  </div>
+</div>
+
+<!-- CUSTOMIZATION -->
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-label">Your Own NVR/VMS</div>
+      <h2 class="section-title">NOX는 제품이 아닙니다.<br>귀사의 플랫폼입니다.</h2>
+      <p class="section-desc">NOX의 모든 기능은 레고 블록처럼 조합할 수 있습니다. 귀사의 브랜드, 귀사의 UI, 귀사의 워크플로우로 — 처음부터 귀사의 제품인 것처럼 완성됩니다.</p>
     </div>
-  </nav>
-
-  <!-- ===== HERO ===== -->
-  <section class="hero" id="hero">
-    <div class="hero-orb hero-orb-1"></div>
-    <div class="hero-orb hero-orb-2"></div>
-    <div class="grid-bg"></div>
-    <div class="container">
-      <div class="hero-content">
-        <div class="hero-badge">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
-          </svg>
-          <span class="ko-only">가정부터 엔터프라이즈까지</span>
-          <span class="en-only">From Home to Enterprise</span>
-        </div>
-        <h1 class="hero-title ko-only">
-          어디든 적용 가능한<br><span class="gradient-text">지능형 NVR/VMS</span>
-        </h1>
-        <h1 class="hero-title en-only">
-          Adaptable Anywhere<br><span class="gradient-text">Intelligent NVR/VMS</span>
-        </h1>
-        <p class="hero-desc ko-only">
-          가정, 차량, 매장부터 대규모 시설까지 — 환경에 맞게 유연하게 구성됩니다. ONVIF 카메라와 스마트폰을 하나의 솔루션으로 통합하고, AI 영상 분석으로 위협을 사전에 감지합니다.
-        </p>
-        <p class="hero-desc en-only">
-          From homes and vehicles to retail stores and large-scale facilities — flexibly configured for any environment. Integrate ONVIF cameras and smartphones into one unified solution with AI-powered video analytics for proactive threat detection.
-        </p>
-        <div class="hero-actions">
-          <a href="https://forms.gle/ikvv1K388KYHUHoj7" target="_blank" class="btn btn-primary btn-large"><span class="ko-only">자료 요청하기</span><span class="en-only">Request Info</span></a>
-          <a href="#specs" class="btn btn-ghost btn-large"><span class="ko-only">제품 사양 보기</span><span class="en-only">View Specs</span></a>
-        </div>
-        <div class="hero-stats">
-          <div>
-            <div class="hero-stat-value">128+</div>
-            <div class="hero-stat-label"><span class="ko-only">동시 채널</span><span class="en-only">Channels</span></div>
-          </div>
-          <div>
-            <div class="hero-stat-value">&lt;500ms</div>
-            <div class="hero-stat-label"><span class="ko-only">응답 시간</span><span class="en-only">Response</span></div>
-          </div>
-          <div>
-            <div class="hero-stat-value">4K</div>
-            <div class="hero-stat-label"><span class="ko-only">해상도 지원</span><span class="en-only">Resolution</span></div>
-          </div>
-        </div>
-      </div>
-      <div class="hero-visual">
-        <div class="hero-mockup">
-          <div class="mockup-ui">
-            <div class="mockup-titlebar">
-              <div class="mockup-dot mockup-dot-r"></div>
-              <div class="mockup-dot mockup-dot-y"></div>
-              <div class="mockup-dot mockup-dot-g"></div>
-              <span class="mockup-titlebar-text">NOX — Live View</span>
-            </div>
-            <div class="mockup-body">
-              <div class="mockup-sidebar">
-                <div class="mockup-sidebar-icon active"></div>
-                <div class="mockup-sidebar-icon"></div>
-                <div class="mockup-sidebar-icon"></div>
-                <div class="mockup-sidebar-icon"></div>
-                <div class="mockup-sidebar-icon"></div>
-              </div>
-              <div class="mockup-grid">
-                <div class="mockup-cam"><div class="mockup-cam-lines"></div></div>
-                <div class="mockup-cam"><div class="mockup-cam-lines"></div></div>
-                <div class="mockup-cam"><div class="mockup-cam-lines"></div></div>
-                <div class="mockup-cam"><div class="mockup-cam-lines"></div></div>
-                <div class="mockup-cam"><div class="mockup-cam-lines"></div></div>
-                <div class="mockup-cam"><div class="mockup-cam-lines"></div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== FEATURES ===== -->
-  <section class="features" id="features">
-    <div class="container">
-      <div class="features-header">
-        <h2 class="section-title animate-on-scroll ko-only">왜 NOX인가?</h2>
-        <h2 class="section-title animate-on-scroll en-only">Why NOX?</h2>
-        <p class="section-subtitle animate-on-scroll stagger-1 ko-only">마이크로서비스 아키텍처 기반으로 설계된 차세대 NVR/VMS 솔루션</p>
-        <p class="section-subtitle animate-on-scroll stagger-1 en-only">Next-generation NVR/VMS solution built on microservices architecture</p>
-      </div>
-      <div class="bento-grid">
-
-        <!-- 국정원 보안요구사항 준수 (2x2) -->
-        <div class="bento-card bento-large animate-on-scroll stagger-1">
-          <div class="bento-card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-              <path d="M9 12l2 2 4-4"/>
-            </svg>
-          </div>
-          <h3 class="ko-only">국정원 보안요구사항 대응 완료</h3>
-          <h3 class="en-only">NIS Security Requirements Compliance</h3>
-          <p class="ko-only"><strong>NOX 26.04</strong>가 국가정보원 「국가용 보안요구사항 V3.0」 영상정보처리기기(NVR) 전 항목 대응을 완료하여, 공공기관 및 국가 주요 시설에 안심하고 도입할 수 있습니다.</p>
-          <p class="en-only"><strong>NOX 26.04</strong> has achieved full compliance with NIS National Security Requirements V3.0 for NVR — all categories covered. Confidently deploy in government agencies and critical national infrastructure.</p>
-          <div class="bento-visual">
-            <div class="bento-grid-dots">
-              <div class="bento-grid-dot active"></div>
-              <div class="bento-grid-dot active"></div>
-              <div class="bento-grid-dot active"></div>
-              <div class="bento-grid-dot active"></div>
-              <div class="bento-grid-dot active"></div>
-              <div class="bento-grid-dot active"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ONVIF 카메라 설정 (1x1) -->
-        <div class="bento-card animate-on-scroll stagger-2">
-          <div class="bento-card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-              <circle cx="8" cy="12" r="2"/>
-              <path d="M10 12h1"/>
-            </svg>
-          </div>
-          <h3 class="ko-only">ONVIF 카메라 설정</h3>
-          <h3 class="en-only">ONVIF Camera Configuration</h3>
-          <p class="ko-only">ONVIF 표준 프로토콜로 해상도, 프레임레이트, 비트레이트, 이미지 설정 등을 NVR에서 직접 제어.</p>
-          <p class="en-only">Control resolution, frame rate, bitrate, and image settings directly from the NVR via ONVIF.</p>
-        </div>
-
-        <!-- ONVIF 카메라 관리 (1x1) -->
-        <div class="bento-card animate-on-scroll stagger-3">
-          <div class="bento-card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-            </svg>
-          </div>
-          <h3 class="ko-only">ONVIF 카메라 관리</h3>
-          <h3 class="en-only">ONVIF Camera Management</h3>
-          <p class="ko-only">자동 디스커버리로 손쉬운 카메라 등록. RTSP, WebRTC, PTZ 제어를 지원합니다.</p>
-          <p class="en-only">Easy camera registration with auto-discovery. Supports RTSP, WebRTC, and PTZ control.</p>
-        </div>
-
-        <!-- 멀티캐스트 지원 (1x1) -->
-        <div class="bento-card animate-on-scroll stagger-4">
-          <div class="bento-card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <circle cx="12" cy="12" r="3"/>
-              <path d="M16.24 7.76a6 6 0 010 8.49"/>
-              <path d="M19.07 4.93a10 10 0 010 14.14"/>
-              <path d="M7.76 16.24a6 6 0 010-8.49"/>
-              <path d="M4.93 19.07a10 10 0 010-14.14"/>
-            </svg>
-          </div>
-          <h3 class="ko-only">멀티캐스트 지원</h3>
-          <h3 class="en-only">Multicast Streaming</h3>
-          <p class="ko-only">멀티캐스트 스트리밍으로 네트워크 대역폭을 절약하고 다수의 클라이언트에 효율적으로 영상을 전달합니다.</p>
-          <p class="en-only">Save network bandwidth with multicast streaming, efficiently delivering video to multiple clients simultaneously.</p>
-        </div>
-
-        <!-- 실시간 모니터링 (1x1) -->
-        <div class="bento-card animate-on-scroll stagger-5">
-          <div class="bento-card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <rect x="2" y="3" width="20" height="14" rx="2"/>
-              <path d="M8 21h8M12 17v4"/>
-            </svg>
-          </div>
-          <h3 class="ko-only">실시간 모니터링</h3>
-          <h3 class="en-only">Real-time Monitoring</h3>
-          <p class="ko-only">최대 128채널 동시 감시. 다중 분할 레이아웃, 디지털 줌 16배 지원.</p>
-          <p class="en-only">Monitor up to 128 channels simultaneously. Customizable multi-split layouts with up to 16x digital zoom.</p>
-        </div>
-
-        <!-- AI 영상 분석 (2x1) -->
-        <div class="bento-card bento-wide animate-on-scroll stagger-6">
-          <div class="bento-card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-            </svg>
-          </div>
-          <h3 class="ko-only">AI 영상 분석</h3>
-          <h3 class="en-only">AI Video Analytics</h3>
-          <p class="ko-only">모션 감지, 번호판 인식(LPR), 라인 크로싱, 침입 감지를 지원합니다. 자동 이벤트 녹화, 이메일 알림, 웹훅 연동까지 원스톱으로 처리합니다.</p>
-          <p class="en-only">Supports motion detection, license plate recognition (LPR), line crossing, and intrusion detection. Automated event recording, email alerts, and webhook integration — all in one.</p>
-          <div class="bento-tag-list ko-only">
-            <span class="bento-tag">모션 감지</span>
-            <span class="bento-tag">번호판 인식</span>
-            <span class="bento-tag">라인 크로싱</span>
-            <span class="bento-tag">침입 감지</span>
-          </div>
-          <div class="bento-tag-list en-only">
-            <span class="bento-tag">Motion Detection</span>
-            <span class="bento-tag">LPR</span>
-            <span class="bento-tag">Line Crossing</span>
-            <span class="bento-tag">Intrusion Detection</span>
-          </div>
-        </div>
-
-        <!-- 녹화 관리 (1x1) -->
-        <div class="bento-card animate-on-scroll stagger-7">
-          <div class="bento-card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <circle cx="12" cy="12" r="10"/>
-              <circle cx="12" cy="12" r="3"/>
-              <path d="M12 2v2M12 20v2"/>
-            </svg>
-          </div>
-          <h3 class="ko-only">녹화 관리</h3>
-          <h3 class="en-only">Recording Management</h3>
-          <p class="ko-only">연속, 이벤트, 스케줄 녹화 모드를 스트림별로 개별 설정. 최대 365일 보관.</p>
-          <p class="en-only">Configure continuous, event-triggered, and scheduled recording per stream. Up to 365-day retention.</p>
-        </div>
-
-        <!-- 검색 및 재생 (1x1) -->
-        <div class="bento-card animate-on-scroll stagger-8">
-          <div class="bento-card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <circle cx="11" cy="11" r="8"/>
-              <path d="M21 21l-4.35-4.35"/>
-              <path d="M11 8v6l4 2"/>
-            </svg>
-          </div>
-          <h3 class="ko-only">검색 및 재생</h3>
-          <h3 class="en-only">Search & Playback</h3>
-          <p class="ko-only">타임라인, 이벤트, AI 메타데이터 검색. 다중 카메라 동기 재생, 0.25x~16x 배속.</p>
-          <p class="en-only">Timeline, event, and AI metadata search. Multi-camera synchronized playback at 0.25x–16x speed.</p>
-        </div>
-
-        <!-- 모바일 카메라 (1x1) -->
-        <div class="bento-card animate-on-scroll stagger-9">
-          <div class="bento-card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <rect x="5" y="2" width="14" height="20" rx="2"/>
-              <circle cx="12" cy="18" r="1"/>
-              <path d="M9 6h6"/>
-            </svg>
-          </div>
-          <h3 class="ko-only">모바일 카메라</h3>
-          <h3 class="en-only">Mobile Camera</h3>
-          <p class="ko-only">스마트폰을 IP 카메라로 활용. RTSP Push, WebRTC WHIP 프로토콜 지원.</p>
-          <p class="en-only">Use your smartphone as an IP camera. Supports RTSP Push and WebRTC WHIP protocols.</p>
-        </div>
-
-        <!-- 보안 및 권한 (2x1) -->
-        <div class="bento-card bento-wide animate-on-scroll stagger-10">
-          <div class="bento-card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-              <path d="M9 12l2 2 4-4"/>
-            </svg>
-          </div>
-          <h3 class="ko-only">보안 및 권한</h3>
-          <h3 class="en-only">Security & Access Control</h3>
-          <p class="ko-only">RBAC 기반 세밀한 권한 관리, 리소스 그룹 접근 제어, 완전한 감사 로그. HTTPS/TLS 1.2+, JWT RS256, bcrypt 암호화로 엔터프라이즈급 보안을 제공합니다.</p>
-          <p class="en-only">Fine-grained RBAC permission management, resource group access control, and complete audit logs. Enterprise-grade security with HTTPS/TLS 1.2+, JWT RS256, and bcrypt encryption.</p>
-        </div>
-
-        <!-- 엔터프라이즈 확장성 (1x1) -->
-        <div class="bento-card animate-on-scroll stagger-11">
-          <div class="bento-card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <rect x="2" y="2" width="20" height="8" rx="2"/>
-              <rect x="2" y="14" width="20" height="8" rx="2"/>
-              <circle cx="6" cy="6" r="1" fill="currentColor"/>
-              <circle cx="6" cy="18" r="1" fill="currentColor"/>
-            </svg>
-          </div>
-          <h3 class="ko-only">유연한 확장성</h3>
-          <h3 class="en-only">Flexible Scalability</h3>
-          <p class="ko-only">1채널 소규모부터 128채널 이상까지. 마이크로서비스 아키텍처로 필요에 따라 자유롭게 확장.</p>
-          <p class="en-only">From 1 channel to 128+. Scale freely with microservices architecture as your needs grow.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== SPECS ===== -->
-  <section class="specs" id="specs">
-    <div class="container">
-      <div class="specs-header">
-        <h2 class="section-title animate-on-scroll ko-only">검증된 성능</h2>
-        <h2 class="section-title animate-on-scroll en-only">Proven Performance</h2>
-        <p class="section-subtitle animate-on-scroll stagger-1 ko-only">소규모 환경에서도 엔터프라이즈급 안정성과 성능을 제공합니다</p>
-        <p class="section-subtitle animate-on-scroll stagger-1 en-only">Enterprise-grade stability and performance, even for small-scale deployments</p>
-      </div>
-      <div class="specs-grid">
-        <div class="spec-card animate-on-scroll stagger-1">
-          <div class="spec-value" data-count="128">128+</div>
-          <div class="spec-label"><span class="ko-only">동시 스트리밍 채널</span><span class="en-only">Simultaneous Channels</span></div>
-          <div class="spec-detail"><span class="ko-only">H.264 / H.265 / 4K 지원</span><span class="en-only">H.264 / H.265 / 4K Support</span></div>
-        </div>
-        <div class="spec-card animate-on-scroll stagger-2">
-          <div class="spec-value">&lt;500ms</div>
-          <div class="spec-label"><span class="ko-only">응답 시간</span><span class="en-only">Response Time</span></div>
-          <div class="spec-detail"><span class="ko-only">로그인, 검색, API 응답</span><span class="en-only">Login, Search, API Response</span></div>
-        </div>
-        <div class="spec-card animate-on-scroll stagger-3">
-          <div class="spec-value" data-count="20">20+</div>
-          <div class="spec-label"><span class="ko-only">동시 사용자</span><span class="en-only">Concurrent Users</span></div>
-          <div class="spec-detail"><span class="ko-only">동시 재생 세션 지원</span><span class="en-only">Concurrent Playback Sessions</span></div>
-        </div>
-        <div class="spec-card animate-on-scroll stagger-4">
-          <div class="spec-value">S/T/M</div>
-          <div class="spec-label"><span class="ko-only">ONVIF 프로파일</span><span class="en-only">ONVIF Profiles</span></div>
-          <div class="spec-detail">RTSP, WebRTC WHIP</div>
-        </div>
-        <div class="spec-card animate-on-scroll stagger-5">
-          <div class="spec-value"><span class="ko-only">365일</span><span class="en-only">365 Days</span></div>
-          <div class="spec-label"><span class="ko-only">최대 보관 기간</span><span class="en-only">Max Retention</span></div>
-          <div class="spec-detail"><span class="ko-only">스트림별 개별 설정 가능</span><span class="en-only">Per-stream Configuration</span></div>
-        </div>
-        <div class="spec-card animate-on-scroll stagger-6">
-          <div class="spec-value">TLS 1.2+</div>
-          <div class="spec-label"><span class="ko-only">전송 보안</span><span class="en-only">Transport Security</span></div>
-          <div class="spec-detail">HTTPS, JWT RS256, bcrypt</div>
-        </div>
-        <div class="spec-card animate-on-scroll stagger-7">
-          <div class="spec-value">LUKS</div>
-          <div class="spec-label"><span class="ko-only">저장 보안</span><span class="en-only">Storage Security</span></div>
-          <div class="spec-detail"><span class="ko-only">디스크 암호화, 데이터 보호</span><span class="en-only">Disk Encryption, Data Protection</span></div>
-        </div>
-        <div class="spec-card animate-on-scroll stagger-8">
-          <div class="spec-value">RAID</div>
-          <div class="spec-label"><span class="ko-only">소프트웨어 RAID 지원</span><span class="en-only">Software RAID Support</span></div>
-          <div class="spec-detail">RAID 1, 5, 6, 10</div>
-        </div>
-      </div>
-      <div style="text-align: center; margin-top: 48px;">
-        <a href="/nox/specifications/" class="btn btn-ghost btn-large"><span class="ko-only">상세 기술 사양 보기 &rarr;</span><span class="en-only">View Full Specifications &rarr;</span></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== USE CASES ===== -->
-  <section class="usecases" id="usecases">
-    <div class="container">
-      <div class="usecases-header">
-        <h2 class="section-title animate-on-scroll ko-only">모든 규모에 맞는 영상 보안</h2>
-        <h2 class="section-title animate-on-scroll en-only">Video Security for Every Scale</h2>
-        <p class="section-subtitle animate-on-scroll stagger-1 ko-only">1채널 가정용부터 128채널 엔터프라이즈까지, 환경에 맞게 유연하게 구성됩니다</p>
-        <p class="section-subtitle animate-on-scroll stagger-1 en-only">From 1-channel home setups to 128-channel enterprise deployments — flexibly configured for any environment</p>
-      </div>
-      <div class="usecases-grid">
-
-        <div class="usecase-card animate-on-scroll stagger-1">
-          <div class="usecase-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
-              <polyline points="9 22 9 12 15 12 15 22"/>
-            </svg>
-          </div>
-          <h3 class="ko-only">가정</h3>
-          <h3 class="en-only">Home</h3>
-          <p class="ko-only">현관, 주차장, 실내를 스마트폰과 IP 카메라로 간편하게 모니터링. 모션 감지 알림으로 빈집도 안심.</p>
-          <p class="en-only">Easily monitor entrances, parking lots, and interiors with smartphones and IP cameras. Motion detection alerts keep your home safe even when you're away.</p>
-          <span class="usecase-tag"><span class="ko-only">1~4채널</span><span class="en-only">1–4 Ch</span></span>
-        </div>
-
-        <div class="usecase-card animate-on-scroll stagger-2">
-          <div class="usecase-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <rect x="1" y="6" width="15" height="12" rx="2"/>
-              <path d="M16 10l5-3v10l-5-3"/>
-              <circle cx="8" cy="12" r="2"/>
-            </svg>
-          </div>
-          <h3 class="ko-only">차량</h3>
-          <h3 class="en-only">Vehicle</h3>
-          <p class="ko-only">블랙박스 대체 또는 보완용으로 차량 내외부 영상을 실시간 확인. RTSP Push로 이동 중에도 녹화.</p>
-          <p class="en-only">Replace or supplement dashcams with real-time interior/exterior monitoring. Record on the go with RTSP Push.</p>
-          <span class="usecase-tag"><span class="ko-only">1~2채널</span><span class="en-only">1–2 Ch</span></span>
-        </div>
-
-        <div class="usecase-card animate-on-scroll stagger-3">
-          <div class="usecase-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M3 3h18v18H3zM3 9h18M9 21V9"/>
-            </svg>
-          </div>
-          <h3 class="ko-only">중소 매장</h3>
-          <h3 class="en-only">Small Business</h3>
-          <p class="ko-only">매장 내외부, 창고, 주차장까지 통합 관리. 번호판 인식과 침입 감지로 무인 운영도 가능합니다.</p>
-          <p class="en-only">Unified management of store interiors, exteriors, warehouses, and parking lots. License plate recognition and intrusion detection enable unmanned operation.</p>
-          <span class="usecase-tag"><span class="ko-only">4~16채널</span><span class="en-only">4–16 Ch</span></span>
-        </div>
-
-        <div class="usecase-card animate-on-scroll stagger-4">
-          <div class="usecase-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <rect x="2" y="2" width="20" height="20" rx="2"/>
-              <path d="M2 8h20M8 2v20M14 8v14"/>
-              <path d="M2 14h12"/>
-            </svg>
-          </div>
-          <h3 class="ko-only">엔터프라이즈</h3>
-          <h3 class="en-only">Enterprise</h3>
-          <p class="ko-only">빌딩, 공장, 캠퍼스 등 대규모 시설. 128채널 이상 확장, RBAC 권한 관리, 완전한 감사 로그 지원.</p>
-          <p class="en-only">Large-scale facilities including buildings, factories, and campuses. 128+ channel scalability, RBAC access control, and full audit logging.</p>
-          <span class="usecase-tag"><span class="ko-only">16~128+채널</span><span class="en-only">16–128+ Ch</span></span>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== COMPATIBILITY ===== -->
-  <section class="compat" id="compat">
-    <div class="container">
-      <div class="compat-header">
-        <h2 class="section-title animate-on-scroll ko-only">검증된 카메라 호환성</h2>
-        <h2 class="section-title animate-on-scroll en-only">Verified Camera Compatibility</h2>
-        <p class="section-subtitle animate-on-scroll stagger-1 ko-only">주요 글로벌 카메라 제조사와의 호환성이 검증되었습니다</p>
-        <p class="section-subtitle animate-on-scroll stagger-1 en-only">Compatibility verified with major global camera manufacturers</p>
-      </div>
-      <div class="compat-grid">
-        <div class="compat-card animate-on-scroll stagger-1">
-          <div class="compat-brand">
-            <svg class="compat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
-            Hanwha Vision
-          </div>
-          <div class="compat-models"><span class="ko-only">XNV, XND, XNP 시리즈</span><span class="en-only">XNV, XND, XNP Series</span></div>
-        </div>
-        <div class="compat-card animate-on-scroll stagger-2">
-          <div class="compat-brand">
-            <svg class="compat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
-            Hikvision
-          </div>
-          <div class="compat-models"><span class="ko-only">DS 시리즈</span><span class="en-only">DS Series</span></div>
-        </div>
-        <div class="compat-card animate-on-scroll stagger-3">
-          <div class="compat-brand">
-            <svg class="compat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
-            Dahua
-          </div>
-          <div class="compat-models"><span class="ko-only">IPC 시리즈</span><span class="en-only">IPC Series</span></div>
-        </div>
-        <div class="compat-card animate-on-scroll stagger-4">
-          <div class="compat-brand">
-            <svg class="compat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
-            Axis
-          </div>
-          <div class="compat-models"><span class="ko-only">P, Q, M 시리즈</span><span class="en-only">P, Q, M Series</span></div>
-        </div>
-        <div class="compat-card animate-on-scroll stagger-5">
-          <div class="compat-brand">
-            <svg class="compat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
-            Vivotek
-          </div>
-          <div class="compat-models"><span class="ko-only">IP 시리즈</span><span class="en-only">IP Series</span></div>
-        </div>
-        <div class="compat-card animate-on-scroll stagger-6">
-          <div class="compat-brand">
-            <svg class="compat-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
-            Uniview
-          </div>
-          <div class="compat-models"><span class="ko-only">IPC 시리즈</span><span class="en-only">IPC Series</span></div>
-        </div>
-      </div>
-      <div class="compat-note animate-on-scroll">
-        <span class="ko-only"><strong>ONVIF Profile S/T</strong>를 지원하는 모든 IP 카메라와 호환됩니다</span>
-        <span class="en-only">Compatible with all IP cameras supporting <strong>ONVIF Profile S/T</strong></span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== ARCHITECTURE ===== -->
-  <section class="arch" id="arch">
-    <div class="container">
-      <div class="arch-header">
-        <h2 class="section-title animate-on-scroll ko-only">현대적 마이크로서비스 아키텍처</h2>
-        <h2 class="section-title animate-on-scroll en-only">Modern Microservices Architecture</h2>
-        <p class="section-subtitle animate-on-scroll stagger-1 ko-only">16개의 독립된 서비스가 유기적으로 연동되어 안정성과 확장성을 보장합니다</p>
-        <p class="section-subtitle animate-on-scroll stagger-1 en-only">16 independent services working in harmony to ensure stability and scalability</p>
-      </div>
-      <div class="arch-content">
-        <div class="arch-features">
-          <div class="arch-feature animate-on-scroll stagger-1">
-            <div class="arch-feature-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/>
-              </svg>
-            </div>
-            <div>
-              <h4 class="ko-only">독립 배포 가능</h4>
-              <h4 class="en-only">Independent Deployment</h4>
-              <p class="ko-only">각 서비스를 독립적으로 업데이트하고 확장할 수 있어 무중단 운영이 가능합니다.</p>
-              <p class="en-only">Update and scale each service independently for zero-downtime operation.</p>
-            </div>
-          </div>
-          <div class="arch-feature animate-on-scroll stagger-2">
-            <div class="arch-feature-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
-              </svg>
-            </div>
-            <div>
-              <h4 class="ko-only">실시간 이벤트 기반</h4>
-              <h4 class="en-only">Real-time Event-Driven</h4>
-              <p class="ko-only">Redis Pub/Sub을 통한 서비스 간 비동기 통신으로 실시간 이벤트를 즉각 처리합니다.</p>
-              <p class="en-only">Asynchronous inter-service communication via Redis Pub/Sub for instant real-time event processing.</p>
-            </div>
-          </div>
-          <div class="arch-feature animate-on-scroll stagger-3">
-            <div class="arch-feature-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9"/>
-              </svg>
-            </div>
-            <div>
-              <h4 class="ko-only">웹 기반 원격 접속</h4>
-              <h4 class="en-only">Web-Based Remote Access</h4>
-              <p class="ko-only">브라우저만으로 어디서든 동일한 기능을 사용할 수 있습니다. 별도 클라이언트 설치가 필요 없습니다.</p>
-              <p class="en-only">Access full functionality from any browser, anywhere. No client installation required.</p>
-            </div>
-          </div>
-          <div class="arch-feature animate-on-scroll stagger-4">
-            <div class="arch-feature-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
-              </svg>
-            </div>
-            <div>
-              <h4 class="ko-only">Docker 컨테이너화</h4>
-              <h4 class="en-only">Docker Containerized</h4>
-              <p class="ko-only">Docker Compose로 간편하게 배포하고, 멀티 아키텍처(amd64/arm64)를 지원합니다.</p>
-              <p class="en-only">Easy deployment with Docker Compose, supporting multi-architecture (amd64/arm64).</p>
-            </div>
-          </div>
-        </div>
-        <div class="arch-diagram animate-on-scroll stagger-2">
-          <div class="arch-diagram-title"><span class="ko-only">서비스 아키텍처</span><span class="en-only">Service Architecture</span></div>
-          <div class="arch-services">
-            <div class="arch-service">Camera</div>
-            <div class="arch-service">Record</div>
-            <div class="arch-service">Replay</div>
-            <div class="arch-service">Search</div>
-            <div class="arch-service">Analysis</div>
-            <div class="arch-service">Event</div>
-            <div class="arch-service">Auth</div>
-            <div class="arch-service">Permission</div>
-            <div class="arch-service">Notification</div>
-            <div class="arch-service">WS Gateway</div>
-            <div class="arch-service">BFF</div>
-            <div class="arch-service">Resource</div>
-            <div class="arch-service">Proxy</div>
-            <div class="arch-service">License</div>
-            <div class="arch-service">System</div>
-            <div class="arch-service">ONVIF Server</div>
-          </div>
-          <div class="arch-middleware"><span class="ko-only">Redis Pub/Sub — 실시간 이벤트 버스</span><span class="en-only">Redis Pub/Sub — Real-time Event Bus</span></div>
-          <div class="arch-infra">
-            <div class="arch-infra-item">PostgreSQL</div>
-            <div class="arch-infra-item">Redis</div>
-            <div class="arch-infra-item">Docker</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== CTA ===== -->
-  <section class="cta" id="contact">
-    <div class="cta-bg"></div>
-    <div class="container">
-      <div class="cta-content animate-on-scroll">
-        <h2 class="cta-title ko-only">NOX를 직접 경험해 보세요</h2>
-        <h2 class="cta-title en-only">Experience NOX Firsthand</h2>
-        <p class="cta-desc ko-only">자료 요청, 기술 상담, OEM/리셀러 파트너십 문의를 환영합니다.<br>전문 엔지니어가 귀사의 요구사항에 맞는 솔루션을 제안해 드립니다.</p>
-        <p class="cta-desc en-only">We welcome info requests, technical consultations, and OEM/reseller partnership inquiries.<br>Our expert engineers will propose a solution tailored to your requirements.</p>
-        <div class="cta-actions">
-          <a href="https://forms.gle/ikvv1K388KYHUHoj7" target="_blank" class="btn btn-primary btn-large ko-only">자료 요청하기</a>
-          <a href="https://forms.gle/ikvv1K388KYHUHoj7" target="_blank" class="btn btn-primary btn-large en-only">Request Info</a>
-          <a href="https://forms.gle/van5imjwi4272YFB8" target="_blank" class="btn btn-ghost btn-large ko-only">기술 문의</a>
-          <a href="https://forms.gle/van5imjwi4272YFB8" target="_blank" class="btn btn-ghost btn-large en-only">Technical Inquiry</a>
-          <a href="/nox/partner.html" class="btn btn-ghost btn-large ko-only" style="border-color:#00b4d8;color:#00b4d8;">총판 파트너 모집</a>
-          <a href="/nox/partner.html" class="btn btn-ghost btn-large en-only" style="border-color:#00b4d8;color:#00b4d8;">Partner Program</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== FOOTER ===== -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <div>
-          <div class="footer-brand">NOX</div>
-          <p class="footer-desc ko-only">가정부터 엔터프라이즈까지, 모든 규모에 맞는 AI 기반 NVR/VMS 영상 보안 솔루션.</p>
-          <p class="footer-desc en-only">AI-powered NVR/VMS video security solution for every scale — from home to enterprise.</p>
-        </div>
-        <div>
-          <h4 class="footer-heading ko-only">제품</h4>
-          <h4 class="footer-heading en-only">Product</h4>
-          <ul class="footer-links">
-            <li><a href="#features"><span class="ko-only">주요 기능</span><span class="en-only">Features</span></a></li>
-            <li><a href="#usecases"><span class="ko-only">활용 사례</span><span class="en-only">Use Cases</span></a></li>
-            <li><a href="#specs"><span class="ko-only">제품 사양</span><span class="en-only">Specs</span></a></li>
-            <li><a href="#compat"><span class="ko-only">카메라 호환성</span><span class="en-only">Compatibility</span></a></li>
-            <li><a href="#arch"><span class="ko-only">아키텍처</span><span class="en-only">Architecture</span></a></li>
-            <li><a href="/nox/intro.html"><span class="ko-only">도입 소개</span><span class="en-only">Why NOX</span></a></li>
+    <div class="custom-hero">
+      <div class="custom-hero-inner">
+        <div class="custom-hero-text">
+          <h3>귀사 브랜드의<br><em>NVR/VMS</em>를 갖는 법</h3>
+          <p>수억 원을 들여 처음부터 개발하지 않아도 됩니다. NOX의 마이크로서비스 아키텍처와 개방형 API 위에서, 귀사에 필요한 기능만 골라 귀사만의 솔루션을 완성하세요.</p>
+          <ul class="custom-list">
+            <li><i class="fas fa-check-circle"></i> <strong>UI 완전 커스터마이징</strong> — 로고, 컬러, 레이아웃, 메뉴 구조 모두 귀사 브랜드로</li>
+            <li><i class="fas fa-check-circle"></i> <strong>기능 선택 구성</strong> — 16개 마이크로서비스 중 필요한 것만 선택·조합</li>
+            <li><i class="fas fa-check-circle"></i> <strong>워크플로우 커스텀</strong> — 귀사의 업무 프로세스에 맞는 알림·자동화 규칙 설정</li>
+            <li><i class="fas fa-check-circle"></i> <strong>외부 시스템 통합</strong> — Webhook·개방형 API로 ERP, 출입통제, 스마트빌딩과 연동</li>
+            <li><i class="fas fa-check-circle"></i> <strong>AI 모델 교체·확장</strong> — 기본 YOLO 외에 고객 특화 AI 모델 탑재 가능</li>
+            <li><i class="fas fa-check-circle"></i> <strong>OEM/화이트레이블</strong> — SI사, 솔루션 업체가 자사 제품으로 출시 가능</li>
           </ul>
+          <br>
+          <a href="mailto:yiyol@yiyol.com?subject=NOX NVR 커스텀 개발 문의" class="custom-cta">
+            <i class="fas fa-envelope"></i> 커스터마이징 상담 요청
+          </a>
         </div>
-        <div>
-          <h4 class="footer-heading ko-only">문의</h4>
-          <h4 class="footer-heading en-only">Contact</h4>
-          <ul class="footer-links">
-            <li><a href="mailto:yiyol@yiyol.com"><span class="ko-only">영업 문의</span><span class="en-only">Sales</span></a></li>
-            <li><a href="mailto:yiyol@yiyol.com"><span class="ko-only">기술 지원</span><span class="en-only">Support</span></a></li>
-            <li><a href="/nox/partner.html"><span class="ko-only">총판 파트너</span><span class="en-only">Distribution Partner</span></a></li>
-          </ul>
+        <div class="custom-hero-visual">
+          <div class="cl-text" style="margin-bottom:0.25rem;">
+            <p style="font-size:0.7rem; color:#475569; letter-spacing:0.08em; text-transform:uppercase; font-weight:600;">커스터마이징 레이어</p>
+          </div>
+          <div class="custom-layer cl-1">
+            <div class="cl-icon"><i class="fas fa-palette"></i></div>
+            <div class="cl-text"><h4>UI / 브랜드</h4><p>로고·컬러·레이아웃·다국어 — 귀사 디자인 시스템 적용</p></div>
+          </div>
+          <div class="custom-layer cl-2">
+            <div class="cl-icon"><i class="fas fa-puzzle-piece"></i></div>
+            <div class="cl-text"><h4>기능 구성</h4><p>필요한 서비스만 선택. AI 분석·녹화·알림 모듈 조합</p></div>
+          </div>
+          <div class="custom-layer cl-3">
+            <div class="cl-icon"><i class="fas fa-brain"></i></div>
+            <div class="cl-text"><h4>AI 모델</h4><p>YOLO 기본 + 업종 특화 모델·VLM 교체 및 추가</p></div>
+          </div>
+          <div class="custom-layer cl-4">
+            <div class="cl-icon"><i class="fas fa-plug"></i></div>
+            <div class="cl-text"><h4>외부 통합</h4><p>Webhook·API로 ERP·출입통제·스마트빌딩 연결</p></div>
+          </div>
         </div>
-      </div>
-      <div class="footer-bottom">
-        <span>&copy; 2026 YIYOL Corp. All rights reserved.</span>
       </div>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <!-- Distributor Popup -->
-  <style>
-    .popup-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(15, 23, 42, 0.7);
-      z-index: 10000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.35s ease, visibility 0.35s ease;
-      padding: 1rem;
-      backdrop-filter: blur(4px);
-    }
-    .popup-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-    .popup-card {
-      background: #fff;
-      border-radius: 4px;
-      max-width: 540px;
-      width: 100%;
-      position: relative;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
-      transform: translateY(20px);
-      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-      overflow: hidden;
-    }
-    .popup-overlay.active .popup-card {
-      transform: translateY(0);
-    }
-    .popup-header {
-      background: linear-gradient(135deg, #0f172a, #1e293b);
-      padding: 1.75rem 2rem;
-      position: relative;
-    }
-    .popup-header::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, #3b82f6, #60a5fa, #3b82f6);
-    }
-    .popup-header-badge {
-      display: inline-block;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #60a5fa;
-      border: 1px solid rgba(96, 165, 250, 0.3);
-      padding: 0.25rem 0.6rem;
-      border-radius: 2px;
-      margin-bottom: 0.75rem;
-    }
-    .popup-card h3 {
-      font-family: 'Poppins', sans-serif;
-      font-size: 1.35rem;
-      font-weight: 700;
-      color: #fff;
-      margin: 0;
-      line-height: 1.4;
-    }
-    .popup-close {
-      position: absolute;
-      top: 1.25rem;
-      right: 1.25rem;
-      background: rgba(255, 255, 255, 0.1);
-      border: none;
-      font-size: 1.1rem;
-      color: #94a3b8;
-      cursor: pointer;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 2px;
-      transition: background 0.2s, color 0.2s;
-    }
-    .popup-close:hover {
-      background: rgba(255, 255, 255, 0.2);
-      color: #fff;
-    }
-    .popup-content {
-      padding: 1.75rem 2rem 2rem;
-    }
-    .popup-body {
-      font-size: 0.92rem;
-      color: #334155;
-      line-height: 1.8;
-      margin-bottom: 1.5rem;
-    }
-    .popup-body p {
-      margin: 0 0 1rem;
-    }
-    .popup-body .popup-terms {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      margin: 1rem 0;
-      padding: 0;
-    }
-    .popup-body .popup-term-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.6rem;
-      padding: 0.6rem 0.85rem;
-      background: #f8fafc;
-      border-left: 3px solid #3b82f6;
-      font-size: 0.88rem;
-      color: #1e293b;
-    }
-    .popup-body .popup-term-item i {
-      color: #3b82f6;
-      font-size: 0.75rem;
-      margin-top: 0.25rem;
-      flex-shrink: 0;
-    }
-    .popup-region-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.35rem 1rem;
-      margin: 0.75rem 0;
-      padding: 0.75rem 0.85rem;
-      background: #f8fafc;
-      border-left: 3px solid #3b82f6;
-      font-size: 0.82rem;
-      color: #1e293b;
-    }
-    .popup-region-grid .region-header {
-      grid-column: 1 / -1;
-      font-weight: 700;
-      font-size: 0.85rem;
-      color: #0f172a;
-      margin-bottom: 0.25rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .popup-region-grid .region-header i {
-      color: #3b82f6;
-      font-size: 0.75rem;
-    }
-    .popup-region-grid span {
-      padding: 0.15rem 0;
-    }
-    .popup-exclusive {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      background: #0f172a;
-      color: #fff;
-      padding: 0.75rem 1rem;
-      border-radius: 4px;
-      font-weight: 600;
-      font-size: 0.88rem;
-      margin-top: 1rem;
-    }
-    .popup-exclusive i {
-      color: #fbbf24;
-      font-size: 0.9rem;
-    }
-    .popup-footer {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid #e2e8f0;
-      margin-top: 1.5rem;
-    }
-    .popup-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: #0f172a;
-      color: #fff;
-      padding: 0.75rem 1.5rem;
-      border-radius: 4px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.9rem;
-      letter-spacing: 0.02em;
-      transition: background 0.2s;
-    }
-    .popup-cta:hover {
-      background: #1e293b;
-    }
-    .popup-cta i {
-      font-size: 0.85rem;
-    }
-    .popup-email-hint {
-      font-size: 0.78rem;
-      color: #94a3b8;
-    }
-    @media (max-width: 540px) {
-      .popup-overlay {
-        align-items: flex-start;
-        overflow-y: auto;
-      }
-      .popup-card {
-        max-height: calc(100vh - 2rem);
-        max-height: calc(100dvh - 2rem);
-        display: flex;
-        flex-direction: column;
-      }
-      .popup-header {
-        padding: 1.25rem 1.25rem;
-        flex-shrink: 0;
-      }
-      .popup-content {
-        padding: 1.25rem 1.25rem 1.5rem;
-        overflow-y: auto;
-      }
-      .popup-card h3 {
-        font-size: 1.15rem;
-      }
-      .popup-body {
-        font-size: 0.88rem;
-      }
-      .popup-footer {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
-  </style>
+<!-- AI Evolution Roadmap -->
+<section class="section section-dark">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-label section-label-purple">AI Roadmap</div>
+      <h2 class="section-title section-title-light">Legacy에서 Agentic AI까지<br>관제 시스템의 혁명</h2>
+      <p class="section-desc section-desc-light">NOX는 검증된 Legacy 기능 위에 Vision AI를 올렸고, 이제 VLM과 Agentic AI로 관제의 패러다임을 바꿉니다.</p>
+    </div>
+    <div class="ai-road">
+      <div class="ai-stage ai-stage-1">
+        <span class="stage-badge badge-gray">Legacy</span>
+        <div class="stage-icon si-gray"><i class="fas fa-video"></i></div>
+        <h3>전통 NVR/VMS</h3>
+        <p>흔들리지 않는 기반. ONVIF, RTSP, 다채널 녹화, 재생, PTZ 제어.</p>
+        <ul class="stage-items">
+          <li><i class="fas fa-circle" style="color:#334155;"></i>ONVIF Profile S/T/M</li>
+          <li><i class="fas fa-circle" style="color:#334155;"></i>다채널 동시 녹화</li>
+          <li><i class="fas fa-circle" style="color:#334155;"></i>모션 감지·이벤트 알림</li>
+          <li><i class="fas fa-circle" style="color:#334155;"></i>WebRTC 초저지연 재생</li>
+          <li><i class="fas fa-circle" style="color:#334155;"></i>스마트폰 카메라 지원</li>
+        </ul>
+      </div>
+      <div class="ai-stage ai-stage-2" style="position:relative;">
+        <span class="now-label">NOW</span>
+        <span class="stage-badge badge-cyan">Vision AI</span>
+        <div class="stage-icon si-cyan"><i class="fas fa-eye"></i></div>
+        <h3>지능형 영상 분석</h3>
+        <p>화면을 보는 것을 넘어 이해합니다. YOLO 기반 자동 감지·분류·대응.</p>
+        <ul class="stage-items">
+          <li><i class="fas fa-circle" style="color:#0891b2;"></i>YOLO 객체 감지</li>
+          <li><i class="fas fa-circle" style="color:#0891b2;"></i>라인크로싱·침입 감지</li>
+          <li><i class="fas fa-circle" style="color:#0891b2;"></i>번호판 인식(LPR)</li>
+          <li><i class="fas fa-circle" style="color:#0891b2;"></i>자동 알림·녹화·Webhook</li>
+          <li><i class="fas fa-circle" style="color:#0891b2;"></i>3-Tier 감지 파이프라인</li>
+        </ul>
+      </div>
+      <div class="ai-stage ai-stage-3" style="position:relative;">
+        <span class="next-label">NEXT</span>
+        <span class="stage-badge badge-violet">VLM</span>
+        <div class="stage-icon si-violet"><i class="fas fa-comments"></i></div>
+        <h3>자연어로 묻는 관제</h3>
+        <p>Vision Language Model. 영상을 언어로 이해하고 자연어 질의로 검색합니다.</p>
+        <ul class="stage-items">
+          <li><i class="fas fa-circle" style="color:#7c3aed;"></i>"빨간 가방 남성 언제 지나갔어?"</li>
+          <li><i class="fas fa-circle" style="color:#7c3aed;"></i>장면 자동 요약·설명 생성</li>
+          <li><i class="fas fa-circle" style="color:#7c3aed;"></i>복잡한 상황 맥락 이해</li>
+          <li><i class="fas fa-circle" style="color:#7c3aed;"></i>텍스트로 영상 구간 검색</li>
+        </ul>
+      </div>
+      <div class="ai-stage ai-stage-4">
+        <span class="stage-badge badge-future">Agentic AI</span>
+        <div class="stage-icon si-pink"><i class="fas fa-robot"></i></div>
+        <h3>스스로 판단하는 관제</h3>
+        <p>인간 없이 스스로 상황을 판단하고 대응하는 자율 보안 에이전트.</p>
+        <ul class="stage-items">
+          <li><i class="fas fa-circle" style="color:#be185d;"></i>다중 카메라 동시 추론</li>
+          <li><i class="fas fa-circle" style="color:#be185d;"></i>위협 수준 자율 판단·에스컬레이션</li>
+          <li><i class="fas fa-circle" style="color:#be185d;"></i>예방적 이상 감지</li>
+          <li><i class="fas fa-circle" style="color:#be185d;"></i>관제사 업무 자동화</li>
+        </ul>
+      </div>
+    </div>
+    <p style="font-size:0.76rem; color:#334155; text-align:center; margin-top:1.25rem;">
+      * VLM·Agentic AI는 로드맵 단계이며, 고객 맞춤 개발을 통해 조기 적용 가능합니다.
+    </p>
+  </div>
+</section>
 
-  <div class="popup-overlay" id="resellerPopup">
-    <div class="popup-card">
+<!-- WebRTC -->
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-label">Real-Time Streaming</div>
+      <h2 class="section-title">WebRTC — 지연이 없는 라이브 영상</h2>
+      <p class="section-desc">HLS 방식의 수십 초 딜레이를 WebRTC로 대체. 현장 상황을 즉각 파악하고 대응합니다.</p>
+    </div>
+    <div class="split-feature">
+      <div class="split-text">
+        <h3>기다리지 마세요.<br><em>지금 이 순간</em>을 보세요</h3>
+        <p>NOX는 WebRTC WHIP/WHEP 프로토콜로 라이브 스트림을 제공합니다. 브라우저 플러그인 없이 즉시 재생되며, 서브세컨드 지연으로 실시간 대응이 가능합니다.</p>
+        <ul class="feature-list">
+          <li><i class="fas fa-check-circle"></i>WebRTC WHIP/WHEP 표준 프로토콜 지원</li>
+          <li><i class="fas fa-check-circle"></i>ICE 서버 자동 감지 — 복잡한 네트워크 설정 불필요</li>
+          <li><i class="fas fa-check-circle"></i>HLS / WebRTC 사용자별 선택 가능</li>
+          <li><i class="fas fa-check-circle"></i>브라우저에서 플러그인 없이 바로 시청</li>
+        </ul>
+      </div>
+      <div class="split-visual">
+        <div class="flow-row">
+          <div class="flow-node">카메라</div>
+          <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+          <div class="flow-node hl">NOX</div>
+          <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+          <div class="flow-node">모니터</div>
+        </div>
+        <div class="flow-label">WebRTC WHIP → MediaMTX → WHEP</div>
+        <div class="latency-badge">
+          <div class="val">Sub-second <span class="unit">latency</span></div>
+          <div class="unit" style="margin-top:0.2rem;">HLS 대비 압도적으로 낮은 지연</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Mobile Camera -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-label">Mobile Camera</div>
+      <h2 class="section-title">스마트폰이 곧 보안 카메라</h2>
+      <p class="section-desc">별도 장비 없이 스마트폰을 RTSP Push로 NOX에 연결하면 실시간 모니터링과 녹화가 즉시 시작됩니다.</p>
+    </div>
+    <div class="split-feature">
+      <div class="phone-visual">
+        <div class="phone-diagram">
+          <div class="phone-icon"><i class="fas fa-mobile-screen"></i></div>
+          <div class="push-label">RTSP Push (고정 IP 불필요)</div>
+          <div class="arrow-down"><i class="fas fa-arrow-down"></i></div>
+          <div class="nox-box">NOX NVR</div>
+          <div class="arrow-down"><i class="fas fa-arrow-down"></i></div>
+          <div class="nox-outputs">
+            <div class="output-chip"><i class="fas fa-eye" style="margin-right:3px;"></i>라이브 모니터링</div>
+            <div class="output-chip"><i class="fas fa-circle-dot" style="margin-right:3px;"></i>자동 녹화·저장</div>
+            <div class="output-chip"><i class="fas fa-brain" style="margin-right:3px;"></i>AI 분석</div>
+            <div class="output-chip"><i class="fas fa-bell" style="margin-right:3px;"></i>이벤트 알림</div>
+          </div>
+        </div>
+      </div>
+      <div class="split-text">
+        <h3>임시 카메라가 필요할 때<br><em>스마트폰을 꺼내세요</em></h3>
+        <p>이벤트 현장, 공사 현장, 임시 보안 구역 — 고정 IP 없이도 스마트폰을 NOX에 연결해 즉시 모니터링·녹화·AI 분석을 시작할 수 있습니다.</p>
+        <ul class="feature-list">
+          <li><i class="fas fa-check-circle"></i>RTSP Push 방식 — 고정 IP 불필요</li>
+          <li><i class="fas fa-check-circle"></i>NOX에서 라이브 스트림 즉시 모니터링</li>
+          <li><i class="fas fa-check-circle"></i>고정 카메라와 동일하게 녹화·저장</li>
+          <li><i class="fas fa-check-circle"></i>AI 분석(침입 감지, 객체 감지) 동일 적용</li>
+          <li><i class="fas fa-check-circle"></i>JWT 인증으로 안전한 스트림 연결</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-label">By the Numbers</div>
+      <h2 class="section-title">숫자로 보는 NOX</h2>
+      <p class="section-desc">검증된 기술 사실만 담았습니다.</p>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-num">16<span class="stat-unit">개</span></div><div class="stat-label">독립 마이크로서비스<br>무중단 운영</div></div>
+      <div class="stat-card"><div class="stat-num">5<span class="stat-unit">종</span></div><div class="stat-label">AI 감지 유형<br>객체·모션·침입·라인·번호판</div></div>
+      <div class="stat-card"><div class="stat-num">3<span class="stat-unit">종</span></div><div class="stat-label">ONVIF 프로파일<br>Profile S / T / M</div></div>
+      <div class="stat-card"><div class="stat-num">18<span class="stat-unit">개</span></div><div class="stat-label">ONVIF 자체 라이브러리<br>서브패키지</div></div>
+      <div class="stat-card"><div class="stat-num">16<span class="stat-unit">ch</span></div><div class="stat-label">멀티채널 동시 백업<br>암호화 저장</div></div>
+      <div class="stat-card"><div class="stat-num">9<span class="stat-unit">개</span></div><div class="stat-label">NIS 보안 영역<br>공공·국방·금융</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Core USPs -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-label">Core Features</div>
+      <h2 class="section-title">NOX를 선택하는 이유</h2>
+      <p class="section-desc">실제 운영 현장의 문제를 해결하도록 설계된 기능들입니다.</p>
+    </div>
+    <div class="usp-grid">
+      <div class="usp-card">
+        <div class="usp-icon-wrap ic-cyan"><i class="fas fa-brain"></i></div>
+        <h3>YOLO Vision AI 영상 분석</h3>
+        <p>YOLO 기반 객체 감지(라인크로싱·침입)와 번호판 인식(LPR)을 단일 시스템에서 처리합니다. 이상 감지 즉시 자동 알림·녹화·Webhook 실행.</p>
+        <span class="usp-tag tag-cyan">자동 알림</span>
+        <span class="usp-tag tag-cyan">LPR</span>
+        <span class="usp-tag tag-cyan">3-Tier 파이프라인</span>
+      </div>
+      <div class="usp-card">
+        <div class="usp-icon-wrap ic-amber"><i class="fas fa-plug"></i></div>
+        <h3>ONVIF Profile S/T/M 완전 호환</h3>
+        <p>Profile S(스트리밍), T(고급 영상), M(메타데이터·이벤트·분석) 지원. 18개 서브패키지의 자체 라이브러리로 기존 IP 카메라를 교체 없이 그대로 연결.</p>
+        <span class="usp-tag tag-amber">기존 자산 활용</span>
+        <span class="usp-tag tag-amber">자동 디스커버리</span>
+      </div>
+      <div class="usp-card">
+        <div class="usp-icon-wrap ic-blue"><i class="fas fa-cubes"></i></div>
+        <h3>마이크로서비스 아키텍처</h3>
+        <p>16개 독립 서비스로 분리. 특정 서비스 장애가 전체를 멈추지 않습니다. 필요한 서비스만 업데이트해 무중단 운영을 유지합니다.</p>
+        <span class="usp-tag tag-blue">무중단 업데이트</span>
+        <span class="usp-tag tag-blue">수평 확장</span>
+      </div>
+      <div class="usp-card">
+        <div class="usp-icon-wrap ic-purple"><i class="fas fa-server"></i></div>
+        <h3>멀티플랫폼 유연 배포</h3>
+        <p>Docker 멀티 아키텍처(linux/amd64, linux/arm64)로 라즈베리파이 엣지부터 클라우드 데이터센터, Kubernetes 클러스터까지 인프라를 가리지 않습니다.</p>
+        <span class="usp-tag tag-purple">On-Premises</span>
+        <span class="usp-tag tag-purple">Cloud / K8s</span>
+        <span class="usp-tag tag-purple">Edge ARM</span>
+      </div>
+      <div class="usp-card">
+        <div class="usp-icon-wrap ic-rose"><i class="fas fa-code-branch"></i></div>
+        <h3>개방형 API + Webhook</h3>
+        <p>Webhook으로 감지 이벤트를 외부 시스템에 실시간 전달. 개방형 API와 ONVIF 표준으로 CMS, 스마트빌딩, 보안 시스템과 자유롭게 통합.</p>
+        <span class="usp-tag tag-rose">Webhook</span>
+        <span class="usp-tag tag-rose">개방형 API</span>
+      </div>
+    </div>
+    <div class="security-callout">
+      <div class="security-callout-icon"><i class="fas fa-shield-halved"></i></div>
+      <div>
+        <h3>NIS 보안요구사항 9개 영역 준수 — 공공·국방·금융 즉시 도입 가능</h3>
+        <p>국정원 영상처리기기 보안요구사항 V3.0을 설계 단계부터 반영했습니다. 규제 대상 기관도 별도 보안 솔루션 추가 없이 바로 도입할 수 있습니다.</p>
+        <div class="security-tags">
+          <span class="sec-tag">AES-256-GCM 암호화</span>
+          <span class="sec-tag">HMAC-SHA256 무결성</span>
+          <span class="sec-tag">RBAC 권한 관리</span>
+          <span class="sec-tag">감사 로그 보호</span>
+          <span class="sec-tag">TLS/HTTPS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Persona -->
+<section class="section section-alt">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-label">고객 유형별 가치</div>
+      <h2 class="section-title">어떤 상황에서 NOX가 필요한가요?</h2>
+    </div>
+    <div class="persona-grid">
+      <div class="persona-card">
+        <div class="persona-header">
+          <div class="persona-icon"><i class="fas fa-building"></i></div>
+          <div><div class="persona-name">SI / 솔루션 업체</div><div class="persona-badge">OEM · 화이트레이블</div></div>
+        </div>
+        <p class="persona-quote">"자사 브랜드의 NVR 솔루션을 갖고 싶다. 처음부터 개발하기엔 비용이 너무 크다."</p>
+        <div class="persona-usp"><i class="fas fa-check-circle" style="margin-right:4px;"></i>UI 커스터마이징 · OEM 공급 · 기능 선택 구성</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-header">
+          <div class="persona-icon"><i class="fas fa-store"></i></div>
+          <div><div class="persona-name">리테일 / 산업 / 빌딩</div><div class="persona-badge">시설 관리자 / 보안 운영</div></div>
+        </div>
+        <p class="persona-quote">"기존 카메라를 그대로 쓰면서 AI 알림을 받고 싶다. 운영 인력을 줄이고 싶다."</p>
+        <div class="persona-usp"><i class="fas fa-check-circle" style="margin-right:4px;"></i>ONVIF 기존 자산 · YOLO AI 자동 알림 · 스마트폰 카메라</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-header">
+          <div class="persona-icon"><i class="fas fa-network-wired"></i></div>
+          <div><div class="persona-name">엔터프라이즈 IT</div><div class="persona-badge">인프라 책임자 / SecOps</div></div>
+        </div>
+        <p class="persona-quote">"다운타임 없이 운영 가능한가? K8s·기존 인프라에 통합되나?"</p>
+        <div class="persona-usp"><i class="fas fa-check-circle" style="margin-right:4px;"></i>16개 마이크로서비스 · 무중단 업데이트 · K8s / Docker</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-header">
+          <div class="persona-icon"><i class="fas fa-landmark"></i></div>
+          <div><div class="persona-name">공공·국방·금융</div><div class="persona-badge">보안 책임자 / IT 관리자</div></div>
+        </div>
+        <p class="persona-quote">"NIS 인증 요구사항을 충족하는가? 컴플라이언스 감사에 대응 가능한가?"</p>
+        <div class="persona-usp"><i class="fas fa-check-circle" style="margin-right:4px;"></i>NIS 9개 영역 준수 · AES-256 암호화 · 감사 로그</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How it works -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-label">도입 프로세스</div>
+      <h2 class="section-title">NOX 도입은 어떻게 시작하나요?</h2>
+      <p class="section-desc">복잡한 절차 없이 4단계로 진행됩니다.</p>
+    </div>
+    <div class="steps-container">
+      <div class="steps-wrap">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <h3>상담 & 요구사항 파악</h3>
+          <p>원하는 기능, 커스터마이징 범위, 기존 인프라를 파악합니다. OEM/화이트레이블 여부도 이 단계에서 결정합니다.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <h3>데모 & 기술 검증</h3>
+          <p>실제 환경에서 WebRTC 스트리밍, AI 감지, ONVIF 연동을 직접 확인합니다. PoC 지원 가능합니다.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <h3>커스터마이징 & 배포</h3>
+          <p>UI, 기능, AI 모델을 귀사 요구사항에 맞게 구성합니다. 온프레미스·Docker·K8s 중 최적 배포 방식으로 설치합니다.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">04</div>
+          <h3>운영 & 지속 발전</h3>
+          <p>마이크로서비스 아키텍처로 무중단 업데이트. Vision AI에서 VLM·Agentic AI로 함께 진화합니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <span class="hero-eyebrow" style="margin-bottom:1rem; display:inline-block;">지금 시작하세요</span>
+  <h2>귀사만의 NVR/VMS,<br><em>NOX로 만드세요</em></h2>
+  <p>커스터마이징 문의, 데모 요청, OEM 협의 — 무엇이든 환영합니다.<br>담당자가 1영업일 내에 답변드립니다.</p>
+  <a href="mailto:yiyol@yiyol.com?subject=NOX NVR 커스텀 개발 문의&body=안녕하세요. NOX NVR 커스터마이징에 관심이 있습니다.%0A%0A회사명:%0A담당자명:%0A연락처:%0A관심 분야 (커스터마이징/OEM/도입):%0A원하는 기능·UI 요구사항:%0A기타 문의사항:" class="btn-primary" style="font-size:1rem; padding:1rem 2.5rem;">
+    <i class="fas fa-envelope"></i>&nbsp; 커스터마이징 문의 이메일 보내기
+  </a>
+  <div class="cta-contact-grid">
+    <a href="/nox/nis-security.html" class="contact-chip">
+      <i class="fas fa-shield-halved"></i> NIS 보안 인증 상세
+    </a>
+    <a href="https://www.youtube.com/@YiyolNox" target="_blank" rel="noopener noreferrer" class="contact-chip">
+      <i class="fa-brands fa-youtube"></i> NOX 유튜브 채널
+    </a>
+    <a href="/nox/partner.html" class="contact-chip">
+      <i class="fas fa-handshake"></i> 파트너/총판 모집
+    </a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <p>
+    &copy; 2025 <a href="https://yiyol.com">YIYOL Corp.</a> &nbsp;|&nbsp;
+    <a href="https://www.youtube.com/@YiyolNox" target="_blank" rel="noopener noreferrer">NOX YouTube</a> &nbsp;|&nbsp;
+    <a href="mailto:yiyol@yiyol.com">yiyol@yiyol.com</a>
+  </p>
+</footer>
+
+<!-- Dual Popup (NIS + Partner) -->
+<div class="popup-overlay" id="dualPopup">
+  <div class="dual-popup-container">
+    <!-- NIS Security Certification -->
+    <div class="popup-card nis-popup" id="nisCard">
       <div class="popup-header">
-        <button class="popup-close" id="popupClose" aria-label="Close"><i class="fas fa-xmark"></i></button>
-        <div class="popup-header-badge">Official Partnership</div>
-        <h3 class="ko-only">NOX 국내 공식 총판 모집</h3>
-        <h3 class="en-only">NOX Official Distributor Recruitment</h3>
+        <button class="popup-close" id="nisPopupClose" aria-label="Close"><i class="fas fa-xmark"></i></button>
+        <div class="popup-header-badge">NIS Security Certification</div>
+        <h3>국정원 보안요구사항 대응 완료</h3>
       </div>
-
       <div class="popup-content">
-        <div class="popup-body ko-only">
-          <p>NVR/VMS 솔루션 <strong>NOX</strong>의 국내 지역별 공식 총판을 모집합니다.</p>
-          <div class="popup-region-grid">
-            <div class="region-header"><i class="fas fa-map-marker-alt"></i> 모집 권역</div>
-            <span>수도권 동남</span>
-            <span>수도권 동북</span>
-            <span>수도권 서북</span>
-            <span>수도권 서남</span>
-            <span>강원도</span>
-            <span>충청북도</span>
-            <span>대전 / 세종 / 충청남도</span>
-            <span>전북특별자치도</span>
-            <span>광주 / 전라남도</span>
-            <span>대구 / 경상북도</span>
-            <span>부산 / 울산 / 경상남도</span>
-            <span>제주특별자치도</span>
-          </div>
-          <div class="popup-exclusive">
-            <i class="fas fa-crown"></i>
-            최초 2년간 최고의 계약조건으로 독점계약 보장
-          </div>
-          <div class="popup-exclusive" style="margin-top: 0.5rem;">
-            <i class="fas fa-handshake"></i>
-            최초 계약 종료 후 차기 계약 우선협상권 보장
-          </div>
+        <div class="popup-body">
+          <p>
+            <strong>NOX 26.04</strong>가 국가정보원 「국가용 보안요구사항 V3.0」<br>
+            영상정보처리기기(NVR) <strong>전 항목 대응을 완료</strong>하였습니다.
+          </p>
         </div>
-
-        <div class="popup-body en-only">
-          <p>YIYOL is recruiting official distributors for our NVR/VMS solution, <strong>NOX</strong>.</p>
-          <div class="popup-terms">
-            <div class="popup-term-item">
-              <i class="fas fa-globe"></i>
-              <span>Exclusive distributor per country &mdash; all regions available</span>
-            </div>
-          </div>
-          <div class="popup-exclusive">
-            <i class="fas fa-crown"></i>
-            Best exclusive contract terms guaranteed for the first 2 years
-          </div>
-          <div class="popup-exclusive" style="margin-top: 0.5rem;">
-            <i class="fas fa-handshake"></i>
-            Priority negotiation rights for the subsequent contract guaranteed
-          </div>
-        </div>
-
-        <div class="popup-footer">
-          <a href="mailto:yiyol@yiyol.com?subject=NOX%20%EC%B4%9D%ED%8C%90%20%EB%AC%B8%EC%9D%98" class="popup-cta ko-only">
-            <i class="fas fa-envelope"></i> 총판 문의하기
+        <div class="popup-footer" style="flex-wrap:wrap;">
+          <a href="/nox/nis-security.html" class="popup-cta">
+            <i class="fas fa-arrow-right"></i> 자세히 보기
           </a>
-          <a href="mailto:yiyol@yiyol.com?subject=NOX%20Distributor%20Inquiry" class="popup-cta en-only">
-            <i class="fas fa-envelope"></i> Contact Us
-          </a>
-          <span class="popup-email-hint">yiyol@yiyol.com</span>
+          <label class="popup-today-label" for="nisDismissToday">
+            <input type="checkbox" id="nisDismissToday">
+            오늘 하루 보지 않기
+            <button type="button" class="popup-today-close-btn" onclick="event.stopPropagation();event.preventDefault();document.getElementById('nisPopupClose').click()">닫기</button>
+          </label>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Dual Popup (NIS + Partner) -->
-  <style>
-    .dual-popup-container {
-      display: flex;
-      gap: 1.5rem;
-      justify-content: center;
-      align-items: flex-start;
-      max-width: 1040px;
-      width: 100%;
-    }
-    .dual-popup-container > .popup-card {
-      flex: 1;
-      min-width: 0;
-      max-width: 500px;
-    }
-    .dual-popup-container > .popup-card.dismissed {
-      display: none;
-    }
-    .partner-popup .popup-intro {
-      font-size: 0.88rem;
-      color: #475569;
-      line-height: 1.7;
-      margin-bottom: 1.25rem;
-    }
-    .partner-popup .popup-intro strong {
-      color: #0f172a;
-    }
-    .partner-popup .popup-notice {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.5rem;
-      background: #fef3c7;
-      border-left: 3px solid #f59e0b;
-      padding: 0.6rem 0.85rem;
-      font-size: 0.8rem;
-      color: #92400e;
-      line-height: 1.6;
-      margin-bottom: 1.25rem;
-    }
-    .partner-popup .popup-notice i {
-      color: #f59e0b;
-      margin-top: 0.2rem;
-      flex-shrink: 0;
-    }
-    .partner-popup .popup-section-title {
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: #0f172a;
-      margin-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-    .partner-popup .popup-section-title i {
-      color: #3b82f6;
-      font-size: 0.72rem;
-    }
-    .partner-popup .popup-sector-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem;
-      margin-bottom: 1.25rem;
-    }
-    .partner-popup .popup-sector-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      background: #f1f5f9;
-      border: 1px solid #e2e8f0;
-      padding: 0.3rem 0.65rem;
-      border-radius: 3px;
-      font-size: 0.78rem;
-      color: #334155;
-      white-space: nowrap;
-    }
-    .partner-popup .popup-sector-tag i {
-      color: #3b82f6;
-      font-size: 0.65rem;
-    }
-    .partner-popup .popup-benefit-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-      margin-bottom: 1rem;
-    }
-    .partner-popup .popup-benefit-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.5rem;
-      font-size: 0.82rem;
-      color: #334155;
-      line-height: 1.5;
-    }
-    .partner-popup .popup-benefit-item i {
-      color: #10b981;
-      font-size: 0.7rem;
-      margin-top: 0.2rem;
-      flex-shrink: 0;
-    }
-    .partner-popup .popup-sector-note {
-      font-size: 0.75rem;
-      color: #94a3b8;
-      margin-top: 0.5rem;
-    }
-    .partner-popup .popup-footer {
-      flex-wrap: wrap;
-      gap: 0.6rem;
-    }
-    .partner-popup .popup-cta-outline {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: #fff;
-      color: #0f172a;
-      border: 1.5px solid #0f172a;
-      padding: 0.7rem 1.3rem;
-      border-radius: 4px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.85rem;
-      letter-spacing: 0.02em;
-      transition: background 0.2s, color 0.2s;
-    }
-    .partner-popup .popup-cta-outline:hover {
-      background: #f1f5f9;
-    }
-    .partner-popup .popup-cta-outline i {
-      font-size: 0.8rem;
-    }
-    @media (max-width: 960px) {
-      .dual-popup-container {
-        flex-direction: column;
-        align-items: center;
-      }
-      .dual-popup-container > .popup-card {
-        max-width: 540px;
-        width: 100%;
-      }
-    }
-    @media (max-width: 540px) {
-      .partner-popup .popup-sector-tag {
-        font-size: 0.74rem;
-        padding: 0.25rem 0.5rem;
-      }
-      .dual-popup-container > .popup-card {
-        max-height: none;
-      }
-    }
-  </style>
-
-  <div class="popup-overlay" id="dualPopup">
-    <div class="dual-popup-container">
-      <!-- NIS Security Certification -->
-      <div class="popup-card nis-popup" id="nisCard">
-        <div class="popup-header">
-          <button class="popup-close" id="nisPopupClose" aria-label="Close"><i class="fas fa-xmark"></i></button>
-          <div class="popup-header-badge">NIS Security Certification</div>
-          <h3 class="ko-only">국정원 보안요구사항 대응 완료</h3>
-          <h3 class="en-only">NIS Security Requirements Compliance</h3>
-        </div>
-        <div class="popup-content">
-          <div class="popup-body">
-            <p class="ko-only">
-              <strong>NOX 26.04</strong>가 국가정보원 「국가용 보안요구사항 V3.0」<br>
-              영상정보처리기기(NVR) <strong>전 항목 대응을 완료</strong>하였습니다.
-            </p>
-            <p class="en-only">
-              <strong>NOX 26.04</strong> has achieved full compliance with NIS
-              National Security Requirements V3.0<br>
-              for NVR — <strong>All categories covered</strong>
-            </p>
-          </div>
-          <div class="popup-footer">
-            <a href="/nox/nis-security.html" class="popup-cta ko-only">
-              <i class="fas fa-arrow-right"></i> 자세히 보기
-            </a>
-            <a href="/nox/nis-security.html?lang=en" class="popup-cta en-only">
-              <i class="fas fa-arrow-right"></i> Learn More
-            </a>
-          </div>
-        </div>
+    <!-- Partner Recruitment -->
+    <div class="popup-card partner-popup" id="partnerCard">
+      <div class="popup-header">
+        <button class="popup-close" id="partnerPopupClose" aria-label="Close"><i class="fas fa-xmark"></i></button>
+        <div class="popup-header-badge">Initial Partner Program</div>
+        <h3>NOX 초기 파트너 모집</h3>
       </div>
-
-      <!-- Partner Recruitment (Korean only) -->
-      <div class="popup-card partner-popup" id="partnerCard">
-        <div class="popup-header">
-          <button class="popup-close" id="partnerPopupClose" aria-label="Close"><i class="fas fa-xmark"></i></button>
-          <div class="popup-header-badge">Initial Partner Program</div>
-          <h3>NOX 초기 파트너 모집</h3>
-        </div>
-        <div class="popup-content">
-          <div class="popup-body">
-            <p class="popup-intro">
-              중·소형 현장에 최적화된 NVR/VMS 소프트웨어 <strong>NOX</strong>의 초기 파트너를 모집합니다.<br>
-              섹터별 대표 현장에서 설치·운영을 함께 검증하고 성공 사례를 만들 파트너를 찾습니다.
-            </p>
-            <div class="popup-notice">
-              <i class="fas fa-info-circle"></i>
-              <span>NOX는 상용 소프트웨어이며, H/W(서버·카메라 등)는 파트너사가 구성합니다. NOX는 소프트웨어 및 기술지원을 제공합니다.</span>
-            </div>
-            <div class="popup-section-title"><i class="fas fa-crosshairs"></i> 모집 섹터 (각 1~2개 한정)</div>
-            <div class="popup-sector-list">
-              <span class="popup-sector-tag"><i class="fas fa-building"></i> 아파트 / 공동주택</span>
-              <span class="popup-sector-tag"><i class="fas fa-store"></i> 상가 / 프랜차이즈</span>
-              <span class="popup-sector-tag"><i class="fas fa-industry"></i> 공장 / 창고 / 물류</span>
-              <span class="popup-sector-tag"><i class="fas fa-hard-hat"></i> 건설현장 / 임시현장</span>
-              <span class="popup-sector-tag"><i class="fas fa-school"></i> 교육 / 의료 / 공공</span>
-            </div>
-            <div class="popup-section-title"><i class="fas fa-gift"></i> 초기 파트너 혜택</div>
-            <div class="popup-benefit-list">
-              <div class="popup-benefit-item"><i class="fas fa-check"></i> 프로젝트 성공 시 섹터/지역 우선 협업 협상권 부여</div>
-              <div class="popup-benefit-item"><i class="fas fa-check"></i> 향후 리셀러/총판 우선 협의 기회</div>
-              <div class="popup-benefit-item"><i class="fas fa-check"></i> 파트너용 제안 자료 및 운영 가이드 우선 제공</div>
-              <div class="popup-benefit-item"><i class="fas fa-check"></i> 초기 파트너 조건(가격/지원) 우선 적용</div>
-            </div>
-            <div class="popup-sector-note">※ 우선 협업 협상권은 독점권이 아닌, 성과 기반 우선 협의 권리입니다.</div>
-            <div class="popup-footer">
-              <a href="https://forms.gle/wheF8BkWzrSQjPej6" target="_blank" rel="noopener noreferrer" class="popup-cta">
-                <i class="fas fa-paper-plane"></i> 초기 파트너 지원하기
-              </a>
-              <a href="mailto:yiyol@yiyol.com?subject=NOX%20%ED%8C%8C%EC%9D%BC%EB%9F%BF%20%EC%83%81%EB%8B%B4%20%EC%9A%94%EC%B2%AD" class="popup-cta-outline">
-                <i class="fas fa-comments"></i> 파일럿 상담 요청
-              </a>
-            </div>
+      <div class="popup-content">
+        <div class="popup-body">
+          <p class="popup-intro">
+            중·소형 현장에 최적화된 NVR/VMS 소프트웨어 <strong>NOX</strong>의 초기 파트너를 모집합니다.<br>
+            섹터별 대표 현장에서 설치·운영을 함께 검증하고 성공 사례를 만들 파트너를 찾습니다.
+          </p>
+          <div class="popup-notice">
+            <i class="fas fa-info-circle"></i>
+            <span>NOX는 상용 소프트웨어이며, H/W(서버·카메라 등)는 파트너사가 구성합니다. NOX는 소프트웨어 및 기술지원을 제공합니다.</span>
+          </div>
+          <div class="popup-section-title"><i class="fas fa-crosshairs"></i> 모집 섹터 (각 1~2개 한정)</div>
+          <div class="popup-sector-list">
+            <span class="popup-sector-tag"><i class="fas fa-building"></i> 아파트 / 공동주택</span>
+            <span class="popup-sector-tag"><i class="fas fa-store"></i> 상가 / 프랜차이즈</span>
+            <span class="popup-sector-tag"><i class="fas fa-industry"></i> 공장 / 창고 / 물류</span>
+            <span class="popup-sector-tag"><i class="fas fa-hard-hat"></i> 건설현장 / 임시현장</span>
+            <span class="popup-sector-tag"><i class="fas fa-school"></i> 교육 / 의료 / 공공</span>
+          </div>
+          <div class="popup-section-title"><i class="fas fa-gift"></i> 초기 파트너 혜택</div>
+          <div class="popup-benefit-list">
+            <div class="popup-benefit-item"><i class="fas fa-check"></i> 프로젝트 성공 시 섹터/지역 우선 협업 협상권 부여</div>
+            <div class="popup-benefit-item"><i class="fas fa-check"></i> 향후 리셀러/총판 우선 협의 기회</div>
+            <div class="popup-benefit-item"><i class="fas fa-check"></i> 파트너용 제안 자료 및 운영 가이드 우선 제공</div>
+            <div class="popup-benefit-item"><i class="fas fa-check"></i> 초기 파트너 조건(가격/지원) 우선 적용</div>
+          </div>
+          <div class="popup-sector-note">※ 우선 협업 협상권은 독점권이 아닌, 성과 기반 우선 협의 권리입니다.</div>
+          <div class="popup-footer" style="flex-wrap:wrap;">
+            <a href="https://forms.gle/wheF8BkWzrSQjPej6" target="_blank" rel="noopener noreferrer" class="popup-cta">
+              <i class="fas fa-paper-plane"></i> 초기 파트너 지원하기
+            </a>
+            <a href="mailto:yiyol@yiyol.com?subject=NOX%20%ED%8C%8C%EC%9D%BC%EB%9F%BF%20%EC%83%81%EB%8B%B4%20%EC%9A%94%EC%B2%AD" class="popup-cta-outline">
+              <i class="fas fa-comments"></i> 파일럿 상담 요청
+            </a>
+            <label class="popup-today-label" for="partnerDismissToday">
+              <input type="checkbox" id="partnerDismissToday">
+              오늘 하루 보지 않기
+              <button type="button" class="popup-today-close-btn" onclick="event.stopPropagation();event.preventDefault();document.getElementById('partnerPopupClose').click()">닫기</button>
+            </label>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- ===== SCRIPTS ===== -->
-  <script src="/assets/js/i18n.js"></script>
-  <script>
-    // 네비게이션 스크롤 효과
-    const nav = document.getElementById('nav');
-    const hero = document.getElementById('hero');
+<script>
+  (function () {
+    var overlay = document.getElementById('dualPopup');
+    var nisCard = document.getElementById('nisCard');
+    var partnerCard = document.getElementById('partnerCard');
+    var nisCloseBtn = document.getElementById('nisPopupClose');
+    var partnerCloseBtn = document.getElementById('partnerPopupClose');
+    var nisDismissCheck = document.getElementById('nisDismissToday');
+    var partnerDismissCheck = document.getElementById('partnerDismissToday');
+    if (!overlay) return;
 
-    const navObserver = new IntersectionObserver(([entry]) => {
-      nav.classList.toggle('scrolled', !entry.isIntersecting);
-    }, { threshold: 0.1 });
-    navObserver.observe(hero);
+    var NIS_KEY     = 'nox_nis_dismissed_date';
+    var PARTNER_KEY = 'nox_partner_dismissed_date';
+    var today = new Date().toDateString();
 
-    // 스크롤 애니메이션
-    const animObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          animObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    function isDismissed(key) { return localStorage.getItem(key) === today; }
 
-    document.querySelectorAll('.animate-on-scroll').forEach(el => animObserver.observe(el));
+    if (isDismissed(NIS_KEY))     nisCard.classList.add('dismissed');
+    if (isDismissed(PARTNER_KEY)) partnerCard.classList.add('dismissed');
 
-    // 모바일 네비게이션 링크 클릭 시 메뉴 닫기
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', () => {
-        document.getElementById('nav-toggle').checked = false;
-      });
+    if (!isDismissed(NIS_KEY) || !isDismissed(PARTNER_KEY)) {
+      setTimeout(function () { overlay.classList.add('active'); }, 600);
+    }
+
+    function checkClose() {
+      if (nisCard.classList.contains('dismissed') && partnerCard.classList.contains('dismissed')) {
+        overlay.classList.remove('active');
+      }
+    }
+    function closeNis() {
+      if (nisDismissCheck && nisDismissCheck.checked) localStorage.setItem(NIS_KEY, today);
+      nisCard.classList.add('dismissed'); checkClose();
+    }
+    function closePartner() {
+      if (partnerDismissCheck && partnerDismissCheck.checked) localStorage.setItem(PARTNER_KEY, today);
+      partnerCard.classList.add('dismissed'); checkClose();
+    }
+
+    nisCloseBtn.addEventListener('click', closeNis);
+    partnerCloseBtn.addEventListener('click', closePartner);
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay || e.target.classList.contains('dual-popup-container')) {
+        closeNis(); closePartner();
+      }
     });
-
-    // Dual Popup (NIS + Partner)
-    (function () {
-      var overlay = document.getElementById('dualPopup');
-      var nisCard = document.getElementById('nisCard');
-      var partnerCard = document.getElementById('partnerCard');
-      var nisCloseBtn = document.getElementById('nisPopupClose');
-      var partnerCloseBtn = document.getElementById('partnerPopupClose');
-      if (!overlay) return;
-
-      function isKorean() {
-        return document.documentElement.getAttribute('lang') === 'ko';
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && overlay.classList.contains('active')) {
+        closeNis(); closePartner();
       }
-
-      // Determine which cards to show
-      var showNis = true;
-
-      var showPartner = isKorean();
-
-      if (!showNis) nisCard.classList.add('dismissed');
-      if (!showPartner) partnerCard.classList.add('dismissed');
-
-      if (showNis || showPartner) {
-        setTimeout(function () { overlay.classList.add('active'); }, 600);
-      }
-
-      function checkClose() {
-        if (nisCard.classList.contains('dismissed') && partnerCard.classList.contains('dismissed')) {
-          overlay.classList.remove('active');
-        }
-      }
-
-      function closeNis() {
-        nisCard.classList.add('dismissed');
-        checkClose();
-      }
-
-      function closePartner() {
-        partnerCard.classList.add('dismissed');
-        checkClose();
-      }
-
-      nisCloseBtn.addEventListener('click', closeNis);
-      partnerCloseBtn.addEventListener('click', closePartner);
-
-      overlay.addEventListener('click', function (e) {
-        if (e.target === overlay || e.target.classList.contains('dual-popup-container')) {
-          closeNis();
-          closePartner();
-        }
-      });
-
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && overlay.classList.contains('active')) {
-          closeNis();
-          closePartner();
-        }
-      });
-    })();
-  </script>
+    });
+  })();
+</script>
 
 </body>
 </html>
