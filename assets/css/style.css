@@ -1013,11 +1013,68 @@ ul {
   .hero h1 { font-size: 3.5rem; }
 }
 
+/* Hamburger button (injected by i18n.js) — hidden on desktop */
+.nav-hamburger {
+  display: none;
+  background: transparent;
+  border: 0;
+  padding: 0.4rem;
+  margin: 0;
+  color: var(--text-primary, #0f172a);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: background-color 0.15s ease;
+}
+.nav-hamburger:hover { background: rgba(15, 23, 42, 0.06); }
+.nav-hamburger svg { width: 22px; height: 22px; display: block; }
+.site-nav .nav-hamburger { color: #e2e8f0; }
+.site-nav .nav-hamburger:hover { background: rgba(255, 255, 255, 0.08); }
+
 @media (max-width: 768px) {
-  .nav { height: auto; padding: 1rem; }
-  .nav > div { flex-direction: column; gap: 1rem !important; width: 100%; }
-  .nav-links { gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
-  
+  /* Show hamburger */
+  .header .nav-hamburger { display: inline-flex; }
+
+  .header .nav {
+    padding: 0 1rem;
+  }
+  /* Dropdown panel — absolute below the nav bar so it doesn't expand the header
+     or push down the page content. Inline style on this div uses display:flex,
+     so override with !important. */
+  .header .nav > div:not(.nav-hamburger) {
+    display: none !important;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.25rem !important;
+    padding: 1rem 1.25rem 1.25rem;
+    background: #ffffff;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(226, 232, 240, 0.6);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+  }
+  .header.is-mobile-open .nav > div:not(.nav-hamburger) { display: flex !important; }
+  .header.is-mobile-open .nav-links {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.1rem;
+    width: 100%;
+  }
+  .header.is-mobile-open .nav-links li { width: 100%; }
+  .header.is-mobile-open .nav-link {
+    display: block;
+    padding: 0.65rem 0.25rem;
+    font-size: 1rem;
+  }
+  .header.is-mobile-open .nav-link::after { display: none; }
+  .header.is-mobile-open .lang-switch { align-self: flex-start; margin-top: 0.25rem; }
+
   .hero { padding: 140px 0 80px; }
   .hero h1 { font-size: 2.5rem; }
   .hero-cta { flex-direction: column; }

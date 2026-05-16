@@ -30,7 +30,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/style.css?v=6" />
 
     <style>
       .site-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(3,8,15,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255,255,255,0.07); padding: 0 1.5rem; }
@@ -43,7 +43,40 @@
       .site-nav-links .nav-active { color: #fff; }
       .site-nav-links .nav-cta { background: #00b4d8; color: #fff !important; padding: 0.4rem 0.9rem; border-radius: 4px; font-weight: 600; transition: background 0.2s; }
       .site-nav-links .nav-cta:hover { background: #0096b7; }
-      @media (max-width: 600px) { .site-nav-links .nav-hide { display: none; } }
+      @media (max-width: 600px) {
+        .site-nav .nav-hamburger { display: inline-flex; }
+        .site-nav .site-nav-right {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0.25rem;
+          padding: 1rem 1.5rem 1.25rem;
+          background: #03080f;
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+        }
+        .site-nav.is-mobile-open .site-nav-right { display: flex; }
+        .site-nav.is-mobile-open .site-nav-links {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0.1rem;
+          width: 100%;
+        }
+        .site-nav.is-mobile-open .site-nav-links li { width: 100%; }
+        .site-nav.is-mobile-open .site-nav-links a {
+          display: block;
+          padding: 0.65rem 0.25rem;
+          font-size: 0.95rem;
+        }
+        .site-nav.is-mobile-open .lang-switch { align-self: flex-start; margin-top: 0.5rem; }
+      }
       .site-nav .lang-switch { position: relative; }
       .site-nav .lang-selector { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #e2e8f0; padding: 0.28rem 0.7rem; border-radius: 4px; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; }
       .site-nav .lang-selector:hover { background: rgba(255,255,255,0.14); }
@@ -196,8 +229,7 @@
         <a href="/" class="site-nav-logo">YIYOL<span>.</span></a>
         <div class="site-nav-right">
           <ul class="site-nav-links">
-            <li class="nav-hide"><a href="https://nox.yiyol.com">NOX</a></li>
-            <li><a href="mailto:yiyol@yiyol.com?subject=문의" class="nav-cta"><span class="ko-only">문의하기</span><span class="en-only">Contact</span></a></li>
+            <li><a href="https://nox.yiyol.com">NOX</a></li>
           </ul>
           <div class="lang-switch">
             <button class="lang-selector">
@@ -356,15 +388,9 @@
 
     <!-- Footer -->
     <footer class="footer" role="contentinfo">
-      <div class="footer-info">
-        <span class="ko-only">서울특별시 금천구 가산디지털2로 136, 704-4호</span>
-        <span class="en-only">#704-4, 136 Gasan Digital 2ro, Geumcheon-gu, Seoul</span>
-        <span class="footer-divider">|</span>
-        <span>yiyol@yiyol.com</span>
-      </div>
       <p class="footer-copyright">&copy; 2026 YIYOL. All rights reserved.</p>
     </footer>
 
-    <script src="/assets/js/i18n.js"></script>
+    <script src="/assets/js/i18n.js?v=4"></script>
   </body>
 </html>

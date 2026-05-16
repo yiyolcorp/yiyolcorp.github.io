@@ -76,4 +76,48 @@
 
   // Expose globally
   window.setLanguage = setLanguage;
+
+  // ── Mobile hamburger menu ────────────────────────────────────────────────
+  var ICON_MENU = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+  var ICON_CLOSE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>';
+
+  function injectHamburger(rootSelector, innerSelector) {
+    document.querySelectorAll(rootSelector).forEach(function (root) {
+      var inner = root.querySelector(innerSelector);
+      if (!inner || inner.querySelector('.nav-hamburger')) return;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'nav-hamburger';
+      btn.setAttribute('aria-label', 'Toggle navigation menu');
+      btn.setAttribute('aria-expanded', 'false');
+      btn.innerHTML = ICON_MENU;
+      inner.appendChild(btn);
+      btn.addEventListener('click', function () {
+        var open = root.classList.toggle('is-mobile-open');
+        btn.setAttribute('aria-expanded', String(open));
+        btn.innerHTML = open ? ICON_CLOSE : ICON_MENU;
+      });
+      // Auto-close when a menu link is tapped
+      root.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+          if (root.classList.contains('is-mobile-open')) {
+            root.classList.remove('is-mobile-open');
+            btn.setAttribute('aria-expanded', 'false');
+            btn.innerHTML = ICON_MENU;
+          }
+        });
+      });
+    });
+  }
+
+  function initMobileNav() {
+    injectHamburger('.site-nav', '.site-nav-inner');
+    injectHamburger('header.header', '.nav');
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMobileNav);
+  } else {
+    initMobileNav();
+  }
 })();
