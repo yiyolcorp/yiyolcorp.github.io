@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKJ4GX2KHS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-CKJ4GX2KHS');
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>중국산 IP카메라 보안, ipTime 인터넷 차단으로 격리하고 NOX VMS로 안전하게 쓰는 법 - YIYOL Blog</title>
+
+  <meta name="description" content="2024년 한국 IP카메라 영상 유출 사건 이후, 소상공인·가정 사용자를 위한 현실적 중국산 IP카메라 보안 가이드. ipTime 외부 IP 차단으로 카메라 인터넷을 격리하고, NOX VMS를 보안 프록시 단일 진입점으로 두는 단계별 절차를 정리합니다." />
+  <meta name="keywords" content="중국산 IP카메라 보안,ipTime 외부 IP 차단,IP카메라 인터넷 차단,IP카메라 해킹 방지,CCTV 네트워크 분리,VMS 보안 프록시,NOX VMS,Hikvision 백도어,XMEye 위험성" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://yiyol.com/blog/iptime-ip-camera-isolation-nox-vms.html" />
+  <meta property="og:title" content="중국산 IP카메라 보안, ipTime 인터넷 차단으로 격리하고 NOX VMS로 안전하게 쓰는 법 — YIYOL" />
+  <meta property="og:description" content="2024년 한국 IP카메라 영상 유출 사건 이후, 소상공인·가정 사용자를 위한 현실적 중국산 IP카메라 보안 가이드. ipTime 외부 IP 차단으로 카메라 인터넷을 격리하고, NOX VMS를 보안 프록시 단일 진입점으로 두는 단계별 절차를 정리합니다." />
+  <meta property="og:image" content="https://yiyol.com/img/blog/iptime-camera-isolation/iptime-rule-applied.png" />
+  <meta property="og:site_name" content="YIYOL" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="중국산 IP카메라 보안, ipTime 인터넷 차단으로 격리하고 NOX VMS로 안전하게 쓰는 법 — YIYOL" />
+  <meta name="twitter:description" content="2024년 한국 IP카메라 영상 유출 사건 이후, 소상공인·가정 사용자를 위한 현실적 중국산 IP카메라 보안 가이드. ipTime 외부 IP 차단으로 카메라 인터넷을 격리하고, NOX VMS를 보안 프록시 단일 진입점으로 두는 단계별 절차를 정리합니다." />
+  <meta name="twitter:image" content="https://yiyol.com/img/blog/iptime-camera-isolation/iptime-rule-applied.png" />
+
+  <link rel="canonical" href="https://yiyol.com/blog/iptime-ip-camera-isolation-nox-vms.html" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "중국산 IP카메라 보안, ipTime 인터넷 차단으로 격리하고 NOX VMS로 안전하게 쓰는 법",
+    "description": "2024년 한국 IP카메라 영상 유출 사건 이후, 소상공인·가정 사용자를 위한 현실적 중국산 IP카메라 보안 가이드. ipTime 외부 IP 차단으로 카메라 인터넷을 격리하고, NOX VMS를 보안 프록시 단일 진입점으로 두는 단계별 절차를 정리합니다.",
+    "url": "https://yiyol.com/blog/iptime-ip-camera-isolation-nox-vms.html",
+    "datePublished": "2026-05-16",
+    "dateModified": "2026-05-16",
+    "image": "https://yiyol.com/img/blog/iptime-camera-isolation/iptime-rule-applied.png",
+    "author": {
+      "@type": "Organization",
+      "name": "YIYOL",
+      "url": "https://yiyol.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "YIYOL",
+      "url": "https://yiyol.com"
+    },
+    "keywords": ["중국산 IP카메라 보안", "ipTime 외부 IP 차단", "IP카메라 인터넷 차단", "IP카메라 해킹 방지", "CCTV 네트워크 분리", "VMS 보안 프록시", "NOX VMS", "Hikvision 백도어", "XMEye 위험성"],
+    "inLanguage": "ko"
+  }
+  </script>
+
+  <!-- Fonts & CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+
+  <style>
+    /* Post Hero */
+    .post-hero {
+      padding: 130px 0 50px;
+      background: radial-gradient(circle at top right, #1e293b, #0f172a);
+      color: white;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .post-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%; right: -20%;
+      width: 80%; height: 200%;
+      background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .post-hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .post-breadcrumb {
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+    .post-breadcrumb a {
+      color: #60a5fa;
+      text-decoration: none;
+    }
+    .post-breadcrumb a:hover { text-decoration: underline; }
+    .post-breadcrumb span { color: #64748b; margin: 0 0.4rem; }
+    .post-hero h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+    .post-meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+    .post-meta-date { display: inline-flex; align-items: center; gap: 0.4rem; }
+    .post-meta-date i { font-size: 0.8rem; }
+    .post-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
+    .post-tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: #60a5fa;
+      background: rgba(59,130,246,0.15);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    /* Post Content */
+    .post-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 50px 2rem 100px;
+    }
+    .post-article {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: var(--text-color, #1e293b);
+    }
+    .post-article h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-color, #0f172a);
+      margin: 2.5rem 0 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--border-color, #e2e8f0);
+    }
+    .post-article h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--primary-color, #0f172a);
+      margin: 2rem 0 0.75rem;
+    }
+    .post-article p {
+      margin-bottom: 1.2rem;
+    }
+    .post-article a {
+      color: var(--accent-color, #3b82f6);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .post-article a:hover { color: #2563eb; }
+    .post-article ul, .post-article ol {
+      margin: 1rem 0 1.5rem 1.5rem;
+    }
+    .post-article li {
+      margin-bottom: 0.5rem;
+    }
+    .post-article table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.95rem;
+    }
+    .post-article thead th {
+      background: var(--bg-accent, #f8fafc);
+      font-weight: 600;
+      text-align: left;
+      padding: 0.75rem 1rem;
+      border-bottom: 2px solid var(--border-color, #e2e8f0);
+    }
+    .post-article tbody td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border-color, #e2e8f0);
+    }
+    .post-article pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    .post-article code {
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      font-size: 0.88em;
+    }
+    .post-article :not(pre) > code {
+      background: rgba(59,130,246,0.08);
+      color: #1e40af;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+    }
+    .post-article blockquote {
+      border-left: 4px solid var(--accent-color, #3b82f6);
+      background: var(--bg-accent, #f8fafc);
+      margin: 1.5rem 0;
+      padding: 1rem 1.5rem;
+      border-radius: 0 8px 8px 0;
+      color: var(--text-secondary, #475569);
+    }
+    .post-article blockquote p { margin-bottom: 0; }
+    .post-article hr {
+      border: none;
+      border-top: 1px solid var(--border-color, #e2e8f0);
+      margin: 2rem 0;
+    }
+    .post-article img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin: 1.5rem 0;
+      display: block;
+    }
+    .post-article .mermaid {
+      background: #ffffff;
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      text-align: center;
+      overflow-x: auto;
+    }
+    .post-article ul li input[type="checkbox"] {
+      margin-right: 0.4rem;
+    }
+
+    @media (max-width: 640px) {
+      .post-container { padding: 30px 1rem 60px; }
+      .post-article { font-size: 1rem; }
+      .post-article h2 { font-size: 1.3rem; }
+    }
+  </style>
+
+  <!-- Mermaid (diagrams) -->
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'default' });
+  </script>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header" role="banner">
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+      <a href="/" class="logo" aria-label="YIYOL Home">YIYOL</a>
+      <div style="display: flex; align-items: center; gap: 2rem;">
+        <ul class="nav-links">
+          <li>
+            <a href="/#about" class="nav-link">
+              <span class="ko-only">회사 소개</span>
+              <span class="en-only">About</span>
+            </a>
+          </li>
+          <li>
+            <a href="/#products" class="nav-link">
+              <span class="ko-only">제품</span>
+              <span class="en-only">Products</span>
+            </a>
+          </li>
+          <li>
+            <a href="/blog/" class="nav-link" style="color: var(--accent-color);">
+              <span class="ko-only">블로그</span>
+              <span class="en-only">Blog</span>
+            </a>
+          </li>
+          <li>
+            <a href="/#contact" class="nav-link">
+              <span class="ko-only">문의</span>
+              <span class="en-only">Contact</span>
+            </a>
+          </li>
+        </ul>
+        <div class="lang-switch">
+          <button class="lang-selector">
+            <span class="lang-current">한국어</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="lang-dropdown">
+            <a href="#" class="lang-option" data-lang="ko">한국어</a>
+            <a href="#" class="lang-option" data-lang="en">English</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="post-hero">
+    <div class="post-hero-content">
+      <nav class="post-breadcrumb">
+        <a href="/">YIYOL</a><span>›</span><a href="/blog/">블로그</a><span>›</span> 현재 글
+      </nav>
+      <h1>중국산 IP카메라 보안, ipTime 인터넷 차단으로 격리하고 NOX VMS로 안전하게 쓰는 법</h1>
+      <div class="post-meta">
+        <span class="post-meta-date"><i class="far fa-calendar-alt"></i> 2026.05.16</span>
+        <div class="post-tags">
+          <span class="post-tag">IP카메라 보안</span>
+          <span class="post-tag">CCTV 보안</span>
+          <span class="post-tag">ipTime</span>
+          <span class="post-tag">VMS</span>
+          <span class="post-tag">NOX</span>
+          <span class="post-tag">네트워크 분리</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main -->
+  <main class="post-container">
+    <article class="post-article">
+
+      <p><strong>중국산 IP카메라 보안</strong>은 더 이상 미룰 수 없는 숙제가 되었습니다. 2024년 9월, 한국의 산부인과·왁싱숍·룸카페·펜션 수영장에 설치된 IP카메라 영상이 중국 음란 사이트와 텔레그램으로 유출됐다는 보도가 잇따랐습니다. 보안뉴스는 텔레그램에 노출된 한국 사생활 영상이 <a href="https://m.boannews.com/html/detail.html?idx=125342" target="_blank" rel="noopener">약 4,500개에 달한다고 단독 보도</a>했고, 네이트뉴스는 같은 시기 <a href="https://news.nate.com/view/20240930n08225" target="_blank" rel="noopener">중국 사이트에서 800개 이상 확인</a>됐다고 전했습니다.</p>
+
+      <p>이 글은 카메라를 다 갈아치우라는 글이 아닙니다. <strong>이미 설치된 IP카메라를 그대로 두면서, 오늘 30분으로 해킹 위험을 크게 낮추는 IP카메라 해킹 방지 실전 가이드</strong>입니다. 핵심은 두 가지—(1) <strong>ipTime 외부 IP 차단</strong> 기능으로 카메라 인터넷 접속을 끊고, (2) <strong>NOX VMS</strong>를 단일 진입점(보안 프록시)으로 두는 것입니다.</p>
+
+      <h2>1. 왜 "비밀번호만 바꾸면 안전"이 아닌가 — 중국산 IP카메라 보안의 본질</h2>
+
+      <p>사고 보도는 보통 "초기 비밀번호 미변경"으로 결론납니다. 하지만 국내 IP카메라의 <a href="https://industryjournal.co.kr/news/239538" target="_blank" rel="noopener">약 80%가 중국산</a>이고, 이 제품들은 출입문 외에 <strong>여러 옆문</strong>을 열어둔 채 출하되기 때문에 비밀번호만으로는 부족합니다.</p>
+
+      <p>카메라가 인터넷으로 내보내는 트래픽은 크게 세 갈래입니다.</p>
+
+      <ul>
+        <li><strong>P2P 클라우드 텔레메트리</strong> — XMEye, Hik-Connect, Dahua P2P는 카메라 전원이 켜지자마자 제조사 클라우드로 항상-연결을 유지합니다. <a href="https://sec-consult.com/blog/detail/millions-of-xiongmai-video-surveillance-devices-can-be-hacked-via-cloud-feature-xmeye-p2p-cloud/" target="_blank" rel="noopener">XMEye는 모든 통신이 미암호화</a>이며 펌웨어 업데이트마저 평문이라 중간자 공격에 취약합니다. <strong>XMEye 위험성</strong>은 보안 업계가 수년째 경고해 온 사안입니다.</li>
+        <li><strong>펌웨어 백도어/RCE</strong> — <strong>Hikvision 백도어</strong>의 대표 사례인 <a href="https://ipvm.com/reports/hikvision-36260" target="_blank" rel="noopener">CVE-2021-36260</a>은 인증 없이 루트 권한을 가져가는 취약점으로, 영향 기기가 <strong>1억 대 이상</strong>이고 <a href="https://www.fortinet.com/blog/threat-research/mirai-based-botnet-moobot-targets-hikvision-vulnerability" target="_blank" rel="noopener">Moobot 봇넷이 적극 활용</a>했습니다. 패치 1년 뒤에도 <a href="https://www.theregister.com/2022/08/24/hikvision_camera_patch/" target="_blank" rel="noopener">8만 대 이상이 미패치</a> 상태였습니다. 최근엔 Xiongmai XM530의 <a href="https://github.com/LuisMirandaAcebedo/CVE-2025-65856" target="_blank" rel="noopener">CVE-2025-65856 (ONVIF 인증 우회, CVSS 9.8)</a>이 보고됐습니다.</li>
+        <li><strong>ONVIF/RTSP 무방비 노출</strong> — 포트포워딩 한 번이면 영상이 그대로 인터넷에 떠다닙니다. Shodan에 <a href="https://cybernews.com/editorial/thousands-unprotected-security-cameras-surveilling-world/" target="_blank" rel="noopener">무방비 RTSP 카메라 8,373대 이상이 노출</a>된 상태입니다.</li>
+      </ul>
+
+      <p>미국은 <a href="https://www.fcc.gov/supplychain/coveredlist" target="_blank" rel="noopener">FCC Covered List</a>로 신규 인증을 막았고, 영국은 <a href="https://ipvm.com/reports/sensitive-sites-uk" target="_blank" rel="noopener">민감 시설에서 단계 교체 중</a>이며, 한국도 <a href="https://zdnet.co.kr/view/?no=20241114165647" target="_blank" rel="noopener">다중이용시설 인증 의무화</a>를 추진합니다. 정부 차원에서도 "그냥 두면 안 된다"는 결론에 도달한 셈입니다.</p>
+
+      <h2>2. 해결 원칙 — CCTV 네트워크 분리로 카메라를 외부 인터넷과 격리하라</h2>
+
+      <p>IoT 보안 가이드의 공통 권고는 단순합니다. <strong>카메라는 별도 네트워크에 두고, 인터넷 outbound는 기본 차단(default deny)하라.</strong> 이것이 모범 사례로 자리잡은 <strong>CCTV 네트워크 분리</strong>의 핵심 원칙입니다.</p>
+
+      <p>이상적인 구성은 카메라 전용 <strong>VLAN/SSID</strong>에 두고 방화벽에서 egress를 막은 뒤 필요한 NTP·DNS만 화이트리스트로 허용하는 것입니다. 하지만 이건 UniFi·pfSense 같은 prosumer 장비가 필요합니다. 다행히 ipTime의 <strong>"인터넷/WiFi 사용 제한"</strong> 은 본질적으로 egress 필터라, VLAN 없이도 "이 IP는 외부 인터넷으로 못 나간다"는 <strong>IP카메라 인터넷 차단</strong> 효과를 만들 수 있습니다.</p>
+
+      <h2>3. 실전 1편 — ipTime 외부 IP 차단으로 카메라 인터넷 끊기</h2>
+
+      <h3>3.1 사전 준비: 카메라 내부 IP 고정</h3>
+
+      <p>규칙은 내부 IP 기준이라 DHCP로 IP가 바뀌면 무력화됩니다. ipTime 관리자(<code>http://192.168.0.1</code>) &gt; <strong>고급 설정 &gt; 네트워크 관리 &gt; DHCP 서버 설정</strong>에서 카메라 MAC을 <strong>수동 등록</strong>으로 옮겨두세요. 예시는 <code>192.168.0.63</code>(cam1)로 진행합니다.</p>
+
+      <h3>3.2 메뉴 진입과 규칙 추가</h3>
+
+      <p><strong>고급 설정 &gt; 보안 기능 &gt; 인터넷/WiFi 사용 제한</strong>으로 이동, <strong>"사용자 고급 설정"</strong> 모드를 선택하고 다음과 같이 입력합니다.</p>
+
+      <ol>
+        <li><strong>방향</strong>: <code>내부 → 외부</code></li>
+        <li><strong>규칙 이름</strong>: <code>cam1-egress-block</code></li>
+        <li><strong>내부 IP 주소</strong>: <code>192.168.0.63</code></li>
+        <li><strong>외부 목적지</strong>: <code>ALL</code>, <strong>모든 외부 IP</strong></li>
+        <li><strong>포트</strong>: 비워두기 또는 <code>ALL</code></li>
+        <li><strong>동작</strong>: <code>차단</code></li>
+        <li><strong>스케줄</strong>: <code>매일 24시간</code></li>
+        <li><strong>적용</strong> &gt; <strong>새규칙으로 등록</strong></li>
+      </ol>
+
+      <p><img src="/img/blog/iptime-camera-isolation/iptime-rule-form.png" alt="ipTime 외부 IP 차단 규칙 추가 폼 — IP카메라 격리 설정 화면" /></p>
+
+      <p>규칙이 등록되면 목록에 <code>cam1</code> 행이 활성 상태로 나타납니다.</p>
+
+      <p><img src="/img/blog/iptime-camera-isolation/iptime-rule-applied.png" alt="ipTime 인터넷 사용 제한 규칙 적용 결과 — 중국산 IP카메라 인터넷 차단 확인" /></p>
+
+      <p>카메라가 여러 대라면 DHCP에서 <code>192.168.0.60~70</code> 같은 연속 대역에 몰아 넣고 <strong>IP 범위</strong>로 한 줄에 등록하면 깔끔합니다.</p>
+
+      <h3>3.3 차단 확인</h3>
+
+      <pre><code class="language-bash"># LAN 안에서는 살아 있어야 정상
+ping 192.168.0.63
+
+# 카메라가 외부로 못 나가는지 (카메라에 curl이 있을 때)
+curl -m 5 https://www.google.com
+# 결과: 타임아웃이 정상</code></pre>
+
+      <p>카메라 제조사 앱(XMEye, Hik-Connect 등)에서 "오프라인"으로 뜨면 격리가 적용된 신호입니다.</p>
+
+      <h2>4. egress 차단만으론 부족한 이유</h2>
+
+      <p>여기까지만 해도 카메라가 중국 서버로 텔레메트리를 보내는 경로는 끊었습니다. 그러나 두 가지 구멍이 남습니다.</p>
+
+      <p><strong>첫째, LAN 내 측면 이동.</strong> egress 차단은 외부로의 통신만 막을 뿐, 같은 LAN의 다른 기기가 카메라에 직접 붙는 경로는 막지 않습니다. 가족 노트북이 감염되면 카메라의 무방비 RTSP/ONVIF로 접근할 수 있습니다.</p>
+
+      <p><strong>둘째, 외부에서 보고 싶을 때.</strong> 카메라마다 포트포워딩은 가장 나쁜 선택입니다. 인증 우회 CVE 하나면 영상이 전 세계에 노출됩니다(앞서 본 Shodan 8,000여 대 사례).</p>
+
+      <p>해결은 산업계 표준 패턴입니다. <strong>모든 카메라 접근을 단일 VMS 서버를 통하게 하고, 외부 공개는 그 VMS 한 곳만, TLS와 강한 인증으로</strong> 묶는 것 — <a href="https://help.videoexpertsgroup.com/kb/gateway-nvr" target="_blank" rel="noopener">Gateway NVR 패턴</a>으로 알려진 <strong>VMS 보안 프록시</strong> 아키텍처입니다.</p>
+
+      <h2>5. 실전 2편 — NOX VMS를 보안 프록시로 두는 네트워크 구조</h2>
+
+      <pre class="mermaid">
+flowchart TB
+    subgraph Isolated["Isolated Camera Network — 외부 인터넷 차단"]
+        C1[Camera 1]
+        C2[Camera 2]
+        C3[Camera 3]
+        C4[Camera 4]
+        C5[Camera 5]
+        C6[Camera 6]
+        C7[Camera 7]
+        C8[Camera 8]
+    end
+
+    NOX[("NOX Host<br/>VMS / 보안 프록시")]
+
+    Isolated &lt;--&gt;|RTSP / ONVIF| NOX
+
+    subgraph LAN["사내 / 가정 LAN"]
+        PC[PC 웹 브라우저]
+        MOB[NOX Mobile]
+    end
+
+    NOX &lt;--&gt;|HTTPS / 인증| LAN
+
+    IPT{{ipTime 공유기}}
+    LAN --&gt;|일반 트래픽| IPT
+    Isolated -.-&gt;|"🚫 BLOCKED (ipTime egress 규칙)"| IPT
+
+    IPT &lt;--&gt;|"포트포워딩: NOX만"| INET((Internet))
+
+    subgraph Remote["외부 클라이언트"]
+        RPC[원격 PC 브라우저]
+        RMOB[외부 NOX Mobile]
+    end
+
+    INET &lt;--&gt; Remote
+      </pre>
+
+      <p>핵심 흐름 세 줄:</p>
+
+      <ul>
+        <li><strong>카메라 8대는 점선 박스 안에 갇혀 있다.</strong> ipTime egress 규칙이 모든 외부 통신을 막아, XMEye·Hik-Connect 같은 P2P 클라우드 신호가 외부로 나갈 수 없습니다.</li>
+        <li><strong>NOX 호스트가 유일한 다리다.</strong> 카메라와는 격리망 안에서 RTSP/ONVIF로, 사용자(PC·NOX Mobile)와는 LAN/HTTPS로 대화합니다.</li>
+        <li><strong>외부 공개는 NOX 한 곳만.</strong> ipTime 포트포워딩을 NOX HTTPS 포트로만 열고, 인증·TLS·로그를 NOX가 책임집니다. 카메라는 인터넷에 한 바이트도 노출되지 않습니다.</li>
+      </ul>
+
+      <h2>6. 이 구조가 주는 보안 이점 (체크리스트)</h2>
+
+      <ul>
+        <li>[x] <strong>카메라 펌웨어가 어떻든 외부 콜백 차단</strong> — 백도어·텔레메트리·악성 펌웨어 업데이트가 모두 막힙니다.</li>
+        <li>[x] <strong>단일 진입점 → 보안 일원화</strong> — TLS·사용자 권한·2FA·접근 로그를 NOX 한 곳에서 통제합니다.</li>
+        <li>[x] <strong>카메라 추가·교체 시 외부 설정 변경 불필요</strong> — 격리 네트워크에 붙이고 NOX에 등록만 하면 됩니다.</li>
+        <li>[x] <strong>사고 시 추적 단순화</strong> — 의심 트래픽 추적은 NOX 접근 로그 한 곳에서 시작합니다.</li>
+        <li>[x] <strong>공급망 리스크 대비</strong> — 영국·한국의 규제 흐름에서 "이미 격리해 두었다"는 사실 자체가 향후 감사·점검에 방어선이 됩니다.</li>
+      </ul>
+
+      <h2>7. 자주 묻는 질문 (FAQ) — IP카메라 해킹 방지 실무 Q&amp;A</h2>
+
+      <p><strong>Q1. P2P 앱(XMEye, Hik-Connect)으로만 봤는데, 차단하면 그 앱이 안 되지 않나요?</strong><br />
+      맞습니다. 그게 의도된 결과입니다. 앱이 잘 보였다는 건 카메라가 매 순간 제조사 클라우드와 양방향 연결돼 있었다는 뜻이고, 본 가이드는 정확히 그 연결을 끊기 위한 것입니다. NOX VMS가 같은 역할(원격 보기·알림·녹화)을 단일 인증·TLS 경로로 제공합니다.</p>
+
+      <p><strong>Q2. 포트포워딩 대신 VPN으로 들어와도 되나요?</strong><br />
+      더 안전한 옵션입니다. ipTime의 VPN 서버 기능이나 WireGuard로 들어와 NOX에 LAN처럼 붙는 방식은 포트포워딩보다 공격 표면이 줄어듭니다. 다만 직원들이 모두 VPN을 설치·관리해야 하는 운영 부담은 고려해야 합니다.</p>
+
+      <p><strong>Q3. ipTime 말고 다른 공유기에서도 되나요?</strong><br />
+      원리는 동일합니다. ASUS·Netgear·TP-Link·통신사 공유기 모두 "Access Control" 또는 "Outbound Firewall" 같은 이름으로 비슷한 기능을 제공합니다. 메뉴 명칭만 다를 뿐 "이 내부 IP의 외부 outbound를 차단"이라는 동작은 같습니다.</p>
+
+      <p><strong>Q4. RTSP/ONVIF를 막으면 NOX도 카메라를 못 보지 않나요?</strong><br />
+      NOX는 격리 네트워크 안쪽에서 카메라와 통신합니다. ipTime egress 규칙은 <strong>카메라 → 외부 인터넷</strong> 방향만 막을 뿐, 같은 LAN 안의 NOX → 카메라 통신은 영향받지 않습니다.</p>
+
+      <h2>8. 마무리 — 카메라를 신뢰하지 말고, 네트워크를 신뢰하라</h2>
+
+      <p><strong>중국산 IP카메라 보안</strong>의 본질은 "어떤 브랜드를 사느냐"가 아니라 <strong>"카메라가 외부로 무엇을 할 수 있는지를 네트워크가 결정한다"</strong> 는 점입니다. 펌웨어는 미패치·EOL·0-day 같은 변수에 늘 노출되지만, 라우터 규칙은 사용자가 100% 통제할 수 있습니다.</p>
+
+      <p>오늘 할 일은 세 줄입니다.</p>
+
+      <ol>
+        <li>카메라의 내부 IP를 고정한다.</li>
+        <li>ipTime "인터넷/WiFi 사용 제한"으로 그 IP의 외부 통신을 차단한다(= <strong>ipTime 외부 IP 차단</strong>).</li>
+        <li>외부에서 봐야 한다면 NOX 같은 VMS를 단일 진입점(VMS 보안 프록시)으로 두고, 카메라는 내부에서만 접근한다.</li>
+      </ol>
+
+      <p>NOX는 이 패턴을 일반 사용자가 따라할 수 있게 만든 도구의 한 예입니다. 어떤 도구를 쓰든 핵심은 <strong>"카메라가 인터넷과 직접 대화하지 않는다"</strong> 는 한 줄을 오늘 실현하는 것입니다.</p>
+
+      <h2>참고 자료</h2>
+
+      <ul>
+        <li><a href="https://industryjournal.co.kr/news/239538" target="_blank" rel="noopener">국내 IP카메라 80%가 중국산… 해킹 사고 우려↑ — 산업종합저널</a></li>
+        <li><a href="https://news.nate.com/view/20240930n08225" target="_blank" rel="noopener">중국산 IP캠 설치한 왁싱숍·룸카페, 中 음란사이트에 영상 대량 유출 — 서울신문/네이트</a></li>
+        <li><a href="https://m.boannews.com/html/detail.html?idx=125342" target="_blank" rel="noopener">중국 해커, 국내 IP 카메라 해킹... 4,500개 사생활 영상 텔레그램 노출 — 보안뉴스</a></li>
+        <li><a href="https://zdnet.co.kr/view/?no=20241114165647" target="_blank" rel="noopener">한 가정집 몰카 어디서 나오나 했더니… 정부, IP캠 보안 구멍 막기 — ZDNet Korea</a></li>
+        <li><a href="https://www.korea.kr/briefing/policyBriefingView.do?newsId=156660546" target="_blank" rel="noopener">IP 카메라 보안 강화 방안 — 대한민국 정책브리핑</a></li>
+        <li><a href="https://ipvm.com/reports/hikvision-36260" target="_blank" rel="noopener">Hikvision CVE-2021-36260: 1억 대 영향 — IPVM</a></li>
+        <li><a href="https://www.fortinet.com/blog/threat-research/mirai-based-botnet-moobot-targets-hikvision-vulnerability" target="_blank" rel="noopener">Mirai-based Botnet Moobot Targets Hikvision Vulnerability — Fortinet</a></li>
+        <li><a href="https://www.theregister.com/2022/08/24/hikvision_camera_patch/" target="_blank" rel="noopener">80,000 Hikvision cameras still vulnerable — The Register</a></li>
+        <li><a href="https://sec-consult.com/blog/detail/millions-of-xiongmai-video-surveillance-devices-can-be-hacked-via-cloud-feature-xmeye-p2p-cloud/" target="_blank" rel="noopener">Millions Of Xiongmai Devices Hacked Via XMEye Cloud — SEC Consult</a></li>
+        <li><a href="https://github.com/LuisMirandaAcebedo/CVE-2025-65856" target="_blank" rel="noopener">CVE-2025-65856 Xiongmai XM530 ONVIF 인증 우회</a></li>
+        <li><a href="https://www.fcc.gov/supplychain/coveredlist" target="_blank" rel="noopener">FCC Covered List</a></li>
+        <li><a href="https://ipvm.com/reports/sensitive-sites-uk" target="_blank" rel="noopener">UK Defines 'Sensitive Sites' Where PRC Cameras Are Banned — IPVM</a></li>
+        <li><a href="https://itons.net/iptime-%EA%B3%B5%EC%9C%A0%EA%B8%B0-%ED%8A%B9%EC%A0%95-%EA%B8%B0%EA%B8%B0-%EC%9D%B8%ED%84%B0%EB%84%B7-%EB%B0%8F-%EC%99%80%EC%9D%B4%ED%8C%8C%EC%9D%B4-%EC%B0%A8%EB%8B%A8-%EB%B0%A9%EB%B2%95/" target="_blank" rel="noopener">ipTime 공유기 특정 기기 인터넷 및 와이파이 차단 방법 — 아이티온즈넷</a></li>
+        <li><a href="https://zipi.me/483" target="_blank" rel="noopener">ipTIME 공유기를 이용한 특정 IP 차단 — zipi</a></li>
+        <li><a href="https://stateofsurveillance.org/guides/advanced/home-network-vlans-segmentation/" target="_blank" rel="noopener">Home Network VLANs: Isolate IoT Devices for Security — State of Surveillance</a></li>
+        <li><a href="https://help.videoexpertsgroup.com/kb/gateway-nvr" target="_blank" rel="noopener">Gateway NVR — Video Experts Group</a></li>
+        <li><a href="https://www.genetec.com/blog/products/what-are-the-differences-between-a-vms-and-an-nvr" target="_blank" rel="noopener">VMS vs NVR — Genetec</a></li>
+        <li><a href="https://cybernews.com/editorial/thousands-unprotected-security-cameras-surveilling-world/" target="_blank" rel="noopener">Thousands of unprotected security cameras spying — Cybernews</a></li>
+      </ul>
+
+      <hr />
+
+      <h2>관련 글</h2>
+      <ul>
+        <li><a href="/blog/nis-security-requirements-v3-guide.html">NVR/VMS 국정원 보안요구사항 V3.0 인증 가이드</a> — 공공기관 납품 시 필수인 보안적합성 검증 절차와 핵심 기술 요건</li>
+        <li><a href="/blog/agentic-ai-nvr-vs-ai-nvr-difference.html">Agentic AI NVR이란? AI NVR과의 결정적 차이</a> — 감지에서 자율 실행으로, LLM 기반 NOX NVR의 동작 원리</li>
+      </ul>
+
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-info">
+      <span class="ko-only">서울특별시 금천구 가산디지털2로 136, 704-4호</span>
+      <span class="en-only">#704-4, 136 Gasan Digital 2ro, Geumcheon-gu, Seoul</span>
+      <span class="footer-divider">|</span>
+      <span>yiyol@yiyol.com</span>
+    </div>
+    <p class="footer-copyright">&copy; 2026 YIYOL. All rights reserved.</p>
+  </footer>
+
+  <script src="/assets/js/i18n.js"></script>
+</body>
+</html>
