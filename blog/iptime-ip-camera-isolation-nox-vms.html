@@ -395,13 +395,6 @@
 
       <h3>3.3 차단 확인</h3>
 
-      <pre><code class="language-bash"># LAN 안에서는 살아 있어야 정상
-ping 192.168.0.63
-
-# 카메라가 외부로 못 나가는지 (카메라에 curl이 있을 때)
-curl -m 5 https://www.google.com
-# 결과: 타임아웃이 정상</code></pre>
-
       <p>카메라 제조사 앱(XMEye, Hik-Connect 등)에서 "오프라인"으로 뜨면 격리가 적용된 신호입니다.</p>
 
       <h2>4. egress 차단만으론 부족한 이유</h2>
@@ -679,19 +672,19 @@ curl -m 5 https://www.google.com
       <p>핵심 흐름 세 줄:</p>
 
       <ul>
-        <li><strong>카메라 8대는 점선 박스 안에 갇혀 있다.</strong> ipTime egress 규칙이 모든 외부 통신을 막아, XMEye·Hik-Connect 같은 P2P 클라우드 신호가 외부로 나갈 수 없습니다.</li>
-        <li><strong>NOX 호스트가 유일한 다리다.</strong> 카메라와는 격리망 안에서 RTSP/ONVIF로, 사용자(PC·NOX Mobile)와는 LAN/HTTPS로 대화합니다.</li>
+        <li><strong>카메라 8대는 점선 박스 안에 갇혀 있게됩니다.</strong> ipTime egress 규칙이 모든 외부 통신을 막아, XMEye·Hik-Connect 같은 P2P 클라우드 신호가 외부로 나갈 수 없습니다.</li>
+        <li><strong>NOX 호스트가 유일한 다리가 됩니다.</strong> 카메라와는 격리망 안에서 RTSP/ONVIF로, 사용자(PC·NOX Mobile)와는 LAN/HTTPS로 대화합니다.</li>
         <li><strong>외부 공개는 NOX 한 곳만.</strong> ipTime 포트포워딩을 NOX HTTPS 포트로만 열고, 인증·TLS·로그를 NOX가 책임집니다. 카메라는 인터넷에 한 바이트도 노출되지 않습니다.</li>
       </ul>
 
       <h2>6. 이 구조가 주는 보안 이점 (체크리스트)</h2>
 
       <ul>
-        <li>[x] <strong>카메라 펌웨어가 어떻든 외부 콜백 차단</strong> — 백도어·텔레메트리·악성 펌웨어 업데이트가 모두 막힙니다.</li>
-        <li>[x] <strong>단일 진입점 → 보안 일원화</strong> — TLS·사용자 권한·2FA·접근 로그를 NOX 한 곳에서 통제합니다.</li>
-        <li>[x] <strong>카메라 추가·교체 시 외부 설정 변경 불필요</strong> — 격리 네트워크에 붙이고 NOX에 등록만 하면 됩니다.</li>
-        <li>[x] <strong>사고 시 추적 단순화</strong> — 의심 트래픽 추적은 NOX 접근 로그 한 곳에서 시작합니다.</li>
-        <li>[x] <strong>공급망 리스크 대비</strong> — 영국·한국의 규제 흐름에서 "이미 격리해 두었다"는 사실 자체가 향후 감사·점검에 방어선이 됩니다.</li>
+        <li><strong>카메라 펌웨어가 어떻든 외부 콜백 차단</strong> — 백도어·텔레메트리·악성 펌웨어 업데이트가 모두 막힙니다.</li>
+        <li><strong>단일 진입점 → 보안 일원화</strong> — TLS·사용자 권한·접근 로그를 NOX 한 곳에서 통제합니다.</li>
+        <li><strong>카메라 추가·교체 시 외부 설정 변경 불필요</strong> — 격리 네트워크에 붙이고 NOX에 등록만 하면 됩니다.</li>
+        <li><strong>사고 시 추적 단순화</strong> — 의심 트래픽 추적은 NOX 접근 로그 한 곳에서 시작합니다.</li>
+        <li><strong>공급망 리스크 대비</strong> — 영국·한국의 규제 흐름에서 "이미 격리해 두었다"는 사실 자체가 향후 감사·점검에 방어선이 됩니다.</li>
       </ul>
 
       <h2>7. 자주 묻는 질문 (FAQ) — IP카메라 해킹 방지 실무 Q&amp;A</h2>
