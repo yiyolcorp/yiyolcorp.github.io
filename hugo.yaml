@@ -68,6 +68,11 @@ menus:
       url: "blog/"
       weight: 25
 
+    - identifier: "press"
+      name: "press"
+      url: "press/"
+      weight: 27
+
     - identifier: "post"
       name: "posts"
       url: "post/"
