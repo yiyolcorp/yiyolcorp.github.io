@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKJ4GX2KHS"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-CKJ4GX2KHS');
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>NVR 디스크 용량 계산기 (시스템 + 데이터) - YIYOL Blog</title>
+
+    <meta name="description" content="NVR 채널 수, 해상도, FPS, 보관 기간을 입력하면 영상이 저장되는 데이터 디스크와 OS·DB 메타데이터가 저장되는 시스템 디스크의 필요 용량을 각각 계산합니다." />
+    <meta name="keywords" content="NVR,저장용량,계산기,시스템디스크,데이터디스크,PostgreSQL,메타데이터,HDD,SSD,비트레이트,storage calculator" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://yiyol.com/blog/nvr-disk-calculator.html" />
+    <meta property="og:title" content="NVR 디스크 용량 계산기 (시스템 + 데이터) — YIYOL" />
+    <meta property="og:description" content="영상용 데이터 디스크와 OS·DB용 시스템 디스크의 필요 용량을 각각 자동 계산" />
+    <meta property="og:site_name" content="YIYOL" />
+
+    <link rel="canonical" href="https://yiyol.com/blog/nvr-disk-calculator.html" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="/assets/css/style.css" />
+
+    <style>
+      /* Calculator Page Styles */
+      .calc-hero {
+        padding: 130px 0 50px;
+        background: radial-gradient(circle at top right, #1e293b, #0f172a);
+        color: white;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .calc-hero::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 80%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 60%);
+        pointer-events: none;
+      }
+      .calc-hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+      .calc-hero h1 {
+        font-family: 'Poppins', sans-serif;
+        font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 0.5rem;
+      }
+      .calc-hero p {
+        color: #94a3b8;
+        font-size: 1rem;
+      }
+      .calc-breadcrumb {
+        margin-bottom: 1rem;
+        font-size: 0.85rem;
+      }
+      .calc-breadcrumb a {
+        color: #60a5fa;
+        text-decoration: none;
+      }
+      .calc-breadcrumb a:hover {
+        text-decoration: underline;
+      }
+      .calc-breadcrumb span {
+        color: #64748b;
+        margin: 0 0.4rem;
+      }
+
+      .calc-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px 2rem 100px;
+      }
+
+      /* Intro concept card */
+      .calc-intro {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+      .calc-intro-card {
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 1.1rem 1.25rem;
+        background: #fff;
+      }
+      .calc-intro-card h3 {
+        font-size: 0.9rem;
+        font-weight: 700;
+        margin: 0 0 0.35rem;
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+      }
+      .calc-intro-card.data h3 i { color: #3b82f6; }
+      .calc-intro-card.sys h3 i { color: #10b981; }
+      .calc-intro-card p {
+        font-size: 0.82rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+        margin: 0;
+      }
+
+      /* Tabs */
+      .calc-tabs {
+        display: flex;
+        background: var(--bg-accent);
+        border-radius: 12px;
+        padding: 4px;
+        margin-bottom: 2rem;
+        gap: 4px;
+      }
+      .calc-tab {
+        flex: 1;
+        padding: 0.8rem 1rem;
+        text-align: center;
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        background: transparent;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .calc-tab:hover {
+        color: var(--text-primary);
+      }
+      .calc-tab.active {
+        background: #fff;
+        color: var(--accent-color);
+        box-shadow: var(--shadow-sm);
+      }
+
+      /* Form */
+      .calc-panel {
+        display: none;
+      }
+      .calc-panel.active {
+        display: block;
+      }
+      .calc-form {
+        background: #fff;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+      }
+      .calc-form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+      }
+      .calc-field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+      }
+      .calc-field.full-width {
+        grid-column: 1 / -1;
+      }
+      .calc-label {
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+      }
+      .calc-label i {
+        color: var(--accent-color);
+        font-size: 0.75rem;
+      }
+      .calc-input, .calc-select {
+        padding: 0.7rem 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        font-size: 0.95rem;
+        font-family: inherit;
+        color: var(--text-primary);
+        background: var(--bg-secondary);
+        transition: border-color 0.2s;
+        width: 100%;
+      }
+      .calc-input:focus, .calc-select:focus {
+        outline: none;
+        border-color: var(--accent-color);
+        box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+      }
+      .calc-input-hint {
+        font-size: 0.75rem;
+        color: var(--text-light);
+      }
+      .custom-bitrate-row {
+        display: none;
+        grid-column: 1 / -1;
+      }
+      .custom-bitrate-row.show {
+        display: block;
+      }
+
+      /* Sub-form (system disk options) */
+      .calc-subhead {
+        grid-column: 1 / -1;
+        font-family: 'Poppins', sans-serif;
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-top: 0.5rem;
+        padding-top: 1.25rem;
+        border-top: 1px dashed var(--border-color);
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+      }
+      .calc-subhead i { color: #10b981; }
+      .calc-check {
+        flex-direction: row;
+        align-items: center;
+        gap: 0.55rem;
+      }
+      .calc-check input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: var(--accent-color);
+        cursor: pointer;
+      }
+      .calc-check label {
+        font-size: 0.85rem;
+        color: var(--text-primary);
+        cursor: pointer;
+      }
+
+      /* Results */
+      .calc-section-heading {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin: 2.25rem 0 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .calc-section-heading .pill {
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        padding: 0.15rem 0.55rem;
+        border-radius: 999px;
+        text-transform: uppercase;
+      }
+      .calc-section-heading .pill.data { background: rgba(59,130,246,0.12); color: #2563eb; }
+      .calc-section-heading .pill.sys { background: rgba(16,185,129,0.14); color: #059669; }
+
+      .calc-results {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+      .calc-result-card {
+        background: linear-gradient(135deg, #0f172a, #1e3a5f);
+        border-radius: 12px;
+        padding: 1.5rem;
+        color: #fff;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .calc-result-card::before {
+        content: '';
+        position: absolute;
+        top: -40%;
+        right: -30%;
+        width: 70%;
+        height: 160%;
+        background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 60%);
+        pointer-events: none;
+      }
+      .calc-result-card.hero-card {
+        grid-column: 1 / -1;
+      }
+      .calc-result-card.sys {
+        background: linear-gradient(135deg, #06231a, #125e43);
+      }
+      .calc-result-card.sys::before {
+        background: radial-gradient(circle, rgba(16,185,129,0.16) 0%, transparent 60%);
+      }
+      .calc-result-card.sys .calc-result-value {
+        color: #34d399;
+      }
+      .calc-result-label {
+        font-size: 0.78rem;
+        color: #94a3b8;
+        font-weight: 500;
+        margin-bottom: 0.3rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .calc-result-value {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: #60a5fa;
+        line-height: 1.2;
+      }
+      .calc-result-card.hero-card .calc-result-value {
+        font-size: 2.4rem;
+      }
+      .calc-result-unit {
+        font-size: 0.85rem;
+        color: #94a3b8;
+        font-weight: 400;
+        margin-left: 0.2rem;
+      }
+      .calc-result-sub {
+        font-size: 0.78rem;
+        color: #94a3b8;
+        margin-top: 0.3rem;
+      }
+
+      /* HDD / SSD Recommendation */
+      .calc-hdd-rec {
+        background: #fff;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-top: 1.5rem;
+      }
+      .calc-hdd-title {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+      .calc-hdd-title i {
+        color: var(--accent-color);
+      }
+      .calc-hdd-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .calc-hdd-item {
+        background: var(--bg-accent);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 0.5rem 1rem;
+        font-size: 0.82rem;
+        color: var(--text-primary);
+        font-weight: 500;
+      }
+      .calc-hdd-item.recommended {
+        background: rgba(59,130,246,0.08);
+        border-color: var(--accent-color);
+        color: var(--accent-color);
+      }
+      .calc-hdd-item.recommended.sys {
+        background: rgba(16,185,129,0.1);
+        border-color: #10b981;
+        color: #059669;
+      }
+
+      /* Breakdown table */
+      .calc-breakdown {
+        margin-top: 1.5rem;
+        background: #fff;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      .calc-breakdown table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.86rem;
+      }
+      .calc-breakdown th {
+        background: var(--bg-dark);
+        color: #fff;
+        text-align: left;
+        padding: 0.7rem 1rem;
+        font-size: 0.78rem;
+        font-weight: 600;
+      }
+      .calc-breakdown td {
+        padding: 0.65rem 1rem;
+        border-bottom: 1px solid var(--border-color);
+        color: var(--text-primary);
+      }
+      .calc-breakdown tr:last-child td {
+        border-bottom: none;
+        font-weight: 700;
+      }
+      .calc-breakdown td.num {
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .calc-note {
+        margin-top: 1rem;
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        line-height: 1.7;
+        background: var(--bg-secondary);
+        border-left: 3px solid var(--accent-color);
+        border-radius: 0 8px 8px 0;
+        padding: 0.9rem 1.1rem;
+      }
+
+      /* Reference Table */
+      .calc-ref-section {
+        margin-top: 3rem;
+      }
+      .calc-ref-title {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+      }
+      .calc-ref-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #fff;
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        overflow: hidden;
+        font-size: 0.88rem;
+      }
+      .calc-ref-table th {
+        background: var(--bg-dark);
+        color: #fff;
+        font-weight: 600;
+        padding: 0.8rem 1rem;
+        text-align: left;
+        font-size: 0.8rem;
+        letter-spacing: 0.03em;
+      }
+      .calc-ref-table td {
+        padding: 0.7rem 1rem;
+        border-bottom: 1px solid var(--border-color);
+        color: var(--text-primary);
+      }
+      .calc-ref-table tr:last-child td {
+        border-bottom: none;
+      }
+      .calc-ref-table tr:hover td {
+        background: var(--bg-secondary);
+      }
+
+      /* Formula Section */
+      .calc-formula {
+        margin-top: 2rem;
+        background: var(--bg-accent);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 1.5rem;
+      }
+      .calc-formula-title {
+        font-weight: 700;
+        font-size: 0.9rem;
+        color: var(--text-primary);
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+      .calc-formula-title i {
+        color: var(--accent-color);
+      }
+      .calc-formula code {
+        display: block;
+        font-family: 'SF Mono', 'Fira Code', monospace;
+        font-size: 0.82rem;
+        color: var(--text-secondary);
+        line-height: 1.8;
+      }
+
+      @media (max-width: 640px) {
+        .calc-form-grid {
+          grid-template-columns: 1fr;
+        }
+        .calc-results {
+          grid-template-columns: 1fr;
+        }
+        .calc-intro {
+          grid-template-columns: 1fr;
+        }
+        .calc-form {
+          padding: 1.25rem;
+        }
+        .calc-result-value {
+          font-size: 1.5rem;
+        }
+        .calc-result-card.hero-card .calc-result-value {
+          font-size: 2rem;
+        }
+        .calc-tabs {
+          flex-direction: column;
+        }
+      }
+    </style>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "NVR System & Data Disk Calculator",
+      "url": "https://yiyol.com/blog/nvr-disk-calculator.html",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web Browser",
+      "description": "Calculate required capacity for both the video Data Disk and the OS/database System Disk of an NVR.",
+      "provider": {
+        "@type": "Organization",
+        "name": "YIYOL"
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header" role="banner">
+      <nav class="nav" role="navigation" aria-label="Main navigation">
+        <a href="/" class="logo" aria-label="YIYOL Home">YIYOL</a>
+        <div style="display: flex; align-items: center; gap: 2rem;">
+          <ul class="nav-links">
+            <li>
+              <a href="/#about" class="nav-link">
+                <span class="ko-only">회사 소개</span>
+                <span class="en-only">About</span>
+              </a>
+            </li>
+            <li>
+              <a href="/#products" class="nav-link">
+                <span class="ko-only">제품</span>
+                <span class="en-only">Products</span>
+              </a>
+            </li>
+            <li>
+              <a href="/blog/" class="nav-link" style="color: var(--accent-color);">
+                <span class="ko-only">블로그</span>
+                <span class="en-only">Blog</span>
+              </a>
+            </li>
+            <li>
+              <a href="/#contact" class="nav-link">
+                <span class="ko-only">문의</span>
+                <span class="en-only">Contact</span>
+              </a>
+            </li>
+          </ul>
+          <div class="lang-switch">
+            <button class="lang-selector">
+              <span class="lang-current">한국어</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="lang-dropdown">
+              <a href="#" class="lang-option" data-lang="ko">한국어</a>
+              <a href="#" class="lang-option" data-lang="en">English</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="calc-hero">
+      <div class="calc-hero-content">
+        <div class="calc-breadcrumb">
+          <a href="/">YIYOL</a>
+          <span>›</span>
+          <a href="/blog/">
+            <span class="ko-only">블로그</span>
+            <span class="en-only">Blog</span>
+          </a>
+          <span>›</span>
+          <span class="ko-only" style="color:#cbd5e1;">NVR 디스크 용량 계산기</span>
+          <span class="en-only" style="color:#cbd5e1;">NVR Disk Calculator</span>
+        </div>
+        <h1 class="ko-only"><i class="fas fa-server" style="margin-right:0.4rem;color:#60a5fa;"></i>NVR 디스크 용량 계산기</h1>
+        <h1 class="en-only"><i class="fas fa-server" style="margin-right:0.4rem;color:#60a5fa;"></i>NVR Disk Calculator</h1>
+        <p class="ko-only">영상용 <b style="color:#93c5fd;">데이터 디스크</b>와 OS·DB용 <b style="color:#6ee7b7;">시스템 디스크</b>의 필요 용량을 각각 계산하세요</p>
+        <p class="en-only">Size the video <b style="color:#93c5fd;">Data Disk</b> and the OS/DB <b style="color:#6ee7b7;">System Disk</b> separately</p>
+      </div>
+    </section>
+
+    <!-- Calculator -->
+    <main class="calc-container">
+
+      <!-- Concept intro -->
+      <div class="calc-intro">
+        <div class="calc-intro-card data">
+          <h3><i class="fas fa-hard-drive"></i><span class="ko-only">데이터 디스크 (영상)</span><span class="en-only">Data Disk (Video)</span></h3>
+          <p class="ko-only">카메라 RTSP 스트림을 녹화한 <b>영상 파일</b>이 저장됩니다. 채널·비트레이트·보관 기간에 비례해 수 TB~수십 TB로 커집니다. 보통 대용량 HDD를 씁니다.</p>
+          <p class="en-only">Holds the recorded <b>video files</b> from camera RTSP streams. Grows to many TB with channels, bitrate and retention. Usually large HDDs.</p>
+        </div>
+        <div class="calc-intro-card sys">
+          <h3><i class="fas fa-microchip"></i><span class="ko-only">시스템 디스크 (OS · DB)</span><span class="en-only">System Disk (OS · DB)</span></h3>
+          <p class="ko-only">OS·Docker 이미지와 <b>PostgreSQL 메타데이터</b>(녹화 세그먼트 인덱스·이벤트 등)가 저장됩니다. 영상이 아니라 색인이므로 수십 GB 규모입니다. 보통 SSD를 씁니다.</p>
+          <p class="en-only">Holds the OS/Docker images and <b>PostgreSQL metadata</b> (segment index, events). It is an index, not video, so only tens of GB. Usually an SSD.</p>
+        </div>
+      </div>
+
+      <!-- Mode Tabs -->
+      <div class="calc-tabs">
+        <button class="calc-tab active" data-mode="disk" onclick="switchMode('disk')">
+          <i class="fas fa-hdd" style="margin-right:0.3rem;"></i>
+          <span class="ko-only">디스크 용량 산정</span>
+          <span class="en-only">Disk Sizing</span>
+        </button>
+        <button class="calc-tab" data-mode="retention" onclick="switchMode('retention')">
+          <i class="fas fa-clock" style="margin-right:0.3rem;"></i>
+          <span class="ko-only">저장 기간 계산</span>
+          <span class="en-only">Retention Period</span>
+        </button>
+      </div>
+
+      <!-- Mode 1: Disk Sizing (Period -> Data Disk + System Disk) -->
+      <div class="calc-panel active" id="panel-disk">
+        <div class="calc-form">
+          <div class="calc-form-grid">
+            <div class="calc-field">
+              <label class="calc-label">
+                <i class="fas fa-video"></i>
+                <span class="ko-only">카메라 채널 수</span>
+                <span class="en-only">Camera Channels</span>
+              </label>
+              <input type="number" class="calc-input" id="d-channels" min="1" max="256" value="32" oninput="calcDisk()">
+              <span class="calc-input-hint">1 ~ 256</span>
+            </div>
+            <div class="calc-field">
+              <label class="calc-label">
+                <i class="fas fa-film"></i>
+                <span class="ko-only">해상도 / 품질</span>
+                <span class="en-only">Resolution / Quality</span>
+              </label>
+              <select class="calc-select" id="d-preset" onchange="onPresetChange('d'); calcDisk();">
+                <option value="25">4K (25 Mbps)</option>
+                <option value="16">4K (16 Mbps)</option>
+                <option value="8">1080p (8 Mbps)</option>
+                <option value="4" selected>1080p (4 Mbps)</option>
+                <option value="2">720p (2 Mbps)</option>
+                <option value="custom" data-ko="커스텀 비트레이트" data-en="Custom Bitrate">커스텀 비트레이트</option>
+              </select>
+            </div>
+            <div class="calc-field custom-bitrate-row" id="d-custom-row">
+              <label class="calc-label">
+                <i class="fas fa-sliders-h"></i>
+                <span class="ko-only">비트레이트 (Mbps)</span>
+                <span class="en-only">Bitrate (Mbps)</span>
+              </label>
+              <input type="number" class="calc-input" id="d-custom-bitrate" min="0.5" max="100" step="0.5" value="4" oninput="calcDisk()">
+            </div>
+            <div class="calc-field">
+              <label class="calc-label">
+                <i class="fas fa-clock"></i>
+                <span class="ko-only">일일 녹화 시간</span>
+                <span class="en-only">Recording Hours/Day</span>
+              </label>
+              <input type="number" class="calc-input" id="d-hours" min="1" max="24" value="24" oninput="calcDisk()">
+              <span class="calc-input-hint ko-only">1 ~ 24시간 (기본: 24시간 연속 녹화)</span>
+              <span class="calc-input-hint en-only">1 ~ 24 hours (default: 24h continuous)</span>
+            </div>
+            <div class="calc-field">
+              <label class="calc-label">
+                <i class="fas fa-gauge-high"></i>
+                <span class="ko-only">프레임 레이트 (FPS)</span>
+                <span class="en-only">Frame Rate (FPS)</span>
+              </label>
+              <input type="number" class="calc-input" id="d-fps" min="1" max="60" value="30" oninput="calcDisk()">
+              <span class="calc-input-hint ko-only">1 ~ 60 (프리셋 기준: 30fps)</span>
+              <span class="calc-input-hint en-only">1 ~ 60 (preset basis: 30fps)</span>
+            </div>
+            <div class="calc-field">
+              <label class="calc-label">
+                <i class="fas fa-calendar-alt"></i>
+                <span class="ko-only">보관 기간 (일)</span>
+                <span class="en-only">Retention Period (days)</span>
+              </label>
+              <input type="number" class="calc-input" id="d-days" min="1" max="1095" value="60" oninput="calcDisk()">
+              <span class="calc-input-hint ko-only">원하는 녹화 보관 일수 (예: 2개월 = 60일)</span>
+              <span class="calc-input-hint en-only">Desired retention days (e.g. 2 months = 60)</span>
+            </div>
+
+            <!-- System disk options -->
+            <div class="calc-subhead">
+              <i class="fas fa-microchip"></i>
+              <span class="ko-only">시스템 디스크 세부 옵션</span>
+              <span class="en-only">System Disk Options</span>
+            </div>
+
+            <div class="calc-field calc-check">
+              <input type="checkbox" id="d-encrypt" checked onchange="calcDisk()">
+              <label for="d-encrypt">
+                <span class="ko-only">녹화 암호화 (NOXV / NIS) — 메타데이터 행 크기 증가</span>
+                <span class="en-only">Encrypted recording (NOXV / NIS) — larger metadata rows</span>
+              </label>
+            </div>
+            <div class="calc-field calc-check">
+              <input type="checkbox" id="d-audio" onchange="calcDisk()">
+              <label for="d-audio">
+                <span class="ko-only">오디오 트랙 함께 녹화</span>
+                <span class="en-only">Record audio track as well</span>
+              </label>
+            </div>
+            <div class="calc-field">
+              <label class="calc-label">
+                <i class="fas fa-bolt"></i>
+                <span class="ko-only">이벤트 / 분석 활동량</span>
+                <span class="en-only">Event / Analytics Activity</span>
+              </label>
+              <select class="calc-select" id="d-activity" onchange="calcDisk()">
+                <option value="0" data-ko="없음 (분석·이벤트 미사용)" data-en="None (no analytics/events)">없음 (분석·이벤트 미사용)</option>
+                <option value="0.3" selected data-ko="일반 (기본 CCTV)" data-en="Normal (typical CCTV)">일반 (기본 CCTV)</option>
+                <option value="1" data-ko="많음 (분석 상시·객체 밀집)" data-en="Heavy (always-on analytics)">많음 (분석 상시·객체 밀집)</option>
+              </select>
+              <span class="calc-input-hint ko-only">이벤트·ONVIF 메타데이터·썸네일·인물 색인 여유분</span>
+              <span class="calc-input-hint en-only">Headroom for events, metadata, thumbnails, indexes</span>
+            </div>
+            <div class="calc-field">
+              <label class="calc-label">
+                <i class="fas fa-box-open"></i>
+                <span class="ko-only">시스템 기본 용량 (GB)</span>
+                <span class="en-only">Base OS/Docker (GB)</span>
+              </label>
+              <input type="number" class="calc-input" id="d-base" min="5" max="500" value="40" oninput="calcDisk()">
+              <span class="calc-input-hint ko-only">OS + Docker 이미지 + 로그 여유 (기본 40GB)</span>
+              <span class="calc-input-hint en-only">OS + Docker images + log headroom (default 40GB)</span>
+            </div>
+            <div class="calc-field">
+              <label class="calc-label">
+                <i class="fas fa-shield-halved"></i>
+                <span class="ko-only">시스템 디스크 여유 마진 (%)</span>
+                <span class="en-only">System Disk Safety Margin (%)</span>
+              </label>
+              <input type="number" class="calc-input" id="d-margin" min="0" max="100" value="30" oninput="calcDisk()">
+              <span class="calc-input-hint ko-only">시스템 디스크는 가득 채우지 않도록 여유 확보</span>
+              <span class="calc-input-hint en-only">Never fill a system disk; keep free space</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Data Disk results -->
+        <h2 class="calc-section-heading">
+          <i class="fas fa-hard-drive" style="color:#3b82f6;"></i>
+          <span class="ko-only">데이터 디스크 (영상)</span>
+          <span class="en-only">Data Disk (Video)</span>
+          <span class="pill data">Video</span>
+        </h2>
+        <div class="calc-results">
+          <div class="calc-result-card hero-card">
+            <div class="calc-result-label ko-only">필요 저장 용량</div>
+            <div class="calc-result-label en-only">Required Storage</div>
+            <div class="calc-result-value"><span id="d-video-tb">0</span><span class="calc-result-unit">TB</span></div>
+            <div class="calc-result-sub" id="d-video-sub"></div>
+          </div>
+          <div class="calc-result-card">
+            <div class="calc-result-label ko-only">일일 데이터량</div>
+            <div class="calc-result-label en-only">Daily Data</div>
+            <div class="calc-result-value"><span id="d-video-daily">0</span><span class="calc-result-unit">GB</span></div>
+          </div>
+          <div class="calc-result-card">
+            <div class="calc-result-label ko-only">월간 데이터량</div>
+            <div class="calc-result-label en-only">Monthly Data</div>
+            <div class="calc-result-value"><span id="d-video-monthly">0</span><span class="calc-result-unit">GB</span></div>
+          </div>
+        </div>
+        <div class="calc-hdd-rec">
+          <div class="calc-hdd-title">
+            <i class="fas fa-hard-drive"></i>
+            <span class="ko-only">권장 HDD 구성 (데이터 디스크)</span>
+            <span class="en-only">Recommended HDD Configuration (Data Disk)</span>
+          </div>
+          <div class="calc-hdd-list" id="d-hdd-list"></div>
+        </div>
+
+        <!-- System Disk results -->
+        <h2 class="calc-section-heading">
+          <i class="fas fa-microchip" style="color:#10b981;"></i>
+          <span class="ko-only">시스템 디스크 (OS · PostgreSQL)</span>
+          <span class="en-only">System Disk (OS · PostgreSQL)</span>
+          <span class="pill sys">OS · DB</span>
+        </h2>
+        <div class="calc-results">
+          <div class="calc-result-card sys hero-card">
+            <div class="calc-result-label ko-only">필요 시스템 디스크 용량</div>
+            <div class="calc-result-label en-only">Required System Disk</div>
+            <div class="calc-result-value"><span id="d-sys-total">0</span><span class="calc-result-unit">GB</span></div>
+            <div class="calc-result-sub" id="d-sys-sub"></div>
+          </div>
+          <div class="calc-result-card sys">
+            <div class="calc-result-label ko-only">시스템 기본 (OS·Docker)</div>
+            <div class="calc-result-label en-only">Base (OS·Docker)</div>
+            <div class="calc-result-value"><span id="d-sys-base">0</span><span class="calc-result-unit">GB</span></div>
+          </div>
+          <div class="calc-result-card sys">
+            <div class="calc-result-label ko-only">PostgreSQL 메타데이터</div>
+            <div class="calc-result-label en-only">PostgreSQL Metadata</div>
+            <div class="calc-result-value"><span id="d-sys-db">0</span><span class="calc-result-unit">GB</span></div>
+            <div class="calc-result-sub" id="d-sys-rows"></div>
+          </div>
+        </div>
+        <div class="calc-hdd-rec">
+          <div class="calc-hdd-title">
+            <i class="fas fa-microchip"></i>
+            <span class="ko-only">권장 SSD 구성 (시스템 디스크)</span>
+            <span class="en-only">Recommended SSD (System Disk)</span>
+          </div>
+          <div class="calc-hdd-list" id="d-ssd-list"></div>
+        </div>
+
+        <div class="calc-note">
+          <span class="ko-only">
+            <b>참고</b> — 영상 원본은 데이터 디스크(또는 별도 스토리지)에만 저장되고, PostgreSQL에는 세그먼트 인덱스·이벤트 같은 <b>메타데이터만</b> 기록됩니다.
+            그래서 시스템 디스크는 데이터 디스크의 <span id="d-ratio">-</span> 수준에 불과합니다. 실제 사용량은 PostgreSQL의 압축(TOAST)으로 더 작을 수 있으며,
+            분석 썸네일을 DB에 인라인 저장하는 구성에서는 활동량에 따라 더 커질 수 있어 '활동량' 옵션으로 보정합니다.
+          </span>
+          <span class="en-only">
+            <b>Note</b> — Video is stored only on the Data Disk (or separate storage). PostgreSQL keeps <b>metadata only</b> (segment index, events),
+            so the System Disk is just <span id="d-ratio-en">-</span> of the Data Disk. Actual usage may be smaller thanks to PostgreSQL TOAST compression,
+            and larger if analytics thumbnails are stored inline in the DB — adjust with the "Activity" option.
+          </span>
+        </div>
+      </div>
+
+      <!-- Mode 2: Retention Period (Data Disk capacity -> Period) -->
+      <div class="calc-panel" id="panel-retention">
+        <div class="calc-form">
+          <div class="calc-form-grid">
+            <div class="calc-field">
+              <label class="calc-label">
+                <i class="fas fa-video"></i>
+                <span class="ko-only">카메라 채널 수</span>
+                <span class="en-only">Camera Channels</span>
+              </label>
+              <input type="number" class="calc-input" id="r-channels" min="1" max="256" value="32" oninput="calcRetention()">
+              <span class="calc-input-hint">1 ~ 256</span>
+            </div>
+            <div class="calc-field">
+              <label class="calc-label">
+                <i class="fas fa-film"></i>
+                <span class="ko-only">해상도 / 품질</span>
+                <span class="en-only">Resolution / Quality</span>
+              </label>
+              <select class="calc-select" id="r-preset" onchange="onPresetChange('r'); calcRetention();">
+                <option value="25">4K (25 Mbps)</option>
+                <option value="16">4K (16 Mbps)</option>
+                <option value="8">1080p (8 Mbps)</option>
+                <option value="4" selected>1080p (4 Mbps)</option>
+                <option value="2">720p (2 Mbps)</option>
+                <option value="custom" data-ko="커스텀 비트레이트" data-en="Custom Bitrate">커스텀 비트레이트</option>
+              </select>
+            </div>
+            <div class="calc-field custom-bitrate-row" id="r-custom-row">
+              <label class="calc-label">
+                <i class="fas fa-sliders-h"></i>
+                <span class="ko-only">비트레이트 (Mbps)</span>
+                <span class="en-only">Bitrate (Mbps)</span>
+              </label>
+              <input type="number" class="calc-input" id="r-custom-bitrate" min="0.5" max="100" step="0.5" value="4" oninput="calcRetention()">
+            </div>
+            <div class="calc-field">
+              <label class="calc-label">
+                <i class="fas fa-clock"></i>
+                <span class="ko-only">일일 녹화 시간</span>
+                <span class="en-only">Recording Hours/Day</span>
+              </label>
+              <input type="number" class="calc-input" id="r-hours" min="1" max="24" value="24" oninput="calcRetention()">
+              <span class="calc-input-hint ko-only">1 ~ 24시간</span>
+              <span class="calc-input-hint en-only">1 ~ 24 hours</span>
+            </div>
+            <div class="calc-field">
+              <label class="calc-label">
+                <i class="fas fa-gauge-high"></i>
+                <span class="ko-only">프레임 레이트 (FPS)</span>
+                <span class="en-only">Frame Rate (FPS)</span>
+              </label>
+              <input type="number" class="calc-input" id="r-fps" min="1" max="60" value="30" oninput="calcRetention()">
+              <span class="calc-input-hint ko-only">1 ~ 60 (프리셋 기준: 30fps)</span>
+              <span class="calc-input-hint en-only">1 ~ 60 (preset basis: 30fps)</span>
+            </div>
+            <div class="calc-field">
+              <label class="calc-label">
+                <i class="fas fa-database"></i>
+                <span class="ko-only">데이터 디스크 용량 (TB)</span>
+                <span class="en-only">Data Disk Capacity (TB)</span>
+              </label>
+              <input type="number" class="calc-input" id="r-storage" min="0.1" max="2000" step="0.1" value="80" oninput="calcRetention()">
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-results">
+          <div class="calc-result-card hero-card">
+            <div class="calc-result-label ko-only">예상 저장 기간</div>
+            <div class="calc-result-label en-only">Retention Period</div>
+            <div class="calc-result-value"><span id="r-days">0</span><span class="calc-result-unit ko-only">일</span><span class="calc-result-unit en-only">days</span></div>
+            <div class="calc-result-sub" id="r-days-detail"></div>
+          </div>
+          <div class="calc-result-card">
+            <div class="calc-result-label ko-only">일일 데이터량</div>
+            <div class="calc-result-label en-only">Daily Data</div>
+            <div class="calc-result-value"><span id="r-daily">0</span><span class="calc-result-unit">GB</span></div>
+          </div>
+          <div class="calc-result-card">
+            <div class="calc-result-label ko-only">월간 데이터량</div>
+            <div class="calc-result-label en-only">Monthly Data</div>
+            <div class="calc-result-value"><span id="r-monthly">0</span><span class="calc-result-unit">GB</span></div>
+          </div>
+        </div>
+        <div class="calc-note">
+          <span class="ko-only">이 탭은 <b>데이터 디스크(영상)</b> 기준 저장 기간을 계산합니다. 시스템 디스크 용량은 <b>디스크 용량 산정</b> 탭에서 확인하세요.</span>
+          <span class="en-only">This tab computes retention for the <b>Data Disk (video)</b>. For the System Disk, use the <b>Disk Sizing</b> tab.</span>
+        </div>
+      </div>
+
+      <!-- Reference Table -->
+      <div class="calc-ref-section">
+        <h2 class="calc-ref-title ko-only">
+          <i class="fas fa-table" style="color:var(--accent-color);margin-right:0.3rem;font-size:0.95rem;"></i>
+          해상도별 비트레이트 참고표
+        </h2>
+        <h2 class="calc-ref-title en-only">
+          <i class="fas fa-table" style="color:var(--accent-color);margin-right:0.3rem;font-size:0.95rem;"></i>
+          Bitrate Reference by Resolution
+        </h2>
+        <table class="calc-ref-table">
+          <thead>
+            <tr>
+              <th class="ko-only">해상도</th>
+              <th class="en-only">Resolution</th>
+              <th class="ko-only">화소수</th>
+              <th class="en-only">Pixels</th>
+              <th class="ko-only">일반 비트레이트</th>
+              <th class="en-only">Typical Bitrate</th>
+              <th class="ko-only">1채널 일일 용량 (24h, 30fps)</th>
+              <th class="en-only">1ch Daily (24h, 30fps)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>4K (3840×2160)</td>
+              <td>~8.3MP</td>
+              <td>16 ~ 25 Mbps</td>
+              <td>172.8 ~ 270.0 GB</td>
+            </tr>
+            <tr>
+              <td>1440p (2560×1440)</td>
+              <td>~3.7MP</td>
+              <td>8 ~ 12 Mbps</td>
+              <td>86.4 ~ 129.6 GB</td>
+            </tr>
+            <tr>
+              <td>1080p (1920×1080)</td>
+              <td>~2.1MP</td>
+              <td>4 ~ 8 Mbps</td>
+              <td>43.2 ~ 86.4 GB</td>
+            </tr>
+            <tr>
+              <td>720p (1280×720)</td>
+              <td>~0.9MP</td>
+              <td>1.5 ~ 3 Mbps</td>
+              <td>16.2 ~ 32.4 GB</td>
+            </tr>
+            <tr>
+              <td>480p (720×480)</td>
+              <td>~0.3MP</td>
+              <td>0.5 ~ 1.5 Mbps</td>
+              <td>5.4 ~ 16.2 GB</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="calc-formula">
+          <div class="calc-formula-title">
+            <i class="fas fa-square-root-variable"></i>
+            <span class="ko-only">계산 공식</span>
+            <span class="en-only">Formula</span>
+          </div>
+          <code>
+            <span class="ko-only">
+              <b>[데이터 디스크 · 영상]</b><br>
+              일일 용량(GB) = 비트레이트(Mbps) × (FPS ÷ 30) × 3,600 × 녹화시간(h) × 채널수 ÷ 8 ÷ 1,000<br>
+              데이터 디스크(TB) = 일일 용량(GB) × 보관일수 ÷ 1,000<br>
+              <br>
+              <b>[시스템 디스크 · PostgreSQL 메타데이터]</b><br>
+              세그먼트 행수 = 60 × 녹화시간(h) × 보관일수 × 채널수  &nbsp;(1분 단위 세그먼트, 트랙당)<br>
+              메타데이터(GB) = 세그먼트 행수 × 행당크기(암호화 5KB / 비암호화 3KB) ÷ 10⁹ × (1 + 활동%) × 1.25<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(오디오 녹화 시 트랙당 1.5KB 추가 · 1.25는 WAL·인덱스·VACUUM 여유)<br>
+              시스템 디스크(GB) = (시스템 기본 + 메타데이터) × (1 + 여유마진%)<br>
+              <br>
+              ※ 비트레이트 프리셋은 30fps 기준이며 FPS 변경 시 비례 조정됩니다.<br>
+              ※ 영상 원본은 PostgreSQL에 저장되지 않습니다(메타데이터만 기록).
+            </span>
+            <span class="en-only">
+              <b>[Data Disk · Video]</b><br>
+              Daily(GB) = Bitrate(Mbps) × (FPS ÷ 30) × 3,600 × Hours(h) × Channels ÷ 8 ÷ 1,000<br>
+              Data Disk(TB) = Daily(GB) × Days ÷ 1,000<br>
+              <br>
+              <b>[System Disk · PostgreSQL metadata]</b><br>
+              Segment rows = 60 × Hours(h) × Days × Channels  &nbsp;(1-minute segments, per track)<br>
+              Metadata(GB) = rows × rowSize(enc 5KB / plain 3KB) ÷ 10⁹ × (1 + activity%) × 1.25<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(+1.5KB/row per track if audio · 1.25 = WAL/index/VACUUM headroom)<br>
+              System Disk(GB) = (Base + Metadata) × (1 + margin%)<br>
+              <br>
+              ※ Bitrate presets are based on 30fps; changing FPS scales proportionally.<br>
+              ※ Video is never stored in PostgreSQL (metadata only).
+            </span>
+          </code>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+      <p class="footer-copyright">&copy; 2026 YIYOL. All rights reserved.</p>
+      <div class="footer-info">
+        <span class="ko-only">서울특별시 금천구 가산디지털2로 136, 704-4호</span>
+        <span class="en-only">#704-4, 136 Gasan Digital 2ro, Geumcheon-gu, Seoul</span>
+        <span class="footer-divider">|</span>
+        <span>yiyol@yiyol.com</span>
+      </div>
+    </footer>
+
+    <script src="/assets/js/i18n.js"></script>
+    <script>
+      // Mode switching
+      function switchMode(mode) {
+        document.querySelectorAll('.calc-tab').forEach(function(t) {
+          t.classList.toggle('active', t.dataset.mode === mode);
+        });
+        document.querySelectorAll('.calc-panel').forEach(function(p) {
+          p.classList.toggle('active', p.id === 'panel-' + mode);
+        });
+        if (mode === 'disk') calcDisk();
+        else calcRetention();
+      }
+
+      // Custom bitrate toggle
+      function onPresetChange(prefix) {
+        var sel = document.getElementById(prefix + '-preset');
+        var row = document.getElementById(prefix + '-custom-row');
+        if (sel.value === 'custom') {
+          row.classList.add('show');
+        } else {
+          row.classList.remove('show');
+        }
+      }
+
+      // Get bitrate from preset or custom
+      function getBitrate(prefix) {
+        var sel = document.getElementById(prefix + '-preset');
+        if (sel.value === 'custom') {
+          return parseFloat(document.getElementById(prefix + '-custom-bitrate').value) || 4;
+        }
+        return parseFloat(sel.value);
+      }
+
+      // Daily video data in GB
+      function dailyGB(bitrate, hours, channels, fps) {
+        return bitrate * (fps / 30) * 3600 * hours * channels / 8 / 1000;
+      }
+
+      function isKo() {
+        return document.documentElement.getAttribute('lang') === 'ko';
+      }
+
+      // <option> elements ignore CSS, so localize their text via data-ko/data-en.
+      function applyOptionLabels() {
+        var ko = isKo();
+        document.querySelectorAll('option[data-ko]').forEach(function(opt) {
+          opt.textContent = ko ? opt.getAttribute('data-ko') : opt.getAttribute('data-en');
+        });
+      }
+
+      // Number formatting helpers
+      function fmtGB(x) {
+        if (x < 10) return x.toFixed(2);
+        if (x < 1000) return x.toFixed(1);
+        return Math.round(x).toLocaleString();
+      }
+      function fmtTB(x) {
+        if (x < 1) return x.toFixed(3);
+        if (x < 10) return x.toFixed(2);
+        if (x < 100) return x.toFixed(1);
+        return Math.round(x).toLocaleString();
+      }
+
+      // ---- Mode 1: Disk sizing ----
+      function calcDisk() {
+        var channels = parseInt(document.getElementById('d-channels').value) || 1;
+        var bitrate = getBitrate('d');
+        var hours = Math.max(1, Math.min(24, parseInt(document.getElementById('d-hours').value) || 24));
+        var fps = Math.max(1, Math.min(60, parseInt(document.getElementById('d-fps').value) || 30));
+        var days = Math.max(1, parseInt(document.getElementById('d-days').value) || 30);
+
+        // --- Data disk (video) ---
+        var daily = dailyGB(bitrate, hours, channels, fps);
+        var monthly = daily * 30;
+        var videoTB = (daily * days) / 1000;
+
+        document.getElementById('d-video-daily').textContent = fmtGB(daily);
+        document.getElementById('d-video-monthly').textContent = fmtGB(monthly);
+        document.getElementById('d-video-tb').textContent = fmtTB(videoTB);
+
+        var ko = isKo();
+        var vsub = '';
+        if (days >= 30) {
+          var mo = Math.floor(days / 30), rd = days % 30;
+          vsub = ko
+            ? ('보관 ' + days + '일 (약 ' + mo + '개월' + (rd ? ' ' + rd + '일' : '') + ')')
+            : (days + ' days (~' + mo + ' month' + (mo > 1 ? 's' : '') + (rd ? ' ' + rd + 'd' : '') + ')');
+        } else {
+          vsub = ko ? ('보관 ' + days + '일') : (days + ' days');
+        }
+        document.getElementById('d-video-sub').textContent = vsub;
+
+        renderDiskList('d-hdd-list', videoTB, [1,2,4,6,8,10,12,14,16,18,20,22,24], 'TB', false);
+
+        // --- System disk (OS + PostgreSQL metadata) ---
+        var encrypted = document.getElementById('d-encrypt').checked;
+        var audio = document.getElementById('d-audio').checked;
+        var activity = parseFloat(document.getElementById('d-activity').value) || 0;
+        var baseGB = parseFloat(document.getElementById('d-base').value) || 0;
+        var marginPct = Math.max(0, parseFloat(document.getElementById('d-margin').value) || 0);
+
+        // 1분 세그먼트 -> segments 테이블 1행 / 트랙
+        var segRowsPerTrack = 60 * hours * days * channels;
+        var rowBytesVideo = encrypted ? 5120 : 3072; // heap+index, 압축 전 보수적 추정
+        var rowBytesAudio = audio ? 1536 : 0;         // 오디오 트랙(존재 시)
+
+        var segBytes = segRowsPerTrack * (rowBytesVideo + rowBytesAudio);
+        var segGB = segBytes / 1e9;
+
+        // 이벤트/ONVIF 메타데이터/썸네일/인물 색인 여유 + WAL·인덱스·VACUUM 여유(25%)
+        var dbGB = segGB * (1 + activity) * 1.25;
+
+        var totalRows = segRowsPerTrack * (1 + (audio ? 1 : 0));
+
+        var subtotal = baseGB + dbGB;
+        var sysTotal = subtotal * (1 + marginPct / 100);
+
+        document.getElementById('d-sys-base').textContent = fmtGB(baseGB);
+        document.getElementById('d-sys-db').textContent = fmtGB(dbGB);
+        document.getElementById('d-sys-total').textContent = fmtGB(sysTotal);
+
+        // rows sub-label
+        var rowsLabel;
+        if (totalRows >= 1e6) rowsLabel = (totalRows / 1e6).toFixed(totalRows < 1e7 ? 2 : 1) + 'M';
+        else if (totalRows >= 1e3) rowsLabel = Math.round(totalRows / 1e3) + 'K';
+        else rowsLabel = String(totalRows);
+        document.getElementById('d-sys-rows').textContent = ko
+          ? ('세그먼트 약 ' + rowsLabel + '행')
+          : ('~' + rowsLabel + ' segment rows');
+
+        var sysSub = ko
+          ? ('기본 ' + fmtGB(baseGB) + 'GB + 메타 ' + fmtGB(dbGB) + 'GB, 마진 ' + marginPct + '%')
+          : ('base ' + fmtGB(baseGB) + 'GB + meta ' + fmtGB(dbGB) + 'GB, +' + marginPct + '% margin');
+        document.getElementById('d-sys-sub').textContent = sysSub;
+
+        renderDiskList('d-ssd-list', sysTotal / 1000, [0.12,0.24,0.25,0.48,0.5,0.96,1,2,4], 'TB', true);
+
+        // ratio note (system vs data)
+        var ratioTxt = '-';
+        if (videoTB > 0) {
+          var pct = (sysTotal / 1000) / videoTB * 100;
+          ratioTxt = pct < 1 ? ('약 ' + pct.toFixed(2) + '%') : ('약 ' + pct.toFixed(1) + '%');
+          if (!ko) ratioTxt = '~' + (pct < 1 ? pct.toFixed(2) : pct.toFixed(1)) + '%';
+        }
+        var rk = document.getElementById('d-ratio');
+        var re = document.getElementById('d-ratio-en');
+        if (rk) rk.textContent = ratioTxt;
+        if (re) re.textContent = ratioTxt.replace('약 ', '~');
+      }
+
+      // Render disk recommendation chips. sizes in the given unit (TB here).
+      // needTB: required capacity in TB. system=true => single-disk (SSD) style.
+      function renderDiskList(elId, needTB, sizesTB, unit, system) {
+        var ko = isKo();
+        var list = document.getElementById(elId);
+        list.innerHTML = '';
+        if (!(needTB > 0)) return;
+
+        if (system) {
+          // Single-disk SSD: show standard sizes >= need, mark smallest as recommended.
+          var candidates = sizesTB.filter(function(s){ return s >= needTB; });
+          var shown;
+          if (candidates.length === 0) {
+            // need bigger than largest standard -> use largest x N
+            var largest = sizesTB[sizesTB.length - 1];
+            var n = Math.ceil(needTB / largest);
+            var div = document.createElement('div');
+            div.className = 'calc-hdd-item recommended sys';
+            div.textContent = ssdLabel(largest) + ' × ' + n;
+            list.appendChild(div);
+            return;
+          }
+          shown = candidates.slice(0, 3);
+          shown.forEach(function(s, i){
+            var div = document.createElement('div');
+            div.className = 'calc-hdd-item' + (i === 0 ? ' recommended sys' : '');
+            div.textContent = ssdLabel(s) + (i === 0 ? (ko ? ' · 권장' : ' · best') : '');
+            list.appendChild(div);
+          });
+          return;
+        }
+
+        // Multi-disk HDD (data): size x count
+        sizesTB.forEach(function(size) {
+          var count = Math.ceil(needTB / size);
+          if (count > 24 || count < 1) return;
+          var div = document.createElement('div');
+          div.className = 'calc-hdd-item';
+          if (count >= 1 && count <= 4 && size >= needTB * 0.8) {
+            div.className += ' recommended';
+          }
+          div.textContent = ko
+            ? (size + 'TB × ' + count + '개 = ' + (size * count) + 'TB')
+            : (size + 'TB × ' + count + ' = ' + (size * count) + 'TB');
+          list.appendChild(div);
+        });
+      }
+
+      // Format an SSD size given in TB into a friendly GB/TB label.
+      function ssdLabel(sizeTB) {
+        if (sizeTB < 1) return Math.round(sizeTB * 1000) + 'GB SSD';
+        return sizeTB + 'TB SSD';
+      }
+
+      // ---- Mode 2: Retention period ----
+      function calcRetention() {
+        var channels = parseInt(document.getElementById('r-channels').value) || 1;
+        var bitrate = getBitrate('r');
+        var hours = parseInt(document.getElementById('r-hours').value) || 24;
+        var fps = Math.max(1, Math.min(60, parseInt(document.getElementById('r-fps').value) || 30));
+        var storageTB = parseFloat(document.getElementById('r-storage').value) || 1;
+
+        var daily = dailyGB(bitrate, hours, channels, fps);
+        var days = (storageTB * 1000) / daily;
+        var monthly = daily * 30;
+
+        document.getElementById('r-days').textContent = days < 1 ? days.toFixed(2) : Math.floor(days);
+        document.getElementById('r-daily').textContent = fmtGB(daily);
+        document.getElementById('r-monthly').textContent = fmtGB(monthly);
+
+        var detail = '';
+        var ko = isKo();
+        if (days >= 30) {
+          var months = Math.floor(days / 30);
+          var remDays = Math.floor(days % 30);
+          detail = ko
+            ? ('약 ' + months + '개월 ' + (remDays > 0 ? remDays + '일' : ''))
+            : ('≈ ' + months + ' month' + (months > 1 ? 's' : '') + (remDays > 0 ? ' ' + remDays + ' day' + (remDays > 1 ? 's' : '') : ''));
+        }
+        document.getElementById('r-days-detail').textContent = detail;
+      }
+
+      // i18n.js switches language by setting the <html lang> attribute (its click
+      // handler calls an inner closure, not window.setLanguage), so observe the
+      // attribute directly to re-localize <option> text and re-render JS results.
+      new MutationObserver(function() {
+        applyOptionLabels();
+        calcDisk();
+        calcRetention();
+      }).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+
+      // Initial render
+      applyOptionLabels();
+      calcDisk();
+      calcRetention();
+    </script>
+  </body>
+</html>
