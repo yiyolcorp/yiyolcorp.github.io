@@ -1,3 +1,5 @@
 User-agent: *
 Allow: /
-Sitemap: https://yiyol.com/sitemap.xml 
+Disallow: /nox-nvr-embed.html
+
+Sitemap: https://yiyol.com/sitemap.xml
