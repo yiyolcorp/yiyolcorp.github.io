@@ -100,7 +100,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
-    <link rel="stylesheet" href="assets/css/surv.css?v=11" />
+    <link rel="stylesheet" href="assets/css/surv.css?v=12" />
 
     <!-- index 전용: NOX-A08064 다크 콘텐츠에 맞춘 다크 헤더 (다른 페이지 미영향) -->
     <style>
@@ -115,6 +115,17 @@
       .lang-option { color: rgba(245,245,247,0.8); }
       .lang-option:hover { background: rgba(255,255,255,0.06); color: #fff; }
       .lang-option.active { color: var(--sv-accent); }
+      /* 모바일 햄버거 메뉴 패널도 다크로 (surv.css 기본은 흰색 배경이라 밝은 글자가 안 보임) */
+      @media (max-width: 860px) {
+        .site-nav .site-nav-right {
+          background: rgba(10,10,12,0.96);
+          -webkit-backdrop-filter: saturate(180%) blur(18px);
+          backdrop-filter: saturate(180%) blur(18px);
+          border-top-color: rgba(255,255,255,0.09);
+          border-bottom-color: rgba(255,255,255,0.09);
+          box-shadow: 0 14px 28px rgba(0,0,0,0.55);
+        }
+      }
     </style>
 
     <!-- Structured Data (JSON-LD) -->
@@ -402,14 +413,27 @@
             if (h) f.style.height = h + "px";
           } catch (e) {}
         }
-        f.addEventListener("load", function () {
+        var observed = false;
+        function setup() {
           fit();
           setTimeout(fit, 300);
           setTimeout(fit, 1200);
+          if (observed) return;
+          observed = true;
           try {
             new ResizeObserver(fit).observe(f.contentDocument.body);
           } catch (e) {}
-        });
+          try {
+            f.contentWindow.addEventListener("load", fit);
+          } catch (e) {}
+        }
+        f.addEventListener("load", setup);
+        // 캐시/빠른 로드 경쟁 조건 방지: iframe이 스크립트보다 먼저 로드되면 load 핸들러를
+        // 놓쳐 iframe이 100vh에 갇혀 본문이 잘림. 이미 파싱된 경우 즉시 셋업한다.
+        try {
+          var rs = f.contentDocument && f.contentDocument.readyState;
+          if (rs === "interactive" || rs === "complete") setup();
+        } catch (e) {}
         window.addEventListener("resize", fit);
       })();
     </script>
