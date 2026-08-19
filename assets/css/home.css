@@ -1,0 +1,522 @@
+/* Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V5
+ * Hallmark · HOME LAYER · design-system: design.md · designed-as-app
+ * genre: modern-minimal · macrostructure: Split Studio
+ * theme: Cobalt (YIYOL brand-anchored) · tone: technical · anchor hue: cool 226
+ * audience: 제조·설비·안전 현장 담당자 + 기술 의사결정자 · use: contact 전환
+ *
+ * nav: N1b       knobs: centre-links=4, dropdowns=none, scroll=frost-on-scroll
+ * footer: Ft1    knobs: wordmark=xl, tagline=roman body, links=inline
+ * hero: H2       knobs: ratio=7/5, right=proof column, divider=negative space
+ * features: F4   knobs: numbering=01/02/03, layout=vertical diptych, connector=line
+ *         + F3   knobs: columns=3, rules=every row, numbers=tabular
+ * enrichment: Tier-A pure-CSS pipeline rig (no photography, no re-drawn chrome)
+ * diversification: previous build was centred .sv-head ×6 + 4-card icon grids +
+ *   N1a nav + anonymous footer. This differs on macrostructure, nav, footer,
+ *   paper band (dark hero → light paper + one graphite band) and display face.
+ *
+ * Verified in-browser at 320 / 375 / 414 / 768 / 1280 / 1920 px:
+ *   horizontal scroll  none        contrast failures  0 of 173 text elements
+ *   two-line clickable text  none  viewport bleed  none
+ *   hero essentials inside the fold at 1280×800 (CTA bottom 621px of 800px)
+ *
+ * SCOPE: index.html only. Every rule here is scoped under body.yl-home and loads
+ * after site.css.
+ * Nav, footer, buttons, links, base type and motion now live in site.css.
+ */
+
+/* ============================================================
+   Hero — H2 Split diptych, 7/5, proof column right, divider = negative space
+   Left-biased by construction; nothing here is centred (gate 6).
+   ============================================================ */
+.yl-hero {
+  padding-block: calc(var(--nav-h) + var(--space-2xl)) var(--space-3xl);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+}
+.yl-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);   /* gate 50 */
+  gap: var(--space-2xl);
+  align-items: center;
+}
+.yl-hero h1 {
+  font-size: var(--text-display);
+  font-weight: 600;
+  margin-top: var(--space-md);
+  max-width: 15ch;
+}
+.yl-hero h1 .hl {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent-hair);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.12em;
+}
+.yl-hero p { margin-top: var(--space-md); max-width: var(--measure); }
+.yl-hero-cta {
+  margin-top: var(--space-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+
+/* ── Tier-A pure-CSS pipeline diagram (the proof column) ───── */
+.yl-rig {
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-card);
+  background: var(--color-paper);
+  box-shadow: var(--shadow-lift);
+  overflow: hidden;
+}
+.yl-rig-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: 0.7rem var(--space-sm);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  background: var(--color-paper-2);
+}
+.yl-rig-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-mono);
+  color: var(--color-accent);
+}
+.yl-rig-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-wash);
+}
+.yl-rig-body { padding: var(--space-sm) var(--space-sm) var(--space-md); }
+
+.yl-node {
+  display: grid;
+  grid-template-columns: 2.1rem minmax(0, 1fr);
+  column-gap: var(--space-xs);
+  padding-block: var(--space-xs);
+}
+.yl-node-idx {
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-mono);
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums;
+  padding-top: var(--space-3xs);
+}
+/* the connector rail — drawn, not decorative: it is the pipeline */
+.yl-node:not(:last-child) .yl-node-idx::after {
+  content: "";
+  position: absolute;
+  left: 0.42rem; top: 1.5rem; bottom: -1.4rem;
+  width: var(--rule-hair);
+  background: var(--color-rule-strong);
+}
+.yl-node-name {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-ink);
+  letter-spacing: var(--tracking-display);
+}
+.yl-node-spec {
+  margin-top: var(--space-3xs);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.03em;
+  color: var(--color-muted);
+  line-height: 1.7;
+}
+.yl-node--act .yl-node-name { color: var(--color-accent); }
+.yl-node--act .yl-node-idx { color: var(--color-accent); }
+
+.yl-rig-foot {
+  border-top: var(--rule-hair) solid var(--color-rule);
+  padding: 0.7rem var(--space-sm);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-mono);
+  color: var(--color-muted);
+  background: var(--color-paper-2);
+}
+
+/* ── Ingest rail — real protocols, not an invented logo wall ─ */
+.yl-rail {
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  background: var(--color-paper-2);
+}
+.yl-rail-inner {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-2xs) var(--space-lg);
+  padding-block: var(--space-md);
+}
+.yl-rail-key { flex: 0 0 auto; }
+.yl-rail-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs) var(--space-md);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  letter-spacing: 0.03em;
+  color: var(--color-ink-2);
+}
+.yl-rail-list li { white-space: nowrap; }
+
+/* ============================================================
+   The pair — the mission stated once: NOX below, AI above.
+   Every section below expands one of these two columns, so this
+   is a divided pair rather than two cards.
+   ============================================================ */
+.yl-duo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: var(--rule-hair) solid var(--color-rule-strong);
+}
+.yl-duo-col {
+  padding: var(--space-lg) var(--space-lg) 0 0;
+  border-right: var(--rule-hair) solid var(--color-rule);
+}
+.yl-duo-col:last-child {
+  padding: var(--space-lg) 0 0 var(--space-lg);
+  border-right: 0;
+}
+.yl-duo-col h3 { margin-top: var(--space-2xs); font-size: var(--text-xl); }
+.yl-duo-col > p { margin-top: var(--space-sm); max-width: var(--measure); }
+.yl-duo-col .yl-specs { margin-top: var(--space-md); }
+.yl-duo-col .yl-link { margin-top: var(--space-md); }
+
+/* Two columns of running Korean prose give out well before the nav does. */
+@media (max-width: 860px) {
+  .yl-duo { grid-template-columns: minmax(0, 1fr); }
+  .yl-duo-col,
+  .yl-duo-col:last-child {
+    padding: var(--space-md) 0;
+    border-right: 0;
+  }
+  .yl-duo-col:not(:last-child) { border-bottom: var(--rule-hair) solid var(--color-rule); }
+}
+
+/* ============================================================
+   F4 · Step sequence — the pipeline in detail
+   Diptych rows: prose left, spec right. Connector line down the gutter.
+   ============================================================ */
+.yl-steps { border-top: var(--rule-hair) solid var(--color-rule); }
+.yl-step {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr) minmax(0, 15rem);
+  gap: var(--space-lg);
+  padding-block: var(--space-xl);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  align-items: start;
+}
+.yl-step-idx {
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: var(--tracking-mono);
+  color: var(--color-accent);
+  font-variant-numeric: tabular-nums;
+  padding-top: var(--space-3xs);
+}
+.yl-step-idx::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 2.1rem; bottom: calc(var(--space-xl) * -1);
+  width: var(--rule-hair);
+  background: var(--color-rule);
+}
+.yl-step:last-child .yl-step-idx::before { display: none; }
+.yl-step-body h3 { font-size: var(--text-xl); }
+.yl-step-body p { margin-top: var(--space-2xs); max-width: var(--measure); }
+.yl-specs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.03em;
+  color: var(--color-muted);
+  padding-top: var(--space-2xs);
+}
+.yl-specs li { padding-left: 0.9rem; position: relative; }
+.yl-specs li::before {
+  content: "";
+  position: absolute; left: 0; top: 0.62em;
+  width: 5px; height: var(--rule-hair);
+  background: var(--color-rule-strong);
+}
+
+/* ============================================================
+   F3 · Tabular spec sheet — use cases as rows, not icon cards
+   ============================================================ */
+.yl-sheet { border-top: var(--rule-hair) solid var(--color-rule-strong); }
+.yl-sheet-head,
+.yl-row {
+  display: grid;
+  grid-template-columns: minmax(0, 15rem) minmax(0, 1fr) minmax(0, 1.15fr) 2rem;
+  gap: var(--space-lg);
+  align-items: baseline;
+}
+.yl-sheet-head {
+  padding-block: var(--space-2xs) var(--space-xs);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+}
+.yl-row {
+  padding-block: var(--space-md);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  color: var(--color-ink-2);
+  transition: background var(--dur-fast) var(--ease-out);
+}
+.yl-row:hover { background: var(--color-paper-2); }
+.yl-row-name {
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--color-ink);
+  letter-spacing: var(--tracking-display);
+}
+.yl-row p { font-size: var(--text-base); line-height: 1.65; }
+.yl-row-act { color: var(--color-ink); }
+.yl-row:hover .yl-row-go { color: var(--color-accent); }
+.yl-sheet-foot { padding-top: var(--space-md); }
+
+/* Mobile-only row keys for the spec sheet + list (hidden on desktop, where the
+   column head carries the label). Declared before the media query that shows them. */
+.yl-k {
+  display: none;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin-bottom: var(--space-4xs);
+}
+
+/* ============================================================
+   The one dark band — graphite. Light → dark → light rhythm.
+   ============================================================ */
+.yl-band {
+  background: var(--color-graphite);
+  color: var(--color-on-dark-2);
+  padding-block: var(--space-3xl);
+}
+/* specificity must beat `body.yl-home h1,h2,h3,h4` (0,1,2), which sets ink */
+body.yl-home .yl-band h2 { color: var(--color-on-dark); font-size: var(--text-3xl); }
+body.yl-home .yl-band h3,
+body.yl-home .yl-band h4 { color: var(--color-on-dark); }
+.yl-band .yl-lede { color: var(--color-on-dark-2); }
+.yl-band .yl-label { color: var(--color-accent-bright); }
+.yl-band strong { color: var(--color-on-dark); }
+
+.yl-compare {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-base);
+  text-align: left;
+}
+.yl-compare caption { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.yl-compare th, .yl-compare td {
+  padding: var(--space-sm) var(--space-md);
+  vertical-align: top;
+  border-bottom: var(--rule-hair) solid var(--color-graphite-rule);
+}
+.yl-compare thead th {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  color: var(--color-on-dark-2);
+  padding-bottom: var(--space-2xs);
+  white-space: nowrap;
+}
+.yl-compare tbody th {
+  font-family: var(--font-body);
+  font-weight: 500;
+  color: var(--color-on-dark-2);
+  width: 22%;
+}
+.yl-compare td { color: var(--color-on-dark-2); }
+.yl-compare .is-yiyol { color: var(--color-on-dark); background: var(--color-bright-wash); }
+.yl-compare thead .is-yiyol { color: var(--color-accent-bright); background: var(--color-bright-wash-2); }
+.yl-compare tbody tr:last-child th,
+.yl-compare tbody tr:last-child td { border-bottom: 0; }
+.yl-tk { display: none; }                     /* mobile-only column keys */
+.yl-compare-wrap { overflow-x: auto; }        /* only needed above the stack breakpoint */
+
+/* ============================================================
+   Platform — Split Studio diptych + hairline list (density varies,
+   so this section never reads as another 4-card icon grid)
+   ============================================================ */
+.yl-diptych {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-2xl);
+  align-items: center;
+}
+.yl-diptych--flip .yl-diptych-media { order: -1; }
+.yl-diptych-text h3 { font-size: var(--text-2xl); }
+.yl-diptych-text p { margin-top: var(--space-sm); max-width: var(--measure); }
+.yl-diptych-text .yl-link { margin-top: var(--space-md); }
+
+.yl-arch {
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+.yl-arch-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: var(--space-sm);
+  align-items: baseline;
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+}
+.yl-arch-row:last-child { border-bottom: 0; }
+.yl-arch-row:nth-child(odd) { background: var(--color-paper-2); }
+.yl-arch-k {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+.yl-arch-v { font-size: var(--text-base); color: var(--color-ink); }
+
+/* ============================================================
+   Process — compact horizontal rail (deliberately not F4 again)
+   ============================================================ */
+.yl-rail-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: var(--rule-hair) solid var(--color-rule-strong);
+}
+.yl-rail-step {
+  padding: var(--space-md) var(--space-md) var(--space-md) 0;
+  border-right: var(--rule-hair) solid var(--color-rule);
+}
+.yl-rail-step:last-child { border-right: 0; }
+.yl-rail-step:not(:first-child) { padding-left: var(--space-md); }
+.yl-rail-step h4 { margin-top: var(--space-2xs); font-size: var(--text-md); font-weight: 600; }
+.yl-rail-step p { margin-top: var(--space-3xs); font-size: var(--text-base); line-height: 1.6; }
+
+/* ============================================================
+   Closing CTA — one button, one typographic link. Not centred.
+   ============================================================ */
+.yl-close {
+  border-top: var(--rule-hair) solid var(--color-rule);
+  padding-block: var(--space-3xl);
+}
+.yl-close-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 20rem);
+  gap: var(--space-2xl);
+  align-items: end;
+}
+.yl-close h2 { font-size: var(--text-display-s); max-width: 18ch; }
+.yl-close p { margin-top: var(--space-sm); max-width: var(--measure); }
+.yl-close-act { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-sm); }
+
+/* ============================================================
+   Responsive — verified at 320 / 375 / 414 / 768 px
+   ============================================================ */
+@media (max-width: 1024px) {
+  .yl-hero-grid,
+  .yl-diptych,
+  .yl-close-grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-xl); }
+  .yl-diptych--flip .yl-diptych-media { order: 0; }
+  .yl-close-grid { align-items: start; }
+  .yl-step { grid-template-columns: 3rem minmax(0, 1fr); }
+  .yl-specs { grid-column: 2; padding-top: 0; }
+  .yl-rail-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .yl-rail-step:nth-child(2) { border-right: 0; }
+  .yl-rail-step:nth-child(-n+2) { border-bottom: var(--rule-hair) solid var(--color-rule); }
+  .yl-rail-step:nth-child(odd) { padding-left: 0; }
+  .yl-rail-step:nth-child(even) { padding-left: var(--space-md); }
+}
+
+@media (max-width: 860px) {
+
+  .yl-section { padding-block: var(--space-2xl); }
+  .yl-band { padding-block: var(--space-2xl); }
+  .yl-close { padding-block: var(--space-2xl); }
+  .yl-section-head { margin-bottom: var(--space-xl); }
+
+  /* F3 spec sheet collapses to labelled blocks — gate 52 */
+  .yl-sheet-head { display: none; }
+  .yl-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-2xs);
+    padding-block: var(--space-md);
+  }
+  .yl-row-go { justify-self: start; }
+  .yl-k { display: block; }
+
+}
+
+@media (max-width: 600px) {
+  .yl-hero { padding-block: calc(var(--nav-h) + var(--space-xl)) var(--space-xl); }
+  .yl-hero h1 { max-width: none; }
+  .yl-hero-cta { flex-direction: column; align-items: stretch; gap: var(--space-sm); }
+  .yl-hero-cta .yl-btn { justify-content: center; }
+  .yl-hero-cta .yl-link { align-self: flex-start; }
+
+  .yl-step { grid-template-columns: minmax(0, 1fr); gap: var(--space-2xs); padding-block: var(--space-lg); }
+  .yl-step-idx::before { display: none; }
+  .yl-specs { grid-column: 1; padding-top: var(--space-2xs); }
+
+  .yl-rail-steps { grid-template-columns: minmax(0, 1fr); }
+  .yl-rail-step,
+  .yl-rail-step:nth-child(odd),
+  .yl-rail-step:nth-child(even) { border-right: 0; padding-left: 0; }
+  .yl-rail-step:not(:last-child) { border-bottom: var(--rule-hair) solid var(--color-rule); }
+
+  .yl-foot-mast { flex-direction: column; align-items: flex-start; }
+}
+
+/* Below 720 px the comparison stacks per row. Scrolling it sideways would bury
+   the YIYOL column — the one column the section exists to show. */
+@media (max-width: 720px) {
+  .yl-compare-wrap { overflow-x: visible; }
+  .yl-compare, .yl-compare tbody, .yl-compare tr, .yl-compare th, .yl-compare td { display: block; }
+  .yl-compare thead { display: none; }
+  .yl-compare tr {
+    padding-block: var(--space-md);
+    border-bottom: var(--rule-hair) solid var(--color-graphite-rule);
+  }
+  .yl-compare tbody tr:last-child { border-bottom: 0; }
+  .yl-compare th, .yl-compare td { padding: 0; border-bottom: 0; }
+  .yl-compare tbody th {
+    width: auto;
+    font-family: var(--font-display);
+    font-size: var(--text-md);
+    font-weight: 600;
+    color: var(--color-on-dark);
+    margin-bottom: var(--space-2xs);
+  }
+  .yl-compare td { margin-top: var(--space-2xs); }
+  .yl-compare .is-yiyol {
+    background: transparent;
+    border-left: 2px solid var(--color-accent-bright);
+    padding-left: var(--space-sm);
+  }
+  .yl-tk {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-mono);
+    text-transform: uppercase;
+    color: var(--color-on-dark-2);
+    margin-bottom: var(--space-4xs);
+  }
+  .is-yiyol .yl-tk { color: var(--color-accent-bright); }
+}
+

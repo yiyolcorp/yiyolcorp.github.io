@@ -4,17 +4,25 @@
   <!-- Homepage -->
   <url>
     <loc>https://yiyol.com/</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ko" href="https://yiyol.com/?lang=ko"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://yiyol.com/?lang=en"/>
   </url>
 
-  <!-- Products -->
+  <!-- AI Solutions -->
+  <url>
+    <loc>https://yiyol.com/solutions/</loc>
+    <lastmod>2026-08-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Platform & Products -->
   <url>
     <loc>https://yiyol.com/products/</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -22,11 +30,13 @@
     <loc>https://yiyol.com/nox-nvr.html</loc>
     <lastmod>2026-07-22</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
+
+  <!-- Contact -->
   <url>
-    <loc>https://yiyol.com/solutions/</loc>
-    <lastmod>2026-07-22</lastmod>
+    <loc>https://yiyol.com/contact/</loc>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -60,7 +70,7 @@
   <!-- Company -->
   <url>
     <loc>https://yiyol.com/company/</loc>
-    <lastmod>2026-03-01</lastmod>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -68,7 +78,7 @@
   <!-- Blog -->
   <url>
     <loc>https://yiyol.com/blog/</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>

@@ -18,32 +18,32 @@
   <meta property="og:title" content="NOX — 기술 사양">
   <meta property="og:description" content="NOX NVR/VMS 상세 기술 사양. 시스템 요구사양부터 성능, 보안까지.">
   <meta property="og:type" content="website">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
 
+    /* This page's private palette is now a THIN ALIAS over tokens.css — the
+       names stay so its ~500 existing rules keep resolving, but every value
+       comes from the locked system (gate 48). design.md § Variants.
+       Its old muted grey measured 2.97:1 on its own ground. */
     :root {
-      --bg-primary: #0a0a1a;
-      --bg-secondary: #0e0e24;
-      --bg-card: #14142b;
-      --bg-card-hover: #1c1c3a;
-      --text-primary: #e8e8f0;
-      --text-secondary: #9898b8;
-      --text-muted: #5a5a7a;
-      --accent: #00b4d8;
-      --accent-light: #48cae4;
-      --accent-glow: rgba(0, 180, 216, 0.25);
-      --accent-dark: #0077b6;
-      --border: rgba(255, 255, 255, 0.06);
-      --border-hover: rgba(0, 180, 216, 0.35);
-      --font-sans: 'Inter', -apple-system, 'Segoe UI', sans-serif;
-      --radius-sm: 8px;
-      --radius-md: 12px;
-      --radius-lg: 16px;
+      --bg-primary:     var(--color-graphite);
+      --bg-secondary:   var(--color-graphite-2);
+      --bg-card:        var(--color-graphite-2);
+      --bg-card-hover:  var(--color-graphite-rule);
+      --text-primary:   var(--color-on-dark);
+      --text-secondary: var(--color-on-dark-2);
+      --text-muted:     var(--color-on-dark-2);
+      --accent:         var(--color-accent-bright);
+      --accent-light:   var(--color-on-dark);
+      --accent-glow:    var(--color-bright-hair);
+      --accent-dark:    var(--color-accent);
+      --border:         var(--color-graphite-rule);
+      --border-hover:   var(--color-bright-hair);
+      --font-sans:      var(--font-body);
+      --radius-sm:      var(--radius-ctl);
+      --radius-md:      var(--radius-card);
+      --radius-lg:      var(--radius-card);
     }
 
     body {
@@ -64,7 +64,7 @@
       right: 0;
       z-index: 100;
       padding: 16px 0;
-      background: rgba(10, 10, 26, 0.95);
+      background: var(--color-graphite-veil-2);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
@@ -107,7 +107,7 @@
     /* ===== LAYOUT ===== */
     .page-wrapper {
       display: grid;
-      grid-template-columns: 240px 1fr;
+      grid-template-columns: 240px minmax(0, 1fr);
       max-width: 1200px;
       margin: 0 auto;
       padding: 80px 24px 60px;
@@ -148,18 +148,20 @@
       color: var(--text-secondary);
       border-radius: var(--radius-sm);
       border-left: 2px solid transparent;
-      transition: all 0.2s;
+      transition: color var(--dur-fast) var(--ease-out),
+                  background-color var(--dur-fast) var(--ease-out),
+                  border-color var(--dur-fast) var(--ease-out);
     }
 
     .sidebar-nav a:hover {
       color: var(--text-primary);
-      background: rgba(255, 255, 255, 0.03);
+      background: var(--color-graphite-2);
     }
 
     .sidebar-nav a.active {
       color: var(--accent);
       border-left-color: var(--accent);
-      background: rgba(0, 180, 216, 0.06);
+      background: var(--color-bright-wash);
     }
 
     /* ===== MAIN CONTENT ===== */
@@ -180,12 +182,8 @@
       margin-bottom: 12px;
     }
 
-    .content-header h1 .gradient-text {
-      background: linear-gradient(135deg, var(--accent), var(--accent-light), #90e0ef);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+    /* gate 2 — gradient text is banned site-wide. Solid accent instead. */
+    .content-header h1 .gradient-text { color: var(--accent); }
 
     .content-header p {
       font-size: 1.05rem;
@@ -215,8 +213,8 @@
       width: 32px;
       height: 32px;
       border-radius: 8px;
-      background: rgba(0, 180, 216, 0.1);
-      border: 1px solid rgba(0, 180, 216, 0.2);
+      background: var(--color-bright-wash-2);
+      border: 1px solid var(--color-bright-wash-2);
       font-size: 0.8rem;
       font-weight: 700;
       color: var(--accent);
@@ -258,7 +256,7 @@
     }
 
     thead {
-      background: rgba(0, 180, 216, 0.08);
+      background: var(--color-bright-wash);
     }
 
     th {
@@ -291,7 +289,7 @@
     tr:last-child td { border-bottom: none; }
 
     tr:hover td {
-      background: rgba(255, 255, 255, 0.02);
+      background: var(--color-graphite-2);
     }
 
     .check-mark {
@@ -305,8 +303,8 @@
       align-items: flex-start;
       gap: 10px;
       padding: 14px 18px;
-      background: rgba(0, 180, 216, 0.05);
-      border: 1px solid rgba(0, 180, 216, 0.12);
+      background: var(--color-bright-wash);
+      border: 1px solid var(--color-bright-wash-2);
       border-radius: var(--radius-sm);
       font-size: 0.85rem;
       color: var(--text-secondary);
@@ -333,8 +331,8 @@
     }
 
     .code-block .key { color: var(--accent-light); }
-    .code-block .str { color: #a3be8c; }
-    .code-block .num { color: #d08770; }
+    .code-block .str { color: var(--color-on-dark); }
+    .code-block .num { color: var(--color-accent-bright); }
     .code-block .comment { color: var(--text-muted); }
 
     /* ===== ANIMATIONS ===== */
@@ -373,7 +371,9 @@
       border-radius: 20px;
       color: var(--text-secondary);
       cursor: pointer;
-      transition: all 0.2s;
+      transition: color var(--dur-fast) var(--ease-out),
+                  background-color var(--dur-fast) var(--ease-out),
+                  border-color var(--dur-fast) var(--ease-out);
       font-weight: 500;
       font-size: 0.85rem;
       font-family: var(--font-sans);
@@ -400,12 +400,14 @@
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      box-shadow: var(--shadow-dark);
       min-width: 120px;
       opacity: 0;
       visibility: hidden;
       transform: translateY(-8px);
-      transition: all 0.2s;
+      transition: color var(--dur-fast) var(--ease-out),
+                  background-color var(--dur-fast) var(--ease-out),
+                  border-color var(--dur-fast) var(--ease-out);
       overflow: hidden;
       z-index: 200;
     }
@@ -422,16 +424,18 @@
       color: var(--text-secondary);
       font-weight: 500;
       font-size: 0.85rem;
-      transition: all 0.15s;
+      transition: color var(--dur-fast) var(--ease-out),
+                  background-color var(--dur-fast) var(--ease-out),
+                  border-color var(--dur-fast) var(--ease-out);
     }
 
     .lang-option:hover {
-      background: rgba(255, 255, 255, 0.05);
+      background: var(--color-graphite-2);
       color: var(--accent);
     }
 
     .lang-option.active {
-      background: rgba(0, 180, 216, 0.1);
+      background: var(--color-bright-wash-2);
       color: var(--accent);
     }
 
@@ -509,18 +513,20 @@
       font-size: 0.85rem;
       color: var(--text-secondary);
       border-radius: 6px;
-      transition: all 0.2s;
+      transition: color var(--dur-fast) var(--ease-out),
+                  background-color var(--dur-fast) var(--ease-out),
+                  border-color var(--dur-fast) var(--ease-out);
     }
 
     .mobile-toc a:hover {
-      background: rgba(255, 255, 255, 0.03);
+      background: var(--color-graphite-2);
       color: var(--text-primary);
     }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 900px) {
       .page-wrapper {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
         gap: 0;
         padding: 80px 20px 40px;
       }
@@ -535,8 +541,40 @@
       }
     }
   </style>
-</head>
-<body>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=2" />
+    <link rel="stylesheet" href="/assets/css/dark.css?v=2" />
+  </head>
+<body class="yl-dark">
+    <nav class="site-nav" role="navigation" aria-label="Main navigation">
+      <div class="site-nav-inner">
+        <a href="/" class="site-nav-brand">
+          <span class="site-nav-logo">YIYOL<span>.</span></span>
+        </a>
+        <div class="site-nav-right">
+          <ul class="site-nav-links">
+            <li><a href="/products/"><span class="ko-only">제품</span><span class="en-only">Products</span></a></li>
+            <li><a href="/solutions/"><span class="ko-only">AI 솔루션</span><span class="en-only">AI Solutions</span></a></li>
+            <li><a href="/company/"><span class="ko-only">회사소개</span><span class="en-only">About</span></a></li>
+            <li><a href="/blog/"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a></li>
+            <li><a href="/contact/" class="nav-cta"><span class="ko-only">문의</span><span class="en-only">Contact</span></a></li>
+          </ul>
+          <div class="lang-switch">
+            <button class="lang-selector" type="button" aria-haspopup="true" aria-expanded="false">
+              <span class="lang-current">한국어</span>
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" /></svg>
+            </button>
+            <div class="lang-dropdown">
+              <a href="#" class="lang-option" data-lang="ko">한국어</a>
+              <a href="#" class="lang-option" data-lang="en">English</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
 
   <!-- ===== NAV ===== -->
   <nav class="nav">
@@ -555,7 +593,6 @@
         <div class="lang-switch">
           <button class="lang-selector">
             <span class="lang-current">한국어</span>
-            <i class="fas fa-chevron-down"></i>
           </button>
           <div class="lang-dropdown">
             <a href="#" class="lang-option" data-lang="ko">한국어</a>
@@ -1244,14 +1281,34 @@
   </div>
 
   <!-- ===== FOOTER ===== -->
-  <footer class="footer">
-    <div class="footer-inner">
-      <p>&copy; 2026 YIYOL Corp. All rights reserved.</p>
-      <a href="https://nox.yiyol.com/" class="footer-link"><span class="ko-only">NOX 메인으로 돌아가기</span><span class="en-only">Back to NOX</span></a>
-    </div>
-  </footer>
+  <footer class="yl-foot" role="contentinfo">
+      <div class="yl-shell">
+        <div class="yl-foot-mast">
+          <div>
+            <div class="yl-foot-word">YIYOL<span>.</span></div>
+            <p class="yl-foot-tag ko-only">영상을 저장하고 관리하는 NVR·VMS,<br />그 위에서 판단하고 실행하는 AI 자동화</p>
+            <p class="yl-foot-tag en-only">NVR and VMS that store and manage your video — and the AI automation built on top of it.</p>
+          </div>
+          <nav class="yl-foot-links" aria-label="Footer navigation">
+            <a href="/products/"><span class="ko-only">제품</span><span class="en-only">Products</span></a>
+            <a href="/solutions/"><span class="ko-only">AI 솔루션</span><span class="en-only">AI Solutions</span></a>
+            <a href="/company/"><span class="ko-only">회사소개</span><span class="en-only">About</span></a>
+            <a href="/blog/"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a>
+            <a href="/contact/"><span class="ko-only">문의</span><span class="en-only">Contact</span></a>
+          </nav>
+        </div>
+        <div class="yl-foot-meta">
+          <span class="ko-only">서울특별시 금천구 가산디지털1로 75-15, 하우스디 와이즈타워 326호</span>
+          <span class="en-only">#326, 75-15 Gasan Digital 1-ro, Geumcheon-gu, Seoul</span>
+          <a href="mailto:yiyol@yiyol.com">yiyol@yiyol.com</a>
+          <span class="ko-only">사업자등록번호 186-34-01502</span>
+          <span class="en-only">Business Registration 186-34-01502</span>
+        </div>
+        <p class="yl-foot-copy">&copy; 2026 YIYOL. All rights reserved.</p>
+      </div>
+    </footer>
 
-  <script src="/assets/js/i18n.js"></script>
+  <script src="/assets/js/i18n.js?v=4"></script>
   <script>
     // Scroll animations
     const observer = new IntersectionObserver((entries) => {

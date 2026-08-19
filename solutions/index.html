@@ -11,30 +11,35 @@
     </script>
 
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>활용사례 — YIYOL</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI 솔루션 — 공정 이상 감지부터 자동 후속조치까지 | YIYOL</title>
 
-    <meta name="description" content="YIYOL NOX 활용사례 — 공장·물류, 리테일, 빌딩·오피스, 공공·기관 등 다양한 현장의 영상 보안에 NOX를 적용할 수 있습니다." />
-    <meta name="keywords" content="YIYOL,NOX,활용사례,솔루션,공장,물류,리테일,빌딩,공공기관,CCTV,영상보안" />
+    <meta name="description" content="공정 이상 감지·자동 대응, 비정형 센서 데이터 분석·판단, 영상 기반 안전·보안 자동화, 요청형 맞춤 자동화. NOX NVR·VMS가 저장하고 관리하는 영상과 데이터 위에서 AI가 판단하고 후속조치까지 실행합니다." />
+    <meta name="keywords" content="AI 자동화 솔루션,공정 이상 감지,이상 탐지,비정형 센서 데이터 분석,예지보전,스마트팩토리,안전 자동화,PPE 감지,위험구역,무단출입,Agentic AI,YIYOL,NOX" />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://yiyol.com/solutions/" />
-    <meta property="og:title" content="활용사례 — YIYOL" />
-    <meta property="og:description" content="공장·물류, 리테일, 빌딩, 공공기관 등 다양한 현장의 영상 보안에 NOX를 적용하세요." />
+    <meta property="og:title" content="AI 솔루션 — 공정 이상 감지부터 자동 후속조치까지 | YIYOL" />
+    <meta property="og:description" content="NVR·VMS가 모아둔 영상과 데이터 위에서 AI가 판단하고, 정의된 후속조치를 스스로 실행합니다." />
+    <meta property="og:image" content="https://yiyol.com/assets/yiyol-logo.png" />
     <meta property="og:site_name" content="YIYOL" />
 
     <link rel="canonical" href="https://yiyol.com/solutions/" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#f9fcfe" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <link rel="stylesheet" href="../assets/css/surv.css?v=12" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/css/tokens.css?v=4" />
+    <link rel="stylesheet" href="../assets/css/site.css?v=2" />
+    <link rel="stylesheet" href="../assets/css/page.css?v=2" />
   </head>
-  <body>
-    <a href="#main-content" class="skip-link" style="position: absolute; left: -9999px;">Skip to main content</a>
+  <body class="yl">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <!-- Header -->
     <nav class="site-nav" role="navigation" aria-label="Main navigation">
@@ -44,15 +49,16 @@
         </a>
         <div class="site-nav-right">
           <ul class="site-nav-links">
-            <li><a href="../company/"><span class="ko-only">회사소개</span><span class="en-only">About</span></a></li>
             <li><a href="../products/"><span class="ko-only">제품</span><span class="en-only">Products</span></a></li>
-            <li><a href="../solutions/" class="nav-active"><span class="ko-only">활용사례</span><span class="en-only">Solutions</span></a></li>
+            <li><a href="../solutions/" class="nav-active"><span class="ko-only">AI 솔루션</span><span class="en-only">AI Solutions</span></a></li>
+            <li><a href="../company/"><span class="ko-only">회사소개</span><span class="en-only">About</span></a></li>
             <li><a href="../blog/"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a></li>
+            <li><a href="../contact/" class="nav-cta"><span class="ko-only">문의</span><span class="en-only">Contact</span></a></li>
           </ul>
           <div class="lang-switch">
-            <button class="lang-selector">
+            <button class="lang-selector" type="button" aria-haspopup="true" aria-expanded="false">
               <span class="lang-current">한국어</span>
-              <i class="fas fa-chevron-down"></i>
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" /></svg>
             </button>
             <div class="lang-dropdown">
               <a href="#" class="lang-option" data-lang="ko">한국어</a>
@@ -65,109 +71,511 @@
 
     <!-- Page banner -->
     <header class="sv-pagebanner">
-      <h1 class="ko-only">활용사례</h1>
-      <h1 class="en-only">Solutions</h1>
-      <p class="ko-only">규모와 업종에 상관없이, 영상 보안이 필요한 모든 현장에서 NOX를 사용할 수 있습니다.</p>
-      <p class="en-only">From small sites to large facilities — NOX fits anywhere video security matters.</p>
+      <h1 class="ko-only">AI 솔루션</h1>
+      <h1 class="en-only">AI Solutions</h1>
+      <p class="ko-only">문제 → 수집 → AI 판단 → 자동 후속조치. 현장에서 실제로 조치가 일어나는 데까지 책임집니다.</p>
+      <p class="en-only">Problem → collect → AI judgment → automatic follow-up. We take it all the way to something actually happening on site.</p>
     </header>
 
     <!-- Sub-navigation -->
     <nav class="sv-subnav" aria-label="Solutions sub navigation">
       <div class="sv-subnav-inner">
-        <button class="sv-subnav-tab" data-tab="industries"><span class="ko-only">활용 분야</span><span class="en-only">By Industry</span></button>
-        <button class="sv-subnav-tab" data-tab="steps"><span class="ko-only">도입 절차</span><span class="en-only">How It Works</span></button>
+        <button class="sv-subnav-tab" data-tab="process"><span class="ko-only">공정 이상 감지·대응</span><span class="en-only">Process anomalies</span></button>
+        <button class="sv-subnav-tab" data-tab="sensor"><span class="ko-only">비정형 센서 분석</span><span class="en-only">Sensor analysis</span></button>
+        <button class="sv-subnav-tab" data-tab="safety"><span class="ko-only">안전·보안 자동화</span><span class="en-only">Safety &amp; security</span></button>
+        <button class="sv-subnav-tab" data-tab="custom"><span class="ko-only">요청형 맞춤 자동화</span><span class="en-only">Custom automation</span></button>
+        <button class="sv-subnav-tab" data-tab="build"><span class="ko-only">구축 방식</span><span class="en-only">How it's built</span></button>
       </div>
     </nav>
 
     <main id="main-content">
 
-      <!-- Industries -->
-      <section class="sv-tabpanel sv-section" data-tab="industries">
+      <!-- ============ 공정 이상 감지 · 자동 대응 ============ -->
+      <section class="sv-tabpanel sv-section" data-tab="process" id="process">
         <div class="sv-wrap">
           <div class="sv-head">
-            <div class="sv-eyebrow">By Industry</div>
-            <h2 class="ko-only">활용 분야</h2>
-            <h2 class="en-only">Where NOX Fits</h2>
+            <div class="sv-eyebrow">Process Anomaly Response</div>
+            <h2 class="ko-only">공정 이상 감지 · 자동 대응</h2>
+            <h2 class="en-only">Process anomaly detection &amp; response</h2>
+            <p class="ko-only">설비가 완전히 멈추는 고장만 문제가 아닙니다. 알람 임계값은 넘지 않으면서 평소와 다르게 동작하는 상태 — 사람이 순회하다 발견할 때쯤이면 이미 늦은 그 구간을 AI가 대신 지킵니다.</p>
+            <p class="en-only">A hard stop isn't the only failure. The dangerous state is the one that never crosses an alarm threshold but no longer looks like a normal cycle — the window that's already too late by the time someone walks past. AI covers that window.</p>
           </div>
-          <div class="sv-case-rows">
-            <div class="sv-case-row">
-              <div class="sv-case-row-icon"><i class="fas fa-industry"></i></div>
-              <div>
-                <h4 class="ko-only">공장 · 물류</h4>
-                <h4 class="en-only">Factory & Logistics</h4>
-                <p class="ko-only">생산 라인과 창고를 24시간 안정적으로 상시 감시. 다채널 NVR과 통합 관제로 넓은 현장을 효율적으로 운영합니다.</p>
-                <p class="en-only">Reliable 24/7 monitoring of production lines and warehouses. Run large sites efficiently with multi-channel NVR and unified VMS.</p>
+
+          <div class="sv-scenarios">
+
+            <article class="sv-scenario">
+              <div class="sv-scenario-head">
+                <div>
+                  <h3 class="ko-only">생산 라인 비정상 동작 감지</h3>
+                  <h3 class="en-only">Abnormal line behavior</h3>
+                  <div class="sv-scenario-sub ko-only">제조 · 생산라인</div>
+                  <div class="sv-scenario-sub en-only">Manufacturing · production lines</div>
+                </div>
               </div>
-            </div>
-            <div class="sv-case-row">
-              <div class="sv-case-row-icon"><i class="fas fa-store"></i></div>
-              <div>
-                <h4 class="ko-only">리테일 · 매장</h4>
-                <h4 class="en-only">Retail & Stores</h4>
-                <p class="ko-only">다지점 매장을 한 화면에서 통합 관제. 모바일 앱으로 어디서나 매장 상황을 확인하고 이벤트 알림을 받습니다.</p>
-                <p class="en-only">Monitor multiple stores from a single pane. Check any location and receive event alerts on the move via the mobile app.</p>
+
+              <div class="sv-scenario-problem">
+                <div class="sv-scenario-label ko-only">문제</div>
+                <div class="sv-scenario-label en-only">Problem</div>
+                <p class="ko-only">설비가 멈추지는 않았는데 평소와 다르게 움직입니다. PLC 알람은 울리지 않고, 담당자가 순회 중에 발견할 때쯤이면 이미 불량이 수백 개 쌓여 있습니다.</p>
+                <p class="en-only">The machine hasn't stopped, but it isn't moving the way it usually does. No PLC alarm fires, and by the time an operator notices on their round, hundreds of defective parts have already gone through.</p>
               </div>
-            </div>
-            <div class="sv-case-row">
-              <div class="sv-case-row-icon"><i class="fas fa-building"></i></div>
-              <div>
-                <h4 class="ko-only">빌딩 · 오피스</h4>
-                <h4 class="en-only">Buildings & Offices</h4>
-                <p class="ko-only">출입구와 공용공간의 안전·보안을 강화. Vision AI·VLM 등 다양한 AI 모델로 침입·배회 등 이상 상황을 자동 감지합니다.</p>
-                <p class="en-only">Strengthen safety at entrances and shared spaces. Detect intrusion and loitering automatically with various AI models such as Vision AI and VLM.</p>
+
+              <div class="sv-scenario-pipe">
+                <div class="sv-scenario-stage">
+                  <h5 class="ko-only">수집</h5><h5 class="en-only">Collect</h5>
+                  <p class="ko-only">라인 카메라 영상, PLC 상태값, 사이클 타임, 진동·전류 센서를 같은 타임라인에 정렬</p>
+                  <p class="en-only">Line cameras, PLC state, cycle time, vibration and current sensors — aligned on one timeline.</p>
+                </div>
+                <div class="sv-scenario-stage">
+                  <h5 class="ko-only">판단</h5><h5 class="en-only">Judge</h5>
+                  <p class="ko-only">Vision AI가 동작 주기와 자세를 추적하고, VLM이 "이 움직임이 정상 사이클인가"를 맥락으로 재확인</p>
+                  <p class="en-only">Vision AI tracks the motion cycle and posture; a VLM re-checks in context whether this still reads as a normal cycle.</p>
+                </div>
+                <div class="sv-scenario-stage">
+                  <h5 class="ko-only">실행</h5><h5 class="en-only">Act</h5>
+                  <p class="ko-only">담당자 모바일 알림 → 무응답 시 라인 감속·정지 신호 → MES 이상 이벤트 기록 → 해당 시점 영상 클립을 붙여 품질팀 티켓 발행</p>
+                  <p class="en-only">Alert the operator → no response, slow or halt the line → log the event to MES → open a quality ticket with the video clip attached.</p>
+                </div>
+                <div class="sv-scenario-stage is-outcome">
+                  <h5 class="ko-only">효과</h5><h5 class="en-only">Outcome</h5>
+                  <p class="ko-only">발견까지 수십 분 → 수십 초. 불량 유출을 줄이고, 원인 분석용 영상·데이터를 자동 확보</p>
+                  <p class="en-only">Tens of minutes to notice becomes tens of seconds — fewer defects escape, and the evidence for root-cause analysis is captured automatically.</p>
+                </div>
               </div>
-            </div>
-            <div class="sv-case-row">
-              <div class="sv-case-row-icon"><i class="fas fa-shield-halved"></i></div>
-              <div>
-                <h4 class="ko-only">공공 · 기관</h4>
-                <h4 class="en-only">Public & Institutions</h4>
-                <p class="ko-only">데이터 주권이 중요한 기관을 위한 on-prem 보안. 영상이 외부로 나가지 않아 보안 요구사항을 충족합니다.</p>
-                <p class="en-only">On-prem security for data-sensitive institutions. Footage never leaves your premises, meeting strict security requirements.</p>
+
+              <div class="sv-scenario-foot">
+                <span class="sv-scenario-label ko-only">적용 산업</span>
+                <span class="sv-scenario-label en-only">Applies to</span>
+                <span class="sv-chip ko-only">자동차 부품</span><span class="sv-chip en-only">Auto parts</span>
+                <span class="sv-chip ko-only">전자 조립</span><span class="sv-chip en-only">Electronics assembly</span>
+                <span class="sv-chip ko-only">식품 가공</span><span class="sv-chip en-only">Food processing</span>
+                <span class="sv-chip ko-only">포장 라인</span><span class="sv-chip en-only">Packaging lines</span>
               </div>
-            </div>
+            </article>
+
+            <article class="sv-scenario">
+              <div class="sv-scenario-head">
+                <div>
+                  <h3 class="ko-only">작업 순서 누락 · 오작업 감지</h3>
+                  <h3 class="en-only">Skipped steps &amp; mis-assembly</h3>
+                  <div class="sv-scenario-sub ko-only">조립 · 수작업 공정</div>
+                  <div class="sv-scenario-sub en-only">Assembly &amp; manual operations</div>
+                </div>
+              </div>
+
+              <div class="sv-scenario-problem">
+                <div class="sv-scenario-label ko-only">문제</div>
+                <div class="sv-scenario-label en-only">Problem</div>
+                <p class="ko-only">정해진 작업 순서 중 한 단계를 건너뛰어도 시스템은 알지 못합니다. 문제가 드러나는 것은 검사 공정이거나, 더 나쁘게는 출하 이후입니다.</p>
+                <p class="en-only">If a worker skips one step in the sequence, nothing in the system notices. It surfaces at inspection — or worse, after the product has shipped.</p>
+              </div>
+
+              <div class="sv-scenario-pipe">
+                <div class="sv-scenario-stage">
+                  <h5 class="ko-only">수집</h5><h5 class="en-only">Collect</h5>
+                  <p class="ko-only">작업대 카메라, 바코드·스캐너 로그, 토크렌치·검사장비 결과값</p>
+                  <p class="en-only">Workbench cameras, barcode and scanner logs, torque wrench and inspection device readings.</p>
+                </div>
+                <div class="sv-scenario-stage">
+                  <h5 class="ko-only">판단</h5><h5 class="en-only">Judge</h5>
+                  <p class="ko-only">영상에서 작업 단계를 순서대로 인식하고 설비 로그와 대조해, 누락·순서 뒤바뀜·중복을 판단</p>
+                  <p class="en-only">Recognize each step in sequence from video and cross-check against device logs to spot omissions, reordering, and repeats.</p>
+                </div>
+                <div class="sv-scenario-stage">
+                  <h5 class="ko-only">실행</h5><h5 class="en-only">Act</h5>
+                  <p class="ko-only">작업자에게 즉시 표시등·음성 안내 → 다음 공정 이송 홀드 → 감독자 호출 → 작업 이력 기록</p>
+                  <p class="en-only">Signal the worker with a light and voice prompt → hold transfer to the next station → page the supervisor → record the history.</p>
+                </div>
+                <div class="sv-scenario-stage is-outcome">
+                  <h5 class="ko-only">효과</h5><h5 class="en-only">Outcome</h5>
+                  <p class="ko-only">출하 후 리콜을 조립 시점의 즉시 교정으로 대체. 작업 표준 준수 여부가 데이터로 남음</p>
+                  <p class="en-only">A post-shipment recall becomes an on-the-spot correction, and compliance with the work standard becomes measurable data.</p>
+                </div>
+              </div>
+
+              <div class="sv-scenario-foot">
+                <span class="sv-scenario-label ko-only">적용 산업</span>
+                <span class="sv-scenario-label en-only">Applies to</span>
+                <span class="sv-chip ko-only">기계 조립</span><span class="sv-chip en-only">Machine assembly</span>
+                <span class="sv-chip ko-only">정비 · 검사</span><span class="sv-chip en-only">Maintenance &amp; inspection</span>
+                <span class="sv-chip ko-only">물류 피킹</span><span class="sv-chip en-only">Logistics picking</span>
+                <span class="sv-chip ko-only">의약품 포장</span><span class="sv-chip en-only">Pharma packaging</span>
+              </div>
+            </article>
+
           </div>
         </div>
       </section>
 
-      <!-- Steps -->
-      <section class="sv-tabpanel sv-section" data-tab="steps">
+      <!-- ============ 비정형 센서 분석 · 판단 ============ -->
+      <section class="sv-tabpanel sv-section" data-tab="sensor" id="sensor">
         <div class="sv-wrap">
           <div class="sv-head">
-            <div class="sv-eyebrow">How It Works</div>
-            <h2 class="ko-only">도입 방식</h2>
-            <h2 class="en-only">How We Deploy</h2>
-            <p class="ko-only">요구사항 분석부터 운영까지, NOX 전문가가 현장에 맞게 구축해 드립니다.</p>
-            <p class="en-only">From requirements to operation — our team deploys NOX tailored to your site.</p>
+            <div class="sv-eyebrow">Unstructured Sensor Analysis</div>
+            <h2 class="ko-only">비정형 센서 데이터 분석 · 판단</h2>
+            <h2 class="en-only">Unstructured sensor analysis &amp; judgment</h2>
+            <p class="ko-only">현장의 센서는 벤더마다 프로토콜도, 전송 주기도, 값의 의미도 다릅니다. 각각에 임계값 알람만 걸어 두면 <strong>따로 보면 정상인데 합쳐 보면 이상</strong>인 상태를 아무도 잡지 못합니다. 데이터를 한곳에 정규화해 모으고, 복합 신호를 AI가 함께 읽습니다.</p>
+            <p class="en-only">Sensors on the floor differ by vendor in protocol, cadence, and even what a value means. Put a threshold alarm on each in isolation and nobody catches the state that is <strong>normal signal by signal but abnormal together</strong>. We normalize everything into one place and let AI read the combined picture.</p>
+          </div>
+
+          <div class="sv-scenarios">
+
+            <article class="sv-scenario">
+              <div class="sv-scenario-head">
+                <div>
+                  <h3 class="ko-only">이기종 센서 통합 분석 · 조치 분기</h3>
+                  <h3 class="en-only">Cross-vendor sensor fusion &amp; graded response</h3>
+                  <div class="sv-scenario-sub ko-only">플랜트 · 유틸리티 · 인프라</div>
+                  <div class="sv-scenario-sub en-only">Plants · utilities · infrastructure</div>
+                </div>
+              </div>
+
+              <div class="sv-scenario-problem">
+                <div class="sv-scenario-label ko-only">문제</div>
+                <div class="sv-scenario-label en-only">Problem</div>
+                <p class="ko-only">온도·진동·전류·유량 센서가 벤더별로 규격이 다르고, 각각 임계값 알람만 걸려 있습니다. 알람은 하루에도 수십 번 울리지만 대부분 오탐이라 아무도 보지 않고, 정작 중요한 신호는 그 사이에 묻힙니다.</p>
+                <p class="en-only">Temperature, vibration, current, and flow sensors all follow different specs, each with its own threshold alarm. Dozens fire a day, most of them false, so nobody reads them — and the one that mattered is buried in the noise.</p>
+              </div>
+
+              <div class="sv-scenario-pipe">
+                <div class="sv-scenario-stage">
+                  <h5 class="ko-only">수집</h5><h5 class="en-only">Collect</h5>
+                  <p class="ko-only">Modbus · MQTT · 시리얼 · 파일 로그 등 형식이 다른 데이터를 커넥터로 받아 단위·주기를 정규화하고 타임라인 정렬</p>
+                  <p class="en-only">Connectors ingest Modbus, MQTT, serial, and file logs, then normalize units and cadence onto a shared timeline.</p>
+                </div>
+                <div class="sv-scenario-stage">
+                  <h5 class="ko-only">판단</h5><h5 class="en-only">Judge</h5>
+                  <p class="ko-only">정상 패턴 대비 복합 신호의 이탈을 탐지하고, LLM Agent가 최근 운전 이력·정비 기록과 함께 읽어 원인 후보와 심각도를 산출</p>
+                  <p class="en-only">Detect combined-signal deviation from the normal pattern; an LLM agent reads it alongside recent operating and maintenance history to rank likely causes and severity.</p>
+                </div>
+                <div class="sv-scenario-stage">
+                  <h5 class="ko-only">실행</h5><h5 class="en-only">Act</h5>
+                  <p class="ko-only">심각도에 따라 조치를 분기 — 경미: 관측 강화·일일 리포트 / 주의: 정비 티켓 발행·부품 재고 조회 / 심각: 설비 정지·담당자와 관리자 동시 호출</p>
+                  <p class="en-only">Branch by severity — minor: increase sampling and note it in the daily report; watch: open a maintenance ticket and check part stock; critical: stop the equipment and page operator and manager together.</p>
+                </div>
+                <div class="sv-scenario-stage is-outcome">
+                  <h5 class="ko-only">효과</h5><h5 class="en-only">Outcome</h5>
+                  <p class="ko-only">임계값 알람의 오탐을 걸러내 알람 피로를 줄이고, 조치 수준이 상황에 맞게 자동 결정됨</p>
+                  <p class="en-only">Threshold false positives get filtered out, alarm fatigue drops, and the level of response is decided to fit the situation.</p>
+                </div>
+              </div>
+
+              <div class="sv-scenario-foot">
+                <span class="sv-scenario-label ko-only">적용 산업</span>
+                <span class="sv-scenario-label en-only">Applies to</span>
+                <span class="sv-chip ko-only">화학 · 플랜트</span><span class="sv-chip en-only">Chemical &amp; plant</span>
+                <span class="sv-chip ko-only">발전 · 송배전</span><span class="sv-chip en-only">Power &amp; grid</span>
+                <span class="sv-chip ko-only">데이터센터</span><span class="sv-chip en-only">Data centers</span>
+                <span class="sv-chip ko-only">상하수도</span><span class="sv-chip en-only">Water &amp; wastewater</span>
+              </div>
+            </article>
+
+            <article class="sv-scenario">
+              <div class="sv-scenario-head">
+                <div>
+                  <h3 class="ko-only">설비 상태 기반 예지보전</h3>
+                  <h3 class="en-only">Condition-based predictive maintenance</h3>
+                  <div class="sv-scenario-sub ko-only">회전기기 · 공조 · 컨베이어</div>
+                  <div class="sv-scenario-sub en-only">Rotating equipment · HVAC · conveyors</div>
+                </div>
+              </div>
+
+              <div class="sv-scenario-problem">
+                <div class="sv-scenario-label ko-only">문제</div>
+                <div class="sv-scenario-label en-only">Problem</div>
+                <p class="ko-only">고장이 나야 고칩니다. 예방 정비는 달력상의 주기만 지킬 뿐 실제 설비 상태와 무관해서, 멀쩡한 부품을 갈거나 정작 필요한 정비는 놓칩니다.</p>
+                <p class="en-only">Things get fixed once they break. Preventive maintenance follows the calendar, not the equipment — so healthy parts get replaced while the one that needed attention is missed.</p>
+              </div>
+
+              <div class="sv-scenario-pipe">
+                <div class="sv-scenario-stage">
+                  <h5 class="ko-only">수집</h5><h5 class="en-only">Collect</h5>
+                  <p class="ko-only">진동·온도·소음·전류 센서와 설비 가동 로그, 과거 정비 이력을 함께 축적</p>
+                  <p class="en-only">Vibration, temperature, acoustic, and current sensors together with runtime logs and past maintenance records.</p>
+                </div>
+                <div class="sv-scenario-stage">
+                  <h5 class="ko-only">판단</h5><h5 class="en-only">Judge</h5>
+                  <p class="ko-only">열화 추세를 추정해 고장 확률과 잔여 여유를 산출하고, 생산 계획과 대조해 정비하기 좋은 시점을 추천</p>
+                  <p class="en-only">Estimate the degradation trend to derive failure probability and remaining margin, then cross-reference the production schedule for the best window.</p>
+                </div>
+                <div class="sv-scenario-stage">
+                  <h5 class="ko-only">실행</h5><h5 class="en-only">Act</h5>
+                  <p class="ko-only">정비 계획 시스템에 작업 자동 등록, 필요한 부품 발주 요청, 라인 여유 시간대를 담당자에게 제안</p>
+                  <p class="en-only">File the work order into the maintenance system, raise the parts requisition, and propose the slack window to the planner.</p>
+                </div>
+                <div class="sv-scenario-stage is-outcome">
+                  <h5 class="ko-only">효과</h5><h5 class="en-only">Outcome</h5>
+                  <p class="ko-only">계획 외 정지를 계획된 정비로 전환. 과잉 정비와 돌발 정지를 동시에 줄임</p>
+                  <p class="en-only">Unplanned downtime turns into planned maintenance, cutting both over-servicing and surprise stoppages.</p>
+                </div>
+              </div>
+
+              <div class="sv-scenario-foot">
+                <span class="sv-scenario-label ko-only">적용 산업</span>
+                <span class="sv-scenario-label en-only">Applies to</span>
+                <span class="sv-chip ko-only">모터 · 펌프</span><span class="sv-chip en-only">Motors &amp; pumps</span>
+                <span class="sv-chip ko-only">컴프레서</span><span class="sv-chip en-only">Compressors</span>
+                <span class="sv-chip ko-only">컨베이어</span><span class="sv-chip en-only">Conveyors</span>
+                <span class="sv-chip ko-only">건물 공조</span><span class="sv-chip en-only">Building HVAC</span>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 영상 기반 안전 · 보안 자동화 ============ -->
+      <section class="sv-tabpanel sv-section" data-tab="safety" id="safety">
+        <div class="sv-wrap">
+          <div class="sv-head">
+            <div class="sv-eyebrow">Safety &amp; Security Automation</div>
+            <h2 class="ko-only">영상 기반 안전 · 보안 자동화</h2>
+            <h2 class="en-only">Video-driven safety &amp; security automation</h2>
+            <p class="ko-only">카메라는 이미 충분히 달려 있습니다. 문제는 그 화면을 계속 보고 있을 사람이 없다는 것입니다. 판단과 첫 조치까지를 자동화하면, 사람은 정말 판단이 필요한 예외에만 개입하면 됩니다.</p>
+            <p class="en-only">The cameras are already installed. What's missing is someone watching them continuously. Automate the judgment and the first response, and people only step in where judgment is genuinely needed.</p>
+          </div>
+
+          <div class="sv-scenarios">
+
+            <article class="sv-scenario">
+              <div class="sv-scenario-head">
+                <div>
+                  <h3 class="ko-only">작업장 안전 규정 위반 즉시 대응</h3>
+                  <h3 class="en-only">Immediate response to safety violations</h3>
+                  <div class="sv-scenario-sub ko-only">건설 · 중공업 · 물류창고</div>
+                  <div class="sv-scenario-sub en-only">Construction · heavy industry · warehouses</div>
+                </div>
+              </div>
+
+              <div class="sv-scenario-problem">
+                <div class="sv-scenario-label ko-only">문제</div>
+                <div class="sv-scenario-label en-only">Problem</div>
+                <p class="ko-only">보호구 미착용이나 위험구역 진입은 관제 요원이 마침 그 화면을 보고 있을 때만 잡힙니다. 사고가 난 뒤에야 영상을 되돌려 보게 됩니다.</p>
+                <p class="en-only">Missing protective gear or someone stepping into a restricted zone is only caught if an operator happens to be looking at that tile. Otherwise the footage is reviewed after the accident.</p>
+              </div>
+
+              <div class="sv-scenario-pipe">
+                <div class="sv-scenario-stage">
+                  <h5 class="ko-only">수집</h5><h5 class="en-only">Collect</h5>
+                  <p class="ko-only">작업장 카메라, 출입 통제 시스템 기록, 중장비 가동 신호</p>
+                  <p class="en-only">Site cameras, access control records, and heavy equipment operating signals.</p>
+                </div>
+                <div class="sv-scenario-stage">
+                  <h5 class="ko-only">판단</h5><h5 class="en-only">Judge</h5>
+                  <p class="ko-only">보호구 착용, 위험구역·중장비 반경 진입, 쓰러짐·장시간 부동을 판단. VLM이 "작업 중 정상 자세인지"까지 구분해 오탐을 줄임</p>
+                  <p class="en-only">Assess protective gear, entry into restricted zones or equipment swing radius, falls, and prolonged stillness — with a VLM distinguishing a normal working posture to cut false alarms.</p>
+                </div>
+                <div class="sv-scenario-stage">
+                  <h5 class="ko-only">실행</h5><h5 class="en-only">Act</h5>
+                  <p class="ko-only">해당 구역 스피커 안내 방송 → 중장비 인터록 신호 → 안전관리자 모바일 호출 → 위반 영상 클립과 함께 이력 저장</p>
+                  <p class="en-only">Announce over the zone speaker → send the equipment interlock signal → page the safety manager → archive the clip with the incident record.</p>
+                </div>
+                <div class="sv-scenario-stage is-outcome">
+                  <h5 class="ko-only">효과</h5><h5 class="en-only">Outcome</h5>
+                  <p class="ko-only">사고 이전 단계에서 개입. 안전 점검·교육에 쓸 근거 자료가 자동으로 쌓임</p>
+                  <p class="en-only">Intervention happens before the incident, and the evidence for audits and training accumulates on its own.</p>
+                </div>
+              </div>
+
+              <div class="sv-scenario-foot">
+                <span class="sv-scenario-label ko-only">적용 산업</span>
+                <span class="sv-scenario-label en-only">Applies to</span>
+                <span class="sv-chip ko-only">건설 현장</span><span class="sv-chip en-only">Construction sites</span>
+                <span class="sv-chip ko-only">중공업 · 조선</span><span class="sv-chip en-only">Heavy industry &amp; shipbuilding</span>
+                <span class="sv-chip ko-only">물류창고</span><span class="sv-chip en-only">Warehouses</span>
+                <span class="sv-chip ko-only">제조 공장</span><span class="sv-chip en-only">Factories</span>
+              </div>
+            </article>
+
+            <article class="sv-scenario">
+              <div class="sv-scenario-head">
+                <div>
+                  <h3 class="ko-only">무단 출입 · 야간 시설 보안</h3>
+                  <h3 class="en-only">Intrusion &amp; after-hours facility security</h3>
+                  <div class="sv-scenario-sub ko-only">공공기관 · 무인 시설</div>
+                  <div class="sv-scenario-sub en-only">Public institutions · unmanned sites</div>
+                </div>
+              </div>
+
+              <div class="sv-scenario-problem">
+                <div class="sv-scenario-label ko-only">문제</div>
+                <div class="sv-scenario-label en-only">Problem</div>
+                <p class="ko-only">야간과 주말에는 확인할 사람이 없습니다. 동작 감지 알람은 동물·나뭇가지·빛 반사에 계속 울려서, 경비 출동 비용만 나가고 신뢰는 떨어집니다.</p>
+                <p class="en-only">Nights and weekends have nobody watching. Motion alarms keep firing on animals, branches, and light reflections — burning dispatch costs and eroding trust in the system.</p>
+              </div>
+
+              <div class="sv-scenario-pipe">
+                <div class="sv-scenario-stage">
+                  <h5 class="ko-only">수집</h5><h5 class="en-only">Collect</h5>
+                  <p class="ko-only">경계 카메라, 출입문 센서, 인가된 출입 일정과 재실 정보</p>
+                  <p class="en-only">Perimeter cameras, door sensors, and the authorized access schedule and occupancy data.</p>
+                </div>
+                <div class="sv-scenario-stage">
+                  <h5 class="ko-only">판단</h5><h5 class="en-only">Judge</h5>
+                  <p class="ko-only">사람·차량 여부와 인가 여부를 대조해 침입인지 정상 출입인지 판단하고, 오탐 요인을 맥락으로 걸러냄</p>
+                  <p class="en-only">Cross-check person or vehicle against the authorization list to separate intrusion from a legitimate visit, filtering out the usual false triggers by context.</p>
+                </div>
+                <div class="sv-scenario-stage">
+                  <h5 class="ko-only">실행</h5><h5 class="en-only">Act</h5>
+                  <p class="ko-only">경광등·경고 방송 작동 → 출입문 잠금 → 관제실·경비업체 통보 → 침입 경로 영상을 자동 편집해 함께 전달</p>
+                  <p class="en-only">Trigger the strobe and warning announcement → lock the doors → notify the control room and security provider → send an auto-edited clip of the intrusion path.</p>
+                </div>
+                <div class="sv-scenario-stage is-outcome">
+                  <h5 class="ko-only">효과</h5><h5 class="en-only">Outcome</h5>
+                  <p class="ko-only">무인 상태에서도 즉시 대응. 오탐 출동이 줄어 경비 운영 비용이 함께 내려감</p>
+                  <p class="en-only">Immediate response even with nobody on site, and fewer false dispatches bring guarding costs down with them.</p>
+                </div>
+              </div>
+
+              <div class="sv-scenario-foot">
+                <span class="sv-scenario-label ko-only">적용 산업</span>
+                <span class="sv-scenario-label en-only">Applies to</span>
+                <span class="sv-chip ko-only">공공 · 기관</span><span class="sv-chip en-only">Public institutions</span>
+                <span class="sv-chip ko-only">발전 · 송배전</span><span class="sv-chip en-only">Power facilities</span>
+                <span class="sv-chip ko-only">물류센터</span><span class="sv-chip en-only">Distribution centers</span>
+                <span class="sv-chip ko-only">캠퍼스 · 연구소</span><span class="sv-chip en-only">Campuses &amp; labs</span>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 요청형 맞춤 자동화 ============ -->
+      <section class="sv-tabpanel sv-section" data-tab="custom" id="custom">
+        <div class="sv-wrap">
+          <div class="sv-head">
+            <div class="sv-eyebrow">Custom Automation</div>
+            <h2 class="ko-only">요청형 맞춤 자동화</h2>
+            <h2 class="en-only">Automation built on request</h2>
+            <p class="ko-only">앞의 사례들은 자주 나오는 형태일 뿐입니다. YIYOL이 실제로 하는 일은 <strong>고객이 가져온 문제에서 시작해 그 현장에만 맞는 파이프라인을 새로 만드는 것</strong>입니다.</p>
+            <p class="en-only">The cases above are just the shapes that come up often. What YIYOL actually does is <strong>start from the problem you bring and build a pipeline that fits only your site</strong>.</p>
+          </div>
+
+          <div class="sv-prose">
+            <h3 class="ko-only">세 가지만 알려주시면 됩니다</h3>
+            <h3 class="en-only">We only need three things from you</h3>
+            <p class="ko-only">기술 사양을 정리해 오실 필요는 없습니다. 아래 세 가지를 말씀해 주시면 나머지는 저희가 설계합니다.</p>
+            <p class="en-only">You don't need to arrive with a technical spec. Tell us these three things and we'll design the rest.</p>
+            <ul class="sv-check-list">
+              <li><span class="ko-only"><strong>어떤 상황이 문제인가</strong> — "야간에 이 구역에 사람이 들어오면 안 된다", "이 설비가 이렇게 움직이면 이상이다"</span><span class="en-only"><strong>Which situation is the problem</strong> — "nobody should enter this zone at night", "when the machine moves like this, something is wrong"</span></li>
+              <li><span class="ko-only"><strong>지금 어떤 데이터가 있는가</strong> — 카메라, 센서, 설비 로그, 기존 시스템 무엇이든. 없으면 무엇을 붙여야 할지부터 함께 정합니다</span><span class="en-only"><strong>What data exists today</strong> — cameras, sensors, machine logs, existing systems, anything. If there's none, we work out together what to add</span></li>
+              <li><span class="ko-only"><strong>그때 무엇이 일어나야 하는가</strong> — 알리기만 할지, 설비를 세울지, 다른 시스템에 기록할지, 상황에 따라 다르게 처리할지</span><span class="en-only"><strong>What should happen then</strong> — just notify, stop the machine, record it elsewhere, or branch differently depending on the case</span></li>
+            </ul>
+
+            <h3 class="ko-only">후속조치로 연결할 수 있는 것들</h3>
+            <h3 class="en-only">What a follow-up action can be</h3>
+            <p class="ko-only">판단 결과는 하나의 알림으로 끝나지 않습니다. WebHook과 API를 통해 이미 쓰고 계신 시스템으로 그대로 이어집니다.</p>
+            <p class="en-only">A judgment doesn't have to end as one notification. Through WebHooks and APIs it flows straight into the systems you already run.</p>
+            <ul class="sv-check-list">
+              <li><span class="ko-only">모바일 푸시 · 문자 · 이메일 · 메신저(슬랙·팀즈·카카오워크) 알림</span><span class="en-only">Mobile push, SMS, email, and messenger alerts (Slack, Teams, Kakao Work)</span></li>
+              <li><span class="ko-only">현장 스피커 방송 · 경광등 · 표시등 제어</span><span class="en-only">On-site PA announcements, strobes, and indicator lights</span></li>
+              <li><span class="ko-only">설비 정지·감속·인터록, 출입문 잠금, 차단기 제어 등 물리 장치 제어</span><span class="en-only">Physical control — halting or slowing equipment, interlocks, door locks, barrier gates</span></li>
+              <li><span class="ko-only">ERP · MES · CMMS · 그룹웨어에 이벤트 기록, 티켓·작업지시 자동 발행</span><span class="en-only">Writing events into ERP, MES, CMMS, or groupware and opening tickets and work orders</span></li>
+              <li><span class="ko-only">단계별 에스컬레이션 — 무응답 시 상위 담당자로 자동 승격</span><span class="en-only">Tiered escalation — automatically promoting to the next responder when nobody answers</span></li>
+              <li><span class="ko-only">해당 시점 영상 클립 자동 추출·첨부, 판단 근거 리포트 생성</span><span class="en-only">Auto-extracting the relevant video clip and generating a report on why the call was made</span></li>
+            </ul>
+
+            <h3 class="ko-only">실제로 이렇게 만듭니다</h3>
+            <h3 class="en-only">How it comes together in practice</h3>
+            <p class="ko-only">주차장 자동화를 예로 들면, 번호판 인식 결과를 WebHook으로 받아 차단기 제어와 정산 시스템 연동까지 이어지는 구조입니다. 구현 과정을 단계별로 정리한 글이 블로그에 있습니다.</p>
+            <p class="en-only">Take parking as an example: license plate recognition results arrive over a WebHook and carry through to barrier control and the payment system. There's a step-by-step write-up on our blog.</p>
+            <p style="margin-top:1.6rem">
+              <a href="../blog/webhook-agentic-ai-parking-automation-guide.html" class="sv-more">
+                <span class="ko-only">WebHook 기반 자동화 구축 가이드 읽기</span><span class="en-only">Read the WebHook automation guide</span>
+              </a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ============ 구축 방식 ============ -->
+      <section class="sv-tabpanel sv-section" data-tab="build" id="build">
+        <div class="sv-wrap">
+
+          <div class="sv-head sv-fade">
+            <div class="sv-eyebrow">How It's Built</div>
+            <h2 class="ko-only">솔루션은 이렇게 만듭니다</h2>
+            <h2 class="en-only">How a solution gets built</h2>
+            <p class="ko-only">솔루션마다 처음부터 새로 만들지 않습니다. NOX 소프트웨어가 이미 영상과 데이터를 모아 저장하고 있으니, 그 위에 <strong>커넥터</strong>로 나머지 현장 데이터를 붙이고, <strong>AI 런타임</strong>이 상황을 판단하고, <strong>액션 엔진</strong>이 후속조치를 실행하도록 구성합니다. 현장마다 달라지는 것은 판단 기준과 조치 시나리오뿐입니다.</p>
+            <p class="en-only">No solution starts from scratch. The NOX software is already gathering and storing the video and data; on top of that we wire <strong>connectors</strong> for whatever else the site produces, an <strong>AI runtime</strong> that judges the situation, and an <strong>action engine</strong> that carries out the follow-up. What changes per site is the judgment criteria and the action scenarios — nothing else.</p>
+          </div>
+
+          <div class="sv-flow">
+            <div class="sv-flow-card sv-fade">
+              <div class="sv-flow-step-no">Layer 01</div>
+              <h3 class="ko-only">커넥터</h3>
+              <h3 class="en-only">Connectors</h3>
+              <p class="ko-only">영상은 NOX 소프트웨어가 이미 받고 있습니다. 여기에 설비 로그와 센서처럼 프로토콜과 전송 주기가 제각각인 데이터를 기존 장비 교체 없이 붙여, 단위를 정규화하고 같은 타임라인에 정렬합니다.</p>
+              <p class="en-only">The NOX software already has the video. Connectors add everything else — machine logs, sensors, whatever protocol and cadence they arrive in — without replacing installed equipment, normalizing units and aligning it all onto one timeline.</p>
+              <div class="sv-flow-tags">
+                <span>ONVIF · RTSP</span><span>Modbus · MQTT</span><span class="ko-only">시리얼 · PLC</span><span class="en-only">Serial · PLC</span><span class="ko-only">파일 · DB 로그</span><span class="en-only">File &amp; DB logs</span><span>REST API</span>
+              </div>
+            </div>
+            <div class="sv-flow-arrow" aria-hidden="true"></div>
+
+            <div class="sv-flow-card sv-fade">
+              <div class="sv-flow-step-no">Layer 02</div>
+              <h3 class="ko-only">AI 런타임</h3>
+              <h3 class="en-only">AI runtime</h3>
+              <p class="ko-only">Vision AI가 1차로 감지하고, VLM·LLM Agent가 맥락을 읽어 최종 판단을 내립니다. 모델은 현장에 맞게 교체·추가할 수 있고, 판단은 기본적으로 현장 장비에서 수행됩니다.</p>
+              <p class="en-only">Vision AI detects first; a VLM or LLM agent reads the context and makes the final call. Models can be swapped or added per site, and inference runs on your own hardware by default.</p>
+              <div class="sv-flow-tags">
+                <span>Vision AI</span><span>VLM</span><span>LLM Agent</span><span class="ko-only">엣지 추론</span><span class="en-only">Edge inference</span><span class="ko-only">모델 교체 가능</span><span class="en-only">Swappable models</span>
+              </div>
+            </div>
+            <div class="sv-flow-arrow" aria-hidden="true"></div>
+
+            <div class="sv-flow-card sv-fade">
+              <div class="sv-flow-step-no">Layer 03</div>
+              <h3 class="ko-only">액션 엔진</h3>
+              <h3 class="en-only">Action engine</h3>
+              <p class="ko-only">판단 결과에 따라 정의된 후속조치 중 적절한 것을 골라 실행합니다. 조건 분기, 단계별 에스컬레이션, 무응답 시 승격까지 시나리오로 구성할 수 있습니다.</p>
+              <p class="en-only">Picks and runs the right follow-up from the actions you defined. Conditional branching, tiered escalation, and promotion on no-response are all part of the scenario.</p>
+              <div class="sv-flow-tags">
+                <span>WebHook</span><span class="ko-only">알림 · 방송</span><span class="en-only">Alerts · PA</span><span class="ko-only">장치 제어</span><span class="en-only">Device control</span><span class="ko-only">ERP · MES 연동</span><span class="en-only">ERP · MES</span><span class="ko-only">에스컬레이션</span><span class="en-only">Escalation</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ============ 적용 산업 (탭과 무관하게 항상 노출) ============ -->
+      <section class="sv-section alt">
+        <div class="sv-wrap">
+          <div class="sv-head sv-fade">
+            <div class="sv-eyebrow">By Industry</div>
+            <h2 class="ko-only">적용 산업</h2>
+            <h2 class="en-only">Where we work</h2>
+            <p class="ko-only">업종은 달라도 구조는 같습니다 — 현장의 데이터를 모아 AI가 판단하고, 정의된 조치를 실행합니다.</p>
+            <p class="en-only">The industry changes; the structure doesn't — gather the site's data, let AI judge, run the defined action.</p>
           </div>
           <div class="sv-case-grid">
-            <div class="sv-case-card">
-              <i class="fas fa-clipboard-list"></i>
-              <h4 class="ko-only">1. 상담 · 분석</h4>
-              <h4 class="en-only">1. Consult</h4>
-              <p class="ko-only">현장 규모와 요구사항을 함께 분석</p>
-              <p class="en-only">Analyze your site scale and requirements together</p>
+            <div class="sv-case-card sv-fade">
+              <h4 class="ko-only">제조 · 공정</h4>
+              <h4 class="en-only">Manufacturing</h4>
+              <p class="ko-only">라인 이상 감지, 작업 표준 준수, 품질 이벤트 자동 기록</p>
+              <p class="en-only">Line anomalies, work-standard compliance, automatic quality records</p>
             </div>
-            <div class="sv-case-card">
-              <i class="fas fa-screwdriver-wrench"></i>
-              <h4 class="ko-only">2. 구축 · 연동</h4>
-              <h4 class="en-only">2. Deploy</h4>
-              <p class="ko-only">ONVIF·RTSP 카메라 연결 및 시스템 연동</p>
-              <p class="en-only">Connect cameras and integrate existing systems</p>
+            <div class="sv-case-card sv-fade">
+              <h4 class="ko-only">물류 · 창고</h4>
+              <h4 class="en-only">Logistics</h4>
+              <p class="ko-only">피킹 오류 검출, 지게차 안전, 상하차 구역 관제 자동화</p>
+              <p class="en-only">Picking errors, forklift safety, automated dock-area monitoring</p>
             </div>
-            <div class="sv-case-card">
-              <i class="fas fa-brain"></i>
-              <h4 class="ko-only">3. AI 설정</h4>
-              <h4 class="en-only">3. Configure AI</h4>
-              <p class="ko-only">현장에 맞는 AI 모델·이벤트 구성</p>
-              <p class="en-only">Configure AI models and events for the site</p>
+            <div class="sv-case-card sv-fade">
+              <h4 class="ko-only">에너지 · 플랜트</h4>
+              <h4 class="en-only">Energy &amp; plants</h4>
+              <p class="ko-only">이기종 센서 통합 판단, 예지보전, 무인 설비 침입 대응</p>
+              <p class="en-only">Cross-vendor sensor judgment, predictive maintenance, unmanned-site intrusion</p>
             </div>
-            <div class="sv-case-card">
-              <i class="fas fa-circle-play"></i>
-              <h4 class="ko-only">4. 운영 · 관제</h4>
-              <h4 class="en-only">4. Operate</h4>
-              <p class="ko-only">24/7 무중단 실시간 관제·녹화 운영</p>
-              <p class="en-only">24/7 live monitoring & recording in operation</p>
+            <div class="sv-case-card sv-fade">
+              <h4 class="ko-only">공공 · 기관</h4>
+              <h4 class="en-only">Public sector</h4>
+              <p class="ko-only">데이터가 외부로 나가면 안 되는 환경의 on-prem AI 자동화</p>
+              <p class="en-only">On-prem AI automation where data must never leave the premises</p>
             </div>
           </div>
         </div>
@@ -175,25 +583,53 @@
 
     </main>
 
+    <!-- CTA -->
+    <section class="sv-cta">
+      <h2 class="ko-only">여기에 없는 문제라면 더 좋습니다</h2>
+      <h2 class="en-only">Even better if your problem isn't listed here</h2>
+      <p class="ko-only">패키지에 맞춰 드리지 않습니다. 현장의 문제를 듣고, 가능한지부터 솔직하게 검토해 드립니다.</p>
+      <p class="en-only">We won't bend your problem to fit a package. Tell us what's happening on site and we'll give you a straight answer on whether it's feasible.</p>
+      <div class="sv-hero-cta">
+        <a href="../contact/" class="sv-btn sv-btn-primary">
+          <span class="ko-only">문제 상담하기</span><span class="en-only">Tell us your problem</span>
+        </a>
+        <a href="../products/" class="sv-btn sv-btn-ghost">
+          <span class="ko-only">기반 플랫폼 보기</span><span class="en-only">See the platform</span>
+        </a>
+      </div>
+    </section>
+
     <!-- Footer -->
-    <footer class="sv-footer" role="contentinfo">
-      <div class="sv-footer-info">
-        <span class="ko-only">서울특별시 금천구 가산디지털1로 75-15, 하우스디 와이즈타워 326호</span>
-        <span class="en-only">#326, 75-15 Gasan Digital 1-ro, Geumcheon-gu, Seoul</span>
-        <span class="sv-footer-divider">|</span>
-        <span>yiyol@yiyol.com</span>
+    <footer class="yl-foot" role="contentinfo">
+      <div class="yl-shell">
+        <div class="yl-foot-mast">
+          <div>
+            <div class="yl-foot-word">YIYOL<span>.</span></div>
+            <p class="yl-foot-tag ko-only">영상을 저장하고 관리하는 NVR·VMS,<br />그 위에서 판단하고 실행하는 AI 자동화</p>
+            <p class="yl-foot-tag en-only">NVR and VMS that store and manage your video — and the AI automation built on top of it.</p>
+          </div>
+          <nav class="yl-foot-links" aria-label="Footer navigation">
+            <a href="../products/"><span class="ko-only">제품</span><span class="en-only">Products</span></a>
+            <a href="../solutions/"><span class="ko-only">AI 솔루션</span><span class="en-only">AI Solutions</span></a>
+            <a href="../company/"><span class="ko-only">회사소개</span><span class="en-only">About</span></a>
+            <a href="../blog/"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a>
+            <a href="../contact/"><span class="ko-only">문의</span><span class="en-only">Contact</span></a>
+          </nav>
+        </div>
+        <div class="yl-foot-meta">
+          <span class="ko-only">서울특별시 금천구 가산디지털1로 75-15, 하우스디 와이즈타워 326호</span>
+          <span class="en-only">#326, 75-15 Gasan Digital 1-ro, Geumcheon-gu, Seoul</span>
+          <a href="mailto:yiyol@yiyol.com">yiyol@yiyol.com</a>
+          <span class="ko-only">사업자등록번호 186-34-01502</span>
+          <span class="en-only">Business Registration 186-34-01502</span>
+          <span class="ko-only">통신판매업 제2024-서울금천-1806호</span>
+          <span class="en-only">Mail-order License 2024-Seoul Geumcheon-1806</span>
+        </div>
+        <p class="yl-foot-copy">&copy; 2026 YIYOL. All rights reserved.</p>
       </div>
-      <div class="sv-footer-info">
-        <span class="ko-only">사업자등록번호 186-34-01502</span>
-        <span class="en-only">Business Registration 186-34-01502</span>
-        <span class="sv-footer-divider">|</span>
-        <span class="ko-only">통신판매업 제2024-서울금천-1806호</span>
-        <span class="en-only">Mail-order License 제2024-서울금천-1806호</span>
-      </div>
-      <p class="sv-footer-copy">&copy; 2026 YIYOL. All rights reserved.</p>
     </footer>
 
     <script src="../assets/js/i18n.js?v=4"></script>
-    <script src="../assets/js/surv-tabs.js?v=2"></script>
+    <script src="../assets/js/yiyol-tabs.js?v=1"></script>
   </body>
 </html>

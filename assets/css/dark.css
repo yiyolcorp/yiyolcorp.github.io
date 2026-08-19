@@ -1,0 +1,262 @@
+/* Hallmark · pre-emit critique: P5 H5 E4 S5 R5 V5
+ * Hallmark · PRODUCT-DARK VARIANT · design-system: design.md § Variants · designed-as-app
+ * genre: modern-minimal · theme: Cobalt inverted (graphite canvas, brand-cyan accent)
+ * nav: N1b (dark skin) · footer: Ft1 (dark skin)
+ * pages: nox-nvr.html · nox-nvr-embed.html · nox/*.html
+ *
+ * Loaded AFTER site.css. It inverts the ground for these pages and gives the
+ * shared chrome a dark skin; each page keeps its own bespoke composition.
+ * Scope: `body.yl-dark`.
+ */
+
+/* ============================================================
+   Ground — chrome only, NOT a blanket inversion.
+   These pages mix a dark hero with light content cards. Setting a light base
+   colour on <body> made every element without an explicit colour inherit light
+   text onto a white card. The variant therefore skins the shared chrome and
+   enforces the universal gates, and leaves each page's own colour decisions alone.
+   ============================================================ */
+body.yl-dark ::selection { background: var(--color-accent-bright); color: var(--color-graphite); }
+body.yl-dark :focus-visible { outline-color: var(--color-accent-bright); }
+
+/* ============================================================
+   Nav — dark skin of N1b
+   ============================================================ */
+body.yl-dark .site-nav {
+  background: var(--color-graphite-veil);
+  border-bottom-color: transparent;
+}
+body.yl-dark .site-nav.is-stuck {
+  background: var(--color-graphite-veil-2);
+  border-bottom-color: var(--color-graphite-rule);
+}
+body.yl-dark .site-nav-logo { color: var(--color-on-dark); }
+body.yl-dark .site-nav-logo span { color: var(--color-accent-bright); }
+body.yl-dark .site-nav-links a { color: var(--color-on-dark-2); }
+body.yl-dark .site-nav-links a:hover { color: var(--color-on-dark); }
+body.yl-dark .site-nav-links .nav-active { color: var(--color-accent-bright); }
+body.yl-dark .site-nav-links a:not(.nav-cta)::after { background: var(--color-accent-bright); }
+body.yl-dark .site-nav-links .nav-cta {
+  background: var(--color-accent-bright);
+  color: var(--color-graphite) !important;
+}
+body.yl-dark .site-nav-links .nav-cta:hover { background: var(--color-on-dark); }
+body.yl-dark .lang-selector { border-color: var(--color-graphite-rule); color: var(--color-on-dark-2); }
+body.yl-dark .lang-selector:hover { border-color: var(--color-accent-bright); color: var(--color-accent-bright); }
+body.yl-dark .lang-dropdown { background: var(--color-graphite-2); border-color: var(--color-graphite-rule); }
+body.yl-dark .lang-option { color: var(--color-on-dark-2); }
+body.yl-dark .lang-option:hover { background: var(--color-graphite); color: var(--color-on-dark); }
+body.yl-dark .lang-option.active { color: var(--color-accent-bright); }
+body.yl-dark .nav-hamburger { color: var(--color-on-dark); }
+
+@media (max-width: 860px) {
+  body.yl-dark .site-nav-right {
+    background: var(--color-graphite-2);
+    border-block-color: var(--color-graphite-rule);
+  }
+}
+
+/* ============================================================
+   Footer — dark skin of Ft1 (already graphite; re-stated so the variant is
+   self-describing and survives a change to the light footer)
+   ============================================================ */
+body.yl-dark .yl-foot { background: var(--color-graphite-2); }
+body.yl-dark .yl-foot-mast { border-bottom-color: var(--color-graphite-rule); }
+
+/* ============================================================
+   Shared controls on a dark ground
+   ============================================================ */
+body.yl-dark .yl-btn--primary {
+  background: var(--color-accent-bright);
+  color: var(--color-graphite);
+}
+body.yl-dark .yl-btn--primary:hover { background: var(--color-on-dark); }
+body.yl-dark .yl-link { color: var(--color-accent-bright); border-bottom-color: var(--color-graphite-rule); }
+body.yl-dark .yl-link:hover { color: var(--color-on-dark); border-bottom-color: var(--color-accent-bright); }
+body.yl-dark .yl-label { color: var(--color-on-dark-2); }
+body.yl-dark .yl-label--accent { color: var(--color-accent-bright); }
+body.yl-dark .yl-lede { color: var(--color-on-dark-2); }
+
+/* ============================================================
+   Universal gates, enforced on the bespoke page CSS these pages still ship.
+   Each rule below neutralises a named anti-pattern without touching the
+   page's composition.
+   ============================================================ */
+
+/* gate 2 — the gradient-text neutraliser that used to live here is gone: the
+   product pages no longer clip a gradient to their glyphs, so there is nothing
+   left to override. Solid ink is now set at source. */
+
+/* gate 10 — named easings and explicit properties, never `transition: all` */
+body.yl-dark a,
+body.yl-dark button,
+body.yl-dark .card,
+body.yl-dark .cell {
+  transition-property: color, background-color, border-color, opacity, transform;
+  transition-timing-function: var(--ease-out);
+  transition-duration: var(--dur-fast);
+}
+
+/* Korean wraps on word boundaries here too */
+body.yl-dark, body.yl-dark h1, body.yl-dark h2, body.yl-dark h3, body.yl-dark h4 { word-break: keep-all; }
+body.yl-dark h1, body.yl-dark h2, body.yl-dark h3, body.yl-dark h4 {
+  overflow-wrap: anywhere;
+  min-width: 0;
+  font-style: normal;
+}
+
+/* gate 34 */
+body.yl-dark { overflow-x: clip; }
+
+@media (prefers-reduced-motion: reduce) {
+  body.yl-dark *,
+  body.yl-dark *::before,
+  body.yl-dark *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 150ms !important;
+  }
+  body.yl-dark .reveal { opacity: 1 !important; transform: none !important; }
+}
+
+/* Removing the Font Awesome glyphs left these containers as empty colour
+   swatches. They carried no information, so they collapse rather than linger. */
+body.yl-dark .feature-icon:empty,
+body.yl-dark .tech-icon:empty,
+body.yl-dark .card-icon:empty,
+body.yl-dark .icon:empty,
+body.yl-dark [class*="-icon"]:empty { display: none; }
+
+/* ============================================================
+   Contrast remediation — measured, not guessed.
+   These pages hard-coded the raw brand cyan #00b4d8 as *text* on light cards,
+   which is 2.46:1 — the same WCAG AA failure the corporate site had. On light
+   grounds the accent deepens to --color-accent (5.36:1); the bright cyan stays
+   for dark grounds only. Muted greys that fell under 4.5:1 move to --color-muted.
+   ============================================================ */
+
+/* Nav sits over a light content body on several of these pages, so a
+   translucent dark bar composited to mid-grey (light nav text @2.95:1).
+   An opaque graphite bar guarantees the ratio in both scroll states. */
+body.yl-dark .site-nav,
+body.yl-dark .site-nav.is-stuck {
+  background: var(--color-graphite);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+body.yl-dark .site-nav.is-stuck { border-bottom-color: var(--color-graphite-rule); }
+
+/* Cyan-as-text on light surfaces */
+body.yl-dark .stat-num,
+body.yl-dark .stat-unit,
+body.yl-dark .section-label,
+body.yl-dark .flow-label,
+body.yl-dark .step-num,
+body.yl-dark .usp-tag,
+body.yl-dark .persona-badge,
+body.yl-dark .cta-info,
+body.yl-dark .push-label { color: var(--color-accent); }
+
+/* Filled CTAs were white on a cyan gradient (2.46:1). Solid deep accent instead. */
+body.yl-dark .btn-primary,
+body.yl-dark .cta-btn,
+body.yl-dark .btn.primary {
+  background: var(--color-accent) !important;
+  background-image: none !important;
+  color: var(--color-accent-ink) !important;
+  border-color: transparent;
+}
+body.yl-dark .btn-primary:hover,
+body.yl-dark .cta-btn:hover,
+body.yl-dark .btn.primary:hover { background: var(--color-accent-hover) !important; }
+
+/* Body copy and captions that measured under 4.5:1 on their own ground */
+body.yl-dark .spec-section-desc,
+body.yl-dark .firstbadge,
+body.yl-dark .big,
+body.yl-dark td.dim,
+body.yl-dark .dim { color: var(--color-muted); }
+
+/* On the genuinely dark sections those same roles need the light end instead */
+body.yl-dark .hero .big,
+body.yl-dark .hero .dim,
+body.yl-dark .hero .firstbadge { color: var(--color-on-dark-2); }
+
+/* ------------------------------------------------------------
+   Ground-scoped colour. The same classes appear on light cards and on dark
+   panels, so colour is resolved by the container that establishes the ground
+   rather than by the class alone. Every value below replaces a measured
+   failure: the pages' slate greys (#334155 / #475569 / #64748b) run 1.88–3.95:1
+   on their own dark panels, and the deep accent is unreadable there.
+   ------------------------------------------------------------ */
+body.yl-dark :is(
+  .hero, .section-dark, .custom-hero-visual, .custom-layer, .security-callout,
+  .persona-card, .split-visual, .phone-visual, .ai-road, .ai-stage,
+  .cta-section, .cl-text, .nox-panel
+) :is(p, li, small, figcaption, dd, .cl-text, .desc, .sub) {
+  color: var(--color-on-dark-2) !important;
+}
+body.yl-dark :is(
+  .hero, .section-dark, .custom-hero-visual, .custom-layer, .security-callout,
+  .persona-card, .split-visual, .phone-visual, .ai-road, .ai-stage,
+  .cta-section, .cl-text, .nox-panel
+) :is(h1, h2, h3, h4, h5, strong, b, dt) {
+  color: var(--color-on-dark) !important;
+}
+/* Accent-bearing labels take the bright end on dark ground, the deep end on light */
+body.yl-dark :is(
+  .hero, .section-dark, .custom-hero-visual, .security-callout, .persona-card,
+  .split-visual, .phone-visual, .ai-road, .cta-section
+) :is(.section-label, .persona-badge, .flow-label, .hero-eyebrow, .push-label, em) {
+  color: var(--color-accent-bright) !important;
+  font-style: normal;
+}
+/* …and on light ground the same roles deepen so they clear AA on white */
+body.yl-dark .stat-num,
+body.yl-dark .stat-unit,
+body.yl-dark .step-num,
+body.yl-dark .usp-tag,
+body.yl-dark .cta-info { color: var(--color-accent) !important; }
+
+/* partner.html — comparison table */
+body.yl-dark td.dim,
+body.yl-dark .cmp-table td:last-child,
+body.yl-dark .compare-table td:last-child { color: var(--color-muted) !important; }
+
+/* Emphasis on a light ground: the raw brand cyan measures 2.36–2.46:1 there.
+   Dark containers above already override this back to the bright end. */
+body.yl-dark em,
+body.yl-dark h2 em,
+body.yl-dark h3 em { color: var(--color-accent) !important; font-style: normal; }
+
+/* partner.html's scale bar used to need three passes of remediation here — it
+   ramped from bright cyan to dark navy and no single text colour cleared AA
+   across it. The bar is now built from graphite cells + hairlines at source,
+   with the range carried by the channel figures, so the overrides are gone. */
+
+/* Cyan-filled chips carry dark ink, not more cyan. */
+body.yl-dark .nox-box,
+body.yl-dark .nox-col,
+body.yl-dark .nox-box *,
+body.yl-dark .nox-col * { color: var(--color-graphite) !important; }
+
+/* nox/specifications defines its own palette variables. Bridging them onto the
+   tokens fixes every rule that referenced them at once — its --text-muted
+   (#5a5a7a) measured 2.97:1 on its own #0a0a1a ground. */
+body.yl-dark {
+  --text-primary:   var(--color-on-dark);
+  --text-secondary: var(--color-on-dark-2);
+  --text-muted:     var(--color-on-dark-2);
+  --accent:         var(--color-accent-bright);
+  --accent-light:   var(--color-on-dark);
+}
+body.yl-dark .spec-section-desc,
+body.yl-dark .sidebar-title,
+body.yl-dark .cta-info { color: var(--color-on-dark-2) !important; }
+
+/* A page's own section nav docks BENEATH the site bar rather than fighting it
+   for the top edge (two sticky-at-0 elements overlap — slop-test gate 56). */
+body.yl-dark nav:not(.site-nav):not(.yl-foot-links) {
+  top: var(--nav-h) !important;
+  z-index: 500;
+}

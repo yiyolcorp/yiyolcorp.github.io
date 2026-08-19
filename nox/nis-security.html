@@ -17,256 +17,267 @@
   <meta property="og:title" content="NOX 26.04 — 국정원 보안요구사항 전 항목 대응 완료">
   <meta property="og:description" content="국가용 보안요구사항 V3.0 영상정보처리기기(NVR) 전 항목 대응 완료. AES-256-GCM, TPM, RBAC 등 최고 수준 보안.">
   <meta property="og:type" content="article">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
+    /* Hallmark · design-system: design.md § Variants (product-dark)
+     * Converted off a private palette onto tokens.css — every colour and font
+     * below references a named token (gate 48). The page previously carried a
+     * mint second accent (a banned hue under design.md § Variants).
+     */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #f8fafc;
-      color: #1e293b;
+      font-family: var(--font-body);
+      background: var(--color-paper-2);
+      color: var(--color-ink-2);
       line-height: 1.7;
     }
     .lang-toggle { display: none; }
 
-    /* Header */
+    /* Header — the page's one graphite band. Flat, not a gradient ground. */
     .page-header {
-      background: linear-gradient(135deg, #0a1628 0%, #132244 40%, #0d3b4e 100%);
-      color: #fff;
-      padding: 3.5rem 1.5rem 3rem;
+      background: var(--color-graphite);
+      color: var(--color-on-dark);
+      padding: var(--space-2xl) var(--space-md) var(--space-xl);
       text-align: center;
       position: relative;
       overflow: hidden;
     }
-    .page-header::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle at 30% 70%, rgba(74,237,196,0.08) 0%, transparent 50%),
-                  radial-gradient(circle at 70% 30%, rgba(59,130,246,0.08) 0%, transparent 50%);
-    }
     .page-header > * { position: relative; z-index: 1; }
     .header-badge {
       display: inline-block;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      font-weight: 500;
+      letter-spacing: var(--tracking-mono);
       text-transform: uppercase;
-      color: #4aedc4;
-      border: 1px solid rgba(74,237,196,0.3);
-      padding: 0.3rem 0.8rem;
-      border-radius: 3px;
-      margin-bottom: 1rem;
+      color: var(--color-accent-bright);
+      border: var(--rule-hair) solid var(--color-graphite-rule);
+      padding: var(--space-3xs) var(--space-2xs);
+      border-radius: var(--radius-ctl);
+      margin-bottom: var(--space-sm);
     }
     .page-header h1 {
-      font-family: 'Poppins', sans-serif;
-      font-size: clamp(1.5rem, 4vw, 2.2rem);
-      font-weight: 800;
-      margin-bottom: 0.75rem;
+      font-family: var(--font-display);
+      font-size: var(--text-3xl);
+      font-weight: 600;
+      letter-spacing: var(--tracking-display);
+      margin-bottom: var(--space-xs);
       line-height: 1.3;
     }
-    .page-header h1 .accent { color: #4aedc4; }
+    .page-header h1 .accent { color: var(--color-accent-bright); }
     .page-header p {
-      font-size: 1rem;
-      color: #94a3b8;
+      font-size: var(--text-md);
+      color: var(--color-on-dark-2);
       max-width: 640px;
       margin: 0 auto;
       line-height: 1.7;
     }
     .header-nav {
       position: absolute;
-      top: 1rem;
-      left: 1.5rem;
+      top: var(--space-sm);
+      left: var(--space-md);
     }
     .header-nav a {
-      color: #94a3b8;
+      color: var(--color-on-dark-2);
       text-decoration: none;
-      font-size: 0.85rem;
+      font-size: var(--text-base);
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
-      transition: color 0.2s;
+      gap: var(--space-3xs);
+      white-space: nowrap;                  /* gate 49 */
+      transition: color var(--dur-fast) var(--ease-out);
     }
-    .header-nav a:hover { color: #fff; }
+    .header-nav a:hover { color: var(--color-on-dark); }
     .lang-btn {
       position: absolute;
-      top: 1rem;
-      right: 1.5rem;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.2);
-      color: #94a3b8;
-      padding: 0.3rem 0.7rem;
-      border-radius: 4px;
-      font-size: 0.78rem;
+      top: var(--space-sm);
+      right: var(--space-md);
+      background: var(--color-graphite-2);
+      border: var(--rule-hair) solid var(--color-graphite-rule);
+      color: var(--color-on-dark-2);
+      padding: var(--space-3xs) var(--space-2xs);
+      border-radius: var(--radius-ctl);
+      font-size: var(--text-sm);
       cursor: pointer;
-      transition: all 0.2s;
+      white-space: nowrap;                  /* gate 49 */
+      /* gate 10 — named properties, named easing */
+      transition: background-color var(--dur-fast) var(--ease-out),
+                  color var(--dur-fast) var(--ease-out);
     }
-    .lang-btn:hover { background: rgba(255,255,255,0.2); color: #fff; }
+    .lang-btn:hover { background: var(--color-graphite-rule); color: var(--color-on-dark); }
 
     /* Content */
-    .content { max-width: 860px; margin: 0 auto; padding: 2.5rem 1.5rem 3rem; }
+    .content { max-width: 860px; margin: 0 auto; padding: var(--space-xl) var(--space-md); }
 
-    /* Intro */
+    /* Intro — a hairline card, not a thick left stripe (side-stripe tell) */
     .intro {
-      background: #fff;
-      border-radius: 8px;
-      padding: 2rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-      border-left: 4px solid #4aedc4;
+      background: var(--color-paper);
+      border: var(--rule-hair) solid var(--color-rule);
+      border-radius: var(--radius-card);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-lg);
+      box-shadow: var(--shadow-lift);
     }
-    .intro p { font-size: 0.95rem; color: #334155; }
-    .intro strong { color: #0f172a; }
+    .intro p { font-size: var(--text-base); color: var(--color-ink-2); }
+    .intro strong { color: var(--color-ink); }
 
     /* Section title */
     .section-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: #0f172a;
-      margin: 2.5rem 0 1.25rem;
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 600;
+      letter-spacing: var(--tracking-display);
+      color: var(--color-ink);
+      margin: var(--space-xl) 0 var(--space-sm);
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: var(--space-2xs);
     }
 
     /* Security cards */
     .security-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-      gap: 1rem;
+      /* gate 34/50 — the 380px floor must yield below a 380px viewport */
+      grid-template-columns: repeat(auto-fill, minmax(min(380px, 100%), 1fr));
+      gap: var(--space-sm);
     }
     .security-card {
-      background: #fff;
-      border-radius: 8px;
-      padding: 1.5rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      background: var(--color-paper);
+      border: var(--rule-hair) solid var(--color-rule);
+      border-radius: var(--radius-card);
+      padding: var(--space-md);
+      box-shadow: var(--shadow-lift);
       display: flex;
-      gap: 1rem;
-      transition: transform 0.2s, box-shadow 0.2s;
+      gap: var(--space-sm);
+      transition: transform var(--dur-fast) var(--ease-out),
+                  box-shadow var(--dur-fast) var(--ease-out);
     }
     .security-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    .security-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      flex-shrink: 0;
+      box-shadow: var(--shadow-pop);
     }
     .security-card h3 {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: #0f172a;
-      margin-bottom: 0.35rem;
+      font-family: var(--font-display);
+      font-size: var(--text-base);
+      font-weight: 600;
+      color: var(--color-ink);
+      margin-bottom: var(--space-3xs);
     }
     .security-card p {
-      font-size: 0.85rem;
-      color: #64748b;
+      font-size: var(--text-sm);
+      color: var(--color-muted);
       line-height: 1.6;
     }
-
-    /* Colors for icons */
-    .ic-1 { background: #dbeafe; color: #2563eb; }
-    .ic-2 { background: #fce7f3; color: #db2777; }
-    .ic-3 { background: #d1fae5; color: #059669; }
-    .ic-4 { background: #e0e7ff; color: #4f46e5; }
-    .ic-5 { background: #fef3c7; color: #d97706; }
-    .ic-6 { background: #cffafe; color: #0891b2; }
-    .ic-7 { background: #f3e8ff; color: #7c3aed; }
-    .ic-8 { background: #fee2e2; color: #dc2626; }
-    .ic-9 { background: #ecfdf5; color: #047857; }
-    .ic-10 { background: #f1f5f9; color: #475569; }
 
     /* Tech table */
     .tech-table {
       width: 100%;
       border-collapse: collapse;
-      background: #fff;
-      border-radius: 8px;
+      background: var(--color-paper);
+      border-radius: var(--radius-card);
       overflow: hidden;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-      margin-top: 1rem;
+      box-shadow: var(--shadow-lift);
+      margin-top: var(--space-sm);
+      font-variant-numeric: tabular-nums;
     }
     .tech-table th {
-      background: #0f172a;
-      color: #fff;
-      padding: 0.75rem 1rem;
+      background: var(--color-graphite);
+      color: var(--color-on-dark);
+      padding: var(--space-xs) var(--space-sm);
       text-align: left;
-      font-size: 0.82rem;
+      font-size: var(--text-sm);
       font-weight: 600;
     }
     .tech-table td {
-      padding: 0.7rem 1rem;
-      font-size: 0.85rem;
-      border-bottom: 1px solid #f1f5f9;
+      padding: var(--space-xs) var(--space-sm);
+      font-size: var(--text-sm);
+      border-bottom: var(--rule-hair) solid var(--color-rule);
     }
     .tech-table tr:last-child td { border-bottom: none; }
-    .tech-table td:first-child { font-weight: 600; color: #0f172a; white-space: nowrap; }
+    .tech-table td:first-child { font-weight: 600; color: var(--color-ink); white-space: nowrap; }
 
-    /* CTA */
+    /* CTA — flat graphite band, one filled accent button (design.md § CTA voice) */
     .cta-section {
-      background: linear-gradient(135deg, #0f172a, #1e293b);
-      border-radius: 12px;
-      padding: 2.5rem 2rem;
+      background: var(--color-graphite);
+      border-radius: var(--radius-card);
+      padding: var(--space-xl) var(--space-lg);
       text-align: center;
-      color: #fff;
-      margin-top: 2.5rem;
+      color: var(--color-on-dark);
+      margin-top: var(--space-xl);
     }
-    .cta-section h2 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.75rem; }
-    .cta-section p { color: #94a3b8; font-size: 0.9rem; margin-bottom: 1.5rem; }
+    .cta-section h2 {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 600;
+      letter-spacing: var(--tracking-display);
+      margin-bottom: var(--space-xs);
+    }
+    .cta-section p { color: var(--color-on-dark-2); font-size: var(--text-base); margin-bottom: var(--space-md); }
     .cta-btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      background: linear-gradient(135deg, #4aedc4, #00a67d);
-      color: #0f172a;
-      padding: 0.8rem 2rem;
-      border-radius: 6px;
+      gap: var(--space-2xs);
+      background: var(--color-accent);
+      color: var(--color-accent-ink);
+      padding: var(--space-xs) var(--space-lg);
+      border-radius: var(--radius-ctl);
       text-decoration: none;
-      font-weight: 700;
-      font-size: 0.95rem;
-      transition: transform 0.2s;
+      font-weight: 500;
+      font-size: var(--text-base);
+      white-space: nowrap;                  /* gate 49 */
+      transition: background-color var(--dur-fast) var(--ease-out);
     }
-    .cta-btn:hover { transform: scale(1.03); }
+    .cta-btn:hover { background: var(--color-accent-hover); }
     .cta-info {
-      margin-top: 1.25rem;
-      font-size: 0.82rem;
-      color: #64748b;
+      margin-top: var(--space-sm);
+      font-size: var(--text-sm);
+      color: var(--color-on-dark-2);
     }
-    .cta-info a { color: #4aedc4; text-decoration: none; }
-
-    /* Footer */
-    .page-footer {
-      text-align: center;
-      padding: 2rem 1.5rem;
-      font-size: 0.78rem;
-      color: #94a3b8;
-    }
-    .page-footer a { color: #64748b; text-decoration: none; }
-    .page-footer a:hover { color: #0f172a; }
+    .cta-info a { color: var(--color-accent-bright); text-decoration: none; }
 
     @media (max-width: 480px) {
-      .security-grid { grid-template-columns: 1fr; }
-      .page-header { padding: 3rem 1rem 2.5rem; }
-      .content { padding: 1.5rem 1rem 2rem; }
+      .security-grid { grid-template-columns: minmax(0, 1fr); }   /* gate 50 */
+      .page-header { padding: var(--space-xl) var(--space-sm) var(--space-lg); }
+      .content { padding: var(--space-lg) var(--space-sm); }
     }
   </style>
-</head>
-<body>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=2" />
+    <link rel="stylesheet" href="/assets/css/dark.css?v=2" />
+  </head>
+<body class="yl-dark">
+    <nav class="site-nav" role="navigation" aria-label="Main navigation">
+      <div class="site-nav-inner">
+        <a href="/" class="site-nav-brand">
+          <span class="site-nav-logo">YIYOL<span>.</span></span>
+        </a>
+        <div class="site-nav-right">
+          <ul class="site-nav-links">
+            <li><a href="/products/"><span class="ko-only">제품</span><span class="en-only">Products</span></a></li>
+            <li><a href="/solutions/"><span class="ko-only">AI 솔루션</span><span class="en-only">AI Solutions</span></a></li>
+            <li><a href="/company/"><span class="ko-only">회사소개</span><span class="en-only">About</span></a></li>
+            <li><a href="/blog/"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a></li>
+            <li><a href="/contact/" class="nav-cta"><span class="ko-only">문의</span><span class="en-only">Contact</span></a></li>
+          </ul>
+          <div class="lang-switch">
+            <button class="lang-selector" type="button" aria-haspopup="true" aria-expanded="false">
+              <span class="lang-current">한국어</span>
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" /></svg>
+            </button>
+            <div class="lang-dropdown">
+              <a href="#" class="lang-option" data-lang="ko">한국어</a>
+              <a href="#" class="lang-option" data-lang="en">English</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
   <header class="page-header">
     <div class="header-nav">
-      <a href="https://nox.yiyol.com/"><i class="fas fa-arrow-left"></i> <span class="ko-text">NOX</span><span class="en-text">NOX</span></a>
+      <a href="https://nox.yiyol.com/"> <span class="ko-text">NOX</span><span class="en-text">NOX</span></a>
     </div>
     <button class="lang-btn" onclick="toggleLang()">
       <span class="ko-text">EN</span><span class="en-text">한국어</span>
@@ -293,77 +304,67 @@
       </p>
     </div>
 
-    <h2 class="section-title"><i class="fas fa-shield-halved"></i>
+    <h2 class="section-title">
       <span class="ko-text">10대 보안기능 대응 현황</span>
       <span class="en-text">10 Security Function Categories</span>
     </h2>
 
     <div class="security-grid">
       <div class="security-card">
-        <div class="security-icon ic-1"><i class="fas fa-video"></i></div>
         <div>
           <h3><span class="ko-text">1. 영상 보안</span><span class="en-text">1. Video Security</span></h3>
           <p><span class="ko-text">AES-256-GCM 알고리즘으로 영상 데이터를 실시간 암호화하여 저장합니다. 비인가 접근으로부터 영상의 기밀성과 무결성을 보장합니다.</span><span class="en-text">Real-time video encryption using AES-256-GCM, ensuring confidentiality and integrity against unauthorized access.</span></p>
         </div>
       </div>
       <div class="security-card">
-        <div class="security-icon ic-2"><i class="fas fa-fingerprint"></i></div>
         <div>
           <h3><span class="ko-text">2. 식별 및 인증</span><span class="en-text">2. Identification & Authentication</span></h3>
           <p><span class="ko-text">JWT 기반 토큰 인증과 강력한 패스워드 정책으로 사용자를 안전하게 식별·인증합니다.</span><span class="en-text">Secure user identification through JWT-based token authentication and robust password policies.</span></p>
         </div>
       </div>
       <div class="security-card">
-        <div class="security-icon ic-3"><i class="fas fa-user-lock"></i></div>
         <div>
           <h3><span class="ko-text">3. 접근통제</span><span class="en-text">3. Access Control</span></h3>
           <p><span class="ko-text">역할 기반 접근제어(RBAC)로 사용자 역할에 따라 기능과 데이터 접근 권한을 세밀하게 관리합니다.</span><span class="en-text">Role-Based Access Control (RBAC) provides granular permission management based on user roles.</span></p>
         </div>
       </div>
       <div class="security-card">
-        <div class="security-icon ic-4"><i class="fas fa-database"></i></div>
         <div>
           <h3><span class="ko-text">4. 데이터 보호</span><span class="en-text">4. Data Protection</span></h3>
           <p><span class="ko-text">DEK/KEK 2계층 키 관리와 TPM 봉인으로 저장 데이터를 보호합니다. HMAC-SHA256으로 무결성을 검증합니다.</span><span class="en-text">DEK/KEK dual-layer key management with TPM-sealed keys. Data integrity verified via HMAC-SHA256.</span></p>
         </div>
       </div>
       <div class="security-card">
-        <div class="security-icon ic-5"><i class="fas fa-shield-virus"></i></div>
         <div>
           <h3><span class="ko-text">5. 자체보호</span><span class="en-text">5. Self-Protection</span></h3>
           <p><span class="ko-text">시스템 바이너리·설정 파일의 무결성을 실시간 모니터링하고 변조 시도를 즉시 탐지합니다.</span><span class="en-text">Real-time integrity monitoring of system binaries and configuration files with immediate tamper detection.</span></p>
         </div>
       </div>
       <div class="security-card">
-        <div class="security-icon ic-6"><i class="fas fa-cloud-arrow-down"></i></div>
         <div>
           <h3><span class="ko-text">6. 업데이트 보호</span><span class="en-text">6. Update Protection</span></h3>
           <p><span class="ko-text">GPG 전자서명으로 정당한 업데이트만 설치되도록 보장합니다. 변조된 패키지의 설치를 원천 차단합니다.</span><span class="en-text">GPG digital signatures ensure only authentic, unmodified update packages are installed.</span></p>
         </div>
       </div>
       <div class="security-card">
-        <div class="security-icon ic-7"><i class="fas fa-clock"></i></div>
         <div>
           <h3><span class="ko-text">7. 세션 관리</span><span class="en-text">7. Session Management</span></h3>
           <p><span class="ko-text">사용자 세션의 생성·유지·만료를 체계적으로 관리하여 세션 탈취·재사용 공격을 방지합니다.</span><span class="en-text">Systematic session lifecycle management to prevent session hijacking and replay attacks.</span></p>
         </div>
       </div>
       <div class="security-card">
-        <div class="security-icon ic-8"><i class="fas fa-clipboard-list"></i></div>
         <div>
           <h3><span class="ko-text">8. 감사기록</span><span class="en-text">8. Audit Logging</span></h3>
           <p><span class="ko-text">보안 관련 이벤트를 빠짐없이 기록하고, 감사기록의 무결성을 보장하여 추적·분석이 가능합니다.</span><span class="en-text">Comprehensive logging of all security events with tamper-proof audit records for forensic analysis.</span></p>
         </div>
       </div>
       <div class="security-card">
-        <div class="security-icon ic-9"><i class="fas fa-key"></i></div>
         <div>
           <h3><span class="ko-text">9. 암호 지원</span><span class="en-text">9. Cryptographic Support</span></h3>
           <p><span class="ko-text">AES-256-GCM, HMAC-SHA256, TLS 1.2/1.3 등 검증된 암호 알고리즘으로 기밀성·무결성을 보장합니다.</span><span class="en-text">Industry-standard algorithms including AES-256-GCM, HMAC-SHA256, and TLS 1.2/1.3.</span></p>
         </div>
       </div>
       <div class="security-card">
-        <div class="security-icon ic-10"><i class="fas fa-bug-slash"></i></div>
         <div>
           <h3><span class="ko-text">10. 보안 취약점 관리</span><span class="en-text">10. Vulnerability Management</span></h3>
           <p><span class="ko-text">알려진 보안 취약점에 대한 체계적 관리와 패치 프로세스로 시스템을 안전하게 유지합니다.</span><span class="en-text">Systematic vulnerability tracking and patch management to maintain system security posture.</span></p>
@@ -371,7 +372,7 @@
       </div>
     </div>
 
-    <h2 class="section-title"><i class="fas fa-microchip"></i>
+    <h2 class="section-title">
       <span class="ko-text">주요 기술 특장점</span>
       <span class="en-text">Key Technical Highlights</span>
     </h2>
@@ -404,7 +405,6 @@
         <span class="en-text">Start secure video management with NOX 26.04 —<br>optimized for government, public institutions, and enterprises.</span>
       </p>
       <a href="mailto:yiyol@yiyol.com?subject=NOX%20NVR%20도입%20문의" class="cta-btn">
-        <i class="fas fa-envelope"></i>
         <span class="ko-text">도입 문의하기</span>
         <span class="en-text">Contact Us</span>
       </a>
@@ -417,32 +417,52 @@
     </div>
   </div>
 
-  <footer class="page-footer">
-    <p>&copy; 2026 YIYOL. All rights reserved. · <a href="/">Home</a> · <a href="https://nox.yiyol.com/">NOX</a></p>
-  </footer>
+  <footer class="yl-foot" role="contentinfo">
+      <div class="yl-shell">
+        <div class="yl-foot-mast">
+          <div>
+            <div class="yl-foot-word">YIYOL<span>.</span></div>
+            <p class="yl-foot-tag ko-only">영상을 저장하고 관리하는 NVR·VMS,<br />그 위에서 판단하고 실행하는 AI 자동화</p>
+            <p class="yl-foot-tag en-only">NVR and VMS that store and manage your video — and the AI automation built on top of it.</p>
+          </div>
+          <nav class="yl-foot-links" aria-label="Footer navigation">
+            <a href="/products/"><span class="ko-only">제품</span><span class="en-only">Products</span></a>
+            <a href="/solutions/"><span class="ko-only">AI 솔루션</span><span class="en-only">AI Solutions</span></a>
+            <a href="/company/"><span class="ko-only">회사소개</span><span class="en-only">About</span></a>
+            <a href="/blog/"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a>
+            <a href="/contact/"><span class="ko-only">문의</span><span class="en-only">Contact</span></a>
+          </nav>
+        </div>
+        <div class="yl-foot-meta">
+          <span class="ko-only">서울특별시 금천구 가산디지털1로 75-15, 하우스디 와이즈타워 326호</span>
+          <span class="en-only">#326, 75-15 Gasan Digital 1-ro, Geumcheon-gu, Seoul</span>
+          <a href="mailto:yiyol@yiyol.com">yiyol@yiyol.com</a>
+          <span class="ko-only">사업자등록번호 186-34-01502</span>
+          <span class="en-only">Business Registration 186-34-01502</span>
+        </div>
+        <p class="yl-foot-copy">&copy; 2026 YIYOL. All rights reserved.</p>
+      </div>
+    </footer>
 
   <script>
-    // Language toggle
-    var currentLang = 'ko';
-    function toggleLang() {
-      currentLang = currentLang === 'ko' ? 'en' : 'ko';
-      document.documentElement.lang = currentLang;
-      applyLang();
-    }
-    function applyLang() {
-      document.querySelectorAll('.ko-text').forEach(function(el) {
-        el.style.display = currentLang === 'ko' ? '' : 'none';
-      });
-      document.querySelectorAll('.en-text').forEach(function(el) {
-        el.style.display = currentLang === 'en' ? '' : 'none';
-      });
-    }
-    // Init: detect from URL or default ko
-    (function() {
-      var params = new URLSearchParams(window.location.search);
-      if (params.get('lang') === 'en') currentLang = 'en';
-      applyLang();
-    })();
-  </script>
-</body>
+      /* Language is driven entirely by <html lang>; site.css hides the inactive
+         side (.ko-text/.en-text and .ko-only/.en-only). The previous version set
+         inline display, which the stylesheet could not override — so the shared
+         nav's language dropdown only switched half the page. */
+      function currentLang() {
+        return document.documentElement.getAttribute('lang') === 'en' ? 'en' : 'ko';
+      }
+      function toggleLang() {
+        var next = currentLang() === 'ko' ? 'en' : 'ko';
+        if (window.setLanguage) { window.setLanguage(next); }   // shared switcher, persists the choice
+        else { document.documentElement.setAttribute('lang', next); }
+      }
+      // honour ?lang=en on first load
+      (function () {
+        var p = new URLSearchParams(window.location.search);
+        if (p.get('lang') === 'en') document.documentElement.setAttribute('lang', 'en');
+      })();
+    </script>
+    <script src="/assets/js/i18n.js?v=4"></script>
+  </body>
 </html>

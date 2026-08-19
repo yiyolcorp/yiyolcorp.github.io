@@ -1,0 +1,593 @@
+/* Hallmark · pre-emit critique: P5 H5 E5 S5 R4 V5
+ * Hallmark · SECTION-PAGE LAYER · design-system: design.md · designed-as-app
+ * genre: modern-minimal · macrostructure: Split Studio entered through a tab rail
+ * theme: Cobalt (YIYOL brand-anchored) · nav: N1b · footer: Ft1
+ * pages: solutions/ · products/ · company/ · contact/
+ *
+ * This layer re-skins the existing `.sv-*` component vocabulary onto the locked
+ * system. The markup keeps its class names deliberately: contact/ ships a working
+ * inline form handler bound to real ids, and 63 classes across four pages is more
+ * regression surface than a rename is worth. Structure is changed in CSS —
+ * centred heads go left, icon-card grids become hairline rows, the dark banner
+ * becomes a light page head with one graphite band further down.
+ *
+ * Replaces the retired legacy stylesheet for these pages.
+ *
+ * NOTE ON THE `sv-` PREFIX: it is the abbreviation of the old `surv` name. The
+ * class names were kept because 105 of them span four pages plus a working
+ * inline form handler, and renaming them is a large mechanical diff with no
+ * visual effect. Say the word and they become `yl-`.
+ * JS contracts preserved: .sv-subnav-tab / .sv-tabpanel (yiyol-tabs.js), .sv-fade.
+ */
+
+/* ============================================================
+   Shell + section frame
+   ============================================================ */
+.sv-wrap { max-width: var(--shell); margin-inline: auto; padding-inline: var(--space-md); }
+.sv-section { padding-block: var(--space-3xl); }
+.sv-section.alt { background: var(--color-paper-2); }
+
+/* Section heads are left-aligned, single column. Centred heads were the site's
+   primary AI tell (design.md § Section rhythm). */
+.sv-head {
+  margin: 0 0 var(--space-2xl);
+  text-align: left;
+}
+.sv-head h2 { font-size: var(--text-3xl); }
+.sv-head p { margin-top: var(--space-sm); color: var(--color-ink-2); max-width: var(--measure); }
+
+/* Eyebrows default OFF site-wide. They are kept in the DOM for the ko/en spans
+   but not rendered — one decorative eyebrow per page is the cap, and the page
+   head already carries it. */
+.sv-eyebrow { display: none; }
+
+.sv-ink { color: var(--color-ink); }
+.sv-ink-soft { color: var(--color-ink-2); }
+.sv-accent { color: var(--color-accent); }
+.sv-line { border: 0; border-top: var(--rule-hair) solid var(--color-rule); margin-block: var(--space-xl); }
+
+/* ============================================================
+   Page head — replaces the dark gradient banner.
+   Light paper, left-biased, hairline close. The page's dark beat is earned
+   further down, not spent on a banner.
+   ============================================================ */
+.sv-pagebanner {
+  margin-top: var(--nav-h);
+  padding-block: var(--space-2xl) var(--space-xl);
+  padding-inline: var(--space-md);
+  max-width: var(--shell);
+  margin-inline: auto;
+  text-align: left;
+  background: none;
+  color: var(--color-ink-2);
+}
+.sv-pagebanner::before, .sv-pagebanner::after { content: none; }
+.sv-pagebanner h1 {
+  font-size: var(--text-display-s);
+  font-weight: 600;
+  color: var(--color-ink);
+  max-width: 18ch;
+}
+.sv-pagebanner p {
+  margin-top: var(--space-sm);
+  font-size: var(--text-md);
+  color: var(--color-ink-2);
+  max-width: var(--measure);
+}
+
+/* ============================================================
+   Tab rail — hairline, scrollable, no pills
+   ============================================================ */
+.sv-subnav {
+  position: sticky;
+  top: var(--nav-h);
+  z-index: 500;
+  background: var(--color-paper-veil-2);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  border-block: var(--rule-hair) solid var(--color-rule);
+}
+.sv-subnav-inner {
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--space-md);
+  display: flex;
+  gap: var(--space-lg);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.sv-subnav-inner::-webkit-scrollbar { display: none; }
+.sv-subnav-tab {
+  position: relative;
+  flex: 0 0 auto;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  padding-block: var(--space-xs);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--color-muted);
+  white-space: nowrap;                  /* gate 49 */
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.sv-subnav-tab::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -1px;
+  height: 2px;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transition: transform var(--dur-short) var(--ease-out);
+}
+.sv-subnav-tab:hover { color: var(--color-ink); }
+.sv-subnav-tab.active { color: var(--color-accent); }
+.sv-subnav-tab.active::after { transform: scaleX(1); }
+
+.sv-tabpanel { display: none; }
+.sv-tabpanel.active { display: block; }
+
+/* ============================================================
+   Scenario — the collect / judge / act card.
+   Shares the home hero rig's language so the two read as one system.
+   ============================================================ */
+.sv-scenarios { display: flex; flex-direction: column; gap: var(--space-xl); }
+.sv-scenario {
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-card);
+  background: var(--color-paper);
+  box-shadow: var(--shadow-lift);
+  overflow: hidden;
+}
+.sv-scenario-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  background: var(--color-paper-2);
+}
+.sv-scenario-icon { display: none; }   /* no icon library site-wide */
+.sv-scenario-head h3 { font-size: var(--text-lg); font-weight: 600; }
+.sv-scenario-sub {
+  margin-top: var(--space-4xs);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+.sv-scenario-problem { padding: var(--space-md); border-bottom: var(--rule-hair) solid var(--color-rule); }
+.sv-scenario-problem p { color: var(--color-ink-2); max-width: var(--measure); }
+.sv-scenario-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-2xs);
+}
+.sv-scenario-pipe {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.sv-scenario-stage {
+  padding: var(--space-md);
+  border-right: var(--rule-hair) solid var(--color-rule);
+}
+.sv-scenario-stage:last-child { border-right: 0; }
+.sv-scenario-stage h5 {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-ink);
+  margin-bottom: var(--space-3xs);
+}
+.sv-scenario-stage p { font-size: var(--text-base); line-height: 1.6; color: var(--color-ink-2); }
+/* The final stage of each scenario pipe is the outcome — it carries the accent.
+   (The markup class is `is-outcome`; an earlier revision of this file targeted
+   `is-result`, which matches nothing, so the stage lost its emphasis.) */
+.sv-scenario-stage.is-outcome {
+  background: var(--color-accent-wash);
+  border-color: var(--color-accent-hair);
+}
+.sv-scenario-stage.is-outcome h5 { color: var(--color-accent); }
+.sv-scenario-stage.is-outcome p { color: var(--color-ink); font-weight: 500; }
+.sv-scenario-foot {
+  padding: var(--space-sm) var(--space-md);
+  border-top: var(--rule-hair) solid var(--color-rule);
+  background: var(--color-paper-2);
+  font-size: var(--text-base);
+  color: var(--color-ink-2);
+}
+
+/* ============================================================
+   Product detail — Split Studio diptych, alternating direction
+   ============================================================ */
+.sv-product-detail {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-2xl);
+  align-items: center;
+}
+.sv-product-detail-media {
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-card);
+  background: var(--color-paper-2);
+  overflow: hidden;
+}
+.sv-product-detail-media img,
+.sv-product-detail-media video { width: 100%; height: auto; display: block; }
+.sv-product-detail-media figure { margin: 0; }
+.sv-product-detail-media figcaption {
+  padding: var(--space-2xs) var(--space-sm);
+  border-top: var(--rule-hair) solid var(--color-rule);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-mono);
+  color: var(--color-muted);
+}
+/* Dropping the decorative icons left some media columns with nothing in them.
+   A diptych with an empty half is worse than a single column — collapse it. */
+.sv-product-detail:not(:has(.sv-product-detail-media :is(img, picture, video, iframe, figure))) {
+  grid-template-columns: minmax(0, 1fr);
+}
+.sv-product-detail:not(:has(.sv-product-detail-media :is(img, picture, video, iframe, figure)))
+  .sv-product-detail-media { display: none; }
+.sv-product-detail.reverse .sv-product-detail-media { order: -1; }
+.sv-product-detail-body h2 { font-size: var(--text-2xl); }
+.sv-product-detail-body p { margin-top: var(--space-sm); color: var(--color-ink-2); max-width: var(--measure); }
+.sv-bigicon { display: none; }         /* decorative icon — dropped, not restyled */
+
+/* ============================================================
+   Lists, chips, cards
+   ============================================================ */
+.sv-check-list { margin-top: var(--space-md); display: flex; flex-direction: column; gap: var(--space-2xs); }
+.sv-check-list li {
+  position: relative;
+  padding-left: var(--space-md);
+  font-size: var(--text-base);
+  color: var(--color-ink-2);
+}
+.sv-check-list li i { display: none; }
+.sv-check-list li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0.68em;
+  width: 8px; height: var(--rule-hair);
+  background: var(--color-accent);
+}
+
+.sv-chip {
+  display: inline-block;
+  padding: var(--space-4xs) var(--space-2xs);
+  border: var(--rule-hair) solid var(--color-rule-strong);
+  border-radius: var(--radius-ctl);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.03em;
+  color: var(--color-muted);
+  background: var(--color-paper);
+}
+
+/* Case + product grids become hairline rows — never a 3-up icon-card grid (gate 3) */
+.sv-case-grid, .sv-product-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  border-top: var(--rule-hair) solid var(--color-rule);
+}
+.sv-case-card, .sv-product-card {
+  display: block;
+  padding-block: var(--space-md);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  color: var(--color-ink-2);
+  transition: background var(--dur-fast) var(--ease-out);
+}
+a.sv-case-card:hover, a.sv-product-card:hover { background: var(--color-paper-2); }
+.sv-case-card i, .sv-product-icon { display: none; }
+.sv-case-card h3, .sv-product-card h3 { font-size: var(--text-md); font-weight: 600; }
+.sv-case-card p, .sv-product-card p { margin-top: var(--space-3xs); font-size: var(--text-base); max-width: var(--measure); }
+.sv-product-sub {
+  margin-top: var(--space-4xs);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+.sv-product-tags, .sv-flow-tags {
+  margin-top: var(--space-2xs);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3xs);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.03em;
+  color: var(--color-muted);
+}
+.sv-product-tags span::after, .sv-flow-tags span::after { content: " ·"; color: var(--color-rule-strong); }
+.sv-product-tags span:last-child::after, .sv-flow-tags span:last-child::after { content: ""; }
+
+/* Flow cards — the collect/judge/act trio, as a hairline sequence not three tiles */
+.sv-flow { display: grid; grid-template-columns: minmax(0, 1fr); border-top: var(--rule-hair) solid var(--color-rule); }
+.sv-flow-card {
+  padding-block: var(--space-md);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+.sv-flow-icon, .sv-flow-arrow { display: none; }
+.sv-flow-step-no {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  color: var(--color-accent);
+  font-variant-numeric: tabular-nums;
+}
+.sv-flow-card h3 { margin-top: var(--space-3xs); font-size: var(--text-lg); }
+.sv-flow-card p { margin-top: var(--space-3xs); color: var(--color-ink-2); max-width: var(--measure); }
+
+/* ============================================================
+   Prose, map, "more" link
+   ============================================================ */
+.sv-prose { max-width: var(--measure); color: var(--color-ink-2); }
+.sv-prose p + p { margin-top: var(--space-sm); }
+.sv-prose strong { color: var(--color-ink); }
+
+/* Prose subheads had no rhythm of their own: an h3 sat flush against the
+   paragraph above it at body size, so a panel of h3 + p pairs read as one
+   undifferentiated slab (company/, solutions/). Give the subhead air above it
+   and bind its own paragraph tight underneath. */
+.sv-prose h3 {
+  margin-top: var(--space-xl);
+  font-size: var(--text-lg);
+  color: var(--color-ink);
+}
+.sv-prose > :first-child { margin-top: 0; }
+.sv-prose h3 + p { margin-top: var(--space-2xs); }
+
+.sv-map {
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+}
+.sv-map iframe { width: 100%; height: 100%; border: 0; display: block; }
+.sv-map-link { margin-top: var(--space-2xs); }
+/* Inside a diptych the media column already draws the hairline frame — the map
+   keeping its own would double it. */
+.sv-product-detail-media .sv-map { border: 0; border-radius: 0; aspect-ratio: 4 / 3; }
+
+/* Address block as a hairline key/value table — the theme's instrument-panel
+   voice — rather than three unlabelled lines. */
+.sv-contact-info { display: flex; flex-direction: column; font-size: var(--text-base); }
+.sv-contact-info li {
+  display: flex;
+  gap: var(--space-sm);
+  padding-block: var(--space-2xs);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  color: var(--color-ink-2);
+}
+.sv-contact-info li:first-child { border-top: var(--rule-hair) solid var(--color-rule); }
+.sv-contact-info li i { display: none; }
+.sv-contact-key {
+  flex: 0 0 6rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  color: var(--color-muted);
+  padding-top: 0.24em;
+}
+
+.sv-more,
+.sv-map-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2xs);
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--color-accent);
+  white-space: nowrap;                  /* gate 49 */
+  border-bottom: var(--rule-hair) solid var(--color-accent-hair);
+  padding-bottom: var(--space-4xs);
+  transition: border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+.sv-more:hover, .sv-map-link:hover { border-bottom-color: var(--color-accent); color: var(--color-accent-hover); }
+.sv-more i, .sv-map-link i { display: none; }
+.sv-more::after, .sv-map-link::after { content: "→"; }
+.sv-more-wrap { margin-top: var(--space-lg); }
+/* Rhythm between two blocks inside one tab panel — a head, a hairline list and
+   a closing list are three beats, not one run-on column. */
+.sv-stack { margin-top: var(--space-2xl); }
+
+/* ============================================================
+   Buttons — the legacy .sv-btn vocabulary maps onto the locked CTA voice
+   ============================================================ */
+.sv-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding: var(--space-xs) var(--space-md);
+  border: var(--rule-hair) solid transparent;
+  border-radius: var(--radius-ctl);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;                  /* gate 49 */
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out);
+}
+.sv-btn i { display: none; }
+.sv-btn-primary { background: var(--color-accent); color: var(--color-accent-ink); }
+.sv-btn-primary:hover { background: var(--color-accent-hover); }
+.sv-btn-primary:active { background: var(--color-accent-hover); transform: translateY(1px); }
+/* Secondary is a typographic link, not a second button (design.md § CTA voice) */
+.sv-btn-ghost, .sv-btn-white, .sv-btn-outline {
+  background: none;
+  color: var(--color-accent);
+  border: 0;
+  border-bottom: var(--rule-hair) solid var(--color-accent-hair);
+  border-radius: 0;
+  padding: 0 0 var(--space-4xs);
+}
+.sv-btn-ghost:hover, .sv-btn-white:hover, .sv-btn-outline:hover {
+  color: var(--color-accent-hover);
+  border-bottom-color: var(--color-accent);
+}
+.sv-btn-ghost::after, .sv-btn-white::after, .sv-btn-outline::after { content: "→"; }
+.sv-btn[disabled], .sv-btn[aria-disabled="true"] { opacity: 0.45; cursor: not-allowed; pointer-events: none; }
+.sv-btn[data-state="loading"] { color: transparent; position: relative; pointer-events: none; }
+.sv-btn[data-state="loading"]::after {
+  content: ""; position: absolute; inset: 0; margin: auto;
+  width: 14px; height: 14px; border-radius: 50%;
+  border: 2px solid var(--color-accent-ink); border-top-color: transparent;
+  animation: yl-spin 720ms linear infinite;
+}
+.sv-hero-cta { display: flex; align-items: center; gap: var(--space-md); flex-wrap: wrap; margin-top: var(--space-lg); }
+
+/* ============================================================
+   Closing CTA — light, left-biased, one button
+   ============================================================ */
+/* The section has no inner wrapper, so the shell is expressed as padding.
+   `margin-inline: auto` on the children centred them instead — combined with
+   their own narrow max-widths that made this the one centred block on an
+   otherwise left-aligned site. The +space-md matches .sv-wrap, which carries
+   that padding inside its max-width, so both share one text edge. */
+.sv-cta {
+  background: var(--color-paper-2);
+  border-top: var(--rule-hair) solid var(--color-rule);
+  color: var(--color-ink-2);
+  text-align: left;
+  padding-block: var(--space-3xl);
+  padding-inline: max(var(--space-md), calc((100% - var(--shell)) / 2 + var(--space-md)));
+}
+.sv-cta > * { margin-inline: 0; }
+.sv-cta h2 { font-size: var(--text-display-s); color: var(--color-ink); max-width: 18ch; }
+.sv-cta p { margin-top: var(--space-sm); color: var(--color-ink-2); max-width: var(--measure); }
+
+/* ============================================================
+   Form — every field ships all eight states (gate 39)
+   ============================================================ */
+.sv-form { margin-top: var(--space-lg); max-width: 44rem; }
+.sv-form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+.sv-field { display: flex; flex-direction: column; gap: var(--space-2xs); margin-bottom: var(--space-md); }
+.sv-field label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+.sv-field input,
+.sv-field textarea,
+.sv-field select {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-ink);
+  background: var(--color-paper);
+  border: var(--rule-hair) solid var(--color-rule-strong);
+  border-radius: var(--radius-ctl);
+  padding: var(--space-2xs) var(--space-xs);
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+.sv-field textarea { min-height: 8rem; resize: vertical; line-height: 1.6; }
+.sv-field select { appearance: none; padding-right: var(--space-lg); cursor: pointer; }
+.sv-field input::placeholder, .sv-field textarea::placeholder { color: var(--color-muted); }
+.sv-field input:hover, .sv-field textarea:hover, .sv-field select:hover { border-color: var(--color-muted); }
+.sv-field input:focus-visible,
+.sv-field textarea:focus-visible,
+.sv-field select:focus-visible { border-color: var(--color-accent); outline-offset: 1px; }
+.sv-field input:disabled, .sv-field textarea:disabled, .sv-field select:disabled {
+  background: var(--color-paper-3); color: var(--color-muted); cursor: not-allowed;
+}
+.sv-field input:read-only, .sv-field textarea:read-only { background: var(--color-paper-2); }
+/* error + success carry a message, never colour alone */
+.sv-field[data-state="error"] input,
+.sv-field[data-state="error"] textarea,
+.sv-field[data-state="error"] select,
+.sv-field input:user-invalid,
+.sv-field textarea:user-invalid { border-color: var(--color-danger); }
+.sv-field[data-state="error"] .sv-field-hint { color: var(--color-danger); }
+.sv-field[data-state="error"] .sv-field-hint::before { content: "⚠ "; }
+.sv-field[data-state="success"] input,
+.sv-field[data-state="success"] textarea { border-color: var(--color-accent); }
+.sv-field[data-state="success"] .sv-field-hint::before { content: "✓ "; color: var(--color-accent); }
+.sv-field-hint { font-size: var(--text-sm); color: var(--color-muted); }
+/* required-field marker inside the label */
+.sv-field label .req { color: var(--color-accent); margin-left: var(--space-4xs); }
+.sv-form-note {
+  margin-block: var(--space-lg);
+  padding: var(--space-md);
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-card);
+  background: var(--color-paper-2);
+  font-size: var(--text-base);
+  color: var(--color-ink-2);
+}
+.sv-form-note h4 { font-size: var(--text-base); font-weight: 600; margin-bottom: var(--space-2xs); }
+.sv-form-note ul { display: flex; flex-direction: column; gap: var(--space-3xs); }
+.sv-form-note li { position: relative; padding-left: var(--space-md); }
+.sv-form-note li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0.68em;
+  width: 8px; height: var(--rule-hair);
+  background: var(--color-rule-strong);
+}
+.sv-form-submit { margin-top: var(--space-lg); }
+.sv-field input[type="checkbox"] { width: auto; }
+
+/* ============================================================
+   Legacy footer markup — superseded by Ft1 in site.css. These rules only
+   matter if a page still ships the old block; they keep it legible.
+   ============================================================ */
+.sv-footer { background: var(--color-graphite); color: var(--color-on-dark-2); padding-block: var(--space-2xl); }
+.sv-footer-info { font-size: var(--text-base); line-height: 1.9; }
+.sv-footer-divider { margin-inline: var(--space-2xs); opacity: 0.4; }
+.sv-footer-copy { margin-top: var(--space-sm); font-family: var(--font-mono); font-size: var(--text-xs); }
+
+/* ============================================================
+   Responsive — verified at 320 / 375 / 414 / 768 px
+   ============================================================ */
+@media (max-width: 1024px) {
+  .sv-product-detail { grid-template-columns: minmax(0, 1fr); gap: var(--space-xl); }
+  .sv-product-detail.reverse .sv-product-detail-media { order: 0; }
+  .sv-scenario-pipe { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sv-scenario-stage:nth-child(2) { border-right: 0; }
+  .sv-scenario-stage:nth-child(-n+2) { border-bottom: var(--rule-hair) solid var(--color-rule); }
+}
+
+@media (max-width: 860px) {
+  .sv-section { padding-block: var(--space-2xl); }
+  .sv-cta { padding-block: var(--space-2xl); }
+  .sv-head { margin-bottom: var(--space-xl); }
+  .sv-pagebanner { padding-block: var(--space-xl) var(--space-md); }
+  .sv-form-row { grid-template-columns: minmax(0, 1fr); gap: var(--space-md); }
+}
+
+@media (max-width: 600px) {
+  .sv-scenario-pipe { grid-template-columns: minmax(0, 1fr); }
+  .sv-scenario-stage,
+  .sv-scenario-stage:nth-child(2) { border-right: 0; border-bottom: var(--rule-hair) solid var(--color-rule); }
+  .sv-scenario-stage:last-child { border-bottom: 0; }
+  .sv-hero-cta { flex-direction: column; align-items: stretch; }
+  .sv-hero-cta .sv-btn-primary { justify-content: center; }
+  .sv-hero-cta .sv-btn-ghost { align-self: flex-start; }
+  .sv-map { aspect-ratio: 4 / 3; }
+}

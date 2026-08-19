@@ -1,0 +1,118 @@
+/* Hallmark · tokens · genre: modern-minimal · theme: Cobalt (YIYOL brand-anchored)
+ * Portable token layer for yiyol.com. Page CSS must reference these by name —
+ * never inline a raw colour, font-family, or duration.
+ *
+ * Axes (diversification): paper-band = light · display-style = grotesk-sans · accent-hue = cool
+ *
+ * Contrast, measured (not estimated):
+ *   ink       on paper     16.36:1
+ *   ink-2     on paper      8.51:1
+ *   muted     on paper       5.11:1  (paper-2 4.89 · paper-3 4.59 — AA on all three)
+ *   accent    on paper      5.36:1     white on accent 5.52:1
+ *   danger    on paper      6.33:1
+ *   on-dark   on graphite  12.45:1
+ *   on-dark-2 on graphite   7.20:1
+ *   accent-bright on graphite 8.64:1
+ *
+ * Brand note: YIYOL's cyan #00b4d8 is 2.46:1 on white — below WCAG AA for both
+ * text and UI. It is preserved at full strength as --color-accent-bright, used
+ * only on the graphite band where it is legible. On light ground the accent
+ * deepens within the same hue family to --color-accent.
+ */
+:root {
+  /* ── Colour ─────────────────────────────────────────────── */
+  --color-paper:          oklch(99% 0.004 240);
+  --color-paper-2:        oklch(97.4% 0.006 240);
+  --color-paper-3:        oklch(95.2% 0.008 244);
+
+  --color-ink:            oklch(23% 0.024 250);
+  --color-ink-2:          oklch(41% 0.020 248);
+  --color-muted:          oklch(53% 0.018 248);
+
+  --color-rule:           oklch(92% 0.008 248);
+  --color-rule-strong:    oklch(86% 0.010 248);
+
+  --color-accent:         oklch(50% 0.135 226);
+  --color-accent-hover:   oklch(43% 0.135 226);
+  --color-accent-ink:     oklch(100% 0 0);
+  --color-accent-wash:    oklch(50% 0.135 226 / 0.07);
+  --color-accent-hair:    oklch(50% 0.135 226 / 0.28);
+
+  --color-graphite:       oklch(20.5% 0.022 252);
+  --color-graphite-2:     oklch(26% 0.022 252);
+  --color-graphite-rule:  oklch(33% 0.020 252);
+  --color-on-dark:        oklch(88% 0.012 250);
+  --color-on-dark-2:      oklch(72% 0.012 250);
+  --color-accent-bright:  oklch(76% 0.130 218);
+
+  --color-danger:         oklch(50% 0.170 27);   /* 6.33:1 on paper — form errors */
+  --color-focus:          oklch(50% 0.135 226);
+
+  /* Translucent + wash values, named so no rule inlines a raw colour (gate 48) */
+  --color-paper-veil:     oklch(99% 0.004 240 / 0.72);
+  --color-paper-veil-2:   oklch(99% 0.004 240 / 0.88);
+  --color-graphite-veil:  oklch(20.5% 0.022 252 / 0.72);
+  --color-graphite-veil-2: oklch(20.5% 0.022 252 / 0.92);
+  --color-bright-wash:    oklch(76% 0.130 218 / 0.055);
+  --color-bright-wash-2:  oklch(76% 0.130 218 / 0.10);
+  --color-bright-hair:    oklch(76% 0.130 218 / 0.30);   /* accent hairline on graphite */
+
+  --shadow-lift: 0 1px 2px oklch(23% 0.024 250 / 0.04);
+  --shadow-pop:  0 12px 28px oklch(23% 0.024 250 / 0.10);
+  --shadow-dark: 0 8px 24px oklch(0% 0 0 / 0.40);   /* elevation on the graphite ground */
+
+  /* ── Type ───────────────────────────────────────────────── */
+  --font-display: "Space Grotesk", "Noto Sans KR", -apple-system, BlinkMacSystemFont,
+                  "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-body:    "Inter", "Noto Sans KR", -apple-system, BlinkMacSystemFont,
+                  "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+
+  --text-xs:        0.75rem;
+  --text-sm:        0.8125rem;
+  --text-base:      0.9375rem;
+  --text-md:        1.0625rem;
+  --text-lg:        1.25rem;
+  --text-xl:        1.5rem;
+  --text-2xl:       clamp(1.5rem, 1.1rem + 1.6vw, 2.125rem);
+  --text-3xl:       clamp(1.75rem, 1.2rem + 2.4vw, 2.75rem);
+  --text-display-s: clamp(2rem, 1.3rem + 3vw, 3.25rem);
+  --text-display:   clamp(2.25rem, 1.45rem + 3.6vw, 3.9rem);
+
+  --tracking-display: -0.025em;
+  --tracking-mono:     0.06em;
+
+  /* ── Space (4pt) ────────────────────────────────────────── */
+  --space-4xs: 0.125rem;             /* 2px — optical text offsets only */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs:  0.75rem;
+  --space-sm:  1rem;
+  --space-md:  1.5rem;
+  --space-lg:  2rem;
+  --space-xl:  3rem;
+  --space-2xl: 4.5rem;
+  --space-3xl: 7rem;
+
+  /* ── Line, radius, measure ──────────────────────────────── */
+  --rule-hair:   1px;
+  --radius-ctl:  6px;
+  --radius-card: 10px;
+  /* Body text fills its container. A typographic measure (45-75 characters)
+     was capping prose at ~56% of the shell while tables and grids ran the full
+     width, and the mismatch read as broken. Deliberate choice: width over the
+     classic line-length rule. Headings, ledes and form fields keep their own
+     caps — those are composition, not running text. */
+  --measure:     100%;
+  --shell:       1180px;
+  --nav-h:       64px;
+
+  /* ── Motion ─────────────────────────────────────────────── */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in:     cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast:   140ms;
+  --dur-short:  220ms;
+  --dur-mid:    420ms;
+  --dur-reveal: 600ms;
+}

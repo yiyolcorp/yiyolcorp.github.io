@@ -1,4 +1,4 @@
-// surv-tabs.js — sub-navigation tab switching + scroll-fade (shared across pages)
+// yiyol-tabs.js — sub-navigation tab switching + scroll-fade (shared across pages)
 (function () {
   // ── Sub-nav tabs ──────────────────────────────────────────────
   function activateTab(key) {

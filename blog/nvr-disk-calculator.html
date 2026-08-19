@@ -11,7 +11,7 @@
     </script>
 
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>NVR 디스크 용량 계산기 (시스템 + 데이터) - YIYOL Blog</title>
 
     <meta name="description" content="NVR 채널 수, 해상도, FPS, 보관 기간을 입력하면 영상이 저장되는 데이터 디스크와 OS·DB 메타데이터가 저장되는 시스템 디스크의 필요 용량을 각각 계산합니다." />
@@ -28,16 +28,20 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <link rel="stylesheet" href="/assets/css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=2" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=1" />
 
     <style>
       /* Calculator Page Styles */
       .calc-hero {
         padding: 130px 0 50px;
-        background: radial-gradient(circle at top right, #1e293b, #0f172a);
-        color: white;
+        background: var(--color-graphite);
+        color: var(--color-on-dark);
         text-align: center;
         position: relative;
         overflow: hidden;
@@ -49,7 +53,7 @@
         right: -20%;
         width: 80%;
         height: 200%;
-        background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 60%);
+        background: radial-gradient(circle, var(--color-bright-wash-2) 0%, transparent 60%);
         pointer-events: none;
       }
       .calc-hero-content {
@@ -60,14 +64,14 @@
         padding: 0 2rem;
       }
       .calc-hero h1 {
-        font-family: 'Poppins', sans-serif;
+        font-family: var(--font-display);
         font-size: clamp(1.6rem, 3.5vw, 2.4rem);
         font-weight: 800;
-        color: #fff;
+        color: var(--color-on-dark);
         margin-bottom: 0.5rem;
       }
       .calc-hero p {
-        color: #94a3b8;
+        color: var(--color-on-dark-2);
         font-size: 1rem;
       }
       .calc-breadcrumb {
@@ -75,14 +79,14 @@
         font-size: 0.85rem;
       }
       .calc-breadcrumb a {
-        color: #60a5fa;
+        color: var(--color-accent-bright);
         text-decoration: none;
       }
       .calc-breadcrumb a:hover {
         text-decoration: underline;
       }
       .calc-breadcrumb span {
-        color: #64748b;
+        color: var(--color-on-dark-2);
         margin: 0 0.4rem;
       }
 
@@ -95,7 +99,7 @@
       /* Intro concept card */
       .calc-intro {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
         gap: 1rem;
         margin-bottom: 2rem;
       }
@@ -113,8 +117,6 @@
         align-items: center;
         gap: 0.45rem;
       }
-      .calc-intro-card.data h3 i { color: #3b82f6; }
-      .calc-intro-card.sys h3 i { color: #10b981; }
       .calc-intro-card p {
         font-size: 0.82rem;
         color: var(--text-secondary);
@@ -142,7 +144,9 @@
         border: none;
         border-radius: 10px;
         cursor: pointer;
-        transition: all 0.2s;
+        /* gate 10 — named properties + named easing, never `all` */
+        transition: color var(--dur-fast) var(--ease-out),
+                    background-color var(--dur-fast) var(--ease-out);
       }
       .calc-tab:hover {
         color: var(--text-primary);
@@ -169,7 +173,7 @@
       }
       .calc-form-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
         gap: 1.5rem;
       }
       .calc-field {
@@ -206,7 +210,7 @@
       .calc-input:focus, .calc-select:focus {
         outline: none;
         border-color: var(--accent-color);
-        box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+        box-shadow: 0 0 0 3px var(--color-accent-wash);
       }
       .calc-input-hint {
         font-size: 0.75rem;
@@ -223,7 +227,7 @@
       /* Sub-form (system disk options) */
       .calc-subhead {
         grid-column: 1 / -1;
-        font-family: 'Poppins', sans-serif;
+        font-family: var(--font-display);
         font-size: 0.9rem;
         font-weight: 700;
         color: var(--text-primary);
@@ -234,7 +238,6 @@
         align-items: center;
         gap: 0.45rem;
       }
-      .calc-subhead i { color: #10b981; }
       .calc-check {
         flex-direction: row;
         align-items: center;
@@ -254,7 +257,7 @@
 
       /* Results */
       .calc-section-heading {
-        font-family: 'Poppins', sans-serif;
+        font-family: var(--font-display);
         font-size: 1.05rem;
         font-weight: 700;
         color: var(--text-primary);
@@ -271,8 +274,11 @@
         border-radius: 999px;
         text-transform: uppercase;
       }
-      .calc-section-heading .pill.data { background: rgba(59,130,246,0.12); color: #2563eb; }
-      .calc-section-heading .pill.sys { background: rgba(16,185,129,0.14); color: #059669; }
+      /* data vs system pool: same accent, told apart by fill vs outline.
+         A second brand hue is what design.md § Variants rules out. */
+      .calc-section-heading .pill.data { background: var(--color-accent-wash); color: var(--color-accent); }
+      .calc-section-heading .pill.sys  { background: transparent; color: var(--color-muted);
+                                         box-shadow: inset 0 0 0 1px var(--color-rule-strong); }
 
       .calc-results {
         display: grid;
@@ -280,7 +286,7 @@
         gap: 1rem;
       }
       .calc-result-card {
-        background: linear-gradient(135deg, #0f172a, #1e3a5f);
+        background: var(--color-graphite);
         border-radius: 12px;
         padding: 1.5rem;
         color: #fff;
@@ -295,34 +301,34 @@
         right: -30%;
         width: 70%;
         height: 160%;
-        background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 60%);
+        background: radial-gradient(circle, var(--color-bright-wash-2) 0%, transparent 60%);
         pointer-events: none;
       }
       .calc-result-card.hero-card {
         grid-column: 1 / -1;
       }
       .calc-result-card.sys {
-        background: linear-gradient(135deg, #06231a, #125e43);
+        background: var(--color-graphite-2);
       }
       .calc-result-card.sys::before {
-        background: radial-gradient(circle, rgba(16,185,129,0.16) 0%, transparent 60%);
+        background: radial-gradient(circle, var(--color-bright-wash-2) 0%, transparent 60%);
       }
       .calc-result-card.sys .calc-result-value {
-        color: #34d399;
+        color: var(--color-on-dark);
       }
       .calc-result-label {
         font-size: 0.78rem;
-        color: #94a3b8;
+        color: var(--color-on-dark-2);
         font-weight: 500;
         margin-bottom: 0.3rem;
         text-transform: uppercase;
         letter-spacing: 0.05em;
       }
       .calc-result-value {
-        font-family: 'Poppins', sans-serif;
+        font-family: var(--font-display);
         font-size: 1.8rem;
         font-weight: 800;
-        color: #60a5fa;
+        color: var(--color-accent-bright);
         line-height: 1.2;
       }
       .calc-result-card.hero-card .calc-result-value {
@@ -330,13 +336,13 @@
       }
       .calc-result-unit {
         font-size: 0.85rem;
-        color: #94a3b8;
+        color: var(--color-on-dark-2);
         font-weight: 400;
         margin-left: 0.2rem;
       }
       .calc-result-sub {
         font-size: 0.78rem;
-        color: #94a3b8;
+        color: var(--color-on-dark-2);
         margin-top: 0.3rem;
       }
 
@@ -375,14 +381,14 @@
         font-weight: 500;
       }
       .calc-hdd-item.recommended {
-        background: rgba(59,130,246,0.08);
+        background: var(--color-accent-wash);
         border-color: var(--accent-color);
         color: var(--accent-color);
       }
       .calc-hdd-item.recommended.sys {
-        background: rgba(16,185,129,0.1);
-        border-color: #10b981;
-        color: #059669;
+        background: transparent;
+        border-color: var(--color-rule-strong);
+        color: var(--color-ink-2);
       }
 
       /* Breakdown table */
@@ -426,7 +432,8 @@
         color: var(--text-secondary);
         line-height: 1.7;
         background: var(--bg-secondary);
-        border-left: 3px solid var(--accent-color);
+        /* a hairline all round, never a thick coloured stripe on one edge */
+        border: 1px solid var(--border-color);
         border-radius: 0 8px 8px 0;
         padding: 0.9rem 1.1rem;
       }
@@ -436,7 +443,7 @@
         margin-top: 3rem;
       }
       .calc-ref-title {
-        font-family: 'Poppins', sans-serif;
+        font-family: var(--font-display);
         font-size: 1.15rem;
         font-weight: 700;
         color: var(--text-primary);
@@ -494,7 +501,7 @@
       }
       .calc-formula code {
         display: block;
-        font-family: 'SF Mono', 'Fira Code', monospace;
+        font-family: var(--font-mono);
         font-size: 0.82rem;
         color: var(--text-secondary);
         line-height: 1.8;
@@ -502,13 +509,13 @@
 
       @media (max-width: 640px) {
         .calc-form-grid {
-          grid-template-columns: 1fr;
+          grid-template-columns: minmax(0, 1fr);
         }
         .calc-results {
-          grid-template-columns: 1fr;
+          grid-template-columns: minmax(0, 1fr);
         }
         .calc-intro {
-          grid-template-columns: 1fr;
+          grid-template-columns: minmax(0, 1fr);
         }
         .calc-form {
           padding: 1.25rem;
@@ -542,42 +549,25 @@
     }
     </script>
   </head>
-  <body>
+  <body class="yl">
     <!-- Header -->
-    <header class="header" role="banner">
-      <nav class="nav" role="navigation" aria-label="Main navigation">
-        <a href="/" class="logo" aria-label="YIYOL Home">YIYOL</a>
-        <div style="display: flex; align-items: center; gap: 2rem;">
-          <ul class="nav-links">
-            <li>
-              <a href="/#about" class="nav-link">
-                <span class="ko-only">회사 소개</span>
-                <span class="en-only">About</span>
-              </a>
-            </li>
-            <li>
-              <a href="/#products" class="nav-link">
-                <span class="ko-only">제품</span>
-                <span class="en-only">Products</span>
-              </a>
-            </li>
-            <li>
-              <a href="/blog/" class="nav-link" style="color: var(--accent-color);">
-                <span class="ko-only">블로그</span>
-                <span class="en-only">Blog</span>
-              </a>
-            </li>
-            <li>
-              <a href="/#contact" class="nav-link">
-                <span class="ko-only">문의</span>
-                <span class="en-only">Contact</span>
-              </a>
-            </li>
+    <nav class="site-nav" role="navigation" aria-label="Main navigation">
+      <div class="site-nav-inner">
+        <a href="/" class="site-nav-brand">
+          <span class="site-nav-logo">YIYOL<span>.</span></span>
+        </a>
+        <div class="site-nav-right">
+          <ul class="site-nav-links">
+            <li><a href="/products/"><span class="ko-only">제품</span><span class="en-only">Products</span></a></li>
+            <li><a href="/solutions/"><span class="ko-only">AI 솔루션</span><span class="en-only">AI Solutions</span></a></li>
+            <li><a href="/company/"><span class="ko-only">회사소개</span><span class="en-only">About</span></a></li>
+            <li><a href="/blog/" class="nav-active"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a></li>
+            <li><a href="/contact/" class="nav-cta"><span class="ko-only">문의</span><span class="en-only">Contact</span></a></li>
           </ul>
           <div class="lang-switch">
-            <button class="lang-selector">
+            <button class="lang-selector" type="button" aria-haspopup="true" aria-expanded="false">
               <span class="lang-current">한국어</span>
-              <i class="fas fa-chevron-down"></i>
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" /></svg>
             </button>
             <div class="lang-dropdown">
               <a href="#" class="lang-option" data-lang="ko">한국어</a>
@@ -585,8 +575,8 @@
             </div>
           </div>
         </div>
-      </nav>
-    </header>
+      </div>
+    </nav>
 
     <!-- Hero -->
     <section class="calc-hero">
@@ -599,13 +589,13 @@
             <span class="en-only">Blog</span>
           </a>
           <span>›</span>
-          <span class="ko-only" style="color:#cbd5e1;">NVR 디스크 용량 계산기</span>
-          <span class="en-only" style="color:#cbd5e1;">NVR Disk Calculator</span>
+          <span class="ko-only">NVR 디스크 용량 계산기</span>
+          <span class="en-only">NVR Disk Calculator</span>
         </div>
-        <h1 class="ko-only"><i class="fas fa-server" style="margin-right:0.4rem;color:#60a5fa;"></i>NVR 디스크 용량 계산기</h1>
-        <h1 class="en-only"><i class="fas fa-server" style="margin-right:0.4rem;color:#60a5fa;"></i>NVR Disk Calculator</h1>
-        <p class="ko-only">영상용 <b style="color:#93c5fd;">데이터 디스크</b>와 OS·DB용 <b style="color:#6ee7b7;">시스템 디스크</b>의 필요 용량을 각각 계산하세요</p>
-        <p class="en-only">Size the video <b style="color:#93c5fd;">Data Disk</b> and the OS/DB <b style="color:#6ee7b7;">System Disk</b> separately</p>
+        <h1 class="ko-only">NVR 디스크 용량 계산기</h1>
+        <h1 class="en-only">NVR Disk Calculator</h1>
+        <p class="ko-only">영상용 <b>데이터 디스크</b>와 OS·DB용 <b>시스템 디스크</b>의 필요 용량을 각각 계산하세요</p>
+        <p class="en-only">Size the video <b>Data Disk</b> and the OS/DB <b>System Disk</b> separately</p>
       </div>
     </section>
 
@@ -615,12 +605,12 @@
       <!-- Concept intro -->
       <div class="calc-intro">
         <div class="calc-intro-card data">
-          <h3><i class="fas fa-hard-drive"></i><span class="ko-only">데이터 디스크 (영상)</span><span class="en-only">Data Disk (Video)</span></h3>
+          <h3><span class="ko-only">데이터 디스크 (영상)</span><span class="en-only">Data Disk (Video)</span></h3>
           <p class="ko-only">카메라 RTSP 스트림을 녹화한 <b>영상 파일</b>이 저장됩니다. 채널·비트레이트·보관 기간에 비례해 수 TB~수십 TB로 커집니다. 보통 대용량 HDD를 씁니다.</p>
           <p class="en-only">Holds the recorded <b>video files</b> from camera RTSP streams. Grows to many TB with channels, bitrate and retention. Usually large HDDs.</p>
         </div>
         <div class="calc-intro-card sys">
-          <h3><i class="fas fa-microchip"></i><span class="ko-only">시스템 디스크 (OS · DB)</span><span class="en-only">System Disk (OS · DB)</span></h3>
+          <h3><span class="ko-only">시스템 디스크 (OS · DB)</span><span class="en-only">System Disk (OS · DB)</span></h3>
           <p class="ko-only">OS·Docker 이미지와 <b>PostgreSQL 메타데이터</b>(녹화 세그먼트 인덱스·이벤트 등)가 저장됩니다. 영상이 아니라 색인이므로 수십 GB 규모입니다. 보통 SSD를 씁니다.</p>
           <p class="en-only">Holds the OS/Docker images and <b>PostgreSQL metadata</b> (segment index, events). It is an index, not video, so only tens of GB. Usually an SSD.</p>
         </div>
@@ -629,12 +619,10 @@
       <!-- Mode Tabs -->
       <div class="calc-tabs">
         <button class="calc-tab active" data-mode="disk" onclick="switchMode('disk')">
-          <i class="fas fa-hdd" style="margin-right:0.3rem;"></i>
           <span class="ko-only">디스크 용량 산정</span>
           <span class="en-only">Disk Sizing</span>
         </button>
         <button class="calc-tab" data-mode="retention" onclick="switchMode('retention')">
-          <i class="fas fa-clock" style="margin-right:0.3rem;"></i>
           <span class="ko-only">저장 기간 계산</span>
           <span class="en-only">Retention Period</span>
         </button>
@@ -646,7 +634,6 @@
           <div class="calc-form-grid">
             <div class="calc-field">
               <label class="calc-label">
-                <i class="fas fa-video"></i>
                 <span class="ko-only">카메라 채널 수</span>
                 <span class="en-only">Camera Channels</span>
               </label>
@@ -655,7 +642,6 @@
             </div>
             <div class="calc-field">
               <label class="calc-label">
-                <i class="fas fa-film"></i>
                 <span class="ko-only">해상도 / 품질</span>
                 <span class="en-only">Resolution / Quality</span>
               </label>
@@ -670,7 +656,6 @@
             </div>
             <div class="calc-field custom-bitrate-row" id="d-custom-row">
               <label class="calc-label">
-                <i class="fas fa-sliders-h"></i>
                 <span class="ko-only">비트레이트 (Mbps)</span>
                 <span class="en-only">Bitrate (Mbps)</span>
               </label>
@@ -678,7 +663,6 @@
             </div>
             <div class="calc-field">
               <label class="calc-label">
-                <i class="fas fa-clock"></i>
                 <span class="ko-only">일일 녹화 시간</span>
                 <span class="en-only">Recording Hours/Day</span>
               </label>
@@ -688,7 +672,6 @@
             </div>
             <div class="calc-field">
               <label class="calc-label">
-                <i class="fas fa-gauge-high"></i>
                 <span class="ko-only">프레임 레이트 (FPS)</span>
                 <span class="en-only">Frame Rate (FPS)</span>
               </label>
@@ -698,7 +681,6 @@
             </div>
             <div class="calc-field">
               <label class="calc-label">
-                <i class="fas fa-calendar-alt"></i>
                 <span class="ko-only">보관 기간 (일)</span>
                 <span class="en-only">Retention Period (days)</span>
               </label>
@@ -709,7 +691,6 @@
 
             <!-- System disk options -->
             <div class="calc-subhead">
-              <i class="fas fa-microchip"></i>
               <span class="ko-only">시스템 디스크 세부 옵션</span>
               <span class="en-only">System Disk Options</span>
             </div>
@@ -730,7 +711,6 @@
             </div>
             <div class="calc-field">
               <label class="calc-label">
-                <i class="fas fa-bolt"></i>
                 <span class="ko-only">이벤트 / 분석 활동량</span>
                 <span class="en-only">Event / Analytics Activity</span>
               </label>
@@ -744,7 +724,6 @@
             </div>
             <div class="calc-field">
               <label class="calc-label">
-                <i class="fas fa-box-open"></i>
                 <span class="ko-only">시스템 기본 용량 (GB)</span>
                 <span class="en-only">Base OS/Docker (GB)</span>
               </label>
@@ -754,7 +733,6 @@
             </div>
             <div class="calc-field">
               <label class="calc-label">
-                <i class="fas fa-shield-halved"></i>
                 <span class="ko-only">시스템 디스크 여유 마진 (%)</span>
                 <span class="en-only">System Disk Safety Margin (%)</span>
               </label>
@@ -767,7 +745,6 @@
 
         <!-- Data Disk results -->
         <h2 class="calc-section-heading">
-          <i class="fas fa-hard-drive" style="color:#3b82f6;"></i>
           <span class="ko-only">데이터 디스크 (영상)</span>
           <span class="en-only">Data Disk (Video)</span>
           <span class="pill data">Video</span>
@@ -792,7 +769,6 @@
         </div>
         <div class="calc-hdd-rec">
           <div class="calc-hdd-title">
-            <i class="fas fa-hard-drive"></i>
             <span class="ko-only">권장 HDD 구성 (데이터 디스크)</span>
             <span class="en-only">Recommended HDD Configuration (Data Disk)</span>
           </div>
@@ -801,7 +777,6 @@
 
         <!-- System Disk results -->
         <h2 class="calc-section-heading">
-          <i class="fas fa-microchip" style="color:#10b981;"></i>
           <span class="ko-only">시스템 디스크 (OS · PostgreSQL)</span>
           <span class="en-only">System Disk (OS · PostgreSQL)</span>
           <span class="pill sys">OS · DB</span>
@@ -827,7 +802,6 @@
         </div>
         <div class="calc-hdd-rec">
           <div class="calc-hdd-title">
-            <i class="fas fa-microchip"></i>
             <span class="ko-only">권장 SSD 구성 (시스템 디스크)</span>
             <span class="en-only">Recommended SSD (System Disk)</span>
           </div>
@@ -854,7 +828,6 @@
           <div class="calc-form-grid">
             <div class="calc-field">
               <label class="calc-label">
-                <i class="fas fa-video"></i>
                 <span class="ko-only">카메라 채널 수</span>
                 <span class="en-only">Camera Channels</span>
               </label>
@@ -863,7 +836,6 @@
             </div>
             <div class="calc-field">
               <label class="calc-label">
-                <i class="fas fa-film"></i>
                 <span class="ko-only">해상도 / 품질</span>
                 <span class="en-only">Resolution / Quality</span>
               </label>
@@ -878,7 +850,6 @@
             </div>
             <div class="calc-field custom-bitrate-row" id="r-custom-row">
               <label class="calc-label">
-                <i class="fas fa-sliders-h"></i>
                 <span class="ko-only">비트레이트 (Mbps)</span>
                 <span class="en-only">Bitrate (Mbps)</span>
               </label>
@@ -886,7 +857,6 @@
             </div>
             <div class="calc-field">
               <label class="calc-label">
-                <i class="fas fa-clock"></i>
                 <span class="ko-only">일일 녹화 시간</span>
                 <span class="en-only">Recording Hours/Day</span>
               </label>
@@ -896,7 +866,6 @@
             </div>
             <div class="calc-field">
               <label class="calc-label">
-                <i class="fas fa-gauge-high"></i>
                 <span class="ko-only">프레임 레이트 (FPS)</span>
                 <span class="en-only">Frame Rate (FPS)</span>
               </label>
@@ -906,7 +875,6 @@
             </div>
             <div class="calc-field">
               <label class="calc-label">
-                <i class="fas fa-database"></i>
                 <span class="ko-only">데이터 디스크 용량 (TB)</span>
                 <span class="en-only">Data Disk Capacity (TB)</span>
               </label>
@@ -942,11 +910,9 @@
       <!-- Reference Table -->
       <div class="calc-ref-section">
         <h2 class="calc-ref-title ko-only">
-          <i class="fas fa-table" style="color:var(--accent-color);margin-right:0.3rem;font-size:0.95rem;"></i>
           해상도별 비트레이트 참고표
         </h2>
         <h2 class="calc-ref-title en-only">
-          <i class="fas fa-table" style="color:var(--accent-color);margin-right:0.3rem;font-size:0.95rem;"></i>
           Bitrate Reference by Resolution
         </h2>
         <table class="calc-ref-table">
@@ -998,7 +964,6 @@
 
         <div class="calc-formula">
           <div class="calc-formula-title">
-            <i class="fas fa-square-root-variable"></i>
             <span class="ko-only">계산 공식</span>
             <span class="en-only">Formula</span>
           </div>
@@ -1038,17 +1003,36 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer" role="contentinfo">
-      <p class="footer-copyright">&copy; 2026 YIYOL. All rights reserved.</p>
-      <div class="footer-info">
-        <span class="ko-only">서울특별시 금천구 가산디지털1로 75-15, 하우스디 와이즈타워 326호</span>
-        <span class="en-only">#326, 75-15 Gasan Digital 1-ro, Geumcheon-gu, Seoul</span>
-        <span class="footer-divider">|</span>
-        <span>yiyol@yiyol.com</span>
+    <footer class="yl-foot" role="contentinfo">
+      <div class="yl-shell">
+        <div class="yl-foot-mast">
+          <div>
+            <div class="yl-foot-word">YIYOL<span>.</span></div>
+            <p class="yl-foot-tag ko-only">영상을 저장하고 관리하는 NVR·VMS,<br />그 위에서 판단하고 실행하는 AI 자동화</p>
+            <p class="yl-foot-tag en-only">NVR and VMS that store and manage your video — and the AI automation built on top of it.</p>
+          </div>
+          <nav class="yl-foot-links" aria-label="Footer navigation">
+            <a href="/products/"><span class="ko-only">제품</span><span class="en-only">Products</span></a>
+            <a href="/solutions/"><span class="ko-only">AI 솔루션</span><span class="en-only">AI Solutions</span></a>
+            <a href="/company/"><span class="ko-only">회사소개</span><span class="en-only">About</span></a>
+            <a href="/blog/"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a>
+            <a href="/contact/"><span class="ko-only">문의</span><span class="en-only">Contact</span></a>
+          </nav>
+        </div>
+        <div class="yl-foot-meta">
+          <span class="ko-only">서울특별시 금천구 가산디지털1로 75-15, 하우스디 와이즈타워 326호</span>
+          <span class="en-only">#326, 75-15 Gasan Digital 1-ro, Geumcheon-gu, Seoul</span>
+          <a href="mailto:yiyol@yiyol.com">yiyol@yiyol.com</a>
+          <span class="ko-only">사업자등록번호 186-34-01502</span>
+          <span class="en-only">Business Registration 186-34-01502</span>
+          <span class="ko-only">통신판매업 제2024-서울금천-1806호</span>
+          <span class="en-only">Mail-order License 2024-Seoul Geumcheon-1806</span>
+        </div>
+        <p class="yl-foot-copy">&copy; 2026 YIYOL. All rights reserved.</p>
       </div>
     </footer>
 
-    <script src="/assets/js/i18n.js"></script>
+    <script src="/assets/js/i18n.js?v=4"></script>
     <script>
       // Mode switching
       function switchMode(mode) {

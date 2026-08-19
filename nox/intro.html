@@ -17,461 +17,521 @@
   <meta property="og:title" content="NOX NVR — 귀사만의 NVR/VMS 시스템을 만드세요">
   <meta property="og:description" content="커스터마이징 가능한 NVR/VMS 플랫폼. Vision AI → VLM → Agentic AI. 귀사의 브랜드로 완성.">
   <meta property="og:type" content="website">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
+    /* Hallmark · design-system: design.md § Variants (product-dark)
+     * Converted off a private palette onto tokens.css — every colour and font
+     * references a named token (gate 48).
+     *
+     * The AI roadmap previously coded its four stages by hue
+     * (grey -> cyan -> violet -> pink). design.md § Variants bans violet and
+     * pink outright: one accent per page. The progression is now carried by
+     * INTENSITY and TREATMENT on the single accent — filled (now), outlined
+     * (next), dashed (future), neutral (past) — which reads as one product
+     * rather than four. Dead .ic-* / .si-* swatch rules dropped with the empty
+     * icon containers Font Awesome left behind.
+     */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #f8fafc; color: #1e293b; line-height: 1.7;
+      font-family: var(--font-body);
+      background: var(--color-paper-2); color: var(--color-ink-2); line-height: 1.7;
     }
 
-    /* ── Hero ── */
+    /* ── Hero — flat graphite band, no gradient ground, no radial blooms ── */
     .hero {
-      background: linear-gradient(140deg, #03080f 0%, #081428 40%, #0a1e35 70%, #062030 100%);
-      color: #fff; padding: 5.5rem 1.5rem 5rem;
+      background: var(--color-graphite);
+      color: var(--color-on-dark);
+      padding: var(--space-3xl) var(--space-md) var(--space-2xl);
       text-align: center; position: relative; overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 55% 45% at 15% 85%, rgba(0,180,216,0.15) 0%, transparent 65%),
-        radial-gradient(ellipse 55% 45% at 85% 15%, rgba(139,92,246,0.10) 0%, transparent 65%),
-        radial-gradient(ellipse 40% 40% at 50% 50%, rgba(0,180,216,0.04) 0%, transparent 70%);
     }
     .hero > * { position: relative; z-index: 1; }
     .hero-eyebrow {
       display: inline-block;
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
-      color: #00b4d8; border: 1px solid rgba(0,180,216,0.35);
-      padding: 0.3rem 0.9rem; border-radius: 3px; margin-bottom: 1.4rem;
+      font-family: var(--font-mono);
+      font-size: var(--text-xs); font-weight: 500;
+      letter-spacing: var(--tracking-mono); text-transform: uppercase;
+      color: var(--color-accent-bright);
+      border: var(--rule-hair) solid var(--color-graphite-rule);
+      padding: var(--space-3xs) var(--space-2xs);
+      border-radius: var(--radius-ctl); margin-bottom: var(--space-md);
     }
     .hero h1 {
-      font-family: 'Poppins', sans-serif;
-      font-size: clamp(2rem, 5.5vw, 3.2rem);
-      font-weight: 800; line-height: 1.18; margin-bottom: 1.1rem;
+      font-family: var(--font-display);
+      font-size: var(--text-display-s);
+      font-weight: 600; letter-spacing: var(--tracking-display);
+      line-height: 1.18; margin-bottom: var(--space-sm);
     }
-    .hero h1 em { color: #00b4d8; font-style: normal; }
-    .hero h1 .em2 { color: #a78bfa; font-style: normal; }
+    .hero h1 em,
+    .hero h1 .em2 { color: var(--color-accent-bright); font-style: normal; }
     .hero-sub {
-      font-size: clamp(0.95rem, 2vw, 1.1rem);
-      color: #94a3b8; max-width: 660px; margin: 0 auto 2.5rem; line-height: 1.8;
+      font-size: var(--text-md);
+      color: var(--color-on-dark-2); max-width: 660px;
+      margin: 0 auto var(--space-xl); line-height: 1.8;
     }
-    .hero-cta-group {
-      display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center;
-    }
+    .hero-cta-group { display: flex; flex-wrap: wrap; gap: var(--space-xs); justify-content: center; }
     .btn-primary {
-      background: #00b4d8; color: #fff; font-weight: 700;
-      padding: 0.9rem 2.1rem; border-radius: 6px; text-decoration: none;
-      font-size: 0.95rem; transition: background 0.2s, transform 0.15s;
-      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--color-accent); color: var(--color-accent-ink); font-weight: 500;
+      padding: var(--space-xs) var(--space-lg); border-radius: var(--radius-ctl);
+      text-decoration: none; font-size: var(--text-base);
+      white-space: nowrap;                  /* gate 49 */
+      transition: background-color var(--dur-fast) var(--ease-out),
+                  transform var(--dur-fast) var(--ease-out);
+      display: inline-flex; align-items: center; gap: var(--space-2xs);
     }
-    .btn-primary:hover { background: #0096b7; transform: translateY(-1px); }
+    .btn-primary:hover { background: var(--color-accent-hover); transform: translateY(-1px); }
     .btn-ghost {
-      background: transparent; color: #e2e8f0; font-weight: 600;
-      padding: 0.9rem 2.1rem; border-radius: 6px; text-decoration: none;
-      font-size: 0.95rem; border: 1px solid rgba(255,255,255,0.25);
-      transition: border-color 0.2s, color 0.2s;
-      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: transparent; color: var(--color-on-dark); font-weight: 500;
+      padding: var(--space-xs) var(--space-lg); border-radius: var(--radius-ctl);
+      text-decoration: none; font-size: var(--text-base);
+      border: var(--rule-hair) solid var(--color-graphite-rule);
+      white-space: nowrap;                  /* gate 49 */
+      transition: border-color var(--dur-fast) var(--ease-out),
+                  color var(--dur-fast) var(--ease-out);
+      display: inline-flex; align-items: center; gap: var(--space-2xs);
     }
-    .btn-ghost:hover { border-color: rgba(255,255,255,0.6); color: #fff; }
+    .btn-ghost:hover { border-color: var(--color-accent-bright); color: var(--color-accent-bright); }
 
     /* ── Proof bar ── */
     .proof-bar {
-      background: #0a0f1a; border-bottom: 1px solid #1e293b; padding: 1rem 1.5rem;
+      background: var(--color-graphite-2);
+      border-bottom: var(--rule-hair) solid var(--color-graphite-rule);
+      padding: var(--space-sm) var(--space-md);
     }
     .proof-bar-inner {
       max-width: 960px; margin: 0 auto;
-      display: flex; flex-wrap: wrap; gap: 0.5rem 2rem;
+      display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-lg);
       justify-content: center; align-items: center;
     }
     .proof-item {
-      display: flex; align-items: center; gap: 0.45rem;
-      font-size: 0.8rem; color: #94a3b8; white-space: nowrap;
+      display: flex; align-items: center; gap: var(--space-3xs);
+      font-size: var(--text-sm); color: var(--color-on-dark-2); white-space: nowrap;
     }
-    .proof-item i { color: #00b4d8; font-size: 0.82rem; }
-    .proof-item strong { color: #e2e8f0; }
+    .proof-item strong { color: var(--color-on-dark); }
 
     /* ── Sections ── */
-    .section { padding: 4.5rem 1.5rem; }
-    .section-alt { background: #fff; }
-    .section-dark { background: #070d18; }
+    .section { padding: var(--space-2xl) var(--space-md); }
+    .section-alt  { background: var(--color-paper); }
+    .section-dark { background: var(--color-graphite); }
     .wrap { max-width: 940px; margin: 0 auto; }
     .section-label {
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
-      color: #00b4d8; margin-bottom: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: var(--text-xs); font-weight: 500;
+      letter-spacing: var(--tracking-mono); text-transform: uppercase;
+      color: var(--color-accent); margin-bottom: var(--space-2xs);
     }
-    .section-label-purple { color: #a78bfa; }
+    .section-label-purple { color: var(--color-accent); }
     .section-title {
-      font-family: 'Poppins', sans-serif;
-      font-size: clamp(1.3rem, 3vw, 1.8rem);
-      font-weight: 800; color: #0f172a; margin-bottom: 0.75rem; line-height: 1.28;
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 600; letter-spacing: var(--tracking-display);
+      color: var(--color-ink); margin-bottom: var(--space-xs); line-height: 1.28;
     }
-    .section-title-light { color: #f1f5f9; }
-    .section-desc { font-size: 0.95rem; color: #64748b; max-width: 600px; line-height: 1.85; }
-    .section-desc-light { color: #94a3b8; }
-    .section-head { margin-bottom: 2.5rem; }
+    .section-title-light { color: var(--color-on-dark); }
+    .section-desc { font-size: var(--text-base); color: var(--color-muted); max-width: 600px; line-height: 1.85; }
+    .section-desc-light { color: var(--color-on-dark-2); }
+    .section-head { margin-bottom: var(--space-xl); }
 
-    /* ══════════════════════════════
-       CUSTOMIZATION — Hero section
-    ══════════════════════════════ */
+    /* ══ CUSTOMIZATION ══ */
     .custom-hero {
-      background: linear-gradient(135deg, #0a0f1a 0%, #0e1b2e 100%);
-      border-radius: 16px; overflow: hidden;
-      border: 1px solid rgba(0,180,216,0.15);
-      box-shadow: 0 0 60px rgba(0,180,216,0.05);
+      background: var(--color-graphite);
+      border-radius: var(--radius-card); overflow: hidden;
+      border: var(--rule-hair) solid var(--color-graphite-rule);
     }
-    .custom-hero-inner {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 0;
-    }
-    .custom-hero-text {
-      padding: 3rem 2.5rem;
-    }
+    .custom-hero-inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0; }
+    .custom-hero-text { padding: var(--space-xl) var(--space-lg); }
     .custom-hero-text h3 {
-      font-family: 'Poppins', sans-serif;
-      font-size: clamp(1.3rem, 2.5vw, 1.7rem);
-      font-weight: 800; color: #f1f5f9; line-height: 1.3; margin-bottom: 1rem;
+      font-family: var(--font-display);
+      font-size: var(--text-xl); font-weight: 600;
+      letter-spacing: var(--tracking-display);
+      color: var(--color-on-dark); line-height: 1.3; margin-bottom: var(--space-sm);
     }
-    .custom-hero-text h3 em { color: #00b4d8; font-style: normal; }
-    .custom-hero-text p { font-size: 0.9rem; color: #94a3b8; line-height: 1.85; margin-bottom: 1.25rem; }
-    .custom-list {
-      list-style: none; display: flex; flex-direction: column; gap: 0.55rem;
-    }
+    .custom-hero-text h3 em { color: var(--color-accent-bright); font-style: normal; }
+    .custom-hero-text p { font-size: var(--text-base); color: var(--color-on-dark-2); line-height: 1.85; margin-bottom: var(--space-sm); }
+    .custom-list { list-style: none; display: flex; flex-direction: column; gap: var(--space-2xs); }
     .custom-list li {
-      display: flex; align-items: flex-start; gap: 0.55rem;
-      font-size: 0.87rem; color: #cbd5e1;
+      display: flex; align-items: flex-start; gap: var(--space-2xs);
+      font-size: var(--text-base); color: var(--color-on-dark-2);
     }
-    .custom-list li i { color: #00b4d8; margin-top: 0.22rem; flex-shrink: 0; }
     .custom-hero-visual {
-      background: #060c17; border-left: 1px solid rgba(0,180,216,0.1);
-      padding: 2.5rem 2rem; display: flex; flex-direction: column; gap: 1rem;
-      justify-content: center;
+      background: var(--color-graphite-2);
+      border-left: var(--rule-hair) solid var(--color-graphite-rule);
+      padding: var(--space-lg) var(--space-md);
+      display: flex; flex-direction: column; gap: var(--space-sm); justify-content: center;
     }
+    /* Four stacked layers, one accent. Depth comes from wash intensity, not hue. */
     .custom-layer {
-      border-radius: 8px; padding: 0.75rem 1rem;
-      display: flex; align-items: center; gap: 0.65rem;
-      border: 1px solid transparent; transition: border-color 0.2s;
+      border-radius: var(--radius-ctl); padding: var(--space-xs) var(--space-sm);
+      display: flex; align-items: center; gap: var(--space-2xs);
+      border: var(--rule-hair) solid transparent;
+      transition: border-color var(--dur-fast) var(--ease-out);
     }
-    .custom-layer:hover { border-color: rgba(0,180,216,0.3); }
-    .cl-1 { background: rgba(0,180,216,0.08); border-color: rgba(0,180,216,0.15); }
-    .cl-2 { background: rgba(59,130,246,0.07); }
-    .cl-3 { background: rgba(139,92,246,0.07); }
-    .cl-4 { background: rgba(236,72,153,0.06); }
-    .cl-icon {
-      width: 34px; height: 34px; border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.9rem; flex-shrink: 0;
-    }
-    .cl-1 .cl-icon { background: rgba(0,180,216,0.2); color: #00b4d8; }
-    .cl-2 .cl-icon { background: rgba(59,130,246,0.2); color: #60a5fa; }
-    .cl-3 .cl-icon { background: rgba(139,92,246,0.2); color: #a78bfa; }
-    .cl-4 .cl-icon { background: rgba(236,72,153,0.2); color: #f472b6; }
-    .cl-text h4 { font-size: 0.82rem; font-weight: 700; color: #e2e8f0; margin-bottom: 0.1rem; }
-    .cl-text p  { font-size: 0.74rem; color: #64748b; line-height: 1.4; }
+    .custom-layer:hover { border-color: var(--color-accent-hair); }
+    .cl-1 { background: var(--color-bright-wash-2); border-color: var(--color-graphite-rule); }
+    .cl-2 { background: var(--color-bright-wash); }
+    .cl-3 { background: var(--color-bright-wash); }
+    .cl-4 { background: var(--color-bright-wash); }
+    .cl-text h4 { font-size: var(--text-sm); font-weight: 600; color: var(--color-on-dark); margin-bottom: var(--space-4xs); }
+    .cl-text p  { font-size: var(--text-xs); color: var(--color-on-dark-2); line-height: 1.4; }
     .custom-cta {
-      margin-top: 0.5rem;
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      font-size: 0.85rem; font-weight: 700; color: #00b4d8; text-decoration: none;
-      border: 1px solid rgba(0,180,216,0.35); padding: 0.55rem 1.1rem; border-radius: 5px;
-      transition: background 0.2s;
+      margin-top: var(--space-2xs);
+      display: inline-flex; align-items: center; gap: var(--space-2xs);
+      font-size: var(--text-base); font-weight: 500;
+      color: var(--color-accent-bright); text-decoration: none;
+      border: var(--rule-hair) solid var(--color-graphite-rule);
+      padding: var(--space-2xs) var(--space-sm); border-radius: var(--radius-ctl);
+      white-space: nowrap;                  /* gate 49 */
+      transition: background-color var(--dur-fast) var(--ease-out);
     }
-    .custom-cta:hover { background: rgba(0,180,216,0.1); }
+    .custom-cta:hover { background: var(--color-bright-wash-2); }
 
-    /* ══════════════════════════════
-       AI EVOLUTION ROADMAP
-    ══════════════════════════════ */
+    /* ══ AI EVOLUTION ROADMAP ══
+       Four stages, ONE accent. Past = neutral, Now = filled, Next = outlined,
+       Future = dashed. Hue never changes. */
     .ai-road {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
-      border-radius: 12px; overflow: hidden; border: 1px solid #1e293b;
+      display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0;
+      border-radius: var(--radius-card); overflow: hidden;
+      border: var(--rule-hair) solid var(--color-graphite-rule);
     }
     .ai-stage {
-      padding: 2rem 1.5rem; border-right: 1px solid #1e293b;
-      position: relative;
+      padding: var(--space-lg) var(--space-md);
+      border-right: var(--rule-hair) solid var(--color-graphite-rule);
+      position: relative; background: var(--color-graphite);
     }
     .ai-stage:last-child { border-right: none; }
-    .ai-stage-1 { background: #0d1117; }
-    .ai-stage-2 { background: #0a1628; }
-    .ai-stage-3 { background: #0c1a30; }
-    .ai-stage-4 { background: linear-gradient(160deg, #0e1535, #120d28); }
+    /* the current stage is the one that lifts */
+    .ai-stage-2 { background: var(--color-graphite-2); box-shadow: inset 0 2px 0 0 var(--color-accent-bright); }
     .stage-badge {
-      display: inline-block; font-size: 0.62rem; font-weight: 700;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      padding: 0.2rem 0.55rem; border-radius: 3px; margin-bottom: 0.85rem;
+      display: inline-block; font-family: var(--font-mono);
+      font-size: var(--text-xs); font-weight: 500;
+      letter-spacing: var(--tracking-mono); text-transform: uppercase;
+      padding: var(--space-4xs) var(--space-3xs);
+      border-radius: var(--radius-ctl); margin-bottom: var(--space-2xs);
+      white-space: nowrap;                  /* gate 49 */
     }
-    .badge-gray   { background: rgba(100,116,139,0.15); color: #94a3b8; border: 1px solid rgba(100,116,139,0.25); }
-    .badge-cyan   { background: rgba(0,180,216,0.15);  color: #00b4d8;  border: 1px solid rgba(0,180,216,0.3);  }
-    .badge-violet { background: rgba(139,92,246,0.15); color: #a78bfa;  border: 1px solid rgba(139,92,246,0.3); }
-    .badge-future { background: rgba(236,72,153,0.12); color: #f472b6;  border: 1px solid rgba(236,72,153,0.25);}
-    .stage-icon {
-      width: 44px; height: 44px; border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem; margin-bottom: 0.85rem;
+    .badge-gray {
+      background: transparent; color: var(--color-on-dark-2);
+      border: var(--rule-hair) solid var(--color-graphite-rule);
     }
-    .si-gray   { background: rgba(100,116,139,0.12); color: #64748b; }
-    .si-cyan   { background: rgba(0,180,216,0.12);   color: #00b4d8; }
-    .si-violet { background: rgba(139,92,246,0.12);  color: #a78bfa; }
-    .si-pink   { background: rgba(236,72,153,0.12);  color: #f472b6; }
-    .ai-stage h3 { font-size: 0.9rem; font-weight: 700; color: #e2e8f0; margin-bottom: 0.5rem; }
-    .ai-stage p  { font-size: 0.78rem; color: #64748b; line-height: 1.7; }
+    .badge-cyan {
+      background: var(--color-accent-bright); color: var(--color-graphite);
+      border: var(--rule-hair) solid var(--color-accent-bright);
+    }
+    .badge-violet {
+      background: transparent; color: var(--color-accent-bright);
+      border: var(--rule-hair) solid var(--color-accent-bright);
+    }
+    .badge-future {
+      background: transparent; color: var(--color-on-dark-2);
+      border: var(--rule-hair) dashed var(--color-graphite-rule);
+    }
+    .ai-stage h3 {
+      font-family: var(--font-display); font-size: var(--text-base);
+      font-weight: 600; color: var(--color-on-dark); margin-bottom: var(--space-2xs);
+    }
+    .ai-stage p { font-size: var(--text-sm); color: var(--color-on-dark-2); line-height: 1.7; }
     .stage-items {
       list-style: none; display: flex; flex-direction: column;
-      gap: 0.3rem; margin-top: 0.65rem;
+      gap: var(--space-3xs); margin-top: var(--space-2xs);
     }
     .stage-items li {
-      font-size: 0.75rem; color: #94a3b8;
-      display: flex; align-items: flex-start; gap: 0.4rem;
+      font-size: var(--text-sm); color: var(--color-on-dark-2);
+      display: flex; align-items: flex-start; gap: var(--space-3xs);
     }
-    .stage-items li i { font-size: 0.65rem; margin-top: 0.28rem; flex-shrink: 0; }
+    .now-label, .next-label {
+      position: absolute; top: var(--space-xs); right: var(--space-xs);
+      font-family: var(--font-mono); font-size: var(--text-xs); font-weight: 500;
+      padding: var(--space-4xs) var(--space-3xs);
+      border-radius: var(--radius-ctl); letter-spacing: var(--tracking-mono);
+      white-space: nowrap;                  /* gate 49 */
+    }
     .now-label {
-      position: absolute; top: 0.75rem; right: 0.75rem;
-      background: rgba(0,180,216,0.18); border: 1px solid rgba(0,180,216,0.35);
-      color: #67e8f9; font-size: 0.62rem; font-weight: 700;
-      padding: 0.15rem 0.45rem; border-radius: 3px; letter-spacing: 0.08em;
+      background: var(--color-bright-wash-2); color: var(--color-accent-bright);
+      border: var(--rule-hair) solid var(--color-accent-bright);
     }
     .next-label {
-      position: absolute; top: 0.75rem; right: 0.75rem;
-      background: rgba(139,92,246,0.15); border: 1px solid rgba(139,92,246,0.3);
-      color: #c4b5fd; font-size: 0.62rem; font-weight: 700;
-      padding: 0.15rem 0.45rem; border-radius: 3px; letter-spacing: 0.08em;
+      background: transparent; color: var(--color-on-dark-2);
+      border: var(--rule-hair) dashed var(--color-graphite-rule);
     }
 
     /* ── WebRTC feature ── */
-    .split-feature {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: center;
-    }
+    .split-feature { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-xl); align-items: center; }
     .split-text h3 {
-      font-family: 'Poppins', sans-serif;
-      font-size: 1.35rem; font-weight: 800; color: #0f172a;
-      margin-bottom: 0.75rem; line-height: 1.3;
+      font-family: var(--font-display);
+      font-size: var(--text-xl); font-weight: 600;
+      letter-spacing: var(--tracking-display);
+      color: var(--color-ink); margin-bottom: var(--space-xs); line-height: 1.3;
     }
-    .split-text h3 em { color: #00b4d8; font-style: normal; }
-    .split-text p { font-size: 0.9rem; color: #475569; line-height: 1.85; margin-bottom: 1rem; }
-    .feature-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .split-text h3 em { color: var(--color-accent); font-style: normal; }
+    .split-text p { font-size: var(--text-base); color: var(--color-ink-2); line-height: 1.85; margin-bottom: var(--space-sm); }
+    .feature-list { list-style: none; display: flex; flex-direction: column; gap: var(--space-2xs); }
     .feature-list li {
-      display: flex; align-items: flex-start; gap: 0.5rem;
-      font-size: 0.87rem; color: #334155;
+      display: flex; align-items: flex-start; gap: var(--space-2xs);
+      font-size: var(--text-base); color: var(--color-ink-2);
     }
-    .feature-list li i { color: #00b4d8; margin-top: 0.22rem; flex-shrink: 0; }
-    .split-visual {
-      background: #0f172a; border-radius: 14px; padding: 1.75rem 1.5rem;
-    }
-    .flow-row {
-      display: flex; align-items: center; gap: 0.45rem; justify-content: center;
-    }
+    .split-visual { background: var(--color-graphite); border-radius: var(--radius-card); padding: var(--space-md) var(--space-sm); }
+    .flow-row { display: flex; align-items: center; gap: var(--space-3xs); justify-content: center; }
     .flow-node {
-      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 7px; padding: 0.45rem 0.8rem;
-      font-size: 0.76rem; font-weight: 600; color: #e2e8f0;
+      background: var(--color-graphite-2);
+      border: var(--rule-hair) solid var(--color-graphite-rule);
+      border-radius: var(--radius-ctl); padding: var(--space-3xs) var(--space-2xs);
+      font-size: var(--text-sm); font-weight: 500; color: var(--color-on-dark);
       text-align: center; white-space: nowrap;
     }
-    .flow-node.hl { background: rgba(0,180,216,0.18); border-color: rgba(0,180,216,0.45); color: #67e8f9; }
-    .flow-arrow { color: #334155; font-size: 0.72rem; }
-    .flow-label { font-size: 0.68rem; color: #475569; text-align: center; margin-top: 0.3rem; }
+    .flow-node.hl {
+      background: var(--color-bright-wash-2);
+      border-color: var(--color-accent-bright); color: var(--color-accent-bright);
+    }
+    .flow-arrow { color: var(--color-on-dark-2); font-size: var(--text-sm); }
+    .flow-label { font-size: var(--text-xs); color: var(--color-on-dark-2); text-align: center; margin-top: var(--space-3xs); }
     .latency-badge {
-      background: rgba(0,180,216,0.1); border: 1px solid rgba(0,180,216,0.25);
-      border-radius: 8px; padding: 0.7rem 1rem; text-align: center; margin-top: 0.85rem;
+      background: var(--color-bright-wash);
+      border: var(--rule-hair) solid var(--color-graphite-rule);
+      border-radius: var(--radius-ctl); padding: var(--space-xs) var(--space-sm);
+      text-align: center; margin-top: var(--space-2xs);
     }
     .latency-badge .val {
-      font-family: 'Poppins', sans-serif; font-size: 1.4rem; font-weight: 800; color: #00b4d8;
+      font-family: var(--font-mono); font-size: var(--text-xl); font-weight: 500;
+      font-variant-numeric: tabular-nums; color: var(--color-accent-bright);
     }
-    .latency-badge .unit { font-size: 0.8rem; color: #94a3b8; }
+    .latency-badge .unit { font-size: var(--text-sm); color: var(--color-on-dark-2); }
 
     /* ── Mobile camera ── */
     .phone-visual {
-      background: linear-gradient(135deg, #0a1628, #0d2b40);
-      border-radius: 14px; padding: 2rem 1.5rem;
-      border: 1px solid rgba(0,180,216,0.12);
+      background: var(--color-graphite); border-radius: var(--radius-card);
+      padding: var(--space-lg) var(--space-md);
+      border: var(--rule-hair) solid var(--color-graphite-rule);
     }
-    .phone-diagram {
-      display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
-    }
-    .phone-icon {
-      width: 52px; height: 52px; border-radius: 12px;
-      background: rgba(0,180,216,0.15); border: 1px solid rgba(0,180,216,0.3);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.3rem; color: #00b4d8;
-    }
-    .arrow-down { color: #334155; font-size: 1.1rem; }
+    .phone-diagram { display: flex; flex-direction: column; align-items: center; gap: var(--space-2xs); }
+    .arrow-down { color: var(--color-on-dark-2); font-size: var(--text-lg); }
     .nox-box {
-      background: #00b4d8; border-radius: 8px;
-      padding: 0.6rem 2rem; font-size: 0.88rem; font-weight: 800;
-      color: #fff; letter-spacing: 0.05em;
+      background: var(--color-accent); border-radius: var(--radius-ctl);
+      padding: var(--space-2xs) var(--space-lg); font-size: var(--text-base);
+      font-weight: 600; color: var(--color-accent-ink); letter-spacing: 0.05em;
     }
-    .nox-outputs {
-      display: flex; gap: 0.45rem; flex-wrap: wrap; justify-content: center;
-    }
+    .nox-outputs { display: flex; gap: var(--space-3xs); flex-wrap: wrap; justify-content: center; }
     .output-chip {
-      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 5px; padding: 0.28rem 0.6rem;
-      font-size: 0.71rem; font-weight: 600; color: #94a3b8;
+      background: var(--color-graphite-2);
+      border: var(--rule-hair) solid var(--color-graphite-rule);
+      border-radius: var(--radius-ctl); padding: var(--space-4xs) var(--space-2xs);
+      font-size: var(--text-xs); font-weight: 500; color: var(--color-on-dark-2);
     }
-    .push-label { font-size: 0.7rem; color: #475569; }
+    .push-label { font-size: var(--text-xs); color: var(--color-on-dark-2); }
 
     /* ── Stats ── */
     .stats-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(150px, 100%), 1fr));
+      gap: var(--space-sm);
     }
     .stat-card {
-      background: #fff; border-radius: 10px; padding: 1.35rem 1rem;
-      text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-      border: 1px solid #e2e8f0; transition: transform 0.2s, box-shadow 0.2s;
+      background: var(--color-paper); border-radius: var(--radius-card);
+      padding: var(--space-sm); text-align: center; box-shadow: var(--shadow-lift);
+      border: var(--rule-hair) solid var(--color-rule);
+      transition: transform var(--dur-fast) var(--ease-out),
+                  box-shadow var(--dur-fast) var(--ease-out);
     }
-    .stat-card:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,0.1); }
+    .stat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-pop); }
     .stat-num {
-      font-family: 'Poppins', sans-serif; font-size: 1.85rem; font-weight: 800;
-      color: #00b4d8; line-height: 1; margin-bottom: 0.35rem;
+      font-family: var(--font-mono); font-size: var(--text-2xl); font-weight: 500;
+      font-variant-numeric: tabular-nums;
+      color: var(--color-accent); line-height: 1; margin-bottom: var(--space-3xs);
     }
-    .stat-unit { font-size: 0.9rem; font-weight: 600; }
-    .stat-label { font-size: 0.76rem; color: #64748b; line-height: 1.5; }
+    .stat-unit { font-size: var(--text-base); font-weight: 500; }
+    .stat-label { font-size: var(--text-sm); color: var(--color-muted); line-height: 1.5; }
 
     /* ── USP grid ── */
-    .usp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; }
+    .usp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
+      gap: var(--space-sm);
+    }
     .usp-card {
-      background: #fff; border-radius: 10px; padding: 1.5rem;
-      border: 1px solid #e8edf2; box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-      transition: transform 0.2s, box-shadow 0.2s;
+      background: var(--color-paper); border-radius: var(--radius-card); padding: var(--space-md);
+      border: var(--rule-hair) solid var(--color-rule); box-shadow: var(--shadow-lift);
+      transition: transform var(--dur-fast) var(--ease-out),
+                  box-shadow var(--dur-fast) var(--ease-out);
     }
-    .usp-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.09); }
-    .usp-icon-wrap {
-      width: 46px; height: 46px; border-radius: 11px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.05rem; margin-bottom: 0.9rem;
+    .usp-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-pop); }
+    .usp-card h3 {
+      font-family: var(--font-display); font-size: var(--text-base);
+      font-weight: 600; color: var(--color-ink); margin-bottom: var(--space-3xs);
     }
-    .ic-cyan   { background: #cffafe; color: #0891b2; }
-    .ic-blue   { background: #dbeafe; color: #2563eb; }
-    .ic-amber  { background: #fef3c7; color: #d97706; }
-    .ic-purple { background: #ede9fe; color: #7c3aed; }
-    .ic-rose   { background: #fce7f3; color: #db2777; }
-    .ic-green  { background: #d1fae5; color: #059669; }
-    .usp-card h3 { font-size: 0.97rem; font-weight: 700; color: #0f172a; margin-bottom: 0.45rem; }
-    .usp-card p  { font-size: 0.83rem; color: #64748b; line-height: 1.72; }
+    .usp-card p { font-size: var(--text-sm); color: var(--color-muted); line-height: 1.72; }
     .usp-tag {
-      display: inline-block; margin-top: 0.7rem;
-      font-size: 0.69rem; font-weight: 600; padding: 0.18rem 0.52rem; border-radius: 3px;
+      display: inline-block; margin-top: var(--space-2xs);
+      font-family: var(--font-mono); font-size: var(--text-xs); font-weight: 500;
+      letter-spacing: var(--tracking-mono);
+      padding: var(--space-4xs) var(--space-3xs); border-radius: var(--radius-ctl);
+      background: var(--color-accent-wash); color: var(--color-accent);
+      white-space: nowrap;                  /* gate 49 */
     }
-    .tag-cyan   { background: #e0f9fd; color: #0891b2; }
-    .tag-blue   { background: #dbeafe; color: #1d4ed8; }
-    .tag-amber  { background: #fef9c3; color: #a16207; }
-    .tag-purple { background: #ede9fe; color: #6d28d9; }
-    .tag-rose   { background: #fce7f3; color: #be185d; }
-    .tag-green  { background: #dcfce7; color: #15803d; }
 
     /* ── Security callout ── */
     .security-callout {
-      background: #0f172a; border-radius: 12px; padding: 1.6rem 1.75rem;
-      display: grid; grid-template-columns: auto 1fr; gap: 1.4rem; align-items: center;
-      margin-top: 1.5rem;
+      background: var(--color-graphite); border-radius: var(--radius-card);
+      padding: var(--space-md); display: grid;
+      grid-template-columns: minmax(0, 1fr); gap: var(--space-sm);
+      margin-top: var(--space-md);
     }
-    .security-callout-icon {
-      width: 52px; height: 52px; border-radius: 12px;
-      background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.22);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.3rem; color: #4ade80; flex-shrink: 0;
+    .security-callout h3 {
+      font-family: var(--font-display); font-size: var(--text-base);
+      font-weight: 600; color: var(--color-on-dark); margin-bottom: var(--space-3xs);
     }
-    .security-callout h3 { font-size: 0.97rem; font-weight: 700; color: #e2e8f0; margin-bottom: 0.3rem; }
-    .security-callout p  { font-size: 0.83rem; color: #64748b; line-height: 1.7; }
-    .security-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.55rem; }
+    .security-callout p { font-size: var(--text-sm); color: var(--color-on-dark-2); line-height: 1.7; }
+    .security-tags { display: flex; flex-wrap: wrap; gap: var(--space-3xs); margin-top: var(--space-2xs); }
     .sec-tag {
-      background: rgba(74,222,128,0.08); border: 1px solid rgba(74,222,128,0.18);
-      color: #86efac; font-size: 0.69rem; font-weight: 600;
-      padding: 0.18rem 0.52rem; border-radius: 3px;
+      background: var(--color-bright-wash-2);
+      border: var(--rule-hair) solid var(--color-graphite-rule);
+      color: var(--color-accent-bright);
+      font-family: var(--font-mono); font-size: var(--text-xs); font-weight: 500;
+      letter-spacing: var(--tracking-mono);
+      padding: var(--space-4xs) var(--space-3xs); border-radius: var(--radius-ctl);
+      white-space: nowrap;                  /* gate 49 */
     }
 
     /* ── Persona ── */
-    .persona-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1rem; }
-    .persona-card { background: #0f172a; border-radius: 10px; padding: 1.4rem 1.2rem; color: #fff; }
-    .persona-header { display: flex; align-items: center; gap: 0.55rem; margin-bottom: 0.8rem; }
-    .persona-icon {
-      width: 36px; height: 36px; border-radius: 8px;
-      background: rgba(0,180,216,0.15); border: 1px solid rgba(0,180,216,0.28);
-      display: flex; align-items: center; justify-content: center;
-      color: #00b4d8; font-size: 0.95rem; flex-shrink: 0;
+    .persona-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(210px, 100%), 1fr));
+      gap: var(--space-sm);
     }
-    .persona-name  { font-size: 0.84rem; font-weight: 700; color: #e2e8f0; }
-    .persona-badge { font-size: 0.63rem; color: #64748b; }
+    .persona-card {
+      background: var(--color-graphite); border-radius: var(--radius-card);
+      padding: var(--space-sm); color: var(--color-on-dark);
+    }
+    .persona-header { display: flex; align-items: center; gap: var(--space-2xs); margin-bottom: var(--space-2xs); }
+    .persona-name  { font-family: var(--font-display); font-size: var(--text-base); font-weight: 600; color: var(--color-on-dark); }
+    .persona-badge { font-size: var(--text-xs); color: var(--color-on-dark-2); }
     .persona-quote {
-      font-size: 0.8rem; color: #94a3b8; line-height: 1.7; font-style: italic;
-      border-left: 2px solid rgba(0,180,216,0.35); padding-left: 0.7rem; margin-bottom: 0.8rem;
+      font-size: var(--text-sm); color: var(--color-on-dark-2); line-height: 1.7; font-style: italic;
+      border-left: 2px solid var(--color-graphite-rule);
+      padding-left: var(--space-2xs); margin-bottom: var(--space-2xs);
     }
-    .persona-usp { font-size: 0.74rem; font-weight: 600; color: #00b4d8; }
+    .persona-usp { font-size: var(--text-sm); font-weight: 500; color: var(--color-accent-bright); }
 
     /* ── Steps ── */
     .steps-container {
-      border-radius: 10px; overflow: hidden;
-      border: 1px solid #e2e8f0; box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      border-radius: var(--radius-card); overflow: hidden;
+      border: var(--rule-hair) solid var(--color-rule); box-shadow: var(--shadow-lift);
     }
-    .steps-wrap { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+    .steps-wrap {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr));
+    }
     .step-card {
-      background: #fff; padding: 1.7rem 1.2rem;
-      border-right: 1px solid #e2e8f0; text-align: center;
+      background: var(--color-paper); padding: var(--space-md) var(--space-sm);
+      border-right: var(--rule-hair) solid var(--color-rule); text-align: center;
     }
     .step-card:last-child { border-right: none; }
     .step-num {
-      font-family: 'Poppins', sans-serif; font-size: 1.9rem; font-weight: 800;
-      color: #e2e8f0; line-height: 1; margin-bottom: 0.5rem;
+      font-family: var(--font-mono); font-size: var(--text-2xl); font-weight: 500;
+      font-variant-numeric: tabular-nums;
+      color: var(--color-accent); line-height: 1; margin-bottom: var(--space-2xs);
     }
-    .step-card h3 { font-size: 0.88rem; font-weight: 700; color: #0f172a; margin-bottom: 0.35rem; }
-    .step-card p  { font-size: 0.79rem; color: #64748b; line-height: 1.65; }
+    .step-card h3 {
+      font-family: var(--font-display); font-size: var(--text-base);
+      font-weight: 600; color: var(--color-ink); margin-bottom: var(--space-3xs);
+    }
+    .step-card p { font-size: var(--text-sm); color: var(--color-muted); line-height: 1.65; }
 
-    /* ── CTA ── */
+    /* ── CTA — flat graphite, no gradient, no radial bloom ── */
     .cta-section {
-      background: linear-gradient(135deg, #050d1a 0%, #0a1f3d 50%, #00374d 100%);
-      color: #fff; padding: 4.5rem 1.5rem; text-align: center;
+      background: var(--color-graphite); color: var(--color-on-dark);
+      padding: var(--space-2xl) var(--space-md); text-align: center;
       position: relative; overflow: hidden;
-    }
-    .cta-section::before {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(0,180,216,0.09) 0%, transparent 70%);
     }
     .cta-section > * { position: relative; z-index: 1; }
     .cta-section h2 {
-      font-family: 'Poppins', sans-serif;
-      font-size: clamp(1.4rem, 3.5vw, 2rem); font-weight: 800; margin-bottom: 0.75rem;
+      font-family: var(--font-display);
+      font-size: var(--text-3xl); font-weight: 600;
+      letter-spacing: var(--tracking-display); margin-bottom: var(--space-xs);
     }
-    .cta-section h2 em { color: #00b4d8; font-style: normal; }
-    .cta-section p { color: #94a3b8; margin-bottom: 2rem; font-size: 0.95rem; }
-    .cta-contact-grid {
-      display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 2rem;
-    }
+    .cta-section h2 em { color: var(--color-accent-bright); font-style: normal; }
+    .cta-section p { color: var(--color-on-dark-2); margin-bottom: var(--space-lg); font-size: var(--text-base); }
+    .cta-contact-grid { display: flex; flex-wrap: wrap; gap: var(--space-sm); justify-content: center; margin-top: var(--space-lg); }
     .contact-chip {
-      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15);
-      color: #e2e8f0; padding: 0.6rem 1.1rem; border-radius: 6px;
-      font-size: 0.82rem; display: flex; align-items: center; gap: 0.5rem;
-      text-decoration: none; transition: background 0.2s;
+      background: var(--color-graphite-2);
+      border: var(--rule-hair) solid var(--color-graphite-rule);
+      color: var(--color-on-dark); padding: var(--space-2xs) var(--space-sm);
+      border-radius: var(--radius-ctl); font-size: var(--text-sm);
+      display: flex; align-items: center; gap: var(--space-2xs);
+      text-decoration: none; white-space: nowrap;   /* gate 49 */
+      transition: background-color var(--dur-fast) var(--ease-out);
     }
-    .contact-chip:hover { background: rgba(255,255,255,0.12); }
-    .contact-chip i { color: #00b4d8; }
+    .contact-chip:hover { background: var(--color-graphite-rule); }
 
     /* ── Footer ── */
     .footer {
-      background: #0a0f1a; color: #475569; text-align: center;
-      padding: 1.75rem 1.5rem; font-size: 0.8rem; border-top: 1px solid #1e293b;
+      background: var(--color-graphite-2); color: var(--color-on-dark-2); text-align: center;
+      padding: var(--space-md) var(--space-sm); font-size: var(--text-sm);
+      border-top: var(--rule-hair) solid var(--color-graphite-rule);
     }
-    .footer a { color: #94a3b8; text-decoration: none; }
-    .footer a:hover { color: #fff; }
+    .footer a { color: var(--color-on-dark-2); text-decoration: none; }
+    .footer a:hover { color: var(--color-on-dark); }
+
+
+    /* Two one-off roles that used to be inline `style="color:#..."` attributes */
+    .hero-sub strong { color: var(--color-on-dark); font-weight: 500; }
+    .layer-key {
+      font-family: var(--font-mono); font-size: var(--text-xs); font-weight: 500;
+      letter-spacing: var(--tracking-mono); text-transform: uppercase;
+      color: var(--color-on-dark-2);
+    }
+    .road-note {
+      font-size: var(--text-sm); color: var(--color-on-dark-2);
+      text-align: center; margin-top: var(--space-sm);
+    }
 
     /* ── Responsive ── */
     @media (max-width: 760px) {
-      .split-feature  { grid-template-columns: 1fr; }
-      .custom-hero-inner { grid-template-columns: 1fr; }
-      .custom-hero-visual { border-left: none; border-top: 1px solid rgba(0,180,216,0.1); }
-      .ai-road { grid-template-columns: 1fr 1fr; }
+      .split-feature     { grid-template-columns: minmax(0, 1fr); }   /* gate 50 */
+      .custom-hero-inner { grid-template-columns: minmax(0, 1fr); }
+      .custom-hero-visual { border-left: none; border-top: var(--rule-hair) solid var(--color-graphite-rule); }
+      .ai-road { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 640px) {
-      .hero { padding: 3.5rem 1rem 3rem; }
-      .steps-wrap { grid-template-columns: 1fr; }
-      .step-card { border-right: none; border-bottom: 1px solid #e2e8f0; }
+      .hero { padding: var(--space-2xl) var(--space-sm) var(--space-xl); }
+      .steps-wrap { grid-template-columns: minmax(0, 1fr); }
+      .step-card { border-right: none; border-bottom: var(--rule-hair) solid var(--color-rule); }
       .step-card:last-child { border-bottom: none; }
-      .ai-road { grid-template-columns: 1fr; }
-      .security-callout { grid-template-columns: 1fr; }
+      .ai-road { grid-template-columns: minmax(0, 1fr); }
+      .security-callout { grid-template-columns: minmax(0, 1fr); }
     }
   </style>
-</head>
-<body>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=2" />
+    <link rel="stylesheet" href="/assets/css/dark.css?v=2" />
+  </head>
+<body class="yl-dark">
+    <nav class="site-nav" role="navigation" aria-label="Main navigation">
+      <div class="site-nav-inner">
+        <a href="/" class="site-nav-brand">
+          <span class="site-nav-logo">YIYOL<span>.</span></span>
+        </a>
+        <div class="site-nav-right">
+          <ul class="site-nav-links">
+            <li><a href="/products/"><span class="ko-only">제품</span><span class="en-only">Products</span></a></li>
+            <li><a href="/solutions/"><span class="ko-only">AI 솔루션</span><span class="en-only">AI Solutions</span></a></li>
+            <li><a href="/company/"><span class="ko-only">회사소개</span><span class="en-only">About</span></a></li>
+            <li><a href="/blog/"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a></li>
+            <li><a href="/contact/" class="nav-cta"><span class="ko-only">문의</span><span class="en-only">Contact</span></a></li>
+          </ul>
+          <div class="lang-switch">
+            <button class="lang-selector" type="button" aria-haspopup="true" aria-expanded="false">
+              <span class="lang-current">한국어</span>
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" /></svg>
+            </button>
+            <div class="lang-dropdown">
+              <a href="/nox/intro.html" class="lang-option active">한국어</a>
+              <a href="/nox/intro-en.html" class="lang-option">English</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
 
 <!-- Hero -->
 <section class="hero">
@@ -479,15 +539,13 @@
   <h1>귀사만의 <em>NVR/VMS</em>를<br>직접 만드세요</h1>
   <p class="hero-sub">
     Legacy 완전 지원 + WebRTC 초저지연 + YOLO Vision AI.<br>
-    더 나아가 <span style="color:#a78bfa;">VLM</span>과 <span style="color:#f472b6;">Agentic AI</span>로 관제의 미래를 함께 만들어갑니다.<br>
+    더 나아가 <strong>VLM</strong>과 <strong>Agentic AI</strong>로 관제의 미래를 함께 만들어갑니다.<br>
     UI부터 기능까지 — 귀사의 브랜드와 워크플로우로 완전히 커스터마이징하세요.
   </p>
   <div class="hero-cta-group">
-    <a href="mailto:yiyol@yiyol.com?subject=NOX NVR 커스텀 개발 문의&body=안녕하세요. NOX NVR 커스터마이징에 관심이 있습니다. 자세한 내용 부탁드립니다." class="btn-primary">
-      <i class="fas fa-envelope"></i> 커스터마이징 문의
+    <a href="mailto:yiyol@yiyol.com?subject=NOX NVR 커스텀 개발 문의&body=안녕하세요. NOX NVR 커스터마이징에 관심이 있습니다. 자세한 내용 부탁드립니다." class="btn-primary"> 커스터마이징 문의
     </a>
-    <a href="https://nox.yiyol.com/" class="btn-ghost">
-      <i class="fas fa-arrow-right"></i> 제품 자세히 보기
+    <a href="https://nox.yiyol.com/" class="btn-ghost"> 제품 자세히 보기
     </a>
   </div>
 </section>
@@ -495,13 +553,13 @@
 <!-- Proof bar -->
 <div class="proof-bar">
   <div class="proof-bar-inner">
-    <div class="proof-item"><i class="fas fa-palette"></i><span><strong>UI/기능</strong> 완전 커스터마이징</span></div>
-    <div class="proof-item"><i class="fas fa-bolt"></i><span><strong>WebRTC</strong> 초저지연</span></div>
-    <div class="proof-item"><i class="fas fa-brain"></i><span><strong>YOLO</strong> Vision AI</span></div>
-    <div class="proof-item"><i class="fas fa-comments"></i><span><strong>VLM</strong> 자연어 영상 이해</span></div>
-    <div class="proof-item"><i class="fas fa-robot"></i><span><strong>Agentic AI</strong> 자율 관제</span></div>
-    <div class="proof-item"><i class="fas fa-video"></i><span>ONVIF Profile <strong>S/T/M</strong></span></div>
-    <div class="proof-item"><i class="fas fa-mobile-screen"></i><span><strong>스마트폰</strong> 카메라 지원</span></div>
+    <div class="proof-item"><span><strong>UI/기능</strong> 완전 커스터마이징</span></div>
+    <div class="proof-item"><span><strong>WebRTC</strong> 초저지연</span></div>
+    <div class="proof-item"><span><strong>YOLO</strong> Vision AI</span></div>
+    <div class="proof-item"><span><strong>VLM</strong> 자연어 영상 이해</span></div>
+    <div class="proof-item"><span><strong>Agentic AI</strong> 자율 관제</span></div>
+    <div class="proof-item"><span>ONVIF Profile <strong>S/T/M</strong></span></div>
+    <div class="proof-item"><span><strong>스마트폰</strong> 카메라 지원</span></div>
   </div>
 </div>
 
@@ -519,45 +577,40 @@
           <h3>귀사 브랜드의<br><em>NVR/VMS</em>를 갖는 법</h3>
           <p>수억 원을 들여 처음부터 개발하지 않아도 됩니다. NOX의 마이크로서비스 아키텍처와 개방형 API 위에서, 귀사에 필요한 기능만 골라 귀사만의 솔루션을 완성하세요.</p>
           <ul class="custom-list">
-            <li><i class="fas fa-check-circle"></i> <strong>UI 완전 커스터마이징</strong> — 로고, 컬러, 레이아웃, 메뉴 구조 모두 귀사 브랜드로</li>
-            <li><i class="fas fa-check-circle"></i> <strong>기능 선택 구성</strong> — 16개 마이크로서비스 중 필요한 것만 선택·조합</li>
-            <li><i class="fas fa-check-circle"></i> <strong>워크플로우 커스텀</strong> — 귀사의 업무 프로세스에 맞는 알림·자동화 규칙 설정</li>
-            <li><i class="fas fa-check-circle"></i> <strong>외부 시스템 통합</strong> — Webhook·개방형 API로 ERP, 출입통제, 스마트빌딩과 연동</li>
-            <li><i class="fas fa-check-circle"></i> <strong>AI 모델 교체·확장</strong> — 기본 YOLO 외에 고객 특화 AI 모델 탑재 가능</li>
-            <li><i class="fas fa-check-circle"></i> <strong>OEM/화이트레이블</strong> — SI사, 솔루션 업체가 자사 제품으로 출시 가능</li>
+            <li> <strong>UI 완전 커스터마이징</strong> — 로고, 컬러, 레이아웃, 메뉴 구조 모두 귀사 브랜드로</li>
+            <li> <strong>기능 선택 구성</strong> — 16개 마이크로서비스 중 필요한 것만 선택·조합</li>
+            <li> <strong>워크플로우 커스텀</strong> — 귀사의 업무 프로세스에 맞는 알림·자동화 규칙 설정</li>
+            <li> <strong>외부 시스템 통합</strong> — Webhook·개방형 API로 ERP, 출입통제, 스마트빌딩과 연동</li>
+            <li> <strong>AI 모델 교체·확장</strong> — 기본 YOLO 외에 고객 특화 AI 모델 탑재 가능</li>
+            <li> <strong>OEM/화이트레이블</strong> — SI사, 솔루션 업체가 자사 제품으로 출시 가능</li>
           </ul>
           <br>
-          <a href="mailto:yiyol@yiyol.com?subject=NOX NVR 커스텀 개발 문의" class="custom-cta">
-            <i class="fas fa-envelope"></i> 커스터마이징 상담 요청
+          <a href="mailto:yiyol@yiyol.com?subject=NOX NVR 커스텀 개발 문의" class="custom-cta"> 커스터마이징 상담 요청
           </a>
         </div>
         <div class="custom-hero-visual">
           <div class="cl-text" style="margin-bottom:0.25rem;">
-            <p style="font-size:0.7rem; color:#475569; letter-spacing:0.08em; text-transform:uppercase; font-weight:600;">커스터마이징 레이어</p>
+            <p class="layer-key">커스터마이징 레이어</p>
           </div>
           <div class="custom-layer cl-1">
-            <div class="cl-icon"><i class="fas fa-palette"></i></div>
             <div class="cl-text">
               <h4>UI / 브랜드</h4>
               <p>로고·컬러·레이아웃·다국어 — 귀사 디자인 시스템 적용</p>
             </div>
           </div>
           <div class="custom-layer cl-2">
-            <div class="cl-icon"><i class="fas fa-puzzle-piece"></i></div>
             <div class="cl-text">
               <h4>기능 구성</h4>
               <p>필요한 서비스만 선택. AI 분석·녹화·알림 모듈 조합</p>
             </div>
           </div>
           <div class="custom-layer cl-3">
-            <div class="cl-icon"><i class="fas fa-brain"></i></div>
             <div class="cl-text">
               <h4>AI 모델</h4>
               <p>YOLO 기본 + 업종 특화 모델·VLM 교체 및 추가</p>
             </div>
           </div>
           <div class="custom-layer cl-4">
-            <div class="cl-icon"><i class="fas fa-plug"></i></div>
             <div class="cl-text">
               <h4>외부 통합</h4>
               <p>Webhook·API로 ERP·출입통제·스마트빌딩 연결</p>
@@ -581,62 +634,58 @@
 
       <div class="ai-stage ai-stage-1">
         <span class="stage-badge badge-gray">Legacy</span>
-        <div class="stage-icon si-gray"><i class="fas fa-video"></i></div>
         <h3>전통 NVR/VMS</h3>
         <p>흔들리지 않는 기반. ONVIF, RTSP, 다채널 녹화, 재생, PTZ 제어.</p>
         <ul class="stage-items">
-          <li><i class="fas fa-circle" style="color:#334155;"></i>ONVIF Profile S/T/M</li>
-          <li><i class="fas fa-circle" style="color:#334155;"></i>다채널 동시 녹화</li>
-          <li><i class="fas fa-circle" style="color:#334155;"></i>모션 감지·이벤트 알림</li>
-          <li><i class="fas fa-circle" style="color:#334155;"></i>WebRTC 초저지연 재생</li>
-          <li><i class="fas fa-circle" style="color:#334155;"></i>스마트폰 카메라 지원</li>
+          <li>ONVIF Profile S/T/M</li>
+          <li>다채널 동시 녹화</li>
+          <li>모션 감지·이벤트 알림</li>
+          <li>WebRTC 초저지연 재생</li>
+          <li>스마트폰 카메라 지원</li>
         </ul>
       </div>
 
       <div class="ai-stage ai-stage-2" style="position:relative;">
         <span class="now-label">NOW</span>
         <span class="stage-badge badge-cyan">Vision AI</span>
-        <div class="stage-icon si-cyan"><i class="fas fa-eye"></i></div>
         <h3>지능형 영상 분석</h3>
         <p>화면을 보는 것을 넘어 이해합니다. YOLO 기반 자동 감지·분류·대응.</p>
         <ul class="stage-items">
-          <li><i class="fas fa-circle" style="color:#0891b2;"></i>YOLO 객체 감지</li>
-          <li><i class="fas fa-circle" style="color:#0891b2;"></i>라인크로싱·침입 감지</li>
-          <li><i class="fas fa-circle" style="color:#0891b2;"></i>번호판 인식(LPR)</li>
-          <li><i class="fas fa-circle" style="color:#0891b2;"></i>자동 알림·녹화·Webhook</li>
-          <li><i class="fas fa-circle" style="color:#0891b2;"></i>3-Tier 감지 파이프라인</li>
+          <li>YOLO 객체 감지</li>
+          <li>라인크로싱·침입 감지</li>
+          <li>번호판 인식(LPR)</li>
+          <li>자동 알림·녹화·Webhook</li>
+          <li>3-Tier 감지 파이프라인</li>
         </ul>
       </div>
 
       <div class="ai-stage ai-stage-3" style="position:relative;">
         <span class="next-label">NEXT</span>
         <span class="stage-badge badge-violet">VLM</span>
-        <div class="stage-icon si-violet"><i class="fas fa-comments"></i></div>
         <h3>자연어로 묻는 관제</h3>
         <p>Vision Language Model. 영상을 언어로 이해하고 자연어 질의로 검색합니다.</p>
         <ul class="stage-items">
-          <li><i class="fas fa-circle" style="color:#7c3aed;"></i>"빨간 가방 남성 언제 지나갔어?"</li>
-          <li><i class="fas fa-circle" style="color:#7c3aed;"></i>장면 자동 요약·설명 생성</li>
-          <li><i class="fas fa-circle" style="color:#7c3aed;"></i>복잡한 상황 맥락 이해</li>
-          <li><i class="fas fa-circle" style="color:#7c3aed;"></i>텍스트로 영상 구간 검색</li>
+          <li>"빨간 가방 남성 언제 지나갔어?"</li>
+          <li>장면 자동 요약·설명 생성</li>
+          <li>복잡한 상황 맥락 이해</li>
+          <li>텍스트로 영상 구간 검색</li>
         </ul>
       </div>
 
       <div class="ai-stage ai-stage-4">
         <span class="stage-badge badge-future">Agentic AI</span>
-        <div class="stage-icon si-pink"><i class="fas fa-robot"></i></div>
         <h3>스스로 판단하는 관제</h3>
         <p>인간 없이 스스로 상황을 판단하고 대응하는 자율 보안 에이전트.</p>
         <ul class="stage-items">
-          <li><i class="fas fa-circle" style="color:#be185d;"></i>다중 카메라 동시 추론</li>
-          <li><i class="fas fa-circle" style="color:#be185d;"></i>위협 수준 자율 판단·에스컬레이션</li>
-          <li><i class="fas fa-circle" style="color:#be185d;"></i>예방적 이상 감지</li>
-          <li><i class="fas fa-circle" style="color:#be185d;"></i>관제사 업무 자동화</li>
+          <li>다중 카메라 동시 추론</li>
+          <li>위협 수준 자율 판단·에스컬레이션</li>
+          <li>예방적 이상 감지</li>
+          <li>관제사 업무 자동화</li>
         </ul>
       </div>
 
     </div>
-    <p style="font-size:0.76rem; color:#334155; text-align:center; margin-top:1.25rem;">
+    <p class="road-note">
       * VLM·Agentic AI는 로드맵 단계이며, 고객 맞춤 개발을 통해 조기 적용 가능합니다.
     </p>
   </div>
@@ -655,18 +704,18 @@
         <h3>기다리지 마세요.<br><em>지금 이 순간</em>을 보세요</h3>
         <p>NOX는 WebRTC WHIP/WHEP 프로토콜로 라이브 스트림을 제공합니다. 브라우저 플러그인 없이 즉시 재생되며, 서브세컨드 지연으로 실시간 대응이 가능합니다.</p>
         <ul class="feature-list">
-          <li><i class="fas fa-check-circle"></i>WebRTC WHIP/WHEP 표준 프로토콜 지원</li>
-          <li><i class="fas fa-check-circle"></i>ICE 서버 자동 감지 — 복잡한 네트워크 설정 불필요</li>
-          <li><i class="fas fa-check-circle"></i>HLS / WebRTC 사용자별 선택 가능</li>
-          <li><i class="fas fa-check-circle"></i>브라우저에서 플러그인 없이 바로 시청</li>
+          <li>WebRTC WHIP/WHEP 표준 프로토콜 지원</li>
+          <li>ICE 서버 자동 감지 — 복잡한 네트워크 설정 불필요</li>
+          <li>HLS / WebRTC 사용자별 선택 가능</li>
+          <li>브라우저에서 플러그인 없이 바로 시청</li>
         </ul>
       </div>
       <div class="split-visual">
         <div class="flow-row">
           <div class="flow-node">카메라</div>
-          <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+          <div class="flow-arrow"></div>
           <div class="flow-node hl">NOX</div>
-          <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+          <div class="flow-arrow"></div>
           <div class="flow-node">모니터</div>
         </div>
         <div class="flow-label">WebRTC WHIP → MediaMTX → WHEP</div>
@@ -690,16 +739,15 @@
     <div class="split-feature">
       <div class="phone-visual">
         <div class="phone-diagram">
-          <div class="phone-icon"><i class="fas fa-mobile-screen"></i></div>
           <div class="push-label">RTSP Push (고정 IP 불필요)</div>
-          <div class="arrow-down"><i class="fas fa-arrow-down"></i></div>
+          <div class="arrow-down"></div>
           <div class="nox-box">NOX NVR</div>
-          <div class="arrow-down"><i class="fas fa-arrow-down"></i></div>
+          <div class="arrow-down"></div>
           <div class="nox-outputs">
-            <div class="output-chip"><i class="fas fa-eye" style="margin-right:3px;"></i>라이브 모니터링</div>
-            <div class="output-chip"><i class="fas fa-circle-dot" style="margin-right:3px;"></i>자동 녹화·저장</div>
-            <div class="output-chip"><i class="fas fa-brain" style="margin-right:3px;"></i>AI 분석</div>
-            <div class="output-chip"><i class="fas fa-bell" style="margin-right:3px;"></i>이벤트 알림</div>
+            <div class="output-chip">라이브 모니터링</div>
+            <div class="output-chip">자동 녹화·저장</div>
+            <div class="output-chip">AI 분석</div>
+            <div class="output-chip">이벤트 알림</div>
           </div>
         </div>
       </div>
@@ -707,11 +755,11 @@
         <h3>임시 카메라가 필요할 때<br><em>스마트폰을 꺼내세요</em></h3>
         <p>이벤트 현장, 공사 현장, 임시 보안 구역 — 고정 IP 없이도 스마트폰을 NOX에 연결해 즉시 모니터링·녹화·AI 분석을 시작할 수 있습니다.</p>
         <ul class="feature-list">
-          <li><i class="fas fa-check-circle"></i>RTSP Push 방식 — 고정 IP 불필요</li>
-          <li><i class="fas fa-check-circle"></i>NOX에서 라이브 스트림 즉시 모니터링</li>
-          <li><i class="fas fa-check-circle"></i>고정 카메라와 동일하게 녹화·저장</li>
-          <li><i class="fas fa-check-circle"></i>AI 분석(침입 감지, 객체 감지) 동일 적용</li>
-          <li><i class="fas fa-check-circle"></i>JWT 인증으로 안전한 스트림 연결</li>
+          <li>RTSP Push 방식 — 고정 IP 불필요</li>
+          <li>NOX에서 라이브 스트림 즉시 모니터링</li>
+          <li>고정 카메라와 동일하게 녹화·저장</li>
+          <li>AI 분석(침입 감지, 객체 감지) 동일 적용</li>
+          <li>JWT 인증으로 안전한 스트림 연결</li>
         </ul>
       </div>
     </div>
@@ -765,7 +813,6 @@
     </div>
     <div class="usp-grid">
       <div class="usp-card">
-        <div class="usp-icon-wrap ic-cyan"><i class="fas fa-brain"></i></div>
         <h3>YOLO Vision AI 영상 분석</h3>
         <p>YOLO 기반 객체 감지(라인크로싱·침입)와 번호판 인식(LPR)을 단일 시스템에서 처리합니다. 이상 감지 즉시 자동 알림·녹화·Webhook 실행.</p>
         <span class="usp-tag tag-cyan">자동 알림</span>
@@ -773,21 +820,18 @@
         <span class="usp-tag tag-cyan">3-Tier 파이프라인</span>
       </div>
       <div class="usp-card">
-        <div class="usp-icon-wrap ic-amber"><i class="fas fa-plug"></i></div>
         <h3>ONVIF Profile S/T/M 완전 호환</h3>
         <p>Profile S(스트리밍), T(고급 영상), M(메타데이터·이벤트·분석) 지원. 18개 서브패키지의 자체 라이브러리로 기존 IP 카메라를 교체 없이 그대로 연결.</p>
         <span class="usp-tag tag-amber">기존 자산 활용</span>
         <span class="usp-tag tag-amber">자동 디스커버리</span>
       </div>
       <div class="usp-card">
-        <div class="usp-icon-wrap ic-blue"><i class="fas fa-cubes"></i></div>
         <h3>마이크로서비스 아키텍처</h3>
         <p>16개 독립 서비스로 분리. 특정 서비스 장애가 전체를 멈추지 않습니다. 필요한 서비스만 업데이트해 무중단 운영을 유지합니다.</p>
         <span class="usp-tag tag-blue">무중단 업데이트</span>
         <span class="usp-tag tag-blue">수평 확장</span>
       </div>
       <div class="usp-card">
-        <div class="usp-icon-wrap ic-purple"><i class="fas fa-server"></i></div>
         <h3>멀티플랫폼 유연 배포</h3>
         <p>Docker 멀티 아키텍처(linux/amd64, linux/arm64)로 라즈베리파이 엣지부터 클라우드 데이터센터, Kubernetes 클러스터까지 인프라를 가리지 않습니다.</p>
         <span class="usp-tag tag-purple">On-Premises</span>
@@ -795,7 +839,6 @@
         <span class="usp-tag tag-purple">Edge ARM</span>
       </div>
       <div class="usp-card">
-        <div class="usp-icon-wrap ic-rose"><i class="fas fa-code-branch"></i></div>
         <h3>개방형 API + Webhook</h3>
         <p>Webhook으로 감지 이벤트를 외부 시스템에 실시간 전달. 개방형 API와 ONVIF 표준으로 CMS, 스마트빌딩, 보안 시스템과 자유롭게 통합.</p>
         <span class="usp-tag tag-rose">Webhook</span>
@@ -803,7 +846,6 @@
       </div>
     </div>
     <div class="security-callout">
-      <div class="security-callout-icon"><i class="fas fa-shield-halved"></i></div>
       <div>
         <h3>NIS 보안요구사항 9개 영역 준수 — 공공·국방·금융 즉시 도입 가능</h3>
         <p>국정원 영상처리기기 보안요구사항 V3.0을 설계 단계부터 반영했습니다. 규제 대상 기관도 별도 보안 솔루션 추가 없이 바로 도입할 수 있습니다.</p>
@@ -829,47 +871,43 @@
     <div class="persona-grid">
       <div class="persona-card">
         <div class="persona-header">
-          <div class="persona-icon"><i class="fas fa-building"></i></div>
           <div>
             <div class="persona-name">SI / 솔루션 업체</div>
             <div class="persona-badge">OEM · 화이트레이블</div>
           </div>
         </div>
         <p class="persona-quote">"자사 브랜드의 NVR 솔루션을 갖고 싶다. 처음부터 개발하기엔 비용이 너무 크다."</p>
-        <div class="persona-usp"><i class="fas fa-check-circle" style="margin-right:4px;"></i>UI 커스터마이징 · OEM 공급 · 기능 선택 구성</div>
+        <div class="persona-usp">UI 커스터마이징 · OEM 공급 · 기능 선택 구성</div>
       </div>
       <div class="persona-card">
         <div class="persona-header">
-          <div class="persona-icon"><i class="fas fa-store"></i></div>
           <div>
             <div class="persona-name">리테일 / 산업 / 빌딩</div>
             <div class="persona-badge">시설 관리자 / 보안 운영</div>
           </div>
         </div>
         <p class="persona-quote">"기존 카메라를 그대로 쓰면서 AI 알림을 받고 싶다. 운영 인력을 줄이고 싶다."</p>
-        <div class="persona-usp"><i class="fas fa-check-circle" style="margin-right:4px;"></i>ONVIF 기존 자산 · YOLO AI 자동 알림 · 스마트폰 카메라</div>
+        <div class="persona-usp">ONVIF 기존 자산 · YOLO AI 자동 알림 · 스마트폰 카메라</div>
       </div>
       <div class="persona-card">
         <div class="persona-header">
-          <div class="persona-icon"><i class="fas fa-network-wired"></i></div>
           <div>
             <div class="persona-name">엔터프라이즈 IT</div>
             <div class="persona-badge">인프라 책임자 / SecOps</div>
           </div>
         </div>
         <p class="persona-quote">"다운타임 없이 운영 가능한가? K8s·기존 인프라에 통합되나?"</p>
-        <div class="persona-usp"><i class="fas fa-check-circle" style="margin-right:4px;"></i>16개 마이크로서비스 · 무중단 업데이트 · K8s / Docker</div>
+        <div class="persona-usp">16개 마이크로서비스 · 무중단 업데이트 · K8s / Docker</div>
       </div>
       <div class="persona-card">
         <div class="persona-header">
-          <div class="persona-icon"><i class="fas fa-landmark"></i></div>
           <div>
             <div class="persona-name">공공·국방·금융</div>
             <div class="persona-badge">보안 책임자 / IT 관리자</div>
           </div>
         </div>
         <p class="persona-quote">"NIS 인증 요구사항을 충족하는가? 컴플라이언스 감사에 대응 가능한가?"</p>
-        <div class="persona-usp"><i class="fas fa-check-circle" style="margin-right:4px;"></i>NIS 9개 영역 준수 · AES-256 암호화 · 감사 로그</div>
+        <div class="persona-usp">NIS 9개 영역 준수 · AES-256 암호화 · 감사 로그</div>
       </div>
     </div>
   </div>
@@ -915,34 +953,47 @@
   <span class="hero-eyebrow" style="margin-bottom:1rem; display:inline-block;">지금 시작하세요</span>
   <h2>귀사만의 NVR/VMS,<br><em>NOX로 만드세요</em></h2>
   <p>커스터마이징 문의, 데모 요청, OEM 협의 — 무엇이든 환영합니다.<br>담당자가 1영업일 내에 답변드립니다.</p>
-  <a href="mailto:yiyol@yiyol.com?subject=NOX NVR 커스텀 개발 문의&body=안녕하세요. NOX NVR 커스터마이징에 관심이 있습니다.%0A%0A회사명:%0A담당자명:%0A연락처:%0A관심 분야 (커스터마이징/OEM/도입):%0A원하는 기능·UI 요구사항:%0A기타 문의사항:" class="btn-primary" style="font-size:1rem; padding:1rem 2.5rem;">
-    <i class="fas fa-envelope"></i>&nbsp; 커스터마이징 문의 이메일 보내기
+  <a href="mailto:yiyol@yiyol.com?subject=NOX NVR 커스텀 개발 문의&body=안녕하세요. NOX NVR 커스터마이징에 관심이 있습니다.%0A%0A회사명:%0A담당자명:%0A연락처:%0A관심 분야 (커스터마이징/OEM/도입):%0A원하는 기능·UI 요구사항:%0A기타 문의사항:" class="btn-primary" style="font-size:1rem; padding:1rem 2.5rem;">&nbsp; 커스터마이징 문의 이메일 보내기
   </a>
   <div class="cta-contact-grid">
-    <a href="https://nox.yiyol.com/" class="contact-chip">
-      <i class="fas fa-globe"></i> 제품 공식 페이지
+    <a href="https://nox.yiyol.com/" class="contact-chip"> 제품 공식 페이지
     </a>
-    <a href="https://yiyol.com/nox/nis-security.html" class="contact-chip">
-      <i class="fas fa-shield-halved"></i> NIS 보안 인증 상세
+    <a href="https://yiyol.com/nox/nis-security.html" class="contact-chip"> NIS 보안 인증 상세
     </a>
-    <a href="https://yiyol.com/nox/partner.html" class="contact-chip">
-      <i class="fas fa-handshake"></i> 파트너/총판 모집
+    <a href="https://yiyol.com/nox/partner.html" class="contact-chip"> 파트너/총판 모집
     </a>
   </div>
 </section>
 
 <!-- Footer -->
-<footer class="footer">
-  <p>
-    &copy; 2025 <a href="https://yiyol.com">YIYOL Corp.</a> &nbsp;|&nbsp;
-    <a href="https://nox.yiyol.com/">NOX NVR</a> &nbsp;|&nbsp;
-    <a href="mailto:yiyol@yiyol.com">yiyol@yiyol.com</a>
-  </p>
-  <p style="margin-top:0.4rem; font-size:0.74rem; color:#334155;">
-    이 이메일은 NOX NVR 솔루션 도입에 관심이 있으실 것으로 판단되어 발송되었습니다.
-    수신을 원하지 않으시면 <a href="mailto:yiyol@yiyol.com?subject=수신거부">수신거부</a> 해 주세요.
-  </p>
-</footer>
+<footer class="yl-foot" role="contentinfo">
+      <div class="yl-shell">
+        <div class="yl-foot-mast">
+          <div>
+            <div class="yl-foot-word">YIYOL<span>.</span></div>
+            <p class="yl-foot-tag ko-only">영상을 저장하고 관리하는 NVR·VMS,<br />그 위에서 판단하고 실행하는 AI 자동화</p>
+            <p class="yl-foot-tag en-only">NVR and VMS that store and manage your video — and the AI automation built on top of it.</p>
+          </div>
+          <nav class="yl-foot-links" aria-label="Footer navigation">
+            <a href="/products/"><span class="ko-only">제품</span><span class="en-only">Products</span></a>
+            <a href="/solutions/"><span class="ko-only">AI 솔루션</span><span class="en-only">AI Solutions</span></a>
+            <a href="/company/"><span class="ko-only">회사소개</span><span class="en-only">About</span></a>
+            <a href="/blog/"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a>
+            <a href="/contact/"><span class="ko-only">문의</span><span class="en-only">Contact</span></a>
+          </nav>
+        </div>
+        <div class="yl-foot-meta">
+          <span class="ko-only">서울특별시 금천구 가산디지털1로 75-15, 하우스디 와이즈타워 326호</span>
+          <span class="en-only">#326, 75-15 Gasan Digital 1-ro, Geumcheon-gu, Seoul</span>
+          <a href="mailto:yiyol@yiyol.com">yiyol@yiyol.com</a>
+          <span class="ko-only">사업자등록번호 186-34-01502</span>
+          <span class="en-only">Business Registration 186-34-01502</span>
+        </div>
+        <p class="yl-foot-note"><span class="ko-only">이 이메일은 NOX NVR 솔루션 도입에 관심이 있으실 것으로 판단되어 발송되었습니다. 수신을 원하지 않으시면 <a href="mailto:yiyol@yiyol.com?subject=수신거부">수신거부</a> 해 주세요.</span><span class="en-only"></span></p>
+        <p class="yl-foot-copy">&copy; 2026 YIYOL. All rights reserved.</p>
+      </div>
+    </footer>
 
-</body>
+    <script src="/assets/js/i18n.js?v=4"></script>
+  </body>
 </html>

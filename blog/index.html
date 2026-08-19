@@ -11,16 +11,16 @@
     </script>
 
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Blog - YIYOL</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>블로그 — 영상 보안·AI 자동화 기술 노트 | YIYOL</title>
 
-    <meta name="description" content="YIYOL 블로그 — 영상 보안, CCTV, NVR/VMS 관련 기술 정보와 유용한 도구를 제공합니다." />
-    <meta name="keywords" content="YIYOL,블로그,CCTV,NVR,VMS,영상보안,기술블로그" />
+    <meta name="description" content="YIYOL 블로그 — NVR·VMS 영상 저장과 관리, AI 자동화와 Agentic AI, 영상 보안 기술 정보와 실무에 쓰는 계산 도구를 제공합니다." />
+    <meta name="keywords" content="YIYOL,블로그,AI 자동화,Agentic AI,WebHook,이상 감지,센서 데이터,CCTV,NVR,VMS,영상보안,기술블로그" />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://yiyol.com/blog/" />
-    <meta property="og:title" content="Blog - YIYOL" />
-    <meta property="og:description" content="YIYOL 블로그 — 영상 보안, CCTV, NVR/VMS 관련 기술 정보와 유용한 도구를 제공합니다." />
+    <meta property="og:title" content="블로그 — 영상 보안·AI 자동화 기술 노트 | YIYOL" />
+    <meta property="og:description" content="YIYOL 블로그 — NVR·VMS 영상 관리, AI 자동화와 Agentic AI, 영상 보안 기술 정보." />
     <meta property="og:site_name" content="YIYOL" />
 
     <link rel="canonical" href="https://yiyol.com/blog/" />
@@ -28,213 +28,31 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <link rel="stylesheet" href="/assets/css/style.css?v=6" />
-
-    <style>
-      .site-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(3,8,15,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255,255,255,0.07); padding: 0 1.5rem; }
-      .site-nav-inner { max-width: 960px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 52px; }
-      .site-nav-logo { font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 800; color: #fff; text-decoration: none; letter-spacing: 0.04em; }
-      .site-nav-logo span { color: #00b4d8; }
-      .site-nav-links { display: flex; align-items: center; gap: 1.5rem; list-style: none; }
-      .site-nav-links a { font-size: 0.85rem; font-weight: 500; color: #94a3b8; text-decoration: none; transition: color 0.2s; }
-      .site-nav-links a:hover { color: #fff; }
-      .site-nav-links .nav-active { color: #fff; }
-      .site-nav-links .nav-cta { background: #00b4d8; color: #fff !important; padding: 0.4rem 0.9rem; border-radius: 4px; font-weight: 600; transition: background 0.2s; }
-      .site-nav-links .nav-cta:hover { background: #0096b7; }
-      @media (max-width: 600px) {
-        .site-nav .nav-hamburger { display: inline-flex; }
-        .site-nav .site-nav-right {
-          display: none;
-          position: absolute;
-          top: 100%;
-          left: 0;
-          right: 0;
-          flex-direction: column;
-          align-items: stretch;
-          gap: 0.25rem;
-          padding: 1rem 1.5rem 1.25rem;
-          background: #03080f;
-          backdrop-filter: blur(16px);
-          -webkit-backdrop-filter: blur(16px);
-          border-top: 1px solid rgba(255, 255, 255, 0.08);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-          box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
-        }
-        .site-nav.is-mobile-open .site-nav-right { display: flex; }
-        .site-nav.is-mobile-open .site-nav-links {
-          flex-direction: column;
-          align-items: stretch;
-          gap: 0.1rem;
-          width: 100%;
-        }
-        .site-nav.is-mobile-open .site-nav-links li { width: 100%; }
-        .site-nav.is-mobile-open .site-nav-links a {
-          display: block;
-          padding: 0.65rem 0.25rem;
-          font-size: 0.95rem;
-        }
-        .site-nav.is-mobile-open .lang-switch { align-self: flex-start; margin-top: 0.5rem; }
-      }
-      .site-nav .lang-switch { position: relative; }
-      .site-nav .lang-selector { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: #e2e8f0; padding: 0.28rem 0.7rem; border-radius: 4px; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; }
-      .site-nav .lang-selector:hover { background: rgba(255,255,255,0.14); }
-      .site-nav .lang-selector .fa-chevron-down { font-size: 0.6rem; transition: transform 0.2s; }
-      .site-nav .lang-switch.active .fa-chevron-down { transform: rotate(180deg); }
-      .site-nav .lang-dropdown { position: absolute; top: calc(100% + 8px); right: 0; background: #1e293b; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; overflow: hidden; display: none; min-width: 110px; z-index: 600; box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
-      .site-nav .lang-switch.active .lang-dropdown { display: block; }
-      .site-nav .lang-option { display: block; padding: 0.5rem 1rem; font-size: 0.82rem; color: #94a3b8; text-decoration: none; }
-      .site-nav .lang-option:hover { background: rgba(255,255,255,0.06); color: #fff; }
-      .site-nav .lang-option.active { color: #00b4d8; font-weight: 600; }
-      .site-nav-right { display: flex; align-items: center; gap: 1rem; }
-      html.dark body { background: #0a0f1a; color: #e2e8f0; }
-      html.dark .blog-card { background: #1e293b !important; border-color: #334155 !important; }
-      html.dark .blog-card:hover { border-color: #3b82f6 !important; }
-      html.dark .blog-card-title { color: #f1f5f9 !important; }
-      html.dark .blog-card-desc { color: #94a3b8 !important; }
-      html.dark .blog-card-meta { color: #64748b !important; }
-      html.dark .footer { background: #030712 !important; color: #475569 !important; }
-      .blog-hero {
-        padding: 140px 0 60px;
-        background: radial-gradient(circle at top right, #1e293b, #0f172a);
-        color: white;
-        text-align: center;
-      }
-      .blog-hero h1 {
-        font-family: 'Poppins', sans-serif;
-        font-size: clamp(2rem, 4vw, 3rem);
-        font-weight: 800;
-        color: #fff;
-        margin-bottom: 0.5rem;
-      }
-      .blog-hero p {
-        color: #94a3b8;
-        font-size: 1.1rem;
-        max-width: 600px;
-        margin: 0 auto;
-      }
-      .blog-container {
-        max-width: 1000px;
-        margin: 0 auto;
-        padding: 60px 2rem 100px;
-      }
-      .blog-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 2rem;
-      }
-      .blog-card {
-        background: #fff;
-        border: 1px solid var(--border-color);
-        border-radius: 12px;
-        overflow: hidden;
-        transition: var(--transition-base);
-        display: flex;
-        flex-direction: column;
-      }
-      .blog-card:hover {
-        box-shadow: var(--shadow-lg);
-        transform: translateY(-4px);
-        border-color: var(--accent-color);
-      }
-      .blog-card-icon {
-        height: 180px;
-        background: linear-gradient(135deg, #0f172a, #1e3a5f);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #60a5fa;
-        font-size: 3.5rem;
-        position: relative;
-        overflow: hidden;
-      }
-      .blog-card-icon::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        right: -30%;
-        width: 80%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 60%);
-        pointer-events: none;
-      }
-      .blog-card-body {
-        padding: 1.5rem;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-      }
-      .blog-card-tag {
-        display: inline-block;
-        font-size: 0.72rem;
-        font-weight: 600;
-        letter-spacing: 0.05em;
-        text-transform: uppercase;
-        color: var(--accent-color);
-        background: rgba(59,130,246,0.08);
-        padding: 0.25rem 0.6rem;
-        border-radius: 4px;
-        margin-bottom: 0.75rem;
-        width: fit-content;
-      }
-      .blog-card-title {
-        font-family: 'Poppins', sans-serif;
-        font-size: 1.15rem;
-        font-weight: 700;
-        color: var(--primary-color);
-        margin-bottom: 0.5rem;
-        line-height: 1.4;
-      }
-      .blog-card-desc {
-        font-size: 0.9rem;
-        color: var(--text-secondary);
-        line-height: 1.6;
-        flex: 1;
-        margin-bottom: 1rem;
-      }
-      .blog-card-meta {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        font-size: 0.8rem;
-        color: var(--text-light);
-      }
-      .blog-card-link {
-        color: var(--accent-color);
-        font-weight: 600;
-        font-size: 0.85rem;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.3rem;
-      }
-      .blog-card-link i {
-        font-size: 0.75rem;
-        transition: transform 0.2s;
-      }
-      .blog-card:hover .blog-card-link i {
-        transform: translateX(3px);
-      }
-      @media (max-width: 640px) {
-        .blog-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-    </style>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=2" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=1" />
   </head>
-  <body>
+  <body class="yl">
     <!-- Header -->
     <nav class="site-nav" role="navigation" aria-label="Main navigation">
       <div class="site-nav-inner">
-        <a href="/" class="site-nav-logo">YIYOL<span>.</span></a>
+        <a href="/" class="site-nav-brand"><span class="site-nav-logo">YIYOL<span>.</span></span></a>
         <div class="site-nav-right">
           <ul class="site-nav-links">
-            <li><a href="https://nox.yiyol.com">NOX</a></li>
+            <li><a href="/products/"><span class="ko-only">제품</span><span class="en-only">Products</span></a></li>
+            <li><a href="/solutions/"><span class="ko-only">AI 솔루션</span><span class="en-only">AI Solutions</span></a></li>
+            <li><a href="/company/"><span class="ko-only">회사소개</span><span class="en-only">About</span></a></li>
+            <li><a href="/blog/" class="nav-active"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a></li>
+            <li><a href="/contact/" class="nav-cta"><span class="ko-only">문의</span><span class="en-only">Contact</span></a></li>
           </ul>
           <div class="lang-switch">
-            <button class="lang-selector">
+            <button class="lang-selector" type="button" aria-haspopup="true" aria-expanded="false">
               <span class="lang-current">한국어</span>
-              <i class="fas fa-chevron-down"></i>
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" /></svg>
             </button>
             <div class="lang-dropdown">
               <a href="#" class="lang-option" data-lang="ko">한국어</a>
@@ -249,8 +67,8 @@
     <section class="blog-hero">
       <h1 class="ko-only">블로그</h1>
       <h1 class="en-only">Blog</h1>
-      <p class="ko-only">영상 보안 기술 정보와 유용한 도구</p>
-      <p class="en-only">Video security insights and useful tools</p>
+      <p class="ko-only">AI 자동화와 영상·센서 데이터 활용, 그리고 실무에 쓰는 도구</p>
+      <p class="en-only">AI automation, video and sensor data, and tools you can actually use</p>
     </section>
 
     <!-- Blog List -->
@@ -260,7 +78,6 @@
         <!-- Post: 중국산 IP카메라, 인터넷 차단으로 격리하고 NOX를 이용해서 안전하게 쓰는 법 -->
         <a href="/blog/iptime-ip-camera-isolation-nox-vms.html" class="blog-card" style="text-decoration:none;">
           <div class="blog-card-icon">
-            <i class="fas fa-shield-halved"></i>
           </div>
           <div class="blog-card-body">
             <span class="blog-card-tag">IP카메라 보안</span>
@@ -271,7 +88,6 @@
               <span class="blog-card-link">
                 <span class="ko-only">읽기</span>
                 <span class="en-only">Read</span>
-                <i class="fas fa-arrow-right"></i>
               </span>
             </div>
           </div>
@@ -280,7 +96,6 @@
         <!-- Post: NVR 하드웨어 제조사가 소프트웨어 파트너를 선택해야 하는 이유 -->
         <a href="/blog/why-nvr-hardware-makers-need-software-partner.html" class="blog-card" style="text-decoration:none;">
           <div class="blog-card-icon">
-            <i class="fas fa-handshake"></i>
           </div>
           <div class="blog-card-body">
             <span class="blog-card-tag">B2B 전략</span>
@@ -291,7 +106,6 @@
               <span class="blog-card-link">
                 <span class="ko-only">읽기</span>
                 <span class="en-only">Read</span>
-                <i class="fas fa-arrow-right"></i>
               </span>
             </div>
           </div>
@@ -300,7 +114,6 @@
         <!-- Post: WebHook으로 구현하는 Agentic AI -->
         <a href="/blog/webhook-agentic-ai-parking-automation-guide.html" class="blog-card" style="text-decoration:none;">
           <div class="blog-card-icon">
-            <i class="fas fa-code-branch"></i>
           </div>
           <div class="blog-card-body">
             <span class="blog-card-tag">개발 가이드</span>
@@ -311,7 +124,6 @@
               <span class="blog-card-link">
                 <span class="ko-only">읽기</span>
                 <span class="en-only">Read</span>
-                <i class="fas fa-arrow-right"></i>
               </span>
             </div>
           </div>
@@ -320,7 +132,6 @@
         <!-- Post: Agentic AI NVR이란? AI NVR과의 결정적 차이 -->
         <a href="/blog/agentic-ai-nvr-vs-ai-nvr-difference.html" class="blog-card" style="text-decoration:none;">
           <div class="blog-card-icon">
-            <i class="fas fa-robot"></i>
           </div>
           <div class="blog-card-body">
             <span class="blog-card-tag">Agentic AI</span>
@@ -331,7 +142,6 @@
               <span class="blog-card-link">
                 <span class="ko-only">읽기</span>
                 <span class="en-only">Read</span>
-                <i class="fas fa-arrow-right"></i>
               </span>
             </div>
           </div>
@@ -340,7 +150,6 @@
         <!-- Post: NVR/VMS 국정원 보안요구사항 V3.0 인증 가이드 -->
         <a href="/blog/nis-security-requirements-v3-guide.html" class="blog-card" style="text-decoration:none;">
           <div class="blog-card-icon">
-            <i class="fas fa-shield-halved"></i>
           </div>
           <div class="blog-card-body">
             <span class="blog-card-tag">국정원 보안요구사항</span>
@@ -351,7 +160,6 @@
               <span class="blog-card-link">
                 <span class="ko-only">읽기</span>
                 <span class="en-only">Read</span>
-                <i class="fas fa-arrow-right"></i>
               </span>
             </div>
           </div>
@@ -360,7 +168,6 @@
         <!-- Post: Storage Calculator -->
         <a href="/blog/storage-calculator.html" class="blog-card" style="text-decoration:none;">
           <div class="blog-card-icon">
-            <i class="fas fa-calculator"></i>
           </div>
           <div class="blog-card-body">
             <span class="blog-card-tag">Tool</span>
@@ -377,7 +184,6 @@
               <span class="blog-card-link">
                 <span class="ko-only">바로가기</span>
                 <span class="en-only">Open</span>
-                <i class="fas fa-arrow-right"></i>
               </span>
             </div>
           </div>
@@ -387,8 +193,33 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer" role="contentinfo">
-      <p class="footer-copyright">&copy; 2026 YIYOL. All rights reserved.</p>
+    <footer class="yl-foot" role="contentinfo">
+      <div class="yl-shell">
+        <div class="yl-foot-mast">
+          <div>
+            <div class="yl-foot-word">YIYOL<span>.</span></div>
+            <p class="yl-foot-tag ko-only">영상을 저장하고 관리하는 NVR·VMS,<br />그 위에서 판단하고 실행하는 AI 자동화</p>
+            <p class="yl-foot-tag en-only">NVR and VMS that store and manage your video — and the AI automation built on top of it.</p>
+          </div>
+          <nav class="yl-foot-links" aria-label="Footer navigation">
+            <a href="/products/"><span class="ko-only">제품</span><span class="en-only">Products</span></a>
+            <a href="/solutions/"><span class="ko-only">AI 솔루션</span><span class="en-only">AI Solutions</span></a>
+            <a href="/company/"><span class="ko-only">회사소개</span><span class="en-only">About</span></a>
+            <a href="/blog/"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a>
+            <a href="/contact/"><span class="ko-only">문의</span><span class="en-only">Contact</span></a>
+          </nav>
+        </div>
+        <div class="yl-foot-meta">
+          <span class="ko-only">서울특별시 금천구 가산디지털1로 75-15, 하우스디 와이즈타워 326호</span>
+          <span class="en-only">#326, 75-15 Gasan Digital 1-ro, Geumcheon-gu, Seoul</span>
+          <a href="mailto:yiyol@yiyol.com">yiyol@yiyol.com</a>
+          <span class="ko-only">사업자등록번호 186-34-01502</span>
+          <span class="en-only">Business Registration 186-34-01502</span>
+          <span class="ko-only">통신판매업 제2024-서울금천-1806호</span>
+          <span class="en-only">Mail-order License 2024-Seoul Geumcheon-1806</span>
+        </div>
+        <p class="yl-foot-copy">&copy; 2026 YIYOL. All rights reserved.</p>
+      </div>
     </footer>
 
     <script src="/assets/js/i18n.js?v=4"></script>

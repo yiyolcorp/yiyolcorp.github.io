@@ -1,0 +1,494 @@
+/* Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V5
+ * Hallmark · SITE LAYER — shared by every page · design-system: design.md · designed-as-app
+ * genre: modern-minimal · theme: Cobalt (YIYOL brand-anchored) · anchor hue: cool 226
+ * nav: N1b · footer: Ft1 · load order: tokens.css -> site.css -> (page|home|blog).css
+ *
+ * Scope: `body.yl`. Home adds `yl-home` for its own components.
+ * JS contracts preserved: .site-nav/.site-nav-inner/.site-nav-right (i18n.js hamburger),
+ * .lang-switch/.lang-selector/.lang-current/.lang-option (i18n.js),
+ * .sv-fade (yiyol-tabs.js reveal), .sv-subnav-tab/.sv-tabpanel (yiyol-tabs.js tabs).
+ */
+
+/* ============================================================
+   Reset + document base
+   Previously supplied by the legacy stylesheet; site.css is now self-contained so no page
+   depends on the legacy stylesheet.
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+a { text-decoration: none; color: inherit; }
+ul, ol { list-style: none; }
+img, svg, video, iframe { max-width: 100%; }
+img, video { display: block; height: auto; }
+button, input, textarea, select { font: inherit; color: inherit; }
+button { background: none; border: 0; cursor: pointer; }
+table { border-collapse: collapse; }
+
+/* Bilingual visibility — i18n.js sets <html lang>.
+   Two conventions exist in the codebase: `ko-only/en-only` on most pages and
+   `ko-text/en-text` on the NOX partner + NIS pages. Both are driven from the
+   same source so one language control governs the whole page. */
+[lang]:not([lang="ko"]) .ko-only,
+[lang]:not([lang="ko"]) .ko-text,
+[lang]:not([lang="en"]) .en-only,
+[lang]:not([lang="en"]) .en-text { display: none !important; }
+
+/* ============================================================
+   Base
+   ============================================================ */
+html, body { overflow-x: clip; }
+
+body.yl {
+  font-family: var(--font-body);
+  background: var(--color-paper);
+  color: var(--color-ink-2);
+  font-size: var(--text-md);
+  line-height: 1.72;
+  letter-spacing: -0.003em;
+  word-break: keep-all;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body.yl h1,
+body.yl h2,
+body.yl h3,
+body.yl h4 {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 600;
+  color: var(--color-ink);
+  letter-spacing: var(--tracking-display);
+  line-height: 1.22;
+  overflow-wrap: anywhere;
+  word-break: keep-all;              /* Korean wraps on word boundaries, not syllables */
+  min-width: 0;
+  text-wrap: balance;
+}
+
+body.yl strong { font-weight: 600; color: var(--color-ink); }
+body.yl ::selection { background: var(--color-accent); color: var(--color-accent-ink); }
+
+body.yl :focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+  border-radius: 2px;
+  transition: none;                     /* the ring never animates in */
+}
+
+/* Skip link — WCAG 2.4.1. Off-screen at rest, but it MUST return to the page on
+   focus; the pages previously carried an inline `left: -9999px` with no reveal
+   rule anywhere, so keyboard users had no bypass at all. */
+.skip-link {
+  position: absolute;
+  left: var(--space-md);
+  top: var(--space-2xs);
+  z-index: 600;
+  transform: translateY(-200%);
+  padding: var(--space-2xs) var(--space-sm);
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  border-radius: var(--radius-ctl);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;                  /* gate 49 */
+  transition: none;                     /* the reveal is instant, like a focus ring */
+}
+.skip-link:focus-visible,
+.skip-link:focus { transform: translateY(0); }
+
+.yl-shell { max-width: var(--shell); margin-inline: auto; padding-inline: var(--space-md); }
+
+/* Machine-readout label — the one non-display voice on the page */
+.yl-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums;
+}
+.yl-label--accent { color: var(--color-accent); }
+
+.yl-lede {
+  font-size: var(--text-md);
+  color: var(--color-ink-2);
+  max-width: var(--measure);
+}
+
+/* Section frame — S2 Hanging: heading sits in negative space, no rule, no eyebrow */
+.yl-section { padding-block: var(--space-3xl); }
+.yl-section-head { margin-bottom: var(--space-2xl); }
+.yl-section-head h2 { font-size: var(--text-3xl); }
+.yl-section-head p { margin-top: var(--space-sm); }
+
+/* ============================================================
+   Nav — N1b (wordmark left · centred link cluster · language + CTA right)
+   Self-contained: layout AND skin. i18n.js injects .nav-hamburger into
+   .site-nav-inner and toggles .is-mobile-open on .site-nav.
+   ============================================================ */
+.site-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  /* explicit, because some pages carry a bare `nav { display:flex; height:48px }`
+     element rule that would otherwise reshape the shared bar */
+  display: block;
+  height: auto;
+  padding-inline: var(--space-md);
+  background: var(--color-paper-veil);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  border-bottom: var(--rule-hair) solid transparent;
+  transition: border-color var(--dur-short) var(--ease-out),
+              background var(--dur-short) var(--ease-out);
+}
+.site-nav.is-stuck {
+  border-bottom-color: var(--color-rule);
+  background: var(--color-paper-veil-2);
+}
+.site-nav-inner {
+  max-width: var(--shell);
+  margin-inline: auto;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+.site-nav-brand { display: flex; align-items: baseline; gap: var(--space-2xs); }
+.site-nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+}
+.site-nav-logo span { color: var(--color-accent); }
+
+.site-nav-right { flex: 1; display: flex; align-items: center; gap: var(--space-sm); }
+.site-nav-links { display: flex; align-items: center; gap: var(--space-lg); margin-inline: auto; }
+.site-nav-links a {
+  position: relative;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--color-ink-2);
+  white-space: nowrap;                  /* gate 49 */
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.site-nav-links a:hover { color: var(--color-ink); }
+.site-nav-links .nav-active { color: var(--color-accent); }
+/* accent underline grows from the left — one of the site's three motion primitives */
+.site-nav-links a:not(.nav-cta)::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -6px;
+  width: 100%; height: 2px;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-short) var(--ease-out);
+}
+.site-nav-links a:not(.nav-cta):hover::after,
+.site-nav-links .nav-active:not(.nav-cta)::after { transform: scaleX(1); }
+
+.site-nav-links .nav-cta {
+  background: var(--color-accent);
+  color: var(--color-accent-ink) !important;
+  border-radius: var(--radius-ctl);
+  padding: var(--space-2xs) var(--space-sm);
+  font-weight: 500;
+  transition: background var(--dur-fast) var(--ease-out);
+}
+.site-nav-links .nav-cta:hover { background: var(--color-accent-hover); }
+
+/* Language switch */
+.lang-switch { position: relative; flex: 0 0 auto; }
+.lang-selector {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  background: transparent;
+  border: var(--rule-hair) solid var(--color-rule-strong);
+  border-radius: var(--radius-ctl);
+  padding: var(--space-2xs) var(--space-xs);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-mono);
+  color: var(--color-muted);
+  white-space: nowrap;
+  transition: border-color var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out);
+}
+.lang-selector:hover { border-color: var(--color-accent); color: var(--color-accent); }
+.lang-selector svg { width: 10px; height: 10px; transition: transform var(--dur-fast) var(--ease-out); }
+.lang-switch.active .lang-selector svg { transform: rotate(180deg); }
+.lang-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 8rem;
+  display: none;
+  background: var(--color-paper);
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-ctl);
+  box-shadow: var(--shadow-pop);
+  overflow: hidden;
+  z-index: 1100;
+}
+.lang-switch.active .lang-dropdown { display: block; }
+.lang-option {
+  display: block;
+  padding: var(--space-2xs) var(--space-sm);
+  font-size: var(--text-base);
+  color: var(--color-ink-2);
+  white-space: nowrap;
+}
+.lang-option:hover { background: var(--color-paper-2); color: var(--color-ink); }
+.lang-option.active { color: var(--color-accent); font-weight: 600; }
+
+/* Hamburger — injected by i18n.js, hidden until the mobile breakpoint */
+.nav-hamburger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3xs);
+  border-radius: var(--radius-ctl);
+  color: var(--color-ink);
+}
+.nav-hamburger svg { width: 24px; height: 24px; display: block; }
+
+/* ============================================================
+   Buttons + typographic links — 8 states
+   ============================================================ */
+.yl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding: var(--space-xs) var(--space-md);
+  border: var(--rule-hair) solid transparent;
+  border-radius: var(--radius-ctl);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;                  /* gate 49 */
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out);
+}
+.yl-btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
+.yl-btn--primary:hover, .yl-btn--primary.is-hover { background: var(--color-accent-hover); }
+.yl-btn--primary:active, .yl-btn--primary.is-active { background: var(--color-accent-hover); transform: translateY(1px); }
+
+.yl-btn[disabled], .yl-btn[aria-disabled="true"] {
+  opacity: 0.45; cursor: not-allowed; pointer-events: none;
+}
+.yl-btn[data-state="loading"] { color: transparent; position: relative; pointer-events: none; }
+.yl-btn[data-state="loading"]::after {
+  content: ""; position: absolute; inset: 0; margin: auto;
+  width: 14px; height: 14px; border-radius: 50%;
+  border: 2px solid currentColor; border-top-color: transparent;
+  color: var(--color-accent-ink);
+  animation: yl-spin 720ms linear infinite;
+}
+@keyframes yl-spin { to { transform: rotate(360deg); } }
+
+/* C3 · Typographic link — a word, an arrow, a 1px underline */
+.yl-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2xs);
+  font-size: var(--text-base);
+  font-weight: 500;
+  color: var(--color-accent);
+  white-space: nowrap;                  /* gate 49 */
+  border-bottom: var(--rule-hair) solid var(--color-accent-hair);
+  padding-bottom: var(--space-4xs);
+  transition: border-color var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out);
+}
+.yl-link:hover { border-bottom-color: var(--color-accent); color: var(--color-accent-hover); }
+.yl-link .yl-arrow { transition: transform var(--dur-short) var(--ease-out); }
+.yl-link:hover .yl-arrow { transform: translateX(3px); }
+
+
+/* ============================================================
+   Footer — Ft1 Mast-headed
+   ============================================================ */
+.yl-foot {
+  background: var(--color-graphite);
+  color: var(--color-on-dark-2);
+  padding-block: var(--space-2xl) var(--space-xl);
+}
+.yl-foot-mast {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-md) var(--space-xl);
+  padding-bottom: var(--space-lg);
+  border-bottom: var(--rule-hair) solid var(--color-graphite-rule);
+}
+.yl-foot-word {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-on-dark);
+}
+.yl-foot-word span { color: var(--color-accent-bright); }
+.yl-foot-tag { margin-top: 0.2rem; font-size: var(--text-base); color: var(--color-on-dark-2); max-width: 34ch; }
+.yl-foot-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs) var(--space-md);
+  font-size: var(--text-base);
+}
+.yl-foot-links a {
+  color: var(--color-on-dark-2);
+  white-space: nowrap;                  /* gate 49 */
+  border-bottom: var(--rule-hair) solid transparent;
+  padding-bottom: var(--space-4xs);
+  transition: color var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out);
+}
+.yl-foot-links a:hover { color: var(--color-accent-bright); border-bottom-color: var(--color-accent-bright); }
+
+.yl-foot-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3xs) var(--space-md);
+  padding-top: var(--space-md);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.02em;
+  line-height: 1.85;
+  color: var(--color-on-dark-2);
+}
+.yl-foot-meta a { color: inherit; border-bottom: var(--rule-hair) solid var(--color-graphite-rule); }
+.yl-foot-meta a:hover { color: var(--color-accent-bright); }
+.yl-foot-copy { margin-top: var(--space-sm); font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-on-dark-2); opacity: 0.72; }
+
+
+/* ============================================================
+   Motion — three primitives only:
+   (1) reveal fade+rise  (2) accent underline grow  (3) arrow nudge
+   Overrides the legacy `transition: … ease` (browser default easing, gate 12).
+   ============================================================ */
+body.yl .sv-fade {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity var(--dur-reveal) var(--ease-out),
+              transform var(--dur-reveal) var(--ease-out);
+}
+body.yl .sv-fade.visible { opacity: 1; transform: none; }
+
+
+
+/* ============================================================
+   Mobile nav — the panel drops below the bar. i18n.js toggles .is-mobile-open.
+   ============================================================ */
+@media (max-width: 860px) {
+  .nav-hamburger { display: inline-flex; margin-left: auto; }
+  .site-nav-right {
+    display: none;
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-2xs);
+    padding: var(--space-sm) var(--space-md) var(--space-md);
+    background: var(--color-paper);
+    border-block: var(--rule-hair) solid var(--color-rule);
+    box-shadow: var(--shadow-pop);
+  }
+  .site-nav.is-mobile-open .site-nav-right { display: flex; }
+  .site-nav-links {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    width: 100%;
+    margin-inline: 0;
+  }
+  .site-nav-links li { width: 100%; }
+  .site-nav-links a { display: block; padding-block: var(--space-2xs); font-size: var(--text-md); }
+  .site-nav-links a:not(.nav-cta)::after { display: none; }
+  .site-nav-links .nav-cta { display: inline-block; width: fit-content; margin-top: var(--space-2xs); }
+  .lang-switch { align-self: flex-start; margin-top: var(--space-2xs); }
+  .lang-dropdown { left: 0; right: auto; }
+}
+
+/* ============================================================
+   Reduced motion — spatial motion collapses to a short crossfade
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  body.yl *,
+  body.yl *::before,
+  body.yl *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 150ms !important;
+    scroll-behavior: auto !important;
+  }
+  body.yl .sv-fade { opacity: 1; transform: none; transition: opacity 150ms linear; }
+  .yl-link:hover .yl-arrow { transform: none; }
+}
+
+/* ============================================================
+   Hairline index rows — shared. Used by the home platform list, the
+   404 route index, and any page that needs a scannable list of links.
+   ============================================================ */
+.yl-row-sub {
+  display: block;
+  margin-top: var(--space-4xs);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+.yl-row-go {
+  justify-self: end;
+  color: var(--color-muted);          /* was rule-strong at 1.48:1 — invisible */
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.yl-list { border-top: var(--rule-hair) solid var(--color-rule); margin-top: var(--space-2xl); }
+
+.yl-list-item {
+  display: grid;
+  grid-template-columns: minmax(0, 16rem) minmax(0, 1fr) 2rem;
+  gap: var(--space-lg);
+  align-items: baseline;
+  padding-block: var(--space-md);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+  transition: background var(--dur-fast) var(--ease-out);
+}
+.yl-list-item:hover { background: var(--color-paper-2); }
+.yl-list-item h4 {
+  font-size: var(--text-md);
+  font-weight: 600;
+}
+.yl-list-item p { font-size: var(--text-base); line-height: 1.65; }
+.yl-list-item .yl-row-go { align-self: center; }
+.yl-list-item:hover .yl-row-go { color: var(--color-accent); }
+
+@media (max-width: 860px) {
+  .yl-list-item { grid-template-columns: minmax(0, 1fr); gap: var(--space-2xs); }
+  .yl-list-item .yl-row-go { justify-self: start; align-self: start; }
+}
+
+/* Optional legal note in the footer — release disclaimers, opt-out notices. */
+.yl-foot-note {
+  margin-top: var(--space-sm);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  color: var(--color-on-dark-2);
+  max-width: var(--measure);
+}
+.yl-foot-note a { color: var(--color-accent-bright); border-bottom: var(--rule-hair) solid var(--color-graphite-rule); }
+.yl-foot-note a:hover { border-bottom-color: var(--color-accent-bright); }

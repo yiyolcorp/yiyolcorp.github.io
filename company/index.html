@@ -11,30 +11,34 @@
     </script>
 
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>회사소개 — YIYOL</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>회사소개 — NOX 소프트웨어와 그 위의 AI 자동화 | YIYOL</title>
 
-    <meta name="description" content="YIYOL은 다양한 현장의 문제를 해결하는 AI 영상 관제 플랫폼 NOX를 만드는 기업입니다. 데이터 주권을 지키는 영상 보안을 개발합니다." />
-    <meta name="keywords" content="YIYOL,회사소개,비전,사업분야,오시는길,NOX,NVR,영상보안" />
+    <meta name="description" content="YIYOL은 두 가지를 만듭니다. 영상을 저장하고 관리하는 NOX 소프트웨어(NVR·VMS)와 이를 탑재한 어플라이언스, 그리고 그 위에서 AI가 판단하고 후속조치까지 실행하는 자동화 솔루션. 둘 다 직접 개발하고, 데이터는 고객 장비에 남깁니다." />
+    <meta name="keywords" content="YIYOL,회사소개,비전,미션,사업분야,NOX 소프트웨어,NVR,영상 데이터 관리,VMS,AI 자동화,Agentic AI,AI 솔루션 기업,NOX,온프레미스,데이터 주권" />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://yiyol.com/company/" />
-    <meta property="og:title" content="회사소개 — YIYOL" />
-    <meta property="og:description" content="데이터 주권을 지키는 AI 영상 관제 플랫폼 NOX를 만드는 YIYOL을 소개합니다." />
+    <meta property="og:title" content="회사소개 — NOX 소프트웨어와 그 위의 AI 자동화 | YIYOL" />
+    <meta property="og:description" content="영상을 저장하고 관리하는 NOX 소프트웨어와 어플라이언스, 그 위에서 판단하고 실행하는 AI 자동화 — 둘 다 직접 만드는 YIYOL을 소개합니다." />
     <meta property="og:site_name" content="YIYOL" />
 
     <link rel="canonical" href="https://yiyol.com/company/" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#f9fcfe" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <link rel="stylesheet" href="../assets/css/surv.css?v=12" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/css/tokens.css?v=4" />
+    <link rel="stylesheet" href="../assets/css/site.css?v=2" />
+    <link rel="stylesheet" href="../assets/css/page.css?v=2" />
   </head>
-  <body>
-    <a href="#main-content" class="skip-link" style="position: absolute; left: -9999px;">Skip to main content</a>
+  <body class="yl">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <!-- Header -->
     <nav class="site-nav" role="navigation" aria-label="Main navigation">
@@ -44,15 +48,16 @@
         </a>
         <div class="site-nav-right">
           <ul class="site-nav-links">
-            <li><a href="../company/" class="nav-active"><span class="ko-only">회사소개</span><span class="en-only">About</span></a></li>
             <li><a href="../products/"><span class="ko-only">제품</span><span class="en-only">Products</span></a></li>
-            <li><a href="../solutions/"><span class="ko-only">활용사례</span><span class="en-only">Solutions</span></a></li>
+            <li><a href="../solutions/"><span class="ko-only">AI 솔루션</span><span class="en-only">AI Solutions</span></a></li>
+            <li><a href="../company/" class="nav-active"><span class="ko-only">회사소개</span><span class="en-only">About</span></a></li>
             <li><a href="../blog/"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a></li>
+            <li><a href="../contact/" class="nav-cta"><span class="ko-only">문의</span><span class="en-only">Contact</span></a></li>
           </ul>
           <div class="lang-switch">
-            <button class="lang-selector">
+            <button class="lang-selector" type="button" aria-haspopup="true" aria-expanded="false">
               <span class="lang-current">한국어</span>
-              <i class="fas fa-chevron-down"></i>
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" /></svg>
             </button>
             <div class="lang-dropdown">
               <a href="#" class="lang-option" data-lang="ko">한국어</a>
@@ -67,14 +72,14 @@
     <header class="sv-pagebanner">
       <h1 class="ko-only">회사소개</h1>
       <h1 class="en-only">About YIYOL</h1>
-      <p class="ko-only">영상·센서·데이터를 AI로 잇고, 고객의 문제를 해결합니다.</p>
-      <p class="en-only">We connect video, sensors, and data with AI to solve customer problems.</p>
+      <p class="ko-only">감지에서 멈추지 않습니다. 판단하고, 실행하는 데까지 만듭니다.</p>
+      <p class="en-only">We don't stop at detection. We build all the way through to judgment and action.</p>
     </header>
 
     <!-- Sub-navigation -->
     <nav class="sv-subnav" aria-label="Company sub navigation">
       <div class="sv-subnav-inner">
-        <button class="sv-subnav-tab" data-tab="vision"><span class="ko-only">비전</span><span class="en-only">Vision</span></button>
+        <button class="sv-subnav-tab" data-tab="vision"><span class="ko-only">미션</span><span class="en-only">Mission</span></button>
         <button class="sv-subnav-tab" data-tab="business"><span class="ko-only">사업분야</span><span class="en-only">Business</span></button>
         <button class="sv-subnav-tab" data-tab="location"><span class="ko-only">오시는 길</span><span class="en-only">Location</span></button>
       </div>
@@ -82,21 +87,61 @@
 
     <main id="main-content">
 
-      <!-- Vision -->
+      <!-- Mission -->
       <section class="sv-tabpanel sv-section" data-tab="vision">
         <div class="sv-wrap">
-          <div class="sv-prose">
-            <div class="sv-eyebrow">Vision</div>
-            <h2 class="ko-only">영상·센서·데이터를 수집하고 연결하여<br />AI로 고객의 문제를 해결합니다</h2>
-            <h2 class="en-only">We capture and connect video, sensors, and data<br />to solve customer problems with AI</h2>
-            <p class="ko-only">YIYOL은 영상·센서·메타데이터를 <strong>수집·저장·전달</strong>하고, 이를 다시 <strong>AI</strong>와 접목해 고객의 문제를 해결하는 기업입니다. 단순한 영상 저장을 넘어, 데이터가 실제 가치를 만들어내는 순간에 집중합니다.</p>
-            <p class="en-only">YIYOL is a company that <strong>collects, stores, and delivers</strong> video, sensors, and metadata, then pairs it with <strong>AI</strong> to solve customer problems. We look beyond simple recording — focusing on the moment data turns into real value.</p>
-            <p class="ko-only">NVR·VMS에 Vision AI·VLM 등 다양한 AI 모델을 하나로 통합한 플랫폼 <strong>NOX</strong>는 공장·리테일·빌딩·공공기관 등 다양한 현장에 적용됩니다. 고객의 문제를 해결하고 함께 성장하는 <strong>윈윈(win-win)</strong>, 그것이 우리의 비전입니다.</p>
-            <p class="en-only"><strong>NOX</strong> — our platform unifying NVR, VMS, and a range of AI models such as Vision AI and VLM — serves factories, retail, buildings, and public institutions. Solving our customers' problems and growing together, a true <strong>win-win</strong>, is our vision.</p>
+          <div class="sv-head sv-fade">
+            <div class="sv-eyebrow">Mission</div>
+            <h2 class="ko-only">고객의 문제를 AI 자동화로 풀되,<br />그 아래 기반부터 만듭니다</h2>
+            <h2 class="en-only">We solve problems with AI automation —<br />starting from the base underneath</h2>
+            <p class="ko-only">YIYOL은 두 가지를 만듭니다. 하나는 영상을 저장하고 관리하는 <strong>NOX 소프트웨어</strong>와 이를 탑재한 <strong>어플라이언스</strong>, 다른 하나는 그 위에서 상황을 <strong>판단</strong>하고 정의된 후속조치를 <strong>실행</strong>하는 <strong>AI 자동화 솔루션</strong>입니다.</p>
+            <p class="ko-only">데이터를 모으는 것도, AI로 분석하는 것도 그 자체가 목적은 아닙니다. 목적은 현장에서 <strong>실제로 조치가 일어나는 것</strong>이고, 그 조치는 영상과 데이터가 끊김 없이 관리될 때만 믿을 수 있습니다. 그래서 NOX와 그 위의 솔루션을 모두 직접 만듭니다.</p>
+            <p class="en-only">YIYOL builds two things. One is the <strong>NOX software</strong> that <strong>stores and manages</strong> your video, and the appliances it ships on. The other is the <strong>AI automation</strong> we build on that base, which <strong>judges</strong> the situation and <strong>executes</strong> the follow-up you defined.</p>
+            <p class="en-only">Gathering data isn't the goal, and neither is analyzing it. The goal is that <strong>something actually gets done on site</strong> — and that action is only trustworthy on top of a base that keeps the video and data intact. So we build NOX and what runs on it ourselves.</p>
+          </div>
+
+          <div class="sv-flow">
+            <div class="sv-flow-card sv-fade">
+              <div class="sv-flow-step-no">01</div>
+              <h3 class="ko-only">왜 플랫폼부터인가</h3>
+              <h3 class="en-only">Why we start with the platform</h3>
+              <p class="ko-only">판단이 아무리 좋아도 영상이 끊기거나 필요한 시점을 다시 찾지 못하면 자동화는 성립하지 않습니다. 그래서 YIYOL은 <strong>NOX 소프트웨어</strong>부터 만들었습니다. 수집·저장·검색·권한·보존을 먼저 책임지고, AI는 그 위에 올립니다. 관제만 필요한 현장은 이 층까지만 쓰셔도 됩니다.</p>
+              <p class="en-only">However good the judgment is, automation falls apart if the video drops out or you can't get back to the moment you need. That's why YIYOL built the <strong>NOX software</strong> first: capture, storage, search, access, and retention are ours to own, and the AI sits on top of them. Sites that only need monitoring can use just this layer.</p>
+            </div>
+
+            <div class="sv-flow-card sv-fade">
+              <div class="sv-flow-step-no">02</div>
+              <h3 class="ko-only">왜 실행까지인가</h3>
+              <h3 class="en-only">Why we go all the way to execution</h3>
+              <p class="ko-only">대부분의 AI 관제는 "무언가를 발견했다"에서 멈춥니다. 그 다음 조치를 사람이 해야 하는 한, 야간·주말·인력 공백은 그대로 남습니다. 알림이 쌓일수록 오히려 아무도 보지 않게 되는 역설도 함께 남습니다. 우리는 <strong>판단 다음에 무엇이 일어나야 하는가</strong>를 문제의 절반이라고 봅니다.</p>
+              <p class="en-only">Most AI monitoring stops at "something was found." As long as a person has to take it from there, nights, weekends, and staffing gaps stay exactly as they were — and the more alerts pile up, the less anyone reads them. We treat <strong>what happens after the judgment</strong> as half the problem.</p>
+            </div>
+
+            <div class="sv-flow-card sv-fade">
+              <div class="sv-flow-step-no">03</div>
+              <h3 class="ko-only">왜 직접 만드는가</h3>
+              <h3 class="en-only">Why we build it ourselves</h3>
+              <p class="ko-only">수집·판단·실행 중 하나만 남의 것을 쓰면, 문제가 생겼을 때 원인을 찾을 수도 고칠 수도 없습니다. YIYOL은 영상을 받아 저장하는 엔진부터 AI 판단, 후속조치를 내보내는 액션 엔진, 그리고 그것이 돌아가는 <strong>NOX-A08 어플라이언스</strong>까지 직접 개발합니다. 그래서 현장마다 다른 요구를 코드 수준에서 맞출 수 있습니다.</p>
+              <p class="en-only">If any one of collect, judge, or act comes from someone else, you can neither diagnose nor fix it when something goes wrong. YIYOL develops the recording engine, the AI judgment, the action engine that pushes the follow-up out, and the <strong>NOX-A08 appliance</strong> it all runs on. That's what lets us meet each site's requirements at the code level.</p>
+            </div>
+
+            <div class="sv-flow-card sv-fade">
+              <div class="sv-flow-step-no">04</div>
+              <h3 class="ko-only">왜 고객 장비에 남기는가</h3>
+              <h3 class="en-only">Why the data stays with you</h3>
+              <p class="ko-only">공정 영상, 설비 데이터, 출입 기록은 밖으로 나가면 안 되는 경우가 많습니다. NOX는 수집·판단·실행 전 과정을 사용자 장비(on-prem)에서 수행하는 것을 기본으로 합니다. 클라우드 전송이 전제인 서비스가 아예 검토조차 되지 못하는 현장에서, 이 선택이 도입 가능 여부를 가릅니다.</p>
+              <p class="en-only">Process footage, equipment data, and access records often must not leave the building. NOX runs collection, judgment, and execution on your own hardware by default. At sites where anything requiring a cloud upload can't even be evaluated, that choice decides whether adoption is possible.</p>
+            </div>
+          </div>
+
+          <div class="sv-prose sv-stack sv-fade">
+            <h3 class="ko-only">우리가 지키는 네 가지</h3>
+            <h3 class="en-only">Four things we hold to</h3>
             <ul class="sv-check-list">
-              <li><i class="fas fa-check-circle"></i><span class="ko-only"><strong>수집 · 연결</strong> — 영상·센서·메타데이터를 수집·저장·전달</span><span class="en-only"><strong>Collect & connect</strong> — capture, store, and deliver video, sensors, and metadata</span></li>
-              <li><i class="fas fa-check-circle"></i><span class="ko-only"><strong>AI 접목</strong> — Vision AI·VLM 등 다양한 AI 모델로 분석해 실질적 가치 창출</span><span class="en-only"><strong>AI-powered</strong> — analyze with various AI models (Vision AI, VLM) to create real value</span></li>
-              <li><i class="fas fa-check-circle"></i><span class="ko-only"><strong>함께 성장</strong> — 고객의 문제를 해결하는 윈윈(win-win)</span><span class="en-only"><strong>Grow together</strong> — solving customer problems for a win-win</span></li>
+              <li><span class="ko-only"><strong>문제에서 출발</strong> — 제품을 먼저 제안하지 않고, 어떤 상황을 어떻게 처리해야 하는지부터 정리합니다</span><span class="en-only"><strong>Start from the problem</strong> — no product pitch first; we work out which situation must be handled and how</span></li>
+              <li><span class="ko-only"><strong>기반 위의 실행</strong> — 영상·데이터를 제대로 관리하는 층 위에서, 감지·알림에서 끝내지 않고 후속조치까지 자동으로 이어지게 만듭니다</span><span class="en-only"><strong>Execution on a real base</strong> — on top of a layer that manages the video and data properly, the follow-up is carried out automatically, not just announced</span></li>
+              <li><span class="ko-only"><strong>전 계층 자체 개발</strong> — 수집 엔진부터 AI 판단, 액션 엔진, 현장 장비까지 직접 만듭니다</span><span class="en-only"><strong>Every layer in-house</strong> — the capture engine, the AI judgment, the action engine, and the appliance</span></li>
+              <li><span class="ko-only"><strong>데이터 주권</strong> — 영상과 데이터는 고객 장비에 남습니다</span><span class="en-only"><strong>Data sovereignty</strong> — video and data stay on the customer's own hardware</span></li>
             </ul>
           </div>
         </div>
@@ -105,42 +150,38 @@
       <!-- Business areas -->
       <section class="sv-tabpanel sv-section" data-tab="business">
         <div class="sv-wrap">
-          <div class="sv-head">
+          <div class="sv-head sv-fade">
             <div class="sv-eyebrow">Business</div>
             <h2 class="ko-only">사업분야</h2>
             <h2 class="en-only">Business Areas</h2>
-            <p class="ko-only">NOX 플랫폼을 중심으로 영상 보안의 전 영역을 다룹니다.</p>
-            <p class="en-only">Covering the full spectrum of video security around the NOX platform.</p>
+            <p class="ko-only">고객 현장의 AI 자동화를 구축하고, 그것이 돌아갈 기반과 장비를 함께 만듭니다.</p>
+            <p class="en-only">We build the AI automation for our customers' sites — and the foundation and hardware it runs on.</p>
           </div>
           <div class="sv-case-grid">
-            <div class="sv-case-card">
-              <i class="fas fa-video"></i>
-              <h4 class="ko-only">NVR 소프트웨어</h4>
-              <h4 class="en-only">NVR Software</h4>
-              <p class="ko-only">AI 기반 네트워크 영상 저장·분석</p>
-              <p class="en-only">AI-powered network video recording & analysis</p>
-            </div>
-            <div class="sv-case-card">
-              <i class="fas fa-layer-group"></i>
-              <h4 class="ko-only">VMS 통합 관제</h4>
-              <h4 class="en-only">VMS</h4>
-              <p class="ko-only">다수 카메라·NVR 통합 모니터링</p>
-              <p class="en-only">Unified monitoring of cameras and NVRs</p>
-            </div>
-            <div class="sv-case-card">
-              <i class="fas fa-brain"></i>
-              <h4 class="ko-only">AI 모델</h4>
-              <h4 class="en-only">AI Models</h4>
-              <p class="ko-only">지능형 영상 분석 · 이벤트 감지</p>
-              <p class="en-only">Intelligent video analysis & event detection</p>
-            </div>
-            <div class="sv-case-card">
-              <i class="fas fa-handshake"></i>
-              <h4 class="ko-only">OEM</h4>
-              <h4 class="en-only">OEM</h4>
-              <p class="ko-only">파트너 브랜드로 코어 엔진 공급 · 화이트라벨</p>
-              <p class="en-only">Embed our core under your brand · white-label</p>
-            </div>
+            <a class="sv-case-card sv-fade" href="../solutions/">
+              <h4 class="ko-only">AI 자동화 솔루션</h4>
+              <h4 class="en-only">AI automation</h4>
+              <p class="ko-only">고객 요청을 받아 수집·판단·실행 파이프라인을 현장에 맞게 설계·구축</p>
+              <p class="en-only">Designing and building collect-judge-act pipelines to fit each customer's site</p>
+            </a>
+            <a class="sv-case-card sv-fade" href="../products/">
+              <h4 class="ko-only">NOX 소프트웨어</h4>
+              <h4 class="en-only">NOX software</h4>
+              <p class="ko-only">영상을 받아 저장하고 관리하는 NVR·VMS 소프트웨어</p>
+              <p class="en-only">The NVR and VMS software that records, stores, and manages video</p>
+            </a>
+            <a class="sv-case-card sv-fade" href="../nox-nvr.html">
+              <h4 class="ko-only">현장 장비 · 인프라</h4>
+              <h4 class="en-only">On-site appliances</h4>
+              <p class="ko-only">NOX 소프트웨어를 탑재한 NOX-A08 어플라이언스와 NOX Mobile</p>
+              <p class="en-only">The NOX-A08 appliance running the NOX software, plus NOX Mobile</p>
+            </a>
+            <a class="sv-case-card sv-fade" href="../nox/partner.html">
+              <h4 class="ko-only">OEM · 파트너십</h4>
+              <h4 class="en-only">OEM &amp; partnership</h4>
+              <p class="ko-only">파트너 브랜드로 코어 엔진 공급 · 화이트라벨 · 공동 사업</p>
+              <p class="en-only">Core engine under your brand — white-label and joint ventures</p>
+            </a>
           </div>
         </div>
       </section>
@@ -148,53 +189,95 @@
       <!-- Location -->
       <section class="sv-tabpanel sv-section" data-tab="location">
         <div class="sv-wrap">
-          <div class="sv-head">
+          <div class="sv-head sv-fade">
             <div class="sv-eyebrow">Location</div>
             <h2 class="ko-only">오시는 길</h2>
             <h2 class="en-only">Location</h2>
           </div>
-          <div style="max-width: 980px; margin: 0 auto;">
-            <div class="sv-map">
-              <iframe
-                src="https://maps.google.com/maps?q=37.4723409,126.8842248&z=17&hl=ko&output=embed"
-                title="YIYOL 위치 — 서울특별시 금천구 가산디지털1로 75-15 하우스디 와이즈타워"
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                allowfullscreen></iframe>
+          <div class="sv-product-detail sv-fade">
+            <div class="sv-product-detail-media">
+              <div class="sv-map">
+                <iframe
+                  src="https://maps.google.com/maps?q=37.4723409,126.8842248&z=17&hl=ko&output=embed"
+                  title="YIYOL 위치 — 서울특별시 금천구 가산디지털1로 75-15 하우스디 와이즈타워"
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                  allowfullscreen></iframe>
+              </div>
             </div>
-            <div class="sv-map-link">
-              <a href="https://www.google.com/maps/search/?api=1&query=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C+%EA%B8%88%EC%B2%9C%EA%B5%AC+%EA%B0%80%EC%82%B0%EB%94%94%EC%A7%80%ED%84%B81%EB%A1%9C+75-15" target="_blank" rel="noopener noreferrer"><i class="fas fa-map-location-dot"></i> <span class="ko-only">큰 지도로 보기</span><span class="en-only">Open in Google Maps</span></a>
+            <div class="sv-product-detail-body">
+              <ul class="sv-contact-info">
+                <li>
+                  <span class="sv-contact-key ko-only">주소</span><span class="sv-contact-key en-only">Address</span>
+                  <span class="ko-only">서울특별시 금천구 가산디지털1로 75-15,<br />하우스디 와이즈타워 326호</span>
+                  <span class="en-only">#326, 75-15 Gasan Digital 1-ro,<br />Geumcheon-gu, Seoul, Korea</span>
+                </li>
+                <li>
+                  <span class="sv-contact-key ko-only">이메일</span><span class="sv-contact-key en-only">Email</span>
+                  <a href="mailto:yiyol@yiyol.com">yiyol@yiyol.com</a>
+                </li>
+                <li>
+                  <span class="sv-contact-key ko-only">사업자</span><span class="sv-contact-key en-only">Reg. No.</span>
+                  <span>186-34-01502</span>
+                </li>
+              </ul>
+              <div class="sv-map-link sv-more-wrap">
+                <a href="https://www.google.com/maps/search/?api=1&query=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C+%EA%B8%88%EC%B2%9C%EA%B5%AC+%EA%B0%80%EC%82%B0%EB%94%94%EC%A7%80%ED%84%B81%EB%A1%9C+75-15" target="_blank" rel="noopener noreferrer"><span class="ko-only">큰 지도로 보기</span><span class="en-only">Open in Google Maps</span></a>
+              </div>
             </div>
-            <ul class="sv-contact-info">
-              <li><i class="fas fa-location-dot"></i><span class="ko-only">서울특별시 금천구 가산디지털1로 75-15, 하우스디 와이즈타워 326호</span><span class="en-only">#326, 75-15 Gasan Digital 1-ro, Geumcheon-gu, Seoul, Korea</span></li>
-              <li><i class="fas fa-envelope"></i><a href="mailto:yiyol@yiyol.com">yiyol@yiyol.com</a></li>
-              <li><i class="fas fa-id-card"></i><span class="ko-only">사업자등록번호 186-34-01502</span><span class="en-only">Business Registration 186-34-01502</span></li>
-            </ul>
           </div>
         </div>
       </section>
 
     </main>
 
+    <!-- CTA -->
+    <section class="sv-cta">
+      <h2 class="ko-only">문제를 가져와 주세요</h2>
+      <h2 class="en-only">Bring us the problem</h2>
+      <p class="ko-only">YIYOL이 가장 잘하는 일은 정해진 제품을 파는 것이 아니라, 아직 아무도 자동화하지 못한 상황을 자동화하는 것입니다.</p>
+      <p class="en-only">What YIYOL does best isn't selling a fixed product — it's automating the situation nobody has automated yet.</p>
+      <div class="sv-hero-cta">
+        <a href="../contact/" class="sv-btn sv-btn-primary">
+          <span class="ko-only">문제 상담하기</span><span class="en-only">Tell us your problem</span>
+        </a>
+        <a href="../solutions/" class="sv-btn sv-btn-ghost">
+          <span class="ko-only">AI 솔루션 보기</span><span class="en-only">See AI solutions</span>
+        </a>
+      </div>
+    </section>
+
     <!-- Footer -->
-    <footer class="sv-footer" role="contentinfo">
-      <div class="sv-footer-info">
-        <span class="ko-only">서울특별시 금천구 가산디지털1로 75-15, 하우스디 와이즈타워 326호</span>
-        <span class="en-only">#326, 75-15 Gasan Digital 1-ro, Geumcheon-gu, Seoul</span>
-        <span class="sv-footer-divider">|</span>
-        <span>yiyol@yiyol.com</span>
+    <footer class="yl-foot" role="contentinfo">
+      <div class="yl-shell">
+        <div class="yl-foot-mast">
+          <div>
+            <div class="yl-foot-word">YIYOL<span>.</span></div>
+            <p class="yl-foot-tag ko-only">영상을 저장하고 관리하는 NVR·VMS,<br />그 위에서 판단하고 실행하는 AI 자동화</p>
+            <p class="yl-foot-tag en-only">NVR and VMS that store and manage your video — and the AI automation built on top of it.</p>
+          </div>
+          <nav class="yl-foot-links" aria-label="Footer navigation">
+            <a href="../products/"><span class="ko-only">제품</span><span class="en-only">Products</span></a>
+            <a href="../solutions/"><span class="ko-only">AI 솔루션</span><span class="en-only">AI Solutions</span></a>
+            <a href="../company/"><span class="ko-only">회사소개</span><span class="en-only">About</span></a>
+            <a href="../blog/"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a>
+            <a href="../contact/"><span class="ko-only">문의</span><span class="en-only">Contact</span></a>
+          </nav>
+        </div>
+        <div class="yl-foot-meta">
+          <span class="ko-only">서울특별시 금천구 가산디지털1로 75-15, 하우스디 와이즈타워 326호</span>
+          <span class="en-only">#326, 75-15 Gasan Digital 1-ro, Geumcheon-gu, Seoul</span>
+          <a href="mailto:yiyol@yiyol.com">yiyol@yiyol.com</a>
+          <span class="ko-only">사업자등록번호 186-34-01502</span>
+          <span class="en-only">Business Registration 186-34-01502</span>
+          <span class="ko-only">통신판매업 제2024-서울금천-1806호</span>
+          <span class="en-only">Mail-order License 2024-Seoul Geumcheon-1806</span>
+        </div>
+        <p class="yl-foot-copy">&copy; 2026 YIYOL. All rights reserved.</p>
       </div>
-      <div class="sv-footer-info">
-        <span class="ko-only">사업자등록번호 186-34-01502</span>
-        <span class="en-only">Business Registration 186-34-01502</span>
-        <span class="sv-footer-divider">|</span>
-        <span class="ko-only">통신판매업 제2024-서울금천-1806호</span>
-        <span class="en-only">Mail-order License 제2024-서울금천-1806호</span>
-      </div>
-      <p class="sv-footer-copy">&copy; 2026 YIYOL. All rights reserved.</p>
     </footer>
 
     <script src="../assets/js/i18n.js?v=4"></script>
-    <script src="../assets/js/surv-tabs.js?v=2"></script>
+    <script src="../assets/js/yiyol-tabs.js?v=1"></script>
   </body>
 </html>

@@ -18,18 +18,18 @@
     <meta charset="UTF-8" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+      content="width=device-width, initial-scale=1"
     />
-    <title>YIYOL — 다양한 문제를 해결하는 AI 영상 관제 플랫폼, NOX</title>
+    <title>YIYOL — NVR·VMS 소프트웨어와 그 위의 AI 자동화</title>
 
     <!-- Primary Meta Tags -->
     <meta
       name="description"
-      content="YIYOL은 다양한 현장의 문제를 해결하는 AI 영상 관제 플랫폼 NOX를 만듭니다. Vision AI·VLM 등 다양한 AI 모델 기반 실시간 관제, 영상은 항상 on-prem. 데이터 주권을 지키는 영상 보안 플랫폼."
+      content="YIYOL은 두 가지를 만듭니다. 영상을 저장하고 관리하는 NOX 소프트웨어(NVR·VMS)와 이를 탑재한 NOX-A08 어플라이언스, 그리고 그 위에서 AI가 상황을 판단하고 후속조치를 자동 실행하는 솔루션. 영상·데이터는 항상 사용자 장비(on-prem)에 남습니다."
     />
     <meta
       name="keywords"
-      content="YIYOL,NOX,AI 영상관제,영상 관제 플랫폼,Vision AI,VLM,멀티모달 AI,NVR,VMS,데이터 주권,온프레미스,엔터프라이즈,ONVIF,WebRTC,WHIP,RTSP"
+      content="NOX 소프트웨어,NVR 소프트웨어,VMS,영상관리시스템,NVR,영상 데이터 관리,AI 자동화,Agentic AI,AI 솔루션,공정 이상 감지,이상 탐지,비정형 센서 데이터,센서 데이터 분석,스마트팩토리,예지보전,자동 후속조치,VLM,Vision AI,LLM Agent,YIYOL,NOX,온프레미스,데이터 주권"
     />
 
     <meta name="google-adsense-account" content="ca-pub-9284090567080343" />
@@ -37,10 +37,10 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://yiyol.com/" />
-    <meta property="og:title" content="YIYOL — 다양한 문제를 해결하는 AI 영상 관제 플랫폼, NOX" />
+    <meta property="og:title" content="YIYOL — NVR·VMS 소프트웨어와 그 위의 AI 자동화" />
     <meta
       property="og:description"
-      content="다양한 현장의 문제를 해결하는 AI 영상 관제 플랫폼. 영상은 항상 on-prem — 데이터 주권을 지키는 엔터프라이즈 영상 보안."
+      content="영상을 저장하고 관리하는 NVR·VMS, 그 위에서 판단하고 실행하는 AI 자동화. YIYOL은 둘 다 직접 만듭니다."
     />
     <meta property="og:image" content="https://yiyol.com/assets/yiyol-logo.png" />
     <meta property="og:site_name" content="YIYOL" />
@@ -49,10 +49,10 @@
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://yiyol.com/" />
-    <meta property="twitter:title" content="YIYOL — 다양한 문제를 해결하는 AI 영상 관제 플랫폼, NOX" />
+    <meta property="twitter:title" content="YIYOL — NVR·VMS 소프트웨어와 그 위의 AI 자동화" />
     <meta
       property="twitter:description"
-      content="다양한 현장의 문제를 해결하는 AI 영상 관제 플랫폼. 영상은 항상 on-prem, 데이터 주권을 지키는 영상 보안."
+      content="영상을 저장하고 관리하는 NVR·VMS, 그 위에서 판단하고 실행하는 AI 자동화."
     />
     <meta
       property="twitter:image"
@@ -70,7 +70,7 @@
     <link rel="alternate" hreflang="x-default" href="https://yiyol.com/" />
 
     <!-- Mobile & Theme -->
-    <meta name="theme-color" content="#000000" />
+    <meta name="theme-color" content="#f9fcfe" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="YIYOL" />
@@ -86,49 +86,19 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
-
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://www.googletagmanager.com" />
-    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    />
-    <link rel="stylesheet" href="assets/css/surv.css?v=12" />
+    <link rel="stylesheet" href="assets/css/tokens.css?v=4" />
+    <link rel="stylesheet" href="assets/css/site.css?v=2" />
+    <link rel="stylesheet" href="assets/css/home.css?v=5" />
 
-    <!-- index 전용: NOX-A08064 다크 콘텐츠에 맞춘 다크 헤더 (다른 페이지 미영향) -->
-    <style>
-      .site-nav { background: rgba(0,0,0,0.72); border-bottom: 1px solid rgba(255,255,255,0.09); }
-      .site-nav-logo { color: #f5f5f7; }
-      .site-nav-links a { color: rgba(245,245,247,0.85); }
-      .site-nav-links a:hover, .site-nav-links .nav-active { color: var(--sv-accent); }
-      .nav-hamburger { color: #f5f5f7; }
-      .lang-selector { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.18); color: rgba(245,245,247,0.85); }
-      .lang-selector:hover { border-color: var(--sv-accent); color: var(--sv-accent); }
-      .lang-dropdown { background: #101012; border-color: rgba(255,255,255,0.12); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-      .lang-option { color: rgba(245,245,247,0.8); }
-      .lang-option:hover { background: rgba(255,255,255,0.06); color: #fff; }
-      .lang-option.active { color: var(--sv-accent); }
-      /* 모바일 햄버거 메뉴 패널도 다크로 (surv.css 기본은 흰색 배경이라 밝은 글자가 안 보임) */
-      @media (max-width: 860px) {
-        .site-nav .site-nav-right {
-          background: rgba(10,10,12,0.96);
-          -webkit-backdrop-filter: saturate(180%) blur(18px);
-          backdrop-filter: saturate(180%) blur(18px);
-          border-top-color: rgba(255,255,255,0.09);
-          border-bottom-color: rgba(255,255,255,0.09);
-          box-shadow: 0 14px 28px rgba(0,0,0,0.55);
-        }
-      }
-    </style>
-
-    <!-- Structured Data (JSON-LD) -->
+<!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -136,7 +106,7 @@
       "name": "YIYOL",
       "url": "https://yiyol.com",
       "logo": "https://yiyol.com/assets/yiyol-logo.png",
-      "description": "다양한 현장의 문제를 해결하는 AI 영상 관제 플랫폼 NOX를 만드는 기업. Vision AI·VLM 등 다양한 AI 모델 기반 실시간 관제, 영상은 항상 on-prem, 데이터 주권을 지키는 영상 보안.",
+      "description": "영상을 저장하고 관리하는 NOX 소프트웨어(NVR·VMS)와 이를 탑재한 어플라이언스, 그리고 그 위에서 AI가 상황을 판단하고 후속조치를 자동 실행하는 솔루션을 함께 개발하는 기업. NVR·VMS 소프트웨어와 어플라이언스, 공정 이상 감지·대응, 센서 데이터 분석·판단, 안전·보안 자동화를 고객 현장에 맞게 구축합니다.",
       "contactPoint": {
         "@type": "ContactPoint",
         "email": "yiyol@yiyol.com",
@@ -153,14 +123,50 @@
         "addressCountry": "KR",
         "addressRegion": "Seoul",
         "streetAddress": "#326, 75-15 Gasan Digital 1-ro, Geumcheon-gu"
-      }
+      },
+      "makesOffer": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "NOX 소프트웨어 (NVR · VMS)",
+            "description": "카메라 영상을 온프레미스로 저장·검색·관리하는 NVR·VMS 소프트웨어. NOX-A08 어플라이언스에 탑재해 공급하거나 소프트웨어만 별도로 공급합니다."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "AI 공정 이상 감지 · 자동 대응",
+            "description": "생산 공정의 비정상 동작을 AI가 판단하고 정의된 후속조치를 자동 실행합니다."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "비정형 센서 데이터 분석 · 판단",
+            "description": "규격이 제각각인 센서 데이터를 수집·정규화하고 AI로 분석해 적절한 조치를 선택합니다."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "요청형 맞춤 AI 자동화 구축",
+            "description": "고객이 겪는 문제를 받아 수집·판단·실행 파이프라인을 현장에 맞게 설계·구축합니다."
+          }
+        }
+      ]
     }
     </script>
   </head>
-  <body itemscope itemtype="https://schema.org/WebPage">
-    <a href="#main-content" class="skip-link" style="position: absolute; left: -9999px;">Skip to main content</a>
+  <body class="yl yl-home" itemscope itemtype="https://schema.org/WebPage">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <!-- Header -->
+    <!-- Nav · N1b — wordmark left, centred link cluster, language + CTA right.
+         Class names kept intact so assets/js/i18n.js still wires the hamburger
+         and the language switch. -->
     <nav class="site-nav" role="navigation" aria-label="Main navigation">
       <div class="site-nav-inner">
         <a href="./" class="site-nav-brand">
@@ -168,15 +174,16 @@
         </a>
         <div class="site-nav-right">
           <ul class="site-nav-links">
-            <li><a href="company/"><span class="ko-only">회사소개</span><span class="en-only">About</span></a></li>
             <li><a href="products/"><span class="ko-only">제품</span><span class="en-only">Products</span></a></li>
-            <li><a href="solutions/"><span class="ko-only">활용사례</span><span class="en-only">Solutions</span></a></li>
+            <li><a href="solutions/"><span class="ko-only">AI 솔루션</span><span class="en-only">AI Solutions</span></a></li>
+            <li><a href="company/"><span class="ko-only">회사소개</span><span class="en-only">About</span></a></li>
             <li><a href="blog/"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a></li>
+            <li><a href="contact/" class="nav-cta"><span class="ko-only">문의</span><span class="en-only">Contact</span></a></li>
           </ul>
           <div class="lang-switch">
-            <button class="lang-selector">
+            <button class="lang-selector" type="button" aria-haspopup="true" aria-expanded="false">
               <span class="lang-current">한국어</span>
-              <i class="fas fa-chevron-down"></i>
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" /></svg>
             </button>
             <div class="lang-dropdown">
               <a href="#" class="lang-option" data-lang="ko">한국어</a>
@@ -187,254 +194,508 @@
       </div>
     </nav>
 
-    <!-- Hero (이전 index 내용 — 보존, 렌더링 안 함) -->
-    <template id="legacy-hero">
-    <section class="sv-hero" id="hero">
-      <div class="sv-hero-stage" aria-hidden="true">
-        <img src="img/nox-ui-002.jpeg" alt="" class="sv-hero-dash" loading="eager" />
+    <!-- Hero · H2 Split diptych 7/5 — statement left, pipeline rig right -->
+    <header class="yl-hero" id="hero">
+      <div class="yl-shell yl-hero-grid">
+        <div>
+          <p class="yl-label yl-label--accent">NOX Software · AI Automation</p>
+          <h1 class="ko-only">영상과 데이터는 NOX가 관리하고, 그&nbsp;위에서 <span class="hl">AI가 처리합니다</span></h1>
+          <h1 class="en-only">NOX manages your video and data — <span class="hl">AI acts on top of it</span></h1>
+          <p class="yl-lede ko-only">
+            YIYOL은 두 가지를 만듭니다. 영상을 저장하고 관리하는 <strong>NOX 소프트웨어와 어플라이언스</strong>,
+            그리고 그 위에서 상황을 판단하고 후속조치까지 실행하는 <strong>AI 자동화 솔루션</strong>입니다.
+          </p>
+          <p class="yl-lede en-only">
+            YIYOL builds two things: the <strong>NOX software and appliances</strong> that capture, store, and manage the video and
+            unstructured data coming off your site — and the <strong>AI solutions</strong> that run on top of it, judging what
+            is happening and carrying out the follow-up.
+          </p>
+          <div class="yl-hero-cta">
+            <a href="contact/" class="yl-btn yl-btn--primary">
+              <span class="ko-only">문제 상담하기</span><span class="en-only">Tell us your problem</span>
+            </a>
+            <a href="solutions/" class="yl-link">
+              <span class="ko-only">AI 솔루션 보기</span><span class="en-only">See AI solutions</span>
+              <span class="yl-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Tier-A pure-CSS pipeline rig. Decorative restatement of the section
+             below, so it is hidden from assistive tech rather than duplicated. -->
+        <div class="yl-rig" aria-hidden="true">
+          <div class="yl-rig-bar">
+            <span class="yl-label">NOX + AI Automation</span>
+            <span class="yl-rig-status"><span class="yl-rig-dot"></span>RUNNING</span>
+          </div>
+          <div class="yl-rig-body">
+            <div class="yl-node">
+              <div class="yl-node-idx">01</div>
+              <div>
+                <div class="yl-node-name"><span class="ko-only">수집</span><span class="en-only">Sense</span></div>
+                <div class="yl-node-spec"><span class="ko-only">영상 · 센서 · 설비 로그</span><span class="en-only">video · sensors · machine logs</span></div>
+              </div>
+            </div>
+            <div class="yl-node">
+              <div class="yl-node-idx">02</div>
+              <div>
+                <div class="yl-node-name"><span class="ko-only">보관 · 관리</span><span class="en-only">Store</span></div>
+                <div class="yl-node-spec"><span class="ko-only">녹화 · 검색 · 권한 · 보존</span><span class="en-only">recording · search · access · retention</span></div>
+              </div>
+            </div>
+            <div class="yl-node">
+              <div class="yl-node-idx">03</div>
+              <div>
+                <div class="yl-node-name"><span class="ko-only">판단</span><span class="en-only">Reason</span></div>
+                <div class="yl-node-spec">Vision AI · VLM · LLM Agent</div>
+              </div>
+            </div>
+            <div class="yl-node yl-node--act">
+              <div class="yl-node-idx">04</div>
+              <div>
+                <div class="yl-node-name"><span class="ko-only">실행</span><span class="en-only">Act</span></div>
+                <div class="yl-node-spec"><span class="ko-only">경보 · 설비 제어 · 시스템 연동</span><span class="en-only">alerts · machine control · integrations</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="yl-rig-foot"><span class="ko-only">데이터는 사용자 장비에 그대로 · ON-PREM</span><span class="en-only">data stays on your hardware · ON-PREM</span></div>
+        </div>
       </div>
-      <div class="sv-hero-overlay" aria-hidden="true"></div>
-      <div class="sv-hero-inner">
-        <div class="sv-hero-eyebrow">AI Video Surveillance Platform</div>
-        <h1 class="ko-only">
-          영상·센서·데이터를 수집하고 연결하여<br />
-          <span class="hl">AI로 고객의 문제를 해결</span>합니다
-        </h1>
-        <h1 class="en-only">
-          We capture and connect video, sensors, and data —<br />
-          then <span class="hl">solve customer problems with AI</span>
-        </h1>
-        <p class="ko-only">
-          영상·센서·메타데이터를 수집·저장·전달하고 AI와 접목해, 고객과 함께 성장합니다.
-        </p>
-        <p class="en-only">
-          We collect, store, and deliver video, sensors, and metadata — then pair it with AI to grow together with our customers.
-        </p>
+    </header>
+
+    <!-- Integration rail — the real interface list, consolidated in one place -->
+    <div class="yl-rail">
+      <div class="yl-shell yl-rail-inner">
+        <p class="yl-label yl-rail-key"><span class="ko-only">연동 인터페이스</span><span class="en-only">Interfaces</span></p>
+        <ul class="yl-rail-list">
+          <li>ONVIF</li><li>RTSP</li><li>Modbus</li><li>MQTT</li><li>Serial</li><li>PLC</li><li>WebHook</li><li>REST API</li><li>ERP · MES</li>
+        </ul>
       </div>
-      <a href="#about" class="sv-scroll-hint" aria-label="Scroll down"><i class="fas fa-chevron-down"></i></a>
-    </section>
-    </template>
+    </div>
 
     <main id="main-content">
 
-      <!-- NOX-A08064 embedded page (index header/footer kept; existing sections below) -->
-      <section aria-label="NOX-A08064" style="margin:0;padding-top:calc(var(--sv-nav-h) + 2.5rem);background:#000;">
-        <iframe id="noxaEmbed" src="nox-nvr-embed.html" title="NOX NVR — NOX-A08128" scrolling="no" loading="eager" style="display:block;width:100%;height:100vh;border:0;background:#000;"></iframe>
-      </section>
+      <!-- The mission in two columns. Everything below expands one of these
+           two: the platform underneath, and what we build on top of it. -->
+      <section class="yl-section yl-shell" id="build">
+        <div class="yl-section-head sv-fade">
+          <h2 class="ko-only">NOX를 만들고, 그 위에 AI를 올립니다</h2>
+          <h2 class="en-only">We build NOX, then put AI on top of it</h2>
+          <p class="yl-lede ko-only">영상과 데이터가 제대로 모이고 남아 있어야, 그 위에서 AI가 의미 있는 판단을 하고 조치를 실행할 수 있습니다. YIYOL은 아래에 놓이는 NOX와 그 위에 올라가는 솔루션을 모두 직접 만듭니다.</p>
+          <p class="yl-lede en-only">AI can only judge and act meaningfully when the video and data underneath are already being gathered and kept properly. YIYOL builds both NOX and what runs on it.</p>
+        </div>
 
-      <!-- About/Products/Solutions (이전 index 내용 — 보존, 렌더링 안 함) -->
-      <template id="legacy-sections">
-      <!-- About -->
-      <section class="sv-section" id="about">
-        <div class="sv-wrap">
-          <div class="sv-head sv-fade">
-            <div class="sv-eyebrow">About YIYOL</div>
-            <h2 class="ko-only">영상·센서·데이터를 수집하고 연결하여<br />AI로 고객의 문제를 해결합니다</h2>
-            <h2 class="en-only">We capture and connect video, sensors, and data<br />to solve customer problems with AI</h2>
-            <p class="ko-only">YIYOL은 영상·센서·메타데이터를 수집·저장·전달하고, 이를 다시 AI와 접목해 고객의 문제를 해결합니다. 단순한 영상 저장을 넘어, 데이터가 실제 가치를 만들어내는 순간에 집중합니다.</p>
-            <p class="en-only">YIYOL collects, stores, and delivers video, sensors, and metadata, then pairs it with AI to solve customer problems — focusing on the moment data turns into real value.</p>
+        <div class="yl-duo sv-fade">
+          <div class="yl-duo-col">
+            <p class="yl-label yl-label--accent">01 · <span class="ko-only">제품</span><span class="en-only">Products</span></p>
+            <h3 class="ko-only">NOX 소프트웨어와 어플라이언스</h3>
+            <h3 class="en-only">NOX software and appliances</h3>
+            <p class="ko-only">카메라 영상과 규격이 제각각인 센서·설비 데이터를 한곳에 모아 저장하고, 검색·권한·보존 정책까지 관리합니다. 데이터는 클라우드로 올라가지 않고 사용자 장비에 그대로 남습니다.</p>
+            <p class="en-only">Camera streams and sensor or machine data in whatever format it arrives, gathered into one place and kept there — with search, access control, and retention policy on top. Nothing has to leave your own hardware.</p>
+            <ul class="yl-specs">
+              <li><span class="ko-only">영상 수집 · 저장 · 검색</span><span class="en-only">Video ingest · storage · search</span></li>
+              <li><span class="ko-only">비정형 센서 · 설비 데이터 관리</span><span class="en-only">Unstructured sensor + machine data</span></li>
+              <li><span class="ko-only">온프레미스 · 다지점 통합 관제</span><span class="en-only">On-prem · multi-site monitoring</span></li>
+            </ul>
+            <a href="products/" class="yl-link">
+              <span class="ko-only">제품 보기</span><span class="en-only">See the products</span>
+              <span class="yl-arrow" aria-hidden="true">→</span>
+            </a>
           </div>
-          <div class="sv-grid-3">
-            <div class="sv-case-card sv-fade">
-              <i class="fas fa-network-wired"></i>
-              <h4 class="ko-only">수집 · 연결</h4>
-              <h4 class="en-only">Collect & Connect</h4>
-              <p class="ko-only">영상·센서·메타데이터를 수집·저장·전달</p>
-              <p class="en-only">Capture, store, and deliver video, sensors, and metadata</p>
-            </div>
-            <div class="sv-case-card sv-fade">
-              <i class="fas fa-brain"></i>
-              <h4 class="ko-only">AI 접목</h4>
-              <h4 class="en-only">AI-Powered</h4>
-              <p class="ko-only">Vision AI·VLM 등 다양한 AI 모델로 분석해 가치 창출</p>
-              <p class="en-only">Analyze with various AI models such as Vision AI and VLM</p>
-            </div>
-            <div class="sv-case-card sv-fade">
-              <i class="fas fa-handshake"></i>
-              <h4 class="ko-only">함께 성장</h4>
-              <h4 class="en-only">Grow Together</h4>
-              <p class="ko-only">고객의 문제를 해결하는 윈윈(win-win)</p>
-              <p class="en-only">Solving customer problems for a win-win</p>
-            </div>
-          </div>
-          <div class="sv-more-wrap sv-fade">
-            <a href="company/" class="sv-more">
-              <span class="ko-only">회사소개 더 보기</span><span class="en-only">Learn more about us</span>
-              <i class="fas fa-arrow-right"></i>
+
+          <div class="yl-duo-col">
+            <p class="yl-label yl-label--accent">02 · <span class="ko-only">솔루션</span><span class="en-only">Solutions</span></p>
+            <h3 class="ko-only">AI 자동화 솔루션 개발</h3>
+            <h3 class="en-only">Building AI automation on it</h3>
+            <p class="ko-only">그 기반 위에서 고객이 가져온 문제를 풉니다. 모아둔 영상과 데이터를 AI가 읽어 상황을 판단하고, 미리 정의한 후속조치를 사람 없이 실행합니다.</p>
+            <p class="en-only">On that base we solve the problem you bring us: AI reads the video and data already collected, works out what is actually happening, and runs the follow-up you defined without waiting for a person.</p>
+            <ul class="yl-specs">
+              <li><span class="ko-only">Vision AI · VLM · LLM Agent 판단</span><span class="en-only">Vision AI · VLM · LLM agent reasoning</span></li>
+              <li><span class="ko-only">후속조치 자동 실행 · 설비 제어</span><span class="en-only">Automatic follow-up · machine control</span></li>
+              <li><span class="ko-only">현장별 맞춤 설계 · 기간계 연동</span><span class="en-only">Per-site design · back-office integration</span></li>
+            </ul>
+            <a href="solutions/" class="yl-link">
+              <span class="ko-only">AI 솔루션 보기</span><span class="en-only">See AI solutions</span>
+              <span class="yl-arrow" aria-hidden="true">→</span>
             </a>
           </div>
         </div>
       </section>
 
-      <!-- Products preview -->
-      <section class="sv-section alt" id="products">
-        <div class="sv-wrap">
-          <div class="sv-head sv-fade">
-            <div class="sv-eyebrow">Product</div>
-            <h2 class="ko-only">YIYOL 제품</h2>
-            <h2 class="en-only">Our Products</h2>
-            <p class="ko-only">NOX 플랫폼을 중심으로, 영상 보안에 필요한 핵심 솔루션을 제공합니다.</p>
-            <p class="en-only">Built around the NOX platform — the core solutions you need for video security.</p>
-          </div>
+      <!-- Platform — one lead diptych, then a hairline list. Density varies, so
+           this never reads as a second copy of the use-case section. -->
+      <section class="yl-section yl-shell" id="platform">
+        <div class="yl-section-head sv-fade">
+          <h2 class="ko-only">영상과 데이터를 관리하는 NOX</h2>
+          <h2 class="en-only">NOX — where the video and data live</h2>
+          <p class="yl-lede ko-only">AI 이전에, 영상과 데이터가 끊기지 않고 모이고 저장되고 다시 찾아지는 층이 있어야 합니다. YIYOL은 그 층인 <strong>NOX 소프트웨어</strong>와, 그것을 탑재해 하나로 공급하는 어플라이언스를 직접 만듭니다. 관제만 필요한 현장은 여기까지만 쓰셔도 됩니다.</p>
+          <p class="yl-lede en-only">Before any AI, there has to be a layer that keeps gathering the video and data, stores it, and lets you find it again. YIYOL builds that layer itself — the <strong>NOX software</strong> and the appliances it ships on. Sites that only need monitoring can stop right here.</p>
+        </div>
 
-          <div class="sv-product-grid">
-            <a href="products/#nvr" class="sv-product-card sv-fade">
-              <div class="sv-product-icon"><i class="fas fa-video"></i></div>
-              <h3>NVR</h3>
-              <div class="sv-product-sub ko-only">고성능 영상 녹화 · 재생</div>
-              <div class="sv-product-sub en-only">High-performance recording & playback</div>
-              <p class="ko-only">NOX 플랫폼의 AI 기반 영상 저장·분석 엔진. ONVIF·RTSP 카메라를 자동으로 연결하고, 영상은 항상 사용자 장비(on-prem)에 안전하게 저장됩니다.</p>
-              <p class="en-only">The AI-powered recording & analysis engine of the NOX platform. Auto-connects ONVIF/RTSP cameras and keeps every recording safely on-prem.</p>
-              <div class="sv-product-tags"><span>ONVIF</span><span>RTSP</span><span>On-Prem</span><span>Vision AI</span><span>VLM</span></div>
-            </a>
-
-            <a href="products/#vms" class="sv-product-card sv-fade">
-              <div class="sv-product-icon"><i class="fas fa-layer-group"></i></div>
-              <h3>VMS</h3>
-              <div class="sv-product-sub ko-only">영상 통합 관리 솔루션</div>
-              <div class="sv-product-sub en-only">Integrated video management</div>
-              <p class="ko-only">다수의 카메라와 NVR을 하나의 화면에서 통합 관제. 실시간 모니터링, 이벤트 검색, 권한 관리까지 직관적인 웹 인터페이스로 운영합니다.</p>
-              <p class="en-only">Manage many cameras and NVRs from a single pane. Live monitoring, event search, and access control through an intuitive web interface.</p>
-              <div class="sv-product-tags"><span>WebRTC</span><span>WHIP</span><span class="ko-only">실시간 관제</span><span class="en-only">Live Monitoring</span></div>
-            </a>
-
-            <a href="products/#mobile" class="sv-product-card sv-fade">
-              <div class="sv-product-icon"><i class="fas fa-mobile-screen-button"></i></div>
-              <h3>NOX Mobile</h3>
-              <div class="sv-product-sub ko-only">Android · iOS 모바일 관제</div>
-              <div class="sv-product-sub en-only">Android & iOS surveillance app</div>
-              <p class="ko-only">언제 어디서나 스마트폰으로 영상을 확인하세요. Android와 iOS 전용 앱으로 실시간 보기, 이벤트 알림, 녹화 재생을 지원합니다.</p>
-              <p class="en-only">Check your cameras anywhere from your phone. Dedicated Android and iOS apps with live view, event alerts, and recording playback.</p>
-              <div class="sv-product-tags"><span>Android</span><span>iOS</span><span class="ko-only">푸시 알림</span><span class="en-only">Push Alerts</span></div>
-            </a>
-
-            <a href="products/#oem" class="sv-product-card sv-fade">
-              <div class="sv-product-icon"><i class="fas fa-handshake"></i></div>
-              <h3>OEM</h3>
-              <div class="sv-product-sub ko-only">파트너 브랜드로 공급</div>
-              <div class="sv-product-sub en-only">Powering your branded product</div>
-              <p class="ko-only">NOX의 영상·AI 코어 엔진을 파트너의 제품에 임베드해 파트너 브랜드로 출시할 수 있습니다. 화이트라벨 빌드부터 맞춤 기능 개발·시스템 연동, 다양한 AI 모델 적용까지 지원합니다.</p>
-              <p class="en-only">Embed the NOX video and AI core engine into your product and ship it under your own brand — from white-label builds to custom features, integrations, and a range of AI models.</p>
-              <div class="sv-product-tags"><span class="ko-only">화이트라벨</span><span class="en-only">White-label</span><span class="ko-only">맞춤 개발</span><span class="en-only">Custom Dev</span><span class="ko-only">연동</span><span class="en-only">Integration</span></div>
+        <div class="yl-diptych yl-diptych--flip sv-fade">
+          <div class="yl-diptych-text">
+            <p class="yl-label yl-label--accent">NOX Software</p>
+            <h3 class="ko-only">녹화 · 저장 · 통합 관제</h3>
+            <h3 class="en-only">Recording · storage · monitoring</h3>
+            <p class="ko-only">카메라 영상을 받아 저장하고, 보존 정책과 권한으로 관리하고, 여러 현장을 한 화면에서 봅니다. 어플라이언스에 탑재해 공급하는 것이 기본이며, WebHook·API로 기존 시스템과 양방향으로 연결됩니다.</p>
+            <p class="en-only">Takes in camera streams and stores them, manages them with retention policy and access control, and puts every site on one screen. It normally ships on an appliance, and connects both ways to your existing systems over WebHooks and APIs.</p>
+            <a href="products/#software" class="yl-link">
+              <span class="ko-only">NOX 소프트웨어 자세히 보기</span><span class="en-only">See the software</span>
+              <span class="yl-arrow" aria-hidden="true">→</span>
             </a>
           </div>
+          <div class="yl-diptych-media">
+            <div class="yl-arch">
+              <div class="yl-arch-row">
+                <span class="yl-arch-k"><span class="ko-only">영상 수집</span><span class="en-only">Video ingest</span></span>
+                <span class="yl-arch-v"><span class="ko-only">ONVIF · RTSP · 카메라 · NVR</span><span class="en-only">ONVIF · RTSP · cameras · NVRs</span></span>
+              </div>
+              <div class="yl-arch-row">
+                <span class="yl-arch-k"><span class="ko-only">저장 · 관리</span><span class="en-only">Store &amp; manage</span></span>
+                <span class="yl-arch-v"><span class="ko-only">녹화 · 검색 · 권한 · 보존 정책</span><span class="en-only">Recording · search · access · retention</span></span>
+              </div>
+              <div class="yl-arch-row">
+                <span class="yl-arch-k"><span class="ko-only">통합 관제</span><span class="en-only">Monitoring</span></span>
+                <span class="yl-arch-v"><span class="ko-only">다지점 뷰 · WebRTC · WHIP</span><span class="en-only">Multi-site view · WebRTC · WHIP</span></span>
+              </div>
+              <div class="yl-arch-row">
+                <span class="yl-arch-k"><span class="ko-only">공급 형태</span><span class="en-only">How it ships</span></span>
+                <span class="yl-arch-v"><span class="ko-only">어플라이언스 탑재 · 소프트웨어 단독 · OEM</span><span class="en-only">On an appliance · software only · OEM</span></span>
+              </div>
+              <div class="yl-arch-row">
+                <span class="yl-arch-k"><span class="ko-only">연동</span><span class="en-only">Integration</span></span>
+                <span class="yl-arch-v">WebHook · REST API · ERP · MES</span>
+              </div>
+              <div class="yl-arch-row">
+                <span class="yl-arch-k"><span class="ko-only">배포</span><span class="en-only">Deployment</span></span>
+                <span class="yl-arch-v"><span class="ko-only">온프레미스 (사용자 장비)</span><span class="en-only">On-premises, on your hardware</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
 
-          <div class="sv-more-wrap sv-fade">
-            <a href="products/" class="sv-more">
-              <span class="ko-only">제품 자세히 보기</span><span class="en-only">See all products</span>
-              <i class="fas fa-arrow-right"></i>
+        <div class="yl-list sv-fade">
+          <a class="yl-list-item" href="products/#software">
+            <span>
+              <h4 class="ko-only">NOX 소프트웨어</h4><h4 class="en-only">NOX software</h4>
+              <span class="yl-row-sub"><span class="ko-only">NVR 녹화·저장 · VMS 통합 관제</span><span class="en-only">NVR recording · VMS monitoring</span></span>
+            </span>
+            <p><span class="ko-only">카메라 영상을 받아 저장하고, 필요한 시점을 찾고, 누가 무엇을 볼 수 있는지 관리합니다. 어플라이언스에 탑재해 공급하거나 소프트웨어만 별도로 공급합니다.</span><span class="en-only">Takes in camera streams, stores them, finds the moment you need, and controls who sees what. Shipped on an appliance, or supplied on its own.</span></p>
+            <span class="yl-row-go" aria-hidden="true">→</span>
+          </a>
+          <a class="yl-list-item" href="products/#nvr">
+            <span>
+              <h4 class="ko-only">NOX-A08 시리즈</h4><h4 class="en-only">NOX-A08 series</h4>
+              <span class="yl-row-sub">2U · 32/64/128ch · 8-bay · 240TB</span>
+            </span>
+            <p><span class="ko-only">자체 설계 하드웨어에 NOX 소프트웨어를 탑재해 하나로 공급하는 2U 랙마운트 어플라이언스. 8베이 핫스왑 SATA, 이중 LAN·하드웨어 워치독으로 무인 현장에서도 스스로 복구합니다.</span><span class="en-only">Hardware we design ourselves, shipped with the NOX software already on it — 8 hot-swap SATA bays, dual LAN, and a hardware watchdog that recovers on its own.</span></p>
+            <span class="yl-row-go" aria-hidden="true">→</span>
+          </a>
+          <a class="yl-list-item" href="products/#mobile">
+            <span>
+              <h4 class="ko-only">NOX Mobile</h4><h4 class="en-only">NOX Mobile</h4>
+              <span class="yl-row-sub">Android · iOS</span>
+            </span>
+            <p><span class="ko-only">현장 밖에서 영상을 확인하는 전용 앱. 실시간 멀티뷰와 녹화 재생, 이벤트 푸시 알림을 제공합니다.</span><span class="en-only">The app for checking footage when you're away from the site — live multi-view, recorded playback, and event push notifications.</span></p>
+            <span class="yl-row-go" aria-hidden="true">→</span>
+          </a>
+          <a class="yl-list-item" href="products/#oem">
+            <span>
+              <h4 class="ko-only">OEM · 파트너십</h4><h4 class="en-only">OEM &amp; partnership</h4>
+              <span class="yl-row-sub"><span class="ko-only">화이트라벨 · 맞춤 개발</span><span class="en-only">White-label · custom dev</span></span>
+            </span>
+            <p><span class="ko-only">NOX 소프트웨어를 파트너 제품에 임베드해 파트너 브랜드로 출시할 수 있습니다. 하드웨어 제조사와 SI 파트너가 소프트웨어 개발 부담 없이 제품을 갖추게 됩니다.</span><span class="en-only">Embed the NOX capture, AI, and execution core into your own product and ship it under your brand — hardware makers and SI partners get an AI automation product without building the software.</span></p>
+            <span class="yl-row-go" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- F4 · Step sequence — the pipeline in detail -->
+      <section class="yl-section yl-shell" id="how">
+        <div class="yl-section-head sv-fade">
+          <h2 class="ko-only">그 위에서 AI가 판단하고 실행합니다</h2>
+          <h2 class="en-only">On top of it, AI judges and acts</h2>
+          <p class="yl-lede ko-only">데이터를 모아두는 것도, AI로 분석하는 것도 그 자체가 목적은 아닙니다. 목적은 <strong>현장에서 실제로 조치가 일어나는 것</strong>입니다. NOX가 모아둔 데이터 위에 판단과 실행을 얹어 하나의 파이프라인으로 묶어 드립니다.</p>
+          <p class="yl-lede en-only">Neither storing the data nor analyzing it is the point on its own. The point is that <strong>something actually gets done on site</strong>. On top of what NOX has already gathered, we add the judgment and the execution and wire all of it into one pipeline.</p>
+        </div>
+
+        <div class="yl-steps">
+          <div class="yl-step sv-fade">
+            <div class="yl-step-idx">01</div>
+            <div class="yl-step-body">
+              <h3 class="ko-only">수집</h3><h3 class="en-only">Collect</h3>
+              <p class="ko-only">카메라 영상만이 아니라, 규격이 제각각인 비정형 센서 데이터와 설비 로그까지 NOX가 한곳으로 모아 저장합니다. 기존 장비를 교체하지 않고 있는 그대로 연결합니다.</p>
+              <p class="en-only">Not just camera streams — NOX pulls in unstructured sensor readings in whatever format they arrive, plus machine logs, and keeps them all in one place. We connect to what you already have instead of replacing it.</p>
+            </div>
+            <ul class="yl-specs">
+              <li><span class="ko-only">영상 스트림 수집</span><span class="en-only">Video stream ingest</span></li>
+              <li><span class="ko-only">비정형 센서 정규화</span><span class="en-only">Sensor normalization</span></li>
+              <li><span class="ko-only">설비 로그 수집</span><span class="en-only">Machine log capture</span></li>
+              <li><span class="ko-only">온프레미스 저장 · 검색</span><span class="en-only">On-prem storage · search</span></li>
+            </ul>
+          </div>
+
+          <div class="yl-step sv-fade">
+            <div class="yl-step-idx">02</div>
+            <div class="yl-step-body">
+              <h3 class="ko-only">판단</h3><h3 class="en-only">Judge</h3>
+              <p class="ko-only">Vision AI가 감지한 것을 VLM·LLM Agent가 다시 읽어 맥락을 판단합니다. “사람이 있다”가 아니라 “지금 이 상황이 정상인가”를 묻기 때문에, 규칙으로 미리 적어둘 수 없는 비정형 이상까지 잡아냅니다.</p>
+              <p class="en-only">What Vision AI detects, a VLM or LLM agent reads again for context. The question isn't “is a person there” but “is this situation normal” — so it catches irregularities you could never have written down as rules in advance.</p>
+            </div>
+            <ul class="yl-specs">
+              <li>Vision AI</li>
+              <li>VLM · LLM Agent</li>
+              <li><span class="ko-only">비정형 이상 탐지</span><span class="en-only">Unstructured anomaly detection</span></li>
+            </ul>
+          </div>
+
+          <div class="yl-step sv-fade">
+            <div class="yl-step-idx">03</div>
+            <div class="yl-step-body">
+              <h3 class="ko-only">실행</h3><h3 class="en-only">Act</h3>
+              <p class="ko-only">판단 결과에 따라 미리 정의한 여러 후속조치 중 적절한 것을 선택해 실행합니다. 사람이 알림을 확인할 때까지 기다리지 않고, 판단 근거와 함께 조치 이력을 남깁니다.</p>
+              <p class="en-only">Based on that judgment, the system picks and runs the right follow-up from the actions you defined — without waiting for someone to open a notification — and logs both the action and the reasoning behind it.</p>
+            </div>
+            <ul class="yl-specs">
+              <li><span class="ko-only">경보 · 현장 방송</span><span class="en-only">Alerts · PA</span></li>
+              <li><span class="ko-only">설비 제어</span><span class="en-only">Machine control</span></li>
+              <li><span class="ko-only">조치 이력 · 판단 근거 기록</span><span class="en-only">Action + reasoning log</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- F3 · Tabular spec sheet — use cases as rows, not another icon-card grid -->
+      <section class="yl-section yl-shell" id="usecases">
+        <div class="yl-section-head sv-fade">
+          <h2 class="ko-only">이런 문제를 해결합니다</h2>
+          <h2 class="en-only">Problems we solve</h2>
+          <p class="yl-lede ko-only">아래는 대표적인 형태입니다. 실제로는 고객이 가져오신 문제에서 시작해, 그 현장에 맞는 자동화를 설계합니다.</p>
+          <p class="yl-lede en-only">These are the common shapes. In practice we start from the problem you bring us and design the automation around your site.</p>
+        </div>
+
+        <div class="yl-sheet sv-fade">
+          <div class="yl-sheet-head">
+            <span class="yl-label"><span class="ko-only">영역</span><span class="en-only">Area</span></span>
+            <span class="yl-label"><span class="ko-only">잡아내는 상황</span><span class="en-only">What it catches</span></span>
+            <span class="yl-label"><span class="ko-only">자동으로 이어지는 조치</span><span class="en-only">Follow-up it runs</span></span>
+            <span></span>
+          </div>
+
+          <a class="yl-row" href="solutions/#process">
+            <span>
+              <span class="yl-row-name ko-only">공정 이상 감지 · 자동 대응</span><span class="yl-row-name en-only">Process anomaly response</span>
+              <span class="yl-row-sub ko-only">제조 · 생산라인</span><span class="yl-row-sub en-only">Manufacturing</span>
+            </span>
+            <p><span class="yl-k ko-only">잡아내는 상황</span><span class="yl-k en-only">Catches</span><span class="ko-only">공정이 비정상적으로 동작하는 순간</span><span class="en-only">A process starting to behave abnormally</span></p>
+            <p class="yl-row-act"><span class="yl-k ko-only">자동 조치</span><span class="yl-k en-only">Runs</span><span class="ko-only">즉시 알림 · 라인 정지 · 작업 지시 · 담당자 호출</span><span class="en-only">Alert · halt the line · issue a work order · page the right person</span></p>
+            <span class="yl-row-go" aria-hidden="true">→</span>
+          </a>
+
+          <a class="yl-row" href="solutions/#sensor">
+            <span>
+              <span class="yl-row-name ko-only">비정형 센서 분석 · 판단</span><span class="yl-row-name en-only">Unstructured sensor analysis</span>
+              <span class="yl-row-sub ko-only">설비 · 환경 · 인프라</span><span class="yl-row-sub en-only">Equipment · environment</span>
+            </span>
+            <p><span class="yl-k ko-only">잡아내는 상황</span><span class="yl-k en-only">Catches</span><span class="ko-only">단일 임계값으로는 잡히지 않는 복합 신호</span><span class="en-only">Combined signals no single threshold would catch</span></p>
+            <p class="yl-row-act"><span class="yl-k ko-only">자동 조치</span><span class="yl-k en-only">Runs</span><span class="ko-only">상황별로 다른 조치 선택 · 예지보전 알림</span><span class="en-only">A different action per situation · predictive-maintenance alerts</span></p>
+            <span class="yl-row-go" aria-hidden="true">→</span>
+          </a>
+
+          <a class="yl-row" href="solutions/#safety">
+            <span>
+              <span class="yl-row-name ko-only">영상 기반 안전 · 보안 자동화</span><span class="yl-row-name en-only">Safety &amp; security automation</span>
+              <span class="yl-row-sub ko-only">작업장 · 시설 · 출입</span><span class="yl-row-sub en-only">Worksites · facilities</span>
+            </span>
+            <p><span class="yl-k ko-only">잡아내는 상황</span><span class="yl-k en-only">Catches</span><span class="ko-only">보호구 미착용 · 위험구역 진입 · 쓰러짐 · 무단 출입</span><span class="en-only">Missing PPE · restricted-zone entry · a person down · unauthorized access</span></p>
+            <p class="yl-row-act"><span class="yl-k ko-only">자동 조치</span><span class="yl-k en-only">Runs</span><span class="ko-only">현장 방송 · 출입 차단 · 관제 에스컬레이션</span><span class="en-only">On-site announcement · access lockout · escalation</span></p>
+            <span class="yl-row-go" aria-hidden="true">→</span>
+          </a>
+
+          <a class="yl-row" href="solutions/#custom">
+            <span>
+              <span class="yl-row-name ko-only">요청형 맞춤 자동화</span><span class="yl-row-name en-only">Custom automation on request</span>
+              <span class="yl-row-sub ko-only">모든 현장</span><span class="yl-row-sub en-only">Any site</span>
+            </span>
+            <p><span class="yl-k ko-only">잡아내는 상황</span><span class="yl-k en-only">Catches</span><span class="ko-only">“이런 상황을 이렇게 처리하고 싶다”는 요구</span><span class="en-only">“When this happens, I want it handled like this”</span></p>
+            <p class="yl-row-act"><span class="yl-k ko-only">자동 조치</span><span class="yl-k en-only">Runs</span><span class="ko-only">수집·판단·실행 파이프라인을 새로 설계·구축</span><span class="en-only">A collect-judge-act pipeline designed and built from scratch</span></p>
+            <span class="yl-row-go" aria-hidden="true">→</span>
+          </a>
+
+          <div class="yl-sheet-foot">
+            <a href="solutions/" class="yl-link">
+              <span class="ko-only">AI 솔루션 자세히 보기</span><span class="en-only">Explore AI solutions</span>
+              <span class="yl-arrow" aria-hidden="true">→</span>
             </a>
           </div>
         </div>
       </section>
 
-      <!-- Solutions preview -->
-      <section class="sv-section" id="solutions">
-        <div class="sv-wrap">
-          <div class="sv-head sv-fade">
-            <div class="sv-eyebrow">Solutions</div>
-            <h2 class="ko-only">활용 분야</h2>
-            <h2 class="en-only">Where NOX Fits</h2>
-            <p class="ko-only">규모와 업종에 상관없이, 영상 보안이 필요한 모든 현장에서 NOX를 사용할 수 있습니다.</p>
-            <p class="en-only">From small sites to large facilities — NOX fits anywhere video security matters.</p>
+      <!-- The one dark band. The strongest argument on the page gets the
+           page's only graphite beat, instead of being buried on white. -->
+      <section class="yl-band" id="difference">
+        <div class="yl-shell">
+          <div class="yl-section-head sv-fade">
+            <h2 class="ko-only">감지하는 AI와, 처리하는 AI는 다릅니다</h2>
+            <h2 class="en-only">Detecting is not the same as handling</h2>
+            <p class="yl-lede ko-only">대부분의 AI 관제는 “무언가를 발견했다”에서 멈춥니다. 그 다음 조치를 사람이 하는 한, 야간·주말·인력 공백은 그대로 남습니다.</p>
+            <p class="yl-lede en-only">Most AI monitoring stops at “something was found.” As long as a human has to take it from there, nights, weekends, and staffing gaps stay exactly as they were.</p>
           </div>
-          <div class="sv-case-grid">
-            <div class="sv-case-card sv-fade">
-              <i class="fas fa-industry"></i>
-              <h4 class="ko-only">공장 · 물류</h4>
-              <h4 class="en-only">Factory & Logistics</h4>
-              <p class="ko-only">생산 라인과 창고를 안정적으로 상시 감시</p>
-              <p class="en-only">Reliable 24/7 monitoring of lines and warehouses</p>
-            </div>
-            <div class="sv-case-card sv-fade">
-              <i class="fas fa-store"></i>
-              <h4 class="ko-only">리테일 · 매장</h4>
-              <h4 class="en-only">Retail & Stores</h4>
-              <p class="ko-only">다지점 매장을 한 화면에서 통합 관제</p>
-              <p class="en-only">Unified monitoring across multiple stores</p>
-            </div>
-            <div class="sv-case-card sv-fade">
-              <i class="fas fa-building"></i>
-              <h4 class="ko-only">빌딩 · 오피스</h4>
-              <h4 class="en-only">Buildings & Offices</h4>
-              <p class="ko-only">출입구·공용공간의 안전과 보안 강화</p>
-              <p class="en-only">Stronger safety at entrances and shared spaces</p>
-            </div>
-            <div class="sv-case-card sv-fade">
-              <i class="fas fa-shield-halved"></i>
-              <h4 class="ko-only">공공 · 기관</h4>
-              <h4 class="en-only">Public & Institutions</h4>
-              <p class="ko-only">데이터 주권이 중요한 기관의 on-prem 보안</p>
-              <p class="en-only">On-prem security for data-sensitive institutions</p>
-            </div>
-          </div>
-          <div class="sv-more-wrap sv-fade">
-            <a href="solutions/" class="sv-more">
-              <span class="ko-only">활용사례 자세히 보기</span><span class="en-only">See all solutions</span>
-              <i class="fas fa-arrow-right"></i>
-            </a>
+
+          <div class="yl-compare-wrap sv-fade">
+            <table class="yl-compare">
+              <caption><span class="ko-only">일반 AI 관제와 YIYOL AI 자동화 비교</span><span class="en-only">Typical AI monitoring compared with YIYOL AI automation</span></caption>
+              <thead>
+                <tr>
+                  <th scope="col"><span class="ko-only">항목</span><span class="en-only">Item</span></th>
+                  <th scope="col"><span class="ko-only">일반 AI 관제</span><span class="en-only">Typical AI monitoring</span></th>
+                  <th scope="col" class="is-yiyol"><span class="ko-only">YIYOL AI 자동화</span><span class="en-only">YIYOL AI automation</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row"><span class="ko-only">역할</span><span class="en-only">Role</span></th>
+                  <td><span class="yl-tk"><span class="ko-only">일반 AI 관제</span><span class="en-only">Typical AI monitoring</span></span><span class="ko-only">이상을 감지해 알림을 보냄</span><span class="en-only">Detects and sends a notification</span></td>
+                  <td class="is-yiyol"><span class="yl-tk"><span class="ko-only">YIYOL AI 자동화</span><span class="en-only">YIYOL AI automation</span></span><span class="ko-only">상황을 판단하고 후속조치까지 실행</span><span class="en-only">Judges the situation and executes the follow-up</span></td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="ko-only">다루는 데이터</span><span class="en-only">Data handled</span></th>
+                  <td><span class="yl-tk"><span class="ko-only">일반 AI 관제</span><span class="en-only">Typical AI monitoring</span></span><span class="ko-only">영상 위주</span><span class="en-only">Mostly video</span></td>
+                  <td class="is-yiyol"><span class="yl-tk"><span class="ko-only">YIYOL AI 자동화</span><span class="en-only">YIYOL AI automation</span></span><span class="ko-only">영상 + 비정형 센서 + 설비 로그 + 외부 시스템</span><span class="en-only">Video + unstructured sensors + machine logs + external systems</span></td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="ko-only">판단 방식</span><span class="en-only">How it decides</span></th>
+                  <td><span class="yl-tk"><span class="ko-only">일반 AI 관제</span><span class="en-only">Typical AI monitoring</span></span><span class="ko-only">사전에 정의된 규칙과 객체 분류</span><span class="en-only">Predefined rules and object classes</span></td>
+                  <td class="is-yiyol"><span class="yl-tk"><span class="ko-only">YIYOL AI 자동화</span><span class="en-only">YIYOL AI automation</span></span><span class="ko-only">Vision AI 결과를 VLM·LLM Agent가 맥락으로 재해석</span><span class="en-only">Vision AI results re-read in context by a VLM / LLM agent</span></td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="ko-only">비정형 상황</span><span class="en-only">Irregular situations</span></th>
+                  <td><span class="yl-tk"><span class="ko-only">일반 AI 관제</span><span class="en-only">Typical AI monitoring</span></span><span class="ko-only">규칙에 없으면 놓침</span><span class="en-only">Missed if no rule covers it</span></td>
+                  <td class="is-yiyol"><span class="yl-tk"><span class="ko-only">YIYOL AI 자동화</span><span class="en-only">YIYOL AI automation</span></span><span class="ko-only">자연어로 정의한 상황까지 인식</span><span class="en-only">Recognizes situations described in plain language</span></td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="ko-only">사람의 역할</span><span class="en-only">The human's role</span></th>
+                  <td><span class="yl-tk"><span class="ko-only">일반 AI 관제</span><span class="en-only">Typical AI monitoring</span></span><span class="ko-only">알림을 하나씩 확인하고 직접 조치</span><span class="en-only">Reviews every alert and acts manually</span></td>
+                  <td class="is-yiyol"><span class="yl-tk"><span class="ko-only">YIYOL AI 자동화</span><span class="en-only">YIYOL AI automation</span></span><span class="ko-only">예외만 처리, 나머지는 자동 진행</span><span class="en-only">Handles exceptions only; the rest runs itself</span></td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="ko-only">남는 것</span><span class="en-only">What you're left with</span></th>
+                  <td><span class="yl-tk"><span class="ko-only">일반 AI 관제</span><span class="en-only">Typical AI monitoring</span></span><span class="ko-only">이벤트 로그</span><span class="en-only">An event log</span></td>
+                  <td class="is-yiyol"><span class="yl-tk"><span class="ko-only">YIYOL AI 자동화</span><span class="en-only">YIYOL AI automation</span></span><span class="ko-only">실행된 조치 이력 + 판단 근거 기록</span><span class="en-only">A record of actions taken, with the reasoning behind each</span></td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="ko-only">데이터 위치</span><span class="en-only">Where data lives</span></th>
+                  <td><span class="yl-tk"><span class="ko-only">일반 AI 관제</span><span class="en-only">Typical AI monitoring</span></span><span class="ko-only">클라우드 전송이 전제인 경우가 많음</span><span class="en-only">Often assumes upload to the cloud</span></td>
+                  <td class="is-yiyol"><span class="yl-tk"><span class="ko-only">YIYOL AI 자동화</span><span class="en-only">YIYOL AI automation</span></span><span class="ko-only">영상·데이터는 사용자 장비(on-prem)에 그대로</span><span class="en-only">Video and data stay on your own hardware (on-prem)</span></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </section>
-      </template>
+
+      <!-- Process — compact horizontal rail, deliberately a different shape
+           from the F4 sequence above -->
+      <section class="yl-section yl-shell" id="process">
+        <div class="yl-section-head sv-fade">
+          <h2 class="ko-only">문제에서 출발합니다</h2>
+          <h2 class="en-only">We start from the problem</h2>
+          <p class="yl-lede ko-only">제품을 먼저 보여드리지 않습니다. 어떤 상황이 문제인지, 그 상황에서 무엇이 일어나야 하는지부터 함께 정리합니다.</p>
+          <p class="yl-lede en-only">We don't lead with a product. We start by working out with you which situation is the problem — and what should happen when it occurs.</p>
+        </div>
+
+        <div class="yl-rail-steps sv-fade">
+          <div class="yl-rail-step">
+            <p class="yl-label yl-label--accent">01</p>
+            <h4 class="ko-only">문제 정의</h4><h4 class="en-only">Define the problem</h4>
+            <p class="ko-only">어떤 상황을 잡아야 하는지, 잡았을 때 무엇을 해야 하는지를 현업과 함께 구체화합니다.</p>
+            <p class="en-only">Work with your operators to pin down which situations must be caught, and what should happen when they are.</p>
+          </div>
+          <div class="yl-rail-step">
+            <p class="yl-label yl-label--accent">02</p>
+            <h4 class="ko-only">PoC 검증</h4><h4 class="en-only">Prove it</h4>
+            <p class="ko-only">실제 현장 데이터로 판단 정확도를 검증합니다. 오탐·미탐 수준을 먼저 보고 도입 여부를 정하십시오.</p>
+            <p class="en-only">Validate accuracy against your real data. See the false-positive and miss rates before you commit.</p>
+          </div>
+          <div class="yl-rail-step">
+            <p class="yl-label yl-label--accent">03</p>
+            <h4 class="ko-only">구축 · 연동</h4><h4 class="en-only">Build &amp; integrate</h4>
+            <p class="ko-only">카메라·센서·설비와 기간계 시스템을 연결하고, 상황별 후속조치를 정의해 자동화합니다.</p>
+            <p class="en-only">Connect cameras, sensors, machines, and back-office systems, then define and automate the follow-up per situation.</p>
+          </div>
+          <div class="yl-rail-step">
+            <p class="yl-label yl-label--accent">04</p>
+            <h4 class="ko-only">운영 · 개선</h4><h4 class="en-only">Operate &amp; improve</h4>
+            <p class="ko-only">운영 중 발생한 오탐·미탐을 피드백해 판단 기준과 조치 시나리오를 계속 다듬습니다.</p>
+            <p class="en-only">Feed real misses and false alarms back in, and keep refining both the judgment criteria and the action scenarios.</p>
+          </div>
+        </div>
+      </section>
 
     </main>
 
-    <!-- Footer -->
-    <footer class="sv-footer" role="contentinfo">
-      <div class="sv-footer-info">
-        <span class="ko-only">서울특별시 금천구 가산디지털1로 75-15, 하우스디 와이즈타워 326호</span>
-        <span class="en-only">#326, 75-15 Gasan Digital 1-ro, Geumcheon-gu, Seoul</span>
-        <span class="sv-footer-divider">|</span>
-        <span>yiyol@yiyol.com</span>
+    <!-- Closing CTA — one button. The email is a typographic link, not a
+         second button competing with it. -->
+    <section class="yl-close">
+      <div class="yl-shell yl-close-grid">
+        <div class="sv-fade">
+          <h2 class="ko-only">해결하고 싶은 문제가 있으신가요?</h2>
+          <h2 class="en-only">Got a problem you want solved?</h2>
+          <p class="yl-lede ko-only">“이런 상황을 자동으로 처리하고 싶다” — 그 한 문장이면 충분합니다. 가능한지, 어떻게 만들지 함께 검토해 드립니다.</p>
+          <p class="yl-lede en-only">“When this happens, I want it handled automatically” — one sentence is enough to start. We'll work out whether it's feasible and how to build it.</p>
+        </div>
+        <div class="yl-close-act sv-fade">
+          <a href="contact/" class="yl-btn yl-btn--primary">
+            <span class="ko-only">문제 상담하기</span><span class="en-only">Tell us your problem</span>
+          </a>
+          <a href="mailto:yiyol@yiyol.com" class="yl-link">yiyol@yiyol.com</a>
+        </div>
       </div>
-      <div class="sv-footer-info">
-        <span class="ko-only">사업자등록번호 186-34-01502</span>
-        <span class="en-only">Business Registration 186-34-01502</span>
-        <span class="sv-footer-divider">|</span>
-        <span class="ko-only">통신판매업 제2024-서울금천-1806호</span>
-        <span class="en-only">Mail-order License 제2024-서울금천-1806호</span>
+    </section>
+
+    <!-- Footer · Ft1 Mast-headed -->
+    <footer class="yl-foot" role="contentinfo">
+      <div class="yl-shell">
+        <div class="yl-foot-mast">
+          <div>
+            <div class="yl-foot-word">YIYOL<span>.</span></div>
+            <p class="yl-foot-tag ko-only">영상을 저장하고 관리하는 NVR·VMS,<br />그 위에서 판단하고 실행하는 AI 자동화</p>
+            <p class="yl-foot-tag en-only">NVR and VMS that store and manage your video — and the AI automation built on top of it.</p>
+          </div>
+          <nav class="yl-foot-links" aria-label="Footer navigation">
+            <a href="products/"><span class="ko-only">제품</span><span class="en-only">Products</span></a>
+            <a href="solutions/"><span class="ko-only">AI 솔루션</span><span class="en-only">AI Solutions</span></a>
+            <a href="company/"><span class="ko-only">회사소개</span><span class="en-only">About</span></a>
+            <a href="blog/"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a>
+            <a href="contact/"><span class="ko-only">문의</span><span class="en-only">Contact</span></a>
+          </nav>
+        </div>
+        <div class="yl-foot-meta">
+          <span class="ko-only">서울특별시 금천구 가산디지털1로 75-15, 하우스디 와이즈타워 326호</span>
+          <span class="en-only">#326, 75-15 Gasan Digital 1-ro, Geumcheon-gu, Seoul</span>
+          <a href="mailto:yiyol@yiyol.com">yiyol@yiyol.com</a>
+          <span class="ko-only">사업자등록번호 186-34-01502</span>
+          <span class="en-only">Business Registration 186-34-01502</span>
+          <span class="ko-only">통신판매업 제2024-서울금천-1806호</span>
+          <span class="en-only">Mail-order License 2024-Seoul Geumcheon-1806</span>
+        </div>
+        <p class="yl-foot-copy">© 2026 YIYOL. All rights reserved.</p>
       </div>
-      <p class="sv-footer-copy">&copy; 2026 YIYOL. All rights reserved.</p>
     </footer>
 
     <script src="assets/js/i18n.js?v=4"></script>
-    <script src="assets/js/surv-tabs.js?v=2"></script>
+    <script src="assets/js/yiyol-tabs.js?v=1"></script>
 
-    <!-- Auto-size the embedded NOX-A08064 page so it flows inline as page content -->
+    <!-- Nav frosts once the page scrolls off the hero's top edge -->
     <script>
       (function () {
-        var f = document.getElementById("noxaEmbed");
-        if (!f) return;
-        function fit() {
-          try {
-            var d = f.contentDocument || f.contentWindow.document;
-            var h = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight);
-            if (h) f.style.height = h + "px";
-          } catch (e) {}
+        var nav = document.querySelector(".site-nav");
+        if (!nav) return;
+        function update() {
+          nav.classList.toggle("is-stuck", window.scrollY > 8);
         }
-        var observed = false;
-        function setup() {
-          fit();
-          setTimeout(fit, 300);
-          setTimeout(fit, 1200);
-          if (observed) return;
-          observed = true;
-          try {
-            new ResizeObserver(fit).observe(f.contentDocument.body);
-          } catch (e) {}
-          try {
-            f.contentWindow.addEventListener("load", fit);
-          } catch (e) {}
-        }
-        f.addEventListener("load", setup);
-        // 캐시/빠른 로드 경쟁 조건 방지: iframe이 스크립트보다 먼저 로드되면 load 핸들러를
-        // 놓쳐 iframe이 100vh에 갇혀 본문이 잘림. 이미 파싱된 경우 즉시 셋업한다.
-        try {
-          var rs = f.contentDocument && f.contentDocument.readyState;
-          if (rs === "interactive" || rs === "complete") setup();
-        } catch (e) {}
-        window.addEventListener("resize", fit);
+        update();
+        window.addEventListener("scroll", update, { passive: true });
       })();
     </script>
   </body>

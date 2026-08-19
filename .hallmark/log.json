@@ -1,0 +1,40 @@
+[
+  {
+    "date": "2026-08-19",
+    "scope": "app",
+    "target": "audit remediation — 4 critical + 6 major",
+    "genre": "modern-minimal",
+    "design_system": "design.md",
+    "designed_as_app": true,
+    "theme": "Cobalt (YIYOL brand-anchored)",
+    "theme_axes": "light / grotesk-sans / cool-226",
+    "variant": "product-dark",
+    "nav": "N1b (shared)",
+    "footer": "Ft1 Mast-headed (shared)",
+    "enrichment": "unchanged; 2U chassis drawing preserved verbatim",
+    "brief": "hallmark audit fixes: banned accents, token drift, skip link, grid floors",
+    "note": "Converted nox/intro{,-en}, partner, nis-security, specifications, nox-nvr{,-embed}, both calculators and iptime off private palettes onto tokens.css. Removed violet/pink/mint/apple-blue/green second accents — staged progressions now use fill/outline/dash on one accent. Skip link given a :focus reveal (8 pages had none). All 1fr tracks floored with minmax(0,·). dark.css shrank as source fixes superseded its !important overrides. gate 48 clean except the PRESERVED ILLUSTRATION chassis."
+  },
+  {
+    "date": "2026-08-18",
+    "scope": "app",
+    "target": "whole site (21 pages)",
+    "genre": "modern-minimal",
+    "design_system": "design.md",
+    "designed_as_app": true,
+    "families": {
+      "marketing": "Split Studio (index.html)",
+      "section": "Split Studio via tab rail (solutions/ products/ company/ contact/)",
+      "content": "Long Document + Index-First (blog/ + 7 articles, privacy.ko/en, 404)",
+      "product-dark": "bespoke compositions kept; shared chrome + gates applied (nox-nvr*, nox/*)"
+    },
+    "theme": "Cobalt (YIYOL brand-anchored)",
+    "theme_axes": "light / grotesk-sans / cool-226",
+    "variant": "product-dark — graphite ground, --color-accent-bright, see design.md § Variants",
+    "nav": "N1b (shared, dark skin on the variant)",
+    "footer": "Ft1 Mast-headed (shared)",
+    "enrichment": "Tier-A pure-CSS pipeline rig (home); hand-built SVG chassis retained (nox-nvr)",
+    "brief": "YIYOL site-wide redesign — industrial AI automation, tone: technical",
+    "note": "Diversification INVERTED: pages share theme/accent/type by design. Other products (anbu, time2money, touchdown-alarm) deliberately out of scope."
+  }
+]
