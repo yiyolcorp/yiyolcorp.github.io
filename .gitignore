@@ -1,2 +1,8 @@
 .DS_Store
 public/
+
+# Claude Code 스킬 설치본. 사이트 산출물이 아니라 로컬 도구이므로 추적하지 않는다.
+# .claude/skills/hallmark 는 .agents/ 안을 가리키는 심볼릭 링크라 함께 제외한다.
+# skills-lock.json 은 재설치 근거(출처·해시)라 추적한다.
+.agents/
+.claude/skills/
