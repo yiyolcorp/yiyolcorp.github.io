@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NOX NVR API 문서</title>
+<style>
+  :root {
+    --bg: #f7f8fa; --fg: #1c1e21; --muted: #5c6672; --line: #e1e5ea;
+    --card: #ffffff; --accent: #32329f; --code-bg: #f0f2f5;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181d; --fg: #e6e8eb; --muted: #9aa4b0; --line: #2c3038;
+      --card: #1e2127; --accent: #9aa8ff; --code-bg: #262a31;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 15px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+  }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 48px 24px 72px; }
+  h1 { font-size: 28px; margin: 0 0 8px; letter-spacing: -0.01em; }
+  .sub { color: var(--muted); margin: 0 0 32px; }
+  .note {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 18px 20px; margin-bottom: 32px;
+  }
+  .note h2 { font-size: 15px; margin: 0 0 10px; }
+  .note p { margin: 0 0 8px; color: var(--muted); font-size: 14px; }
+  .note p:last-child { margin-bottom: 0; }
+  code {
+    background: var(--code-bg); border-radius: 4px; padding: 1px 6px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px;
+  }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+  .card {
+    display: block; background: var(--card); border: 1px solid var(--line);
+    border-radius: 10px; padding: 18px 20px; text-decoration: none; color: inherit;
+    transition: border-color .15s, transform .15s;
+  }
+  .card:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+  .name { font-weight: 600; font-size: 16px; }
+  .count {
+    color: var(--muted); font-size: 12px; white-space: nowrap;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .desc { color: var(--muted); font-size: 13.5px; margin: 8px 0 12px; }
+  .prefix { font-size: 12px; }
+  footer { margin-top: 40px; color: var(--muted); font-size: 13px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>NOX NVR API 문서</h1>
+    <p class="sub">서비스 15개 · 엔드포인트 386개</p>
+
+    <div class="note">
+      <h2>공통 사항</h2>
+      <p><strong>기본 URL</strong> — <code>https://{서버 주소}</code> 아래에서 서비스별 접두로 접근합니다.
+         각 문서에 표기된 경로가 이미 접두를 포함한 실제 호출 경로입니다.</p>
+      <p><strong>인증</strong> — <code>POST https://{서버 주소}/auth/api/v1/auth/login</code> 으로 받은
+         <code>accessToken</code> 을 <code>Authorization: Bearer {token}</code> 헤더에 담아 보냅니다.
+         토큰은 기본 10분 후 만료되며 <code>/auth/api/v1/auth/refresh</code> 로 갱신합니다.</p>
+      <p><strong>시간 형식</strong> — 모든 시각은 RFC 3339 (UTC), 예: <code>2026-08-30T09:00:00Z</code></p>
+    </div>
+
+    <div class="grid">
+      <a class="card" href="analysis-service-api.html">
+        <div class="card-head">
+          <span class="name">Nox NVR Analysis Service API</span>
+          <span class="count">23</span>
+        </div>
+        <p class="desc">모션 디텍션 및 Webhook 알림 서비스</p>
+        <code class="prefix">/analysis/api/v1/…</code>
+      </a>
+      <a class="card" href="auth-service-api.html">
+        <div class="card-head">
+          <span class="name">Nox NVR Auth Service API</span>
+          <span class="count">41</span>
+        </div>
+        <p class="desc">인증 및 사용자/역할 관리 서비스</p>
+        <code class="prefix">/auth/api/v1/…</code>
+      </a>
+      <a class="card" href="camera-service-api.html">
+        <div class="card-head">
+          <span class="name">Nox NVR Camera Service API</span>
+          <span class="count">68</span>
+        </div>
+        <p class="desc">JSONB 기반 카메라 관리 서비스</p>
+        <code class="prefix">/camera/api/v1/…</code>
+      </a>
+      <a class="card" href="event-engine-service-api.html">
+        <div class="card-head">
+          <span class="name">Event Engine Service API</span>
+          <span class="count">4</span>
+        </div>
+        <p class="desc">NOX 이벤트 검출 엔진 서비스 (L3 룰 엔진 + L4 액션). perception 채널을 구독해 선언적 룰을 평가하고 검출 이벤트를 발행한다.</p>
+        <code class="prefix">/event-engine/api/v1/…</code>
+      </a>
+      <a class="card" href="federation-service-api.html">
+        <div class="card-head">
+          <span class="name">Nox NVR Federation Service API</span>
+          <span class="count">27</span>
+        </div>
+        <p class="desc">NOX↔NOX 페더레이션 좌표 서비스 (노드 레지스트리/페어링/토큰/채널 매핑)</p>
+        <code class="prefix">/federation/api/v1/…</code>
+      </a>
+      <a class="card" href="frontend-bff-api.html">
+        <div class="card-head">
+          <span class="name">Nox NVR Frontend BFF API</span>
+          <span class="count">27</span>
+        </div>
+        <p class="desc">Frontend를 위한 Backend For Frontend 서비스</p>
+        <code class="prefix">/bff/api/v1/…</code>
+      </a>
+      <a class="card" href="license-service-api.html">
+        <div class="card-head">
+          <span class="name">Nox NVR License Service API</span>
+          <span class="count">9</span>
+        </div>
+        <p class="desc">라이선스 관리 서비스</p>
+        <code class="prefix">/license/api/v1/…</code>
+      </a>
+      <a class="card" href="notification-service-api.html">
+        <div class="card-head">
+          <span class="name">Notification Service API</span>
+          <span class="count">9</span>
+        </div>
+        <p class="desc">알림 관리 및 실시간 전달 서비스</p>
+        <code class="prefix">/notification/api/v1/…</code>
+      </a>
+      <a class="card" href="permission-service-api.html">
+        <div class="card-head">
+          <span class="name">Nox NVR Permission Service API</span>
+          <span class="count">9</span>
+        </div>
+        <p class="desc">권한 및 리소스 그룹 관리 서비스 (Casbin 기반 RBAC)</p>
+        <code class="prefix">/permission/api/v1/…</code>
+      </a>
+      <a class="card" href="proxy-service-api.html">
+        <div class="card-head">
+          <span class="name">Nox NVR Proxy Service API</span>
+          <span class="count">3</span>
+        </div>
+        <p class="desc">동적 웹 프록시 서비스 - X-Frame-Options 우회를 통한 iframe 내 외부 페이지 표시</p>
+        <code class="prefix">/proxy/api/v1/…</code>
+      </a>
+      <a class="card" href="record-service-api.html">
+        <div class="card-head">
+          <span class="name">Nox NVR Record Service API</span>
+          <span class="count">11</span>
+        </div>
+        <p class="desc">RTSP 스트림 녹화 관리 서비스</p>
+        <code class="prefix">/record/api/v1/…</code>
+      </a>
+      <a class="card" href="replay-service-api.html">
+        <div class="card-head">
+          <span class="name">Nox NVR Replay Service API</span>
+          <span class="count">18</span>
+        </div>
+        <p class="desc">HLS 기반 녹화 재생 서비스</p>
+        <code class="prefix">/replay/api/v1/…</code>
+      </a>
+      <a class="card" href="resource-service-api.html">
+        <div class="card-head">
+          <span class="name">Nox NVR Resource Service API</span>
+          <span class="count">22</span>
+        </div>
+        <p class="desc">범용 리소스 관리 서비스 (layout, map, alarm, sensor 등)</p>
+        <code class="prefix">/resource/api/v1/…</code>
+      </a>
+      <a class="card" href="search-service-api.html">
+        <div class="card-head">
+          <span class="name">Nox NVR Search Service API</span>
+          <span class="count">20</span>
+        </div>
+        <p class="desc">녹화 검색 및 타임라인 조회 서비스</p>
+        <code class="prefix">/search/api/v1/…</code>
+      </a>
+      <a class="card" href="system-service-api.html">
+        <div class="card-head">
+          <span class="name">Nox NVR System Service API</span>
+          <span class="count">95</span>
+        </div>
+        <p class="desc">시스템 관리 서비스 (디스크, Docker 컨테이너 관리)</p>
+        <code class="prefix">/system/api/v1/…</code>
+      </a>
+    </div>
+
+    <footer>각 문서 페이지에서 OpenAPI 명세를 내려받아 Postman·코드 제너레이터에 넣을 수 있습니다.</footer>
+  </div>
+</body>
+</html>

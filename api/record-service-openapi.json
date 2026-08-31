@@ -1,0 +1,1810 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "\n## 기본 URL\n\n```\nhttps://{서버 주소}/record\n```\n\n모든 경로는 웹 서버(HTTPS)를 통해 `/record` 접두로 접근합니다. 아래 각 엔드포인트에\n표기된 경로가 이미 접두를 포함한 실제 호출 경로입니다.\n\n## 인증\n\n모든 요청에 JWT 접근 토큰이 필요합니다.\n\n```\nPOST https://{서버 주소}/auth/api/v1/auth/login\n{ \"username\": \"admin\", \"password\": \"********\" }\n```\n\n응답의 `accessToken` 을 이후 요청 헤더에 부착하십시오.\n\n```\nAuthorization: Bearer {accessToken}\n```\n\n접근 토큰은 기본 10분 후 만료되며, `POST https://{서버 주소}/auth/api/v1/auth/refresh` 로\n갱신합니다.\n\n\n---\n\nRTSP 스트림 녹화 관리 서비스",
+    "title": "Nox NVR Record Service API",
+    "contact": {
+      "name": "API Support",
+      "email": "support@yiyol.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0"
+  },
+  "host": "{서버 주소}",
+  "basePath": "/",
+  "paths": {
+    "/record/api/v1/recordings": {
+      "get": {
+        "description": "Get all recordings in the system (filtered by user permission)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "recording"
+        ],
+        "summary": "Get all recordings",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/models.RecordingResponse"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/api.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.ErrorResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Create a new recording for a camera channel",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "recording"
+        ],
+        "summary": "Create recording",
+        "parameters": [
+          {
+            "description": "Recording request",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.RecordingRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/models.RecordingResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/api.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/record/api/v1/recordings/by-channel/{channel_id}": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "특정 채널(camera_channels.id)에 연결된 녹화 목록을 조회한다.\n내부적으로는 event-service / replay-service 가 events.channel_id 기반으로 올바른\nrecording_token 을 부착/해결하기 위해 /internal 경로로 사용한다.\n공개 경로(/api/v1)는 NOX↔NOX 페더레이션(M1)에서 federation-peer(피어 토큰)가\nRBAC resource=recordings 의 recordings:read 정책으로 접근하는 경로다.\n정렬: 활성(ACTIVE) 녹화가 먼저, 동률이면 created_at DESC.\nchannel_id 는 UUID 포맷이어야 한다. 빈 문자열/비 UUID 는 400.\n공개(/api/v1) 경로는 federation-peer 전용이다(M1). 일반 사용자는 403.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "recordings"
+        ],
+        "summary": "Get recordings by channel ID",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Channel ID (camera_channels.id, UUID)",
+            "name": "channel_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/models.RecordingResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/api.ErrorResponse"
+            }
+          },
+          "403": {
+            "description": "공개 경로는 federation-peer 전용",
+            "schema": {
+              "$ref": "#/definitions/api.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/record/api/v1/recordings/{id}": {
+      "get": {
+        "description": "Get a specific recording by its ID",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "recording"
+        ],
+        "summary": "Get recording by ID",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Recording ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.RecordingResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/api.ErrorResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Update an existing recording",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "recording"
+        ],
+        "summary": "Update recording",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Recording ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "Recording update request",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.RecordingUpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.RecordingResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/api.ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/api.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.ErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete a recording by its ID",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "recording"
+        ],
+        "summary": "Delete recording",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Recording ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/api.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/record/api/v1/recordings/{id}/event-history": {
+      "get": {
+        "description": "Get the event history for a recording",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "recording"
+        ],
+        "summary": "Get event history",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Recording ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.EventHistoryResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/api.ErrorResponse"
+            }
+          },
+          "501": {
+            "description": "Not Implemented",
+            "schema": {
+              "$ref": "#/definitions/api.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/record/api/v1/recordings/{id}/event-status": {
+      "get": {
+        "description": "Get the current event status for a recording",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "recording"
+        ],
+        "summary": "Get event status",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Recording ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.EventStatusResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/api.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/record/api/v1/recordings/{id}/toggle": {
+      "post": {
+        "description": "Toggle the enabled status of a recording (enabled ↔ disabled)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "recording"
+        ],
+        "summary": "Toggle recording enabled status",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Recording ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.RecordingResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/api.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/record/api/v1/recordings/{id}/trigger": {
+      "post": {
+        "description": "Trigger an event for EVENT mode recording",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "recording"
+        ],
+        "summary": "Trigger recording event",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Recording ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "Event trigger request",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.EventTriggerRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.EventTriggerResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/api.ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/api.ErrorResponse"
+            }
+          },
+          "409": {
+            "description": "트리거 무시됨 (현재 스케줄 모드가 EVENT 아님) — triggered=false, reason=NOT_IN_EVENT_MODE",
+            "schema": {
+              "$ref": "#/definitions/models.EventTriggerResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/record/api/v1/settings/recording": {
+      "get": {
+        "description": "Get the current system-wide recording service settings",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "settings"
+        ],
+        "summary": "Get recording service settings",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.RecordingServiceSettings"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.ErrorResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Create a new recording service settings entry (INSERT only, no UPDATE)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "settings"
+        ],
+        "summary": "Update recording service settings",
+        "parameters": [
+          {
+            "description": "Recording service settings",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.RecordingServiceSettings"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.RecordingServiceSettings"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/api.ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/record/api/v1/storage/partitions/refresh": {
+      "post": {
+        "description": "Scan and refresh NOX partition cache for dynamic partition detection",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "storage"
+        ],
+        "summary": "Refresh disk partitions",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/api.ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "description": "Check service health",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "health"
+        ],
+        "summary": "Health check",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health/detailed": {
+      "get": {
+        "description": "서비스 구성요소별 상세 상태 확인",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "health"
+        ],
+        "summary": "Detailed health check",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/healthcheck.DetailedHealthResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "api.ErrorResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "details": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "api.RecordMetricInfo": {
+      "type": "object",
+      "properties": {
+        "bps": {
+          "description": "저장 비트레이트(bits/sec). 측정 불가 시 null.",
+          "type": "integer"
+        },
+        "camera_id": {
+          "type": "string"
+        },
+        "fps": {
+          "description": "저장 프레임율. 측정 불가 시 null.",
+          "type": "number"
+        },
+        "measured_at": {
+          "type": "string"
+        },
+        "recording_id": {
+          "type": "string"
+        },
+        "stream_id": {
+          "type": "string"
+        }
+      }
+    },
+    "api.RecordingStatistics": {
+      "type": "object",
+      "properties": {
+        "active_recordings": {
+          "type": "integer"
+        },
+        "error_recordings": {
+          "type": "integer"
+        },
+        "inactive_recordings": {
+          "type": "integer"
+        },
+        "storage": {
+          "$ref": "#/definitions/api.StorageStats"
+        },
+        "total_recordings": {
+          "type": "integer"
+        }
+      }
+    },
+    "api.RecordingStatusDetail": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "recording_to": {
+          "description": "RecordingTo 이 녹화의 실측 기록 대상 (\"disk\"|\"buffer\"|\"none\")",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/models.RecordingStatus"
+        }
+      }
+    },
+    "api.StorageStats": {
+      "type": "object",
+      "properties": {
+        "estimated_days": {
+          "type": "number"
+        },
+        "free_bytes": {
+          "type": "integer"
+        },
+        "total_bytes": {
+          "type": "integer"
+        },
+        "used_bytes": {
+          "type": "integer"
+        },
+        "used_percent": {
+          "type": "number"
+        }
+      }
+    },
+    "api.StreamRecordingStatus": {
+      "type": "object",
+      "properties": {
+        "is_recording": {
+          "description": "IsRecording 은 \"녹화 의도\"(스케줄/이벤트 기반 세션 활성)다.\n실제 디스크 기록 여부는 IsRecordingTo 로 판단한다 (publisher 페이로드와 동일 계약).",
+          "type": "boolean"
+        },
+        "is_recording_to": {
+          "description": "IsRecordingTo 스트림 단위 실측 기록 대상 (\"disk\"|\"buffer\"|\"none\", disk>buffer>none 집계)",
+          "type": "string"
+        },
+        "recordings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/api.RecordingStatusDetail"
+          }
+        },
+        "stream_id": {
+          "type": "string"
+        }
+      }
+    },
+    "api.configBundleExport": {
+      "type": "object",
+      "properties": {
+        "recordings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/api.configBundleRecording"
+          }
+        },
+        "schema_version": {
+          "type": "integer"
+        }
+      }
+    },
+    "api.configBundleImportRequest": {
+      "type": "object",
+      "properties": {
+        "failover_origin": {
+          "type": "string"
+        },
+        "recordings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/api.configBundleRecording"
+          }
+        },
+        "schema_version": {
+          "type": "integer"
+        }
+      }
+    },
+    "api.configBundleImportResponse": {
+      "type": "object",
+      "properties": {
+        "recordings": {
+          "$ref": "#/definitions/api.importCounts"
+        }
+      }
+    },
+    "api.configBundleRecording": {
+      "type": "object",
+      "properties": {
+        "camera_id": {
+          "type": "string"
+        },
+        "channel_id": {
+          "type": "string"
+        },
+        "config": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "id": {
+          "type": "string"
+        },
+        "stream_id": {
+          "type": "string"
+        }
+      }
+    },
+    "api.failoverCamerasResponse": {
+      "type": "object",
+      "properties": {
+        "cameras": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.FailoverRecordingCamera"
+          }
+        }
+      }
+    },
+    "api.failoverRemainingResponse": {
+      "type": "object",
+      "properties": {
+        "recordings": {
+          "type": "integer"
+        },
+        "sessions": {
+          "type": "integer"
+        }
+      }
+    },
+    "api.importCounts": {
+      "type": "object",
+      "properties": {
+        "created": {
+          "type": "integer"
+        },
+        "unchanged": {
+          "type": "integer"
+        },
+        "updated": {
+          "type": "integer"
+        }
+      }
+    },
+    "api.localCapacityResponse": {
+      "type": "object",
+      "properties": {
+        "enabled_channels": {
+          "type": "integer"
+        }
+      }
+    },
+    "api.recordableResponse": {
+      "type": "object",
+      "properties": {
+        "active_recordings": {
+          "type": "integer"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "recordable": {
+          "type": "boolean"
+        }
+      }
+    },
+    "api.recordbackDeleteResponse": {
+      "type": "object",
+      "properties": {
+        "deleted": {
+          "type": "boolean"
+        },
+        "files_removed": {
+          "type": "integer"
+        },
+        "segments_removed": {
+          "type": "integer"
+        }
+      }
+    },
+    "api.recordbackIngestSegmentResponse": {
+      "type": "object",
+      "properties": {
+        "ingested": {
+          "type": "boolean"
+        },
+        "path": {
+          "type": "string"
+        }
+      }
+    },
+    "api.recordbackIngestSessionMeta": {
+      "type": "object",
+      "properties": {
+        "end_time": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "start_time": {
+          "type": "string"
+        }
+      }
+    },
+    "api.recordbackIngestSessionRequest": {
+      "type": "object",
+      "properties": {
+        "encrypted_dek": {
+          "description": "base64(primary-KEK 래핑, federation 재래핑 완료값)",
+          "type": "string"
+        },
+        "encryption_method": {
+          "description": "null=비암호화",
+          "type": "string"
+        },
+        "recordback_origin": {
+          "description": "standby 노드 UUID(metadata 마킹용)",
+          "type": "string"
+        },
+        "recording_id": {
+          "type": "string"
+        },
+        "session": {
+          "$ref": "#/definitions/api.recordbackIngestSessionMeta"
+        },
+        "tracks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/api.recordbackTrack"
+          }
+        }
+      }
+    },
+    "api.recordbackIngestSessionResponse": {
+      "type": "object",
+      "properties": {
+        "created": {
+          "type": "boolean"
+        },
+        "session_id": {
+          "type": "string"
+        }
+      }
+    },
+    "api.recordbackSegmentMeta": {
+      "type": "object",
+      "properties": {
+        "data_size": {
+          "type": "integer"
+        },
+        "end_time": {
+          "type": "string"
+        },
+        "file_size_bytes": {
+          "type": "integer"
+        },
+        "filename": {
+          "type": "string"
+        },
+        "fragment_metadata": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "has_keyframe": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "sample_count": {
+          "type": "integer"
+        },
+        "segment_type": {
+          "type": "string"
+        },
+        "seq_no": {
+          "type": "integer"
+        },
+        "start_time": {
+          "type": "string"
+        },
+        "track_id": {
+          "type": "string"
+        }
+      }
+    },
+    "api.recordbackSegmentsResponse": {
+      "type": "object",
+      "properties": {
+        "has_more": {
+          "type": "boolean"
+        },
+        "segments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/api.recordbackSegmentMeta"
+          }
+        },
+        "total": {
+          "type": "integer"
+        }
+      }
+    },
+    "api.recordbackSourceSession": {
+      "type": "object",
+      "properties": {
+        "encrypted_dek": {
+          "description": "base64(standby-KEK 래핑) 또는 null",
+          "type": "string"
+        },
+        "encryption_method": {
+          "description": "null=비암호화 세션",
+          "type": "string"
+        },
+        "recording_id": {
+          "type": "string"
+        },
+        "segment_count": {
+          "type": "integer"
+        },
+        "session": {
+          "$ref": "#/definitions/api.recordbackSourceSessionMeta"
+        },
+        "total_bytes": {
+          "type": "integer"
+        },
+        "tracks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/api.recordbackTrack"
+          }
+        }
+      }
+    },
+    "api.recordbackSourceSessionMeta": {
+      "type": "object",
+      "properties": {
+        "end_time": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "metadata": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "start_time": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "api.recordbackSourcesResponse": {
+      "type": "object",
+      "properties": {
+        "origin": {
+          "type": "string"
+        },
+        "sessions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/api.recordbackSourceSession"
+          }
+        },
+        "total": {
+          "type": "integer"
+        }
+      }
+    },
+    "api.recordbackTrack": {
+      "type": "object",
+      "properties": {
+        "codec_info": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "codec_type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "media_type": {
+          "type": "string"
+        },
+        "stream_id": {
+          "type": "string"
+        }
+      }
+    },
+    "api.setEnabledRequest": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "failover_origin": {
+          "type": "string"
+        }
+      }
+    },
+    "api.setEnabledResponse": {
+      "type": "object",
+      "properties": {
+        "updated": {
+          "type": "integer"
+        }
+      }
+    },
+    "healthcheck.DetailedHealthResponse": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "description": "개별 검사 항목",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/healthcheck.HealthItem"
+          }
+        },
+        "service": {
+          "description": "서비스명",
+          "type": "string"
+        },
+        "status": {
+          "description": "pass/fail/warn",
+          "type": "string"
+        },
+        "timestamp": {
+          "description": "RFC3339 형식",
+          "type": "string"
+        }
+      }
+    },
+    "healthcheck.HealthItem": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "결과 메시지",
+          "type": "string"
+        },
+        "name": {
+          "description": "항목명",
+          "type": "string"
+        },
+        "status": {
+          "description": "pass/fail/warn",
+          "type": "string"
+        }
+      }
+    },
+    "models.DiskFullStrategy": {
+      "type": "string",
+      "enum": [
+        "stop",
+        "overwrite",
+        "error"
+      ],
+      "x-enum-varnames": [
+        "DiskFullStrategyStop",
+        "DiskFullStrategyOverwrite",
+        "DiskFullStrategyError"
+      ]
+    },
+    "models.EventHistoryItem": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string"
+        },
+        "ended_at": {
+          "type": "string"
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "source": {
+          "$ref": "#/definitions/models.EventSource"
+        },
+        "triggered_at": {
+          "type": "string"
+        }
+      }
+    },
+    "models.EventHistoryResponse": {
+      "type": "object",
+      "properties": {
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.EventHistoryItem"
+          }
+        },
+        "recording_id": {
+          "type": "string"
+        }
+      }
+    },
+    "models.EventSource": {
+      "type": "string",
+      "enum": [
+        "motion",
+        "sensor",
+        "manual",
+        "alarm",
+        "ai",
+        "metadata"
+      ],
+      "x-enum-comments": {
+        "EventSourceMetadata": "카메라 메타데이터 이벤트 (ONVIF)"
+      },
+      "x-enum-descriptions": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "카메라 메타데이터 이벤트 (ONVIF)"
+      ],
+      "x-enum-varnames": [
+        "EventSourceMotion",
+        "EventSourceSensor",
+        "EventSourceManual",
+        "EventSourceAlarm",
+        "EventSourceAI",
+        "EventSourceMetadata"
+      ]
+    },
+    "models.EventStatusResponse": {
+      "type": "object",
+      "properties": {
+        "event_active": {
+          "type": "boolean"
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "recording_id": {
+          "type": "string"
+        },
+        "remaining_seconds": {
+          "type": "integer"
+        },
+        "source": {
+          "$ref": "#/definitions/models.EventSource"
+        },
+        "triggered_at": {
+          "type": "string"
+        }
+      }
+    },
+    "models.EventTriggerConfig": {
+      "type": "object",
+      "properties": {
+        "auto_off_duration": {
+          "description": "초 단위 (기본 5)",
+          "type": "integer"
+        },
+        "cooldown_seconds": {
+          "description": "연속 트리거 방지 쿨다운 (기본 3)",
+          "type": "integer"
+        },
+        "enabled": {
+          "description": "이벤트 트리거 활성화",
+          "type": "boolean"
+        },
+        "event_types": {
+          "description": "반응할 이벤트 타입 (비어있으면 [\"motion\"] 기본)",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "post_duration": {
+          "description": "초 단위 (기본 30)",
+          "type": "integer"
+        },
+        "pre_duration": {
+          "description": "초 단위 (기본 10)",
+          "type": "integer"
+        },
+        "sources": {
+          "description": "반응할 소스 (비어있으면 모든 소스: metadata, ai)",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "watch_camera_ids": {
+          "description": "감시할 추가 카메라 ID 목록 (OR 연산: 모두 Off 시 stop)",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "models.EventTriggerRequest": {
+      "type": "object",
+      "required": [
+        "action",
+        "source",
+        "timestamp"
+      ],
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": [
+            "start",
+            "stop"
+          ]
+        },
+        "auto_off_duration": {
+          "description": "초 단위, 0이면 수동 종료만 가능",
+          "type": "integer"
+        },
+        "meta": {
+          "description": "소스별 메타데이터",
+          "type": "object",
+          "additionalProperties": true
+        },
+        "post_duration": {
+          "description": "초 단위, 기본값 30",
+          "type": "integer"
+        },
+        "pre_duration": {
+          "description": "초 단위, 기본값 0 (0이면 시간 필터링 없이 IDR부터)",
+          "type": "integer"
+        },
+        "source": {
+          "$ref": "#/definitions/models.EventSource"
+        },
+        "timestamp": {
+          "description": "이벤트 발생 시각 (mandatory)",
+          "type": "string"
+        }
+      }
+    },
+    "models.EventTriggerResponse": {
+      "type": "object",
+      "properties": {
+        "auto_off_duration": {
+          "description": "0이면 수동 종료만 가능",
+          "type": "integer"
+        },
+        "event_status": {
+          "description": "\"active\" or \"inactive\"",
+          "type": "string"
+        },
+        "expires_at": {
+          "description": "start일 때만 (auto_off_duration이 설정된 경우)",
+          "type": "string"
+        },
+        "meta": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "post_duration": {
+          "type": "integer"
+        },
+        "reason": {
+          "description": "미반영 사유 코드 (예: NOT_IN_EVENT_MODE)",
+          "type": "string"
+        },
+        "recording_id": {
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/definitions/models.EventSource"
+        },
+        "triggered": {
+          "description": "트리거 실제 반영 여부 (FSM 롤백 시 false)",
+          "type": "boolean"
+        },
+        "triggered_at": {
+          "type": "string"
+        }
+      }
+    },
+    "models.FailoverRecordingCamera": {
+      "type": "object",
+      "properties": {
+        "camera_id": {
+          "type": "string"
+        },
+        "failover_origin": {
+          "type": "string"
+        },
+        "non_failover_recording_count": {
+          "type": "integer"
+        },
+        "recording_count": {
+          "type": "integer"
+        },
+        "session_count": {
+          "type": "integer"
+        }
+      }
+    },
+    "models.Override": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "description": "YYYY-MM-DD 형식",
+          "type": "string"
+        },
+        "schedules": {
+          "description": "해당 날짜의 스케줄",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/scheduler.Schedule-models_RecordingMode"
+          }
+        }
+      }
+    },
+    "models.RecordingConfig": {
+      "type": "object",
+      "properties": {
+        "default_mode": {
+          "description": "기본 녹화 모드",
+          "allOf": [
+            {
+              "$ref": "#/definitions/models.RecordingMode"
+            }
+          ],
+          "example": "CONTINUOUS"
+        },
+        "event_trigger": {
+          "description": "이벤트 기반 녹화 트리거 설정",
+          "allOf": [
+            {
+              "$ref": "#/definitions/models.EventTriggerConfig"
+            }
+          ]
+        },
+        "notes": {
+          "description": "메모",
+          "type": "string",
+          "example": "기본은 상시, 평일 09~18시는 모션으로 절약"
+        },
+        "overrides": {
+          "description": "특정 날짜 예외",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.Override"
+          }
+        },
+        "retention_minutes": {
+          "description": "녹화 보관 시간 (분)",
+          "type": "integer",
+          "example": 43200
+        },
+        "retention_override": {
+          "description": "개별 보존 기간 사용 여부 (true: 개별 설정 사용, false: 시스템 설정 사용)",
+          "type": "boolean",
+          "example": false
+        },
+        "schedules": {
+          "description": "반복 스케줄",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.Schedule"
+          }
+        },
+        "timezone": {
+          "description": "IANA 타임존",
+          "type": "string",
+          "example": "Asia/Seoul"
+        }
+      }
+    },
+    "models.RecordingMode": {
+      "type": "string",
+      "enum": [
+        "CONTINUOUS",
+        "EVENT",
+        "OFF",
+        "OFF"
+      ],
+      "x-enum-varnames": [
+        "RecordingModeContinuous",
+        "RecordingModeEvent",
+        "RecordingModeOff",
+        "ScheduleGapMode"
+      ]
+    },
+    "models.RecordingRequest": {
+      "type": "object",
+      "required": [
+        "channel_id",
+        "config",
+        "name",
+        "source_url"
+      ],
+      "properties": {
+        "camera_id": {
+          "description": "연결된 카메라 ID",
+          "type": "string",
+          "example": "cam_123456"
+        },
+        "channel_id": {
+          "description": "연결된 채널 ID (camera_channels.id, UUID) - 필수. 생성 시만 결정되며 Update 에서는 변경 불가.",
+          "type": "string",
+          "example": "a1b2c3d4-e5f6-7890-abcd-ef0123456789"
+        },
+        "config": {
+          "$ref": "#/definitions/models.RecordingConfig"
+        },
+        "enabled": {
+          "type": "boolean",
+          "example": true
+        },
+        "name": {
+          "type": "string",
+          "example": "회의실 카메라 녹화"
+        },
+        "source_url": {
+          "description": "Frontend에서 camera-service로부터 가져온 MediaMTX RTSP URL",
+          "type": "string",
+          "example": "rtsp://localhost:8554/cam_123456-main"
+        },
+        "stream_id": {
+          "description": "연결된 스트림 ID (UUID)",
+          "type": "string",
+          "example": "a1b2c3d4-e5f6-7890-abcd-ef0123456789"
+        }
+      }
+    },
+    "models.RecordingResponse": {
+      "type": "object",
+      "properties": {
+        "camera_id": {
+          "description": "연결된 카메라 ID",
+          "type": "string",
+          "example": "cam_123456"
+        },
+        "channel_id": {
+          "description": "연결된 채널 ID (camera_channels.id) - 필수. UUID 포맷.",
+          "type": "string",
+          "example": "a1b2c3d4-e5f6-7890-abcd-ef0123456789"
+        },
+        "channel_inactive": {
+          "description": "ChannelInactive 참조 채널이 **현재 비활성**임을 뜻하는 상태 마커 (읽기 전용).\n\nPausedByChannelInactive(원인: 이 메커니즘이 껐다)와 달리 Enabled 와 독립인 사실이므로,\n\"사용자가 직접 끈 녹화인데 채널까지 비활성\"인 경우를 구분하는 데 쓴다 — 그 녹화는\n사용자가 켜도 채널이 꺼져 있어 실제로 녹화되지 않으므로, UI 가 \"먼저 채널을 켜세요\"를\n안내할 수 있어야 한다. 서버가 활성화를 거부하지는 않는다(handlers.go 참조).",
+          "type": "boolean",
+          "example": false
+        },
+        "config": {
+          "$ref": "#/definitions/models.RecordingConfig"
+        },
+        "created_at": {
+          "type": "string",
+          "example": "2024-01-15T10:30:00Z"
+        },
+        "disabled_by_license_downgrade": {
+          "description": "DisabledByLicenseDowngrade 라이선스 한도 초과로 자동 비활성화된 녹화임을 표시하는 마커.\nEnabled=false 와 함께 true 면 사용자 수동 비활성과 구분되며, 라이선스 확장 시 자동 복원된다.\n사용자 노출 UI(Explorer 트리, 레이아웃 타일)는 이 마커를 보고 라이선스 안내를 표시한다.",
+          "type": "boolean",
+          "example": false
+        },
+        "disabled_by_source_deleted": {
+          "description": "DisabledBySourceDeleted 참조 채널/스트림이 **삭제되어** 자동 비활성화된 녹화임을 뜻하는\n상태 마커 (읽기 전용).\n\nChannelInactive 와 함께 노출하는 이유: 채널이 비활성인 동안 그 채널이 삭제되면 두 마커가\n같이 남는데, 삭제 마커가 응답에 없으면 UI 는 ChannelInactive 만 보고 \"채널을 켜세요\"로\n안내한다 — 켤 채널이 이미 없으므로 사용자는 끝나지 않는 안내를 따라가게 된다.\n이 마커가 true 면 자동 재개·자동 복원 대상이 아니며(소스가 돌아오지 않는다), UI 는\n\"소스가 삭제됨(영상은 보존)\"으로 안내하고 재생성/삭제를 유도해야 한다.",
+          "type": "boolean",
+          "example": false
+        },
+        "enabled": {
+          "type": "boolean",
+          "example": true
+        },
+        "id": {
+          "type": "string",
+          "example": "rec_123456"
+        },
+        "name": {
+          "type": "string",
+          "example": "회의실 카메라 녹화"
+        },
+        "paused_by_channel_inactive": {
+          "description": "PausedByChannelInactive 참조 채널이 비활성화되어 **일시 중지**된 녹화임을 표시하는 마커.\nEnabled=false 와 함께 true 면 \"사용자가 끈 것\"이 아니라 \"채널이 꺼져 멈춘 것\"이며,\n채널을 다시 켜면 자동 재개된다. UI 는 두 상태를 구분해 안내해야 한다 — 둘 다\nEnabled=false 로만 보이면 사용자는 왜 켜지지 않는지 알 수 없다.",
+          "type": "boolean",
+          "example": false
+        },
+        "retention_clamped": {
+          "description": "라이선스 한도로 클램프된 경우만 채워짐",
+          "allOf": [
+            {
+              "$ref": "#/definitions/models.RetentionClamped"
+            }
+          ]
+        },
+        "source_url": {
+          "type": "string",
+          "example": "rtsp://localhost:8554/cam_123456-main"
+        },
+        "status": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/models.RecordingStatus"
+            }
+          ],
+          "example": "ACTIVE"
+        },
+        "stream_id": {
+          "description": "연결된 스트림 ID (UUID)",
+          "type": "string",
+          "example": "a1b2c3d4-e5f6-7890-abcd-ef0123456789"
+        },
+        "updated_at": {
+          "type": "string",
+          "example": "2024-01-15T10:30:00Z"
+        }
+      }
+    },
+    "models.RecordingServiceSettings": {
+      "type": "object",
+      "properties": {
+        "audio_storage_enabled": {
+          "description": "오디오 저장 활성화 여부 (기본값: false)",
+          "type": "boolean",
+          "example": false
+        },
+        "disk_full_strategy": {
+          "description": "디스크 가득 찼을 때의 전략 - pause, overwrite, error",
+          "allOf": [
+            {
+              "$ref": "#/definitions/models.DiskFullStrategy"
+            }
+          ],
+          "example": "overwrite"
+        },
+        "disk_full_threshold": {
+          "description": "디스크 가득 찼을 때의 임계값 (%)",
+          "type": "integer",
+          "example": 90
+        },
+        "retention_minutes": {
+          "description": "시스템 전체의 기본 녹화 보관 시간 (분) - 레코딩 설정에서 override 가능",
+          "type": "integer",
+          "example": 43200
+        }
+      }
+    },
+    "models.RecordingStatus": {
+      "type": "string",
+      "enum": [
+        "ACTIVE",
+        "INACTIVE",
+        "ERROR"
+      ],
+      "x-enum-varnames": [
+        "RecordingStatusActive",
+        "RecordingStatusInactive",
+        "RecordingStatusError"
+      ]
+    },
+    "models.RecordingUpdateRequest": {
+      "type": "object",
+      "properties": {
+        "config": {
+          "$ref": "#/definitions/models.RecordingConfig"
+        },
+        "enabled": {
+          "type": "boolean",
+          "example": true
+        },
+        "name": {
+          "type": "string",
+          "example": "회의실 카메라 녹화"
+        }
+      }
+    },
+    "models.RetentionClamped": {
+      "type": "object",
+      "properties": {
+        "effective": {
+          "description": "적용된 값 (분)",
+          "type": "integer",
+          "example": 10080
+        },
+        "maximum": {
+          "description": "라이선스 한도 (분). 0이면 미상.",
+          "type": "integer",
+          "example": 10080
+        },
+        "reason": {
+          "description": "license_limit | fail_closed_default",
+          "type": "string",
+          "example": "license_limit"
+        },
+        "requested": {
+          "description": "사용자가 보낸 원 값 (분)",
+          "type": "integer",
+          "example": 43200
+        }
+      }
+    },
+    "models.Schedule": {
+      "type": "object",
+      "properties": {
+        "days_mask": {
+          "description": "7비트 요일 마스크",
+          "type": "integer"
+        },
+        "enabled": {
+          "description": "활성화 여부",
+          "type": "boolean"
+        },
+        "end_minute": {
+          "description": "종료 분 (18:00 = 1080분)",
+          "type": "integer"
+        },
+        "mode": {
+          "description": "모드",
+          "allOf": [
+            {
+              "$ref": "#/definitions/models.RecordingMode"
+            }
+          ]
+        },
+        "priority": {
+          "description": "우선순위",
+          "type": "integer"
+        },
+        "start_minute": {
+          "description": "시작 분 (9:00 = 540분)",
+          "type": "integer"
+        }
+      }
+    },
+    "scheduler.Schedule-models_RecordingMode": {
+      "type": "object",
+      "properties": {
+        "days_mask": {
+          "description": "7비트 요일 마스크",
+          "type": "integer"
+        },
+        "enabled": {
+          "description": "활성화 여부",
+          "type": "boolean"
+        },
+        "end_minute": {
+          "description": "종료 분 (18:00 = 1080분)",
+          "type": "integer"
+        },
+        "mode": {
+          "description": "모드",
+          "allOf": [
+            {
+              "$ref": "#/definitions/models.RecordingMode"
+            }
+          ]
+        },
+        "priority": {
+          "description": "우선순위",
+          "type": "integer"
+        },
+        "start_minute": {
+          "description": "시작 분 (9:00 = 540분)",
+          "type": "integer"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "BearerAuth": {
+      "description": "Type \"Bearer\" followed by a space and JWT token.",
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "schemes": [
+    "https"
+  ]
+}

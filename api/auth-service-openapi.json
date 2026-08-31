@@ -1,0 +1,4120 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "\n## 기본 URL\n\n```\nhttps://{서버 주소}/auth\n```\n\n모든 경로는 웹 서버(HTTPS)를 통해 `/auth` 접두로 접근합니다. 아래 각 엔드포인트에\n표기된 경로가 이미 접두를 포함한 실제 호출 경로입니다.\n\n## 인증\n\n모든 요청에 JWT 접근 토큰이 필요합니다.\n\n```\nPOST https://{서버 주소}/auth/api/v1/auth/login\n{ \"username\": \"admin\", \"password\": \"********\" }\n```\n\n응답의 `accessToken` 을 이후 요청 헤더에 부착하십시오.\n\n```\nAuthorization: Bearer {accessToken}\n```\n\n접근 토큰은 기본 10분 후 만료되며, `POST https://{서버 주소}/auth/api/v1/auth/refresh` 로\n갱신합니다.\n\n\n---\n\n인증 및 사용자/역할 관리 서비스",
+    "title": "Nox NVR Auth Service API",
+    "contact": {
+      "name": "API Support",
+      "email": "support@yiyol.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0"
+  },
+  "host": "{서버 주소}",
+  "basePath": "/",
+  "paths": {
+    "/.well-known/jwks.json": {
+      "get": {
+        "description": "JWT 검증을 위한 공개키 정보를 JWKS 형식으로 반환합니다",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "jwks"
+        ],
+        "summary": "JWKS 조회",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/handlers.JWKS"
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/audit": {
+      "get": {
+        "description": "필터링 조건에 따라 감사 로그 목록을 조회합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "audit"
+        ],
+        "summary": "감사 로그 목록 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "시작 날짜 (RFC3339 형식)",
+            "name": "startDate",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "종료 날짜 (RFC3339 형식)",
+            "name": "endDate",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "카테고리",
+            "name": "category",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "액션",
+            "name": "action",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "사용자 ID",
+            "name": "userId",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "사용자 이름",
+            "name": "username",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "리소스 유형",
+            "name": "resourceType",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "리소스 ID",
+            "name": "resourceId",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "상태",
+            "name": "status",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "서비스",
+            "name": "service",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "클라이언트 IP",
+            "name": "clientIp",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "default": "created_at",
+            "description": "정렬 필드 (created_at, category, action, username, status, service)",
+            "name": "sortBy",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "default": "desc",
+            "description": "정렬 방향 (asc, desc)",
+            "name": "sortOrder",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "default": 1,
+            "description": "페이지 번호",
+            "name": "page",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "default": 20,
+            "description": "페이지 크기",
+            "name": "pageSize",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.AuditLogListResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "외부 서비스에서 감사 로그를 생성합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "audit"
+        ],
+        "summary": "감사 로그 생성",
+        "parameters": [
+          {
+            "description": "감사 로그 생성 요청",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.CreateAuditLogRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/models.AuditLog"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/audit/export/csv": {
+      "get": {
+        "description": "필터 조건에 맞는 감사 로그를 CSV로 내보냅니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "text/csv"
+        ],
+        "tags": [
+          "audit"
+        ],
+        "summary": "감사 로그 CSV 내보내기",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "시작 날짜 (RFC3339 형식)",
+            "name": "startDate",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "종료 날짜 (RFC3339 형식)",
+            "name": "endDate",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "카테고리",
+            "name": "category",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "액션",
+            "name": "action",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "상태",
+            "name": "status",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "file"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/audit/export/json": {
+      "get": {
+        "description": "필터 조건에 맞는 감사 로그를 JSON으로 내보냅니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "audit"
+        ],
+        "summary": "감사 로그 JSON 내보내기",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "시작 날짜 (RFC3339 형식)",
+            "name": "startDate",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "종료 날짜 (RFC3339 형식)",
+            "name": "endDate",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "카테고리",
+            "name": "category",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "액션",
+            "name": "action",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "상태",
+            "name": "status",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "file"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/audit/settings": {
+      "get": {
+        "description": "감사 로그 설정을 조회합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "audit"
+        ],
+        "summary": "감사 설정 조회",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.AuditSettings"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "감사 로그 설정을 업데이트합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "audit"
+        ],
+        "summary": "감사 설정 업데이트",
+        "parameters": [
+          {
+            "description": "감사 설정",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.AuditSettings"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.AuditSettings"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/audit/stats": {
+      "get": {
+        "description": "최근 N일간의 감사 로그 일별 통계를 조회합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "audit"
+        ],
+        "summary": "감사 로그 일별 통계",
+        "parameters": [
+          {
+            "type": "integer",
+            "default": 30,
+            "description": "조회할 일 수",
+            "name": "days",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/models.AuditDailyStats"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/audit/verify": {
+      "get": {
+        "description": "해시 체인을 통해 감사 로그의 무결성을 검증합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "audit"
+        ],
+        "summary": "감사 로그 무결성 검증",
+        "parameters": [
+          {
+            "type": "integer",
+            "default": 1000,
+            "description": "검증할 최근 레코드 수",
+            "name": "limit",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.AuditIntegrityResult"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/audit/{id}": {
+      "get": {
+        "description": "ID로 감사 로그를 조회합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "audit"
+        ],
+        "summary": "감사 로그 단건 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "감사 로그 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.AuditLog"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/auth/config": {
+      "get": {
+        "description": "로그인 화면에 필요한 공개 설정(NIS 보안 모드 활성 여부 등)을 반환한다. 인증이 필요 없다.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "auth"
+        ],
+        "summary": "공개 설정 조회",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/auth/heartbeat": {
+      "post": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "사용자 활동을 서버에 알려 세션 비활동 타임아웃을 방지한다 (§7.1.1)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "auth"
+        ],
+        "summary": "세션 하트비트",
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/auth/ip-check": {
+      "get": {
+        "description": "요청 IP 가 관리용 IP 화이트리스트에 포함되는지 확인한다(§3.3.1). 인증이 필요 없다.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "settings"
+        ],
+        "summary": "관리 접속 IP 확인",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/auth/login": {
+      "post": {
+        "description": "사용자명과 비밀번호로 인증하고 Access/Refresh 토큰을 발급한다. 실패 횟수 초과 시 계정이 잠긴다(§2.2.1).",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "auth"
+        ],
+        "summary": "로그인",
+        "parameters": [
+          {
+            "description": "요청 본문",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.LoginRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.LoginResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "423": {
+            "description": "Locked",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/auth/logout": {
+      "post": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "현재 세션의 Refresh Token 을 무효화하고 Access Token 을 블랙리스트에 등록한다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "auth"
+        ],
+        "summary": "로그아웃",
+        "parameters": [
+          {
+            "description": "요청 본문",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.LogoutRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/auth/password": {
+      "post": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "현재 로그인한 사용자의 비밀번호를 변경한다. 변경 후 기존 세션은 무효화된다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "auth"
+        ],
+        "summary": "비밀번호 변경",
+        "parameters": [
+          {
+            "description": "요청 본문",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.ChangePasswordRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/auth/profile": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "현재 로그인한 사용자의 프로필과 역할 목록을 반환한다.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "auth"
+        ],
+        "summary": "자기 프로필 조회",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.UserWithRoles"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "patch": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "현재 로그인한 사용자의 프로필(표시 이름·이메일 등)을 수정한다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "auth"
+        ],
+        "summary": "자기 프로필 수정",
+        "parameters": [
+          {
+            "description": "요청 본문",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.UpdateProfileRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.UserWithRoles"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/auth/refresh": {
+      "post": {
+        "description": "Refresh Token 으로 새 Access/Refresh 토큰을 발급한다(회전 방식).",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "auth"
+        ],
+        "summary": "토큰 갱신",
+        "parameters": [
+          {
+            "description": "요청 본문",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.RefreshRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.RefreshResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/auth/username": {
+      "post": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "현재 로그인한 사용자의 계정명을 변경한다(§3.4.2).",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "auth"
+        ],
+        "summary": "계정명 변경",
+        "parameters": [
+          {
+            "description": "요청 본문",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.ChangeUsernameRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/federation/pair/request": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "federation"
+        ],
+        "summary": "페어링 요청 생성",
+        "parameters": [
+          {
+            "description": "페어링 요청",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/handlers.PairRequestRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/handlers.PairRequestResponse"
+            }
+          },
+          "429": {
+            "description": "대기 중인 요청 수 상한 초과(rate-limit)",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/federation/pair/request/{requestId}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "federation"
+        ],
+        "summary": "페어링 요청 상태 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "request_id(평문 secret)",
+            "name": "requestId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/handlers.RequestStatusResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/federation/pair/request/{requestId}/claim": {
+      "post": {
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "federation"
+        ],
+        "summary": "페어링 요청 claim(피어 토큰 발급)",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "request_id(평문 secret)",
+            "name": "requestId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/handlers.PairResponse"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "409": {
+            "description": "아직 승인 대기(pending)",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "410": {
+            "description": "거부/만료/소진된 요청",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/federation/peers/{peerNodeId}": {
+      "delete": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "federation"
+        ],
+        "summary": "피어 revoke",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "피어 노드 UUID",
+            "name": "peerNodeId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/federation/peers/{peerNodeId}/media-read-enforcement": {
+      "put": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "federation"
+        ],
+        "summary": "페더레이션 피어 미디어 read 강제 설정",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "피어 노드 UUID",
+            "name": "peerNodeId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "강제 여부",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/handlers.SetPeerMediaReadEnforcementRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/federation/refresh": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "federation"
+        ],
+        "summary": "피어 토큰 갱신",
+        "parameters": [
+          {
+            "description": "갱신 요청",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/handlers.RefreshRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/handlers.PairResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/federation/requests": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "federation"
+        ],
+        "summary": "수신 페어링 요청 목록",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/handlers.RequestListResponse"
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/federation/requests/{id}/confirm": {
+      "post": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "federation"
+        ],
+        "summary": "페어링 요청 승인",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "요청 레코드 UUID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/federation/requests/{id}/deny": {
+      "post": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "federation"
+        ],
+        "summary": "페어링 요청 거부",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "요청 레코드 UUID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/roles": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "등록된 역할 목록을 반환한다.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "roles"
+        ],
+        "summary": "역할 목록 조회",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "새 역할을 생성한다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "roles"
+        ],
+        "summary": "역할 생성",
+        "parameters": [
+          {
+            "description": "요청 본문",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.CreateRoleRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/roles/{name}": {
+      "put": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "역할 정보를 수정한다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "roles"
+        ],
+        "summary": "역할 수정",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "역할명",
+            "name": "name",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "요청 본문",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.UpdateRoleRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "역할을 삭제한다.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "roles"
+        ],
+        "summary": "역할 삭제",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "역할명",
+            "name": "name",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/roles/{name}/users": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "해당 역할이 부여된 사용자 목록을 반환한다.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "roles"
+        ],
+        "summary": "역할 소속 사용자 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "역할명",
+            "name": "name",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/sessions/{user_id}/terminate": {
+      "post": {
+        "description": "관리자가 특정 사용자의 모든 활성 세션을 강제 종료합니다",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "sessions"
+        ],
+        "summary": "사용자 세션 강제 종료",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "사용자 ID",
+            "name": "user_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/settings/ips": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "관리용 IP 화이트리스트 목록을 반환한다(§3.3.1).",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "settings"
+        ],
+        "summary": "관리 IP 목록 조회",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "관리용 IP 화이트리스트에 항목을 추가한다(§3.3.1).",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "settings"
+        ],
+        "summary": "관리 IP 등록",
+        "parameters": [
+          {
+            "description": "요청 본문",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/handlers.CreateIPRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/settings/ips/{id}": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "관리용 IP 화이트리스트 단일 항목을 조회한다.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "settings"
+        ],
+        "summary": "관리 IP 상세 조회",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "IP 항목 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "관리용 IP 화이트리스트 항목을 수정한다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "settings"
+        ],
+        "summary": "관리 IP 수정",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "IP 항목 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "요청 본문",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/handlers.UpdateIPRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "관리용 IP 화이트리스트 항목을 삭제한다.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "settings"
+        ],
+        "summary": "관리 IP 삭제",
+        "parameters": [
+          {
+            "type": "integer",
+            "description": "IP 항목 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/settings/security": {
+      "get": {
+        "description": "토큰 유효기간 등 보안 설정을 조회합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "security"
+        ],
+        "summary": "보안 설정 조회",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/handlers.SecuritySettings"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "토큰 유효기간 등 보안 설정을 업데이트합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "security"
+        ],
+        "summary": "보안 설정 업데이트",
+        "parameters": [
+          {
+            "description": "보안 설정",
+            "name": "settings",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/handlers.SecuritySettings"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/handlers.SecuritySettings"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/settings/smtp": {
+      "get": {
+        "description": "SMTP 서버 설정을 조회합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "smtp"
+        ],
+        "summary": "SMTP 설정 조회",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/email.SMTPSettings"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "SMTP 서버 설정을 업데이트합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "smtp"
+        ],
+        "summary": "SMTP 설정 업데이트",
+        "parameters": [
+          {
+            "description": "SMTP 설정",
+            "name": "settings",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/email.SMTPSettings"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/email.SMTPSettings"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/settings/smtp/test": {
+      "post": {
+        "description": "테스트 이메일을 발송합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "smtp"
+        ],
+        "summary": "SMTP 연결 테스트",
+        "parameters": [
+          {
+            "description": "테스트 요청",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/email.TestSMTPRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/email.TestSMTPResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/users": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "등록된 사용자 목록을 반환한다.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "users"
+        ],
+        "summary": "사용자 목록 조회",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "새 사용자를 생성하고 역할을 부여한다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "users"
+        ],
+        "summary": "사용자 생성",
+        "parameters": [
+          {
+            "description": "요청 본문",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.CreateUserRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/models.UserWithRoles"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/users/me/preferences": {
+      "get": {
+        "description": "현재 로그인한 사용자의 개인 설정을 조회합니다. 저장되지 않은 항목은 기본값으로 채워집니다(popupEnabled·popupSoundEnabled 기본 true).",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "user-preferences"
+        ],
+        "summary": "현재 사용자 설정 조회",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/handlers.UserPreferences"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "patch": {
+        "description": "현재 로그인한 사용자의 개인 설정을 부분 업데이트합니다. bool 항목(sidebarCollapsed·toastEnabled·popupEnabled·popupSoundEnabled)은 true/false 만 허용되며 그 외 타입·null 은 400 입니다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "user-preferences"
+        ],
+        "summary": "현재 사용자 설정 업데이트",
+        "parameters": [
+          {
+            "description": "업데이트할 설정 (부분 업데이트 가능)",
+            "name": "preferences",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/handlers.UserPreferences"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/handlers.UserPreferences"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/users/{id}": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "사용자 ID 로 단일 사용자를 조회한다.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "users"
+        ],
+        "summary": "사용자 상세 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "사용자 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "사용자 정보를 수정한다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "users"
+        ],
+        "summary": "사용자 수정",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "사용자 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "요청 본문",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.UpdateUserRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "사용자를 삭제한다.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "users"
+        ],
+        "summary": "사용자 삭제",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "사용자 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/users/{id}/roles": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "사용자에게 부여된 역할 목록을 반환한다.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "users"
+        ],
+        "summary": "사용자 역할 목록 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "사용자 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/users/{id}/roles/{role_name}": {
+      "post": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "사용자에게 역할을 부여한다.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "users"
+        ],
+        "summary": "사용자 역할 부여",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "사용자 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "역할명",
+            "name": "role_name",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "사용자에게 부여된 역할을 회수한다.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "users"
+        ],
+        "summary": "사용자 역할 회수",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "사용자 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "역할명",
+            "name": "role_name",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/api/v1/users/{id}/unlock": {
+      "post": {
+        "description": "관리자가 잠긴 사용자 계정의 잠금을 수동으로 해제합니다",
+        "tags": [
+          "users"
+        ],
+        "summary": "계정 잠금 해제",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "사용자 username",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "email.SMTPSettings": {
+      "type": "object",
+      "properties": {
+        "auth_enabled": {
+          "description": "인증 사용 여부",
+          "type": "boolean"
+        },
+        "encryption": {
+          "description": "암호화 방식: \"none\", \"ssl\", \"starttls\"",
+          "type": "string"
+        },
+        "from_address": {
+          "description": "발신 이메일 주소",
+          "type": "string"
+        },
+        "from_name": {
+          "description": "발신자 이름",
+          "type": "string"
+        },
+        "host": {
+          "description": "SMTP 서버 호스트",
+          "type": "string"
+        },
+        "password": {
+          "description": "SMTP 비밀번호 (암호화 저장)",
+          "type": "string"
+        },
+        "port": {
+          "description": "포트 (25, 465, 587)",
+          "type": "integer"
+        },
+        "skip_tls_verify": {
+          "description": "TLS 인증서 검증 무시",
+          "type": "boolean"
+        },
+        "timeout": {
+          "description": "연결 타임아웃 (초)",
+          "type": "integer"
+        },
+        "username": {
+          "description": "SMTP 사용자명",
+          "type": "string"
+        }
+      }
+    },
+    "email.TestSMTPRequest": {
+      "type": "object",
+      "required": [
+        "to_address"
+      ],
+      "properties": {
+        "to_address": {
+          "type": "string"
+        }
+      }
+    },
+    "email.TestSMTPResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      }
+    },
+    "handlers.CreateIPRequest": {
+      "type": "object",
+      "required": [
+        "ipAddress"
+      ],
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "ipAddress": {
+          "type": "string"
+        }
+      }
+    },
+    "handlers.JWK": {
+      "type": "object",
+      "properties": {
+        "e": {
+          "description": "Exponent",
+          "type": "string"
+        },
+        "kid": {
+          "description": "Key ID",
+          "type": "string"
+        },
+        "kty": {
+          "description": "Key Type",
+          "type": "string"
+        },
+        "n": {
+          "description": "Modulus",
+          "type": "string"
+        },
+        "use": {
+          "description": "Public Key Use",
+          "type": "string"
+        }
+      }
+    },
+    "handlers.JWKS": {
+      "type": "object",
+      "properties": {
+        "keys": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/handlers.JWK"
+          }
+        }
+      }
+    },
+    "handlers.MediaMTXTokenRequest": {
+      "type": "object",
+      "required": [
+        "action",
+        "path"
+      ],
+      "properties": {
+        "action": {
+          "description": "publish 또는 read",
+          "type": "string"
+        },
+        "display_name": {
+          "description": "사용자 표시 이름",
+          "type": "string"
+        },
+        "duration": {
+          "description": "유효기간 (초), 기본 24시간",
+          "type": "integer"
+        },
+        "path": {
+          "description": "스트림 경로 (예: mobile-abc12345)",
+          "type": "string"
+        },
+        "roles": {
+          "description": "사용자 역할 목록",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "username": {
+          "description": "사용자 ID (Caddy jwtauth 호환용)",
+          "type": "string"
+        }
+      }
+    },
+    "handlers.MediaMTXTokenResponse": {
+      "type": "object",
+      "properties": {
+        "expires_in": {
+          "description": "만료까지 남은 시간 (초)",
+          "type": "integer"
+        },
+        "token": {
+          "description": "JWT 토큰",
+          "type": "string"
+        }
+      }
+    },
+    "handlers.MediaMTXTokenVerifyRequest": {
+      "type": "object",
+      "required": [
+        "path",
+        "token"
+      ],
+      "properties": {
+        "action": {
+          "description": "검증할 액션 (publish, read 등), 선택적",
+          "type": "string"
+        },
+        "path": {
+          "description": "스트림 경로 (예: mobile-abc12345)",
+          "type": "string"
+        },
+        "token": {
+          "description": "JWT 토큰",
+          "type": "string"
+        }
+      }
+    },
+    "handlers.MediaMTXTokenVerifyResponse": {
+      "type": "object",
+      "properties": {
+        "has_permission": {
+          "description": "권한 보유 여부",
+          "type": "boolean"
+        },
+        "message": {
+          "description": "에러 메시지",
+          "type": "string"
+        },
+        "valid": {
+          "description": "토큰 유효 여부",
+          "type": "boolean"
+        }
+      }
+    },
+    "handlers.PairRequestRequest": {
+      "type": "object",
+      "required": [
+        "requester_node_id"
+      ],
+      "properties": {
+        "requested_scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "requester_ip": {
+          "type": "string"
+        },
+        "requester_node_id": {
+          "type": "string"
+        }
+      }
+    },
+    "handlers.PairRequestResponse": {
+      "type": "object",
+      "properties": {
+        "expires_in": {
+          "description": "초",
+          "type": "integer"
+        },
+        "request_id": {
+          "description": "32바이트 hex secret(평문, 응답에서만 노출)",
+          "type": "string"
+        },
+        "verification_code": {
+          "description": "6자리 사람-매칭 코드",
+          "type": "string"
+        }
+      }
+    },
+    "handlers.PairResponse": {
+      "type": "object",
+      "properties": {
+        "expires_in": {
+          "type": "integer"
+        },
+        "peer_node_id": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "handlers.RefreshRequest": {
+      "type": "object",
+      "required": [
+        "token"
+      ],
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "handlers.RequestListItem": {
+      "type": "object",
+      "properties": {
+        "created_at": {
+          "description": "RFC3339",
+          "type": "string"
+        },
+        "expires_at": {
+          "description": "RFC3339",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "requested_scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "requester_ip": {
+          "type": "string"
+        },
+        "requester_node_id": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "verification_code": {
+          "type": "string"
+        }
+      }
+    },
+    "handlers.RequestListResponse": {
+      "type": "object",
+      "properties": {
+        "requests": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/handlers.RequestListItem"
+          }
+        },
+        "total": {
+          "type": "integer"
+        }
+      }
+    },
+    "handlers.RequestStatusResponse": {
+      "type": "object",
+      "properties": {
+        "requested_scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "description": "pending|confirmed|denied|consumed|expired",
+          "type": "string"
+        }
+      }
+    },
+    "handlers.SecuritySettings": {
+      "type": "object",
+      "properties": {
+        "access_token_expiration_minutes": {
+          "type": "integer"
+        },
+        "lockout_duration_minutes": {
+          "description": "계정 잠금 시간 (분) (§2.2.1, 기본 5, 최소 5)",
+          "type": "integer"
+        },
+        "max_login_attempts": {
+          "description": "최대 로그인 실패 허용 횟수 (§2.2.1, 기본 5, 최대 5)",
+          "type": "integer"
+        },
+        "password_min_length": {
+          "description": "패스워드 최소 길이 (§2.3.1, 기본 9)",
+          "type": "integer"
+        },
+        "refresh_token_expiration_minutes": {
+          "type": "integer"
+        },
+        "session_timeout_minutes": {
+          "description": "세션 비활동 타임아웃 (분) (§7.1.1, 기본 10, 최대 10)",
+          "type": "integer"
+        }
+      }
+    },
+    "handlers.SessionCountResponse": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "description": "고유 사용자 수 (동시 접속자)",
+          "type": "integer"
+        },
+        "total_sessions": {
+          "description": "전체 활성 토큰 수",
+          "type": "integer"
+        }
+      }
+    },
+    "handlers.SetPeerMediaReadEnforcementRequest": {
+      "type": "object",
+      "required": [
+        "enforced"
+      ],
+      "properties": {
+        "enforced": {
+          "type": "boolean"
+        }
+      }
+    },
+    "handlers.UpdateIPRequest": {
+      "type": "object",
+      "required": [
+        "ipAddress"
+      ],
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "ipAddress": {
+          "type": "string"
+        }
+      }
+    },
+    "handlers.UserPreferences": {
+      "type": "object",
+      "properties": {
+        "defaultStreamProtocol": {
+          "description": "\"hls\" 또는 \"webrtc\"",
+          "type": "string"
+        },
+        "language": {
+          "description": "\"en\" 또는 \"ko\"",
+          "type": "string"
+        },
+        "popupEnabled": {
+          "description": "PopupEnabled 이벤트 팝업 표시 여부 (§T14). 규칙에 매칭된 이벤트라도 사용자가 끌 수 있다.\n*bool 이어야 \"미설정(기본 true 적용)\"과 \"명시적 false\"를 구분할 수 있다.",
+          "type": "boolean"
+        },
+        "popupSoundEnabled": {
+          "description": "PopupSoundEnabled 이벤트 팝업 소리 재생 여부 (2단계 §T24).\n지시에 sound 가 있어도 사용자가 계정 단위로 끌 수 있다. popupEnabled 와 같은 이유로 *bool 이며,\n팝업 표시(popupEnabled)와는 독립 필드다 — 표시가 꺼지면 소리도 나지 않는 AND 결합은 프론트가 한다.",
+          "type": "boolean"
+        },
+        "sidebarCollapsed": {
+          "type": "boolean"
+        },
+        "sidebarWidth": {
+          "type": "integer"
+        },
+        "theme": {
+          "description": "\"light\" 또는 \"dark\"",
+          "type": "string"
+        },
+        "toastEnabled": {
+          "type": "boolean"
+        }
+      }
+    },
+    "handlers.VerifyCredentialRequest": {
+      "type": "object",
+      "required": [
+        "password",
+        "username"
+      ],
+      "properties": {
+        "password": {
+          "type": "string",
+          "maxLength": 255
+        },
+        "purpose": {
+          "description": "Purpose 호출 목적(감사 details 기록용, 선택). 예 \"media_read\".",
+          "type": "string",
+          "maxLength": 64
+        },
+        "username": {
+          "type": "string",
+          "maxLength": 255
+        }
+      }
+    },
+    "handlers.VerifyCredentialResponse": {
+      "type": "object",
+      "properties": {
+        "authenticated": {
+          "type": "boolean"
+        },
+        "error_message": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "models.AuditAction": {
+      "type": "string",
+      "enum": [
+        "login",
+        "logout",
+        "login_failed",
+        "token_refresh",
+        "password_change",
+        "password_verify",
+        "password_verify_failed",
+        "credential_verify",
+        "onvif_login",
+        "token_reuse",
+        "account_lockout",
+        "account_unlock",
+        "username_change",
+        "session_terminate",
+        "session_timeout",
+        "profile_update",
+        "create",
+        "update",
+        "delete",
+        "assign",
+        "revoke",
+        "enable",
+        "disable",
+        "share",
+        "unshare",
+        "settings_update",
+        "capability_update",
+        "format",
+        "mount",
+        "unmount"
+      ],
+      "x-enum-comments": {
+        "AuditActionAccountLockout": "계정 잠금 (§2.2.1)",
+        "AuditActionAccountUnlock": "계정 잠금 해제",
+        "AuditActionProfileUpdate": "프로필 수정",
+        "AuditActionSessionTerminate": "세션 강제 종료 (§7.2.1)",
+        "AuditActionSessionTimeout": "세션 비활동 타임아웃 (§7.1.1)",
+        "AuditActionTokenReuse": "토큰 재사용 시도 (§2.4.1)",
+        "AuditActionUsernameChange": "계정명 변경 (§3.4.2)"
+      },
+      "x-enum-descriptions": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "토큰 재사용 시도 (§2.4.1)",
+        "계정 잠금 (§2.2.1)",
+        "계정 잠금 해제",
+        "계정명 변경 (§3.4.2)",
+        "세션 강제 종료 (§7.2.1)",
+        "세션 비활동 타임아웃 (§7.1.1)",
+        "프로필 수정",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "x-enum-varnames": [
+        "AuditActionLogin",
+        "AuditActionLogout",
+        "AuditActionLoginFailed",
+        "AuditActionTokenRefresh",
+        "AuditActionPasswordChange",
+        "AuditActionPasswordVerify",
+        "AuditActionPasswordVerifyFailed",
+        "AuditActionCredentialVerify",
+        "AuditActionONVIFLogin",
+        "AuditActionTokenReuse",
+        "AuditActionAccountLockout",
+        "AuditActionAccountUnlock",
+        "AuditActionUsernameChange",
+        "AuditActionSessionTerminate",
+        "AuditActionSessionTimeout",
+        "AuditActionProfileUpdate",
+        "AuditActionCreate",
+        "AuditActionUpdate",
+        "AuditActionDelete",
+        "AuditActionAssign",
+        "AuditActionRevoke",
+        "AuditActionEnable",
+        "AuditActionDisable",
+        "AuditActionShare",
+        "AuditActionUnshare",
+        "AuditActionSettingsUpdate",
+        "AuditActionCapabilityUpdate",
+        "AuditActionFormat",
+        "AuditActionMount",
+        "AuditActionUnmount"
+      ]
+    },
+    "models.AuditCategory": {
+      "type": "string",
+      "enum": [
+        "auth",
+        "user",
+        "role",
+        "camera",
+        "recording",
+        "permission",
+        "resource",
+        "resource_group",
+        "system"
+      ],
+      "x-enum-varnames": [
+        "AuditCategoryAuth",
+        "AuditCategoryUser",
+        "AuditCategoryRole",
+        "AuditCategoryCamera",
+        "AuditCategoryRecording",
+        "AuditCategoryPermission",
+        "AuditCategoryResource",
+        "AuditCategoryResourceGroup",
+        "AuditCategorySystem"
+      ]
+    },
+    "models.AuditDailyStats": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "$ref": "#/definitions/models.AuditAction"
+        },
+        "category": {
+          "$ref": "#/definitions/models.AuditCategory"
+        },
+        "count": {
+          "type": "integer"
+        },
+        "logDate": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/models.AuditStatus"
+        }
+      }
+    },
+    "models.AuditIntegrityResult": {
+      "type": "object",
+      "properties": {
+        "chain_broken_count": {
+          "description": "해시 체인 연결 이상 수 (prev_hash 불일치)",
+          "type": "integer"
+        },
+        "first_invalid": {
+          "description": "첫 번째 위반 레코드 ID",
+          "type": "string"
+        },
+        "invalid_count": {
+          "description": "무결성 위반 레코드 수 (변조 + 체인 이상 합계)",
+          "type": "integer"
+        },
+        "status": {
+          "description": "valid/invalid/no_data",
+          "type": "string"
+        },
+        "tampered_count": {
+          "description": "내용 변조 감지 수 (record_hash 불일치)",
+          "type": "integer"
+        },
+        "total_checked": {
+          "description": "검증된 레코드 수",
+          "type": "integer"
+        },
+        "valid_count": {
+          "description": "유효한 레코드 수",
+          "type": "integer"
+        },
+        "verified_at": {
+          "description": "검증 시각",
+          "type": "string"
+        }
+      }
+    },
+    "models.AuditLog": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "$ref": "#/definitions/models.AuditAction"
+        },
+        "category": {
+          "$ref": "#/definitions/models.AuditCategory"
+        },
+        "clientIp": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "details": {},
+        "errorMessage": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "resourceId": {
+          "type": "string"
+        },
+        "resourceName": {
+          "type": "string"
+        },
+        "resourceType": {
+          "type": "string"
+        },
+        "service": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/models.AuditStatus"
+        },
+        "userAgent": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "models.AuditLogListResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.AuditLog"
+          }
+        },
+        "page": {
+          "type": "integer"
+        },
+        "pageSize": {
+          "type": "integer"
+        },
+        "total": {
+          "type": "integer"
+        },
+        "totalPages": {
+          "type": "integer"
+        }
+      }
+    },
+    "models.AuditSettings": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "retentionDays": {
+          "type": "integer"
+        }
+      }
+    },
+    "models.AuditStatus": {
+      "type": "string",
+      "enum": [
+        "success",
+        "failure"
+      ],
+      "x-enum-varnames": [
+        "AuditStatusSuccess",
+        "AuditStatusFailure"
+      ]
+    },
+    "models.ChangePasswordRequest": {
+      "type": "object",
+      "required": [
+        "currentPassword",
+        "newPassword"
+      ],
+      "properties": {
+        "currentPassword": {
+          "type": "string"
+        },
+        "newPassword": {
+          "type": "string",
+          "maxLength": 64,
+          "minLength": 9
+        }
+      }
+    },
+    "models.ChangeUsernameRequest": {
+      "type": "object",
+      "required": [
+        "currentPassword",
+        "newUsername"
+      ],
+      "properties": {
+        "currentPassword": {
+          "type": "string"
+        },
+        "newUsername": {
+          "type": "string",
+          "maxLength": 50,
+          "minLength": 3
+        }
+      }
+    },
+    "models.CreateAuditLogRequest": {
+      "type": "object",
+      "required": [
+        "action",
+        "category",
+        "service",
+        "status"
+      ],
+      "properties": {
+        "action": {
+          "$ref": "#/definitions/models.AuditAction"
+        },
+        "category": {
+          "$ref": "#/definitions/models.AuditCategory"
+        },
+        "clientIp": {
+          "type": "string"
+        },
+        "details": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "errorMessage": {
+          "type": "string"
+        },
+        "resourceId": {
+          "type": "string"
+        },
+        "resourceName": {
+          "type": "string"
+        },
+        "resourceType": {
+          "type": "string"
+        },
+        "service": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/models.AuditStatus"
+        },
+        "userAgent": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "models.CreateRoleRequest": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "isEnabled": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        }
+      }
+    },
+    "models.CreateUserRequest": {
+      "type": "object",
+      "required": [
+        "password",
+        "username"
+      ],
+      "properties": {
+        "displayName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string",
+          "maxLength": 64,
+          "minLength": 9
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "username": {
+          "type": "string",
+          "maxLength": 50,
+          "minLength": 3
+        }
+      }
+    },
+    "models.LoginRequest": {
+      "type": "object",
+      "required": [
+        "password",
+        "username"
+      ],
+      "properties": {
+        "accessMode": {
+          "description": "\"general\" 또는 \"admin\" (기본값: \"general\")",
+          "type": "string",
+          "maxLength": 50
+        },
+        "password": {
+          "type": "string",
+          "maxLength": 255
+        },
+        "username": {
+          "type": "string",
+          "maxLength": 255
+        }
+      }
+    },
+    "models.LoginResponse": {
+      "type": "object",
+      "properties": {
+        "accessMode": {
+          "description": "\"general\" 또는 \"admin\"",
+          "type": "string"
+        },
+        "accessToken": {
+          "type": "string"
+        },
+        "expiresIn": {
+          "description": "초 단위",
+          "type": "integer"
+        },
+        "refreshToken": {
+          "type": "string"
+        },
+        "user": {
+          "$ref": "#/definitions/models.UserWithRoles"
+        }
+      }
+    },
+    "models.LogoutRequest": {
+      "type": "object",
+      "properties": {
+        "reason": {
+          "description": "\"idle_timeout\" 등 (optional, 감사 로그 구분용)",
+          "type": "string"
+        },
+        "refreshToken": {
+          "type": "string"
+        }
+      }
+    },
+    "models.RefreshRequest": {
+      "type": "object",
+      "required": [
+        "refreshToken"
+      ],
+      "properties": {
+        "refreshToken": {
+          "type": "string"
+        }
+      }
+    },
+    "models.RefreshResponse": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "type": "string"
+        },
+        "expiresIn": {
+          "description": "초 단위",
+          "type": "integer"
+        },
+        "refreshToken": {
+          "type": "string"
+        }
+      }
+    },
+    "models.UpdateProfileRequest": {
+      "type": "object",
+      "properties": {
+        "displayName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "models.UpdateRoleRequest": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "isEnabled": {
+          "type": "boolean"
+        }
+      }
+    },
+    "models.UpdateUserRequest": {
+      "type": "object",
+      "properties": {
+        "displayName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "password": {
+          "type": "string",
+          "maxLength": 64,
+          "minLength": 9
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "models.UserWithRoles": {
+      "type": "object",
+      "properties": {
+        "createdAt": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "failedLoginCount": {
+          "description": "연속 로그인 실패 횟수 (§2.2.1)",
+          "type": "integer"
+        },
+        "id": {
+          "type": "string"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "lastActivityAt": {
+          "description": "마지막 활동 시각 (§7.1.1)",
+          "type": "string"
+        },
+        "lockedUntil": {
+          "description": "계정 잠금 해제 시각 (§2.2.1)",
+          "type": "string"
+        },
+        "mustChangePassword": {
+          "description": "패스워드 강제 변경 플래그 (§3.4.1)",
+          "type": "boolean"
+        },
+        "mustChangeUsername": {
+          "description": "계정명 강제 변경 플래그 (§3.4.2)",
+          "type": "boolean"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "BearerAuth": {
+      "description": "Type \"Bearer\" followed by a space and JWT token.",
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "schemes": [
+    "https"
+  ]
+}

@@ -1,0 +1,2967 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "\n## 기본 URL\n\n```\nhttps://{서버 주소}/analysis\n```\n\n모든 경로는 웹 서버(HTTPS)를 통해 `/analysis` 접두로 접근합니다. 아래 각 엔드포인트에\n표기된 경로가 이미 접두를 포함한 실제 호출 경로입니다.\n\n## 인증\n\n모든 요청에 JWT 접근 토큰이 필요합니다.\n\n```\nPOST https://{서버 주소}/auth/api/v1/auth/login\n{ \"username\": \"admin\", \"password\": \"********\" }\n```\n\n응답의 `accessToken` 을 이후 요청 헤더에 부착하십시오.\n\n```\nAuthorization: Bearer {accessToken}\n```\n\n접근 토큰은 기본 10분 후 만료되며, `POST https://{서버 주소}/auth/api/v1/auth/refresh` 로\n갱신합니다.\n\n\n---\n\n모션 디텍션 및 Webhook 알림 서비스",
+    "title": "Nox NVR Analysis Service API",
+    "contact": {
+      "name": "API Support",
+      "email": "support@yiyol.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0"
+  },
+  "host": "{서버 주소}",
+  "basePath": "/",
+  "paths": {
+    "/analysis/api/v1/actions": {
+      "get": {
+        "description": "Detection ID로 Action 목록 조회",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "actions"
+        ],
+        "summary": "Detection의 Action 목록 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Detection ID",
+            "name": "detection_id",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/models.DetectionAction"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "새로운 Action 생성",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "actions"
+        ],
+        "summary": "Action 생성",
+        "parameters": [
+          {
+            "description": "Action 생성 정보 (detection_id 포함)",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.CreateDetectionActionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/models.DetectionAction"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/analysis/api/v1/actions/reorder": {
+      "put": {
+        "description": "여러 Action의 실행 순서를 일괄 변경",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "actions"
+        ],
+        "summary": "Action 순서 일괄 변경",
+        "parameters": [
+          {
+            "description": "Action 순서 정보",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.ReorderActionsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/analysis/api/v1/actions/{id}": {
+      "get": {
+        "description": "ID로 Action 조회",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "actions"
+        ],
+        "summary": "Action 상세 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Action ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.DetectionAction"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Action 정보 수정",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "actions"
+        ],
+        "summary": "Action 수정",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Action ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "Action 수정 정보",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.UpdateDetectionActionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.DetectionAction"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Action 삭제",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "actions"
+        ],
+        "summary": "Action 삭제",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Action ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/analysis/api/v1/actions/{id}/toggle": {
+      "post": {
+        "description": "Action 활성화 상태 토글",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "actions"
+        ],
+        "summary": "Action 활성화/비활성화",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Action ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "Enabled 상태",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "boolean"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.DetectionAction"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/analysis/api/v1/detections": {
+      "get": {
+        "description": "Task ID로 Detection 목록 조회",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "detections"
+        ],
+        "summary": "Task의 Detection 목록 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Task ID",
+            "name": "task_id",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/models.Detection"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "새로운 Detection 생성",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "detections"
+        ],
+        "summary": "Detection 생성",
+        "parameters": [
+          {
+            "description": "Detection 생성 정보 (task_id 포함)",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.CreateDetectionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/models.Detection"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/analysis/api/v1/detections/{id}": {
+      "get": {
+        "description": "ID로 Detection 조회",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "detections"
+        ],
+        "summary": "Detection 상세 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Detection ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.Detection"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Detection 정보 수정",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "detections"
+        ],
+        "summary": "Detection 수정",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Detection ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "Detection 수정 정보",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.UpdateDetectionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.Detection"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Detection 삭제",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "detections"
+        ],
+        "summary": "Detection 삭제",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Detection ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/analysis/api/v1/detections/{id}/snapshots/{snapshot_id}": {
+      "get": {
+        "description": "Detection ID와 Snapshot ID로 스냅샷 이미지 조회",
+        "produces": [
+          "image/jpeg"
+        ],
+        "tags": [
+          "detections"
+        ],
+        "summary": "Detection 스냅샷 이미지 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Detection ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "Snapshot ID",
+            "name": "snapshot_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "file"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/analysis/api/v1/detections/{id}/toggle": {
+      "post": {
+        "description": "Detection 활성화 상태 토글",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "detections"
+        ],
+        "summary": "Detection 활성화/비활성화",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Detection ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "Enabled 상태",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "boolean"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.Detection"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/analysis/api/v1/events/{event_id}/plate-crop": {
+      "get": {
+        "description": "특정 이벤트에 연결된 번호판 크롭 이미지를 반환합니다 (metadata.type = \"plate_crop\")",
+        "produces": [
+          "image/jpeg"
+        ],
+        "tags": [
+          "snapshots"
+        ],
+        "summary": "이벤트 ID로 번호판 크롭 이미지 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Event ID",
+            "name": "event_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "번호판 크롭 이미지",
+            "schema": {
+              "type": "file"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/analysis/api/v1/events/{event_id}/thumbnail": {
+      "get": {
+        "description": "특정 이벤트에 연결된 스냅샷 이미지를 반환합니다",
+        "produces": [
+          "image/jpeg"
+        ],
+        "tags": [
+          "snapshots"
+        ],
+        "summary": "이벤트 ID로 스냅샷 이미지 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Event ID",
+            "name": "event_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "스냅샷 이미지",
+            "schema": {
+              "type": "file"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/analysis/api/v1/settings/ai-offload": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "AI 분석 오프로딩 설정을 반환한다.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ai-offload"
+        ],
+        "summary": "AI 오프로딩 설정 조회",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "AI 분석 오프로딩 설정을 수정한다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "ai-offload"
+        ],
+        "summary": "AI 오프로딩 설정 수정",
+        "parameters": [
+          {
+            "description": "요청 본문",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.UpdateAIOffloadRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/analysis/api/v1/settings/analysis": {
+      "get": {
+        "description": "분석 서비스의 시스템 설정(보존 기간 등)을 조회합니다.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Settings"
+        ],
+        "summary": "분석 서비스 시스템 설정 조회",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.AnalysisServiceSettings"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "분석 서비스의 시스템 설정(보존 기간 등)을 업데이트합니다. 새로운 설정으로 INSERT됩니다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Settings"
+        ],
+        "summary": "분석 서비스 시스템 설정 업데이트",
+        "parameters": [
+          {
+            "description": "설정",
+            "name": "settings",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.AnalysisServiceSettings"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.AnalysisServiceSettings"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/analysis/api/v1/settings/vlm": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "VLM 추론 전역 설정을 반환한다.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "vlm"
+        ],
+        "summary": "VLM 전역 설정 조회",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "VLM 추론 전역 설정을 수정한다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "vlm"
+        ],
+        "summary": "VLM 전역 설정 수정",
+        "parameters": [
+          {
+            "description": "요청 본문",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.VLMGlobalSettings"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/analysis/api/v1/settings/vlm/servers": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "등록된 VLM 추론 서버 목록을 반환한다.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "vlm"
+        ],
+        "summary": "VLM 서버 목록 조회",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "새 VLM 추론 서버를 등록한다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "vlm"
+        ],
+        "summary": "VLM 서버 등록",
+        "parameters": [
+          {
+            "description": "요청 본문",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.CreateVLMServerRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/analysis/api/v1/settings/vlm/servers/{id}": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "VLM 추론 서버 단일 항목을 조회한다.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "vlm"
+        ],
+        "summary": "VLM 서버 상세 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "VLM 서버 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "VLM 추론 서버 설정을 수정한다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "vlm"
+        ],
+        "summary": "VLM 서버 수정",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "VLM 서버 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "요청 본문",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.UpdateVLMServerRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "VLM 추론 서버 등록을 해제한다.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "vlm"
+        ],
+        "summary": "VLM 서버 삭제",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "VLM 서버 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/analysis/api/v1/settings/vlm/servers/{id}/test": {
+      "post": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "등록된 VLM 추론 서버로 연결 테스트를 수행한다.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "vlm"
+        ],
+        "summary": "VLM 서버 연결 테스트",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "VLM 서버 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "502": {
+            "description": "Bad Gateway",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/analysis/api/v1/tasks": {
+      "get": {
+        "description": "모든 분석 Task 목록 조회",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "tasks"
+        ],
+        "summary": "모든 Task 조회",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/models.AnalysisTask"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "새로운 분석 Task 생성. pipeline_config.watch_zones 로 듀얼 MOG2 기반 신규 정지객체 감시 구역(@trash_watch 등)을 지정할 수 있다. 참조 채널이 비활성 상태이면 enabled=true 요청도 일시 중지로 저장되어(enabled=false + metadata.paused_by_channel_inactive) 채널 재활성화 시 자동 재개된다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "tasks"
+        ],
+        "summary": "Task 생성",
+        "parameters": [
+          {
+            "description": "Task 생성 정보",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.CreateAnalysisTaskRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/models.AnalysisTask"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/analysis/api/v1/tasks/{id}": {
+      "get": {
+        "description": "ID로 Task 조회",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "tasks"
+        ],
+        "summary": "Task 상세 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Task ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.AnalysisTask"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Task 정보 수정. pipeline_config(watch_zones 포함) 변경 시 실행 중인 Task 는 자동 재시작되어 변경분이 반영된다. 참조 채널이 비활성 상태이면 enabled=true 요청과 비활성 채널로의 channel_id 교체가 모두 일시 중지로 정규화되어 저장된다(200 + enabled=false + metadata.paused_by_channel_inactive) — 채널 재활성화 시 자동 재개된다. 이미 비활성인 Task 에 enabled=false 를 다시 요청하면 자동 비활성 마커(paused_by_channel_inactive, disabled_by_license_downgrade)가 제거되어 이후 자동 재개 대상에서 빠진다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "tasks"
+        ],
+        "summary": "Task 수정",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Task ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "Task 수정 정보",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.UpdateAnalysisTaskRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.AnalysisTask"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Task 삭제",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "tasks"
+        ],
+        "summary": "Task 삭제",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Task ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/analysis/api/v1/tasks/{id}/snapshot": {
+      "get": {
+        "description": "실행 중인 Task의 최근 프레임을 JPEG 이미지로 반환",
+        "produces": [
+          "image/jpeg"
+        ],
+        "tags": [
+          "tasks"
+        ],
+        "summary": "Task 스냅샷 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Task ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "file"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/analysis/api/v1/tasks/{id}/toggle": {
+      "post": {
+        "description": "Task 활성화 상태 토글. 참조 채널이 비활성 상태이면 enabled=true 요청은 거부되지 않고 일시 중지로 정규화되어 저장된다(200 + enabled=false + metadata.paused_by_channel_inactive) — 채널 재활성화 시 자동 재개되며, 라이선스 한도는 재개 시점에 검사된다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "tasks"
+        ],
+        "summary": "Task 활성화/비활성화",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Task ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "Enabled 상태",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "boolean"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.AnalysisTask"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/analysis/api/v1/vlm/quota": {
+      "get": {
+        "description": "per-detection 일/월 호출 한도 및 현재 카운터.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "vlm"
+        ],
+        "summary": "VLM 호출 쿼터 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Detection ID",
+            "name": "detection_id",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/handler.VLMQuotaResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/analysis/api/v1/webhook-logs": {
+      "get": {
+        "description": "Task ID, Detection ID로 필터링하거나 전체 로그 조회",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "webhook-logs"
+        ],
+        "summary": "Webhook 로그 목록 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Task ID (UUID)",
+            "name": "task_id",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "Detection ID (UUID)",
+            "name": "detection_id",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "default": 50,
+            "description": "조회 개수 제한",
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "default": 0,
+            "description": "오프셋",
+            "name": "offset",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/models.WebhookLog"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "description": "서비스 상태 확인",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "health"
+        ],
+        "summary": "헬스체크",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "handler.AnalysisStatistics": {
+      "type": "object",
+      "properties": {
+        "active_detections": {
+          "type": "integer"
+        },
+        "active_tasks": {
+          "type": "integer"
+        },
+        "events_24h": {
+          "$ref": "#/definitions/handler.Events24hStats"
+        },
+        "total_detections": {
+          "type": "integer"
+        },
+        "total_tasks": {
+          "type": "integer"
+        }
+      }
+    },
+    "handler.ClipFrame": {
+      "type": "object",
+      "properties": {
+        "base64": {
+          "description": "Base64 JPEG 프레임의 base64 인코딩 (gin 이 []byte 를 자동 base64 직렬화).",
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "timestamp_ms": {
+          "description": "TimestampMs 프레임 시각 (unix millis).",
+          "type": "integer"
+        }
+      }
+    },
+    "handler.ClipRequest": {
+      "type": "object",
+      "properties": {
+        "camera_id": {
+          "description": "CameraID 카메라 논리 식별자. TaskID 가 비어 있을 때 사용된다.",
+          "type": "string"
+        },
+        "end_ms": {
+          "description": "EndMs 캡처 종료 절대 시각 (unix millis).",
+          "type": "integer"
+        },
+        "frames": {
+          "description": "Frames 균등 샘플링할 프레임 수.",
+          "type": "integer"
+        },
+        "start_ms": {
+          "description": "StartMs 캡처 시작 절대 시각 (트리거 기준 start_offset 적용 후, unix millis).",
+          "type": "integer"
+        },
+        "task_id": {
+          "description": "TaskID analysis_tasks 작업 식별자. 지정되면 정확한 스트림이 선택된다.",
+          "type": "string"
+        },
+        "trigger_ms": {
+          "description": "TriggerMs 트리거 발생 시각 (unix millis).",
+          "type": "integer"
+        }
+      }
+    },
+    "handler.ClipResponse": {
+      "type": "object",
+      "properties": {
+        "frames": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/handler.ClipFrame"
+          }
+        }
+      }
+    },
+    "handler.Events24hStats": {
+      "type": "object",
+      "properties": {
+        "motion_events": {
+          "type": "integer"
+        },
+        "webhook_calls": {
+          "type": "integer"
+        },
+        "webhook_errors": {
+          "type": "integer"
+        }
+      }
+    },
+    "handler.VLMQuotaPeriod": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer"
+        },
+        "health": {
+          "description": "Health quota 조회 상태 지표. \"ok\" 또는 \"db_error\". db_error 면 count=0 으로 표시되며\nremaining 값은 실제 사용량을 반영하지 못한다(조회 실패 fallback).",
+          "type": "string"
+        },
+        "max": {
+          "type": "integer"
+        },
+        "period_key": {
+          "type": "string"
+        },
+        "remaining": {
+          "type": "integer"
+        },
+        "reset_at": {
+          "type": "string"
+        },
+        "unlimited": {
+          "type": "boolean"
+        }
+      }
+    },
+    "handler.VLMQuotaResponse": {
+      "type": "object",
+      "properties": {
+        "daily": {
+          "$ref": "#/definitions/handler.VLMQuotaPeriod"
+        },
+        "detection_id": {
+          "type": "string"
+        },
+        "monthly": {
+          "$ref": "#/definitions/handler.VLMQuotaPeriod"
+        }
+      }
+    },
+    "models.ActionOrder": {
+      "type": "object",
+      "required": [
+        "execution_order",
+        "id"
+      ],
+      "properties": {
+        "execution_order": {
+          "type": "integer"
+        },
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "models.ActionType": {
+      "type": "string",
+      "enum": [
+        "webhook",
+        "snapshot",
+        "event_recording",
+        "email"
+      ],
+      "x-enum-varnames": [
+        "ActionTypeWebhook",
+        "ActionTypeSnapshot",
+        "ActionTypeEventRecording",
+        "ActionTypeEmail"
+      ]
+    },
+    "models.AnalysisMode": {
+      "type": "string",
+      "enum": [
+        "ON",
+        "OFF"
+      ],
+      "x-enum-varnames": [
+        "AnalysisModeOn",
+        "AnalysisModeOff"
+      ]
+    },
+    "models.AnalysisOverride": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "description": "YYYY-MM-DD 형식",
+          "type": "string"
+        },
+        "schedules": {
+          "description": "해당 날짜의 스케줄",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/scheduler.Schedule-models_AnalysisMode"
+          }
+        }
+      }
+    },
+    "models.AnalysisSchedule": {
+      "type": "object",
+      "properties": {
+        "days_mask": {
+          "description": "7비트 요일 마스크",
+          "type": "integer"
+        },
+        "enabled": {
+          "description": "활성화 여부",
+          "type": "boolean"
+        },
+        "end_minute": {
+          "description": "종료 분 (18:00 = 1080분)",
+          "type": "integer"
+        },
+        "mode": {
+          "description": "모드",
+          "allOf": [
+            {
+              "$ref": "#/definitions/models.AnalysisMode"
+            }
+          ]
+        },
+        "priority": {
+          "description": "우선순위",
+          "type": "integer"
+        },
+        "start_minute": {
+          "description": "시작 분 (9:00 = 540분)",
+          "type": "integer"
+        }
+      }
+    },
+    "models.AnalysisScheduleConfig": {
+      "type": "object",
+      "properties": {
+        "default_mode": {
+          "description": "기본 분석 모드",
+          "allOf": [
+            {
+              "$ref": "#/definitions/models.AnalysisMode"
+            }
+          ]
+        },
+        "overrides": {
+          "description": "특정 날짜 예외",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.AnalysisOverride"
+          }
+        },
+        "schedules": {
+          "description": "반복 스케줄",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.AnalysisSchedule"
+          }
+        },
+        "timezone": {
+          "description": "IANA 타임존",
+          "type": "string"
+        }
+      }
+    },
+    "models.AnalysisServiceSettings": {
+      "type": "object",
+      "properties": {
+        "management_minutes": {
+          "description": "데이터 정리 주기 (분 단위)",
+          "type": "integer"
+        },
+        "retention_minutes": {
+          "description": "데이터 보존 기간 (분 단위)",
+          "type": "integer"
+        }
+      }
+    },
+    "models.AnalysisTask": {
+      "type": "object",
+      "properties": {
+        "camera_id": {
+          "description": "연결된 카메라 ID",
+          "type": "string"
+        },
+        "channel_id": {
+          "description": "연결된 카메라 채널 ID (오버레이/메타데이터 채널 분리 필터에 사용)",
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "metadata": {
+          "description": "Metadata 운영 메타데이터 (JSONB). 라이선스 다운그레이드 자동 복원 마커\n\"disabled_by_license_downgrade\"=true 등이 저장된다.",
+          "type": "object",
+          "additionalProperties": true
+        },
+        "name": {
+          "type": "string"
+        },
+        "pipeline_config": {
+          "description": "Task 단위 Tier1/Tier2 공용 설정",
+          "allOf": [
+            {
+              "$ref": "#/definitions/models.PipelineConfig"
+            }
+          ]
+        },
+        "retention_config": {
+          "$ref": "#/definitions/models.RetentionConfig"
+        },
+        "retention_override": {
+          "description": "개별 보존 설정 사용 여부",
+          "type": "boolean"
+        },
+        "schedule_config": {
+          "$ref": "#/definitions/models.AnalysisScheduleConfig"
+        },
+        "source_url": {
+          "type": "string"
+        },
+        "track_indexing_enabled": {
+          "description": "TrackIndexingEnabled 자연어 인물 검색용 트랙 색인(person 트래킹 + 색인 메시지 발행) 활성 여부.\n\ntrue 이면 PersonTrackingEvaluator 가 자동 주입되어 사용자 detection 룰이 0개여도 YOLO\n가 항시 실행되며 person 트랙이 종료될 때마다 nox:analysis:track-index 로 색인 메시지가\n발행된다. false 이면 그 비용을 발생시키지 않는다 — \"녹화만 하고 분석은 안 함\" 의도의\ntask 에서 불필요한 GPU/CPU 사용을 차단한다.\n\n기본값은 true(레거시 호환) — 마이그레이션은 기존 행을 true 로 채운다.",
+          "type": "boolean"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      }
+    },
+    "models.CreateAnalysisTaskRequest": {
+      "type": "object",
+      "required": [
+        "name",
+        "source_url"
+      ],
+      "properties": {
+        "camera_id": {
+          "description": "연결된 카메라 ID",
+          "type": "string"
+        },
+        "channel_id": {
+          "description": "연결된 카메라 채널 ID",
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "pipeline_config": {
+          "description": "미지정 시 DefaultPipelineConfig 적용",
+          "allOf": [
+            {
+              "$ref": "#/definitions/models.PipelineConfig"
+            }
+          ]
+        },
+        "retention_config": {
+          "$ref": "#/definitions/models.RetentionConfig"
+        },
+        "retention_override": {
+          "description": "개별 보존 설정 사용 여부",
+          "type": "boolean"
+        },
+        "schedule_config": {
+          "$ref": "#/definitions/models.AnalysisScheduleConfig"
+        },
+        "source_url": {
+          "type": "string"
+        },
+        "track_indexing_enabled": {
+          "description": "TrackIndexingEnabled 자연어 인물 검색 색인 활성 여부. nil 이면 기본값(=true) 사용.",
+          "type": "boolean"
+        }
+      }
+    },
+    "models.CreateDetectionActionRequest": {
+      "type": "object",
+      "required": [
+        "action_params",
+        "action_type",
+        "detection_id"
+      ],
+      "properties": {
+        "action_params": {
+          "type": "object"
+        },
+        "action_type": {
+          "$ref": "#/definitions/models.ActionType"
+        },
+        "detection_id": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "execution_order": {
+          "type": "integer"
+        }
+      }
+    },
+    "models.CreateDetectionRequest": {
+      "type": "object",
+      "required": [
+        "detection_kind",
+        "detection_params",
+        "name",
+        "task_id"
+      ],
+      "properties": {
+        "cooldown_seconds": {
+          "description": "기본값: 5초",
+          "type": "integer"
+        },
+        "detection_kind": {
+          "$ref": "#/definitions/models.DetectionKind"
+        },
+        "detection_params": {
+          "type": "object"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "severity": {
+          "description": "기본값: info",
+          "type": "string"
+        },
+        "task_id": {
+          "type": "string"
+        }
+      }
+    },
+    "models.CreateVLMServerRequest": {
+      "type": "object",
+      "required": [
+        "endpoint",
+        "kind",
+        "name"
+      ],
+      "properties": {
+        "api_key": {
+          "type": "string"
+        },
+        "default_model": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "endpoint": {
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/definitions/models.VLMServerKind"
+        },
+        "max_tokens": {
+          "description": "MaxTokens 0 또는 미지정이면 핸들러가 기본값 4096 으로 보정해 저장한다. 음수는 거부.",
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "timeout_sec": {
+          "type": "integer"
+        }
+      }
+    },
+    "models.Detection": {
+      "type": "object",
+      "properties": {
+        "cooldown_seconds": {
+          "type": "integer"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "detection_kind": {
+          "$ref": "#/definitions/models.DetectionKind"
+        },
+        "detection_params": {
+          "type": "object"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "severity": {
+          "type": "string"
+        },
+        "task_id": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      }
+    },
+    "models.DetectionAction": {
+      "type": "object",
+      "properties": {
+        "action_params": {
+          "type": "object"
+        },
+        "action_type": {
+          "$ref": "#/definitions/models.ActionType"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "detection_id": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "execution_order": {
+          "type": "integer"
+        },
+        "id": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      }
+    },
+    "models.DetectionKind": {
+      "type": "string",
+      "enum": [
+        "motion",
+        "lpr",
+        "line_crossing",
+        "intrusion",
+        "vlm",
+        "person_tracking"
+      ],
+      "x-enum-varnames": [
+        "DetectionKindMotion",
+        "DetectionKindLPR",
+        "DetectionKindLineCrossing",
+        "DetectionKindIntrusion",
+        "DetectionKindVLM",
+        "DetectionKindPersonTracking"
+      ]
+    },
+    "models.PipelineConfig": {
+      "type": "object",
+      "properties": {
+        "change_threshold": {
+          "description": "ChangeThreshold Tier1 변화감지 임계값 (0.1 ~ 50 권장, 기본 2.0. 낮을수록 민감)",
+          "type": "number"
+        },
+        "frame_skip": {
+          "description": "FrameSkip Tier2 YOLO 호출 주기 (0=매 프레임, N>0 이면 N+1 프레임마다 1회 YOLO)",
+          "type": "integer"
+        },
+        "watch_zones": {
+          "description": "WatchZones 듀얼 MOG2 신규 정지객체 검출을 수행할 감시 구역 목록.\n비면 정지객체 검출이 비활성된다(미설정 시 SetStaticObjectWatch 미호출).\npipeline_config 는 JSONB 컬럼이므로 본 필드 추가는 스키마 변경이 필요 없다.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.WatchZone"
+          }
+        }
+      }
+    },
+    "models.Point": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        }
+      }
+    },
+    "models.ReorderActionsRequest": {
+      "type": "object",
+      "required": [
+        "orders"
+      ],
+      "properties": {
+        "orders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.ActionOrder"
+          }
+        }
+      }
+    },
+    "models.RetentionConfig": {
+      "type": "object",
+      "properties": {
+        "management_minutes": {
+          "description": "관리 작업 주기 (분 단위)",
+          "type": "integer"
+        },
+        "retention_minutes": {
+          "description": "데이터 보존 기간 (분 단위)",
+          "type": "integer"
+        }
+      }
+    },
+    "models.UpdateAIOffloadRequest": {
+      "type": "object",
+      "properties": {
+        "callback_base_url": {
+          "type": "string"
+        },
+        "callback_key_id": {
+          "type": "string"
+        },
+        "callback_secret": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "endpoint": {
+          "type": "string"
+        },
+        "license_secret": {
+          "type": "string"
+        },
+        "nvr_id": {
+          "type": "string"
+        },
+        "site": {
+          "type": "string"
+        },
+        "stream_host": {
+          "type": "string"
+        }
+      }
+    },
+    "models.UpdateAnalysisTaskRequest": {
+      "type": "object",
+      "properties": {
+        "camera_id": {
+          "description": "연결된 카메라 ID",
+          "type": "string"
+        },
+        "channel_id": {
+          "description": "연결된 카메라 채널 ID",
+          "type": "string"
+        },
+        "clear_channel_id": {
+          "description": "ClearChannelID true 이면 channel_id 를 NULL 로 초기화한다.\nGo JSON 디코더는 필드 누락과 `null` 을 모두 *uuid.UUID = nil 로 처리하므로,\n\"채널 연결 해제\" 와 \"변경 없음\" 을 구분하기 위해 명시적 플래그를 사용한다.\nClearChannelID 와 ChannelID 가 동시에 설정되면 ClearChannelID 가 우선한다.",
+          "type": "boolean"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "pipeline_config": {
+          "description": "Task 단위 Tier1/Tier2 공용 설정",
+          "allOf": [
+            {
+              "$ref": "#/definitions/models.PipelineConfig"
+            }
+          ]
+        },
+        "retention_config": {
+          "$ref": "#/definitions/models.RetentionConfig"
+        },
+        "retention_override": {
+          "description": "개별 보존 설정 사용 여부",
+          "type": "boolean"
+        },
+        "schedule_config": {
+          "$ref": "#/definitions/models.AnalysisScheduleConfig"
+        },
+        "source_url": {
+          "type": "string"
+        },
+        "track_indexing_enabled": {
+          "description": "TrackIndexingEnabled 자연어 인물 검색 색인 활성 여부. nil 이면 변경 없음.",
+          "type": "boolean"
+        }
+      }
+    },
+    "models.UpdateDetectionActionRequest": {
+      "type": "object",
+      "properties": {
+        "action_params": {
+          "type": "object"
+        },
+        "action_type": {
+          "$ref": "#/definitions/models.ActionType"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "execution_order": {
+          "type": "integer"
+        }
+      }
+    },
+    "models.UpdateDetectionRequest": {
+      "type": "object",
+      "properties": {
+        "cooldown_seconds": {
+          "type": "integer"
+        },
+        "detection_kind": {
+          "$ref": "#/definitions/models.DetectionKind"
+        },
+        "detection_params": {
+          "type": "object"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "severity": {
+          "type": "string"
+        }
+      }
+    },
+    "models.UpdateVLMServerRequest": {
+      "type": "object",
+      "properties": {
+        "api_key": {
+          "type": "string"
+        },
+        "default_model": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "endpoint": {
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/definitions/models.VLMServerKind"
+        },
+        "max_tokens": {
+          "description": "MaxTokens nil 이면 변경 없음. 0/음수는 핸들러가 거부.",
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "timeout_sec": {
+          "type": "integer"
+        }
+      }
+    },
+    "models.VLMGlobalSettings": {
+      "type": "object",
+      "properties": {
+        "default_daily_max": {
+          "description": "DefaultDailyMax / DefaultMonthlyMax Detection 의 per-detection 쿼터가 nil 일\n때의 전역 fallback. 0 은 \"무제한\" 을 의미한다. runtime holder 를 통해 즉시\n반영된다(PUT /analysis/api/v1/settings/vlm 후 재시작 없이 다음 Acquire 에 적용).",
+          "type": "integer"
+        },
+        "default_monthly_max": {
+          "type": "integer"
+        },
+        "global_worker_count": {
+          "description": "GlobalWorkerCount VLMOrchestrator 워커 풀 크기. 다수 서버가 등록된 환경에서도\n글로벌 단일 풀이 공유된다. 0 이하면 env fallback(`VLM_GLOBAL_WORKER_COUNT`) 이\n적용된다(부팅 시점).",
+          "type": "integer"
+        },
+        "snapshot_jpeg_quality": {
+          "description": "SnapshotJPEGQuality JPEG 인코딩 품질 [1,100]. 낮으면 페이로드가 작아지고 빨라지지만\n압축 노이즈로 정확성이 떨어질 수 있다. 0/음수는 기본값(85)으로 보정된다.",
+          "type": "integer"
+        },
+        "snapshot_max_height": {
+          "type": "integer"
+        },
+        "snapshot_max_width": {
+          "description": "SnapshotMaxWidth / SnapshotMaxHeight VLM 으로 전송되는 스냅샷의 다운스케일 한도.\n종횡비를 유지하며 입력 프레임이 한도 이내가 되도록 축소된다. 작을수록 토큰 사용량과\n추론 시간이 감소하여 처리량(감도)이 올라가며, 클수록 모델이 더 작은 객체/세부 단서를\n분간할 수 있어 판정 정확성이 올라간다. 0 이하면 다운스케일을 건너뛴다(원본 해상도 전송).",
+          "type": "integer"
+        }
+      }
+    },
+    "models.VLMServerInternalDTO": {
+      "type": "object",
+      "properties": {
+        "api_key": {
+          "type": "string"
+        },
+        "default_model": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "endpoint": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/definitions/models.VLMServerKind"
+        },
+        "max_tokens": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "timeout_sec": {
+          "type": "integer"
+        }
+      }
+    },
+    "models.VLMServerKind": {
+      "type": "string",
+      "enum": [
+        "ollama",
+        "anthropic",
+        "openai_compatible"
+      ],
+      "x-enum-varnames": [
+        "VLMServerKindOllama",
+        "VLMServerKindAnthropic",
+        "VLMServerKindOpenAICompatible"
+      ]
+    },
+    "models.WatchZone": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Name 감시 구역 이름. perception.StaticObject.Zone 필드에 그대로 실린다.\n관례상 \"@\" 접두사를 사용한다(예: \"@trash_watch\"). 비면 해당 zone 은 무시된다.",
+          "type": "string"
+        },
+        "polygon": {
+          "description": "Polygon 감시 구역 다각형 꼭짓점. 3개 미만이면 zone 필터 없이 프레임 전체를\n감시 영역으로 본다(검출은 동작하되 영역 제한이 없음).",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.Point"
+          }
+        }
+      }
+    },
+    "models.WebhookLog": {
+      "type": "object",
+      "properties": {
+        "detection_id": {
+          "type": "string"
+        },
+        "error": {
+          "type": "string"
+        },
+        "event_id": {
+          "description": "이벤트 ID",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "latency_ms": {
+          "type": "integer"
+        },
+        "request_body": {
+          "type": "object"
+        },
+        "response_body": {
+          "type": "string"
+        },
+        "response_status": {
+          "type": "integer"
+        },
+        "task_id": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string"
+        }
+      }
+    },
+    "scheduler.Schedule-models_AnalysisMode": {
+      "type": "object",
+      "properties": {
+        "days_mask": {
+          "description": "7비트 요일 마스크",
+          "type": "integer"
+        },
+        "enabled": {
+          "description": "활성화 여부",
+          "type": "boolean"
+        },
+        "end_minute": {
+          "description": "종료 분 (18:00 = 1080분)",
+          "type": "integer"
+        },
+        "mode": {
+          "description": "모드",
+          "allOf": [
+            {
+              "$ref": "#/definitions/models.AnalysisMode"
+            }
+          ]
+        },
+        "priority": {
+          "description": "우선순위",
+          "type": "integer"
+        },
+        "start_minute": {
+          "description": "시작 분 (9:00 = 540분)",
+          "type": "integer"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "BearerAuth": {
+      "description": "Type \"Bearer\" followed by a space and JWT token.",
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "schemes": [
+    "https"
+  ]
+}

@@ -1,0 +1,298 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "\n## 기본 URL\n\n```\nhttps://{서버 주소}/proxy\n```\n\n모든 경로는 웹 서버(HTTPS)를 통해 `/proxy` 접두로 접근합니다. 아래 각 엔드포인트에\n표기된 경로가 이미 접두를 포함한 실제 호출 경로입니다.\n\n## 인증\n\n모든 요청에 JWT 접근 토큰이 필요합니다.\n\n```\nPOST https://{서버 주소}/auth/api/v1/auth/login\n{ \"username\": \"admin\", \"password\": \"********\" }\n```\n\n응답의 `accessToken` 을 이후 요청 헤더에 부착하십시오.\n\n```\nAuthorization: Bearer {accessToken}\n```\n\n접근 토큰은 기본 10분 후 만료되며, `POST https://{서버 주소}/auth/api/v1/auth/refresh` 로\n갱신합니다.\n\n\n---\n\n동적 웹 프록시 서비스 - X-Frame-Options 우회를 통한 iframe 내 외부 페이지 표시",
+    "title": "Nox NVR Proxy Service API",
+    "contact": {
+      "name": "API Support",
+      "email": "support@yiyol.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0"
+  },
+  "host": "{서버 주소}",
+  "basePath": "/",
+  "paths": {
+    "/proxy/api/v1/proxy/sessions": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "현재 사용자의 모든 프록시 세션을 조회합니다",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "proxy"
+        ],
+        "summary": "사용자 세션 목록",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/session.SessionInfo"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "외부 URL에 대한 프록시 세션을 생성합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "proxy"
+        ],
+        "summary": "프록시 세션 생성",
+        "parameters": [
+          {
+            "description": "세션 생성 요청",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/session.CreateSessionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/session.CreateSessionResponse"
+            }
+          },
+          "400": {
+            "description": "잘못된 요청",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "403": {
+            "description": "허용되지 않는 URL",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/proxy/api/v1/proxy/sessions/{id}": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "프록시 세션 정보를 조회합니다",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "proxy"
+        ],
+        "summary": "프록시 세션 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "세션 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/session.SessionInfo"
+            }
+          },
+          "404": {
+            "description": "세션 없음",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "프록시 세션을 삭제합니다",
+        "tags": [
+          "proxy"
+        ],
+        "summary": "프록시 세션 삭제",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "세션 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "삭제 완료",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "세션 없음",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{proxyId}/{path}": {
+      "get": {
+        "description": "프록시 세션을 통해 외부 URL에 대한 요청을 처리합니다",
+        "tags": [
+          "proxy"
+        ],
+        "summary": "프록시 요청 처리",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "프록시 세션 ID",
+            "name": "proxyId",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "요청 경로",
+            "name": "path",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "프록시된 응답"
+          },
+          "404": {
+            "description": "세션 없음",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "502": {
+            "description": "프록시 오류",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "session.CreateSessionRequest": {
+      "type": "object",
+      "required": [
+        "targetUrl"
+      ],
+      "properties": {
+        "targetUrl": {
+          "type": "string"
+        }
+      }
+    },
+    "session.CreateSessionResponse": {
+      "type": "object",
+      "properties": {
+        "expiresAt": {
+          "type": "string"
+        },
+        "proxyId": {
+          "type": "string"
+        },
+        "proxyUrl": {
+          "type": "string"
+        },
+        "targetUrl": {
+          "type": "string"
+        }
+      }
+    },
+    "session.SessionInfo": {
+      "type": "object",
+      "properties": {
+        "accessCount": {
+          "type": "integer"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "expiresAt": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "lastAccess": {
+          "type": "string"
+        },
+        "targetUrl": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "BearerAuth": {
+      "description": "Type \"Bearer\" followed by a space and JWT token.",
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "schemes": [
+    "https"
+  ]
+}

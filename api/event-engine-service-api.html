@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Event Engine Service API</title>
+<style>
+  body { margin: 0; padding: 0; }
+</style>
+</head>
+<body>
+<div id="redoc"></div>
+<a class="back" href="index.html">← 서비스 목록</a>
+<style>
+  .back {
+    position: fixed; left: 12px; bottom: 12px; z-index: 100;
+    background: #ffffff; border: 1px solid #d5dbe4; border-radius: 6px;
+    padding: 7px 12px; font: 13px/1 -apple-system, BlinkMacSystemFont, "Segoe UI",
+      "Noto Sans KR", sans-serif; color: #32329f; text-decoration: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,.12);
+  }
+  .back:hover { background: #f5f7fa; }
+</style>
+<script id="openapi-spec" type="application/json">{"swagger": "2.0", "info": {"description": "\n## 기본 URL\n\n```\nhttps://{서버 주소}/event-engine\n```\n\n모든 경로는 웹 서버(HTTPS)를 통해 `/event-engine` 접두로 접근합니다. 아래 각 엔드포인트에\n표기된 경로가 이미 접두를 포함한 실제 호출 경로입니다.\n\n## 인증\n\n모든 요청에 JWT 접근 토큰이 필요합니다.\n\n```\nPOST https://{서버 주소}/auth/api/v1/auth/login\n{ \"username\": \"admin\", \"password\": \"********\" }\n```\n\n응답의 `accessToken` 을 이후 요청 헤더에 부착하십시오.\n\n```\nAuthorization: Bearer {accessToken}\n```\n\n접근 토큰은 기본 10분 후 만료되며, `POST https://{서버 주소}/auth/api/v1/auth/refresh` 로\n갱신합니다.\n\n\n---\n\nNOX 이벤트 검출 엔진 서비스 (L3 룰 엔진 + L4 액션). perception 채널을 구독해 선언적 룰을 평가하고 검출 이벤트를 발행한다.", "title": "Event Engine Service API", "contact": {}, "version": "1.0"}, "host": "{서버 주소}", "basePath": "/", "paths": {"/event-engine/api/v1/feedback": {"get": {"produces": ["application/json"], "tags": ["feedback"], "summary": "룰 발화 피드백 목록 조회", "parameters": [{"type": "string", "description": "detection UUID", "name": "detection_id", "in": "query", "required": true}], "responses": {"200": {"description": "feedbacks 배열", "schema": {"type": "object", "additionalProperties": true}}, "400": {"description": "detection_id 누락/오류", "schema": {"type": "object", "additionalProperties": true}}}}, "post": {"description": "운영자가 룰 발화 알림이 맞았는지/틀렸는지 평가한 결과를 적재한다. 임계값/프롬프트 보정 데이터로 쓰인다.", "consumes": ["application/json"], "produces": ["application/json"], "tags": ["feedback"], "summary": "룰 발화 피드백 생성 (맞음/틀림)", "parameters": [{"description": "피드백 본문", "name": "body", "in": "body", "required": true, "schema": {"$ref": "#/definitions/handler.feedbackRequest"}}], "responses": {"201": {"description": "Created", "schema": {"$ref": "#/definitions/repository.RuleFeedback"}}, "400": {"description": "잘못된 요청 (verdict enum 위반 등)", "schema": {"type": "object", "additionalProperties": true}}}}}, "/event-engine/api/v1/feedback/stats": {"get": {"description": "detection 단위 correct/wrong 건수와 정확도(correct/total). 임계값·프롬프트 보정 데이터.", "produces": ["application/json"], "tags": ["feedback"], "summary": "룰 발화 피드백 집계 조회", "parameters": [{"type": "string", "description": "detection UUID", "name": "detection_id", "in": "query", "required": true}], "responses": {"200": {"description": "OK", "schema": {"$ref": "#/definitions/repository.FeedbackStats"}}, "400": {"description": "detection_id 누락/오류", "schema": {"type": "object", "additionalProperties": true}}}}}, "/event-engine/api/v1/rules": {"get": {"produces": ["application/json"], "tags": ["rules"], "summary": "룰 목록 조회", "responses": {"200": {"description": "OK", "schema": {"type": "array", "items": {"$ref": "#/definitions/repository.Rule"}}}}}, "post": {"consumes": ["application/json"], "produces": ["application/json"], "tags": ["rules"], "summary": "룰 생성", "parameters": [{"description": "룰 본문", "name": "body", "in": "body", "required": true, "schema": {"$ref": "#/definitions/handler.ruleRequest"}}], "responses": {"201": {"description": "Created", "schema": {"$ref": "#/definitions/repository.Rule"}}}}}, "/event-engine/api/v1/rules/{id}": {"get": {"produces": ["application/json"], "tags": ["rules"], "summary": "룰 단건 조회", "parameters": [{"type": "string", "description": "룰 UUID", "name": "id", "in": "path", "required": true}], "responses": {"200": {"description": "OK", "schema": {"$ref": "#/definitions/repository.Rule"}}}}, "put": {"consumes": ["application/json"], "produces": ["application/json"], "tags": ["rules"], "summary": "룰 수정", "parameters": [{"type": "string", "description": "룰 UUID", "name": "id", "in": "path", "required": true}, {"description": "룰 본문", "name": "body", "in": "body", "required": true, "schema": {"$ref": "#/definitions/handler.ruleRequest"}}], "responses": {"200": {"description": "OK", "schema": {"$ref": "#/definitions/repository.Rule"}}}}, "delete": {"tags": ["rules"], "summary": "룰 삭제", "parameters": [{"type": "string", "description": "룰 UUID", "name": "id", "in": "path", "required": true}], "responses": {"204": {"description": "No Content"}}}}}, "definitions": {"handler.feedbackRequest": {"type": "object", "required": ["detection_id", "verdict"], "properties": {"detection_id": {"description": "평가 대상 detection UUID", "type": "string"}, "event_id": {"description": "선택 — event-service events.id", "type": "string"}, "snapshot_id": {"description": "선택 — 평가 대상 스냅샷 UUID", "type": "string"}, "verdict": {"description": "correct | wrong", "type": "string"}}}, "handler.ruleRequest": {"type": "object", "required": ["yaml_body"], "properties": {"enabled": {"description": "nil 이면 true", "type": "boolean"}, "yaml_body": {"description": "원본 YAML 룰 본문", "type": "string"}}}, "repository.FeedbackStats": {"type": "object", "properties": {"accuracy": {"description": "correct / total (total=0 이면 0)", "type": "number"}, "correct": {"description": "맞음 건수", "type": "integer"}, "detection_id": {"type": "string"}, "total": {"description": "전체 건수", "type": "integer"}, "wrong": {"description": "틀림 건수", "type": "integer"}}}, "repository.Rule": {"type": "object", "properties": {"created_at": {"type": "string"}, "enabled": {"type": "boolean"}, "event_type": {"type": "string"}, "id": {"type": "string"}, "name": {"type": "string"}, "rule_type": {"type": "string"}, "severity": {"type": "string"}, "updated_at": {"type": "string"}, "yaml_body": {"type": "string"}}}, "repository.RuleFeedback": {"type": "object", "properties": {"created_at": {"type": "string"}, "detection_id": {"type": "string"}, "event_id": {"description": "선택 — event-service events.id 논리 참조", "type": "string"}, "id": {"type": "string"}, "snapshot_id": {"description": "선택 — 스냅샷 삭제 시 NULL", "type": "string"}, "verdict": {"$ref": "#/definitions/repository.Verdict"}}}, "repository.Verdict": {"type": "string", "enum": ["correct", "wrong"], "x-enum-varnames": ["VerdictCorrect", "VerdictWrong"]}}, "securityDefinitions": {"BearerAuth": {"description": "Type \"Bearer\" followed by a space and JWT token.", "type": "apiKey", "name": "Authorization", "in": "header"}}, "schemes": ["https"]}</script>
+<script src="redoc.standalone.js"></script>
+<script>
+  var spec = JSON.parse(document.getElementById('openapi-spec').textContent);
+  Redoc.init(spec, {
+    scrollYOffset: 0,
+    hideDownloadButton: false,
+    expandResponses: '200,201',
+    jsonSampleExpandLevel: 3,
+    theme: { typography: { fontSize: '15px' } }
+  }, document.getElementById('redoc'));
+</script>
+</body>
+</html>

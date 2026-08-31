@@ -1,0 +1,2280 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "\n## 기본 URL\n\n```\nhttps://{서버 주소}/bff\n```\n\n모든 경로는 웹 서버(HTTPS)를 통해 `/bff` 접두로 접근합니다. 아래 각 엔드포인트에\n표기된 경로가 이미 접두를 포함한 실제 호출 경로입니다.\n\n## 인증\n\n모든 요청에 JWT 접근 토큰이 필요합니다.\n\n```\nPOST https://{서버 주소}/auth/api/v1/auth/login\n{ \"username\": \"admin\", \"password\": \"********\" }\n```\n\n응답의 `accessToken` 을 이후 요청 헤더에 부착하십시오.\n\n```\nAuthorization: Bearer {accessToken}\n```\n\n접근 토큰은 기본 10분 후 만료되며, `POST https://{서버 주소}/auth/api/v1/auth/refresh` 로\n갱신합니다.\n\n\n---\n\nFrontend를 위한 Backend For Frontend 서비스",
+    "title": "Nox NVR Frontend BFF API",
+    "contact": {
+      "name": "API Support",
+      "email": "support@yiyol.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0"
+  },
+  "host": "{서버 주소}",
+  "basePath": "/",
+  "paths": {
+    "/bff/api/v1/cameras": {
+      "get": {
+        "description": "사용자에게 할당된 리소스 그룹을 기반으로 접근 가능한 카메라 목록을 조회합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "cameras"
+        ],
+        "summary": "사용자 카메라 목록 조회",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/clients.UserCameraInfo"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/bff/api/v1/cameras/metrics": {
+      "get": {
+        "description": "camera-service의 카메라별 최신 bps/ping_ms 스냅샷을 프록시한다(WebSocket 구독 전 초기값용)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "cameras"
+        ],
+        "summary": "카메라 네트워크 지표 조회",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/clients.CameraMetric"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/bff/api/v1/dashboards": {
+      "get": {
+        "description": "내가 소유한 대시보드와 공용(shared) 대시보드를 이름 오름차순으로 반환합니다. 응답 경량화를 위해 spec 은 포함되지 않습니다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "dashboards"
+        ],
+        "summary": "대시보드 목록 조회",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/handlers.dashboardListResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Perses DashboardResource 를 새 대시보드로 저장합니다. shared=true 로 만드는 것은 관리 접속에서만 허용됩니다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "dashboards"
+        ],
+        "summary": "대시보드 생성",
+        "parameters": [
+          {
+            "description": "대시보드 생성 요청",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/handlers.createDashboardRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/handlers.DashboardRecord"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "413": {
+            "description": "Request Entity Too Large",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bff/api/v1/dashboards/{id}": {
+      "get": {
+        "description": "대시보드 한 건을 spec(Perses DashboardResource) 과 함께 조회합니다. 소유자이거나 공용 대시보드일 때만 조회되며, 그 외에는 존재를 드러내지 않기 위해 404 를 반환합니다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "dashboards"
+        ],
+        "summary": "대시보드 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Dashboard ID (UUID)",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/handlers.DashboardRecord"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "이름/스펙/공유 여부를 수정합니다. 생략한 필드는 기존 값을 유지합니다. 개인 대시보드는 소유자가, 공용 대시보드는 관리 접속만 수정할 수 있으며 shared 플래그 전환도 관리 접속 전용입니다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "dashboards"
+        ],
+        "summary": "대시보드 수정",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Dashboard ID (UUID)",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "대시보드 수정 요청",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/handlers.updateDashboardRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/handlers.DashboardRecord"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "413": {
+            "description": "Request Entity Too Large",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "대시보드를 삭제합니다. 개인 대시보드는 소유자가, 공용 대시보드는 관리 접속만 삭제할 수 있습니다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "dashboards"
+        ],
+        "summary": "대시보드 삭제",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Dashboard ID (UUID)",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "삭제 완료"
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bff/api/v1/enriched-resource-groups/{id}/resources": {
+      "get": {
+        "description": "리소스 그룹에 속한 리소스 목록을 실제 리소스 이름과 함께 조회합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "resource-groups"
+        ],
+        "summary": "리소스 그룹의 리소스 목록 조회 (enriched)",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Resource Group ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/handlers.EnrichedResourceGroupResource"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bff/api/v1/federation-channels": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "페더레이션 매핑된 로컬 채널 ID 목록을 반환한다. nox-ui 가 설정/PTZ 분기 전 비-페더레이션(로컬) 채널의 불필요한 federation-config 프로브를 건너뛰게 하는 힌트다. 민감정보(원격 식별자·토큰) 미포함. 조회 실패 시 비-200 을 반환하면 nox-ui 는 기존 프로브 동작으로 폴백한다.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Federation"
+        ],
+        "summary": "페더레이션된 로컬 채널 ID 목록 (라우팅 힌트)",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bff/api/v1/federation-clip/multi-export": {
+      "post": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "원격(페더레이션) 채널 백업은 지원하지 않는다. 요청은 본문 해석 전에 400 REMOTE_BACKUP_NOT_SUPPORTED 로 거부되며(fail-closed), 인가·resolve·원격 노드 호출은 일어나지 않는다.\n백업 산출물은 시스템 디스크·NOX 저장소를 제외한 외부 저장소(USB 등) 루트에 직접 기록되는데, 원격 노드가 만든 산출물은 그 저장소에 기록할 경로가 없다. 서버 스트리밍 export 는 후속 과제.\n상태 조회(GET /federation-clip/{clipId}/status)는 차단 대상이 아니다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "FederationClip"
+        ],
+        "summary": "페더레이션 원격 클립 백업 시작 (미지원)",
+        "parameters": [
+          {
+            "description": "백업 요청(무시됨 — 항상 거부)",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/handlers.federationClipExportClientRequest"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "원격 채널 백업 미지원(REMOTE_BACKUP_NOT_SUPPORTED)",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bff/api/v1/federation-clip/{clipId}/status": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "fedClipID 의 백업 상태를 federation-service 경유로 프록시한다(응답 패스스루).",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "FederationClip"
+        ],
+        "summary": "페더레이션 원격 클립 백업 상태 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "fedClipID",
+            "name": "clipId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/bff/api/v1/federation-config/{proxyPath}": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "원격 채널 카메라의 config GET 을 프록시한다(변경 전 현재값 조회·변경 후 재조회, AC-17). channel_id 인가(AllowConfig, fail-closed) → resolve → federation-service 위임 → nox-b 응답 패스스루. 응답 스키마는 로컬 config GET 과 동일.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "FederationConfig"
+        ],
+        "summary": "페더레이션 설정 읽기(현재값/변경 후 재조회) 프록시",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "로컬 채널 ID (인가·해석의 단일 권위)",
+            "name": "channel_id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "nox-b 카메라 config 하위 경로 (/config/video/encoder/{token} 등)",
+            "name": "proxyPath",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {}
+      },
+      "put": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "원격 채널의 카메라 설정(인코더/소스/이미징/오디오/OSD)을 변경한다. channel_id 쓰기 인가(AllowConfig, fail-closed) → resolve → federation-service 위임 → nox-b 응답 패스스루. 응답 스키마는 로컬 설정 변경과 동일.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "FederationConfig"
+        ],
+        "summary": "페더레이션 설정 변경(쓰기) 프록시",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "로컬 채널 ID (인가·해석의 단일 권위)",
+            "name": "channel_id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "nox-b 카메라 설정 하위 경로 (/config/video/encoder/{token} 등)",
+            "name": "proxyPath",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {}
+      },
+      "post": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "원격 채널의 카메라 설정(인코더/소스/이미징/오디오/OSD)을 변경한다. channel_id 쓰기 인가(AllowConfig, fail-closed) → resolve → federation-service 위임 → nox-b 응답 패스스루. 응답 스키마는 로컬 설정 변경과 동일.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "FederationConfig"
+        ],
+        "summary": "페더레이션 설정 변경(쓰기) 프록시",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "로컬 채널 ID (인가·해석의 단일 권위)",
+            "name": "channel_id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "nox-b 카메라 설정 하위 경로 (/config/video/encoder/{token} 등)",
+            "name": "proxyPath",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {}
+      },
+      "delete": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "원격 채널의 카메라 설정(인코더/소스/이미징/오디오/OSD)을 변경한다. channel_id 쓰기 인가(AllowConfig, fail-closed) → resolve → federation-service 위임 → nox-b 응답 패스스루. 응답 스키마는 로컬 설정 변경과 동일.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "FederationConfig"
+        ],
+        "summary": "페더레이션 설정 변경(쓰기) 프록시",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "로컬 채널 ID (인가·해석의 단일 권위)",
+            "name": "channel_id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "nox-b 카메라 설정 하위 경로 (/config/video/encoder/{token} 등)",
+            "name": "proxyPath",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/bff/api/v1/federation-replay/uri": {
+      "post": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "원격 채널의 재생 세션을 생성한다. channel_id 인가(fail-closed) → resolve → federation-service 위임 → nox-a MediaUri 반환. 응답 스키마는 로컬 재생과 동일.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "FederationReplay"
+        ],
+        "summary": "페더레이션 재생 세션 생성",
+        "parameters": [
+          {
+            "description": "재생 세션 생성 요청(channel_id 필수, recording_token 무시)",
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/handlers.replayURIClientRequest"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/bff/api/v1/federation-search/events/batch": {
+      "post": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "channel_ids(로컬+원격 혼합) 배열을 채널별 인가→resolve 분류 후, 로컬 1 + 원격 노드별\n병렬 fan-out 하여 event_time 시간순으로 병합·재페이지네이션한다. 응답 스키마는 로컬\n이벤트 검색과 동일하며 부분실패 시 partial/failed_nodes/excluded_count 가 추가된다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "FederationSearch"
+        ],
+        "summary": "페더레이션 이벤트 다중채널 집계 검색",
+        "parameters": [
+          {
+            "description": "이벤트 집계 검색 요청",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/handlers.eventBatchRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "이벤트 검색 결과(total,page,limit,events[,partial,failed_nodes,excluded_count])",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "잘못된 요청",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "모든 소스 실패",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bff/api/v1/federation-search/events/search": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "FederationSearch"
+        ],
+        "summary": "페더레이션 이벤트 검색 프록시",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "로컬 채널 ID (federation 판별용)",
+            "name": "channel_id",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/bff/api/v1/federation-search/metadata/batch": {
+      "post": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "channel_ids(M6 — 메타도 channel 컨텍스트 동반) 배열을 채널별 인가→resolve 분류 후,\n로컬은 recording_ids 필터로, 원격은 RemoteCameraID 로 스코프하여 노드별 병렬 fan-out\n하고 time 시간순으로 병합·재페이지네이션한다. 원격 recording_id 는 사용하지 않는다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "FederationSearch"
+        ],
+        "summary": "페더레이션 메타데이터 다중채널 집계 검색",
+        "parameters": [
+          {
+            "description": "메타데이터 집계 검색 요청",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/handlers.metadataBatchRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "메타 검색 결과(total_count,results[,partial,failed_nodes,excluded_count])",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "잘못된 요청",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "모든 소스 실패",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bff/api/v1/federation-search/metadata/search": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "FederationSearch"
+        ],
+        "summary": "페더레이션 메타데이터 검색 프록시",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "로컬 채널 ID (federation 판별용)",
+            "name": "channel_id",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/bff/api/v1/federation-search/recordings/{recordingToken}/timeline": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "원격 채널의 timeline/sessions/events 등을 federation-service 경유로 프록시한다(응답 패스스루).",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "FederationSearch"
+        ],
+        "summary": "페더레이션 녹화 검색 프록시",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "로컬 recording_token (원격으로 치환됨)",
+            "name": "recordingToken",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "로컬 채널 ID (federation 판별용)",
+            "name": "channel_id",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/bff/api/v1/layouts": {
+      "get": {
+        "description": "사용자가 접근 가능한 레이아웃 목록을 조회하며, 각 타일의 리소스 권한을 필터링합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "layouts"
+        ],
+        "summary": "레이아웃 목록 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Organization ID",
+            "name": "org_id",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/clients.Layout"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bff/api/v1/layouts/{id}": {
+      "get": {
+        "description": "특정 레이아웃을 조회하며, 타일의 리소스 권한을 필터링합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "layouts"
+        ],
+        "summary": "레이아웃 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Layout ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/clients.Layout"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bff/api/v1/metrics-proxy/{proxyPath}": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "대시보드(Perses)의 PromQL 조회를 VictoriaMetrics 로 중계한다. 허용 경로는 api/v1/query, api/v1/query_range, api/v1/labels, api/v1/label/{name}/values, api/v1/series 뿐이며 그 외는 404 다(읽기 전용). query_range 는 조회 구간 32일 상한과 step 하한((end-start)/11000)이 서버측에서 강제된다. 업스트림 타임아웃 15초, 응답 32MiB 상한이며 클라이언트 헤더(Authorization 등)는 업스트림으로 전달되지 않는다. 응답은 업스트림 상태코드/Content-Type 그대로 패스스루.",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Metrics"
+        ],
+        "summary": "메트릭 조회 프록시 (VictoriaMetrics 읽기 전용)",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "허용된 업스트림 하위 경로 (/bff/api/v1/query 등)",
+            "name": "proxyPath",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "PromQL 표현식",
+            "name": "query",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "구간 시작 (unix 초 또는 RFC3339)",
+            "name": "start",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "구간 끝 (unix 초 또는 RFC3339)",
+            "name": "end",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "해상도 (초 또는 duration 표기). 하한 미만이면 하한으로 상향",
+            "name": "step",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "502": {
+            "description": "Bad Gateway",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "504": {
+            "description": "Gateway Timeout",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "대시보드(Perses)의 PromQL 조회를 VictoriaMetrics 로 중계한다. 허용 경로는 api/v1/query, api/v1/query_range, api/v1/labels, api/v1/label/{name}/values, api/v1/series 뿐이며 그 외는 404 다(읽기 전용). query_range 는 조회 구간 32일 상한과 step 하한((end-start)/11000)이 서버측에서 강제된다. 업스트림 타임아웃 15초, 응답 32MiB 상한이며 클라이언트 헤더(Authorization 등)는 업스트림으로 전달되지 않는다. 응답은 업스트림 상태코드/Content-Type 그대로 패스스루.",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Metrics"
+        ],
+        "summary": "메트릭 조회 프록시 (VictoriaMetrics 읽기 전용)",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "허용된 업스트림 하위 경로 (/bff/api/v1/query 등)",
+            "name": "proxyPath",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "PromQL 표현식",
+            "name": "query",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "구간 시작 (unix 초 또는 RFC3339)",
+            "name": "start",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "구간 끝 (unix 초 또는 RFC3339)",
+            "name": "end",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "description": "해상도 (초 또는 duration 표기). 하한 미만이면 하한으로 상향",
+            "name": "step",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "502": {
+            "description": "Bad Gateway",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "504": {
+            "description": "Gateway Timeout",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/bff/api/v1/recordings": {
+      "post": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "채널에 대한 녹화 설정을 생성한다. Config 는 record-service 계약을 그대로 전달하는 불투명 본문이다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "recordings"
+        ],
+        "summary": "녹화 설정 생성",
+        "parameters": [
+          {
+            "description": "요청 본문",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.RecordingRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bff/api/v1/recordings/metrics": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "record-service의 녹화별 최신 저장 fps/bps 스냅샷을 프록시한다(WebSocket 구독 전 초기값용). 접근 가능한 카메라 소속 녹화만 반환한다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Recording"
+        ],
+        "summary": "녹화 저장 지표 조회",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/clients.RecordMetric"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/bff/api/v1/resources/children/{rid}": {
+      "get": {
+        "description": "RID에 해당하는 자식 리소스들을 조회합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "resources"
+        ],
+        "summary": "자식 리소스 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Resource ID",
+            "name": "rid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.ChildrenResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bff/api/v1/streams/available": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "현재 사용자가 접근 가능한 스트림 목록을 반환한다.",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "streams"
+        ],
+        "summary": "사용 가능 스트림 목록 조회",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bff/api/v1/streams/recording-status": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "현재 사용자가 접근 가능한 모든 스트림의 녹화 상태를 조회합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Recording"
+        ],
+        "summary": "모든 스트림의 녹화 상태 조회",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/bff/api/v1/streams/{stream_id}/recording-status": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "특정 스트림의 녹화 상태를 조회합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Recording"
+        ],
+        "summary": "특정 스트림의 녹화 상태 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "스트림 ID",
+            "name": "stream_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/bff/api/v1/system-config/export": {
+      "get": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "모든 시스템 설정을 JSON 파일로 내보냅니다",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "system-config"
+        ],
+        "summary": "시스템 설정 백업 내보내기",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/handlers.SystemConfigBackup"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bff/api/v1/system-config/restore": {
+      "post": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "백업 파일에서 시스템 설정을 복원합니다 (기존 데이터 덮어쓰기)",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "system-config"
+        ],
+        "summary": "시스템 설정 복원",
+        "parameters": [
+          {
+            "type": "file",
+            "description": "백업 파일",
+            "name": "file",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/handlers.RestoreResult"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/bff/api/v1/system-config/validate": {
+      "post": {
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "description": "업로드된 백업 파일의 유효성을 검증합니다",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "system-config"
+        ],
+        "summary": "시스템 설정 백업 파일 검증",
+        "parameters": [
+          {
+            "type": "file",
+            "description": "백업 파일",
+            "name": "file",
+            "in": "formData",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "clients.CameraChannel": {
+      "type": "object",
+      "properties": {
+        "camera_id": {
+          "type": "string"
+        },
+        "config": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      }
+    },
+    "clients.CameraMetric": {
+      "type": "object",
+      "properties": {
+        "bps": {
+          "type": "integer"
+        },
+        "camera_id": {
+          "type": "string"
+        },
+        "measured_at": {
+          "type": "string"
+        },
+        "ping_ms": {
+          "type": "integer"
+        }
+      }
+    },
+    "clients.Layout": {
+      "type": "object",
+      "properties": {
+        "created_at": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "is_shared": {
+          "type": "boolean"
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "name": {
+          "type": "string"
+        },
+        "org_id": {
+          "type": "string"
+        },
+        "owner_id": {
+          "type": "string"
+        },
+        "permission_level": {
+          "type": "string"
+        },
+        "resource_type": {
+          "type": "string"
+        },
+        "shared_by_user": {
+          "type": "boolean"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      }
+    },
+    "clients.RecordMetric": {
+      "type": "object",
+      "properties": {
+        "bps": {
+          "type": "integer"
+        },
+        "camera_id": {
+          "type": "string"
+        },
+        "fps": {
+          "type": "number"
+        },
+        "measured_at": {
+          "type": "string"
+        },
+        "recording_id": {
+          "type": "string"
+        },
+        "stream_id": {
+          "type": "string"
+        }
+      }
+    },
+    "clients.UserCameraInfo": {
+      "type": "object",
+      "properties": {
+        "allow_audio": {
+          "type": "boolean"
+        },
+        "allow_config": {
+          "type": "boolean"
+        },
+        "allow_live": {
+          "type": "boolean"
+        },
+        "allow_ptz": {
+          "type": "boolean"
+        },
+        "allow_search": {
+          "type": "boolean"
+        },
+        "allow_snapshot": {
+          "type": "boolean"
+        },
+        "channels": {
+          "description": "Channels 카메라에 속한 채널 배열 (BFF에서 채널 단위 레이아웃 배치를 위해 병합됨)",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/clients.CameraChannel"
+          }
+        },
+        "device_uuid": {
+          "type": "string"
+        },
+        "driver_type": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "ip": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "port": {
+          "type": "integer"
+        },
+        "resource_group_id": {
+          "type": "string"
+        },
+        "restrictions": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "role_name": {
+          "type": "string"
+        },
+        "rtsp_url": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "handlers.DashboardRecord": {
+      "type": "object",
+      "properties": {
+        "created_at": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "owner": {
+          "type": "string"
+        },
+        "shared": {
+          "type": "boolean"
+        },
+        "spec": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "spec_version": {
+          "type": "integer"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      }
+    },
+    "handlers.EnrichedResourceGroupResource": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "resourceId": {
+          "type": "string"
+        },
+        "resourceName": {
+          "description": "실제 리소스에서 조회한 이름",
+          "type": "string"
+        },
+        "resourceType": {
+          "type": "string"
+        }
+      }
+    },
+    "handlers.RestoreDetails": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "restored": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "handlers.RestoreResult": {
+      "type": "object",
+      "properties": {
+        "details": {
+          "$ref": "#/definitions/handlers.RestoreDetails"
+        },
+        "message": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean"
+        }
+      }
+    },
+    "handlers.SystemConfigBackup": {
+      "type": "object",
+      "properties": {
+        "created_at": {
+          "type": "string"
+        },
+        "created_by": {
+          "type": "string"
+        },
+        "data": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "type": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      }
+    },
+    "handlers.createDashboardRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "shared": {
+          "type": "boolean"
+        },
+        "spec": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "handlers.dashboardListResponse": {
+      "type": "object",
+      "properties": {
+        "dashboards": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/handlers.DashboardRecord"
+          }
+        }
+      }
+    },
+    "handlers.eventBatchRequest": {
+      "type": "object",
+      "properties": {
+        "ack_state": {
+          "description": "AckState 확인 상태 필터(none|acknowledged, 2단계 F11). 빈 값 = 전체.\n\n⚠ 이 필드가 없으면 UI 의 \"미확인\" 필터가 **조용히 무시**되어 확인된 이벤트까지 섞여 나온다\n  (검색은 전부 이 집계 엔드포인트를 지난다). 값 검증은 다운스트림(search-service)이\n  IsValidAckState 로 하며, 카탈로그 밖 값은 거기서 400 으로 거절된다 — 여기서 다시\n  판정하면 카탈로그가 두 벌이 되어 서버가 값을 늘릴 때 BFF 가 막는다.",
+          "type": "string"
+        },
+        "channel_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "end_time": {
+          "type": "string"
+        },
+        "event_types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "limit": {
+          "type": "integer"
+        },
+        "page": {
+          "type": "integer"
+        },
+        "severities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sort": {
+          "type": "string"
+        },
+        "start_time": {
+          "type": "string"
+        }
+      }
+    },
+    "handlers.federationClipChannelReq": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        },
+        "recording_name": {
+          "type": "string"
+        }
+      }
+    },
+    "handlers.federationClipExportClientRequest": {
+      "type": "object",
+      "properties": {
+        "backup_location": {
+          "description": "BackupLocation/StorageID 는 로컬 백업 전용 필드다. 여기서 받는 이유는 사용하기\n위해서가 아니라 **거부하기 위해서**다 — 아래 validateFederationBackupTarget 참조.",
+          "type": "string"
+        },
+        "channels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/handlers.federationClipChannelReq"
+          }
+        },
+        "deid_method": {
+          "type": "string"
+        },
+        "deid_targets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "deidentify": {
+          "type": "boolean"
+        },
+        "end_time": {
+          "type": "string"
+        },
+        "format": {
+          "description": "Format 산출물 컨테이너 축. 같은 이유로 **거부용**이다(원격 백업은 NOXV 만 지원) —\nvalidateFederationClipFormat 참조.",
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "start_time": {
+          "type": "string"
+        },
+        "storage_id": {
+          "type": "string"
+        }
+      }
+    },
+    "handlers.metadataBatchRequest": {
+      "type": "object",
+      "properties": {
+        "channel_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "end": {
+          "type": "string"
+        },
+        "license_plate_text": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "integer"
+        },
+        "min_confidence": {
+          "type": "number"
+        },
+        "object_classes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "offset": {
+          "type": "integer"
+        },
+        "recording_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "region_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "start": {
+          "type": "string"
+        }
+      }
+    },
+    "handlers.replayURIClientRequest": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        },
+        "end_time": {
+          "type": "string"
+        },
+        "playback_rate": {
+          "type": "number"
+        },
+        "protocol": {
+          "type": "string"
+        },
+        "start_time": {
+          "type": "string"
+        }
+      }
+    },
+    "handlers.updateDashboardRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "shared": {
+          "type": "boolean"
+        },
+        "spec": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "models.ChildrenResponse": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.ResourceRef"
+          }
+        },
+        "parent": {
+          "type": "string"
+        }
+      }
+    },
+    "models.RecordingRequest": {
+      "type": "object",
+      "properties": {
+        "camera_id": {
+          "description": "카메라 ID (카메라 삭제 시 녹화 연동 삭제용)",
+          "type": "string"
+        },
+        "channel_id": {
+          "description": "채널 ID (camera_channels.id) — BFF 에서 stream_id 로 자동 보완",
+          "type": "string"
+        },
+        "config": {
+          "description": "녹화 설정 — 불투명 패스스루 (UI ↔ record-service 간 원문 유지)",
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "source_url": {
+          "description": "소스 URL (선택적)",
+          "type": "string"
+        },
+        "stream_id": {
+          "description": "스트림 ID (선택적)",
+          "type": "string"
+        }
+      }
+    },
+    "models.ResourceRef": {
+      "type": "object",
+      "properties": {
+        "meta": {
+          "description": "Admin만 포함",
+          "type": "object",
+          "additionalProperties": true
+        },
+        "name": {
+          "type": "string"
+        },
+        "rid": {
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/definitions/models.ResourceType"
+        }
+      }
+    },
+    "models.ResourceType": {
+      "type": "string",
+      "enum": [
+        "camera",
+        "channel",
+        "stream",
+        "recording",
+        "layout",
+        "user"
+      ],
+      "x-enum-varnames": [
+        "ResourceTypeCamera",
+        "ResourceTypeChannel",
+        "ResourceTypeStream",
+        "ResourceTypeRecording",
+        "ResourceTypeLayout",
+        "ResourceTypeUser"
+      ]
+    }
+  },
+  "securityDefinitions": {
+    "BearerAuth": {
+      "description": "Type \"Bearer\" followed by a space and JWT token.",
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "schemes": [
+    "https"
+  ]
+}

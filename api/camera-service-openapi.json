@@ -1,0 +1,7721 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "\n## 기본 URL\n\n```\nhttps://{서버 주소}/camera\n```\n\n모든 경로는 웹 서버(HTTPS)를 통해 `/camera` 접두로 접근합니다. 아래 각 엔드포인트에\n표기된 경로가 이미 접두를 포함한 실제 호출 경로입니다.\n\n## 인증\n\n모든 요청에 JWT 접근 토큰이 필요합니다.\n\n```\nPOST https://{서버 주소}/auth/api/v1/auth/login\n{ \"username\": \"admin\", \"password\": \"********\" }\n```\n\n응답의 `accessToken` 을 이후 요청 헤더에 부착하십시오.\n\n```\nAuthorization: Bearer {accessToken}\n```\n\n접근 토큰은 기본 10분 후 만료되며, `POST https://{서버 주소}/auth/api/v1/auth/refresh` 로\n갱신합니다.\n\n\n---\n\nJSONB 기반 카메라 관리 서비스",
+    "title": "Nox NVR Camera Service API",
+    "contact": {
+      "name": "API Support",
+      "email": "support@yiyol.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0"
+  },
+  "host": "{서버 주소}",
+  "basePath": "/",
+  "paths": {
+    "/camera/api/v1/cameras": {
+      "get": {
+        "description": "모든 카메라 목록 조회 (JSONB 기반, 사용자 권한에 따라 필터링)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Cameras"
+        ],
+        "summary": "Get all cameras",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/github_com_yiyolcorp_nox_services_camera-service_pkg_models.Camera"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "새 카메라 추가 - 카메라 메타데이터만 등록 (채널/스트림 생성은 별도 API 사용)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Cameras"
+        ],
+        "summary": "Add new camera",
+        "parameters": [
+          {
+            "description": "Camera data",
+            "name": "camera",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.CameraCreateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/github_com_yiyolcorp_nox_services_camera-service_pkg_models.Camera"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/discover": {
+      "post": {
+        "description": "네트워크에서 ONVIF 카메라를 검색합니다.\n\n- 바디 없음 / 빈 바디 / `{}` / `{\"mode\":\"auto\"}` → **자동 검색**(멀티캐스트 전 NIC 스캔)\n- `{\"mode\":\"ip\",\"targets\":[\"192.168.2.1-192.168.2.254\"]}` → **IP 검색**(유니캐스트 WS-Discovery Probe)\n\n대상 항목은 단일 IPv4 또는 전체 범위(`start-end`) 2형식만 허용하며, 총 대상 수는 254개(기본, /24 한 대역)로 제한됩니다.\n요청 바디는 64KB, `targets` 항목 수는 64개, 항목 문자열은 64자로 제한됩니다.\n멀티캐스트(224.0.0.0/4)·예약(240.0.0.0/4, 255.255.255.255 포함)·0.0.0.0 은 검색 대상이 될 수 없습니다.\nIP 검색은 사전 자격증명 시도를 하지 않으므로 응답의 Capabilities 는 항상 비어 있습니다(제조사·모델은 WS-Discovery Scope 에서 채워집니다).\nIP 검색은 서버 전역에서 동시에 1건만 실행됩니다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Cameras"
+        ],
+        "summary": "Discover ONVIF cameras",
+        "parameters": [
+          {
+            "description": "검색 요청 (생략 시 자동 검색)",
+            "name": "request",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/models.DiscoverCamerasRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "발견된 장치 목록 (0건이면 빈 배열)",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/discovery.Device"
+              }
+            }
+          },
+          "400": {
+            "description": "INVALID_REQUEST / INVALID_DISCOVERY_TARGET / DISCOVERY_TARGET_LIMIT_EXCEEDED",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "409": {
+            "description": "DISCOVERY_IN_PROGRESS",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "DISCOVERY_FAILED",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "503": {
+            "description": "DISCOVERY_UNAVAILABLE",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/export": {
+      "get": {
+        "description": "내보내기용 전체 카메라 목록 조회 (config, 채널, 스트림 포함, 암호화된 비밀번호)",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Cameras"
+        ],
+        "summary": "Export cameras for backup",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/handler.CameraExportData"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/mobile/claim": {
+      "post": {
+        "description": "등록 토큰을 검증하고 모바일 카메라를 생성합니다. device_uuid를 즉시 바인딩합니다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Mobile Camera"
+        ],
+        "summary": "모바일 카메라 Claim",
+        "parameters": [
+          {
+            "description": "Claim 요청",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/handler.ClaimMobileCameraRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "이미 등록된 디바이스",
+            "schema": {
+              "$ref": "#/definitions/handler.RegisterMobileCameraResponse"
+            }
+          },
+          "201": {
+            "description": "신규 등록",
+            "schema": {
+              "$ref": "#/definitions/handler.RegisterMobileCameraResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/mobile/prepare": {
+      "post": {
+        "description": "모바일 카메라 등록을 위한 QR 토큰을 생성합니다. DB에 카메라 레코드를 생성하지 않습니다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Mobile Camera"
+        ],
+        "summary": "모바일 카메라 등록 준비",
+        "parameters": [
+          {
+            "description": "등록 준비 요청",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/handler.PrepareMobileCameraRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/handler.PrepareMobileCameraResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/mobile/status": {
+      "get": {
+        "description": "device_uuid로 모바일 카메라 등록 여부를 확인합니다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Mobile Camera"
+        ],
+        "summary": "모바일 카메라 등록 상태 확인",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "디바이스 UUID",
+            "name": "device_uuid",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/handler.MobileCameraStatusResponse"
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/mobile/{device_uuid}": {
+      "delete": {
+        "description": "device_uuid로 모바일 카메라를 등록 해제합니다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Mobile Camera"
+        ],
+        "summary": "모바일 카메라 등록 해제",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "디바이스 UUID",
+            "name": "device_uuid",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/reorder": {
+      "put": {
+        "description": "카메라 목록의 표시 순서를 일괄 변경합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Cameras"
+        ],
+        "summary": "카메라 순서 변경",
+        "parameters": [
+          {
+            "description": "순서 변경 요청 {orders: [{id, sort_order}]}",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/search": {
+      "get": {
+        "description": "카메라 검색 (JSONB 기반)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Cameras"
+        ],
+        "summary": "Search cameras",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Search query",
+            "name": "q",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/github_com_yiyolcorp_nox_services_camera-service_pkg_models.Camera"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/status/{status}": {
+      "get": {
+        "description": "상태별 카메라 목록 조회 (JSONB 기반)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Cameras"
+        ],
+        "summary": "Get cameras by status",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Camera status",
+            "name": "status",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/github_com_yiyolcorp_nox_services_camera-service_pkg_models.Camera"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}": {
+      "get": {
+        "description": "ID로 특정 카메라 조회 (JSONB 기반)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Cameras"
+        ],
+        "summary": "Get camera by ID",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Camera ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/github_com_yiyolcorp_nox_services_camera-service_pkg_models.Camera"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "카메라 정보 업데이트 (JSONB 기반)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Cameras"
+        ],
+        "summary": "Update camera",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Camera ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "Update data",
+            "name": "camera",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.CameraUpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/github_com_yiyolcorp_nox_services_camera-service_pkg_models.Camera"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "카메라 삭제 (JSONB 기반)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Cameras"
+        ],
+        "summary": "Delete camera",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Camera ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/capabilities": {
+      "get": {
+        "description": "카메라의 기능 정보 조회 (PTZ, Analytics, Events, Imaging 지원 여부 등). ONVIF 카메라는 실제 기능을 조회하고, RTSP 카메라는 기본값 반환",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Capabilities"
+        ],
+        "summary": "Get camera capabilities",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Camera ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/types.CameraCapabilities"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "카메라 기능 설정 업데이트 (JSONB 기반)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Capabilities"
+        ],
+        "summary": "Update camera capability",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Camera ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "Capability update data",
+            "name": "capability",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.CapabilityUpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/channels": {
+      "get": {
+        "description": "카메라의 모든 채널 조회 (JSONB 기반). 드라이버가 있는 경우 실시간 채널 정보를 제공",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Channels"
+        ],
+        "summary": "Get camera channels",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Camera ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/models.CameraChannel"
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "새 채널 추가 (JSONB 기반)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Channels"
+        ],
+        "summary": "Add new channel",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Camera ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "Channel data",
+            "name": "channel",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.ChannelCreateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/models.CameraChannel"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/channels/discover": {
+      "post": {
+        "description": "드라이버를 동적으로 생성/연결하여 카메라의 채널을 검색합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Channels"
+        ],
+        "summary": "Discover camera channels using driver",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Camera ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/types.ChannelInfo"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/config/audio/encoder": {
+      "get": {
+        "description": "ONVIF 카메라의 오디오 인코더 설정 목록을 조회합니다",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Camera Config"
+        ],
+        "summary": "오디오 인코더 설정 목록 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/models.AudioEncoderConfigResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/config/audio/encoder/{token}": {
+      "put": {
+        "description": "ONVIF 카메라의 오디오 인코더 설정을 변경합니다 (인코딩, 비트레이트, 샘플레이트)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Camera Config"
+        ],
+        "summary": "오디오 인코더 설정 변경",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "오디오 인코더 토큰",
+            "name": "token",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "변경할 설정",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/onvif.SetAudioEncoderConfigRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.ConfigChangeResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/config/audio/source": {
+      "get": {
+        "description": "ONVIF 카메라의 오디오 소스 설정 목록을 조회합니다",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Camera Config"
+        ],
+        "summary": "오디오 소스 설정 목록 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/models.AudioSourceConfigResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/config/device/datetime": {
+      "get": {
+        "description": "ONVIF 카메라의 시스템 날짜/시간을 조회합니다 (UTC/로컬, NTP/Manual 모드)",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Camera Config"
+        ],
+        "summary": "시스템 날짜/시간 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.DateTimeResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "ONVIF 카메라의 시스템 날짜/시간을 설정합니다 (NTP 또는 Manual 모드)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Camera Config"
+        ],
+        "summary": "시스템 날짜/시간 설정",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "날짜/시간 설정",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.SetDateTimeRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.ConfigChangeResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/config/device/factory-reset": {
+      "post": {
+        "description": "ONVIF 카메라를 팩토리 리셋합니다 (config_admin 권한 필요, confirm: true 필수)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Camera Config"
+        ],
+        "summary": "팩토리 리셋",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "팩토리 리셋 요청 (confirm: true 필수)",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.FactoryResetRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.ConfigChangeResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/config/device/network": {
+      "get": {
+        "description": "ONVIF 카메라의 네트워크 인터페이스 설정을 조회합니다 (IP, DHCP, MTU 등)",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Camera Config"
+        ],
+        "summary": "네트워크 인터페이스 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/models.NetworkInterfaceResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/config/device/network/{token}": {
+      "put": {
+        "description": "ONVIF 카메라의 네트워크 인터페이스 설정을 변경합니다 (IP 주소, DHCP 등)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Camera Config"
+        ],
+        "summary": "네트워크 인터페이스 설정 변경",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "네트워크 인터페이스 토큰",
+            "name": "token",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "변경할 설정",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.SetNetworkInterfaceRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.SetNetworkInterfaceResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/config/device/reboot": {
+      "post": {
+        "description": "ONVIF 카메라를 리부트합니다 (config_admin 권한 필요)",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Camera Config"
+        ],
+        "summary": "시스템 리부트",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.SystemRebootResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/config/imaging/{video_source_token}": {
+      "get": {
+        "description": "ONVIF 카메라의 이미징 설정을 조회합니다 (밝기, 대비, 채도, 선명도, 노출, 화이트밸런스 등)",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Camera Config"
+        ],
+        "summary": "이미징 설정 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "비디오 소스 토큰",
+            "name": "video_source_token",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.ImagingSettingsResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "ONVIF 카메라의 이미징 설정을 변경합니다 (밝기, 대비, 채도, 선명도, 노출, 화이트밸런스 등)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Camera Config"
+        ],
+        "summary": "이미징 설정 변경",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "비디오 소스 토큰",
+            "name": "video_source_token",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "변경할 설정",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/onvif.SetImagingSettingsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.ConfigChangeResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/config/imaging/{video_source_token}/focus/move": {
+      "post": {
+        "description": "ONVIF 카메라의 포커스를 이동합니다 (절대/상대/연속)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Camera Config"
+        ],
+        "summary": "포커스 이동",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "비디오 소스 토큰",
+            "name": "video_source_token",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "포커스 이동 요청",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/onvif.FocusMoveRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/config/imaging/{video_source_token}/focus/stop": {
+      "post": {
+        "description": "ONVIF 카메라의 포커스 이동을 정지합니다",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Camera Config"
+        ],
+        "summary": "포커스 정지",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "비디오 소스 토큰",
+            "name": "video_source_token",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/config/imaging/{video_source_token}/options": {
+      "get": {
+        "description": "ONVIF 카메라가 지원하는 이미징 설정 범위를 조회합니다 (밝기/대비/채도 min/max 등)",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Camera Config"
+        ],
+        "summary": "이미징 옵션(지원 범위) 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "비디오 소스 토큰",
+            "name": "video_source_token",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.ImagingOptionsResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/config/osd": {
+      "get": {
+        "description": "ONVIF 카메라의 OSD(On-Screen Display) 목록을 조회합니다 (Media 2.0 필수)",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Camera Config"
+        ],
+        "summary": "OSD 목록 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "비디오 소스 설정 토큰으로 필터링",
+            "name": "configuration_token",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/models.OSDConfigResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "ONVIF 카메라에 새 OSD를 생성합니다 (텍스트 오버레이, 타임스탬프 등)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Camera Config"
+        ],
+        "summary": "OSD 생성",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "OSD 생성 요청",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.CreateOSDRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/config/osd/options": {
+      "get": {
+        "description": "ONVIF 카메라가 지원하는 OSD 옵션을 조회합니다 (최대 개수, 타입, 위치 등)",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Camera Config"
+        ],
+        "summary": "OSD 옵션(지원 범위) 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "비디오 소스 설정 토큰",
+            "name": "configuration_token",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.OSDOptionsResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/config/osd/{token}": {
+      "get": {
+        "description": "ONVIF 카메라의 특정 OSD를 토큰으로 조회합니다",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Camera Config"
+        ],
+        "summary": "특정 OSD 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "OSD 토큰",
+            "name": "token",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.OSDConfigResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "ONVIF 카메라의 OSD를 변경합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Camera Config"
+        ],
+        "summary": "OSD 변경",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "OSD 토큰",
+            "name": "token",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "OSD 변경 요청",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.SetOSDRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.ConfigChangeResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "ONVIF 카메라의 OSD를 삭제합니다",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Camera Config"
+        ],
+        "summary": "OSD 삭제",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "OSD 토큰",
+            "name": "token",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/config/video/encoder": {
+      "get": {
+        "description": "ONVIF 카메라의 비디오 인코더 설정 목록을 조회합니다",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Camera Config"
+        ],
+        "summary": "비디오 인코더 설정 목록 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/models.VideoEncoderConfigResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/config/video/encoder/{token}": {
+      "get": {
+        "description": "ONVIF 카메라의 특정 비디오 인코더 설정을 토큰으로 조회합니다",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Camera Config"
+        ],
+        "summary": "특정 비디오 인코더 설정 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "인코더 설정 토큰",
+            "name": "token",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.VideoEncoderConfigResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "ONVIF 카메라의 비디오 인코더 설정을 변경합니다 (해상도, 코덱, 비트레이트, FPS 등)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Camera Config"
+        ],
+        "summary": "비디오 인코더 설정 변경",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "인코더 설정 토큰",
+            "name": "token",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "변경할 설정",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/onvif.SetVideoEncoderConfigRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.ConfigChangeResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/config/video/encoder/{token}/options": {
+      "get": {
+        "description": "ONVIF 카메라가 지원하는 비디오 인코더 설정 범위를 조회합니다",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Camera Config"
+        ],
+        "summary": "비디오 인코더 옵션(지원 범위) 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "인코더 설정 토큰",
+            "name": "token",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "프로파일 토큰",
+            "name": "profile_token",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.VideoEncoderOptionsResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/config/video/source": {
+      "get": {
+        "description": "ONVIF 카메라의 비디오 소스 설정 목록을 조회합니다",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Camera Config"
+        ],
+        "summary": "비디오 소스 설정 목록 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/models.VideoSourceConfigResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/config/video/source/{token}": {
+      "put": {
+        "description": "ONVIF 카메라의 비디오 소스 설정을 변경합니다 (Bounds, Rotation)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Camera Config"
+        ],
+        "summary": "비디오 소스 설정 변경",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "소스 설정 토큰",
+            "name": "token",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "변경할 설정",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/onvif.SetVideoSourceConfigRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.ConfigChangeResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/ptz/configurations": {
+      "get": {
+        "description": "PTZ 설정 목록을 조회합니다",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "PTZ"
+        ],
+        "summary": "PTZ 설정 목록 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.PTZConfigurationsResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/ptz/home": {
+      "put": {
+        "description": "현재 위치를 홈으로 설정합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "PTZ"
+        ],
+        "summary": "홈 위치 설정",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "홈 위치 설정 요청",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.SetHomeRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/ptz/home/goto": {
+      "post": {
+        "description": "PTZ 홈 위치로 이동합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "PTZ"
+        ],
+        "summary": "홈 위치로 이동",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "홈 위치 이동 요청",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.GotoHomeRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/ptz/move/absolute": {
+      "post": {
+        "description": "PTZ 절대 위치로 이동합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "PTZ"
+        ],
+        "summary": "절대 위치 이동",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "절대 위치 이동 요청",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.AbsoluteMoveRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/ptz/move/continuous": {
+      "post": {
+        "description": "PTZ 연속 이동을 시작합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "PTZ"
+        ],
+        "summary": "연속 이동 시작",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "연속 이동 요청",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.ContinuousMoveRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/ptz/move/relative": {
+      "post": {
+        "description": "PTZ 상대 이동을 수행합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "PTZ"
+        ],
+        "summary": "상대 이동",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "상대 이동 요청",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.RelativeMoveRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/ptz/nodes": {
+      "get": {
+        "description": "PTZ 노드 목록을 조회합니다",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "PTZ"
+        ],
+        "summary": "PTZ 노드 목록 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.PTZNodesResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/ptz/presets": {
+      "get": {
+        "description": "PTZ 프리셋 목록을 조회합니다",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "PTZ"
+        ],
+        "summary": "프리셋 목록 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "프로파일 토큰",
+            "name": "profile_token",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.PTZPresetsResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "PTZ 프리셋을 생성하거나 업데이트합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "PTZ"
+        ],
+        "summary": "프리셋 설정",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "프리셋 설정 요청",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.SetPresetRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.SetPresetResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/ptz/presets/{token}": {
+      "delete": {
+        "description": "PTZ 프리셋을 삭제합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "PTZ"
+        ],
+        "summary": "프리셋 삭제",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "프리셋 토큰",
+            "name": "token",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "프로파일 토큰",
+            "name": "profile_token",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/ptz/presets/{token}/goto": {
+      "post": {
+        "description": "PTZ 프리셋 위치로 이동합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "PTZ"
+        ],
+        "summary": "프리셋으로 이동",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "프리셋 토큰",
+            "name": "token",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "프리셋 이동 요청",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.GotoPresetRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/ptz/profiles": {
+      "get": {
+        "description": "카메라의 ONVIF 미디어 프로필 목록을 조회합니다",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "PTZ"
+        ],
+        "summary": "ONVIF 프로필 목록 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.PTZProfilesResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/ptz/reset": {
+      "post": {
+        "description": "PTZ 프리셋 및 프리셋 투어를 모두 삭제하여 초기 상태로 복원합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "PTZ"
+        ],
+        "summary": "PTZ 설정 초기화",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "PTZ 설정 초기화 요청",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.ResetPTZSettingsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.ResetPTZSettingsResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/ptz/status": {
+      "get": {
+        "description": "PTZ 현재 상태를 조회합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "PTZ"
+        ],
+        "summary": "PTZ 상태 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "프로파일 토큰",
+            "name": "profile_token",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.PTZStatusResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/ptz/stop": {
+      "post": {
+        "description": "PTZ 이동을 정지합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "PTZ"
+        ],
+        "summary": "PTZ 정지",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "정지 요청",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.StopRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/ptz/tours": {
+      "get": {
+        "description": "PTZ 프리셋 투어 목록을 조회합니다",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "PTZ"
+        ],
+        "summary": "프리셋 투어 목록 조회",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "프로파일 토큰",
+            "name": "profile_token",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.PTZPresetToursResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "PTZ 프리셋 투어를 생성합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "PTZ"
+        ],
+        "summary": "프리셋 투어 생성",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "프리셋 투어 생성 요청",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.CreatePresetTourRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.CreatePresetTourResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/ptz/tours/{token}": {
+      "delete": {
+        "description": "PTZ 프리셋 투어를 삭제합니다",
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "PTZ"
+        ],
+        "summary": "프리셋 투어 삭제",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "투어 토큰",
+            "name": "token",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "프로파일 토큰",
+            "name": "profile_token",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/ptz/tours/{token}/operate": {
+      "post": {
+        "description": "PTZ 프리셋 투어를 시작/중지/일시정지합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "PTZ"
+        ],
+        "summary": "프리셋 투어 제어",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "카메라 ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "투어 토큰",
+            "name": "token",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "프리셋 투어 제어 요청",
+            "name": "request",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.OperatePresetTourRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/cameras/{id}/snapshot-uri": {
+      "get": {
+        "description": "ONVIF GetSnapshotUri를 통해 스냅샷 URI를 반환합니다. ONVIF 카메라만 지원됩니다.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Cameras"
+        ],
+        "summary": "Get camera snapshot URI",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Camera ID",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "description": "Profile Token (빈 값이면 첫 번째 프로파일 사용)",
+            "name": "profile_token",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/handler.SnapshotURIResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/channels/{channel_id}": {
+      "get": {
+        "description": "특정 채널 조회 (JSONB 기반)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Channels"
+        ],
+        "summary": "Get channel by ID",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Channel ID",
+            "name": "channel_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.CameraChannel"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "503": {
+            "description": "DATABASE_UNAVAILABLE — DB 미연결(메모리 모드)·일시 장애",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "채널 정보 업데이트 (JSONB 기반)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Channels"
+        ],
+        "summary": "Update channel",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Channel ID",
+            "name": "channel_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "Update data",
+            "name": "channel",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.ChannelUpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.CameraChannel"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "403": {
+            "description": "LICENSE_CAMERA_LIMIT — is_active 활성 전이가 라이선스 한도 초과",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "503": {
+            "description": "DATABASE_UNAVAILABLE / LICENSE_SERVICE_UNAVAILABLE",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "채널 삭제 (JSONB 기반)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Channels"
+        ],
+        "summary": "Delete channel",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Channel ID",
+            "name": "channel_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "503": {
+            "description": "DATABASE_UNAVAILABLE — DB 미연결(메모리 모드)·일시 장애",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/channels/{channel_id}/capabilities": {
+      "put": {
+        "description": "채널 기능 설정 업데이트 (JSONB 기반)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Capabilities"
+        ],
+        "summary": "Update channel capability",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Channel ID",
+            "name": "channel_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "Capability update data",
+            "name": "capability",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.CapabilityUpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "503": {
+            "description": "DATABASE_UNAVAILABLE — DB 미연결(메모리 모드)·일시 장애",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/channels/{channel_id}/streams": {
+      "get": {
+        "description": "채널의 모든 스트림 조회 (JSONB 기반)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Streams"
+        ],
+        "summary": "Get channel streams",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Channel ID",
+            "name": "channel_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/models.ChannelStream"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "새 스트림 추가 (JSONB 기반)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Streams"
+        ],
+        "summary": "Add new stream",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Channel ID",
+            "name": "channel_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "Stream data",
+            "name": "stream",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.ChannelStreamCreateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/models.ChannelStream"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/channels/{channel_id}/streams/discover": {
+      "post": {
+        "description": "드라이버를 통해 채널의 스트림(프로파일)을 검색합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Streams"
+        ],
+        "summary": "Discover channel streams/profiles using driver",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Channel ID",
+            "name": "channel_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/types.ProfileInfo"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/channels/{channel_id}/toggle": {
+      "post": {
+        "description": "채널 활성화/비활성화 (JSONB 기반)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Channels"
+        ],
+        "summary": "Toggle channel active status",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Channel ID",
+            "name": "channel_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "boolean",
+            "description": "Active status",
+            "name": "active",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "400": {
+            "description": "active 파라미터 누락/비-bool",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "403": {
+            "description": "LICENSE_CAMERA_LIMIT — 활성화가 라이선스 한도 초과",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "503": {
+            "description": "DATABASE_UNAVAILABLE / LICENSE_SERVICE_UNAVAILABLE",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/media-proxy/config": {
+      "get": {
+        "description": "MediaMTX 서버의 글로벌 설정 정보 조회 (포트 등)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "MediaProxy"
+        ],
+        "summary": "Get MediaMTX global config",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/mediamtx.GlobalConfig"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/media-proxy/sessions": {
+      "get": {
+        "description": "MediaMTX의 RTSP 세션 목록 조회 (클라이언트 접속 정보)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "MediaProxy"
+        ],
+        "summary": "Get MediaMTX RTSP sessions",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/mediamtx.RTSPSessionsResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/media-proxy/streams": {
+      "get": {
+        "description": "MediaMTX에 등록된 모든 스트림 목록과 상세 정보 조회",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "MediaProxy"
+        ],
+        "summary": "Get all MediaMTX streams",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/mediamtx.PathDetail"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/media-proxy/streams/{path}": {
+      "get": {
+        "description": "MediaMTX의 특정 스트림 상세 정보 조회",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "MediaProxy"
+        ],
+        "summary": "Get MediaMTX stream detail",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Stream path name",
+            "name": "path",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/mediamtx.PathDetail"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "MediaMTX의 특정 스트림을 삭제합니다",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "MediaProxy"
+        ],
+        "summary": "Delete MediaMTX stream",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Stream path name",
+            "name": "path",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/streams/{stream_id}": {
+      "get": {
+        "description": "특정 스트림 조회 (JSONB 기반)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Streams"
+        ],
+        "summary": "Get stream by ID",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Stream ID",
+            "name": "stream_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.ChannelStream"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "스트림 정보 업데이트 (JSONB 기반)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Streams"
+        ],
+        "summary": "Update stream",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Stream ID",
+            "name": "stream_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "Update data",
+            "name": "stream",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.ChannelStreamUpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/models.ChannelStream"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "스트림 삭제 (MediaProxy 경로도 함께 삭제)",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Streams"
+        ],
+        "summary": "Delete stream",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Stream ID",
+            "name": "stream_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/streams/{stream_id}/backchannel": {
+      "post": {
+        "description": "오디오 백채널(Talkback) 세션 생성",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Backchannel"
+        ],
+        "summary": "Create backchannel session",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Stream ID",
+            "name": "stream_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "Request body",
+            "name": "request",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/handler.BackchannelCreateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/handler.BackchannelCreateResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "503": {
+            "description": "DATABASE_UNAVAILABLE — DB 미연결(메모리 모드)·일시 장애",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "오디오 백채널(Talkback) 세션 삭제",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Backchannel"
+        ],
+        "summary": "Delete backchannel session",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Stream ID",
+            "name": "stream_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/streams/{stream_id}/backchannel/status": {
+      "get": {
+        "description": "오디오 백채널(Talkback) 상태 조회",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Backchannel"
+        ],
+        "summary": "Get backchannel status",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Stream ID",
+            "name": "stream_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/handler.BackchannelStatusResponse"
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/streams/{stream_id}/media-path": {
+      "get": {
+        "description": "스트림의 MediaMTX path 정보 및 다양한 프로토콜별 URL 조회",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Streams"
+        ],
+        "summary": "Get stream media path",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Stream ID",
+            "name": "stream_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/camera/api/v1/streams/{stream_id}/token/refresh": {
+      "post": {
+        "description": "RTSP Push 스트림의 WHIP 토큰 재발급",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "Streams"
+        ],
+        "summary": "Refresh stream token",
+        "parameters": [
+          {
+            "type": "string",
+            "description": "Stream ID",
+            "name": "stream_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "description": "재발급 요청 (유효기간 설정)",
+            "name": "request",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/handler.RefreshStreamTokenRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/handler.RefreshStreamTokenResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "description": "서비스 상태 확인",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "System"
+        ],
+        "summary": "Health check",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      }
+    },
+    "/health/detailed": {
+      "get": {
+        "description": "서비스 구성요소별 상세 상태 확인",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "tags": [
+          "System"
+        ],
+        "summary": "Detailed health check",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/healthcheck.DetailedHealthResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "discovery.Device": {
+      "type": "object",
+      "properties": {
+        "capabilities": {
+          "description": "GetCapabilities 응답",
+          "type": "object",
+          "additionalProperties": true
+        },
+        "deviceType": {
+          "description": "장치 타입",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "location": {
+          "description": "위치 정보 통합",
+          "type": "string"
+        },
+        "manufacturer": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "nodeUUID": {
+          "description": "NOX↔NOX 페더레이션 vendor scope (NOX 장비만 광고; 표준 카메라는 빈 값).\n  nox://node/{uuid}                  → NodeUUID\n  nox://api/{scheme}/{host}/{port}   → RestBaseURL (\"{scheme}://{host}:{port}\")",
+          "type": "string"
+        },
+        "observedAddr": {
+          "description": "ObservedAddr ProbeMatch UDP 응답의 소스 IP(관측 주소). WU1 정상 노드는 XAddr host 와\n동일하지만, 구버전/오광고 멀티 NIC 노드에서는 실제 도달 가능한 주소가 이것뿐일 수 있다.\n소스 주소를 얻지 못한 경우(테스트/loopback 등)에는 빈 값으로 남는다.",
+          "type": "string"
+        },
+        "profiles": {
+          "description": "ONVIF 프로파일 (예: Profile S, T, G)",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "restBaseURL": {
+          "description": "NOX REST 베이스 URL (caddy)",
+          "type": "string"
+        },
+        "scopes": {
+          "description": "원본 Scope 목록",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "xaddr": {
+          "type": "string"
+        }
+      }
+    },
+    "github_com_yiyolcorp_nox_services_camera-service_pkg_models.Camera": {
+      "type": "object",
+      "properties": {
+        "channels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.CameraChannel"
+          }
+        },
+        "config": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      }
+    },
+    "handler.BackchannelCreateRequest": {
+      "type": "object",
+      "properties": {
+        "profile_token": {
+          "type": "string"
+        }
+      }
+    },
+    "handler.BackchannelCreateResponse": {
+      "type": "object",
+      "properties": {
+        "expires_in": {
+          "description": "초 단위",
+          "type": "integer"
+        },
+        "preferred_codec": {
+          "description": "권장 코덱",
+          "type": "string"
+        },
+        "session_id": {
+          "type": "string"
+        },
+        "supported_codecs": {
+          "description": "카메라 지원 코덱 목록",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "whip_url": {
+          "type": "string"
+        }
+      }
+    },
+    "handler.BackchannelStatusResponse": {
+      "type": "object",
+      "properties": {
+        "active": {
+          "type": "boolean"
+        },
+        "session_id": {
+          "type": "string"
+        },
+        "whip_url": {
+          "type": "string"
+        }
+      }
+    },
+    "handler.BundleCamera": {
+      "type": "object",
+      "properties": {
+        "channels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/handler.BundleChannel"
+          }
+        },
+        "config": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "handler.BundleChannel": {
+      "type": "object",
+      "properties": {
+        "camera_id": {
+          "type": "string"
+        },
+        "config": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "id": {
+          "type": "string"
+        },
+        "streams": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/handler.BundleStream"
+          }
+        }
+      }
+    },
+    "handler.BundleStream": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        },
+        "config": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "handler.CameraExportData": {
+      "type": "object",
+      "properties": {
+        "channels": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/handler.ChannelExportData"
+          }
+        },
+        "config": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "handler.CameraMetricInfo": {
+      "type": "object",
+      "properties": {
+        "bps": {
+          "description": "수신 중인 모든 채널/스트림의 합산 수신 비트레이트(bits/sec). 측정 불가 시 null.",
+          "type": "integer"
+        },
+        "camera_id": {
+          "type": "string"
+        },
+        "measured_at": {
+          "type": "string"
+        },
+        "ping_ms": {
+          "description": "장비 RTT(밀리초). 측정 불가/offline 시 null.",
+          "type": "integer"
+        }
+      }
+    },
+    "handler.CameraStatistics": {
+      "type": "object",
+      "properties": {
+        "offline": {
+          "type": "integer"
+        },
+        "online": {
+          "type": "integer"
+        },
+        "total": {
+          "type": "integer"
+        },
+        "total_channels": {
+          "type": "integer"
+        },
+        "unknown": {
+          "type": "integer"
+        }
+      }
+    },
+    "handler.CameraStatusInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "handler.ChannelExportData": {
+      "type": "object",
+      "properties": {
+        "config": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "id": {
+          "type": "string"
+        },
+        "streams": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/handler.StreamExportData"
+          }
+        }
+      }
+    },
+    "handler.ClaimMobileCameraRequest": {
+      "type": "object",
+      "required": [
+        "device_uuid",
+        "registration_token"
+      ],
+      "properties": {
+        "device_uuid": {
+          "description": "앱에서 생성한 디바이스 UUID",
+          "type": "string"
+        },
+        "registration_token": {
+          "description": "등록 토큰",
+          "type": "string"
+        }
+      }
+    },
+    "handler.ConfigBundle": {
+      "type": "object",
+      "properties": {
+        "cameras": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/handler.BundleCamera"
+          }
+        },
+        "failover_origin": {
+          "description": "FailoverOrigin import 전용(선택). 지정 시 각 카메라 config.failover_origin 에 주입한다.\nexport 응답에는 포함하지 않는다(omitempty).",
+          "type": "string"
+        },
+        "schema_version": {
+          "type": "integer"
+        }
+      }
+    },
+    "handler.ImportBundleResult": {
+      "type": "object",
+      "properties": {
+        "cameras": {
+          "$ref": "#/definitions/handler.upsertCounts"
+        },
+        "channels": {
+          "$ref": "#/definitions/handler.upsertCounts"
+        },
+        "streams": {
+          "$ref": "#/definitions/handler.upsertCounts"
+        }
+      }
+    },
+    "handler.MobileCameraStatusResponse": {
+      "type": "object",
+      "properties": {
+        "camera_id": {
+          "type": "string"
+        },
+        "camera_name": {
+          "type": "string"
+        },
+        "path_name": {
+          "type": "string"
+        },
+        "registered": {
+          "type": "boolean"
+        },
+        "whip_token": {
+          "type": "string"
+        },
+        "whip_url": {
+          "type": "string"
+        }
+      }
+    },
+    "handler.PrepareMobileCameraRequest": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "location": {
+          "description": "위치 (선택)",
+          "type": "string"
+        },
+        "name": {
+          "description": "카메라 이름",
+          "type": "string"
+        }
+      }
+    },
+    "handler.PrepareMobileCameraResponse": {
+      "type": "object",
+      "properties": {
+        "camera_name": {
+          "description": "카메라 이름",
+          "type": "string"
+        },
+        "expires_in": {
+          "description": "만료까지 남은 시간 (초)",
+          "type": "integer"
+        },
+        "registration_token": {
+          "description": "JWT 등록 토큰",
+          "type": "string"
+        }
+      }
+    },
+    "handler.RTSPAuthRequest": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "description": "publish, read, playback, api, metrics, pprof",
+          "type": "string"
+        },
+        "id": {
+          "description": "ID Control API 세션 id 와 정확히 일치한다(실측 P4). 표적 kick 의 식별자다.",
+          "type": "string"
+        },
+        "ip": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "path": {
+          "description": "스트림 경로 (예: mobile-abc12345)",
+          "type": "string"
+        },
+        "protocol": {
+          "description": "rtsp, rtsps, rtmp, hls, webrtc, srt",
+          "type": "string"
+        },
+        "query": {
+          "description": "원본 쿼리 문자열. HLS/WebRTC 의 ?token= 이 여기로 온다.",
+          "type": "string"
+        },
+        "token": {
+          "description": "Token Authorization: Bearer 로 온 토큰. **HLS/WebRTC 의 `?token=` 은 여기로\n오지 않고 Query 로 온다**(실측 P1/P2: authMethod http 에서 쿼리 토큰을 token\n필드로 옮기는 것은 JWT 방식 전용 동작이며, rtsp/rtmp 만 예외적으로 채워진다).",
+          "type": "string"
+        },
+        "user": {
+          "type": "string"
+        },
+        "userAgent": {
+          "description": "UserAgent mediamtx v1.20.1 이 보내지만 종전 구조체에 없어 버려지던 값(D3).\n감사 품질을 공짜로 올린다(NIS §8.1.1).",
+          "type": "string"
+        }
+      }
+    },
+    "handler.RefreshStreamTokenRequest": {
+      "type": "object",
+      "properties": {
+        "duration": {
+          "description": "토큰 유효기간 (초), 기본 86400 (24시간)",
+          "type": "integer"
+        }
+      }
+    },
+    "handler.RefreshStreamTokenResponse": {
+      "type": "object",
+      "properties": {
+        "expires_in": {
+          "type": "integer"
+        },
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "handler.RegisterMobileCameraResponse": {
+      "type": "object",
+      "properties": {
+        "camera_id": {
+          "type": "string"
+        },
+        "channel_id": {
+          "type": "string"
+        },
+        "path_name": {
+          "type": "string"
+        },
+        "stream_id": {
+          "type": "string"
+        },
+        "whip_token": {
+          "type": "string"
+        },
+        "whip_url": {
+          "type": "string"
+        },
+        "whip_urls": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "handler.RepointRequestItem": {
+      "type": "object",
+      "properties": {
+        "camera_id": {
+          "description": "모드 2(host-swap)",
+          "type": "string"
+        },
+        "rtsp_transport": {
+          "description": "공통",
+          "type": "string"
+        },
+        "source_host": {
+          "description": "새 RTSP 호스트(포트·경로 미포함)",
+          "type": "string"
+        },
+        "source_port": {
+          "description": "새 RTSP 포트(nil=기존 source_url 포트 보존)",
+          "type": "integer"
+        },
+        "source_url": {
+          "description": "완성된 새 RTSP URL(자격 미포함 — camera-service 가 재주입)",
+          "type": "string"
+        },
+        "stream_id": {
+          "description": "모드 1(explicit)",
+          "type": "string"
+        }
+      }
+    },
+    "handler.RepointResultItem": {
+      "type": "object",
+      "properties": {
+        "camera_id": {
+          "description": "대상 카메라(모드 1 은 소속 카메라)",
+          "type": "string"
+        },
+        "code": {
+          "description": "failed 일 때만(레지스트리)",
+          "type": "string"
+        },
+        "error": {
+          "description": "failed 일 때만",
+          "type": "string"
+        },
+        "path_name": {
+          "description": "재-포인팅된 mediamtx path 이름(실패 시 null)",
+          "type": "string"
+        },
+        "status": {
+          "description": "repointed|skipped|failed (skipped=멱등 no-op 또는 재-포인팅 비대상)",
+          "type": "string"
+        },
+        "stream_id": {
+          "description": "재-포인팅된(또는 시도된) 스트림",
+          "type": "string"
+        }
+      }
+    },
+    "handler.RepointStreamsRequest": {
+      "type": "object",
+      "properties": {
+        "repoints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/handler.RepointRequestItem"
+          }
+        }
+      }
+    },
+    "handler.RepointStreamsResponse": {
+      "type": "object",
+      "properties": {
+        "failed_count": {
+          "type": "integer"
+        },
+        "repointed_count": {
+          "type": "integer"
+        },
+        "results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/handler.RepointResultItem"
+          }
+        },
+        "skipped_count": {
+          "type": "integer"
+        },
+        "total": {
+          "type": "integer"
+        }
+      }
+    },
+    "handler.SetCamerasEnabledRequest": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "failover_origin": {
+          "type": "string"
+        }
+      }
+    },
+    "handler.SetCamerasEnabledResult": {
+      "type": "object",
+      "properties": {
+        "updated": {
+          "type": "integer"
+        }
+      }
+    },
+    "handler.SnapshotURIResponse": {
+      "type": "object",
+      "properties": {
+        "auth_type": {
+          "description": "\"digest\", \"basic\", \"none\"",
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "uri": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "handler.StreamCameraIDsRequest": {
+      "type": "object",
+      "properties": {
+        "stream_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "handler.StreamCameraIDsResponse": {
+      "type": "object",
+      "properties": {
+        "mappings": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "handler.StreamExportData": {
+      "type": "object",
+      "properties": {
+        "config": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "handler.UpdateICEServersRequest": {
+      "type": "object",
+      "properties": {
+        "ice_servers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mediamtx.ICEServerConfig"
+          }
+        }
+      }
+    },
+    "handler.UpdateWebRTCAdditionalHostsRequest": {
+      "type": "object",
+      "properties": {
+        "hosts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "handler.upsertCounts": {
+      "type": "object",
+      "properties": {
+        "created": {
+          "type": "integer"
+        },
+        "unchanged": {
+          "type": "integer"
+        },
+        "updated": {
+          "type": "integer"
+        }
+      }
+    },
+    "healthcheck.DetailedHealthResponse": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "description": "개별 검사 항목",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/healthcheck.HealthItem"
+          }
+        },
+        "service": {
+          "description": "서비스명",
+          "type": "string"
+        },
+        "status": {
+          "description": "pass/fail/warn",
+          "type": "string"
+        },
+        "timestamp": {
+          "description": "RFC3339 형식",
+          "type": "string"
+        }
+      }
+    },
+    "healthcheck.HealthItem": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "description": "결과 메시지",
+          "type": "string"
+        },
+        "name": {
+          "description": "항목명",
+          "type": "string"
+        },
+        "status": {
+          "description": "pass/fail/warn",
+          "type": "string"
+        }
+      }
+    },
+    "mediamtx.GlobalConfig": {
+      "type": "object",
+      "properties": {
+        "hlsAddress": {
+          "type": "string"
+        },
+        "hlsEncryption": {
+          "description": "NIS §1.2.1: \"no\" 또는 \"yes\"",
+          "type": "string"
+        },
+        "rtmpAddress": {
+          "type": "string"
+        },
+        "rtmpsAddress": {
+          "type": "string"
+        },
+        "rtspAddress": {
+          "type": "string"
+        },
+        "rtspsAddress": {
+          "type": "string"
+        },
+        "srtAddress": {
+          "type": "string"
+        },
+        "webrtcAddress": {
+          "type": "string"
+        },
+        "webrtcEncryption": {
+          "description": "NIS §1.2.1: \"no\" 또는 \"yes\"",
+          "type": "string"
+        }
+      }
+    },
+    "mediamtx.ICEServerConfig": {
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      }
+    },
+    "mediamtx.PathDetail": {
+      "type": "object",
+      "properties": {
+        "bytesReceived": {
+          "type": "integer"
+        },
+        "bytesSent": {
+          "type": "integer"
+        },
+        "confName": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "readers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": {}
+          }
+        },
+        "ready": {
+          "type": "boolean"
+        },
+        "readyTime": {
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/definitions/mediamtx.PathSource"
+        },
+        "sourceURL": {
+          "description": "실제 소스 URL (config에서 조회)",
+          "type": "string"
+        },
+        "streamURLs": {
+          "description": "프로토콜별 스트리밍 URL (rtsp, hls, webrtc, ll-hls, rtmp)",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "tracks": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "mediamtx.PathSource": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "description": "rtspSource, rtspsSource, rtmpSource 등",
+          "type": "string"
+        }
+      }
+    },
+    "mediamtx.RTSPSession": {
+      "type": "object",
+      "properties": {
+        "bytesReceived": {
+          "type": "integer"
+        },
+        "bytesSent": {
+          "type": "integer"
+        },
+        "created": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "profile": {
+          "type": "string"
+        },
+        "query": {
+          "type": "string"
+        },
+        "remoteAddr": {
+          "type": "string"
+        },
+        "rtcpPacketsInError": {
+          "type": "integer"
+        },
+        "rtcpPacketsReceived": {
+          "type": "integer"
+        },
+        "rtcpPacketsSent": {
+          "type": "integer"
+        },
+        "rtpPacketsInError": {
+          "type": "integer"
+        },
+        "rtpPacketsJitter": {
+          "type": "number"
+        },
+        "rtpPacketsLost": {
+          "type": "integer"
+        },
+        "rtpPacketsReceived": {
+          "type": "integer"
+        },
+        "rtpPacketsSent": {
+          "type": "integer"
+        },
+        "state": {
+          "description": "\"read\" | \"publish\"",
+          "type": "string"
+        },
+        "transport": {
+          "description": "\"UDP\" | \"TCP\" | \"UDP-multicast\"",
+          "type": "string"
+        }
+      }
+    },
+    "mediamtx.RTSPSessionsResponse": {
+      "type": "object",
+      "properties": {
+        "itemCount": {
+          "type": "integer"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/mediamtx.RTSPSession"
+          }
+        },
+        "pageCount": {
+          "type": "integer"
+        }
+      }
+    },
+    "models.AbsoluteFocusMoveRequest": {
+      "type": "object",
+      "properties": {
+        "position": {
+          "type": "number"
+        },
+        "speed": {
+          "type": "number"
+        }
+      }
+    },
+    "models.AbsoluteMoveRequest": {
+      "type": "object",
+      "required": [
+        "position",
+        "profile_token"
+      ],
+      "properties": {
+        "position": {
+          "$ref": "#/definitions/models.PTZVector"
+        },
+        "profile_token": {
+          "type": "string"
+        },
+        "speed": {
+          "$ref": "#/definitions/models.PTZSpeed"
+        }
+      }
+    },
+    "models.AudioEncoderConfigResponse": {
+      "type": "object",
+      "properties": {
+        "bitrate": {
+          "description": "kbps",
+          "type": "integer"
+        },
+        "encoding": {
+          "description": "G711, G726, AAC",
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "sample_rate": {
+          "description": "kHz",
+          "type": "integer"
+        },
+        "token": {
+          "type": "string"
+        },
+        "use_count": {
+          "type": "integer"
+        }
+      }
+    },
+    "models.AudioSourceConfigResponse": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "source_token": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "use_count": {
+          "type": "integer"
+        }
+      }
+    },
+    "models.BacklightCompRequest": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "type": "number"
+        },
+        "mode": {
+          "type": "string"
+        }
+      }
+    },
+    "models.BacklightCompResponse": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "type": "number"
+        },
+        "mode": {
+          "description": "ON, OFF",
+          "type": "string"
+        }
+      }
+    },
+    "models.CameraChannel": {
+      "type": "object",
+      "properties": {
+        "camera_id": {
+          "type": "string"
+        },
+        "config": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      }
+    },
+    "models.CameraCreateRequest": {
+      "type": "object",
+      "required": [
+        "driver_type"
+      ],
+      "properties": {
+        "driver_data": {
+          "description": "드라이버별 데이터 (transport 포함)"
+        },
+        "driver_type": {
+          "type": "string",
+          "enum": [
+            "ONVIF",
+            "RTSP",
+            "Custom"
+          ],
+          "example": "ONVIF"
+        },
+        "federation_origin": {
+          "description": "FederationOrigin \"Federation 연결\"로 등록하는 NOX 카메라 마커(프론트 CameraForm 이 설정).\ntrue 면 config.federation_origin=true 로 보존해, federation-service 가 페어링 실패/타임아웃 롤백·\n승인대기 숨김의 대상을 이 마커로 정확히 특정한다. 동일 NOX 장비를 일반 ONVIF 로도 등록한 카메라\n(마커 없음)의 비가역 오삭제/오숨김을 방지한다. 일반 ONVIF 등록에는 미포함(omitempty).",
+          "type": "boolean"
+        },
+        "ip": {
+          "type": "string",
+          "example": "192.168.1.100"
+        },
+        "location": {
+          "type": "string",
+          "example": "Front Door"
+        },
+        "manufacturer": {
+          "type": "string",
+          "example": "Generic"
+        },
+        "model": {
+          "type": "string",
+          "example": "DS-2CD2032-I"
+        },
+        "name": {
+          "type": "string",
+          "example": "Camera 1"
+        },
+        "password": {
+          "type": "string",
+          "example": "password"
+        },
+        "port": {
+          "type": "integer",
+          "example": 554
+        },
+        "username": {
+          "type": "string",
+          "example": "admin"
+        }
+      }
+    },
+    "models.CameraUpdateRequest": {
+      "type": "object",
+      "properties": {
+        "config": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "models.CapabilityUpdateRequest": {
+      "type": "object"
+    },
+    "models.ChannelCreateRequest": {
+      "type": "object",
+      "properties": {
+        "channel_name": {
+          "type": "string"
+        },
+        "fps": {
+          "type": "integer"
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "resolution": {
+          "type": "string"
+        }
+      }
+    },
+    "models.ChannelStream": {
+      "type": "object",
+      "properties": {
+        "channel_id": {
+          "type": "string"
+        },
+        "config": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      }
+    },
+    "models.ChannelStreamCreateRequest": {
+      "type": "object",
+      "required": [
+        "source_url"
+      ],
+      "properties": {
+        "bitrate": {
+          "type": "integer",
+          "example": 4096
+        },
+        "codec": {
+          "type": "string",
+          "example": "H264"
+        },
+        "enabled": {
+          "type": "boolean",
+          "example": true
+        },
+        "fps": {
+          "type": "integer",
+          "example": 25
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "name": {
+          "type": "string",
+          "example": "Main Stream"
+        },
+        "password": {
+          "type": "string",
+          "example": "password123"
+        },
+        "publish_password": {
+          "description": "RTSP Push 발행 인증 비밀번호",
+          "type": "string",
+          "example": "mobile_pass"
+        },
+        "publish_username": {
+          "description": "RTSP Push 발행 인증 사용자명",
+          "type": "string",
+          "example": "mobile_user"
+        },
+        "quality": {
+          "type": "string",
+          "example": "medium"
+        },
+        "resolution": {
+          "type": "string",
+          "example": "3200x1800"
+        },
+        "source_url": {
+          "type": "string",
+          "example": "rtsp://192.168.0.63:554/stream1"
+        },
+        "stream_type": {
+          "type": "string",
+          "example": "main"
+        },
+        "token_duration": {
+          "description": "WHIP 토큰 유효기간 (초), 기본 86400 (24시간)",
+          "type": "integer",
+          "example": 86400
+        },
+        "transport": {
+          "type": "string",
+          "example": "tcp"
+        },
+        "username": {
+          "type": "string",
+          "example": "admin"
+        }
+      }
+    },
+    "models.ChannelStreamUpdateRequest": {
+      "type": "object",
+      "properties": {
+        "config": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "models.ChannelUpdateRequest": {
+      "type": "object",
+      "properties": {
+        "config": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "models.ConfigChangeResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "requires_reconnect": {
+          "type": "boolean"
+        }
+      }
+    },
+    "models.ContinuousFocusMoveRequest": {
+      "type": "object",
+      "properties": {
+        "speed": {
+          "type": "number"
+        }
+      }
+    },
+    "models.ContinuousMoveRequest": {
+      "type": "object",
+      "required": [
+        "profile_token",
+        "velocity"
+      ],
+      "properties": {
+        "profile_token": {
+          "type": "string"
+        },
+        "timeout": {
+          "description": "ISO 8601 duration (예: PT5S)",
+          "type": "string"
+        },
+        "velocity": {
+          "$ref": "#/definitions/models.PTZSpeed"
+        }
+      }
+    },
+    "models.CreateOSDRequest": {
+      "type": "object",
+      "required": [
+        "type",
+        "video_source_token"
+      ],
+      "properties": {
+        "position": {
+          "$ref": "#/definitions/models.OSDPosition"
+        },
+        "text_string": {
+          "$ref": "#/definitions/models.OSDText"
+        },
+        "type": {
+          "type": "string"
+        },
+        "video_source_token": {
+          "type": "string"
+        }
+      }
+    },
+    "models.CreatePresetTourRequest": {
+      "type": "object",
+      "required": [
+        "profile_token"
+      ],
+      "properties": {
+        "profile_token": {
+          "type": "string"
+        }
+      }
+    },
+    "models.CreatePresetTourResponse": {
+      "type": "object",
+      "properties": {
+        "tour_token": {
+          "type": "string"
+        }
+      }
+    },
+    "models.DateTimeResponse": {
+      "type": "object",
+      "properties": {
+        "date_time_type": {
+          "description": "Manual, NTP",
+          "type": "string"
+        },
+        "daylight_savings": {
+          "type": "boolean"
+        },
+        "local_date_time": {
+          "$ref": "#/definitions/models.DateTimeValue"
+        },
+        "time_zone": {
+          "type": "string"
+        },
+        "utc_date_time": {
+          "$ref": "#/definitions/models.DateTimeValue"
+        }
+      }
+    },
+    "models.DateTimeValue": {
+      "type": "object",
+      "properties": {
+        "day": {
+          "type": "integer"
+        },
+        "hour": {
+          "type": "integer"
+        },
+        "minute": {
+          "type": "integer"
+        },
+        "month": {
+          "type": "integer"
+        },
+        "second": {
+          "type": "integer"
+        },
+        "year": {
+          "type": "integer"
+        }
+      }
+    },
+    "models.DiscoverCamerasRequest": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "description": "Mode 검색 방식. \"auto\"(멀티캐스트 전 NIC 스캔) 또는 \"ip\"(유니캐스트 Probe).\n생략하면 \"auto\" 로 간주한다.\n\nmode 를 생략하고 targets 만 보낸 요청을 IP 검색으로 **추론하지 않는다** —\n모드 침묵 추론은 클라이언트 버그를 무증상으로 만든다. 신규 클라이언트는 mode 를\n항상 명시하므로 엄격 규칙의 비용이 0이다.",
+          "type": "string",
+          "example": "ip"
+        },
+        "targets": {
+          "description": "Targets mode 가 \"ip\" 일 때의 검색 대상 목록. 항목은 단일 IPv4(\"192.168.2.10\")\n또는 전체 범위(\"192.168.2.1-192.168.2.254\") 2형식만 허용한다.\n여러 항목을 보내면 중복 IP 를 제거한 뒤 총 대상 수를 계산한다.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "example": [
+            "192.168.2.1-192.168.2.254"
+          ]
+        }
+      }
+    },
+    "models.ExposureRequest": {
+      "type": "object",
+      "properties": {
+        "exposure_time": {
+          "type": "number"
+        },
+        "gain": {
+          "type": "number"
+        },
+        "iris": {
+          "type": "number"
+        },
+        "max_exposure_time": {
+          "type": "number"
+        },
+        "max_gain": {
+          "type": "number"
+        },
+        "max_iris": {
+          "type": "number"
+        },
+        "min_exposure_time": {
+          "type": "number"
+        },
+        "min_gain": {
+          "type": "number"
+        },
+        "min_iris": {
+          "type": "number"
+        },
+        "mode": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "string"
+        }
+      }
+    },
+    "models.ExposureResponse": {
+      "type": "object",
+      "properties": {
+        "exposure_time": {
+          "type": "number"
+        },
+        "gain": {
+          "type": "number"
+        },
+        "iris": {
+          "type": "number"
+        },
+        "max_exposure_time": {
+          "type": "number"
+        },
+        "max_gain": {
+          "type": "number"
+        },
+        "max_iris": {
+          "type": "number"
+        },
+        "min_exposure_time": {
+          "type": "number"
+        },
+        "min_gain": {
+          "type": "number"
+        },
+        "min_iris": {
+          "type": "number"
+        },
+        "mode": {
+          "description": "AUTO, MANUAL",
+          "type": "string"
+        },
+        "priority": {
+          "description": "LowNoise, FrameRate",
+          "type": "string"
+        }
+      }
+    },
+    "models.FactoryResetRequest": {
+      "type": "object",
+      "required": [
+        "confirm",
+        "type"
+      ],
+      "properties": {
+        "confirm": {
+          "type": "boolean"
+        },
+        "type": {
+          "description": "Hard, Soft",
+          "type": "string"
+        }
+      }
+    },
+    "models.FloatRangeResponse": {
+      "type": "object",
+      "properties": {
+        "max": {
+          "type": "number"
+        },
+        "min": {
+          "type": "number"
+        }
+      }
+    },
+    "models.FocusConfigRequest": {
+      "type": "object",
+      "properties": {
+        "auto_focus_mode": {
+          "type": "string"
+        },
+        "default_speed": {
+          "type": "number"
+        },
+        "far_limit": {
+          "type": "number"
+        },
+        "near_limit": {
+          "type": "number"
+        }
+      }
+    },
+    "models.FocusConfigResponse": {
+      "type": "object",
+      "properties": {
+        "auto_focus_mode": {
+          "description": "AUTO, MANUAL",
+          "type": "string"
+        },
+        "default_speed": {
+          "type": "number"
+        },
+        "far_limit": {
+          "type": "number"
+        },
+        "near_limit": {
+          "type": "number"
+        }
+      }
+    },
+    "models.GotoHomeRequest": {
+      "type": "object",
+      "required": [
+        "profile_token"
+      ],
+      "properties": {
+        "profile_token": {
+          "type": "string"
+        },
+        "speed": {
+          "$ref": "#/definitions/models.PTZSpeed"
+        }
+      }
+    },
+    "models.GotoPresetRequest": {
+      "type": "object",
+      "required": [
+        "preset_token",
+        "profile_token"
+      ],
+      "properties": {
+        "preset_token": {
+          "type": "string"
+        },
+        "profile_token": {
+          "type": "string"
+        },
+        "speed": {
+          "$ref": "#/definitions/models.PTZSpeed"
+        }
+      }
+    },
+    "models.H264Config": {
+      "type": "object",
+      "properties": {
+        "gov_length": {
+          "type": "integer"
+        },
+        "h264_profile": {
+          "description": "Baseline, Main, Extended, High",
+          "type": "string"
+        }
+      }
+    },
+    "models.H264OptionsResponse": {
+      "type": "object",
+      "properties": {
+        "bitrate_range": {
+          "$ref": "#/definitions/models.IntRangeResponse"
+        },
+        "encoding_interval_range": {
+          "$ref": "#/definitions/models.IntRangeResponse"
+        },
+        "frame_rate_range": {
+          "$ref": "#/definitions/models.IntRangeResponse"
+        },
+        "gov_length_range": {
+          "$ref": "#/definitions/models.IntRangeResponse"
+        },
+        "profiles_supported": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "resolutions_available": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.ResolutionConfig"
+          }
+        }
+      }
+    },
+    "models.H265OptionsResponse": {
+      "type": "object",
+      "properties": {
+        "bitrate_range": {
+          "$ref": "#/definitions/models.IntRangeResponse"
+        },
+        "frame_rate_range": {
+          "$ref": "#/definitions/models.IntRangeResponse"
+        },
+        "gov_length_range": {
+          "$ref": "#/definitions/models.IntRangeResponse"
+        },
+        "profiles_supported": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "resolutions_available": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.ResolutionConfig"
+          }
+        }
+      }
+    },
+    "models.IPv4ConfigResponse": {
+      "type": "object",
+      "properties": {
+        "dhcp": {
+          "type": "boolean"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "manual": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.PrefixedIPv4Response"
+          }
+        }
+      }
+    },
+    "models.ImagingOptionsResponse": {
+      "type": "object",
+      "properties": {
+        "brightness": {
+          "$ref": "#/definitions/models.FloatRangeResponse"
+        },
+        "color_saturation": {
+          "$ref": "#/definitions/models.FloatRangeResponse"
+        },
+        "contrast": {
+          "$ref": "#/definitions/models.FloatRangeResponse"
+        },
+        "ir_cut_modes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sharpness": {
+          "$ref": "#/definitions/models.FloatRangeResponse"
+        }
+      }
+    },
+    "models.ImagingSettingsResponse": {
+      "type": "object",
+      "properties": {
+        "backlight_compensation": {
+          "$ref": "#/definitions/models.BacklightCompResponse"
+        },
+        "brightness": {
+          "type": "number"
+        },
+        "color_saturation": {
+          "type": "number"
+        },
+        "contrast": {
+          "type": "number"
+        },
+        "exposure": {
+          "$ref": "#/definitions/models.ExposureResponse"
+        },
+        "focus": {
+          "$ref": "#/definitions/models.FocusConfigResponse"
+        },
+        "ir_cut_filter": {
+          "description": "ON, OFF, AUTO",
+          "type": "string"
+        },
+        "sharpness": {
+          "type": "number"
+        },
+        "white_balance": {
+          "$ref": "#/definitions/models.WhiteBalanceResponse"
+        },
+        "wide_dynamic_range": {
+          "$ref": "#/definitions/models.WDRResponse"
+        }
+      }
+    },
+    "models.IntRangeResponse": {
+      "type": "object",
+      "properties": {
+        "max": {
+          "type": "integer"
+        },
+        "min": {
+          "type": "integer"
+        }
+      }
+    },
+    "models.JPEGOptionsResponse": {
+      "type": "object",
+      "properties": {
+        "encoding_interval_range": {
+          "$ref": "#/definitions/models.IntRangeResponse"
+        },
+        "frame_rate_range": {
+          "$ref": "#/definitions/models.IntRangeResponse"
+        },
+        "resolutions_available": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.ResolutionConfig"
+          }
+        }
+      }
+    },
+    "models.MPEG4Config": {
+      "type": "object",
+      "properties": {
+        "gov_length": {
+          "type": "integer"
+        },
+        "mpeg4_profile": {
+          "description": "SP, ASP",
+          "type": "string"
+        }
+      }
+    },
+    "models.MPEG4OptionsResponse": {
+      "type": "object",
+      "properties": {
+        "encoding_interval_range": {
+          "$ref": "#/definitions/models.IntRangeResponse"
+        },
+        "frame_rate_range": {
+          "$ref": "#/definitions/models.IntRangeResponse"
+        },
+        "gov_length_range": {
+          "$ref": "#/definitions/models.IntRangeResponse"
+        },
+        "profiles_supported": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "resolutions_available": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.ResolutionConfig"
+          }
+        }
+      }
+    },
+    "models.MulticastConfig": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "auto_start": {
+          "type": "boolean"
+        },
+        "port": {
+          "type": "integer"
+        },
+        "ttl": {
+          "type": "integer"
+        }
+      }
+    },
+    "models.NetworkInfoResponse": {
+      "type": "object",
+      "properties": {
+        "hw_address": {
+          "description": "MAC 주소",
+          "type": "string"
+        },
+        "mtu": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "models.NetworkInterfaceResponse": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "info": {
+          "$ref": "#/definitions/models.NetworkInfoResponse"
+        },
+        "ipv4": {
+          "$ref": "#/definitions/models.IPv4ConfigResponse"
+        },
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "models.OSDConfigResponse": {
+      "type": "object",
+      "properties": {
+        "position": {
+          "$ref": "#/definitions/models.OSDPosition"
+        },
+        "text_string": {
+          "$ref": "#/definitions/models.OSDText"
+        },
+        "token": {
+          "type": "string"
+        },
+        "type": {
+          "description": "Text, Image, Extended",
+          "type": "string"
+        },
+        "video_source_token": {
+          "type": "string"
+        }
+      }
+    },
+    "models.OSDOptionsResponse": {
+      "type": "object",
+      "properties": {
+        "maximum_number_of_osds": {
+          "type": "integer"
+        },
+        "position_types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "models.OSDPosition": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "description": "UpperLeft, UpperRight, LowerLeft, LowerRight, Custom",
+          "type": "string"
+        },
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        }
+      }
+    },
+    "models.OSDText": {
+      "type": "object",
+      "properties": {
+        "date_format": {
+          "type": "string"
+        },
+        "is_persistent_text": {
+          "type": "boolean"
+        },
+        "plain_text": {
+          "type": "string"
+        },
+        "time_format": {
+          "type": "string"
+        },
+        "type": {
+          "description": "Plain, DateAndTime, etc.",
+          "type": "string"
+        }
+      }
+    },
+    "models.OperatePresetTourRequest": {
+      "type": "object",
+      "required": [
+        "operation",
+        "profile_token",
+        "tour_token"
+      ],
+      "properties": {
+        "operation": {
+          "description": "Start, Stop, Pause, Extended",
+          "type": "string"
+        },
+        "profile_token": {
+          "type": "string"
+        },
+        "tour_token": {
+          "type": "string"
+        }
+      }
+    },
+    "models.PTZConfigurationResponse": {
+      "type": "object",
+      "properties": {
+        "default_ptz_speed": {
+          "$ref": "#/definitions/models.PTZSpeed"
+        },
+        "default_ptz_timeout": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "node_token": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "models.PTZConfigurationsResponse": {
+      "type": "object",
+      "properties": {
+        "configurations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.PTZConfigurationResponse"
+          }
+        }
+      }
+    },
+    "models.PTZMoveStatus": {
+      "type": "object",
+      "properties": {
+        "pan_tilt": {
+          "description": "IDLE, MOVING, UNKNOWN",
+          "type": "string"
+        },
+        "zoom": {
+          "description": "IDLE, MOVING, UNKNOWN",
+          "type": "string"
+        }
+      }
+    },
+    "models.PTZNodeResponse": {
+      "type": "object",
+      "properties": {
+        "fixed_home_position": {
+          "type": "boolean"
+        },
+        "geo_move": {
+          "type": "boolean"
+        },
+        "home_supported": {
+          "type": "boolean"
+        },
+        "maximum_number_of_presets": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "supported_ptz_spaces": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "models.PTZNodesResponse": {
+      "type": "object",
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.PTZNodeResponse"
+          }
+        }
+      }
+    },
+    "models.PTZPresetResponse": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "position": {
+          "$ref": "#/definitions/models.PTZVector"
+        },
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "models.PTZPresetTourResponse": {
+      "type": "object",
+      "properties": {
+        "auto_start": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "description": "Idle, Touring, Paused",
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "models.PTZPresetToursResponse": {
+      "type": "object",
+      "properties": {
+        "tours": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.PTZPresetTourResponse"
+          }
+        }
+      }
+    },
+    "models.PTZPresetsResponse": {
+      "type": "object",
+      "properties": {
+        "presets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.PTZPresetResponse"
+          }
+        }
+      }
+    },
+    "models.PTZProfileInfo": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "models.PTZProfilesResponse": {
+      "type": "object",
+      "properties": {
+        "profiles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.PTZProfileInfo"
+          }
+        }
+      }
+    },
+    "models.PTZSpeed": {
+      "type": "object",
+      "properties": {
+        "pan_tilt": {
+          "$ref": "#/definitions/models.Vector2D"
+        },
+        "zoom": {
+          "$ref": "#/definitions/models.Vector1D"
+        }
+      }
+    },
+    "models.PTZStatusResponse": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string"
+        },
+        "move_status": {
+          "$ref": "#/definitions/models.PTZMoveStatus"
+        },
+        "position": {
+          "$ref": "#/definitions/models.PTZVector"
+        },
+        "utc_time": {
+          "type": "string"
+        }
+      }
+    },
+    "models.PTZVector": {
+      "type": "object",
+      "properties": {
+        "pan_tilt": {
+          "$ref": "#/definitions/models.Vector2D"
+        },
+        "zoom": {
+          "$ref": "#/definitions/models.Vector1D"
+        }
+      }
+    },
+    "models.PrefixedIPv4Response": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "prefix_length": {
+          "type": "integer"
+        }
+      }
+    },
+    "models.RateControlConfig": {
+      "type": "object",
+      "properties": {
+        "bitrate_limit": {
+          "description": "kbps",
+          "type": "integer"
+        },
+        "constant_bit_rate": {
+          "description": "Media 2.0",
+          "type": "boolean"
+        },
+        "encoding_interval": {
+          "description": "Media 1.0",
+          "type": "integer"
+        },
+        "frame_rate_limit": {
+          "type": "number"
+        }
+      }
+    },
+    "models.RectangleConfig": {
+      "type": "object",
+      "properties": {
+        "height": {
+          "type": "integer"
+        },
+        "width": {
+          "type": "integer"
+        },
+        "x": {
+          "type": "integer"
+        },
+        "y": {
+          "type": "integer"
+        }
+      }
+    },
+    "models.RelativeFocusMoveRequest": {
+      "type": "object",
+      "properties": {
+        "distance": {
+          "type": "number"
+        },
+        "speed": {
+          "type": "number"
+        }
+      }
+    },
+    "models.RelativeMoveRequest": {
+      "type": "object",
+      "required": [
+        "profile_token",
+        "translation"
+      ],
+      "properties": {
+        "profile_token": {
+          "type": "string"
+        },
+        "speed": {
+          "$ref": "#/definitions/models.PTZSpeed"
+        },
+        "translation": {
+          "$ref": "#/definitions/models.PTZVector"
+        }
+      }
+    },
+    "models.ResetPTZSettingsRequest": {
+      "type": "object",
+      "required": [
+        "profile_token"
+      ],
+      "properties": {
+        "profile_token": {
+          "type": "string"
+        }
+      }
+    },
+    "models.ResetPTZSettingsResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "presets_removed": {
+          "type": "integer"
+        },
+        "tours_removed": {
+          "type": "integer"
+        }
+      }
+    },
+    "models.ResolutionConfig": {
+      "type": "object",
+      "properties": {
+        "height": {
+          "type": "integer"
+        },
+        "width": {
+          "type": "integer"
+        }
+      }
+    },
+    "models.SetDateTimeRequest": {
+      "type": "object",
+      "required": [
+        "date_time_type"
+      ],
+      "properties": {
+        "date_time_type": {
+          "description": "Manual, NTP",
+          "type": "string"
+        },
+        "daylight_savings": {
+          "type": "boolean"
+        },
+        "time_zone": {
+          "type": "string"
+        },
+        "utc_date_time": {
+          "$ref": "#/definitions/models.DateTimeValue"
+        }
+      }
+    },
+    "models.SetHomeRequest": {
+      "type": "object",
+      "required": [
+        "profile_token"
+      ],
+      "properties": {
+        "profile_token": {
+          "type": "string"
+        }
+      }
+    },
+    "models.SetIPv4Config": {
+      "type": "object",
+      "properties": {
+        "dhcp": {
+          "type": "boolean"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "manual": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/models.PrefixedIPv4Response"
+          }
+        }
+      }
+    },
+    "models.SetNetworkInterfaceRequest": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "ipv4": {
+          "$ref": "#/definitions/models.SetIPv4Config"
+        }
+      }
+    },
+    "models.SetNetworkInterfaceResponse": {
+      "type": "object",
+      "properties": {
+        "reboot_needed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "models.SetOSDRequest": {
+      "type": "object",
+      "properties": {
+        "position": {
+          "$ref": "#/definitions/models.OSDPosition"
+        },
+        "text_string": {
+          "$ref": "#/definitions/models.OSDText"
+        },
+        "type": {
+          "type": "string"
+        },
+        "video_source_token": {
+          "type": "string"
+        }
+      }
+    },
+    "models.SetPresetRequest": {
+      "type": "object",
+      "required": [
+        "preset_name",
+        "profile_token"
+      ],
+      "properties": {
+        "preset_name": {
+          "type": "string"
+        },
+        "preset_token": {
+          "description": "업데이트시 기존 토큰 지정",
+          "type": "string"
+        },
+        "profile_token": {
+          "type": "string"
+        }
+      }
+    },
+    "models.SetPresetResponse": {
+      "type": "object",
+      "properties": {
+        "preset_token": {
+          "type": "string"
+        }
+      }
+    },
+    "models.StopRequest": {
+      "type": "object",
+      "required": [
+        "profile_token"
+      ],
+      "properties": {
+        "pan_tilt": {
+          "type": "boolean"
+        },
+        "profile_token": {
+          "type": "string"
+        },
+        "zoom": {
+          "type": "boolean"
+        }
+      }
+    },
+    "models.SystemRebootResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "models.Vector1D": {
+      "type": "object",
+      "properties": {
+        "space": {
+          "type": "string"
+        },
+        "x": {
+          "type": "number"
+        }
+      }
+    },
+    "models.Vector2D": {
+      "type": "object",
+      "properties": {
+        "space": {
+          "type": "string"
+        },
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        }
+      }
+    },
+    "models.VideoEncoderConfigResponse": {
+      "type": "object",
+      "properties": {
+        "encoding": {
+          "description": "JPEG, MPEG4, H264, H265",
+          "type": "string"
+        },
+        "gov_length": {
+          "description": "Media 2.0",
+          "type": "integer"
+        },
+        "h264": {
+          "$ref": "#/definitions/models.H264Config"
+        },
+        "media_version": {
+          "description": "\"1.0\" 또는 \"2.0\"",
+          "type": "string"
+        },
+        "mpeg4": {
+          "$ref": "#/definitions/models.MPEG4Config"
+        },
+        "multicast": {
+          "$ref": "#/definitions/models.MulticastConfig"
+        },
+        "name": {
+          "type": "string"
+        },
+        "profile": {
+          "description": "Media 2.0",
+          "type": "string"
+        },
+        "quality": {
+          "type": "number"
+        },
+        "rate_control": {
+          "$ref": "#/definitions/models.RateControlConfig"
+        },
+        "resolution": {
+          "$ref": "#/definitions/models.ResolutionConfig"
+        },
+        "token": {
+          "type": "string"
+        },
+        "use_count": {
+          "type": "integer"
+        }
+      }
+    },
+    "models.VideoEncoderOptionsResponse": {
+      "type": "object",
+      "properties": {
+        "h264": {
+          "$ref": "#/definitions/models.H264OptionsResponse"
+        },
+        "h265": {
+          "$ref": "#/definitions/models.H265OptionsResponse"
+        },
+        "jpeg": {
+          "$ref": "#/definitions/models.JPEGOptionsResponse"
+        },
+        "media_version": {
+          "type": "string"
+        },
+        "mpeg4": {
+          "$ref": "#/definitions/models.MPEG4OptionsResponse"
+        },
+        "quality_range": {
+          "$ref": "#/definitions/models.IntRangeResponse"
+        }
+      }
+    },
+    "models.VideoSourceConfigResponse": {
+      "type": "object",
+      "properties": {
+        "bounds": {
+          "$ref": "#/definitions/models.RectangleConfig"
+        },
+        "name": {
+          "type": "string"
+        },
+        "source_token": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "use_count": {
+          "type": "integer"
+        },
+        "view_mode": {
+          "type": "string"
+        }
+      }
+    },
+    "models.WDRRequest": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "type": "number"
+        },
+        "mode": {
+          "type": "string"
+        }
+      }
+    },
+    "models.WDRResponse": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "type": "number"
+        },
+        "mode": {
+          "description": "ON, OFF",
+          "type": "string"
+        }
+      }
+    },
+    "models.WhiteBalanceRequest": {
+      "type": "object",
+      "properties": {
+        "cb_gain": {
+          "type": "number"
+        },
+        "cr_gain": {
+          "type": "number"
+        },
+        "mode": {
+          "type": "string"
+        }
+      }
+    },
+    "models.WhiteBalanceResponse": {
+      "type": "object",
+      "properties": {
+        "cb_gain": {
+          "type": "number"
+        },
+        "cr_gain": {
+          "type": "number"
+        },
+        "mode": {
+          "description": "AUTO, MANUAL",
+          "type": "string"
+        }
+      }
+    },
+    "onvif.FocusMoveRequest": {
+      "type": "object",
+      "properties": {
+        "absolute": {
+          "$ref": "#/definitions/models.AbsoluteFocusMoveRequest"
+        },
+        "continuous": {
+          "$ref": "#/definitions/models.ContinuousFocusMoveRequest"
+        },
+        "relative": {
+          "$ref": "#/definitions/models.RelativeFocusMoveRequest"
+        }
+      }
+    },
+    "onvif.SetAudioEncoderConfigRequest": {
+      "type": "object",
+      "properties": {
+        "bitrate": {
+          "type": "integer"
+        },
+        "encoding": {
+          "type": "string"
+        },
+        "sample_rate": {
+          "type": "integer"
+        }
+      }
+    },
+    "onvif.SetImagingSettingsRequest": {
+      "type": "object",
+      "properties": {
+        "backlight_compensation": {
+          "$ref": "#/definitions/models.BacklightCompRequest"
+        },
+        "brightness": {
+          "type": "number"
+        },
+        "color_saturation": {
+          "type": "number"
+        },
+        "contrast": {
+          "type": "number"
+        },
+        "exposure": {
+          "$ref": "#/definitions/models.ExposureRequest"
+        },
+        "focus": {
+          "$ref": "#/definitions/models.FocusConfigRequest"
+        },
+        "force_persistence": {
+          "type": "boolean"
+        },
+        "ir_cut_filter": {
+          "type": "string"
+        },
+        "sharpness": {
+          "type": "number"
+        },
+        "white_balance": {
+          "$ref": "#/definitions/models.WhiteBalanceRequest"
+        },
+        "wide_dynamic_range": {
+          "$ref": "#/definitions/models.WDRRequest"
+        }
+      }
+    },
+    "onvif.SetVideoEncoderConfigRequest": {
+      "type": "object",
+      "properties": {
+        "encoding": {
+          "type": "string"
+        },
+        "gop_length": {
+          "type": "integer"
+        },
+        "profile": {
+          "type": "string"
+        },
+        "quality": {
+          "type": "number"
+        },
+        "rate_control": {
+          "$ref": "#/definitions/models.RateControlConfig"
+        },
+        "resolution": {
+          "$ref": "#/definitions/models.ResolutionConfig"
+        }
+      }
+    },
+    "onvif.SetVideoSourceConfigRequest": {
+      "type": "object",
+      "properties": {
+        "bounds": {
+          "$ref": "#/definitions/models.RectangleConfig"
+        },
+        "name": {
+          "type": "string"
+        },
+        "source_token": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "types.AudioBackchannelInfo": {
+      "type": "object",
+      "properties": {
+        "audio_output_token": {
+          "description": "오디오 출력 토큰",
+          "type": "string"
+        },
+        "backchannel_stream_uri": {
+          "description": "Backchannel RTSP URI",
+          "type": "string"
+        },
+        "profile_token": {
+          "description": "백채널 프로파일 토큰",
+          "type": "string"
+        },
+        "supported_codecs": {
+          "description": "지원 코덱 (PCMU, PCMA 등)",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "types.CameraCapabilities": {
+      "type": "object",
+      "properties": {
+        "analytics_service_url": {
+          "type": "string"
+        },
+        "audio_backchannel_info": {
+          "description": "Audio Backchannel 상세 정보",
+          "allOf": [
+            {
+              "$ref": "#/definitions/types.AudioBackchannelInfo"
+            }
+          ]
+        },
+        "events_service_url": {
+          "type": "string"
+        },
+        "imaging_service_url": {
+          "type": "string"
+        },
+        "max_channels": {
+          "type": "integer"
+        },
+        "metadata": {
+          "description": "기타",
+          "type": "object",
+          "additionalProperties": true
+        },
+        "ptz_capabilities": {
+          "description": "PTZ 상세 기능",
+          "allOf": [
+            {
+              "$ref": "#/definitions/types.PTZCapabilities"
+            }
+          ]
+        },
+        "ptz_service_url": {
+          "description": "서비스 URL (ONVIF)",
+          "type": "string"
+        },
+        "supported_codecs": {
+          "description": "미디어 관련",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "supports_analytics": {
+          "type": "boolean"
+        },
+        "supports_audio": {
+          "type": "boolean"
+        },
+        "supports_audio_backchannel": {
+          "type": "boolean"
+        },
+        "supports_events": {
+          "type": "boolean"
+        },
+        "supports_imaging": {
+          "type": "boolean"
+        },
+        "supports_media2": {
+          "type": "boolean"
+        },
+        "supports_ptz": {
+          "description": "서비스 지원 여부",
+          "type": "boolean"
+        },
+        "supports_rtp_multicast": {
+          "description": "스트리밍 기능",
+          "type": "boolean"
+        },
+        "supports_rtp_tcp": {
+          "type": "boolean"
+        },
+        "supports_rtsp_tcp": {
+          "type": "boolean"
+        }
+      }
+    },
+    "types.ChannelInfo": {
+      "type": "object",
+      "properties": {
+        "fps": {
+          "type": "integer"
+        },
+        "id": {
+          "type": "string"
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "name": {
+          "type": "string"
+        },
+        "resolution": {
+          "type": "string"
+        }
+      }
+    },
+    "types.PTZCapabilities": {
+      "type": "object",
+      "properties": {
+        "e_flip": {
+          "description": "ONVIF PTZ Service Capabilities",
+          "type": "boolean"
+        },
+        "fixed_home_position": {
+          "description": "고정 홈 위치 여부",
+          "type": "boolean"
+        },
+        "get_compatible_configurations": {
+          "description": "호환 설정 조회 지원",
+          "type": "boolean"
+        },
+        "max_presets": {
+          "description": "최대 프리셋 개수",
+          "type": "integer"
+        },
+        "move_status": {
+          "description": "이동 상태 조회 지원",
+          "type": "boolean"
+        },
+        "pan_range": {
+          "description": "범위 정보",
+          "allOf": [
+            {
+              "$ref": "#/definitions/types.Range"
+            }
+          ]
+        },
+        "reverse": {
+          "description": "방향 반전 지원",
+          "type": "boolean"
+        },
+        "status_position": {
+          "description": "위치 상태 조회 지원",
+          "type": "boolean"
+        },
+        "supports_geo_move": {
+          "description": "지리 위치 기반 이동",
+          "type": "boolean"
+        },
+        "supports_home": {
+          "description": "홈 포지션",
+          "type": "boolean"
+        },
+        "supports_pan": {
+          "description": "기본 기능 지원 여부",
+          "type": "boolean"
+        },
+        "supports_preset_tours": {
+          "description": "프리셋 투어",
+          "type": "boolean"
+        },
+        "supports_presets": {
+          "description": "프리셋",
+          "type": "boolean"
+        },
+        "supports_tilt": {
+          "type": "boolean"
+        },
+        "supports_zoom": {
+          "type": "boolean"
+        },
+        "tilt_range": {
+          "$ref": "#/definitions/types.Range"
+        },
+        "zoom_range": {
+          "$ref": "#/definitions/types.Range"
+        }
+      }
+    },
+    "types.ProfileInfo": {
+      "type": "object",
+      "properties": {
+        "bitrate": {
+          "description": "비트레이트",
+          "type": "integer"
+        },
+        "codec": {
+          "description": "코덱 (H264, H265 등)",
+          "type": "string"
+        },
+        "fps": {
+          "description": "프레임 레이트",
+          "type": "integer"
+        },
+        "id": {
+          "description": "프로파일 ID 또는 토큰",
+          "type": "string"
+        },
+        "is_active": {
+          "description": "활성화 여부",
+          "type": "boolean"
+        },
+        "metadata": {
+          "description": "추가 메타데이터",
+          "type": "object",
+          "additionalProperties": true
+        },
+        "name": {
+          "description": "프로파일 이름",
+          "type": "string"
+        },
+        "resolution": {
+          "description": "해상도 (예: 1920x1080)",
+          "type": "string"
+        },
+        "source_url": {
+          "description": "카메라 원본 RTSP URL",
+          "type": "string"
+        },
+        "transport": {
+          "description": "tcp, udp, multicast",
+          "type": "string"
+        },
+        "type": {
+          "description": "main, sub, audio",
+          "type": "string"
+        }
+      }
+    },
+    "types.Range": {
+      "type": "object",
+      "properties": {
+        "max": {
+          "type": "number"
+        },
+        "min": {
+          "type": "number"
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "BearerAuth": {
+      "description": "Type \"Bearer\" followed by a space and JWT token.",
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "schemes": [
+    "https"
+  ]
+}
