@@ -32,6 +32,22 @@
 - [NOX Mobile](https://yiyol.com/products/#mobile): 자동화가 담당자를 호출할 때 알림이 도착하는 곳. Android·iOS 전용 앱, 실시간 멀티뷰·녹화 재생·이벤트 푸시 알림.
 - [OEM](https://yiyol.com/products/#oem): NOX 소프트웨어를 파트너 제품에 임베드해 파트너 브랜드로 출시(화이트라벨). 하드웨어 제조사·SI 파트너가 소프트웨어 개발 부담 없이 제품을 확보하고, 필요하면 AI 판단·실행까지 얹을 수 있음.
 
+## 개발자 문서 — NOX NVR REST API ([전체](https://yiyol.com/api/))
+NOX 소프트웨어의 REST API 를 공개 문서로 제공합니다. 서비스 15개 · 엔드포인트 386개. 모든 경로는 웹 서버(HTTPS) 아래 서비스별 접두로 접근하고, `POST /auth/api/v1/auth/login` 으로 받은 accessToken 을 `Authorization: Bearer {token}` 헤더에 담아 호출합니다. 각 문서에서 OpenAPI 명세(JSON)를 그대로 내려받아 Postman·코드 제너레이터에 넣을 수 있습니다.
+- [인증 · 사용자/역할](https://yiyol.com/api/auth-service-api.html) (`/auth`) — 로그인, 토큰 갱신, 사용자·역할 관리
+- [권한](https://yiyol.com/api/permission-service-api.html) (`/permission`) — Casbin 기반 RBAC, 리소스 그룹
+- [카메라](https://yiyol.com/api/camera-service-api.html) (`/camera`) — ONVIF·RTSP 카메라 등록과 설정 관리
+- [녹화](https://yiyol.com/api/record-service-api.html) (`/record`) — RTSP 스트림 녹화, 보존 정책
+- [재생](https://yiyol.com/api/replay-service-api.html) (`/replay`) — HLS 재생, 클립 내보내기·무결성 검증
+- [검색](https://yiyol.com/api/search-service-api.html) (`/search`) — 녹화 검색, 타임라인 조회
+- [분석 · WebHook](https://yiyol.com/api/analysis-service-api.html) (`/analysis`) — 모션 디텍션, WebHook 알림
+- [이벤트 엔진](https://yiyol.com/api/event-engine-service-api.html) (`/event-engine`) — 선언적 룰 평가와 액션 실행
+- [알림](https://yiyol.com/api/notification-service-api.html) (`/notification`) — 알림 관리, 실시간 전달
+- [페더레이션](https://yiyol.com/api/federation-service-api.html) (`/federation`) — NOX↔NOX 다지점 연동, 노드 페어링
+- [리소스](https://yiyol.com/api/resource-service-api.html) (`/resource`) — 레이아웃·맵·알람·센서 등 범용 리소스
+- [시스템](https://yiyol.com/api/system-service-api.html) (`/system`) — 디스크·컨테이너 등 장비 관리
+- [라이선스](https://yiyol.com/api/license-service-api.html) (`/license`) · [Frontend BFF](https://yiyol.com/api/frontend-bff-api.html) (`/bff`) · [프록시](https://yiyol.com/api/proxy-service-api.html) (`/proxy`)
+
 ## 차별점
 - **감지가 아니라 실행까지** — 일반 AI 관제는 알림에서 멈추지만 NOX는 후속조치를 자동 실행하고 판단 근거를 함께 기록
 - **영상만이 아니라 비정형 센서까지** — 규격이 제각각인 센서·설비 로그·외부 시스템을 함께 판단에 사용
@@ -56,3 +72,4 @@
 - 회사소개: https://yiyol.com/company/
 - 블로그: https://yiyol.com/blog/
 - 문의: https://yiyol.com/contact/
+- NOX NVR API 문서 (개발자): https://yiyol.com/api/

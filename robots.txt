@@ -1,5 +1,8 @@
+# https://yiyol.com/ — 전체 크롤 허용.
+# 색인에서 빼야 할 페이지는 각 페이지의 <meta name="robots"> / rel=canonical 로 다룬다.
+# robots.txt 로 막으면 크롤러가 그 태그를 읽지 못해 오히려 URL 만 색인에 남는다.
+# /api/ 는 NOX NVR REST API 문서다. 색인 대상이다.
 User-agent: *
 Allow: /
-Disallow: /nox-nvr-embed.html
 
 Sitemap: https://yiyol.com/sitemap.xml
