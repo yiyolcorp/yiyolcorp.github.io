@@ -3,12 +3,132 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nox NVR Resource Service API</title>
+<title>Nox NVR Resource Service API | NOX NVR API 문서</title>
+<meta name="description" content="범용 리소스 관리 서비스 (layout, map, alarm, sensor 등) 엔드포인트 22개. 경로·요청/응답 스키마와 OpenAPI 명세를 제공합니다. NOX NVR REST API 레퍼런스.">
+<meta name="robots" content="index, follow, max-snippet:-1">
+<link rel="canonical" href="https://yiyol.com/api/resource-service-api.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://yiyol.com/api/resource-service-api.html">
+<meta property="og:title" content="Nox NVR Resource Service API | NOX NVR API 문서">
+<meta property="og:description" content="범용 리소스 관리 서비스 (layout, map, alarm, sensor 등) 엔드포인트 22개. 경로·요청/응답 스키마와 OpenAPI 명세를 제공합니다. NOX NVR REST API 레퍼런스.">
+<meta property="og:image" content="https://yiyol.com/assets/yiyol-logo.png">
+<meta property="og:site_name" content="YIYOL">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nox NVR Resource Service API | NOX NVR API 문서">
+<meta name="twitter:description" content="범용 리소스 관리 서비스 (layout, map, alarm, sensor 등) 엔드포인트 22개. 경로·요청/응답 스키마와 OpenAPI 명세를 제공합니다. NOX NVR REST API 레퍼런스.">
+<meta name="twitter:image" content="https://yiyol.com/assets/yiyol-logo.png">
+<link rel="icon" type="image/x-icon" href="https://yiyol.com/favicon.ico">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "Nox NVR Resource Service API | NOX NVR API 문서",
+      "description": "범용 리소스 관리 서비스 (layout, map, alarm, sensor 등) 엔드포인트 22개. 경로·요청/응답 스키마와 OpenAPI 명세를 제공합니다. NOX NVR REST API 레퍼런스.",
+      "url": "https://yiyol.com/api/resource-service-api.html",
+      "inLanguage": "ko",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "NOX NVR API 문서",
+        "url": "https://yiyol.com/api/"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "YIYOL",
+        "url": "https://yiyol.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "YIYOL",
+        "url": "https://yiyol.com"
+      },
+      "about": {
+        "@type": "WebAPI",
+        "name": "Nox NVR Resource Service API",
+        "description": "범용 리소스 관리 서비스 (layout, map, alarm, sensor 등)",
+        "documentation": "https://yiyol.com/api/resource-service-api.html"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "YIYOL",
+          "item": "https://yiyol.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "NOX NVR API 문서",
+          "item": "https://yiyol.com/api/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Nox NVR Resource Service API"
+        }
+      ]
+    }
+  ]
+}
+</script>
 <style>
   body { margin: 0; padding: 0; }
+  .nojs {
+    max-width: 900px; margin: 0 auto; padding: 40px 24px;
+    font: 15px/1.7 -apple-system, BlinkMacSystemFont, "Segoe UI",
+      "Noto Sans KR", sans-serif; color: #1c1e21;
+  }
+  .nojs code { background: #f0f2f5; border-radius: 4px; padding: 1px 5px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
+  .nojs li { margin: 4px 0; }
 </style>
 </head>
 <body>
+<noscript>
+  <div class="nojs">
+    <h1>Nox NVR Resource Service API</h1>
+    <p>범용 리소스 관리 서비스 (layout, map, alarm, sensor 등)</p>
+    <p>이 문서는 브라우저에서 대화형으로 렌더합니다. JavaScript 를 켜면
+       요청·응답 스키마와 예제까지 볼 수 있습니다.</p>
+    <h2>오퍼레이션 29개</h2>
+    <ul>
+      <li><code>GET /health</code> — Health check</li>
+      <li><code>GET /resource/api/v1/files</code> — List files and folders</li>
+      <li><code>POST /resource/api/v1/files/access-check</code> — Check file access in batch</li>
+      <li><code>POST /resource/api/v1/files/folder</code> — Create folder</li>
+      <li><code>GET /resource/api/v1/files/search</code> — Search files</li>
+      <li><code>POST /resource/api/v1/files/upload</code> — Upload file</li>
+      <li><code>GET /resource/api/v1/files/{id}</code> — Get file or folder</li>
+      <li><code>PUT /resource/api/v1/files/{id}</code> — Update file or folder</li>
+      <li><code>DELETE /resource/api/v1/files/{id}</code> — Delete file or folder</li>
+      <li><code>GET /resource/api/v1/files/{id}/download</code> — Download file</li>
+      <li><code>GET /resource/api/v1/files/{id}/path</code> — Get file path</li>
+      <li><code>GET /resource/api/v1/files/{id}/preview</code> — Preview file</li>
+      <li><code>GET /resource/api/v1/files/{id}/sharing</code> — Get file sharing list</li>
+      <li><code>POST /resource/api/v1/files/{id}/sharing</code> — Add sharing to file</li>
+      <li><code>DELETE /resource/api/v1/files/{id}/sharing/me</code> — Leave file sharing</li>
+      <li><code>DELETE /resource/api/v1/files/{id}/sharing/{sharingId}</code> — Remove sharing from file</li>
+      <li><code>GET /resource/api/v1/files/{id}/size</code> — Get folder size</li>
+      <li><code>GET /resource/api/v1/resources</code> — Get all resources</li>
+      <li><code>POST /resource/api/v1/resources</code> — Create new resource</li>
+      <li><code>POST /resource/api/v1/resources/access-check</code> — Check resource access in batch</li>
+      <li><code>GET /resource/api/v1/resources/search</code> — Search resources</li>
+      <li><code>GET /resource/api/v1/resources/type/{type}</code> — Get resources by type</li>
+      <li><code>GET /resource/api/v1/resources/{id}</code> — Get resource by ID</li>
+      <li><code>PUT /resource/api/v1/resources/{id}</code> — Update resource</li>
+      <li><code>DELETE /resource/api/v1/resources/{id}</code> — Delete resource</li>
+      <li><code>GET /resource/api/v1/resources/{id}/sharing</code> — Get resource sharing list</li>
+      <li><code>POST /resource/api/v1/resources/{id}/sharing</code> — Add sharing to resource</li>
+      <li><code>DELETE /resource/api/v1/resources/{id}/sharing/me</code> — Leave resource sharing</li>
+      <li><code>DELETE /resource/api/v1/resources/{id}/sharing/{sharingId}</code> — Remove sharing from resource</li>
+    </ul>
+  </div>
+</noscript>
 <div id="redoc"></div>
 <a class="back" href="index.html">← 서비스 목록</a>
 <style>

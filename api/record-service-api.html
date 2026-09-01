@@ -3,12 +3,118 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nox NVR Record Service API</title>
+<title>Nox NVR Record Service API | NOX NVR API 문서</title>
+<meta name="description" content="RTSP 스트림 녹화 관리 서비스 엔드포인트 11개. 경로·요청/응답 스키마와 OpenAPI 명세를 제공합니다. NOX NVR REST API 레퍼런스.">
+<meta name="robots" content="index, follow, max-snippet:-1">
+<link rel="canonical" href="https://yiyol.com/api/record-service-api.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://yiyol.com/api/record-service-api.html">
+<meta property="og:title" content="Nox NVR Record Service API | NOX NVR API 문서">
+<meta property="og:description" content="RTSP 스트림 녹화 관리 서비스 엔드포인트 11개. 경로·요청/응답 스키마와 OpenAPI 명세를 제공합니다. NOX NVR REST API 레퍼런스.">
+<meta property="og:image" content="https://yiyol.com/assets/yiyol-logo.png">
+<meta property="og:site_name" content="YIYOL">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nox NVR Record Service API | NOX NVR API 문서">
+<meta name="twitter:description" content="RTSP 스트림 녹화 관리 서비스 엔드포인트 11개. 경로·요청/응답 스키마와 OpenAPI 명세를 제공합니다. NOX NVR REST API 레퍼런스.">
+<meta name="twitter:image" content="https://yiyol.com/assets/yiyol-logo.png">
+<link rel="icon" type="image/x-icon" href="https://yiyol.com/favicon.ico">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "Nox NVR Record Service API | NOX NVR API 문서",
+      "description": "RTSP 스트림 녹화 관리 서비스 엔드포인트 11개. 경로·요청/응답 스키마와 OpenAPI 명세를 제공합니다. NOX NVR REST API 레퍼런스.",
+      "url": "https://yiyol.com/api/record-service-api.html",
+      "inLanguage": "ko",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "NOX NVR API 문서",
+        "url": "https://yiyol.com/api/"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "YIYOL",
+        "url": "https://yiyol.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "YIYOL",
+        "url": "https://yiyol.com"
+      },
+      "about": {
+        "@type": "WebAPI",
+        "name": "Nox NVR Record Service API",
+        "description": "RTSP 스트림 녹화 관리 서비스",
+        "documentation": "https://yiyol.com/api/record-service-api.html"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "YIYOL",
+          "item": "https://yiyol.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "NOX NVR API 문서",
+          "item": "https://yiyol.com/api/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Nox NVR Record Service API"
+        }
+      ]
+    }
+  ]
+}
+</script>
 <style>
   body { margin: 0; padding: 0; }
+  .nojs {
+    max-width: 900px; margin: 0 auto; padding: 40px 24px;
+    font: 15px/1.7 -apple-system, BlinkMacSystemFont, "Segoe UI",
+      "Noto Sans KR", sans-serif; color: #1c1e21;
+  }
+  .nojs code { background: #f0f2f5; border-radius: 4px; padding: 1px 5px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
+  .nojs li { margin: 4px 0; }
 </style>
 </head>
 <body>
+<noscript>
+  <div class="nojs">
+    <h1>Nox NVR Record Service API</h1>
+    <p>RTSP 스트림 녹화 관리 서비스</p>
+    <p>이 문서는 브라우저에서 대화형으로 렌더합니다. JavaScript 를 켜면
+       요청·응답 스키마와 예제까지 볼 수 있습니다.</p>
+    <h2>오퍼레이션 15개</h2>
+    <ul>
+      <li><code>GET /health</code> — Health check</li>
+      <li><code>GET /health/detailed</code> — Detailed health check</li>
+      <li><code>GET /record/api/v1/recordings</code> — Get all recordings</li>
+      <li><code>POST /record/api/v1/recordings</code> — Create recording</li>
+      <li><code>GET /record/api/v1/recordings/by-channel/{channel_id}</code> — Get recordings by channel ID</li>
+      <li><code>GET /record/api/v1/recordings/{id}</code> — Get recording by ID</li>
+      <li><code>PUT /record/api/v1/recordings/{id}</code> — Update recording</li>
+      <li><code>DELETE /record/api/v1/recordings/{id}</code> — Delete recording</li>
+      <li><code>GET /record/api/v1/recordings/{id}/event-history</code> — Get event history</li>
+      <li><code>GET /record/api/v1/recordings/{id}/event-status</code> — Get event status</li>
+      <li><code>POST /record/api/v1/recordings/{id}/toggle</code> — Toggle recording enabled status</li>
+      <li><code>POST /record/api/v1/recordings/{id}/trigger</code> — Trigger recording event</li>
+      <li><code>GET /record/api/v1/settings/recording</code> — Get recording service settings</li>
+      <li><code>POST /record/api/v1/settings/recording</code> — Update recording service settings</li>
+      <li><code>POST /record/api/v1/storage/partitions/refresh</code> — Refresh disk partitions</li>
+    </ul>
+  </div>
+</noscript>
 <div id="redoc"></div>
 <a class="back" href="index.html">← 서비스 목록</a>
 <style>
