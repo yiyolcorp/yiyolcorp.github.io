@@ -1,5 +1,20 @@
 [
   {
+    "date": "2026-09-09",
+    "scope": "copy",
+    "target": "products/ — 한국어·영문 카피 레지스터 전환",
+    "genre": "modern-minimal",
+    "design_system": "design.md",
+    "designed_as_app": true,
+    "theme": "Cobalt (YIYOL brand-anchored)",
+    "theme_axes": "light / grotesk-sans / cool-226",
+    "nav": "N1b (shared)",
+    "footer": "Ft1 Mast-headed (shared)",
+    "enrichment": "unchanged",
+    "brief": "카피 톤 교정: 번역투 → 국내 엔터프라이즈 B2B 레지스터",
+    "note": "시각 레이어 무변경(CSS 0 라인). 진단된 AI 지표 5종을 0으로: 부정형 제목 4, 대조구문 'A가 아니라 B' 3, 국문 em dash 8, 구어체 2, '~면 됩니다' 2. 제목을 전부 명사형 한자어구로, 불릿을 체언 종결로 전환. 사실·수치는 매뉴얼 기준 그대로 보존(신규 주장 0). 영문도 동일 레지스터로 동반 수정. 총 148개 문자열 치환, 소프트웨어/A08/Mobile/OEM/마감 CTA 전 탭."
+  },
+  {
     "date": "2026-08-19",
     "scope": "app",
     "target": "audit remediation — 4 critical + 6 major",

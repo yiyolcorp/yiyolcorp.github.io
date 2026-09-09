@@ -14,13 +14,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>제품 — NOX 소프트웨어 · NOX-A08 시리즈 · NOX Mobile | YIYOL</title>
 
-    <meta name="description" content="영상을 저장하고 관리하는 NOX 소프트웨어(NVR·VMS), 이를 탑재한 NOX-A08 어플라이언스, 모바일 앱 NOX Mobile, 그리고 OEM 공급. 영상·데이터는 항상 on-prem." />
-    <meta name="keywords" content="NOX 소프트웨어,NVR 소프트웨어,VMS,영상관리시스템,NVR,NVR 어플라이언스,NOX-A08,영상 저장장치,NOX Mobile,OEM,화이트라벨,ONVIF,RTSP,WebRTC,WHIP,WebHook,온프레미스,YIYOL" />
+    <meta name="description" content="녹화·저장(NVR), 통합 관제(VMS), AI 영상분석을 단일 소프트웨어로 제공하는 NOX. 자연어 영상 검색, 페더레이션·n:1 페일오버, 이를 탑재한 NOX-A08 어플라이언스, NOX Mobile, OEM 공급. 영상·데이터는 항상 on-prem." />
+    <meta name="keywords" content="NOX 소프트웨어,NVR 소프트웨어,VMS,영상관리시스템,NVR,NVR 어플라이언스,NOX-A08,영상 저장장치,NOX Mobile,OEM,화이트라벨,AI NVR,AI 영상분석,VLM,자연어 영상검색,사후 AI 검색,페더레이션,페일오버,이중화,E-map,비식별화,ONVIF,RTSP,WebRTC,WHIP,WebHook,온프레미스,YIYOL" />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://yiyol.com/products/" />
     <meta property="og:title" content="제품 — NOX 소프트웨어 · NOX-A08 시리즈 · NOX Mobile | YIYOL" />
-    <meta property="og:description" content="영상을 저장하고 관리하는 NOX 소프트웨어와 이를 탑재한 어플라이언스. NOX Mobile, OEM 공급까지." />
+    <meta property="og:description" content="녹화·저장과 통합 관제, AI 영상 분석까지 한 소프트웨어로. 자연어 영상 검색과 페일오버, 이를 탑재한 어플라이언스와 OEM 공급까지." />
     <meta property="og:site_name" content="YIYOL" />
 
     <link rel="canonical" href="https://yiyol.com/products/" />
@@ -29,7 +29,7 @@
     <meta property="og:locale" content="ko_KR" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="제품 — NOX 소프트웨어 · NOX-A08 시리즈 · NOX Mobile | YIYOL" />
-    <meta name="twitter:description" content="영상을 저장하고 관리하는 NOX 소프트웨어(NVR·VMS), 이를 탑재한 NOX-A08 어플라이언스, NOX Mobile, OEM." />
+    <meta name="twitter:description" content="NVR·VMS·AI 영상 분석을 한 소프트웨어로. 자연어 검색·페일오버, NOX-A08 어플라이언스, NOX Mobile, OEM." />
     <meta name="twitter:image" content="https://yiyol.com/assets/yiyol-logo.png" />
 
     <script type="application/ld+json">
@@ -48,7 +48,7 @@
       "@type": "ItemList",
       "name": "YIYOL 제품",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "NOX 소프트웨어 (NVR 녹화·저장 · VMS 통합 관제)", "url": "https://yiyol.com/products/#software" },
+        { "@type": "ListItem", "position": 1, "name": "NOX 소프트웨어 (NVR 녹화·저장 · VMS 통합 관제 · AI 영상 분석)", "url": "https://yiyol.com/products/#software" },
         { "@type": "ListItem", "position": 2, "name": "NOX-A08 시리즈 (NVR 어플라이언스)", "url": "https://yiyol.com/nox-nvr.html" },
         { "@type": "ListItem", "position": 3, "name": "NOX Mobile (Android · iOS)", "url": "https://yiyol.com/products/#mobile" },
         { "@type": "ListItem", "position": 4, "name": "NOX OEM (화이트라벨)", "url": "https://yiyol.com/products/#oem" }
@@ -117,6 +117,37 @@
 
     <main id="main-content">
 
+      <style>
+        /* Screenshot gallery — two-up so a dense UI capture stays legible.
+           A three-up in this shell renders each shot at ~360px, where a
+           dashboard or a camera list is unreadable mush. */
+        .nox-shots{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2.4rem 2rem;margin-top:2.5rem}
+        .nox-shot{margin:0}
+        .nox-shot img{width:100%;display:block;border:1px solid var(--color-rule);border-radius:var(--radius-card);background:var(--color-graphite)}
+        /* One ratio for every tile. The captures range 1.68-1.82, so a row was
+           being set by its tallest member and the shorter one left a hole under
+           it; cover crops at most ~6% and the grid reads as a grid. */
+        .nox-shot img{aspect-ratio:16/9;height:auto;object-fit:cover;object-position:top center}
+        /* The multi-monitor shot is a 3.3:1 panorama — cropping it to 16/9 would
+           throw away one of the two monitors, so it spans the row at full width. */
+        .nox-shot--wide{grid-column:1/-1}
+        .nox-shot--wide img{aspect-ratio:auto;object-fit:fill}
+        .nox-shot figcaption{margin-top:0.9rem}
+        .nox-shot figcaption h4{font-size:1.02rem;font-weight:600;color:var(--color-ink)}
+        .nox-shot figcaption p{margin-top:0.3rem;font-size:0.92rem;color:var(--color-ink-2);line-height:1.55}
+        @media(max-width:700px){.nox-shots{grid-template-columns:minmax(0,1fr);gap:2.4rem}}
+        /* The request block draws its own full-width hairline. Without this the
+           trailing row list draws one too and the two rules, parted by a 3xl
+           gap, read as a mistake rather than as a separation. */
+        .nox-tail .sv-product-card:last-child{border-bottom:0}
+        /* Ranked marker for the five headline differentiators. The page's
+           .sv-eyebrow is display:none by system rule, so these sections were
+           shipping with no visible label at all; an ordinal + key is functional
+           (it carries the ranking), not a decorative eyebrow. Same mono/accent
+           treatment as .sv-flow-step-no so the two rails read as one system. */
+        .sv-rank{display:block;margin-bottom:var(--space-3xs);font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:var(--tracking-mono);text-transform:uppercase;color:var(--color-accent);font-variant-numeric:tabular-nums}
+      </style>
+
       <!-- ============ NOX 소프트웨어 ============ -->
       <!-- NOX 소프트웨어 -->
       <section class="sv-tabpanel sv-section" data-tab="software" id="software">
@@ -126,8 +157,8 @@
             <div class="sv-eyebrow">NVR · VMS Software</div>
             <h2 class="ko-only">NOX 소프트웨어</h2>
             <h2 class="en-only">NOX software</h2>
-            <p class="ko-only">카메라 영상을 받아 <strong>저장</strong>하고, 필요한 시점을 다시 <strong>찾고</strong>, 누가 무엇을 볼 수 있는지 <strong>관리</strong>하는 소프트웨어입니다. 녹화·저장(NVR)과 통합 관제(VMS)를 한 소프트웨어가 함께 담당합니다. YIYOL이 만든 어플라이언스에 탑재해 공급하는 것이 기본이고, 소프트웨어만 별도로 공급하거나 파트너 장비에 얹는 것도 가능합니다.</p>
-            <p class="en-only">Software that takes in camera streams, <strong>stores</strong> them, lets you <strong>find</strong> the moment you need, and <strong>controls</strong> who gets to see what. Recording and storage (NVR) and unified monitoring (VMS) are handled by the same software. It normally ships on an appliance we build, but it can be supplied on its own or run on a partner's hardware.</p>
+            <p class="ko-only">영상의 <strong>저장</strong>과 <strong>검색</strong>, 사용자 <strong>권한 관리</strong>를 담당하는 소프트웨어입니다. 녹화·저장(NVR), 통합 관제(VMS), AI 영상분석을 단일 소프트웨어로 제공하며, 분석 전용 서버 증설이나 기능별 플러그인 라이선스가 필요하지 않습니다. YIYOL 어플라이언스 탑재 공급을 기본으로 하고, 소프트웨어 단독 공급과 파트너 장비 탑재도 지원합니다.</p>
+            <p class="en-only">Software that handles the <strong>storage</strong> and <strong>retrieval</strong> of video and the <strong>access control</strong> around it. Recording and storage (NVR), unified monitoring (VMS), and AI video analysis are delivered as a single software product, with no separate analytics server to provision and no per-feature plugin licensing. It ships on a YIYOL appliance by default, and is also supplied standalone or deployed on partner hardware.</p>
           </div>
 
           <div class="sv-flow">
@@ -135,8 +166,8 @@
               <div class="sv-flow-step-no">NVR</div>
               <h3 class="ko-only">녹화 · 저장</h3>
               <h3 class="en-only">Recording &amp; storage</h3>
-              <p class="ko-only">기존 카메라를 교체하지 않고 있는 그대로 연결해 영상을 받아 저장합니다. 보존 정책에 따라 자동으로 정리되고, 필요한 시점은 타임라인에서 바로 찾아 재생합니다.</p>
-              <p class="en-only">Connect to the cameras already installed and record what they send. Footage ages out under your retention policy, and any moment can be found and replayed straight from the timeline.</p>
+              <p class="ko-only">기존 설치 카메라를 교체 없이 연결해 영상을 수집·저장합니다. 보존 정책에 따라 자동 정리되며, 필요한 시점은 타임라인에서 즉시 조회·재생합니다.</p>
+              <p class="en-only">Connects to already-installed cameras without replacement and records what they send. Footage is retired automatically under the retention policy, and any point in time is retrieved and played back from the timeline.</p>
               <div class="sv-flow-tags">
                 <span>ONVIF · RTSP</span><span class="ko-only">보존 정책</span><span class="en-only">Retention policy</span><span class="ko-only">시점 검색 · 재생</span><span class="en-only">Search &amp; playback</span><span class="ko-only">스토리지 관리</span><span class="en-only">Storage management</span>
               </div>
@@ -147,29 +178,79 @@
               <div class="sv-flow-step-no">VMS</div>
               <h3 class="ko-only">통합 관제</h3>
               <h3 class="en-only">Unified monitoring</h3>
-              <p class="ko-only">여러 현장의 카메라와 NVR을 한 화면에서 봅니다. WebRTC·WHIP로 지연을 줄였고, 사용자별로 볼 수 있는 채널과 쓸 수 있는 기능을 나눠 줄 수 있습니다.</p>
-              <p class="en-only">See cameras and NVRs across every site on one screen. WebRTC and WHIP keep latency down, and each user gets only the channels and controls you grant them.</p>
+              <p class="ko-only">다수 현장의 카메라와 NVR을 단일 화면에서 통합 관제합니다. WebRTC·WHIP 기반으로 지연을 최소화하며, 사용자별로 조회 가능한 채널과 사용 기능을 분리해 부여합니다.</p>
+              <p class="en-only">Cameras and NVRs across multiple sites are monitored from a single screen. WebRTC and WHIP keep latency to a minimum, and each user is granted only the channels and functions assigned to them.</p>
               <div class="sv-flow-tags">
                 <span class="ko-only">다지점 통합 뷰</span><span class="en-only">Multi-site view</span><span>WebRTC · WHIP</span><span class="ko-only">이벤트 검색 · 타임라인</span><span class="en-only">Event search · timeline</span><span class="ko-only">사용자 권한</span><span class="en-only">User permissions</span>
               </div>
             </div>
+            <div class="sv-flow-arrow" aria-hidden="true"></div>
+
+            <div class="sv-flow-card sv-fade">
+              <div class="sv-flow-step-no">AI</div>
+              <h3 class="ko-only">AI 영상분석</h3>
+              <h3 class="en-only">AI video analysis</h3>
+              <p class="ko-only">침입, 라인 통과, 쓰러짐, 보호구 미착용, 무단 투기 등을 규칙으로 정의해 검출합니다. 규칙만으로 판정이 어려운 장면은 VLM이 재판독하므로, 모델 재학습 없이 문장 입력만으로 시나리오를 확장할 수 있습니다.</p>
+              <p class="en-only">Situations such as intrusion, line crossing, a fall, missing PPE, and illegal dumping are defined as rules and detected. Scenes a rule cannot settle are re-read by a VLM, so scenarios are extended by entering a sentence rather than retraining a model.</p>
+              <div class="sv-flow-tags">
+                <span class="ko-only">룰 엔진</span><span class="en-only">Rule engine</span><span class="ko-only">VLM 온프레미스</span><span class="en-only">On-prem VLM</span><span class="ko-only">번호판 인식</span><span class="en-only">License plate (LPR)</span><span class="ko-only">이벤트 자동 액션</span><span class="en-only">Automatic actions</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- AI 분석 — claim on the right, the zone editor as its proof column -->
+          <div class="sv-product-detail" style="margin-top:5rem">
+            <div class="sv-product-detail-media">
+              <img src="../img/nox/detect-zones.jpeg" alt="NOX 감지 영역 편집기 — 카메라 화면 위에 세 개의 감지 영역을 다각형으로 그린 모습" width="1500" height="1320" loading="lazy" />
+            </div>
+            <div class="sv-product-detail-body">
+              <div class="sv-rank"><span class="ko-only">01 · AI 영상분석</span><span class="en-only">01 · AI video analysis</span></div>
+              <h2 class="ko-only">지능형 영상분석 기반 이벤트 검출</h2>
+              <h2 class="en-only">Event detection through intelligent video analysis</h2>
+              <p class="ko-only">카메라 화면에 감지 영역과 기준선을 지정해 규칙을 구성합니다. 움직임이 검출된 프레임만 검출기로 전달하고 해석이 필요한 장면만 VLM으로 전달하는 <strong>단계형 파이프라인</strong> 구조로, 단일 장비에서 다채널 분석을 동시에 수행합니다.</p>
+              <p class="en-only">Detection zones and reference lines are placed directly on the camera view to compose a rule. A <strong>staged pipeline</strong> passes only frames with detected motion to the detector, and only scenes requiring interpretation to the VLM, so a single unit performs analysis on multiple channels concurrently.</p>
+              <ul class="sv-check-list">
+                <li><span class="ko-only">영역·선 편집기를 통한 침입·라인 통과·배회 검출 규칙 정의</span><span class="en-only">Intrusion, line-crossing, and loitering rules defined in the zone and line editor</span></li>
+                <li><span class="ko-only">쓰러짐·보호구 미착용·무단 투기 시나리오를 문장으로 추가, 모델 재학습 불필요</span><span class="en-only">Fall, missing-PPE, and illegal-dumping scenarios added as a sentence, with no model retraining</span></li>
+                <li><span class="ko-only">검출 시 이벤트 녹화·이메일·WebHook 자동 실행</span><span class="en-only">Event recording, email, and WebHook executed automatically on detection</span></li>
+                <li><span class="ko-only">번호판 인식(LPR), 객체 추적, 메타데이터 색인 지원</span><span class="en-only">License plate recognition (LPR), object tracking, and metadata indexing</span></li></ul>
+            </div>
+          </div>
+
+          <!-- 검색 — body first so the media column lands on the right -->
+          <div class="sv-product-detail" style="margin-top:4.5rem">
+            <div class="sv-product-detail-body">
+              <div class="sv-rank"><span class="ko-only">02 · 자연어 검색</span><span class="en-only">02 · Natural-language search</span></div>
+              <h2 class="ko-only">자연어 기반 영상 검색</h2>
+              <h2 class="en-only">Natural-language video search</h2>
+              <p class="ko-only">녹화 영상을 문장으로 검색합니다. "어제 밤 가방 든 빨간 구두 여자"와 같이 시간, 외형, 소지품을 <strong>한 문장으로 입력</strong>해 대상 인물을 조회합니다. 사전 색인이 적용되지 않은 과거 구간은 카메라와 시간 범위를 지정하면 즉시 색인을 생성하며 검색합니다.</p>
+              <p class="en-only">Recorded footage is searched with a sentence. Time, appearance, and belongings are entered <strong>as a single query</strong> — "a woman in red shoes carrying a bag, last night" — to locate the person. Stretches with no prior index are indexed on demand once a camera and time range are specified.</p>
+              <ul class="sv-check-list">
+                <li><span class="ko-only">자연어 인물 검색, 시간·외형·소지품 통합 질의</span><span class="en-only">Natural-language person search across time, appearance, and belongings</span></li>
+                <li><span class="ko-only">사후 AI 검색, 미색인 과거 녹화의 온디맨드 색인 및 조회</span><span class="en-only">Post-hoc AI search, indexing past recordings on demand</span></li>
+                <li><span class="ko-only">이벤트·메타데이터·타임라인 검색 및 북마크</span><span class="en-only">Event, metadata, and timeline search, with bookmarks</span></li>
+                <li><span class="ko-only">검색 결과에서 해당 시점 영상 즉시 재생 및 클립 반출</span><span class="en-only">Immediate playback from a result, with clip export</span></li>
+              </ul>
+            </div>
+            <div class="sv-product-detail-media">
+              <img src="../img/nox/playback-timeline.jpeg" alt="NOX 녹화 재생 화면 — 4개 채널의 녹화 타임라인과 시각 스크러버" width="1800" height="998" loading="lazy" />
+            </div>
           </div>
 
           <div class="sv-product-detail" style="margin-top:5rem">
-            <div class="sv-product-detail-media"><img src="../img/nox-ui-001.jpeg" alt="NOX 통합 관제 화면" loading="lazy" /></div>
+            <div class="sv-product-detail-media"><img src="../img/nox-ui-64ch.jpeg" alt="NOX 통합 관제 화면 — 64개 채널을 8×8로 나눠 띄운 라이브 뷰" width="2400" height="1289" loading="lazy" /></div>
             <div class="sv-product-detail-body">
-              <div class="sv-eyebrow ko-only">데이터 주권</div>
-              <div class="sv-eyebrow en-only">Data sovereignty</div>
-              <h2 class="ko-only">영상과 데이터는 나가지 않습니다</h2>
-              <h2 class="en-only">Your video and data stay put</h2>
-              <p class="ko-only">많은 AI 서비스가 데이터를 클라우드로 올려야 작동합니다. NOX는 영상 저장과 관리는 물론, 그 위에 올라가는 AI 판단·실행까지 사용자 장비(on-prem)에서 수행하는 것을 기본으로 합니다. 공정 영상, 설비 데이터, 출입 기록처럼 외부로 나가면 안 되는 자료를 다루는 현장에서 이 차이는 도입 가능 여부를 가릅니다.</p>
-              <p class="en-only">Plenty of AI services only work once your data is uploaded. NOX keeps recording and management — and any AI judgment layered on top — on your own hardware by default. For sites handling process footage, equipment data, or access records that must not leave the premises, that difference decides whether adoption is possible at all.</p>
+              <div class="sv-rank"><span class="ko-only">03 · 데이터 주권</span><span class="en-only">03 · Data sovereignty</span></div>
+              <h2 class="ko-only">온프레미스 기반 데이터 주권 확보</h2>
+              <h2 class="en-only">Data sovereignty on your own hardware</h2>
+              <p class="ko-only">다수의 AI 서비스가 데이터의 클라우드 업로드를 전제로 동작합니다. NOX는 영상 저장·관리는 물론 그 위에서 수행되는 AI 판단과 실행까지 전 과정을 고객 장비(온프레미스)에서 처리합니다. 공정 영상, 설비 데이터, 출입 기록과 같이 외부 반출이 불가한 자료를 다루는 현장에서는 이 구조가 도입 가능 여부를 결정합니다.</p>
+              <p class="en-only">Most AI services require data to be uploaded to the cloud before they work. NOX keeps the whole chain on the customer's own hardware: storage, management, and the AI judgment and execution layered on top. For sites handling process footage, equipment data, or access records that cannot leave the premises, this is what determines whether adoption is possible at all.</p>
               <ul class="sv-check-list">
-                <li><span class="ko-only">영상·센서 데이터 전 과정 on-prem 처리</span><span class="en-only">Video and sensor data handled entirely on-prem</span></li>
-                <li><span class="ko-only">폐쇄망·망분리 환경에서도 동작</span><span class="en-only">Runs in air-gapped and network-segregated environments</span></li>
-                <li><span class="ko-only">국가용 보안요구사항 V3.0 대비 설계 · 보안적합성 검증 대응</span><span class="en-only">Designed to National Security Requirements V3.0 · security certification support</span></li>
-                <li><span class="ko-only">판단 근거와 조치 이력을 감사 가능한 형태로 보관</span><span class="en-only">Reasoning and action history retained in auditable form</span></li>
-              </ul>
+                <li><span class="ko-only">영상·센서 데이터 전 과정 온프레미스 처리</span><span class="en-only">Video and sensor data processed entirely on-premises</span></li>
+                <li><span class="ko-only">국가용 보안요구사항 V3.0 대응 설계 및 보안적합성 검증 대응</span><span class="en-only">Designed to National Security Requirements V3.0, with certification support</span></li>
+                <li><span class="ko-only">폐쇄망·망분리 환경 지원</span><span class="en-only">Air-gapped and network-segregated environments supported</span></li>
+                <li><span class="ko-only">반출 영상 비식별화 및 AES-256 암호화 적용</span><span class="en-only">De-identification and AES-256 encryption applied to exported footage</span></li>
+                <li><span class="ko-only">판단 근거 및 조치 이력의 감사 가능 형태 보관</span><span class="en-only">Decision basis and action history retained in auditable form</span></li></ul>
               <p style="margin-top:1.6rem">
                 <a href="../nox/nis-security.html" class="sv-more">
                   <span class="ko-only">보안요구사항 대응 자세히 보기</span><span class="en-only">See our security compliance approach</span>
@@ -178,21 +259,40 @@
             </div>
           </div>
 
-          <div class="sv-product-detail reverse" style="margin-top:4.5rem">
-            <div class="sv-product-detail-media"></div>
+          <!-- 무중단 · 다지점 — federation + n:1 failover, the enterprise beat -->
+          <div class="sv-product-detail" style="margin-top:4.5rem">
             <div class="sv-product-detail-body">
-              <div class="sv-eyebrow ko-only">연동</div>
-              <div class="sv-eyebrow en-only">Integration</div>
-              <h2 class="ko-only">이미 쓰고 계신 시스템으로 이어집니다</h2>
-              <h2 class="en-only">It flows into the systems you already run</h2>
-              <p class="ko-only">영상과 이벤트가 NOX 안에서만 머무르면 반쪽입니다. WebHook과 REST API를 통해 사내 시스템으로 이벤트를 내보내고, 반대로 외부 시스템의 상태를 받아 판단에 반영합니다. 양방향이어야 "상황에 맞는 조치 선택"이 가능해집니다.</p>
-              <p class="en-only">Footage and events that stay inside NOX are only half the job. Events go out to your systems over WebHooks and REST APIs, and state comes back in to inform the next judgment. It has to work both ways for "choose the action that fits" to mean anything.</p>
+              <div class="sv-rank"><span class="ko-only">04 · 다지점 · 이중화</span><span class="en-only">04 · Multi-site &amp; redundancy</span></div>
+              <h2 class="ko-only">n:1 이중화 및 무중단 녹화</h2>
+              <h2 class="en-only">n:1 redundancy and uninterrupted recording</h2>
+              <p class="ko-only">다수의 NOX를 상호 연결해 라이브·검색·재생을 단일 화면에서 제공하며(<strong>페더레이션</strong>), 대기 장비 1대가 다수의 운영 장비를 보호하는 <strong>n:1 페일오버</strong>를 구성합니다. 대기 장비는 운영 장비의 설정을 주기적으로 복제하고, 장애 발생 시 카메라 수집과 녹화를 인계받습니다. 복구 이후에는 <strong>장애 기간에 대체 녹화한 영상을 원 장비의 타임라인으로 회수·병합</strong>합니다. 클라우드를 경유하지 않고 장비 간 직접 연결합니다.</p>
+              <p class="en-only">Multiple NOX units are linked so that live view, search, and playback are served from a single screen (<strong>federation</strong>), and one standby unit protects several operating units (<strong>n:1 failover</strong>). The standby replicates their configuration on a schedule and takes over capture and recording when one fails. After recovery, <strong>footage recorded during the outage is retrieved and merged into the original unit's timeline</strong>. The units connect directly, with no cloud in the path.</p>
               <ul class="sv-check-list">
-                <li><span class="ko-only">이벤트 발생 시 WebHook 호출 — 페이로드와 조건을 시나리오별로 정의</span><span class="en-only">WebHook calls on event, with payload and conditions defined per scenario</span></li>
-                <li><span class="ko-only">ERP · MES · CMMS · 그룹웨어 · 메신저 연동</span><span class="en-only">Integrates with ERP, MES, CMMS, groupware, and messengers</span></li>
-                <li><span class="ko-only">해당 시점 영상 클립 자동 추출 후 함께 전달</span><span class="en-only">Automatically extracts and attaches the relevant video clip</span></li>
-                <li><span class="ko-only">외부 시스템 상태를 받아 판단 조건에 반영</span><span class="en-only">Pulls external system state into the judgment conditions</span></li>
-              </ul>
+                <li><span class="ko-only">n:1 페일오버, 대기 장비 1대로 다수 운영 장비 보호 및 자동 인계·복귀 선택</span><span class="en-only">n:1 failover, one standby protecting many, with optional automatic takeover and failback</span></li>
+                <li><span class="ko-only">장애 기간 영상 회수, 원 장비 타임라인 병합 및 전송 중 열람 지원</span><span class="en-only">Record-back, merging the outage window into the original timeline and viewable during transfer</span></li>
+                <li><span class="ko-only">페더레이션, 다수 NOX의 라이브·검색·재생 단일 트리 통합</span><span class="en-only">Federation, with live view, search, and playback across every unit from one tree</span></li>
+                <li><span class="ko-only">유지보수·업데이트 중 감시 자동 유예로 불필요한 인계 방지</span><span class="en-only">Planned maintenance and updates suspend the watch, preventing unnecessary takeover</span></li></ul>
+            </div>
+            <div class="sv-product-detail-media">
+              <img src="../img/nox/failover.jpeg" alt="NOX 페일오버 설정 화면 — Standby 모드 토글, 보호 관계 목록, heartbeat·스냅샷·중재 IP 설정" width="1800" height="1013" loading="lazy" />
+            </div>
+          </div>
+
+          <div class="sv-product-detail" style="margin-top:4.5rem">
+            <div class="sv-product-detail-media">
+              <img src="../img/nox/webhook-action.jpeg" alt="NOX 자동 액션 생성 화면 — 감지 시 실행할 액션과 사전·사후 녹화 시간 설정" width="1800" height="985" loading="lazy" />
+            </div>
+            <div class="sv-product-detail-body">
+              <div class="sv-rank"><span class="ko-only">05 · 개방형 연동</span><span class="en-only">05 · Open integration</span></div>
+              <h2 class="ko-only">개방형 연동 구조</h2>
+              <h2 class="en-only">Open integration</h2>
+              <p class="ko-only">영상과 이벤트가 NOX 내부에만 축적되면 활용 범위가 제한됩니다. WebHook과 REST API를 통해 사내 시스템으로 이벤트를 전달하고, 외부 시스템의 상태를 수신해 판단 조건에 반영합니다. 양방향 연동을 통해 상황에 맞는 조치를 선택적으로 실행합니다.</p>
+              <p class="en-only">Footage and events confined to NOX have limited use. Events are delivered to in-house systems over WebHooks and the REST API, and external system state is received back and applied to the judgment conditions. Two-way integration is what makes it possible to select the action that fits the situation.</p>
+              <ul class="sv-check-list">
+                <li><span class="ko-only">이벤트 발생 시 WebHook 호출, 페이로드와 조건의 시나리오별 정의</span><span class="en-only">WebHook calls on event, with payload and conditions defined per scenario</span></li>
+                <li><span class="ko-only">해당 시점 영상 클립 자동 추출 및 동시 전달</span><span class="en-only">Automatic extraction and delivery of the relevant video clip</span></li>
+                <li><span class="ko-only">외부 시스템 상태 수신 및 판단 조건 반영</span><span class="en-only">External system state received into the judgment conditions</span></li>
+                <li><span class="ko-only">ERP·MES·CMMS·그룹웨어·메신저 연동</span><span class="en-only">Integrates with ERP, MES, CMMS, groupware, and messengers</span></li></ul>
               <p style="margin-top:1.6rem">
                 <a href="../blog/webhook-agentic-ai-parking-automation-guide.html" class="sv-more">
                   <span class="ko-only">WebHook 연동 구축 가이드 읽기</span><span class="en-only">Read the WebHook integration guide</span>
@@ -200,9 +300,105 @@
               </p>
               <p style="margin-top:0.8rem">
                 <a href="/api/" class="sv-more">
-                  <span class="ko-only">NOX NVR REST API 문서 보기 — 서비스 15개 · 엔드포인트 386개</span><span class="en-only">Browse the NOX NVR REST API reference — 15 services, 386 endpoints</span>
+                  <span class="ko-only">NOX NVR REST API 문서 보기 (서비스 15개 · 엔드포인트 386개)</span><span class="en-only">Browse the NOX NVR REST API reference — 15 services, 386 endpoints</span>
                 </a>
               </p>
+            </div>
+          </div>
+
+          <!-- 운영 — the breadth beat, carried by real captures -->
+          <div class="sv-head sv-fade" style="margin-top:5rem">
+            <h2 class="ko-only">주요 운영 화면</h2>
+            <h2 class="en-only">Key operating screens</h2>
+            <p class="ko-only">관제 운영자가 상시 사용하는 주요 화면입니다. 모두 실제 제품 화면을 캡처한 것입니다.</p>
+            <p class="en-only">The screens a control-room operator works with day to day. Every one is a capture of the actual product.</p>
+          </div>
+
+          <div class="nox-shots">
+            <figure class="nox-shot">
+              <img src="../img/nox/vlm-servers.jpeg" alt="NOX VLM 서버 설정 — 사내에 설치한 VLM 서버 두 대의 엔드포인트와 모델을 등록한 목록" width="1200" height="675" loading="lazy" />
+              <figcaption>
+                <h4 class="ko-only">VLM 서버 사내 구축</h4>
+                <h4 class="en-only">In-house VLM servers</h4>
+                <p class="ko-only">사내에 구축한 VLM 서버의 주소와 모델을 등록해 사용합니다. 영상의 외부 반출이 없으며, 모델 교체는 설정 변경만으로 처리됩니다.</p>
+                <p class="en-only">Register the address and model of a VLM server on your own network. No footage leaves the premises, and swapping models is a configuration change.</p>
+              </figcaption>
+            </figure>
+            <figure class="nox-shot">
+              <img src="../img/nox/emap.jpeg" alt="NOX E-map — 아파트 단지 도면 위에 카메라 아이콘과 시야각이 표시되고, 아이콘을 누르자 라이브 영상이 열린 화면" width="1200" height="658" loading="lazy" />
+              <figcaption>
+                <h4 class="ko-only">도면 기반 배치도 (E-map)</h4>
+                <h4 class="en-only">Floor-plan camera map (E-map)</h4>
+                <p class="ko-only">평면도 위에 카메라와 시야각을 배치하며, 아이콘 선택 시 해당 카메라의 라이브 영상이 도면 위에서 실행됩니다. 이벤트 발생 시 해당 위치를 강조 표시합니다.</p>
+                <p class="en-only">Cameras and their fields of view are placed on the building plan; selecting an icon opens that camera's live view on the map. The location is highlighted when an event occurs.</p>
+              </figcaption>
+            </figure>
+            <figure class="nox-shot">
+              <img src="../img/nox/audit-log.jpeg" alt="NOX 감사 로그 — 로그인·세션 종료·무결성 검증 기록이 카테고리·사용자·IP·성공 여부와 함께 나열된 화면" width="1200" height="675" loading="lazy" />
+              <figcaption>
+                <h4 class="ko-only">감사 로그</h4>
+                <h4 class="en-only">Audit log</h4>
+                <p class="ko-only">로그인, 설정 변경, 무결성 검증 등의 조작을 사용자·IP·성공 여부와 함께 기록합니다. 기간·카테고리별 필터링과 내보내기를 지원하며, 기록 자체의 위·변조를 방지합니다.</p>
+                <p class="en-only">Logins, configuration changes, and integrity checks are recorded with the user, the IP, and the outcome. Records are filterable and exportable by period and category, and are protected against tampering.</p>
+              </figcaption>
+            </figure>
+            <figure class="nox-shot">
+              <img src="../img/nox/live-layout.jpeg" alt="NOX 라이브 레이아웃 — 카메라 타일과 웹 페이지 타일을 한 화면에 섞어 배치한 모습" width="1200" height="714" loading="lazy" />
+              <figcaption>
+                <h4 class="ko-only">웹 브라우저 기반 운영</h4>
+                <h4 class="en-only">Browser-based operation</h4>
+                <p class="ko-only">전용 클라이언트 설치 없이 웹 브라우저에서 전 기능을 사용합니다. 타일 크기와 배치를 자유롭게 구성하며, 카메라 외에 웹 페이지도 동일 화면에 배치할 수 있습니다.</p>
+                <p class="en-only">Every function runs in a web browser with no client to install. Tile size and placement are freely composed, and web pages can be placed on the same screen alongside cameras.</p>
+              </figcaption>
+            </figure>
+            <figure class="nox-shot nox-shot--wide">
+              <img src="../img/nox/multi-monitor.jpeg" alt="NOX 멀티 모니터 운용 — 모니터 1에 대시보드, 모니터 2에 카메라 레이아웃을 띄운 모습" width="1400" height="422" loading="lazy" />
+              <figcaption>
+                <h4 class="ko-only">모니터별 역할 분리</h4>
+                <h4 class="en-only">Per-monitor roles</h4>
+                <p class="ko-only">대시보드, 상시 관제, 알람 전용 등 모니터별로 역할을 분리해 운영합니다. 창별 역할 설정은 재부팅 후에도 유지됩니다.</p>
+                <p class="en-only">Monitors are assigned separate roles: dashboard, standing watch, alarms only. Each window's role setting persists across a reboot.</p>
+              </figcaption>
+            </figure>
+            <figure class="nox-shot">
+              <img src="../img/nox/dashboard.jpeg" alt="NOX 대시보드 — 카메라·녹화·저장소·이벤트 현황과 CPU·메모리·온도·디스크 I/O 지표" width="1200" height="675" loading="lazy" />
+              <figcaption>
+                <h4 class="ko-only">장비 상태 통합 모니터링</h4>
+                <h4 class="en-only">Integrated system monitoring</h4>
+                <p class="ko-only">카메라·녹화·저장소 현황과 CPU·메모리·온도·디스크 I/O를 함께 조회합니다. 임계값 초과 시 관리자에게 알림을 발송합니다.</p>
+                <p class="en-only">Camera, recording, and storage status is viewed alongside CPU, memory, temperature, and disk I/O. An alert is sent to the administrator when a threshold is exceeded.</p>
+              </figcaption>
+            </figure>
+            <figure class="nox-shot">
+              <img src="../img/nox/cameras.jpeg" alt="NOX 카메라 목록 — 드라이버 유형, 모델, 주소, 온라인 상태가 표시된 관리 화면" width="1200" height="675" loading="lazy" />
+              <figcaption>
+                <h4 class="ko-only">카메라 등록 및 관리</h4>
+                <h4 class="en-only">Camera registration and management</h4>
+                <p class="ko-only">제조사 구분 없이 ONVIF·RTSP 카메라를 등록합니다. 자동 검색과 IP 검색을 함께 지원해 다른 서브넷의 장비도 검색합니다.</p>
+                <p class="en-only">ONVIF and RTSP cameras are registered regardless of manufacturer. Auto-discovery and IP search are both supported, so devices on another subnet are found as well.</p>
+              </figcaption>
+            </figure>
+          </div>
+
+          <!-- 화면으로 보여줄 수 없는 나머지 -->
+          <div class="sv-product-grid nox-tail" style="margin-top:3.5rem">
+            <div class="sv-product-card">
+              <h3 class="ko-only">상위 VMS 편입 (ONVIF 서버)</h3>
+              <h3 class="en-only">Upstream VMS integration (ONVIF server)</h3>
+              <p class="ko-only">NOX 자체가 ONVIF 장비로 동작하므로, 운영 중인 상위 VMS에 카메라와 동일한 방식으로 편입됩니다. 별도 개발이 필요한 경우 REST API와 WebHook을 제공합니다.</p>
+              <p class="en-only">NOX itself operates as an ONVIF device, so an upstream VMS already in service takes it in the same way it takes a camera. Where separate development is required, the REST API and WebHooks are provided.</p>
+            </div>
+            <div class="sv-product-card">
+              <h3 class="ko-only">모바일 카메라 지원 (WebRTC WHIP)</h3>
+              <h3 class="en-only">Mobile camera support (WebRTC WHIP)</h3>
+              <p class="ko-only">WebRTC WHIP 방식으로 스마트폰 영상을 전송합니다. 고정 IP와 배선 없이 임시 작업 구역이나 이동 현장에 카메라를 추가 배치할 수 있습니다.</p>
+              <p class="en-only">A phone's camera is pushed in over WebRTC WHIP. Cameras are added to a temporary work area or a moving site without a fixed IP or cabling.</p>
+            </div>
+            <div class="sv-product-card">
+              <h3 class="ko-only">4채널 무상 제공 (Free 모드)</h3>
+              <h3 class="en-only">Four channels at no cost (Free mode)</h3>
+              <p class="ko-only">라이선스 등록 없이 4채널, 7일 보관으로 기간 제한 없이 사용합니다. 체험판이 아닌 동일 빌드로 동작하므로, 현장 적용 후 라이선스 등록만으로 채널을 확장합니다.</p>
+              <p class="en-only">Four channels and seven days of retention run unlicensed with no expiry. It is the same build rather than a trial, so channels are expanded by registering a license after the site is already running.</p>
             </div>
           </div>
 
@@ -212,8 +408,8 @@
             <div class="sv-request-body">
               <h3 class="ko-only">NOX 자료 요청</h3>
               <h3 class="en-only">Request the NOX materials</h3>
-              <p class="ko-only">NOX 소프트웨어 제품 소개 자료를 메일로 보내드립니다. 검토 중인 현장이나 필요한 항목을 함께 적어 주시면 그에 맞춰 준비해 보내드립니다.</p>
-              <p class="en-only">We'll email you the NOX software product materials. Tell us about the site you're evaluating or what you need, and we'll put together the documents that fit.</p>
+              <p class="ko-only">본 페이지에 수록하지 않은 기능과 상세 규격은 제품 소개서, 기능 상세, 규격서로 발송해 드립니다. 검토 중인 현장 조건(카메라 대수, 보존 기간, 폐쇄망 여부)이나 필요한 항목을 함께 기재해 주시면 그에 맞추어 준비합니다.</p>
+              <p class="en-only">Functions and specifications not covered on this page are sent as a product overview, a detailed feature list, and a spec sheet. Include the site conditions you are evaluating (camera count, retention period, whether the network is air-gapped) or the items you need, and we will prepare the documents accordingly.</p>
             </div>
             <a href="https://forms.gle/bJ8oRfSpPoFPyTZy9" target="_blank" rel="noopener noreferrer" class="sv-btn sv-btn-primary">
               <span class="ko-only">자료 요청하기</span><span class="en-only">Request materials</span>
@@ -232,8 +428,8 @@
             <div class="sv-eyebrow">NVR Appliance</div>
             <h2 class="ko-only">NOX-A08 시리즈</h2>
             <h2 class="en-only">NOX-A08 Series</h2>
-            <p class="ko-only">YIYOL이 직접 설계한 하드웨어에 NOX 소프트웨어를 탑재해 하나로 공급하는 어플라이언스입니다. 영상을 받아 저장하면서, 필요하면 AI 판단까지 같은 장비에서 수행하고 그 결과에 따라 후속조치를 내보냅니다. 8베이 핫스왑 SATA를 갖춘 2U 랙마운트 어플라이언스로 32·64·128채널 3개 모델이 제공되며, 영상은 항상 사용자 장비(on-prem)에 남습니다.</p>
-            <p class="en-only">Hardware we design ourselves, shipped with the NOX software already on it. It ingests and stores video and — when you want it — runs the AI judgment on the same box and pushes the follow-up out from there. A 2U rackmount appliance with 8 hot-swap SATA bays in three models — 32, 64, and 128 channels — with every recording staying on your own hardware.</p>
+            <p class="ko-only">YIYOL이 자체 설계한 하드웨어에 NOX 소프트웨어를 탑재해 공급하는 어플라이언스입니다. 영상 수집·저장과 함께 AI 판단을 동일 장비에서 수행하고, 판단 결과에 따라 후속조치를 실행합니다. 8베이 핫스왑 SATA를 탑재한 2U 랙마운트 구성으로 32·64·128채널 3개 모델을 제공하며, 영상은 전량 고객 장비(온프레미스)에 보관됩니다.</p>
+            <p class="en-only">An appliance built on hardware YIYOL designs itself, supplied with the NOX software already installed. It ingests and stores video, performs AI judgment on the same unit, and executes follow-up actions on the result. A 2U rackmount configuration with 8 hot-swap SATA bays is offered in three models (32, 64, and 128 channels), and all footage is retained on the customer's own hardware.</p>
           </div>
 
           <!-- Featured: NOX-A08 series -->
@@ -246,14 +442,14 @@
               <h2 class="en-only">NOX-A08 Series</h2>
               <div class="sv-product-sub ko-only">8 SATA 핫스왑 · 32 / 64 / 128채널 3개 모델</div>
               <div class="sv-product-sub en-only">8 hot-swap SATA · three models (32 / 64 / 128 ch)</div>
-              <p class="ko-only">하나의 2U 랙마운트 플랫폼에 8개의 핫스왑 SATA 베이(최대 240TB)를 담은 NVR 어플라이언스 시리즈. 32·64·128채널 3개 모델이 동일한 플랫폼을 공유하며, 이중 LAN·하드웨어 워치독으로 무인 환경에서도 스스로 복구하고, 3개의 독립 출력(2×4K HDMI + VGA)으로 대형 관제 화면을 구성합니다.</p>
-              <p class="en-only">An NVR appliance series built on one 2U rackmount platform with 8 hot-swap SATA bays (up to 240TB). Three models — 32, 64, and 128 channels — share the same platform, with dual LAN and a hardware watchdog for self-healing in unattended sites, and three independent outputs (2×4K HDMI + VGA) for large monitoring walls.</p>
+              <p class="ko-only">단일 2U 랙마운트 플랫폼에 8개의 핫스왑 SATA 베이(최대 240TB)를 구성한 NVR 어플라이언스 시리즈입니다. 32·64·128채널 3개 모델이 동일 플랫폼을 공유하며, 이중 LAN과 하드웨어 워치독으로 무인 운영 환경에서 자동 복구를 수행합니다. 3개의 독립 출력(2×4K HDMI + VGA)으로 대형 관제 화면을 구성합니다.</p>
+              <p class="en-only">An NVR appliance series built on a single 2U rackmount platform with 8 hot-swap SATA bays (up to 240TB). Three models (32, 64, and 128 channels) share the same platform, with dual LAN and a hardware watchdog performing automatic recovery at unattended sites, and three independent outputs (2×4K HDMI + VGA) for large monitoring walls.</p>
               <ul class="sv-check-list">
                 <li><span class="ko-only">32 / 64 / 128채널 3개 모델 · 동일 8베이 플랫폼</span><span class="en-only">Three models (32/64/128 ch) on one 8-bay platform</span></li>
                 <li><span class="ko-only">8 SATA 핫스왑 베이 · 최대 240TB</span><span class="en-only">8 hot-swap SATA bays · up to 240TB</span></li>
-                <li><span class="ko-only">이중 LAN · 하드웨어 워치독 기반 무중단 운영</span><span class="en-only">Dual LAN and hardware watchdog for nonstop operation</span></li>
+                <li><span class="ko-only">이중 LAN 및 하드웨어 워치독 기반 무중단 운영</span><span class="en-only">Dual LAN and hardware watchdog for nonstop operation</span></li>
                 <li><span class="ko-only">2×4K HDMI + VGA 3개 독립 출력</span><span class="en-only">Three independent outputs — 2×4K HDMI + VGA</span></li>
-                <li><span class="ko-only">순수 국산 설계 · 국가용 보안요구사항 V3.0 대비</span><span class="en-only">Designed and built in Korea · aligned to National Security Requirements V3.0</span></li>
+                <li><span class="ko-only">국내 자체 설계 · 국가용 보안요구사항 V3.0 대응</span><span class="en-only">Designed and built in Korea, aligned to National Security Requirements V3.0</span></li>
               </ul>
               <p style="margin-top:1.6rem">
                 <a href="../nox-nvr.html" class="sv-more">
@@ -268,8 +464,8 @@
             <div class="sv-eyebrow">Lineup</div>
             <h2 class="ko-only">채널 규모별 3개 모델</h2>
             <h2 class="en-only">Three models by channel capacity</h2>
-            <p class="ko-only">모든 모델이 8개의 핫스왑 SATA 베이를 갖춘 2U 랙마운트 어플라이언스입니다. 채널 수만 다르며, 세 모델 모두 곧 함께 출시됩니다.</p>
-            <p class="en-only">Every model is a 2U rackmount appliance with 8 hot-swap SATA bays — differing only in channel count. All three launch together soon.</p>
+            <p class="ko-only">전 모델이 8개의 핫스왑 SATA 베이를 갖춘 2U 랙마운트 어플라이언스이며, 채널 수만 상이합니다. 3개 모델 동시 출시 예정입니다.</p>
+            <p class="en-only">Every model is a 2U rackmount appliance with 8 hot-swap SATA bays, differing only in channel count. All three are scheduled to launch together.</p>
           </div>
 
           <div class="sv-product-grid">
@@ -278,8 +474,8 @@
               <h3>NOX-A08128</h3>
               <div class="sv-product-sub ko-only">128채널 · 8 SATA</div>
               <div class="sv-product-sub en-only">128 channels · 8 SATA</div>
-              <p class="ko-only">대규모 현장을 위한 128채널 모델. 최대 용량으로 통합 녹화합니다.</p>
-              <p class="en-only">A 128-channel model for large sites — maximum capacity in one box.</p>
+              <p class="ko-only">대규모 현장용 128채널 모델입니다. 최대 용량으로 통합 녹화를 수행합니다.</p>
+              <p class="en-only">A 128-channel model for large sites, with maximum capacity in one unit.</p>
               <div class="sv-product-tags"><span class="ko-only">128채널</span><span class="en-only">128 ch</span><span>8 SATA</span><span>2U</span><span>Coming Soon</span></div>
             </div>
 
@@ -288,7 +484,7 @@
               <h3>NOX-A08064</h3>
               <div class="sv-product-sub ko-only">64채널 · 8 SATA</div>
               <div class="sv-product-sub en-only">64 channels · 8 SATA</div>
-              <p class="ko-only">중규모 현장을 위한 64채널 모델. 동일한 8베이 플랫폼을 공유합니다.</p>
+              <p class="ko-only">중규모 현장용 64채널 모델입니다. 동일한 8베이 플랫폼을 공유합니다.</p>
               <p class="en-only">A 64-channel model for mid-size sites, sharing the same 8-bay platform.</p>
               <div class="sv-product-tags"><span class="ko-only">64채널</span><span class="en-only">64 ch</span><span>8 SATA</span><span>2U</span><span>Coming Soon</span></div>
             </div>
@@ -298,8 +494,8 @@
               <h3>NOX-A08032</h3>
               <div class="sv-product-sub ko-only">32채널 · 8 SATA</div>
               <div class="sv-product-sub en-only">32 channels · 8 SATA</div>
-              <p class="ko-only">소규모 현장을 위한 엔트리 모델. 32채널을 8베이 스토리지에 담습니다.</p>
-              <p class="en-only">An entry model for smaller sites — 32 channels backed by 8-bay storage.</p>
+              <p class="ko-only">소규모 현장용 엔트리 모델입니다. 32채널을 8베이 스토리지로 구성합니다.</p>
+              <p class="en-only">An entry model for smaller sites, with 32 channels backed by 8-bay storage.</p>
               <div class="sv-product-tags"><span class="ko-only">32채널</span><span class="en-only">32 ch</span><span>8 SATA</span><span>2U</span><span>Coming Soon</span></div>
             </div>
           </div>
@@ -325,8 +521,8 @@
             <div class="sv-eyebrow ko-only">현장 밖에서의 창구</div>
             <div class="sv-eyebrow en-only">The channel when you're off-site</div>
             <h2>NOX Mobile</h2>
-            <p class="ko-only">자동화가 담당자를 호출하면, 그 알림이 도착하는 곳입니다. Android · iOS 전용 앱으로 푸시 알림을 받아 해당 시점 영상을 바로 확인하고, 실시간 멀티뷰와 녹화 재생까지 이어집니다. 외부에서도 안전하게 내 NOX에 연결됩니다.</p>
-            <p class="en-only">When automation pages the person on duty, this is where the alert lands. Push notifications on dedicated Android and iOS apps open straight onto the moment in question, with live multi-view and playback from there — securely connected to your NOX from anywhere.</p>
+            <p class="ko-only">현장 외부에서 영상을 확인하는 전용 모바일 앱입니다. Android·iOS 앱으로 이벤트 푸시 알림을 수신해 해당 시점 영상을 즉시 확인하며, 실시간 멀티뷰와 녹화 재생을 제공합니다. 외부 네트워크에서도 보안 연결로 자사 NOX에 접속합니다.</p>
+            <p class="en-only">A dedicated mobile app for checking footage away from the site. Event push notifications on the Android and iOS apps open straight onto the moment in question, with live multi-view and recorded playback. The connection to your own NOX is secured from any external network.</p>
           </div>
 
           <div class="nox-appshots">
@@ -335,8 +531,8 @@
               <figcaption>
                 <h4 class="ko-only">실시간 멀티뷰</h4>
                 <h4 class="en-only">Live multi-view</h4>
-                <p class="ko-only">여러 카메라를 한 화면에서 동시에 라이브로 모니터링합니다.</p>
-                <p class="en-only">Monitor many cameras live on one screen at once.</p>
+                <p class="ko-only">다수 카메라를 단일 화면에서 동시에 실시간 모니터링합니다.</p>
+                <p class="en-only">Multiple cameras are monitored live on a single screen.</p>
               </figcaption>
             </figure>
             <figure class="nox-appshot">
@@ -344,8 +540,8 @@
               <figcaption>
                 <h4 class="ko-only">녹화 재생 · 타임라인</h4>
                 <h4 class="en-only">Playback & timeline</h4>
-                <p class="ko-only">타임라인을 스크럽해 원하는 시점의 녹화를 즉시 재생하고, 배속으로 빠르게 확인합니다.</p>
-                <p class="en-only">Scrub the timeline to jump to any moment and review at adjustable speed.</p>
+                <p class="ko-only">타임라인 조작으로 원하는 시점의 녹화를 즉시 재생하며, 배속 재생을 지원합니다.</p>
+                <p class="en-only">The timeline is scrubbed to any moment for immediate playback, with adjustable-speed review.</p>
               </figcaption>
             </figure>
           </div>
@@ -353,7 +549,7 @@
           <ul class="sv-check-list nox-mobile-feats">
             <li><span class="ko-only">Android 전용 앱</span><span class="en-only">Dedicated Android app</span></li>
             <li><span class="ko-only">iOS 전용 앱</span><span class="en-only">Dedicated iOS app</span></li>
-            <li><span class="ko-only">실시간 멀티뷰 · 녹화 재생 · 이벤트 푸시 알림</span><span class="en-only">Live multi-view, playback, and event push alerts</span></li>
+            <li><span class="ko-only">실시간 멀티뷰, 녹화 재생, 이벤트 푸시 알림 지원</span><span class="en-only">Live multi-view, playback, and event push alerts</span></li>
           </ul>
         </div>
       </section>
@@ -369,12 +565,12 @@
               <h2>OEM</h2>
               <div class="sv-product-sub ko-only">파트너 브랜드로 공급하는 OEM · 화이트라벨</div>
               <div class="sv-product-sub en-only">OEM &amp; white-label for partners</div>
-              <p class="ko-only">NOX의 수집·AI 판단·실행 코어를 파트너 제품에 임베드해 파트너 브랜드로 출시할 수 있도록 지원합니다. 하드웨어 제조사와 SI 파트너가 소프트웨어 개발 부담 없이, 단순 녹화 장비가 아니라 <strong>AI 자동화가 되는 제품</strong>을 갖추게 됩니다.</p>
-              <p class="en-only">Embed the NOX capture, AI judgment, and execution core into your product and ship it under your own brand. Hardware makers and SI partners get to market without building the software — and what they ship is <strong>a product that automates</strong>, not just one that records.</p>
+              <p class="ko-only">NOX의 수집·AI 판단·실행 코어를 파트너 제품에 임베드해 파트너 브랜드로 공급할 수 있도록 지원합니다. 하드웨어 제조사와 SI 파트너는 별도의 소프트웨어 개발 없이 <strong>AI 자동화를 지원하는 제품</strong>을 확보합니다.</p>
+              <p class="en-only">The NOX capture, AI judgment, and execution core is embedded into a partner product and supplied under the partner's own brand. Hardware manufacturers and SI partners obtain <strong>a product with AI automation</strong> without undertaking separate software development.</p>
               <ul class="sv-check-list">
                 <li><span class="ko-only">화이트라벨 빌드 · 파트너 브랜딩</span><span class="en-only">White-label builds and partner branding</span></li>
                 <li><span class="ko-only">맞춤 기능 개발 · 외부 시스템 연동</span><span class="en-only">Custom feature development and integrations</span></li>
-                <li><span class="ko-only">Vision AI·VLM 등 다양한 AI 모델 적용</span><span class="en-only">Apply various AI models such as Vision AI and VLM</span></li>
+                <li><span class="ko-only">Vision AI·VLM 등 다양한 AI 모델 적용 지원</span><span class="en-only">Apply various AI models such as Vision AI and VLM</span></li>
                 <li><span class="ko-only">고객사 현장별 자동화 시나리오 구성 지원</span><span class="en-only">Support for building per-site automation scenarios for your customers</span></li>
               </ul>
               <p style="margin-top:1.6rem">
@@ -391,10 +587,10 @@
 
     <!-- CTA -->
     <section class="sv-cta">
-      <h2 class="ko-only">장비와 소프트웨어는 수단입니다</h2>
-      <h2 class="en-only">The hardware and software are the means, not the point</h2>
-      <p class="ko-only">중요한 것은 현장의 문제가 해결되는가입니다. 어떤 상황을 자동으로 처리하고 싶은지 알려주시면, 이 제품들 위에 어떻게 만들지 함께 검토해 드립니다.</p>
-      <p class="en-only">What matters is whether the problem on your floor gets solved. Tell us what you want handled automatically and we'll work out how to build it on top of this.</p>
+      <h2 class="ko-only">현장 과제 중심의 도입 검토</h2>
+      <h2 class="en-only">Adoption reviewed against the problem on your floor</h2>
+      <p class="ko-only">자동으로 처리하고자 하는 상황을 알려주시면, 본 제품군을 기반으로 한 구현 방안을 함께 검토해 드립니다.</p>
+      <p class="en-only">Tell us the situation you want handled automatically, and we will review how to implement it on these products.</p>
       <div class="sv-hero-cta">
         <a href="../contact/" class="sv-btn sv-btn-primary">
           <span class="ko-only">문제 상담하기</span><span class="en-only">Tell us your problem</span>
