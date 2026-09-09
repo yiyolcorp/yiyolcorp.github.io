@@ -145,6 +145,10 @@
            shipping with no visible label at all; an ordinal + key is functional
            (it carries the ranking), not a decorative eyebrow. Same mono/accent
            treatment as .sv-flow-step-no so the two rails read as one system. */
+        /* Qualifier line. The failover feature ships flagged beta in the
+           product, and the capture beside this block shows that banner, so the
+           block that headlines it has to say so too. */
+        .sv-note{margin-top:var(--space-md);font-size:var(--text-sm);line-height:1.6;color:var(--color-muted);max-width:var(--measure)}
         .sv-rank{display:block;margin-bottom:var(--space-3xs);font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:var(--tracking-mono);text-transform:uppercase;color:var(--color-accent);font-variant-numeric:tabular-nums}
       </style>
 
@@ -272,9 +276,13 @@
                 <li><span class="ko-only">장애 기간 영상 회수, 원 장비 타임라인 병합 및 전송 중 열람 지원</span><span class="en-only">Record-back, merging the outage window into the original timeline and viewable during transfer</span></li>
                 <li><span class="ko-only">페더레이션, 다수 NOX의 라이브·검색·재생 단일 트리 통합</span><span class="en-only">Federation, with live view, search, and playback across every unit from one tree</span></li>
                 <li><span class="ko-only">유지보수·업데이트 중 감시 자동 유예로 불필요한 인계 방지</span><span class="en-only">Planned maintenance and updates suspend the watch, preventing unnecessary takeover</span></li></ul>
+              <p class="sv-note">
+                <span class="ko-only">※ 페더레이션은 정식 기능이며, 페일오버는 현재 베타로 제공됩니다. 실제 장애 대응에 적용하기 전 테스트 환경에서 인계·복귀 검증을 권장하고, 중요 녹화는 별도 백업을 병행하시기 바랍니다.</span>
+                <span class="en-only">※ Federation is generally available; failover currently ships as a beta feature. We recommend validating takeover and failback in a test environment before relying on it during a live incident, and keeping a separate backup of critical recordings.</span>
+              </p>
             </div>
             <div class="sv-product-detail-media">
-              <img src="../img/nox/failover.jpeg" alt="NOX 페일오버 설정 화면 — Standby 모드 토글, 보호 관계 목록, heartbeat·스냅샷·중재 IP 설정" width="1800" height="1013" loading="lazy" />
+              <img src="../img/nox/failover.jpeg" alt="NOX 페일오버 화면. Standby 모드가 활성된 대기 장비에서 128채널 운영 장비 1대를 보호 중이며, 마지막 heartbeat·스냅샷 시각과 인계·스냅샷 갱신 조작이 표시되어 있다" width="1800" height="1011" loading="lazy" />
             </div>
           </div>
 
