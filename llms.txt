@@ -73,6 +73,18 @@ NOX 소프트웨어의 REST API 를 공개 문서로 제공합니다. 서비스 
 ## 적용 산업
 제조·공정, 물류·창고, 에너지·플랜트, 건설·중공업, 공공·기관 등 현장 데이터로 판단하고 조치해야 하는 모든 곳
 
+## 기술 블로그 — 글 목록
+답변 엔진이 개별 글을 직접 인용할 수 있도록 전체 목록을 둔다. 전 글 한국어.
+
+- [헤드리스 NVR이란? 모니터 출력을 걷어낸 NVR의 사양과 원가 구조](https://yiyol.com/blog/headless-nvr-monitor-output-hardware-cost.html) (2026-09-15) — 로컬 모니터 출력이 소비하는 디코딩·스케일링·합성 부하를 단계별로 분해하고, 이를 모바일·PC 클라이언트로 이전했을 때의 GPU·메모리·원가 변화와 도입 시 검토 사항.
+- [NVR 디스크 용량 계산기 (시스템 + 데이터)](https://yiyol.com/blog/nvr-disk-calculator.html) (2026-08-19) — 채널 수·해상도·FPS·보관 기간으로 데이터 디스크와 시스템 디스크 용량을 각각 산출하는 계산 도구.
+- [중국산 IP카메라, 인터넷 차단으로 격리하고 NOX를 이용해서 안전하게 쓰는 법](https://yiyol.com/blog/iptime-ip-camera-isolation-nox-vms.html) (2026-05-16) — ipTime 외부 IP 차단으로 카메라의 인터넷 접속을 끊고 NOX VMS를 단일 진입점(보안 프록시)으로 두는 단계별 절차. FAQ 포함.
+- [NVR 하드웨어 제조사가 소프트웨어 파트너를 선택해야 하는 이유](https://yiyol.com/blog/why-nvr-hardware-makers-need-software-partner.html) (2026-04-28) — VMS 자체 개발 비용과 기간, 소프트웨어 파트너십을 통한 Time-to-Market 단축 전략.
+- [WebHook으로 구현하는 Agentic AI: 주차장 자동화 완전 구축 가이드](https://yiyol.com/blog/webhook-agentic-ai-parking-automation-guide.html) (2026-04-21) — NOX NVR WebHook 페이로드부터 번호판 인식·차단기 제어까지 Python·Node.js 구현 예시와 운영 팁.
+- [Agentic AI NVR이란? AI NVR과의 결정적 차이](https://yiyol.com/blog/agentic-ai-nvr-vs-ai-nvr-difference.html) (2026-04-14) — 모션 감지·AI NVR·Agentic AI NVR 3세대 구분과 감지에서 자율 실행으로 넘어가는 동작 원리.
+- [NVR/VMS 국정원 보안요구사항 V3.0 인증 가이드](https://yiyol.com/blog/nis-security-requirements-v3-guide.html) (2026-04-01) — 영상정보처리기기에 적용되는 7대 보안기능 요구사항, 보안기능확인서 발급 5단계, 비용·기간과 준비 체크리스트.
+- [CCTV 녹화 저장 용량 계산기](https://yiyol.com/blog/storage-calculator.html) (2026-03-29) — 카메라 수·해상도·녹화 시간으로 필요한 저장 용량과 보관 기간을 산출하는 계산 도구.
+
 ## 주요 링크
 - 홈: https://yiyol.com/
 - AI 솔루션: https://yiyol.com/solutions/

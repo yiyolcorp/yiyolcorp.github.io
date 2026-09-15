@@ -57,6 +57,74 @@
   }
   </script>
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "YIYOL",
+        "item": "https://yiyol.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "블로그",
+        "item": "https://yiyol.com/blog/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "중국산 IP카메라, 인터넷 차단으로 격리하고 NOX를 이용해서 안전하게 쓰는 법",
+        "item": "https://yiyol.com/blog/iptime-ip-camera-isolation-nox-vms.html"
+      }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "P2P 앱(XMEye, Hik-Connect)으로만 봤는데, 차단하면 그 앱은 쓸 수 없게 되는 것 아닌가?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "맞다. 그게 의도된 결과다. 앱이 잘 보였다는 건 카메라가 매 순간 제조사 클라우드와 양방향 연결돼 있었다는 뜻이고, 본 가이드는 정확히 그 연결을 끊기 위한 것이다. NOX VMS가 같은 역할(원격 보기·알림·녹화)을 단일 인증·TLS 경로로 제공한다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "포트포워딩 대신 VPN으로 들어와도 되는가?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "더 안전한 옵션이다. ipTime의 VPN 서버 기능이나 WireGuard로 들어와 NOX에 LAN처럼 붙는 방식은 포트포워딩보다 공격 표면이 줄어든다. 다만 직원들이 모두 VPN을 설치·관리해야 하는 운영 부담은 고려해야 한다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "ipTime 말고 다른 공유기에서도 되는가?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "원리는 동일하다. ASUS·Netgear·TP-Link·통신사 공유기 모두 \"Access Control\" 또는 \"Outbound Firewall\" 같은 이름으로 비슷한 기능을 제공한다. 메뉴 명칭만 다를 뿐 \"이 내부 IP의 외부 outbound를 차단\"이라는 동작은 같다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "RTSP/ONVIF를 막으면 NOX도 카메라를 못 보는 것 아닌가?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "NOX는 격리 네트워크 안쪽에서 카메라와 통신한다. ipTime egress 규칙은 카메라 → 외부 인터넷 방향만 막을 뿐, 같은 LAN 안의 NOX → 카메라 통신은 영향받지 않는다."
+        }
+      }
+    ]
+  }
+  </script>
+
   <!-- Fonts & CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

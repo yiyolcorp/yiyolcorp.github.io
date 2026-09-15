@@ -21,7 +21,15 @@
     <meta property="og:url" content="https://yiyol.com/blog/storage-calculator.html" />
     <meta property="og:title" content="CCTV 저장 용량 계산기 — YIYOL" />
     <meta property="og:description" content="카메라 수, 해상도, FPS, 녹화 시간으로 필요한 저장 용량과 보관 기간을 자동 계산" />
-    <meta property="og:site_name" content="YIYOL" />
+    <meta property="og:image" content="https://yiyol.com/img/nox-ui-001.jpeg" />
+  <meta property="og:image:width" content="3456" />
+  <meta property="og:image:height" content="1916" />
+  <meta property="og:site_name" content="YIYOL" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="CCTV 저장 용량 계산기 — YIYOL" />
+    <meta name="twitter:description" content="CCTV 카메라 수, 해상도, FPS, 녹화 시간을 입력하면 필요한 저장 용량과 보관 기간을 자동으로 계산합니다." />
+    <meta name="twitter:image" content="https://yiyol.com/img/nox-ui-001.jpeg" />
 
     <link rel="canonical" href="https://yiyol.com/blog/storage-calculator.html" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -288,6 +296,14 @@
         color: var(--accent-color);
       }
 
+      /* Related posts — the tool pages had no path back into the blog. */
+      .calc-related { margin-top: 3rem; }
+      .calc-related ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--border-color); }
+      .calc-related li { padding: 0.9rem 0; border-bottom: 1px solid var(--border-color); }
+      .calc-related a { color: var(--text-primary); font-size: 1rem; font-weight: 600; text-decoration: none; }
+      .calc-related a:hover { color: var(--accent-color); }
+      .calc-related p { margin: 0.25rem 0 0; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.55; }
+
       /* Reference Table */
       .calc-ref-section {
         margin-top: 3rem;
@@ -392,7 +408,33 @@
       }
     }
     </script>
-  </head>
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "YIYOL",
+        "item": "https://yiyol.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "블로그",
+        "item": "https://yiyol.com/blog/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "CCTV 저장 용량 계산기",
+        "item": "https://yiyol.com/blog/storage-calculator.html"
+      }
+    ]
+  }
+  </script>
+</head>
   <body class="yl">
     <!-- Header -->
     <nav class="site-nav" role="navigation" aria-label="Main navigation">
@@ -713,6 +755,29 @@
             </span>
           </code>
         </div>
+      </div>
+
+      <!-- Related posts -->
+      <div class="calc-ref-section calc-related">
+        <h2 class="calc-ref-title ko-only">관련 글</h2>
+        <h2 class="calc-ref-title en-only">Related posts</h2>
+        <ul>
+          <li>
+            <a href="/blog/nvr-disk-calculator.html"><span class="ko-only">NVR 디스크 용량 계산기 (시스템 + 데이터)</span><span class="en-only">NVR Disk Calculator (System + Data)</span></a>
+            <p class="ko-only">영상용 데이터 디스크와 OS·DB 메타데이터용 시스템 디스크를 나눠 계산합니다.</p>
+            <p class="en-only">Sizes the video data disk and the OS/DB metadata system disk separately.</p>
+          </li>
+          <li>
+            <a href="/blog/headless-nvr-monitor-output-hardware-cost.html"><span class="ko-only">헤드리스 NVR이란? 모니터 출력을 걷어낸 NVR의 사양과 원가 구조</span><span class="en-only">What is a headless NVR? Specification and cost when local output is removed</span></a>
+            <p class="ko-only">저장 용량을 정한 다음 결정해야 하는 NVR 본체 사양과 원가 구조를 다룹니다.</p>
+            <p class="en-only">The NVR specification and cost structure to settle once capacity is decided.</p>
+          </li>
+          <li>
+            <a href="/blog/iptime-ip-camera-isolation-nox-vms.html"><span class="ko-only">중국산 IP카메라, 인터넷 차단으로 격리하고 NOX를 이용해서 안전하게 쓰는 법</span><span class="en-only">Isolating Chinese IP cameras from the internet and running them safely through NOX</span></a>
+            <p class="ko-only">녹화를 시작하기 전에 카메라 네트워크를 격리하는 단계별 절차입니다.</p>
+            <p class="en-only">Step-by-step isolation of the camera network before recording starts.</p>
+          </li>
+        </ul>
       </div>
 
     </main>

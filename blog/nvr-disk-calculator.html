@@ -21,7 +21,15 @@
     <meta property="og:url" content="https://yiyol.com/blog/nvr-disk-calculator.html" />
     <meta property="og:title" content="NVR 디스크 용량 계산기 (시스템 + 데이터) — YIYOL" />
     <meta property="og:description" content="영상용 데이터 디스크와 OS·DB용 시스템 디스크의 필요 용량을 각각 자동 계산" />
-    <meta property="og:site_name" content="YIYOL" />
+    <meta property="og:image" content="https://yiyol.com/img/nox-ui-001.jpeg" />
+  <meta property="og:image:width" content="3456" />
+  <meta property="og:image:height" content="1916" />
+  <meta property="og:site_name" content="YIYOL" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="NVR 디스크 용량 계산기 (시스템 + 데이터) — YIYOL" />
+    <meta name="twitter:description" content="NVR 채널 수, 해상도, FPS, 보관 기간을 입력하면 영상이 저장되는 데이터 디스크와 OS·DB 메타데이터가 저장되는 시스템 디스크의 필요 용량을 각각 계산합니다." />
+    <meta name="twitter:image" content="https://yiyol.com/img/nox-ui-001.jpeg" />
 
     <link rel="canonical" href="https://yiyol.com/blog/nvr-disk-calculator.html" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -438,6 +446,14 @@
         padding: 0.9rem 1.1rem;
       }
 
+      /* Related posts — the tool pages had no path back into the blog. */
+      .calc-related { margin-top: 3rem; }
+      .calc-related ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--border-color); }
+      .calc-related li { padding: 0.9rem 0; border-bottom: 1px solid var(--border-color); }
+      .calc-related a { color: var(--text-primary); font-size: 1rem; font-weight: 600; text-decoration: none; }
+      .calc-related a:hover { color: var(--accent-color); }
+      .calc-related p { margin: 0.25rem 0 0; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.55; }
+
       /* Reference Table */
       .calc-ref-section {
         margin-top: 3rem;
@@ -548,7 +564,33 @@
       }
     }
     </script>
-  </head>
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "YIYOL",
+        "item": "https://yiyol.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "블로그",
+        "item": "https://yiyol.com/blog/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "NVR 디스크 용량 계산기 (시스템 + 데이터)",
+        "item": "https://yiyol.com/blog/nvr-disk-calculator.html"
+      }
+    ]
+  }
+  </script>
+</head>
   <body class="yl">
     <!-- Header -->
     <nav class="site-nav" role="navigation" aria-label="Main navigation">
@@ -998,6 +1040,29 @@
             </span>
           </code>
         </div>
+      </div>
+
+      <!-- Related posts -->
+      <div class="calc-ref-section calc-related">
+        <h2 class="calc-ref-title ko-only">관련 글</h2>
+        <h2 class="calc-ref-title en-only">Related posts</h2>
+        <ul>
+          <li>
+            <a href="/blog/storage-calculator.html"><span class="ko-only">CCTV 녹화 저장 용량 계산기</span><span class="en-only">CCTV Storage Calculator</span></a>
+            <p class="ko-only">카메라 수·해상도·녹화 시간만으로 필요한 저장 용량을 빠르게 추산합니다.</p>
+            <p class="en-only">A quicker estimate of required capacity from camera count, resolution, and recording hours.</p>
+          </li>
+          <li>
+            <a href="/blog/headless-nvr-monitor-output-hardware-cost.html"><span class="ko-only">헤드리스 NVR이란? 모니터 출력을 걷어낸 NVR의 사양과 원가 구조</span><span class="en-only">What is a headless NVR? Specification and cost when local output is removed</span></a>
+            <p class="ko-only">디스크 다음으로 NVR 사양을 좌우하는 요소인 화면 출력 부하를 단계별로 분해합니다.</p>
+            <p class="en-only">After disk, the next factor that sets NVR specification: the display output path, broken down stage by stage.</p>
+          </li>
+          <li>
+            <a href="/blog/why-nvr-hardware-makers-need-software-partner.html"><span class="ko-only">NVR 하드웨어 제조사가 소프트웨어 파트너를 선택해야 하는 이유</span><span class="en-only">Why NVR hardware makers choose a software partner</span></a>
+            <p class="ko-only">하드웨어 구성을 마친 뒤 마주치는 소프트웨어 개발 비용과 인증 기간을 정리합니다.</p>
+            <p class="en-only">The software development cost and certification timeline that follow once the hardware is settled.</p>
+          </li>
+        </ul>
       </div>
 
     </main>
