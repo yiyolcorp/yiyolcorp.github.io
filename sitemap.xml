@@ -131,6 +131,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://yiyol.com/blog/nvr-n1-failover-development-log.html</loc>
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://yiyol.com/blog/headless-nvr-monitor-output-hardware-cost.html</loc>
     <lastmod>2026-09-15</lastmod>
     <changefreq>monthly</changefreq>

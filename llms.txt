@@ -76,6 +76,7 @@ NOX 소프트웨어의 REST API 를 공개 문서로 제공합니다. 서비스 
 ## 기술 블로그 — 글 목록
 답변 엔진이 개별 글을 직접 인용할 수 있도록 전체 목록을 둔다. 전 글 한국어.
 
+- [NVR 페일오버 개발기 — n:1 이중화의 목표, 실패 사례, 베타를 떼기 위한 작업](https://yiyol.com/blog/nvr-n1-failover-development-log.html) (2026-09-17) — n:1 페일오버(takeover·failback·record-back)의 설계 목표와 구현 중 발견된 결함, 베타 배지를 떼기 위해 수행한 작업. 장애 판정 기준, split-brain 중재, record-back에서 겪은 결함과 한계 정리.
 - [헤드리스 NVR이란? 모니터 출력을 걷어낸 NVR의 사양과 원가 구조](https://yiyol.com/blog/headless-nvr-monitor-output-hardware-cost.html) (2026-09-15) — 로컬 모니터 출력이 소비하는 디코딩·스케일링·합성 부하를 단계별로 분해하고, 이를 모바일·PC 클라이언트로 이전했을 때의 GPU·메모리·원가 변화와 도입 시 검토 사항.
 - [NVR 디스크 용량 계산기 (시스템 + 데이터)](https://yiyol.com/blog/nvr-disk-calculator.html) (2026-08-19) — 채널 수·해상도·FPS·보관 기간으로 데이터 디스크와 시스템 디스크 용량을 각각 산출하는 계산 도구.
 - [중국산 IP카메라, 인터넷 차단으로 격리하고 NOX를 이용해서 안전하게 쓰는 법](https://yiyol.com/blog/iptime-ip-camera-isolation-nox-vms.html) (2026-05-16) — ipTime 외부 IP 차단으로 카메라의 인터넷 접속을 끊고 NOX VMS를 단일 진입점(보안 프록시)으로 두는 단계별 절차. FAQ 포함.
