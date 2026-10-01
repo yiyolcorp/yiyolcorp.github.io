@@ -95,10 +95,10 @@ display headings (`15ch` / `18ch`), the footer tagline (`34ch`), form fields
 
 ## Nav and footer — shared, identical on every page
 
-- **Nav: N1b** — wordmark left · centred 4-link cluster · language + one filled CTA
+- **Nav: N1b** — eye mark + wordmark left · centred 4-link cluster · language + one filled CTA
   right · transparent at rest, frosts on scroll (`.is-stuck`). Current section
   carries `.nav-active`.
-- **Footer: Ft1 Mast-headed** — wordmark + tagline anchoring a band, inline link row
+- **Footer: Ft1 Mast-headed** — eye mark + wordmark + tagline anchoring a band, inline link row
   beside, hairline rule, then address / registration / licence in mono, then copyright.
 - **Banned:** N1a (wordmark + right link pile + button), Ft3 (4 link columns +
   social row + tiny copyright). Both are the AI fingerprints this system replaced.
@@ -145,7 +145,7 @@ when the content is genuinely staged.
 
 ## What pages MUST share
 
-The wordmark · the accent and its ≤5 %-per-viewport budget · the three font
+The eye mark + wordmark (`assets/yiyol-mark.png`, the official YIYOL logo) · the accent and its ≤5 %-per-viewport budget · the three font
 families · the CTA voice · the nav and footer archetypes · the left-aligned
 section-head rhythm · `tokens.css`.
 
