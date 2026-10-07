@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en" data-lang-fixed="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKJ4GX2KHS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-CKJ4GX2KHS');
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NVR Failover Development Log — Goals of n:1 Redundancy, What Broke, and the Work to Leave Beta - YIYOL Blog</title>
+
+  <meta name="description" content="How NOX NVR built n:1 failover: the goals we set, where it actually broke in real operation, and the work underway to remove the Beta badge — failure detection, split-brain arbitration, and record-back of footage from the outage window." />
+  <meta name="keywords" content="NVR failover,n:1 redundancy,split-brain,record-back,NVR high availability,NOX NVR" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://yiyol.com/en/blog/nvr-n1-failover-development-log.html" />
+  <meta property="og:title" content="NVR Failover Development Log — Goals of n:1 Redundancy, What Broke, and the Work to Leave Beta — YIYOL" />
+  <meta property="og:description" content="How NOX NVR built n:1 failover: the goals we set, where it actually broke in real operation, and the work underway to remove the Beta badge — failure detection, split-brain arbitration, and record-back of footage from the outage window." />
+  <meta property="og:image" content="https://yiyol.com/img/nox/failover.jpeg" />
+  <meta property="og:image:width" content="1800" />
+  <meta property="og:image:height" content="1011" />
+  <meta property="og:site_name" content="YIYOL" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="ko_KR" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="NVR Failover Development Log — Goals of n:1 Redundancy, What Broke, and the Work to Leave Beta — YIYOL" />
+  <meta name="twitter:description" content="How NOX NVR built n:1 failover: the goals we set, where it actually broke in real operation, and the work underway to remove the Beta badge — failure detection, split-brain arbitration, and record-back of footage from the outage window." />
+  <meta name="twitter:image" content="https://yiyol.com/img/nox/failover.jpeg" />
+
+  <!-- hreflang:start -->
+  <link rel="alternate" hreflang="ko" href="https://yiyol.com/blog/nvr-n1-failover-development-log.html" />
+  <link rel="alternate" hreflang="en" href="https://yiyol.com/en/blog/nvr-n1-failover-development-log.html" />
+  <link rel="alternate" hreflang="x-default" href="https://yiyol.com/blog/nvr-n1-failover-development-log.html" />
+  <!-- hreflang:end -->
+  <link rel="canonical" href="https://yiyol.com/en/blog/nvr-n1-failover-development-log.html" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "NVR Failover Development Log — Goals of n:1 Redundancy, What Broke, and the Work to Leave Beta",
+      "description": "How NOX NVR built n:1 failover: the goals we set, where it actually broke in real operation, and the work underway to remove the Beta badge — failure detection, split-brain arbitration, and record-back of footage from the outage window.",
+      "url": "https://yiyol.com/en/blog/nvr-n1-failover-development-log.html",
+      "image": "https://yiyol.com/img/nox/failover.jpeg",
+      "datePublished": "2026-09-17",
+      "dateModified": "2026-09-17",
+      "author": {
+        "@type": "Organization",
+        "name": "YIYOL",
+        "url": "https://yiyol.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "YIYOL",
+        "url": "https://yiyol.com"
+      },
+      "keywords": [
+        "NVR failover",
+        "n:1 redundancy",
+        "split-brain",
+        "record-back",
+        "NVR high availability",
+        "NOX NVR"
+      ],
+      "inLanguage": "en",
+      "translationOfWork": {
+        "@id": "https://yiyol.com/blog/nvr-n1-failover-development-log.html"
+      }
+    }
+  </script>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "YIYOL",
+          "item": "https://yiyol.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://yiyol.com/en/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "NVR Failover Development Log — Goals of n:1 Redundancy, What Broke, and the Work to Leave Beta",
+          "item": "https://yiyol.com/en/blog/nvr-n1-failover-development-log.html"
+        }
+      ]
+    }
+  </script>
+
+  <!-- Fonts & CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=3" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=1" />
+</head>
+<body class="yl">
+  <!-- Header -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+      <div class="site-nav-inner">
+        <a href="/" class="site-nav-brand">
+          <img class="site-nav-mark" src="/assets/yiyol-mark.png" alt="" width="33" height="24" /><span class="site-nav-logo">YIYOL<span>.</span></span>
+        </a>
+        <div class="site-nav-right">
+          <ul class="site-nav-links">
+            <li><a href="/company/"><span class="en-only">Company</span></a></li>
+            <li><a href="/products/"><span class="en-only">Products</span></a></li>
+            <li><a href="/services/"><span class="en-only">Services</span></a></li>
+            <li><a href="/en/blog/" class="nav-active"><span class="en-only">Blog</span></a></li>
+            <li><a href="/contact/" class="nav-cta"><span class="en-only">Contact</span></a></li>
+          </ul>
+          <div class="lang-switch">
+            <button class="lang-selector" type="button" aria-haspopup="true" aria-expanded="false">
+              <span class="lang-current">English</span>
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" /></svg>
+            </button>
+            <div class="lang-dropdown">
+              <a href="#" class="lang-option" data-lang="ko">한국어</a>
+              <a href="#" class="lang-option" data-lang="en">English</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+  <!-- Hero -->
+  <section class="post-hero">
+    <div class="post-hero-content">
+      <nav class="post-breadcrumb">
+        <a href="/">YIYOL</a><span>›</span><a href="/en/blog/"><span class="en-only">Blog</span></a><span>›</span> <span class="en-only">Current post</span>
+      </nav>
+      <h1><span class="en-only">NVR Failover Development Log — Goals of n:1 Redundancy, What Broke, and the Work to Leave Beta</span></h1>
+      <div class="post-meta">
+        <span class="post-meta-date"> 2026.09.17</span>
+        <div class="post-tags">
+          <span class="post-tag"><span class="en-only">Failover</span></span>
+          <span class="post-tag"><span class="en-only">NVR Redundancy</span></span>
+          <span class="post-tag"><span class="en-only">High Availability</span></span>
+          <span class="post-tag"><span class="en-only">Dev Log</span></span>
+          <span class="post-tag">NOX</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main -->
+  <main class="post-container">
+    <article class="post-article">
+      
+
+      <div class="en-only">
+
+      <p><strong>NVR failover</strong> is the feature that lets another device take over camera ingest and recording when the device that was recording stops. NOX built it as an <strong>n:1</strong> structure, where a single standby device backs up multiple production devices (primaries).</p>
+
+      <p>We use the terms as the product and the industry use them. The standby assuming the role of a dead primary is <strong>takeover</strong>; returning things to their original state after the primary recovers is <strong>failback</strong>; and moving the video the standby recorded during the outage back into the primary's timeline is <strong>record-back</strong>.</p>
+
+      <p>This post is not a feature introduction but a development log. It covers what we decided to guarantee, what broke during implementation, and what we have done so far to remove the <strong>Beta</strong> badge that is still on the screen. Everything here is based on the design documents and commit history in the repository, and on facts verified on devices actually running in the field.</p>
+
+      <figure>
+        <img src="/img/nox/failover.jpeg" alt="NOX failover settings screen. At the top are a Beta badge and a Beta notice banner, a Standby mode toggle, the list of protection relationships, and a takeover capacity gauge" width="1800" height="1011" loading="lazy" />
+        <figcaption>The failover settings screen. The Beta badge next to the title and the persistent notice banner were added on July 8, 2026, and are still there at the time of writing.</figcaption>
+      </figure>
+
+      <h2>Starting Point: Questions the Industry Has Already Answered</h2>
+
+      <p>Before any design work, we read the official documentation of six commercial VMS and NVR products and built a comparison table item by item. Failover is a feature where customers always ask "how do other products do it?", and if we differ without a reason, we have to explain every difference.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Failure detection</th>
+            <th>Takeover time stated by the vendor</th>
+            <th>Handling of outage-period video</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Milestone XProtect</td>
+            <td>Standby polls every 0.5 s; declared failed after 2 s without response</td>
+            <td>Cold standby 5 s + engine startup + camera connection</td>
+            <td>Automatic merge. <strong>The affected period cannot be viewed during the merge</strong></td>
+          </tr>
+          <tr>
+            <td>Genetec Security Center</td>
+            <td>Managed by the central Directory</td>
+            <td>Within 60 s, recording gap up to 5 s</td>
+            <td>Copied after recovery, or redundant recording at all times</td>
+          </tr>
+          <tr>
+            <td>Nx Witness family</td>
+            <td>Server-to-server keep-alive</td>
+            <td>About 1 min (recording gap about 30 s)</td>
+            <td>Stays on the server that took over; not reclaimed</td>
+          </tr>
+          <tr>
+            <td>Hikvision N+1</td>
+            <td>Spare monitors continuously (interval not disclosed)</td>
+            <td>Not disclosed</td>
+            <td>Automatic reclaim, limited to one device at a time</td>
+          </tr>
+          <tr>
+            <td>Dahua N+M</td>
+            <td>Slave and scheduler, 90–120 s to declare failure</td>
+            <td>90–120 s</td>
+            <td>Reclaim supported, three-level transfer speed control</td>
+          </tr>
+          <tr>
+            <td>Exacq exacqVision</td>
+            <td>Central management server, <strong>"when recording stops"</strong> trigger</td>
+            <td>Configured timeout + α</td>
+            <td>Reclaimed at failback, with progress and pause</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>Three things became clear from this.</p>
+
+      <p><strong>First, replicating configuration in advance is the standard.</strong> Fetching configuration from a central management server at the moment of failure makes that server yet another single point of failure. Even Milestone supplements this approach with hot standby (pre-synchronization).</p>
+
+      <p><strong>Second, every product accepts some recording loss between detection and takeover.</strong> The only way to get zero loss is to record on two devices at all times, and that is a different feature that doubles storage and bandwidth.</p>
+
+      <p><strong>Third, virtual IP (IP takeover) is a minority approach.</strong> Of the six, only Dahua uses it, and in return it requires all devices to sit on the same L2 segment. All the others reconnect at the application level.</p>
+
+      <h2>Goals: What We Committed to in Numbers</h2>
+
+      <p>The survey showed failure detection ranging from 2 seconds (Milestone) to 120 seconds (Dahua), and takeover completion ranging from 15 to 60 seconds. We set NOX's goals in between.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Goal</th>
+            <th>Rationale</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Failure detection</td>
+            <td>About 10 s (2 s heartbeat × 5 consecutive failures)</td>
+            <td>Well ahead of the appliance camp (90–120 s), while avoiding the 2 s range where false positives become likely</td>
+          </tr>
+          <tr>
+            <td>Takeover completion</td>
+            <td>Trigger → first segment within 30 s</td>
+            <td>On par with the enterprise VMS camp</td>
+          </tr>
+          <tr>
+            <td>Multiple simultaneous failures</td>
+            <td>Simultaneous takeover as far as licensed channel capacity allows</td>
+            <td>One step ahead of approaches that take over only one device (Hikvision, Milestone)</td>
+          </tr>
+          <tr>
+            <td>Outage-period video</td>
+            <td>Full record-back into the primary's timeline after failback</td>
+            <td>Without restricting viewing during the merge</td>
+          </tr>
+          <tr>
+            <td>Failback</td>
+            <td>Manual by default, automatic optional</td>
+            <td>Lets the operator control the additional interruption that occurs at the moment of failback</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Six Things We Settled First in the Design</h2>
+
+      <h3>1. The criterion is "is it recording?", not "is it alive?"</h3>
+
+      <p>A ping response only tells you the device is powered on. A device whose disk has been pulled, whose partition is not mounted, or whose writes are failing answers ping just fine while storing nothing. So we added to the heartbeat response whether "there are streams to store right now, and are they actually being stored." <strong>A healthy idle state with no active recording does not count as a failure.</strong> Miss this distinction, and a brand-new device with no cameras registered is immediately declared failed.</p>
+
+      <h3>2. No IP takeover</h3>
+
+      <p>The standby does not inherit the dead device's address. Instead, it <strong>reconnects directly to the camera addresses</strong> contained in the snapshot. This is possible because NOX fetches camera video in a pure pull model (ONVIF/RTSP). Nothing on the camera side needs to change. There is one cost: <strong>the standby must be able to reach those cameras on the same network.</strong> We did not hide this condition; we surfaced it on screen. Right after takeover, the standby checks whether it can actually reach the target cameras, and raises a warning notification if any are unreachable. It is only a warning, though, and does not block takeover. Recording half the cameras is better than recording none.</p>
+
+      <h3>3. The standby suspects its own network first</h3>
+
+      <p>A structure in which the standby monitors directly carries a particular risk. <strong>If the primary is fine but only the standby's network is cut</strong>, the standby concludes "the primary is dead" and starts pulling video from the same cameras. So before declaring a failure, it first checks whether it can reach an <strong>arbitration IP</strong> (such as the default gateway). If it cannot reach the arbitration IP, it treats the problem as "on my side of the network" and defers the decision. On devices with multiple default gateways, it becomes ambiguous which one to use, so there is a setting to specify the arbitration IP directly, and a warning appears if it is left unset while multiple gateways are detected.</p>
+
+      <h3>4. The camera service knows nothing about failover</h3>
+
+      <p>Failover exists only inside the federation service. The camera service and the recording service do not know the concept of takeover at all; they just receive the usual requests to "register a camera and start recording." Keeping this boundary means that when something goes wrong in failover, it does not spread to the normal recording path.</p>
+
+      <p>Keeping this boundary did leave a gap, though. Blocking the addition of local cameras on a device switched to standby is <strong>filtered only in the UI.</strong> So we added two more layers of checks on the server. When a protected device is registered, spare capacity is calculated as "standby licensed channels − local recording channels" and registration is refused if it is insufficient; at actual takeover time, the channel count is recounted inside a transaction, and if it would be exceeded, the takeover is refused as a whole rather than performed partially. <strong>Blocking in the UI is only guidance; whether there is capacity is ultimately decided by the server.</strong></p>
+
+      <h3>5. Failback deactivates; it does not delete</h3>
+
+      <p>If cameras that were taken over were deleted at failback, the outage-period video recorded from those cameras could disappear with them. So the interface called on the failback path <strong>has no delete method at all.</strong> Failback simply returns the cameras and recordings it took over to an inactive state. When the same device is taken over again later, the items left inactive are re-enabled, so no duplicate registrations occur. The actual deletion is done by a cleanup worker after all video remaining for that camera is gone.</p>
+
+      <h3>6. Licenses are tied to hardware</h3>
+
+      <p>NOX licenses are bound to the machine ID and product UUID and cannot be moved to another device. So the standby needs its own license, and its channel count must be at least that of the protected devices. Offering a free standby license was an option, but we did not do it. Instead, we made <strong>one standby able to take over multiple devices simultaneously as far as capacity allows</strong>, so one device's license can protect several devices. Overcommitted configurations, where the total registered channels exceed capacity, are also allowed. It is a legitimate way to operate that saves capacity on the premise that "not every primary will die at once." A warning is shown on the dashboard instead.</p>
+
+      <h2>What Broke During Implementation</h2>
+
+      <p>The design document was written on July 2, 2026, and the initial implementation, from the foundation layer through record-back, landed on July 3–4. The Beta badge went on July 8. <strong>The real work was not the four days between the initial implementation and the Beta badge, but the two and a half months after it.</strong></p>
+
+      <h3>Two devices could be taken over at once, and the tests hid it</h3>
+
+      <p>The initial implementation put the condition "reject another takeover if one is already in progress" into a single UPDATE statement. Code review pointed out that this was vulnerable to <strong>write skew</strong> under PostgreSQL's default isolation level. If two different protection relationships were taken over at the same time, each statement would see its own independent snapshot, both would evaluate "no takeover in progress," and both could succeed.</p>
+
+      <p>Worse was the concurrency test that was supposed to verify this. The fake store used by the test was <strong>simulating atomicity with a mutex.</strong> Because everything was serialized within the process, real database contention was never reproduced, and the test always passed. The test that should have caught the defect was covering it up.</p>
+
+      <p>The fix was to enforce uniqueness at the database level with a partial unique index and to treat a duplicate-key error as a rejection. We also added <strong>a concurrency integration test that runs against a real database</strong>. The condition was later expanded from "one globally" to "as many as capacity allows," but checking the channel count in one step to prevent overruns stayed the same.</p>
+
+      <h3>Takeover succeeded, but the recordings vanished from the screen</h3>
+
+      <p>After takeover, the cameras were visible but all recording entries were missing. The cause was on the permissions side. Cameras and recordings are mapped to the default resource group when they are created, but <strong>only the takeover path did not call this mapping.</strong> Camera import calls it, and the normal recording creation path calls it too; it was missing only from the path that imports the configuration bundle for takeover.</p>
+
+      <p>As a result, the recording configuration was still in the database and the pipeline was working normally, but the permission filter removed everything, so the recordings <strong>disappeared only from the screen</strong>. The lesson was that exception paths like takeover must be checked separately to ensure they go through the same follow-up steps as the normal path, and we got caught in the same spot a few more times afterward.</p>
+
+      <h3>Reboots were read as failures</h3>
+
+      <p>The standby checks the primary's status every 2 seconds and treats 5 consecutive failures as a failure. That means <strong>entering maintenance mode, software updates, reboots, and shutdowns all look exactly like failures.</strong> In an environment with automatic takeover enabled, takeover would start 10 seconds after an administrator pressed the reboot button.</p>
+
+      <p>The solution is for the primary to notify the standby first when it begins planned work. Rather than building a new dedicated channel, we chose to <strong>carry the current planned work in the response</strong> to the heartbeat the standby sends. Reboot, shutdown, maintenance entry, and update requests wait up to 6–8 seconds for the standby to pick up this value before proceeding. That is why the reboot button responds a few seconds late on a protected device.</p>
+
+      <p>One more decision was needed here: <strong>when to lift the grace period.</strong> If it is cut off by time (say, 30 minutes), any work that does not recover within that time will trigger a false takeover again. So there is no time limit; the standby waits until the primary stabilizes as healthy, but if the planned work is finished and the primary still has not returned to a recording-capable state, monitoring is forcibly resumed after 10 minutes. <strong>This is so that the grace period does not cover up a defect.</strong> Conversely, if the grace period lasts more than 6 hours, a separate warning that "monitoring is off" is issued.</p>
+
+      <h3>Record-back said "Completed" while throwing some away</h3>
+
+      <p>The biggest defect came from the feature that moves video recorded by the standby during the outage into the primary's timeline after failback (record-back). On a real production device, we found that <strong>a considerable number of segments had hit a size cap and been silently discarded, yet the job that ended with failures outstanding carried a green "Completed" badge.</strong></p>
+
+      <p>The cause had two layers. The transfer worker was loading each entire segment into memory before sending it, so the size cap set to protect memory had effectively become a threshold for discarding data. On top of that, the status assigned at the end of a job had no "partially failed" value, so jobs with outstanding failures were simply "Completed." Completed jobs have no retry button, so <strong>users could not even see a way to recover.</strong></p>
+
+      <p>The fix went in three directions.</p>
+
+      <ul>
+        <li>We changed transfers to stream straight through without a memory buffer. The only reason for buffering, the constraint that "the hash must arrive before the data," was resolved by having the source side provide the hash in advance.</li>
+        <li>The size cap is no longer a memory protection mechanism. The sender no longer discards data that exceeds it and only logs a warning; the real cap sits on the receiving side, which accepts data coming in from outside directly.</li>
+        <li><strong>We created a new "Completed with some errors" status.</strong> "Completed" was narrowed to mean "finished without missing anything," and jobs with outstanding failures get a warning badge and a retry button. Past jobs already recorded as completed were also re-evaluated retroactively. Otherwise, exactly the jobs that were affected would be the ones without a retry button.</li>
+      </ul>
+
+      <h3>Record-back video was deleted as soon as it arrived</h3>
+
+      <p>The next defect was nastier. Video moved by record-back carries <strong>past timestamps</strong> from the outage period. If those timestamps already fall outside the primary's retention period, the primary's cleanup worker deletes them as soon as they arrive. When we actually checked, <strong>most of the segments acknowledged as successfully received had disappeared shortly afterward.</strong></p>
+
+      <p>Moreover, when the last segment was deleted, the now-empty track and session were deleted in the same transaction, and if that landed in the middle of receive processing, it caused a foreign key violation and a 500 error. <strong>At first the 500 looked like the problem, but it was a symptom.</strong> The more dangerous part was that deleting the source after record-back is the default. Fixing only the error would open that path, leading to a state where "the transfer succeeded but the video exists on neither side." The 500 error had been acting as a defense by accident.</p>
+
+      <p>The fix was to add a way to ask the primary for <strong>the earliest timestamp that will survive if sent now</strong> (the later of the time computed from the retention period and the time of the oldest video actually remaining), and to skip older ranges before sending. We set one principle here: <strong>if that timestamp cannot be determined, nothing is skipped.</strong> Skipping is a choice to discard data, so it cannot be the default when we do not know. For the same reason, sessions that include ranges older than that timestamp do not have their source deleted. For ranges the primary will not accept, the standby holds the only copy.</p>
+
+      <h3>Leftovers that no cleanup path caught</h3>
+
+      <p>The worker that cleans up recordings received via takeover was running two paths, and both iterated by camera. So recording entries that came in without being linked to a camera <strong>slipped through both paths.</strong> With no camera, they were not caught by cascading deletes either, and the discard function deleted only sessions, leaving the recording rows untouched. The result was leftovers that no path would ever delete, and a user who found them piling up in the explorer of a production device raised the issue.</p>
+
+      <p>The fix was to create <strong>a third cleanup path that iterates by which device the data was taken over from</strong>, rather than by camera. However, normal data right after takeover looks exactly like these leftovers (no linked camera + takeover origin marker + no session), so excluding protection relationships currently in takeover from cleanup was the only way to tell them apart. We put the delete conditions directly inside the delete query instead of leaving them to the caller.</p>
+
+      <h2>What We Have Done to Leave Beta</h2>
+
+      <p>Fixing the defects above is the starting point. To remove the Beta badge, we needed not "it's fixed" but "if the same thing happens again, users can get out of it."</p>
+
+      <p><strong>1. Build the escape hatches first.</strong> Record-back jobs can be paused, resumed, and retried. We also built a path to give up on record-back and discard the source recorded during takeover. Even when the license is locked, <strong>failback, removing protection, pausing record-back, and pausing monitoring are always allowed.</strong> The principle is that actions that revert or stop are never locked.</p>
+
+      <p><strong>2. Report status honestly.</strong> Progress is shown separately as "amount of data moved" and "number of segments processed." Combining them into one produces displays like "Completed, but 69%." The same goes for live view switching. On takeover, the live source moves to the standby automatically, but <strong>it is not uninterrupted.</strong> It drops for a few seconds and then reconnects automatically. So the on-screen text reads "Automatic switch, reconnects within seconds," and <strong>a regression test prevents it from being mislabeled as "uninterrupted" or "seamless."</strong></p>
+
+      <p><strong>3. Distinguish planned work from failures.</strong> This is the automatic grace period described earlier. If the notification fails, a warning appears on the primary so the administrator can pause monitoring manually. When protection is removed or the connection is cut, a withdrawal notice is sent to the other device so that a "You are protected" message does not linger forever. Even if the notice fails, removal proceeds, and in that case the other device reveals it through a lost-monitoring-signal warning.</p>
+
+      <p><strong>4. Split the permissions.</strong> Device-to-device communication permissions were separated into failover monitoring, status queries, and record-back. When the unified search screen queries takeover status, it receives <strong>only the status query permission</strong>, so it cannot access the configuration snapshot that contains camera credentials. Snapshots are always stored encrypted with AES-256-GCM, and if the encryption key is unavailable, registration and snapshots themselves are refused. Video moved by record-back travels still encrypted, without decryption, and only the session key is sealed once more in a public-key envelope during transit.</p>
+
+      <p><strong>5. Make it traceable after the fact.</strong> Registration, removal, takeover, failback, and cleanup deletions are recorded in the audit log. <strong>Takeovers and failbacks executed automatically are recorded with <code>system</code> as the actor</strong>, distinguishing them from manual operations by an administrator. Periods when monitoring was paused, and who paused it, are recorded too. Whether a planned work notification reached the other device is also recorded in the details of the reboot and shutdown audit logs. <strong>If you cannot later check when monitoring was off, failover cannot become a feature you can trust.</strong></p>
+
+      <p><strong>6. Add tests.</strong> There are currently 61 Go test files with <code>failover</code> in their names, containing 587 test functions. These include the concurrency test that verifies against a real database the atomicity that was previously simulated with a mutex, authentication regression tests for the newly added destructive paths, and configuration sync tests for both deployment files. This feature added 14 database migrations, and half of them went in <strong>after the Beta badge was added</strong>.</p>
+
+      <h2>The Stability This Has Bought</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Situation</th>
+            <th>Before failover</th>
+            <th>Now</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Device power or hardware failure</td>
+            <td>All channels stop recording until recovery</td>
+            <td>Takeover after about 10 s of detection; recording resumes within the 30 s target</td>
+          </tr>
+          <tr>
+            <td>Disk or storage failure</td>
+            <td>The device is still alive, so nobody notices</td>
+            <td>Detected, because the "recording-capable state" is monitored</td>
+          </tr>
+          <tr>
+            <td>Outage-period video</td>
+            <td>Does not exist</td>
+            <td>Recorded on the standby, then merged into the primary's timeline via record-back after failback</td>
+          </tr>
+          <tr>
+            <td>Unified search and playback</td>
+            <td>That device's channels disappear entirely</td>
+            <td>Automatically rerouted to the standby after takeover is detected (target within 15 s)</td>
+          </tr>
+          <tr>
+            <td>Maintenance and updates</td>
+            <td>(Not applicable)</td>
+            <td>Automatic grace period via planned work notification; resumes automatically when done</td>
+          </tr>
+          <tr>
+            <td>Multiple simultaneous failures</td>
+            <td>(Not applicable)</td>
+            <td>Simultaneous takeover as far as capacity allows; if short, a notification is raised and takeover continues as capacity frees up</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>Of these, the one felt most in the field is <strong>disk failure</strong>. At unstaffed sites, the most common incident is not a device shutting off but a device that stays on while not recording, for weeks. Ping-based monitoring cannot catch this.</p>
+
+      <p><strong>We also list what we do not guarantee.</strong></p>
+
+      <ul>
+        <li><strong>Past video from a dead device cannot be shown in its place.</strong> Each device's recordings live only on its own local disk. The standby provides <strong>only the periods it recorded itself after takeover</strong>. Unless shared storage is used, this is a structural limitation common across the industry.</li>
+        <li><strong>There is a recording gap between detection and takeover.</strong> Leaving this period empty is something we accepted at the design stage. Bringing loss to zero would require redundant recording at all times, which is a different feature.</li>
+        <li><strong>Live view is not uninterrupted.</strong> It drops for a few seconds and then reconnects automatically.</li>
+        <li><strong>If the primary comes back on during takeover, both sides ingest the same cameras simultaneously.</strong> Availability comes first, so the primary does not automatically stop its own recording. Instead, a warning on the primary's screen shows that both sides are ingesting, prompting a failback.</li>
+        <li><strong>While paused, real failures are not detected.</strong> A manual pause is not lifted automatically.</li>
+        <li><strong>A single primary is not split up by channel and taken over in parts.</strong> It is taken over whole or refused.</li>
+      </ul>
+
+      <h2>Why the Beta Badge Is Still There</h2>
+
+      <p>At the time of writing, the failover settings screen still shows the Beta badge and the persistent notice. The remaining condition is not a feature list but <strong>operating time</strong>.</p>
+
+      <p>The two most recent fixes, the issue where record-back video falling outside the retention period was deleted on arrival, and the leftovers that no path would delete, were made this month. Both were <strong>found on devices actually running in the field, not in code review.</strong> Until we have gone through enough real-world scenarios, such as repeated takeovers and failbacks, outages lasting more than a day and overlapping with the retention period, and another failure during record-back, it is safer to assume that more defects of the same kind remain.</p>
+
+      <p>Here is the criterion for removing the badge: <strong>when we have repeatedly confirmed at multiple sites that a full cycle from takeover through failback and record-back completes without administrator intervention, and the problems that come up along the way are not big enough to require a new status or a new cleanup path.</strong> The very fact that each of the last three fixes was only finished after creating a new status value, a new cleanup path, and a new query function is a sign that it is still too early.</p>
+
+      <h2>Conclusion</h2>
+
+      <p>The hard part of failover was not takeover. A path that decrypts the snapshot, registers cameras, and starts recording works within a few days. <strong>Where the time went was not taking over when we should not, not losing the data created after takeover, and making sure that when something fails, users know about it and can get out of it.</strong></p>
+
+      <p>So the criterion for judgment came down to one thing. <strong>Whether failover is well built should be judged not by the takeover success rate, but by what is left when it fails.</strong> Is video that could not be recorded back still there? Is a failure ever shown as completed? Can periods when monitoring was off be checked afterward? The Beta badge comes off once we can answer "yes" to all of these questions.</p>
+
+      <hr />
+
+      <p>👉 <strong><a href="https://yiyol.com/products/" target="_blank" rel="noopener">See the real operating screens on the NOX product page</a></strong> — failover settings and the system dashboard</p>
+
+      <p><em>NOX NVR partnership and POC program inquiries: <a href="/contact/">yiyol.com/contact</a></em></p>
+
+      <hr />
+
+      <h2>Related Posts</h2>
+      <ul>
+        <li><a href="/en/blog/headless-nvr-monitor-output-hardware-cost.html">What Is a Headless NVR? Specs and Cost Structure of an NVR Without Monitor Output</a> — Where the resources freed by removing local output go</li>
+        <li><a href="/en/blog/iptime-ip-camera-isolation-nox-vms.html">How to Isolate Chinese IP Cameras from the Internet and Use Them Safely with NOX</a> — Placing cameras on an isolated network and the device-to-device connections that run on top of it</li>
+        <li><a href="/en/blog/nvr-disk-calculator.html">NVR Disk Calculator</a> — A calculator for sizing the standby device's storage</li>
+      </ul>
+
+      </div>
+
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="yl-foot" role="contentinfo">
+      <div class="yl-shell">
+        <div class="yl-foot-mast">
+          <div>
+            <div class="yl-foot-word"><img class="yl-foot-mark" src="/assets/yiyol-mark.png" alt="" width="36" height="26" />YIYOL<span>.</span></div>
+            
+            <p class="yl-foot-tag en-only">NVR and VMS that store and manage your video — and the AI automation built on top of it.</p>
+          </div>
+          <nav class="yl-foot-links" aria-label="Footer navigation">
+            <a href="/company/"><span class="en-only">Company</span></a>
+            <a href="/products/"><span class="en-only">Products</span></a>
+            <a href="/services/"><span class="en-only">Services</span></a>
+            <a href="/api/"><span class="en-only">API Docs</span></a>
+            <a href="/en/blog/"><span class="en-only">Blog</span></a>
+            <a href="/contact/"><span class="en-only">Contact</span></a>
+          </nav>
+        </div>
+        <div class="yl-foot-meta">
+          
+          <span class="en-only">#326, 75-15 Gasan Digital 1-ro, Geumcheon-gu, Seoul</span>
+          <a href="mailto:yiyol@yiyol.com">yiyol@yiyol.com</a>
+          
+          <span class="en-only">Business Registration 186-34-01502</span>
+          
+          <span class="en-only">Mail-order License 2024-Seoul Geumcheon-1806</span>
+        </div>
+        <p class="yl-foot-copy">&copy; 2026 YIYOL. All rights reserved.</p>
+      </div>
+    </footer>
+
+  <script src="/assets/js/i18n.js?v=5"></script>
+</body>
+</html>

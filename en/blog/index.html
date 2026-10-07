@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en" data-lang-fixed="en">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKJ4GX2KHS"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-CKJ4GX2KHS');
+    </script>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Blog — Video Security &amp; AI Automation Notes | YIYOL</title>
+
+    <meta name="description" content="Technical notes from YIYOL on NVR/VMS software, video security, and AI automation: development logs, integration guides, and calculators for NOX NVR." />
+    <meta name="keywords" content="NVR,VMS,video security,AI automation,Agentic AI,NOX NVR" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://yiyol.com/en/blog/" />
+    <meta property="og:title" content="Blog — Video Security &amp; AI Automation Notes | YIYOL" />
+    <meta property="og:description" content="Technical notes from YIYOL on NVR/VMS software, video security, and AI automation: development logs, integration guides, and calculators for NOX NVR." />
+    <meta property="og:image" content="https://yiyol.com/img/nox-ui-001.jpeg" />
+    <meta property="og:image:width" content="3456" />
+    <meta property="og:image:height" content="1916" />
+    <meta property="og:site_name" content="YIYOL" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="ko_KR" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Blog — Video Security &amp; AI Automation Notes | YIYOL" />
+    <meta name="twitter:description" content="Technical notes from YIYOL on NVR/VMS software, video security, and AI automation: development logs, integration guides, and calculators for NOX NVR." />
+    <meta name="twitter:image" content="https://yiyol.com/img/nox-ui-001.jpeg" />
+
+    <!-- hreflang:start -->
+    <link rel="alternate" hreflang="ko" href="https://yiyol.com/blog/" />
+    <link rel="alternate" hreflang="en" href="https://yiyol.com/en/blog/" />
+    <link rel="alternate" hreflang="x-default" href="https://yiyol.com/blog/" />
+    <!-- hreflang:end -->
+    <link rel="canonical" href="https://yiyol.com/en/blog/" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "YIYOL Blog",
+        "description": "Technical notes from YIYOL on NVR/VMS software, video security, and AI automation: development logs, integration guides, and calculators for NOX NVR.",
+        "url": "https://yiyol.com/en/blog/",
+        "inLanguage": "en",
+        "publisher": {
+          "@type": "Organization",
+          "name": "YIYOL",
+          "url": "https://yiyol.com"
+        },
+        "blogPost": [
+          {
+            "@type": "BlogPosting",
+            "headline": "Building the NOX MCP Server — Why We Started Read-Only, and the Bug Claude Code Found First",
+            "description": "A development log of turning a NOX NVR into an MCP server so AI agents like Claude Code and Claude Desktop can query cameras, events, recordings, and system status in natural language: why it is read-only with delegated permissions, the time zone defect agents surfaced before release, and how to connect an air-gapped NVR through a PC.",
+            "url": "https://yiyol.com/en/blog/nox-mcp-server-development-log.html",
+            "datePublished": "2026-10-07",
+            "author": {
+              "@type": "Organization",
+              "name": "YIYOL",
+              "url": "https://yiyol.com"
+            }
+          },
+          {
+            "@type": "BlogPosting",
+            "headline": "NVR Failover Development Log — Goals of n:1 Redundancy, What Broke, and the Work to Leave Beta",
+            "description": "How NOX NVR built n:1 failover: the goals we set, where it actually broke in real operation, and the work underway to remove the Beta badge — failure detection, split-brain arbitration, and record-back of footage from the outage window.",
+            "url": "https://yiyol.com/en/blog/nvr-n1-failover-development-log.html",
+            "datePublished": "2026-09-17",
+            "author": {
+              "@type": "Organization",
+              "name": "YIYOL",
+              "url": "https://yiyol.com"
+            }
+          },
+          {
+            "@type": "BlogPosting",
+            "headline": "What Is a Headless NVR? Specs and Cost Structure of an NVR Without Monitor Output",
+            "description": "What drives NVR specs is not recording but display output. This post breaks down the decoding, scaling, and compositing load of a live grid, how specs and cost change when that work moves to mobile and PC clients, and what to check before adopting a headless NVR.",
+            "url": "https://yiyol.com/en/blog/headless-nvr-monitor-output-hardware-cost.html",
+            "datePublished": "2026-09-15",
+            "author": {
+              "@type": "Organization",
+              "name": "YIYOL",
+              "url": "https://yiyol.com"
+            }
+          },
+          {
+            "@type": "BlogPosting",
+            "headline": "NVR Disk Calculator (System + Data)",
+            "description": "Calculate the data disk that holds recordings and the system disk that holds the OS and DB metadata separately, from channel count, resolution, FPS, and retention.",
+            "url": "https://yiyol.com/en/blog/nvr-disk-calculator.html",
+            "datePublished": "2026-08-19",
+            "author": {
+              "@type": "Organization",
+              "name": "YIYOL",
+              "url": "https://yiyol.com"
+            }
+          },
+          {
+            "@type": "BlogPosting",
+            "headline": "How to Isolate Chinese IP Cameras from the Internet and Use Them Safely with NOX",
+            "description": "A practical guide to securing Chinese-made IP cameras: block camera internet access with ipTime egress rules and put NOX VMS in front as the single, TLS-protected entry point — without replacing existing cameras.",
+            "url": "https://yiyol.com/en/blog/iptime-ip-camera-isolation-nox-vms.html",
+            "datePublished": "2026-05-16",
+            "author": {
+              "@type": "Organization",
+              "name": "YIYOL",
+              "url": "https://yiyol.com"
+            }
+          },
+          {
+            "@type": "BlogPosting",
+            "headline": "Why NVR Hardware Makers Should Choose a Software Partner",
+            "description": "Building great hardware and making it sell are different jobs. How a software partnership shortens time-to-market and cuts development cost for NVR hardware makers.",
+            "url": "https://yiyol.com/en/blog/why-nvr-hardware-makers-need-software-partner.html",
+            "datePublished": "2026-04-28",
+            "author": {
+              "@type": "Organization",
+              "name": "YIYOL",
+              "url": "https://yiyol.com"
+            }
+          },
+          {
+            "@type": "BlogPosting",
+            "headline": "Agentic AI with WebHooks: A Complete Guide to Building Parking Lot Automation",
+            "description": "A hands-on guide to building parking lot automation with NOX NVR WebHooks — from license plate recognition (LPR) events to automatic gate control, parking logs, and alerts, with Python and Node.js code.",
+            "url": "https://yiyol.com/en/blog/webhook-agentic-ai-parking-automation-guide.html",
+            "datePublished": "2026-04-21",
+            "author": {
+              "@type": "Organization",
+              "name": "YIYOL",
+              "url": "https://yiyol.com"
+            }
+          },
+          {
+            "@type": "BlogPosting",
+            "headline": "What Is an Agentic AI NVR? The Decisive Difference from AI NVR",
+            "description": "How an AI NVR and an Agentic AI NVR differ: the three stages of video surveillance AI, from detection to autonomous action, and how NOX NVR uses LLM-based agents to recognize and act on unstructured events.",
+            "url": "https://yiyol.com/en/blog/agentic-ai-nvr-vs-ai-nvr-difference.html",
+            "datePublished": "2026-04-14",
+            "author": {
+              "@type": "Organization",
+              "name": "YIYOL",
+              "url": "https://yiyol.com"
+            }
+          },
+          {
+            "@type": "BlogPosting",
+            "headline": "NVR/VMS Guide to NIS Security Requirements V3.0 Certification",
+            "description": "A practical guide to Korea's NIS Security Requirements V3.0 for NVR and VMS products: the security functional requirements for video information processing devices, the Security Function Confirmation process, cost and timeline, and a readiness checklist.",
+            "url": "https://yiyol.com/en/blog/nis-security-requirements-v3-guide.html",
+            "datePublished": "2026-04-01",
+            "author": {
+              "@type": "Organization",
+              "name": "YIYOL",
+              "url": "https://yiyol.com"
+            }
+          },
+          {
+            "@type": "BlogPosting",
+            "headline": "CCTV Storage Calculator",
+            "description": "Automatically calculate required storage capacity and retention period based on camera count, resolution, and recording hours.",
+            "url": "https://yiyol.com/en/blog/storage-calculator.html",
+            "datePublished": "2026-03-29",
+            "author": {
+              "@type": "Organization",
+              "name": "YIYOL",
+              "url": "https://yiyol.com"
+            }
+          }
+        ]
+      }
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "YIYOL Blog posts",
+        "itemListOrder": "https://schema.org/ItemListOrderDescending",
+        "numberOfItems": 8,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "url": "https://yiyol.com/en/blog/headless-nvr-monitor-output-hardware-cost.html",
+            "name": "What Is a Headless NVR? Specs and Cost Structure of an NVR Without Monitor Output"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "url": "https://yiyol.com/en/blog/nvr-disk-calculator.html",
+            "name": "NVR Disk Calculator (System + Data)"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "url": "https://yiyol.com/en/blog/iptime-ip-camera-isolation-nox-vms.html",
+            "name": "How to Isolate Chinese IP Cameras from the Internet and Use Them Safely with NOX"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "url": "https://yiyol.com/en/blog/why-nvr-hardware-makers-need-software-partner.html",
+            "name": "Why NVR Hardware Makers Should Choose a Software Partner"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "url": "https://yiyol.com/en/blog/webhook-agentic-ai-parking-automation-guide.html",
+            "name": "Agentic AI with WebHooks: A Complete Guide to Building Parking Lot Automation"
+          },
+          {
+            "@type": "ListItem",
+            "position": 6,
+            "url": "https://yiyol.com/en/blog/agentic-ai-nvr-vs-ai-nvr-difference.html",
+            "name": "What Is an Agentic AI NVR? The Decisive Difference from AI NVR"
+          },
+          {
+            "@type": "ListItem",
+            "position": 7,
+            "url": "https://yiyol.com/en/blog/nis-security-requirements-v3-guide.html",
+            "name": "NVR/VMS Guide to NIS Security Requirements V3.0 Certification"
+          },
+          {
+            "@type": "ListItem",
+            "position": 8,
+            "url": "https://yiyol.com/en/blog/storage-calculator.html",
+            "name": "CCTV Storage Calculator"
+          }
+        ]
+      }
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "YIYOL",
+            "item": "https://yiyol.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Blog",
+            "item": "https://yiyol.com/en/blog/"
+          }
+        ]
+      }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=3" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=1" />
+  </head>
+  <body class="yl">
+    <!-- Header -->
+    <nav class="site-nav" role="navigation" aria-label="Main navigation">
+      <div class="site-nav-inner">
+        <a href="/" class="site-nav-brand"><img class="site-nav-mark" src="/assets/yiyol-mark.png" alt="" width="33" height="24" /><span class="site-nav-logo">YIYOL<span>.</span></span></a>
+        <div class="site-nav-right">
+          <ul class="site-nav-links">
+            <li><a href="/company/"><span class="en-only">Company</span></a></li>
+            <li><a href="/products/"><span class="en-only">Products</span></a></li>
+            <li><a href="/services/"><span class="en-only">Services</span></a></li>
+            <li><a href="/en/blog/" class="nav-active"><span class="en-only">Blog</span></a></li>
+            <li><a href="/contact/" class="nav-cta"><span class="en-only">Contact</span></a></li>
+          </ul>
+          <div class="lang-switch">
+            <button class="lang-selector" type="button" aria-haspopup="true" aria-expanded="false">
+              <span class="lang-current">English</span>
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" /></svg>
+            </button>
+            <div class="lang-dropdown">
+              <a href="#" class="lang-option" data-lang="ko">한국어</a>
+              <a href="#" class="lang-option" data-lang="en">English</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="blog-hero">
+      <h1><span class="en-only">Blog</span></h1>
+    </section>
+
+    <!-- Blog List -->
+    <main class="blog-container">
+      <div class="blog-grid">
+
+        <!-- Post: NOX MCP 서버 개발기 -->
+        <a href="/en/blog/nox-mcp-server-development-log.html" class="blog-card" style="text-decoration:none;">
+          <div class="blog-card-icon">
+          </div>
+          <div class="blog-card-body">
+            <span class="blog-card-tag"><span class="en-only">Dev Log</span></span>
+            
+            <h2 class="blog-card-title en-only">Building the NOX MCP Server — Why We Started Read-Only, and the Bug Claude Code Found First</h2>
+            
+            <p class="blog-card-desc en-only">A development log of the NOX MCP server: why it is read-only by design, the time zone defect that real-appliance testing caught before release, and how agents reach an air-gapped NVR.</p>
+            <div class="blog-card-meta">
+              <span>2026.10.07</span>
+              <span class="blog-card-link">
+                
+                <span class="en-only">Read</span>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Post: NVR 페일오버 개발기 -->
+        <a href="/en/blog/nvr-n1-failover-development-log.html" class="blog-card" style="text-decoration:none;">
+          <div class="blog-card-icon">
+          </div>
+          <div class="blog-card-body">
+            <span class="blog-card-tag"><span class="en-only">Dev Log</span></span>
+            
+            <h2 class="blog-card-title en-only">NVR Failover Development Log — Goals of n:1 Redundancy, What Broke, and the Work to Leave Beta</h2>
+            
+            <p class="blog-card-desc en-only">How NOX built n:1 NVR failover: the targets we set, the defects we found in real operation, and the work still needed to remove the Beta badge.</p>
+            <div class="blog-card-meta">
+              <span>2026.09.17</span>
+              <span class="blog-card-link">
+                
+                <span class="en-only">Read</span>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Post: 헤드리스 NVR이란? 모니터 출력을 걷어낸 NVR의 사양과 원가 구조 -->
+        <a href="/en/blog/headless-nvr-monitor-output-hardware-cost.html" class="blog-card" style="text-decoration:none;">
+          <div class="blog-card-icon">
+          </div>
+          <div class="blog-card-body">
+            <span class="blog-card-tag"><span class="en-only">NVR Design</span></span>
+            
+            <h2 class="blog-card-title en-only">What Is a Headless NVR? Specs and Cost Structure of an NVR Without Monitor Output</h2>
+            
+            <p class="blog-card-desc en-only">A headless NVR drops local monitor output and moves decoding to the client; this post covers the load the display path uses, how removing it changes cost, and what to check before adopting one.</p>
+            <div class="blog-card-meta">
+              <span>2026.09.15</span>
+              <span class="blog-card-link">
+                
+                <span class="en-only">Read</span>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Post: NVR 디스크 용량 계산기 -->
+        <a href="/en/blog/nvr-disk-calculator.html" class="blog-card" style="text-decoration:none;">
+          <div class="blog-card-icon">
+          </div>
+          <div class="blog-card-body">
+            <span class="blog-card-tag">Tool</span>
+            
+            <h2 class="blog-card-title en-only">NVR Disk Calculator (System + Data)</h2>
+            
+            <p class="blog-card-desc en-only">Calculate the data disk that holds recordings and the system disk that holds the OS and DB metadata separately, from channel count, resolution, FPS, and retention.</p>
+            <div class="blog-card-meta">
+              <span>2026.08.19</span>
+              <span class="blog-card-link">
+                
+                <span class="en-only">Open</span>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Post: 중국산 IP카메라, 인터넷 차단으로 격리하고 NOX를 이용해서 안전하게 쓰는 법 -->
+        <a href="/en/blog/iptime-ip-camera-isolation-nox-vms.html" class="blog-card" style="text-decoration:none;">
+          <div class="blog-card-icon">
+          </div>
+          <div class="blog-card-body">
+            <span class="blog-card-tag"><span class="en-only">IP Camera Security</span></span>
+            
+            <h2 class="blog-card-title en-only">How to Isolate Chinese IP Cameras from the Internet and Use Them Safely with NOX</h2>
+            
+            <p class="blog-card-desc en-only">A practical guide to blocking camera internet access with ipTime rules and putting NOX VMS in front as the single, TLS-protected entry point.</p>
+            <div class="blog-card-meta">
+              <span>2026.05.16</span>
+              <span class="blog-card-link">
+                
+                <span class="en-only">Read</span>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Post: NVR 하드웨어 제조사가 소프트웨어 파트너를 선택해야 하는 이유 -->
+        <a href="/en/blog/why-nvr-hardware-makers-need-software-partner.html" class="blog-card" style="text-decoration:none;">
+          <div class="blog-card-icon">
+          </div>
+          <div class="blog-card-body">
+            <span class="blog-card-tag"><span class="en-only">B2B Strategy</span></span>
+            
+            <h2 class="blog-card-title en-only">Why NVR Hardware Makers Should Choose a Software Partner</h2>
+            
+            <p class="blog-card-desc en-only">Building VMS software in-house costs years and a large budget; pairing proven NVR software like NOX with your hardware is the faster way to market.</p>
+            <div class="blog-card-meta">
+              <span>2026.04.28</span>
+              <span class="blog-card-link">
+                
+                <span class="en-only">Read</span>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Post: WebHook으로 구현하는 Agentic AI -->
+        <a href="/en/blog/webhook-agentic-ai-parking-automation-guide.html" class="blog-card" style="text-decoration:none;">
+          <div class="blog-card-icon">
+          </div>
+          <div class="blog-card-body">
+            <span class="blog-card-tag"><span class="en-only">Dev Guide</span></span>
+            
+            <h2 class="blog-card-title en-only">Agentic AI with WebHooks: A Complete Guide to Building Parking Lot Automation</h2>
+            
+            <p class="blog-card-desc en-only">A hands-on guide to using NOX NVR WebHooks and the REST API to turn LPR events into automatic gate control, parking logs and alerts.</p>
+            <div class="blog-card-meta">
+              <span>2026.04.21</span>
+              <span class="blog-card-link">
+                
+                <span class="en-only">Read</span>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Post: Agentic AI NVR이란? AI NVR과의 결정적 차이 -->
+        <a href="/en/blog/agentic-ai-nvr-vs-ai-nvr-difference.html" class="blog-card" style="text-decoration:none;">
+          <div class="blog-card-icon">
+          </div>
+          <div class="blog-card-body">
+            <span class="blog-card-tag">Agentic AI</span>
+            
+            <h2 class="blog-card-title en-only">What Is an Agentic AI NVR? The Decisive Difference from AI NVR</h2>
+            
+            <p class="blog-card-desc en-only">Most AI NVRs stop at detection, while an Agentic AI NVR detects, decides and acts through WebHooks, REST APIs and LLM agents; this post shows how NOX NVR does it.</p>
+            <div class="blog-card-meta">
+              <span>2026.04.14</span>
+              <span class="blog-card-link">
+                
+                <span class="en-only">Read</span>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Post: NVR/VMS 국정원 보안요구사항 V3.0 인증 가이드 -->
+        <a href="/en/blog/nis-security-requirements-v3-guide.html" class="blog-card" style="text-decoration:none;">
+          <div class="blog-card-icon">
+          </div>
+          <div class="blog-card-body">
+            <span class="blog-card-tag"><span class="en-only">NIS Security Requirements</span></span>
+            
+            <h2 class="blog-card-title en-only">NVR/VMS Guide to NIS Security Requirements V3.0 Certification</h2>
+            
+            <p class="blog-card-desc en-only">The 7 security functional requirements, the Security Function Confirmation process, cost, validity period, and a readiness checklist for NVR/VMS makers.</p>
+            <div class="blog-card-meta">
+              <span>2026.04.01</span>
+              <span class="blog-card-link">
+                
+                <span class="en-only">Read</span>
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Post: Storage Calculator -->
+        <a href="/en/blog/storage-calculator.html" class="blog-card" style="text-decoration:none;">
+          <div class="blog-card-icon">
+          </div>
+          <div class="blog-card-body">
+            <span class="blog-card-tag">Tool</span>
+            
+            <h2 class="blog-card-title en-only">CCTV Storage Calculator</h2>
+            
+            <p class="blog-card-desc en-only">
+              Automatically calculate required storage capacity and retention period based on camera count, resolution, and recording hours.
+            </p>
+            <div class="blog-card-meta">
+              <span>2026.03.29</span>
+              <span class="blog-card-link">
+                
+                <span class="en-only">Open</span>
+              </span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="yl-foot" role="contentinfo">
+      <div class="yl-shell">
+        <div class="yl-foot-mast">
+          <div>
+            <div class="yl-foot-word"><img class="yl-foot-mark" src="/assets/yiyol-mark.png" alt="" width="36" height="26" />YIYOL<span>.</span></div>
+            
+            <p class="yl-foot-tag en-only">NVR and VMS that store and manage your video — and the AI automation built on top of it.</p>
+          </div>
+          <nav class="yl-foot-links" aria-label="Footer navigation">
+            <a href="/company/"><span class="en-only">Company</span></a>
+            <a href="/products/"><span class="en-only">Products</span></a>
+            <a href="/services/"><span class="en-only">Services</span></a>
+            <a href="/api/"><span class="en-only">API Docs</span></a>
+            <a href="/en/blog/"><span class="en-only">Blog</span></a>
+            <a href="/contact/"><span class="en-only">Contact</span></a>
+          </nav>
+        </div>
+        <div class="yl-foot-meta">
+          
+          <span class="en-only">#326, 75-15 Gasan Digital 1-ro, Geumcheon-gu, Seoul</span>
+          <a href="mailto:yiyol@yiyol.com">yiyol@yiyol.com</a>
+          
+          <span class="en-only">Business Registration 186-34-01502</span>
+          
+          <span class="en-only">Mail-order License 2024-Seoul Geumcheon-1806</span>
+        </div>
+        <p class="yl-foot-copy">&copy; 2026 YIYOL. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="/assets/js/i18n.js?v=5"></script>
+  </body>
+</html>

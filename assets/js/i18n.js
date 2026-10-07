@@ -10,7 +10,18 @@
     return 'en';
   }
 
+  // 언어별 URL 이 따로 있는 페이지(/en/blog/ 등)는 <html data-lang-fixed> 로 언어가 고정된다.
+  var FIXED_LANG = document.documentElement.getAttribute('data-lang-fixed');
+
+  // hreflang 대체 링크가 있으면 언어 전환은 그 URL 로 이동한다.
+  function alternatePath(lang) {
+    var link = document.querySelector('link[rel="alternate"][hreflang="' + lang + '"]');
+    if (!link) return null;
+    try { return new URL(link.getAttribute('href'), location.href).pathname; } catch (e) { return null; }
+  }
+
   function getPreferredLanguage() {
+    if (FIXED_LANG && SUPPORTED_LANGS.includes(FIXED_LANG)) return FIXED_LANG;
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved && SUPPORTED_LANGS.includes(saved)) return saved;
     return detectBrowserLanguage();
@@ -19,7 +30,8 @@
   function setLanguage(lang) {
     if (!SUPPORTED_LANGS.includes(lang)) lang = 'en';
     document.documentElement.setAttribute('lang', lang);
-    localStorage.setItem(STORAGE_KEY, lang);
+    // 언어가 고정된 페이지는 열어 보는 것만으로 방문자의 언어 선택을 바꾸지 않는다.
+    if (!FIXED_LANG) localStorage.setItem(STORAGE_KEY, lang);
 
     // Update lang-switch UI if present
     var langCurrent = document.querySelector('.lang-current');
@@ -37,6 +49,14 @@
 
     var langSwitch = document.querySelector('.lang-switch');
     if (langSwitch) langSwitch.classList.remove('active');
+
+    // 블로그는 언어별 URL 이 따로 있으므로 링크도 선택한 언어 쪽으로 돌린다.
+    if (!FIXED_LANG) {
+      document.querySelectorAll('a[href^="/blog/"], a[href^="/en/blog/"]').forEach(function (a) {
+        var path = a.getAttribute('href').replace(/^\/en\/blog\//, '/blog/');
+        a.setAttribute('href', lang === 'en' ? '/en' + path : path);
+      });
+    }
   }
 
   function initLanguageSwitcher() {
@@ -59,7 +79,14 @@
     document.querySelectorAll('.lang-option').forEach(function (option) {
       option.addEventListener('click', function (e) {
         e.preventDefault();
-        setLanguage(option.dataset.lang);
+        var lang = option.dataset.lang;
+        var path = alternatePath(lang);
+        if (path && path !== location.pathname) {
+          localStorage.setItem(STORAGE_KEY, lang);
+          location.href = path + location.hash;
+          return;
+        }
+        setLanguage(lang);
       });
     });
   }

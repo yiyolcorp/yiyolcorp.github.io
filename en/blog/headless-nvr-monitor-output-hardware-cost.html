@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en" data-lang-fixed="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKJ4GX2KHS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-CKJ4GX2KHS');
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>What Is a Headless NVR? Specs and Cost Structure of an NVR Without Monitor Output - YIYOL Blog</title>
+
+  <meta name="description" content="What drives NVR specs is not recording but display output. This post breaks down the decoding, scaling, and compositing load of a live grid, how specs and cost change when that work moves to mobile and PC clients, and what to check before adopting a headless NVR." />
+  <meta name="keywords" content="headless NVR,NVR hardware cost,NVR monitor output,NVR GPU,NVR design,NOX NVR" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://yiyol.com/en/blog/headless-nvr-monitor-output-hardware-cost.html" />
+  <meta property="og:title" content="What Is a Headless NVR? Specs and Cost Structure of an NVR Without Monitor Output — YIYOL" />
+  <meta property="og:description" content="What drives NVR specs is not recording but display output. This post breaks down the decoding, scaling, and compositing load of a live grid, how specs and cost change when that work moves to mobile and PC clients, and what to check before adopting a headless NVR." />
+  <meta property="og:image" content="https://yiyol.com/img/nox/live-layout.jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="714" />
+  <meta property="og:site_name" content="YIYOL" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="ko_KR" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="What Is a Headless NVR? Specs and Cost Structure of an NVR Without Monitor Output — YIYOL" />
+  <meta name="twitter:description" content="What drives NVR specs is not recording but display output. This post breaks down the decoding, scaling, and compositing load of a live grid, how specs and cost change when that work moves to mobile and PC clients, and what to check before adopting a headless NVR." />
+  <meta name="twitter:image" content="https://yiyol.com/img/nox/live-layout.jpeg" />
+
+  <!-- hreflang:start -->
+  <link rel="alternate" hreflang="ko" href="https://yiyol.com/blog/headless-nvr-monitor-output-hardware-cost.html" />
+  <link rel="alternate" hreflang="en" href="https://yiyol.com/en/blog/headless-nvr-monitor-output-hardware-cost.html" />
+  <link rel="alternate" hreflang="x-default" href="https://yiyol.com/blog/headless-nvr-monitor-output-hardware-cost.html" />
+  <!-- hreflang:end -->
+  <link rel="canonical" href="https://yiyol.com/en/blog/headless-nvr-monitor-output-hardware-cost.html" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "What Is a Headless NVR? Specs and Cost Structure of an NVR Without Monitor Output",
+      "description": "What drives NVR specs is not recording but display output. This post breaks down the decoding, scaling, and compositing load of a live grid, how specs and cost change when that work moves to mobile and PC clients, and what to check before adopting a headless NVR.",
+      "url": "https://yiyol.com/en/blog/headless-nvr-monitor-output-hardware-cost.html",
+      "image": "https://yiyol.com/img/nox/live-layout.jpeg",
+      "datePublished": "2026-09-15",
+      "dateModified": "2026-09-15",
+      "author": {
+        "@type": "Organization",
+        "name": "YIYOL",
+        "url": "https://yiyol.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "YIYOL",
+        "url": "https://yiyol.com"
+      },
+      "keywords": [
+        "headless NVR",
+        "NVR hardware cost",
+        "NVR monitor output",
+        "NVR GPU",
+        "NVR design",
+        "NOX NVR"
+      ],
+      "inLanguage": "en",
+      "translationOfWork": {
+        "@id": "https://yiyol.com/blog/headless-nvr-monitor-output-hardware-cost.html"
+      }
+    }
+  </script>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "YIYOL",
+          "item": "https://yiyol.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://yiyol.com/en/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "What Is a Headless NVR? Specs and Cost Structure of an NVR Without Monitor Output",
+          "item": "https://yiyol.com/en/blog/headless-nvr-monitor-output-hardware-cost.html"
+        }
+      ]
+    }
+  </script>
+
+  <!-- Fonts & CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=3" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=1" />
+
+  <style>
+    /* Live-grid pipeline — hairline diagram, tokens only, reflows to a column
+       below 720px so the Korean labels stay readable on a phone. */
+    .post-article .nd-pipe {
+      margin: var(--space-lg) 0;
+      padding: var(--space-md) var(--space-sm) var(--space-sm);
+      background: var(--color-paper);
+      border: var(--rule-hair) solid var(--color-rule);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-lift);
+    }
+    .nd-pipe-head {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      padding-bottom: var(--space-2xs);
+      margin-bottom: var(--space-sm);
+      border-bottom: var(--rule-hair) solid var(--color-rule);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-muted);
+    }
+    .nd-pipe-rail {
+      display: flex;
+      align-items: stretch;
+      gap: var(--space-3xs);
+    }
+    .nd-pipe-step {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3xs);
+      padding: var(--space-2xs) var(--space-xs) var(--space-xs);
+      border: var(--rule-hair) solid var(--color-rule-strong);
+      border-radius: var(--radius-ctl);
+    }
+    .nd-pipe-step.is-gpu {
+      background: var(--color-accent-wash);
+      border-color: var(--color-accent-hair);
+    }
+    .nd-pipe-n {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      letter-spacing: 0.06em;
+      color: var(--color-accent);
+    }
+    .nd-pipe-t {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      line-height: 1.45;
+      color: var(--color-ink);
+      word-break: keep-all;
+    }
+    .nd-pipe-u {
+      margin-top: auto;
+      padding-top: var(--space-3xs);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-muted);
+    }
+    .nd-pipe-arrow {
+      flex: 0 0 auto;
+      align-self: center;
+      padding: 0 var(--space-4xs);
+      color: var(--color-muted);
+      font-size: var(--text-base);
+      line-height: 1;
+    }
+    /* Captions here are sentences, not mono spec labels — blog.css sets figcaption
+       in JetBrains Mono with mono tracking, which Korean prose can't carry. */
+    .post-article figcaption {
+      font-family: inherit;
+      font-size: var(--text-base);
+      letter-spacing: normal;
+      line-height: 1.6;
+      word-break: keep-all;
+    }
+    .post-article .nd-pipe figcaption {
+      margin-top: var(--space-sm);
+      padding-top: var(--space-2xs);
+      border-top: var(--rule-hair) solid var(--color-rule);
+    }
+    .nd-pipe-key {
+      display: inline-block;
+      width: 0.7em;
+      height: 0.7em;
+      margin-right: var(--space-3xs);
+      border: var(--rule-hair) solid var(--color-accent-hair);
+      border-radius: 2px;
+      background: var(--color-accent-wash);
+      vertical-align: baseline;
+    }
+    @media (max-width: 720px) {
+      .post-article .nd-pipe { padding: var(--space-sm) var(--space-xs); }
+      .nd-pipe-rail { flex-direction: column; gap: var(--space-3xs); }
+      /* Ordinal and stage name share the first line, the unit tag drops to its
+         own. min-width:0 on the name is what keeps the row from pushing the
+         whole page wider than the phone. */
+      .nd-pipe-step { flex: 1 1 auto; flex-direction: row; flex-wrap: wrap; align-items: baseline; gap: 0 var(--space-2xs); }
+      .nd-pipe-n { flex: 0 0 auto; }
+      .nd-pipe-t { flex: 1 1 0; min-width: 0; }
+      .nd-pipe-u { flex: 0 0 100%; margin-top: var(--space-3xs); padding-top: 0; text-align: right; }
+      .nd-pipe-arrow { transform: rotate(90deg); align-self: center; }
+      .nd-pipe-head { flex-direction: column; gap: var(--space-3xs); }
+    }
+  </style>
+
+  </head>
+<body class="yl">
+  <!-- Header -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+      <div class="site-nav-inner">
+        <a href="/" class="site-nav-brand">
+          <img class="site-nav-mark" src="/assets/yiyol-mark.png" alt="" width="33" height="24" /><span class="site-nav-logo">YIYOL<span>.</span></span>
+        </a>
+        <div class="site-nav-right">
+          <ul class="site-nav-links">
+            <li><a href="/company/"><span class="en-only">Company</span></a></li>
+            <li><a href="/products/"><span class="en-only">Products</span></a></li>
+            <li><a href="/services/"><span class="en-only">Services</span></a></li>
+            <li><a href="/en/blog/" class="nav-active"><span class="en-only">Blog</span></a></li>
+            <li><a href="/contact/" class="nav-cta"><span class="en-only">Contact</span></a></li>
+          </ul>
+          <div class="lang-switch">
+            <button class="lang-selector" type="button" aria-haspopup="true" aria-expanded="false">
+              <span class="lang-current">English</span>
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" /></svg>
+            </button>
+            <div class="lang-dropdown">
+              <a href="#" class="lang-option" data-lang="ko">한국어</a>
+              <a href="#" class="lang-option" data-lang="en">English</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+  <!-- Hero -->
+  <section class="post-hero">
+    <div class="post-hero-content">
+      <nav class="post-breadcrumb">
+        <a href="/">YIYOL</a><span>›</span><a href="/en/blog/"><span class="en-only">Blog</span></a><span>›</span> <span class="en-only">Current post</span>
+      </nav>
+      <h1><span class="en-only">What Is a Headless NVR? Specs and Cost Structure of an NVR Without Monitor Output</span></h1>
+      <div class="post-meta">
+        <span class="post-meta-date"> 2026.09.15</span>
+        <div class="post-tags">
+          <span class="post-tag">NVR</span>
+          <span class="post-tag"><span class="en-only">Headless</span></span>
+          <span class="post-tag"><span class="en-only">GPU Decoding</span></span>
+          <span class="post-tag"><span class="en-only">Hardware Cost</span></span>
+          <span class="post-tag"><span class="en-only">Korean-Made NVR</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main -->
+  <main class="post-container">
+    <article class="post-article">
+      
+
+      <div class="en-only">
+      <p>A <strong>headless NVR</strong> is an NVR architecture that removes the unit's local monitor output and moves live-video decoding and screen composition to mobile and PC clients. The server spends its resources only on recording, stream relay, and AI analytics.</p>
+
+      <p>Most NVRs installed in Korea today run the opposite way: a monitor is attached to the unit and a 16-way grid is displayed around the clock. That makes sense in a control room where shift operators watch the screens. Factories, warehouses, schools, retail buildings, and small businesses, however, have no one watching full time. The screen is always on, but footage is actually viewed only after an incident, when someone plays back the relevant segment.</p>
+
+      <p><strong>The main driver of NVR specifications is not recording but display output.</strong> This post breaks down, stage by stage, the resources consumed by local output, then covers how specifications and cost change when that load moves to the client, and what to review before adopting the approach.</p>
+
+      <h2>The local grid display is a holdover from DVRs</h2>
+
+      <p>On analog DVRs, local output was the core function of the unit. Displaying camera signals received over coax was the whole point of the device, and operation and checks were done from the front panel.</p>
+
+      <p>After the move to IP, video became viewable from anywhere on the network, yet the setup of drawing a grid on a local monitor stayed. A typical sign is that procurement specs still list the number of HDMI outputs and split-screen divisions as line items. This is inherited from older specifications, not driven by operational requirements on site.</p>
+
+      <h2>Resources consumed by local output</h2>
+
+      <p>The recording path and the output path have different load profiles. Recording writes the H.264/H.265 stream sent by the camera to disk <strong>without decoding</strong>. It is just container storage and index generation, and the bottleneck is disk bandwidth, not compute. 32-channel recording runs even on low-end boards.</p>
+
+      <p>The load arises at the display stage. To compose a single live grid, each channel goes through the following steps.</p>
+
+      <figure class="nd-pipe">
+        <div class="nd-pipe-head">
+          <span>Input · camera stream H.264 / H.265</span>
+          <span>Output · 16-way monitor grid</span>
+        </div>
+        <div class="nd-pipe-rail">
+          <div class="nd-pipe-step">
+            <span class="nd-pipe-n">01</span>
+            <span class="nd-pipe-t">Stream reception and depacketization</span>
+            <span class="nd-pipe-u">NIC · CPU</span>
+          </div>
+          <span class="nd-pipe-arrow" aria-hidden="true">→</span>
+          <div class="nd-pipe-step is-gpu">
+            <span class="nd-pipe-n">02</span>
+            <span class="nd-pipe-t">H.264/H.265 decoding</span>
+            <span class="nd-pipe-u">Hardware decoder</span>
+          </div>
+          <span class="nd-pipe-arrow" aria-hidden="true">→</span>
+          <div class="nd-pipe-step is-gpu">
+            <span class="nd-pipe-n">03</span>
+            <span class="nd-pipe-t">Color space conversion</span>
+            <span class="nd-pipe-u">GPU</span>
+          </div>
+          <span class="nd-pipe-arrow" aria-hidden="true">→</span>
+          <div class="nd-pipe-step is-gpu">
+            <span class="nd-pipe-n">04</span>
+            <span class="nd-pipe-t">Scaling to tile size</span>
+            <span class="nd-pipe-u">GPU</span>
+          </div>
+          <span class="nd-pipe-arrow" aria-hidden="true">→</span>
+          <div class="nd-pipe-step is-gpu">
+            <span class="nd-pipe-n">05</span>
+            <span class="nd-pipe-t">Compositing into the full screen</span>
+            <span class="nd-pipe-u">GPU · framebuffer</span>
+          </div>
+        </div>
+        <figcaption>
+          <span class="nd-pipe-key" aria-hidden="true"></span>Shaded stages use the decoder and GPU. When the unit only records, step 01 leads straight to disk writes, and steps 02 through 05 never happen.
+        </figcaption>
+      </figure>
+
+      <p>This runs 30 times per second, in parallel across every channel. Decoding 16 channels of 4K main streams as-is exceeds what a typical integrated GPU can handle, so real products build the grid from substreams. Even so, they still need the same hardware decoder sessions, memory bandwidth, and framebuffer.</p>
+
+      <h3>Decoding load during playback</h3>
+
+      <p><strong>Playback is heavier than live view.</strong> A 4-way playback means decoding four channels at once, and every move along the timeline requires seeking to a keyframe and restarting decoding. Fast-forward processes additional frames in proportion to the speed. While the user is scrubbing the timeline, the decoder runs at full load.</p>
+
+      <p>These requirements translate directly into component choices: a higher integrated-GPU tier, more memory bandwidth, and, with increased heat, a beefier thermal design and larger power supply. On the BOM, not one line item but several go up at once.</p>
+
+      <h2>The headless architecture: moving decoding to the client</h2>
+
+      <p>The devices used to view video already have hardware decoders. Smartphones ship with H.265 hardware decoding as standard, and so does the integrated graphics in business PCs. When no one is viewing, those resources sit idle.</p>
+
+      <p>Moving where decoding happens changes when load occurs. <strong>Local output performs the same computation 24 hours a day, whether anyone is watching or not.</strong> With client-side processing, load scales only with the number of users and channels currently being viewed, and there is none when no one is viewing. The server simply relays the streams it receives, so the per-channel cost is low.</p>
+
+      <p><strong>Server-side transcoding is the exception.</strong> If the server re-encodes at a lower resolution for low-end devices, encoding load is added on top of decoding load and specifications actually go up. The right approach is to use the substreams the cameras already produce and send either the main stream or substream depending on tile size.</p>
+
+      <h2>Resource consumption: keeping local output vs. headless</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>With local output</th>
+            <th>Headless</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Live decoding</td>
+            <td>All channels, continuously</td>
+            <td>Only for users and channels currently viewing</td>
+          </tr>
+          <tr>
+            <td>Playback decoding</td>
+            <td>On the unit</td>
+            <td>On the client</td>
+          </tr>
+          <tr>
+            <td>GPU usage</td>
+            <td>Decoding, scaling, compositing</td>
+            <td>Allocated to AI analytics</td>
+          </tr>
+          <tr>
+            <td>Memory</td>
+            <td>Decode buffers + framebuffer</td>
+            <td>Mainly stream buffers</td>
+          </tr>
+          <tr>
+            <td>Thermal and power design</td>
+            <td>Higher</td>
+            <td>Lower</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>The key row is GPU usage. Today, the reason to put a GPU in an NVR is AI analytics, not display output. <strong>Whether the same GPU is spent on compositing a grid or on object detection determines what kind of product it is.</strong> Removing local output lets the same hardware run more AI analytics channels, or deliver the same analytics performance on a lower-spec board.</p>
+
+      <h2>Cost structure and the competitiveness of Korean-made NVRs</h2>
+
+      <p>Where Korean NVRs lose against Chinese products is price, not performance. Chinese manufacturers secure dedicated video-processing SoCs at their own volumes and drive the BOM down. Korean products are often built on general-purpose x86 or ARM boards, making it hard to compete on cost at the same channel count.</p>
+
+      <p>If a substantial part of the board specification comes from local output requirements, that is cost that can be cut. <strong>This is not cutting features; it is removing features nobody uses.</strong> If a board one tier higher was being used for a grid screen that no one looks at during operation, dropping a tier loses no functionality.</p>
+
+      <p>Demand for domestically made equipment already exists. After the 2024 IP camera footage leak incidents, both public agencies and private companies began including equipment origin in their purchasing criteria. The question is reaching the same price bracket, and removing unused output stages is a cost-reduction lever that can be applied immediately.</p>
+
+      <h2>Five things to review before adopting a headless NVR</h2>
+
+      <p><strong>1. Status checks during installation and failures</strong></p>
+
+      <p>Without a screen, you need a way to confirm that boot has completed and which IP was assigned. At least one of the following must be provided: a front LCD or status LEDs, an AP for initial setup, or automatic discovery on the same network. Without one, installation takes longer and the cost savings are eaten up by labor.</p>
+
+      <p><strong>2. Access path during network failures</strong></p>
+
+      <p>Local output works regardless of network status. In a headless setup, a switch failure makes viewing impossible, so there must be a path to connect directly to the unit.</p>
+
+      <p><strong>3. Output port requirements in procurement specs</strong></p>
+
+      <p>When public procurement specs require HDMI output, models without output ports cannot bid. <strong>This is a specification issue, not a technical one.</strong> The practical approach is to make output an optional feature and design the software so it does not assume local output. Output then becomes a hardware line-up choice.</p>
+
+      <p><strong>4. Client-side stream design</strong></p>
+
+      <p>Viewing a 16-way grid of main streams on mobile sharply increases device load and battery drain. The client must select streams by tile size and unsubscribe from tiles that scroll off screen. If this is done poorly, the headless architecture itself gets judged as slow.</p>
+
+      <p><strong>5. Network bandwidth</strong></p>
+
+      <p>Local output uses no network, but a headless architecture consumes bandwidth per connected user. On an internal network the impact is small, but sites with a high share of remote access must account for it at design time.</p>
+
+      <h2>How NOX implements the headless architecture</h2>
+
+      <p>NOX provides every feature in a web browser, with no dedicated client to install. Screen composition happens on the client: tile sizes and placement are freely configurable, and web pages and files can be placed on the same screen alongside cameras. This layout is not video composited and sent by the server; it is a screen rendered by the browser.</p>
+
+      <figure>
+        <img src="/img/nox/live-layout.jpeg" alt="NOX live layout: a browser screen mixing camera tiles and web page tiles on one screen" width="1200" height="714" loading="lazy" />
+        <figcaption>Grid compositing is done in the client browser, not on the server, and each user's tile layout is independent.</figcaption>
+      </figure>
+
+      <p>The server spends its resources on recording, relay, and AI analytics. The dashboard shows GPU utilization, memory, and temperature so you can check resource usage.</p>
+
+      <figure>
+        <img src="/img/nox/dashboard.jpeg" alt="NOX dashboard panels for GPU utilization, GPU memory, and GPU temperature, with a storage usage gauge" width="1200" height="675" loading="lazy" />
+        <figcaption>Utilization of integrated graphics and discrete GPUs is shown separately. On sites that do not use local output, those resources are allocated to analytics.</figcaption>
+      </figure>
+
+      <p>The NOX-A08 series provides two 4K HDMI ports and one VGA port. This configuration is for sites that need a monitoring screen, and the software does not assume local output. On sites that do not use the outputs, those resources are allocated to AI analytics.</p>
+
+      <h2>A common objection: without a screen, you can't confirm recording status</h2>
+
+      <p>Some point out that if the local screen is off, there is no way to tell whether recording is working. But <strong>display output does not guarantee recording status.</strong> Per-channel recording status, remaining disk space, and camera disconnection alerts are the accurate way to check, and this information is delivered as mobile notifications without any screen. Operationally, it is more efficient to monitor status through alerts and view footage on a client when needed.</p>
+
+      <h2>Conclusion: unused output stages drive cost</h2>
+
+      <p><strong>A headless NVR is not a cut-down product but an architecture that relocates where computation happens.</strong> Moving the decoding, scaling, and compositing load that was assigned to local output to the client at viewing time lowers GPU, memory, thermal, and power specifications together. The freed resources can be turned into AI analytics channels, or reflected in cost by dropping a board tier.</p>
+
+      <p>Control rooms need local output. Most other sites do not. Which side the default configuration targets is what decides the price competitiveness of Korean-made NVRs.</p>
+
+      <hr />
+
+      <p>👉 <strong><a href="https://yiyol.com/products/" target="_blank" rel="noopener">See real operating screens on the NOX product page</a></strong> — browser-based live layout and system dashboard</p>
+
+      <p><em>NOX NVR partnership and POC program inquiries: <a href="/contact/">yiyol.com/contact</a></em></p>
+
+      <hr />
+
+      <h2>Related posts</h2>
+      <ul>
+        <li><a href="/en/blog/why-nvr-hardware-makers-need-software-partner.html">Why NVR Hardware Makers Need a Software Partner</a> — why cutting hardware cost still doesn't make a product without software</li>
+        <li><a href="/en/blog/agentic-ai-nvr-vs-ai-nvr-difference.html">What Is an Agentic AI NVR? The Decisive Difference from an AI NVR</a> — applying GPU resources reclaimed from display output to analytics and automation</li>
+        <li><a href="/en/blog/nvr-disk-calculator.html">NVR Disk Calculator</a> — required disk capacity by channel count and retention period</li>
+      </ul>
+      </div>
+
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="yl-foot" role="contentinfo">
+      <div class="yl-shell">
+        <div class="yl-foot-mast">
+          <div>
+            <div class="yl-foot-word"><img class="yl-foot-mark" src="/assets/yiyol-mark.png" alt="" width="36" height="26" />YIYOL<span>.</span></div>
+            
+            <p class="yl-foot-tag en-only">NVR and VMS that store and manage your video — and the AI automation built on top of it.</p>
+          </div>
+          <nav class="yl-foot-links" aria-label="Footer navigation">
+            <a href="/company/"><span class="en-only">Company</span></a>
+            <a href="/products/"><span class="en-only">Products</span></a>
+            <a href="/services/"><span class="en-only">Services</span></a>
+            <a href="/api/"><span class="en-only">API Docs</span></a>
+            <a href="/en/blog/"><span class="en-only">Blog</span></a>
+            <a href="/contact/"><span class="en-only">Contact</span></a>
+          </nav>
+        </div>
+        <div class="yl-foot-meta">
+          
+          <span class="en-only">#326, 75-15 Gasan Digital 1-ro, Geumcheon-gu, Seoul</span>
+          <a href="mailto:yiyol@yiyol.com">yiyol@yiyol.com</a>
+          
+          <span class="en-only">Business Registration 186-34-01502</span>
+          
+          <span class="en-only">Mail-order License 2024-Seoul Geumcheon-1806</span>
+        </div>
+        <p class="yl-foot-copy">&copy; 2026 YIYOL. All rights reserved.</p>
+      </div>
+    </footer>
+
+  <script src="/assets/js/i18n.js?v=5"></script>
+</body>
+</html>

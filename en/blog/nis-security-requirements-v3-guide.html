@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en" data-lang-fixed="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKJ4GX2KHS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-CKJ4GX2KHS');
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NVR/VMS Guide to NIS Security Requirements V3.0 Certification - YIYOL Blog</title>
+
+  <meta name="description" content="A practical guide to Korea's NIS Security Requirements V3.0 for NVR and VMS products: the security functional requirements for video information processing devices, the Security Function Confirmation process, cost and timeline, and a readiness checklist." />
+  <meta name="keywords" content="NIS security requirements,Security Function Confirmation,NVR certification,VMS certification,Korea public sector CCTV,KCMVP" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://yiyol.com/en/blog/nis-security-requirements-v3-guide.html" />
+  <meta property="og:title" content="NVR/VMS Guide to NIS Security Requirements V3.0 Certification — YIYOL" />
+  <meta property="og:description" content="A practical guide to Korea's NIS Security Requirements V3.0 for NVR and VMS products: the security functional requirements for video information processing devices, the Security Function Confirmation process, cost and timeline, and a readiness checklist." />
+  <meta property="og:image" content="https://yiyol.com/img/nox-ui-001.jpeg" />
+  <meta property="og:image:width" content="3456" />
+  <meta property="og:image:height" content="1916" />
+  <meta property="og:site_name" content="YIYOL" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="ko_KR" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="NVR/VMS Guide to NIS Security Requirements V3.0 Certification — YIYOL" />
+  <meta name="twitter:description" content="A practical guide to Korea's NIS Security Requirements V3.0 for NVR and VMS products: the security functional requirements for video information processing devices, the Security Function Confirmation process, cost and timeline, and a readiness checklist." />
+  <meta name="twitter:image" content="https://yiyol.com/img/nox-ui-001.jpeg" />
+
+  <!-- hreflang:start -->
+  <link rel="alternate" hreflang="ko" href="https://yiyol.com/blog/nis-security-requirements-v3-guide.html" />
+  <link rel="alternate" hreflang="en" href="https://yiyol.com/en/blog/nis-security-requirements-v3-guide.html" />
+  <link rel="alternate" hreflang="x-default" href="https://yiyol.com/blog/nis-security-requirements-v3-guide.html" />
+  <!-- hreflang:end -->
+  <link rel="canonical" href="https://yiyol.com/en/blog/nis-security-requirements-v3-guide.html" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "NVR/VMS Guide to NIS Security Requirements V3.0 Certification",
+      "description": "A practical guide to Korea's NIS Security Requirements V3.0 for NVR and VMS products: the security functional requirements for video information processing devices, the Security Function Confirmation process, cost and timeline, and a readiness checklist.",
+      "url": "https://yiyol.com/en/blog/nis-security-requirements-v3-guide.html",
+      "image": "https://yiyol.com/img/nox-ui-001.jpeg",
+      "datePublished": "2026-04-01",
+      "dateModified": "2026-04-01",
+      "author": {
+        "@type": "Organization",
+        "name": "YIYOL",
+        "url": "https://yiyol.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "YIYOL",
+        "url": "https://yiyol.com"
+      },
+      "keywords": [
+        "NIS security requirements",
+        "Security Function Confirmation",
+        "NVR certification",
+        "VMS certification",
+        "Korea public sector CCTV",
+        "KCMVP"
+      ],
+      "inLanguage": "en",
+      "translationOfWork": {
+        "@id": "https://yiyol.com/blog/nis-security-requirements-v3-guide.html"
+      }
+    }
+  </script>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "YIYOL",
+          "item": "https://yiyol.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://yiyol.com/en/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "NVR/VMS Guide to NIS Security Requirements V3.0 Certification",
+          "item": "https://yiyol.com/en/blog/nis-security-requirements-v3-guide.html"
+        }
+      ]
+    }
+  </script>
+
+  <!-- Fonts & CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=3" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=1" />
+
+  </head>
+<body class="yl">
+  <!-- Header -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+      <div class="site-nav-inner">
+        <a href="/" class="site-nav-brand">
+          <img class="site-nav-mark" src="/assets/yiyol-mark.png" alt="" width="33" height="24" /><span class="site-nav-logo">YIYOL<span>.</span></span>
+        </a>
+        <div class="site-nav-right">
+          <ul class="site-nav-links">
+            <li><a href="/company/"><span class="en-only">Company</span></a></li>
+            <li><a href="/products/"><span class="en-only">Products</span></a></li>
+            <li><a href="/services/"><span class="en-only">Services</span></a></li>
+            <li><a href="/en/blog/" class="nav-active"><span class="en-only">Blog</span></a></li>
+            <li><a href="/contact/" class="nav-cta"><span class="en-only">Contact</span></a></li>
+          </ul>
+          <div class="lang-switch">
+            <button class="lang-selector" type="button" aria-haspopup="true" aria-expanded="false">
+              <span class="lang-current">English</span>
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" /></svg>
+            </button>
+            <div class="lang-dropdown">
+              <a href="#" class="lang-option" data-lang="ko">한국어</a>
+              <a href="#" class="lang-option" data-lang="en">English</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+  <!-- Hero -->
+  <section class="post-hero">
+    <div class="post-hero-content">
+      <nav class="post-breadcrumb">
+        <a href="/">YIYOL</a><span>›</span><a href="/en/blog/"><span class="en-only">Blog</span></a><span>›</span> <span class="en-only">Current post</span>
+      </nav>
+      <h1><span class="en-only">NVR/VMS Guide to NIS Security Requirements V3.0 Certification: A Security Conformity Verification Strategy for Video Security Products</span></h1>
+      <div class="post-meta">
+        <span class="post-meta-date"> 2026.04.01</span>
+        <div class="post-tags">
+          <span class="post-tag"><span class="en-only">NIS Security Requirements</span></span>
+          <span class="post-tag"><span class="en-only">Security Requirements V3.0</span></span>
+          <span class="post-tag"><span class="en-only">NVR Security Certification</span></span>
+          <span class="post-tag"><span class="en-only">VMS Security Certification</span></span>
+          <span class="post-tag"><span class="en-only">Video Information Processing Devices</span></span>
+          <span class="post-tag"><span class="en-only">Security Function Confirmation</span></span>
+          <span class="post-tag">KCMVP</span>
+          <span class="post-tag"><span class="en-only">Security Conformity Verification</span></span>
+          <span class="post-tag"><span class="en-only">Video Security</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main -->
+  <main class="post-container">
+    <article class="post-article">
+      
+
+      <div class="en-only">
+
+      <p>Since April 2024, NVRs (network video recorders) and VMS (video management systems) must pass the National Intelligence Service (NIS) security conformity verification before they can be supplied to Korean public institutions. As <a href="https://zdnet.co.kr/view/?no=20240328101353" target="_blank" rel="noopener">hacking and backdoor threats in Chinese-made CCTV</a> became a public concern, video information processing devices were added as a new product category in the NIS Security Requirements V3.0.</p>
+
+      <p>With the Korean security market <a href="https://m.boannews.com/html/detail.html?idx=140969" target="_blank" rel="noopener">projected to grow to KRW 10.6082 trillion in 2026</a>, video security is the area where certification demand is rising fastest. This post covers everything NVR/VMS manufacturers need to know to prepare for Security Requirements V3.0 certification: the structure of the certification scheme, the security functional requirements that apply to NVR/VMS, the process and cost of obtaining a Security Function Confirmation, and a practical checklist.</p>
+
+      <h2>Why Security Conformity Verification Became Mandatory for NVR/VMS</h2>
+
+      <h3>The Reality of Video Security Threats</h3>
+
+      <p>CCTV infrastructure in public institutions is directly tied to national security. If video equipment installed in government buildings, military facilities, or transportation infrastructure is hacked, the consequences can range from real-time video leaks to theft of recorded data and the disabling of entire systems. As backdoors were repeatedly discovered in Chinese-made IP cameras and NVRs, verifying the security of video information processing devices became an urgent priority.</p>
+
+      <h3>Why Video Information Processing Devices Were Added in V3.0</h3>
+
+      <p>The NIS Security Requirements V2.0 contained no provisions for video security products. With IP cameras, NVRs, and VMS added as a new product category in V3.0, security conformity verification for these products took full effect in April 2024. This is not merely an expansion of the scheme; it signals a national commitment to systematically protecting public-sector video infrastructure.</p>
+
+      <h3>Impact on NVR/VMS Manufacturers</h3>
+
+      <p>NVR/VMS manufacturers targeting the public sector have no choice. Without a Security Function Confirmation, entering the public market is simply impossible. According to a <a href="https://m.boannews.com/html/detail.html?idx=129447" target="_blank" rel="noopener">Boan News survey</a>, 71.4% of companies plan to apply for a Security Function Confirmation, so competition for certification is intensifying.</p>
+
+      <h2>The Structure of NIS Security Requirements V3.0 and Where NVR/VMS Fit</h2>
+
+      <h3>Overview of Security Requirements V3.0</h3>
+
+      <p>The national security requirements are reference documents established by the NIS to verify the safety of security products introduced into national and public institutions. They are legally binding under <a href="https://www.nis.go.kr/AF/1_7_2_1.do" target="_blank" rel="noopener">Article 4 of the National Intelligence Service Act</a>, Article 56 of the Electronic Government Act, and Article 9 of the Cybersecurity Work Regulations. The NIS oversees the scheme, while the <a href="https://www.ncsc.go.kr/" target="_blank" rel="noopener">National Cyber Security Center (NCSC)</a> and the National Security Research Institute (NSR) handle the practical work.</p>
+
+      <p>V3.0 consists of two main pillars: <strong>Common Security Requirements</strong> and <strong>Product-Specific Security Requirements</strong>. Every product must meet the common security requirements, plus the product-specific requirements for its own product category.</p>
+
+      <h3>Where Do NVR/VMS Belong?</h3>
+
+      <p>In the <a href="https://www.nis.go.kr/AF/1_7_2_4/list.do" target="_blank" rel="noopener">NIS security requirements list</a>, V3.0 defines 34 product types, and NVR and VMS belong to the <strong>video information processing device</strong> category.</p>
+
+      <table>
+        <thead>
+          <tr><th>Category</th><th>Included Products</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Intrusion Blocking/Prevention</strong></td><td>Firewall (FW), Web Application Firewall (WAF), DDoS mitigation equipment, IPS, Wireless IPS</td></tr>
+          <tr><td><strong>Network Segment Security</strong></td><td>VPN, cross-network data transfer, wireless LAN authentication, NAC</td></tr>
+          <tr><td><strong>Endpoint</strong></td><td>Antivirus, MDM, ransomware protection, OS access control</td></tr>
+          <tr><td><strong>Network Equipment</strong></td><td>L3 and higher switches, routers, SDN equipment</td></tr>
+          <tr><td><strong>Video Information Processing Devices</strong></td><td><strong>IP cameras, NVR, VMS</strong></td></tr>
+          <tr><td><strong>New Category</strong></td><td>Quantum cryptography communication equipment</td></tr>
+        </tbody>
+      </table>
+
+      <p>NVR/VMS are subject to a <strong>Security Function Confirmation</strong>, not CC certification. This is the starting point for any certification strategy. Unlike the 21 product types subject to CC certification, such as firewalls, NVR/VMS are certified through the relatively streamlined Security Function Confirmation process.</p>
+
+      <h2>The 7 Security Functional Requirements for NVR/VMS</h2>
+
+      <p>The security functional requirements (SFRs) in V3.0 are divided into seven areas. Each item is assigned a compliance level of "mandatory", "conditionally mandatory", or "optional". Let's look at what NVR/VMS manufacturers need to implement in each area.</p>
+
+      <h3>1. Identification &amp; Authentication</h3>
+
+      <p>Administrators and operators accessing the NVR/VMS must be accurately identified, and only legitimate users may access the system.</p>
+
+      <ul>
+        <li><strong>Account/password-based authentication is mandatory</strong>: applies to the NVR/VMS management console, web interface, and mobile clients</li>
+        <li><strong>Forced initial password change</strong>: users must change the factory default password (e.g., admin/admin) at first login</li>
+        <li><strong>Authentication failure handling</strong>: lock the account after no more than 5 consecutive failures, and keep it locked for at least 5 minutes</li>
+        <li><strong>Password complexity</strong>: prohibit 4 or more horizontally adjacent keyboard characters/digits in sequence, enforce minimum length, special characters, etc.</li>
+        <li><strong>Multi-factor authentication (MFA) support</strong>: FIDO, OTP, certificate-based authentication — conditionally mandatory</li>
+      </ul>
+
+      <p>Because NVR/VMS operate in environments where many remote users connect simultaneously, session management and concurrent-session limits must also be considered.</p>
+
+      <h3>2. Access Control</h3>
+
+      <p>Because NVR/VMS handle sensitive data in the form of recorded video, role-based access control is especially important.</p>
+
+      <ul>
+        <li><strong>Role-based access control (RBAC) is mandatory</strong>: separation of roles such as administrator, operator, and auditor
+          <ul>
+            <li><strong>Administrator</strong>: system configuration, user management, security policy changes</li>
+            <li><strong>Operator</strong>: live monitoring, recorded video search/playback (cannot change settings)</li>
+            <li><strong>Auditor</strong>: view audit logs (access to video data can be restricted)</li>
+          </ul>
+        </li>
+        <li><strong>Per-camera/channel access control</strong>: grant specific users viewing rights only to specific camera groups</li>
+        <li><strong>External directory service integration</strong>: integration with Active Directory, LDAP, etc. (permitted from V3.0 R1)</li>
+      </ul>
+
+      <p>Public institutions frequently need video access rights broken down by building and department, so a flexible RBAC structure is essential.</p>
+
+      <h3>3. Encryption and Data Protection</h3>
+
+      <p>This is the most technically demanding area for NVR/VMS. Video data must be protected by encryption both in transit and at rest.</p>
+
+      <ul>
+        <li><strong>Encryption of data in transit</strong>: encrypt communication between NVR/VMS and IP cameras, and between NVR/VMS and clients, using HTTPS with TLS 1.2 or higher</li>
+        <li><strong>Protection of stored data</strong>: integrity verification for recorded video — you must be able to prove the video has not been tampered with</li>
+        <li><strong>Encrypted log transmission</strong>: support for syslog over TLS (RFC 5424) and syslog over DTLS (RFC 6012) is mandatory</li>
+        <li><strong>Algorithms subject to validation</strong>: ARIA, SEED (block ciphers), SHA-2 (hash), HMAC (message authentication), CTR_DRBG (random number generation), ECDSA (digital signature), ECDH (key establishment)</li>
+      </ul>
+
+      <p><strong>Important</strong>: DES and AES are not covered by KCMVP validation. Even though AES is widely used internationally, NVR/VMS supplied to Korean public institutions must use ARIA or SEED. NVR/VMS are not currently among the three product types (VPN, secure USB, data leakage prevention) that are directly required to embed a KCMVP-validated cryptographic module, but using a <a href="https://seed.kisa.or.kr/kisa/kcmvp/EgovSummary.do" target="_blank" rel="noopener">KCMVP</a>-validated module when implementing encryption works in your favor during the certification review.</p>
+
+      <h3>4. Audit</h3>
+
+      <p>You must be able to trace who accessed which video and when, and who changed system settings.</p>
+
+      <ul>
+        <li><strong>Mandatory audit events</strong>: user login/logout, video playback/download, security policy changes, camera connection/disconnection, recording setting changes, etc.</li>
+        <li><strong>Audit record protection</strong>: prevent tampering with audit logs — not even administrators should be able to delete or modify logs</li>
+        <li><strong>External log server integration</strong>: forward to a central log server via syslog over TLS</li>
+        <li><strong>Storage management</strong>: secure external backup or separate storage so that audit records are not exhausted</li>
+      </ul>
+
+      <p>Because NVR/VMS must retain audit logs for long periods alongside large volumes of video, audit record capacity must also be accounted for when designing storage.</p>
+
+      <h3>5. Security Management</h3>
+
+      <p>These are the functions for configuring and managing security policies. The NVR/VMS management interface itself must be secure.</p>
+
+      <ul>
+        <li><strong>Security policy configuration/change functions</strong>: administrators configure password, access control, and encryption policies through a GUI</li>
+        <li><strong>Management interface security</strong>: enforce HTTPS for the web management console, allow the management port to be changed</li>
+        <li><strong>Secure firmware/software updates</strong>: verify the integrity of update files (signature check) before applying them</li>
+      </ul>
+
+      <h3>6. Self-Protection</h3>
+
+      <p>The security functions of the NVR/VMS (TSF) themselves must be protected from attack.</p>
+
+      <ul>
+        <li><strong>Domain separation</strong>: separate security functions from general functions (video processing, etc.)</li>
+        <li><strong>Non-bypassability</strong>: design so that video cannot be accessed directly by bypassing security functions</li>
+        <li><strong>Secure Boot</strong>: for NVR hardware, verify firmware integrity at boot</li>
+        <li><strong>TSF integrity verification</strong>: periodically check security function modules for tampering</li>
+      </ul>
+
+      <p>Since an NVR is a hardware appliance, physical security (protection against direct removal of hard disks) must also be considered; since a VMS is software, self-protection designed in conjunction with the OS security of the installation environment is important.</p>
+
+      <h3>7. Video Information Protection (New in V3.0 — Core NVR/VMS Requirement)</h3>
+
+      <p>These requirements were added in V3.0 specifically for video information processing devices. They are the key differentiator of NVR/VMS certification.</p>
+
+      <ul>
+        <li><strong>Video data integrity</strong>: a mechanism to verify that recorded video has not been forged or altered (hashes, watermarks, etc.)</li>
+        <li><strong>Video export control</strong>: permission checks and history logging when video is downloaded/exported</li>
+        <li><strong>Privacy protection</strong>: support for masking personal information (faces, etc.) in video — aligned with the Personal Information Protection Act</li>
+        <li><strong>Video deletion protection</strong>: prevent unauthorized deletion of video within the retention period</li>
+      </ul>
+
+      <h2>The Certification Path for NVR/VMS: Security Function Confirmation</h2>
+
+      <p>NVR/VMS are subject to a <strong>Security Function Confirmation</strong>, not CC certification. The process is simpler and shorter than CC certification, making it more accessible in practice.</p>
+
+      <h3>The 5 Steps to Obtaining a Security Function Confirmation</h3>
+
+      <ol>
+        <li><strong>Document submission</strong>: the manufacturer prepares and submits five documents.
+          <ul>
+            <li>Product description — NVR/VMS hardware/software configuration, supported camera protocols, etc.</li>
+            <li>Security function implementation specification — detailed description of how the 7 security functions are implemented</li>
+            <li>Security function operation guide — how administrators/operators configure and use the security functions</li>
+            <li>Test report — evidence from in-house testing that the security functions work correctly</li>
+            <li>Vulnerability remediation report — record of responses to known vulnerabilities</li>
+          </ul>
+        </li>
+        <li><strong>Security function testing</strong>: an accredited testing laboratory such as <a href="https://www.kosyas.com/html/security/security01.php" target="_blank" rel="noopener">Korea System Assurance (KOSYAS)</a> performs the security function tests. This takes about 30 days.</li>
+        <li><strong>Result review</strong>: the National Security Research Institute (NSR) reviews the test results.</li>
+        <li><strong>Issuance</strong>: after review by the NIS, the Security Function Confirmation is issued.</li>
+        <li><strong>Post-certification maintenance</strong>: when the product changes, an identity check (KRW 3.11 million, 3 days) or re-testing is required.</li>
+      </ol>
+
+      <h3>NVR/VMS Security Function Confirmation: Cost and Validity Period</h3>
+
+      <p>According to a <a href="https://m.boannews.com/html/detail.html?idx=129447" target="_blank" rel="noopener">Boan News report</a>, testing costs vary by product type.</p>
+
+      <table>
+        <thead>
+          <tr><th>Item</th><th>Cost</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>IP camera</td><td>KRW 14.9 million</td><td>20% SME discount may apply</td></tr>
+          <tr><td>NVR/VMS (storage &middot; management products)</td><td>KRW 16.3 million</td><td>20% SME discount may apply</td></tr>
+          <tr><td>Identity check</td><td>KRW 3.11 million</td><td>3 days, when the product changes</td></tr>
+        </tbody>
+      </table>
+
+      <p>The validity period is <strong>5 years</strong> under Security Requirements V3.0 and 2 years under the basic security requirements (V2.0). In terms of validity, certifying against V3.0 is clearly the better choice.</p>
+
+      <h3>CC Certification vs. Security Function Confirmation — Where Do NVR/VMS Fall?</h3>
+
+      <table>
+        <thead>
+          <tr><th>Item</th><th>CC Certification</th><th>Security Function Confirmation</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Scope</strong></td><td>21 types of information security products, such as firewalls</td><td>Network equipment, <strong>NVR/VMS</strong>, IP cameras, etc.</td></tr>
+          <tr><td><strong>International recognition</strong></td><td>Mutual recognition among CCRA members</td><td>Korea only</td></tr>
+          <tr><td><strong>Evaluation period</strong></td><td>Several months to over a year</td><td>About 30 days (testing period)</td></tr>
+          <tr><td><strong>Validity</strong></td><td>5 years for new, 3 years for existing</td><td>5 years under V3.0, 2 years under V2.0</td></tr>
+          <tr><td><strong>Cost</strong></td><td>Relatively high</td><td>KRW 16.3 million for NVR/VMS</td></tr>
+          <tr><td><strong>Applies to NVR/VMS</strong></td><td>✕</td><td><strong>✓</strong></td></tr>
+        </tbody>
+      </table>
+
+      <p>NVR/VMS manufacturers should pursue certification via the Security Function Confirmation path. You can check the certification type for each product category on the <a href="https://www.kisia.or.kr/industry_support/security_compatibility_check_info/" target="_blank" rel="noopener">KISIA security conformity verification guide page</a>.</p>
+
+      <h2>Essential Technical Implementation for NVR/VMS Certification</h2>
+
+      <p>Passing Security Requirements V3.0 certification is not just about having the features; they must be implemented to the level defined in the requirements. Below are the technical elements to focus on when developing NVR/VMS products.</p>
+
+      <h3>1. Encrypting Video Transmission Paths</h3>
+
+      <ul>
+        <li>IP camera → NVR: apply RTSP over TLS or SRTP</li>
+        <li>NVR/VMS → client: HTTPS (TLS 1.2 or higher) is mandatory</li>
+        <li>NVR → VMS integration: encrypted API communication</li>
+        <li>Implementation based on Korean validated algorithms (ARIA, SEED) is mandatory</li>
+      </ul>
+
+      <h3>2. Ensuring Recorded Video Integrity</h3>
+
+      <ul>
+        <li>Generate and verify hash values (SHA-256) for recording files</li>
+        <li>Embed a watermark or digital signature when exporting video</li>
+        <li>Mechanism to prevent unauthorized deletion of recorded data</li>
+      </ul>
+
+      <h3>3. User Authentication and Access Control</h3>
+
+      <ul>
+        <li>RBAC-based access control per camera/channel</li>
+        <li>Forced initial password change — block use of factory default accounts</li>
+        <li>Automatic lockout after consecutive authentication failures (5 attempts / 5 minutes)</li>
+        <li>Strengthened ONVIF protocol authentication security</li>
+      </ul>
+
+      <h3>4. Audit Logging and Central Management</h3>
+
+      <ul>
+        <li>Record every video playback/download/deletion event</li>
+        <li>External SIEM integration via syslog over TLS</li>
+        <li>Tamper protection and long-term retention of audit logs</li>
+      </ul>
+
+      <h3>5. Self-Protection and Firmware Security</h3>
+
+      <ul>
+        <li>NVR: Secure Boot support, firmware signature verification</li>
+        <li>VMS: installer integrity verification, integration with OS security</li>
+        <li>Non-bypassable security design — prevent video theft via direct HDD access</li>
+      </ul>
+
+      <h2>Certification Readiness Checklist for NVR/VMS Manufacturers</h2>
+
+      <p>Here is a core checklist for NVR/VMS manufacturer staff starting certification preparation.</p>
+
+      <h3>Preliminary Review</h3>
+
+      <ul>
+        <li>Clearly classify your product as an NVR, a VMS, or an integrated product</li>
+        <li>Confirm it is subject to a Security Function Confirmation (not CC certification)</li>
+        <li>Obtain the common security requirements (server) + product-specific requirements for video information processing devices</li>
+        <li>Freeze the hardware/software versions of the product to be certified</li>
+      </ul>
+
+      <h3>Technical Implementation</h3>
+
+      <ul>
+        <li>Implement ARIA/SEED-based video transmission encryption (not AES)</li>
+        <li>TLS 1.2 or higher — across the management console, APIs, and all video transmission paths</li>
+        <li>Implement syslog over TLS/DTLS integration</li>
+        <li>RBAC-based access control — separate administrator/operator/auditor roles</li>
+        <li>Per-camera/channel access control</li>
+        <li>Forced initial password change</li>
+        <li>Authentication failure handling (lock after 5 attempts, 5-minute wait)</li>
+        <li>Recorded video integrity verification (hash/watermark)</li>
+        <li>Video export control and history management</li>
+        <li>Audit records — log every access, playback, download, and configuration change</li>
+        <li>Self-protection — Secure Boot (NVR), firmware signature verification</li>
+      </ul>
+
+      <h3>Document Preparation</h3>
+
+      <ul>
+        <li>Product description — hardware specifications, software configuration, supported protocols</li>
+        <li>Security function implementation specification — detailed implementation for each of the 7 security functions</li>
+        <li>Security function operation guide — administrator/operator manual</li>
+        <li>Test report — results of in-house security function testing</li>
+        <li>Vulnerability remediation report — including CVE responses</li>
+      </ul>
+
+      <h3>Schedule and Budget Planning</h3>
+
+      <ul>
+        <li>Security function testing period: about 30 days</li>
+        <li>Testing cost: KRW 16.3 million for NVR/VMS (20% SME discount available)</li>
+        <li>Identity check (when the product changes): KRW 3.11 million / 3 days</li>
+        <li>Pre-certification consulting: 3–6 months of technical remediation may be needed depending on product status</li>
+      </ul>
+
+      <h2>From V2.0 to V3.0 — What Changed for NVR/VMS</h2>
+
+      <table>
+        <thead>
+          <tr><th>Item</th><th>V2.0</th><th>V3.0</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Video security products</strong></td><td>Not included</td><td>Security conformity verification for IP cameras/NVR/VMS in effect</td></tr>
+          <tr><td><strong>Access control</strong></td><td>Only in-product implementation allowed</td><td>Use of external directory services (AD, etc.) allowed</td></tr>
+          <tr><td><strong>Protection of data in transit</strong></td><td>Basic encryption required</td><td>Explicit requirement for syslog over TLS/DTLS added</td></tr>
+          <tr><td><strong>Security Function Confirmation validity</strong></td><td>2 years</td><td>Extended to 5 years under V3.0</td></tr>
+          <tr><td><strong>Password policy</strong></td><td>Ambiguous criteria</td><td>Clarified as "4 or more horizontally adjacent characters/digits"</td></tr>
+        </tbody>
+      </table>
+
+      <p>For NVR/VMS manufacturers, the most important change is clear: <strong>under V2.0 they were not even subject to certification, but under V3.0 certification is mandatory</strong>. Certifying against V3.0 also brings a 5-year validity period, so it makes sense to prepare against V3.0 from the start.</p>
+
+      <h2>Outlook — The NVR/VMS Security Certification Market</h2>
+
+      <ul>
+        <li><strong>Transition from TTA certification</strong>: new applications for the existing TTA (Telecommunications Technology Association) certification stopped in April 2025, and its validity expires in April 2028. The trend is toward consolidation under the NIS Security Function Confirmation scheme.</li>
+        <li><strong>Surging certification demand</strong>: as security conformity verification for video security products becomes mandatory, demand for NVR/VMS certification is rising sharply. Waiting times at testing labs may grow, so applying early is an advantage.</li>
+        <li><strong>Stricter requirements expected</strong>: just as quantum cryptography communication equipment was added, requirements for video information processing devices are expected to tighten gradually. Security criteria for new technologies such as AI-based video analytics and cloud VMS are likely to be added.</li>
+        <li><strong>Replacement demand in the public sector</strong>: as demand arises to replace installed products that have not passed security conformity verification, manufacturers that obtain certification early will have the chance to capture the market first.</li>
+      </ul>
+
+      <h2>Conclusion: Why NVR/VMS Manufacturers Should Start V3.0 Certification Now</h2>
+
+      <p>The NIS Security Requirements V3.0 are both a threat and an opportunity for NVR/VMS manufacturers. The key points are as follows.</p>
+
+      <p>First, since April 2024, a Security Function Confirmation has been mandatory for NVR/VMS supplied to public institutions. Without certification, entering the market is impossible. Second, NVR/VMS are certified through the Security Function Confirmation path, with a testing period of about 30 days and a cost of around KRW 16.3 million. The 5-year validity under V3.0 is a significant advantage. Third, core technical elements such as ARIA/SEED-based encryption, RBAC, video integrity verification, and audit logging must be implemented correctly.</p>
+
+      <p>With certification demand surging, waiting times at testing labs keep getting longer. If technical remediation takes 3–6 months and testing takes another month, you need to start now to obtain certification within this year. If you are an NVR/VMS manufacturer, don't put off V3.0 certification preparation any longer.</p>
+
+      <h2>References</h2>
+
+      <ul>
+        <li><a href="https://www.nis.go.kr/AF/1_7_2_1.do" target="_blank" rel="noopener">NIS - Security Conformity Verification Overview</a></li>
+        <li><a href="https://www.nis.go.kr/AF/1_7_2_4/list.do" target="_blank" rel="noopener">NIS - Security Requirements List</a></li>
+        <li><a href="https://www.nis.go.kr/AF/1_7_2_4/view.do?seq=98" target="_blank" rel="noopener">NIS - Security Requirements Details (Commentary and Common Security Requirements)</a></li>
+        <li><a href="https://www.koit.co.kr/news/articleView.html?idxno=88423" target="_blank" rel="noopener">KOIT - NIS Releases Revised National Security Requirements</a></li>
+        <li><a href="https://www.kisia.or.kr/industry_support/security_compatibility_check_info/" target="_blank" rel="noopener">KISIA - Security Conformity Verification Guide</a></li>
+        <li><a href="https://kisia.or.kr/bucket/uploads/2025/04/11/2025-04-11%20%EA%B5%AD%EA%B0%80%EC%9A%A9%20%EB%B3%B4%EC%95%88%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD%20v3.0%20%EA%B8%B0%EB%B0%98%EC%9D%98%20%EA%B5%AD%EB%82%B4%EC%9A%A9%20%EB%B3%B4%EC%95%88%EB%AA%A9%ED%91%9C%EB%AA%85%EC%84%B8%EC%84%9C%20%EC%9E%91%EC%84%B1%20%EA%B0%80%EC%9D%B4%EB%93%9C%20v1.0.pdf" target="_blank" rel="noopener">KISIA - Security Target Writing Guide V1.0</a></li>
+        <li><a href="https://m.boannews.com/html/detail.html?idx=129447" target="_blank" rel="noopener">Boan News - A Close Look at the Security Function Testing Scheme</a></li>
+        <li><a href="https://zdnet.co.kr/view/?no=20240328101353" target="_blank" rel="noopener">ZDNet Korea - NIS Launches CCTV Security Conformity Verification</a></li>
+        <li><a href="https://www.kosyas.com/html/security/security01.php" target="_blank" rel="noopener">Korea System Assurance (KOSYAS) - Security Function Confirmation</a></li>
+        <li><a href="https://m.boannews.com/html/detail.html?idx=140969" target="_blank" rel="noopener">Boan News - 2026 Security Market White Paper</a></li>
+        <li><a href="https://www.ncsc.go.kr/" target="_blank" rel="noopener">National Cyber Security Center (NCSC)</a></li>
+        <li><a href="https://seed.kisa.or.kr/kisa/kcmvp/EgovSummary.do" target="_blank" rel="noopener">KISA Cryptography Portal - Cryptographic Module Validation</a></li>
+        <li><a href="https://nis.go.kr/AF/1_7_3_3/list.do" target="_blank" rel="noopener">NIS - List of Validated Cryptographic Modules</a></li>
+      </ul>
+
+      <hr />
+
+      <h2>Related Posts</h2>
+      <ul>
+        <li><a href="/en/blog/why-nvr-hardware-makers-need-software-partner.html">Why NVR Hardware Makers Should Choose a Software Partner</a> — Comparing in-house development costs, including the Security Function Confirmation, with a partnership strategy</li>
+        <li><a href="/en/blog/headless-nvr-monitor-output-hardware-cost.html">What Is a Headless NVR? Specs and Cost Structure of an NVR Without Monitor Output</a> — NVR design and cost review, including output port requirements in procurement specs</li>
+        <li><a href="/en/blog/iptime-ip-camera-isolation-nox-vms.html">How to Isolate Chinese IP Cameras from the Internet and Use Them Safely with NOX</a> — A hands-on procedure for shrinking the camera attack surface with network separation and a single entry point</li>
+      </ul>
+
+      </div>
+
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="yl-foot" role="contentinfo">
+      <div class="yl-shell">
+        <div class="yl-foot-mast">
+          <div>
+            <div class="yl-foot-word"><img class="yl-foot-mark" src="/assets/yiyol-mark.png" alt="" width="36" height="26" />YIYOL<span>.</span></div>
+            
+            <p class="yl-foot-tag en-only">NVR and VMS that store and manage your video — and the AI automation built on top of it.</p>
+          </div>
+          <nav class="yl-foot-links" aria-label="Footer navigation">
+            <a href="/company/"><span class="en-only">Company</span></a>
+            <a href="/products/"><span class="en-only">Products</span></a>
+            <a href="/services/"><span class="en-only">Services</span></a>
+            <a href="/api/"><span class="en-only">API Docs</span></a>
+            <a href="/en/blog/"><span class="en-only">Blog</span></a>
+            <a href="/contact/"><span class="en-only">Contact</span></a>
+          </nav>
+        </div>
+        <div class="yl-foot-meta">
+          
+          <span class="en-only">#326, 75-15 Gasan Digital 1-ro, Geumcheon-gu, Seoul</span>
+          <a href="mailto:yiyol@yiyol.com">yiyol@yiyol.com</a>
+          
+          <span class="en-only">Business Registration 186-34-01502</span>
+          
+          <span class="en-only">Mail-order License 2024-Seoul Geumcheon-1806</span>
+        </div>
+        <p class="yl-foot-copy">&copy; 2026 YIYOL. All rights reserved.</p>
+      </div>
+    </footer>
+
+  <script src="/assets/js/i18n.js?v=5"></script>
+</body>
+</html>

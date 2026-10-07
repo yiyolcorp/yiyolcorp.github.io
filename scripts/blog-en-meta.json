@@ -1,0 +1,63 @@
+{
+  "index": {
+    "title": "Blog — Video Security & AI Automation Notes | YIYOL",
+    "description": "Technical notes from YIYOL on NVR/VMS software, video security, and AI automation: development logs, integration guides, and calculators for NOX NVR.",
+    "keywords": ["NVR", "VMS", "video security", "AI automation", "Agentic AI", "NOX NVR"]
+  },
+  "nox-mcp-server-development-log": {
+    "title": "Building the NOX MCP Server — Why We Started Read-Only, and the Bug Claude Code Found First",
+    "description": "A development log of turning a NOX NVR into an MCP server so AI agents like Claude Code and Claude Desktop can query cameras, events, recordings, and system status in natural language: why it is read-only with delegated permissions, the time zone defect agents surfaced before release, and how to connect an air-gapped NVR through a PC.",
+    "keywords": ["MCP server", "Model Context Protocol", "Claude Code MCP", "Claude Desktop MCP", "air-gapped NVR", "AI agent NVR", "NVR MCP", "NOX NVR"]
+  },
+  "nvr-n1-failover-development-log": {
+    "title": "NVR Failover Development Log — Goals of n:1 Redundancy, What Broke, and the Work to Leave Beta",
+    "description": "How NOX NVR built n:1 failover: the goals we set, where it actually broke in real operation, and the work underway to remove the Beta badge — failure detection, split-brain arbitration, and record-back of footage from the outage window.",
+    "keywords": ["NVR failover", "n:1 redundancy", "split-brain", "record-back", "NVR high availability", "NOX NVR"]
+  },
+  "headless-nvr-monitor-output-hardware-cost": {
+    "title": "What Is a Headless NVR? Specs and Cost Structure of an NVR Without Monitor Output",
+    "description": "What drives NVR specs is not recording but display output. This post breaks down the decoding, scaling, and compositing load of a live grid, how specs and cost change when that work moves to mobile and PC clients, and what to check before adopting a headless NVR.",
+    "keywords": ["headless NVR", "NVR hardware cost", "NVR monitor output", "NVR GPU", "NVR design", "NOX NVR"]
+  },
+  "nvr-disk-calculator": {
+    "title": "NVR Disk Calculator (System + Data)",
+    "description": "Calculate the data disk that holds recordings and the system disk that holds the OS and DB metadata separately, from channel count, resolution, FPS, and retention.",
+    "keywords": ["NVR disk calculator", "NVR storage", "CCTV storage calculator", "system disk", "retention"]
+  },
+  "iptime-ip-camera-isolation-nox-vms": {
+    "title": "How to Isolate Chinese IP Cameras from the Internet and Use Them Safely with NOX",
+    "description": "A practical guide to securing Chinese-made IP cameras: block camera internet access with ipTime egress rules and put NOX VMS in front as the single, TLS-protected entry point — without replacing existing cameras.",
+    "keywords": ["IP camera security", "IP camera hacking", "Chinese IP camera", "camera network isolation", "ipTime", "NOX VMS"],
+    "faq": [
+      ["I only used a P2P app (XMEye, Hik-Connect). If I block the camera, won't that app stop working?", "Yes, and that is the intended result. The app worked because the camera kept a two-way connection to the manufacturer's cloud at every moment, and this guide exists precisely to cut that connection. NOX VMS provides the same functions (remote viewing, alerts, recording) through a single authenticated, TLS-protected path."],
+      ["Can I come in over a VPN instead of port forwarding?", "That is the safer option. Connecting to NOX as if on the LAN through ipTime's VPN server or WireGuard reduces the attack surface compared with port forwarding. Consider the operational burden, though: every staff member must install and manage the VPN."],
+      ["Does this work on routers other than ipTime?", "The principle is the same. ASUS, Netgear, TP-Link, and ISP-provided routers all offer a similar feature under names such as \"Access Control\" or \"Outbound Firewall\". Only the menu names differ; the action — block outbound traffic from this internal IP — is the same."],
+      ["If RTSP/ONVIF is blocked, won't NOX lose access to the cameras too?", "NOX talks to the cameras inside the isolated network. The ipTime egress rule only blocks the camera-to-internet direction; NOX-to-camera traffic on the same LAN is not affected."]
+    ]
+  },
+  "why-nvr-hardware-makers-need-software-partner": {
+    "title": "Why NVR Hardware Makers Should Choose a Software Partner",
+    "description": "Building great hardware and making it sell are different jobs. How a software partnership shortens time-to-market and cuts development cost for NVR hardware makers.",
+    "keywords": ["NVR software partner", "VMS software", "NVR OEM", "time-to-market", "B2B", "NOX NVR"]
+  },
+  "webhook-agentic-ai-parking-automation-guide": {
+    "title": "Agentic AI with WebHooks: A Complete Guide to Building Parking Lot Automation",
+    "description": "A hands-on guide to building parking lot automation with NOX NVR WebHooks — from license plate recognition (LPR) events to automatic gate control, parking logs, and alerts, with Python and Node.js code.",
+    "keywords": ["NVR WebHook", "Agentic AI", "parking automation", "LPR", "license plate recognition", "NOX NVR API"]
+  },
+  "agentic-ai-nvr-vs-ai-nvr-difference": {
+    "title": "What Is an Agentic AI NVR? The Decisive Difference from AI NVR",
+    "description": "How an AI NVR and an Agentic AI NVR differ: the three stages of video surveillance AI, from detection to autonomous action, and how NOX NVR uses LLM-based agents to recognize and act on unstructured events.",
+    "keywords": ["Agentic AI NVR", "AI NVR", "video surveillance AI", "LLM agent", "NOX NVR"]
+  },
+  "nis-security-requirements-v3-guide": {
+    "title": "NVR/VMS Guide to NIS Security Requirements V3.0 Certification",
+    "description": "A practical guide to Korea's NIS Security Requirements V3.0 for NVR and VMS products: the security functional requirements for video information processing devices, the Security Function Confirmation process, cost and timeline, and a readiness checklist.",
+    "keywords": ["NIS security requirements", "Security Function Confirmation", "NVR certification", "VMS certification", "Korea public sector CCTV", "KCMVP"]
+  },
+  "storage-calculator": {
+    "title": "CCTV Storage Calculator",
+    "description": "Automatically calculate required storage capacity and retention period based on camera count, resolution, and recording hours.",
+    "keywords": ["CCTV storage calculator", "NVR storage", "video retention", "recording capacity"]
+  }
+}

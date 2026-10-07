@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en" data-lang-fixed="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKJ4GX2KHS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-CKJ4GX2KHS');
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Agentic AI with WebHooks: A Complete Guide to Building Parking Lot Automation - YIYOL Blog</title>
+
+  <meta name="description" content="A hands-on guide to building parking lot automation with NOX NVR WebHooks — from license plate recognition (LPR) events to automatic gate control, parking logs, and alerts, with Python and Node.js code." />
+  <meta name="keywords" content="NVR WebHook,Agentic AI,parking automation,LPR,license plate recognition,NOX NVR API" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://yiyol.com/en/blog/webhook-agentic-ai-parking-automation-guide.html" />
+  <meta property="og:title" content="Agentic AI with WebHooks: A Complete Guide to Building Parking Lot Automation — YIYOL" />
+  <meta property="og:description" content="A hands-on guide to building parking lot automation with NOX NVR WebHooks — from license plate recognition (LPR) events to automatic gate control, parking logs, and alerts, with Python and Node.js code." />
+  <meta property="og:image" content="https://yiyol.com/img/nox-ui-001.jpeg" />
+  <meta property="og:image:width" content="3456" />
+  <meta property="og:image:height" content="1916" />
+  <meta property="og:site_name" content="YIYOL" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="ko_KR" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Agentic AI with WebHooks: A Complete Guide to Building Parking Lot Automation — YIYOL" />
+  <meta name="twitter:description" content="A hands-on guide to building parking lot automation with NOX NVR WebHooks — from license plate recognition (LPR) events to automatic gate control, parking logs, and alerts, with Python and Node.js code." />
+  <meta name="twitter:image" content="https://yiyol.com/img/nox-ui-001.jpeg" />
+
+  <!-- hreflang:start -->
+  <link rel="alternate" hreflang="ko" href="https://yiyol.com/blog/webhook-agentic-ai-parking-automation-guide.html" />
+  <link rel="alternate" hreflang="en" href="https://yiyol.com/en/blog/webhook-agentic-ai-parking-automation-guide.html" />
+  <link rel="alternate" hreflang="x-default" href="https://yiyol.com/blog/webhook-agentic-ai-parking-automation-guide.html" />
+  <!-- hreflang:end -->
+  <link rel="canonical" href="https://yiyol.com/en/blog/webhook-agentic-ai-parking-automation-guide.html" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Agentic AI with WebHooks: A Complete Guide to Building Parking Lot Automation",
+      "description": "A hands-on guide to building parking lot automation with NOX NVR WebHooks — from license plate recognition (LPR) events to automatic gate control, parking logs, and alerts, with Python and Node.js code.",
+      "url": "https://yiyol.com/en/blog/webhook-agentic-ai-parking-automation-guide.html",
+      "datePublished": "2026-04-21",
+      "dateModified": "2026-04-21",
+      "author": {
+        "@type": "Organization",
+        "name": "YIYOL",
+        "url": "https://yiyol.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "YIYOL",
+        "url": "https://yiyol.com"
+      },
+      "keywords": [
+        "NVR WebHook",
+        "Agentic AI",
+        "parking automation",
+        "LPR",
+        "license plate recognition",
+        "NOX NVR API"
+      ],
+      "inLanguage": "en",
+      "translationOfWork": {
+        "@id": "https://yiyol.com/blog/webhook-agentic-ai-parking-automation-guide.html"
+      }
+    }
+  </script>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "YIYOL",
+          "item": "https://yiyol.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://yiyol.com/en/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Agentic AI with WebHooks: A Complete Guide to Building Parking Lot Automation",
+          "item": "https://yiyol.com/en/blog/webhook-agentic-ai-parking-automation-guide.html"
+        }
+      ]
+    }
+  </script>
+
+  <!-- Fonts & CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=3" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=1" />
+
+  </head>
+<body class="yl">
+  <!-- Header -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+      <div class="site-nav-inner">
+        <a href="/" class="site-nav-brand">
+          <img class="site-nav-mark" src="/assets/yiyol-mark.png" alt="" width="33" height="24" /><span class="site-nav-logo">YIYOL<span>.</span></span>
+        </a>
+        <div class="site-nav-right">
+          <ul class="site-nav-links">
+            <li><a href="/company/"><span class="en-only">Company</span></a></li>
+            <li><a href="/products/"><span class="en-only">Products</span></a></li>
+            <li><a href="/services/"><span class="en-only">Services</span></a></li>
+            <li><a href="/en/blog/" class="nav-active"><span class="en-only">Blog</span></a></li>
+            <li><a href="/contact/" class="nav-cta"><span class="en-only">Contact</span></a></li>
+          </ul>
+          <div class="lang-switch">
+            <button class="lang-selector" type="button" aria-haspopup="true" aria-expanded="false">
+              <span class="lang-current">English</span>
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" /></svg>
+            </button>
+            <div class="lang-dropdown">
+              <a href="#" class="lang-option" data-lang="ko">한국어</a>
+              <a href="#" class="lang-option" data-lang="en">English</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+  <!-- Hero -->
+  <section class="post-hero">
+    <div class="post-hero-content">
+      <nav class="post-breadcrumb">
+        <a href="/">YIYOL</a><span>›</span><a href="/en/blog/"><span class="en-only">Blog</span></a><span>›</span> <span class="en-only">Current post</span>
+      </nav>
+      <h1><span class="en-only">Agentic AI with WebHooks: A Complete Guide to Building Parking Lot Automation</span></h1>
+      <div class="post-meta">
+        <span class="post-meta-date"> 2026.04.21</span>
+        <div class="post-tags">
+          <span class="post-tag">WebHook</span>
+          <span class="post-tag">NVR</span>
+          <span class="post-tag"><span class="en-only">Parking Automation</span></span>
+          <span class="post-tag">LPR</span>
+          <span class="post-tag">REST API</span>
+          <span class="post-tag">Agentic AI</span>
+          <span class="post-tag"><span class="en-only">Developer Guide</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main -->
+  <main class="post-container">
+    <article class="post-article">
+
+      
+
+      <div class="en-only">
+      <p>The moment a license plate is caught on camera, the gate opens. No human involvement.</p>
+
+      <p>That is the outcome of Agentic AI parking automation. And what makes it possible is not complex AI infrastructure. A single NVR WebHook is enough.</p>
+
+      <p>This is a hands-on guide to building, from scratch, a system that uses NOX NVR WebHooks to receive LPR (license plate recognition) events, control the parking gate automatically, and record parking data.</p>
+
+      <h2>Architecture Overview</h2>
+
+      <p>The end-to-end flow of the parking automation system is as follows:</p>
+
+      <pre><code>[Camera] → [NOX NVR: LPR detection]
+              ↓ HTTP POST WebHook
+[WebHook server: receive event]
+              ↓
+[Whitelist DB lookup] → Registered vehicle?
+              ↓ YES
+[Gate API call] → Open gate
+              ↓
+[Parking DB record] → Entry/exit time, plate, camera ID
+              ↓
+[Send notification] → Slack / messenger</code></pre>
+
+      <p>Total processing time: <strong>within 1–2 seconds</strong> of plate recognition. NOX NVR fires the WebHook the instant it detects an event, and developers are free to build whatever logic follows.</p>
+
+      <h2>Configuring the NOX NVR WebHook</h2>
+
+      <h3>1. Register the WebHook URL</h3>
+
+      <p>In the NOX NVR admin console, go to <strong>Event Settings</strong> → <strong>WebHook Configuration</strong> and register your external server URL.</p>
+
+      <pre><code>POST http://your-server.com/webhook/nvr/events
+Content-Type: application/json</code></pre>
+
+      <h3>2. WebHook Payload Structure</h3>
+
+      <p>The payload NOX NVR sends when an LPR event occurs:</p>
+
+      <pre><code>{
+  "event_type": "lpr_detected",
+  "timestamp": "2026-04-21T09:15:32.418Z",
+  "camera_id": "CAM_ENTRANCE_01",
+  "camera_name": "Entrance Camera",
+  "channel": 1,
+  "data": {
+    "license_plate": "12가3456",
+    "confidence": 0.97,
+    "direction": "in",
+    "image_url": "http://nvr-host/snapshots/lpr/20260421_091532_CAM01.jpg",
+    "crop_image_url": "http://nvr-host/snapshots/lpr/crop/20260421_091532_CAM01.jpg"
+  },
+  "device_id": "NOX-NVR-SN-20240001",
+  "site_id": "SITE_PARKLOT_MAIN"
+}</code></pre>
+
+      <p>Key fields:</p>
+      <ul>
+        <li><code>event_type</code>: Event type (<code>lpr_detected</code>, <code>motion_detected</code>, <code>line_crossing</code>, etc.)</li>
+        <li><code>data.license_plate</code>: Recognized license plate</li>
+        <li><code>data.confidence</code>: Recognition confidence (0–1; 0.85 or higher recommended)</li>
+        <li><code>data.direction</code>: Entry (<code>in</code>) / exit (<code>out</code>)</li>
+        <li><code>data.image_url</code>: Full snapshot image URL</li>
+      </ul>
+
+      <h2>Implementation: The WebHook Server</h2>
+
+      <h3>Example Implementation in Python (FastAPI)</h3>
+
+      <pre><code>from fastapi import FastAPI, Request, HTTPException
+from datetime import datetime
+import httpx
+import sqlite3
+import asyncio
+
+app = FastAPI()
+
+# Whitelist DB (use a dedicated database in production)
+WHITELIST_DB = "parking.db"
+GATE_API_URL = "http://gate-controller.local/api/v1"
+SLACK_WEBHOOK = "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK"
+
+@app.post("/webhook/nvr/events")
+async def handle_nvr_event(request: Request):
+    payload = await request.json()
+
+    # Handle LPR events only
+    if payload.get("event_type") != "lpr_detected":
+        return {"status": "ignored"}
+
+    plate = payload["data"]["license_plate"]
+    confidence = payload["data"]["confidence"]
+    direction = payload["data"]["direction"]
+    camera_id = payload["camera_id"]
+
+    # Confidence filter (ignore below 85%)
+    if confidence &lt; 0.85:
+        return {"status": "low_confidence", "plate": plate}
+
+    # Whitelist lookup
+    is_registered = check_whitelist(plate)
+
+    if is_registered:
+        # Gate control + DB record + notification in parallel
+        await asyncio.gather(
+            open_gate(direction, camera_id),
+            record_parking_event(plate, direction, camera_id, payload["timestamp"]),
+            send_slack_notification(plate, direction, camera_id)
+        )
+        return {"status": "access_granted", "plate": plate}
+    else:
+        # Record and alert on unregistered vehicle
+        await record_unknown_vehicle(plate, camera_id, payload["timestamp"])
+        return {"status": "access_denied", "plate": plate}
+
+
+def check_whitelist(plate: str) -&gt; bool:
+    conn = sqlite3.connect(WHITELIST_DB)
+    cursor = conn.cursor()
+    cursor.execute(
+        "SELECT id FROM whitelist WHERE license_plate = ? AND is_active = 1",
+        (plate,)
+    )
+    result = cursor.fetchone()
+    conn.close()
+    return result is not None
+
+
+async def open_gate(direction: str, camera_id: str):
+    """Call the gate API — controls actual hardware"""
+    gate_id = get_gate_id_from_camera(camera_id)
+    async with httpx.AsyncClient(timeout=3.0) as client:
+        await client.post(
+            f"{GATE_API_URL}/gates/{gate_id}/open",
+            json={"duration_seconds": 10, "reason": "lpr_access"}
+        )
+
+
+async def record_parking_event(plate: str, direction: str, camera_id: str, timestamp: str):
+    """Record parking event in DB"""
+    conn = sqlite3.connect(WHITELIST_DB)
+    cursor = conn.cursor()
+    cursor.execute(
+        """INSERT INTO parking_log
+           (license_plate, direction, camera_id, event_time, created_at)
+           VALUES (?, ?, ?, ?, ?)""",
+        (plate, direction, camera_id, timestamp, datetime.utcnow().isoformat())
+    )
+    conn.commit()
+    conn.close()
+
+
+async def send_slack_notification(plate: str, direction: str, camera_id: str):
+    """Send Slack notification"""
+    direction_label = "Entry" if direction == "in" else "Exit"
+    message = f"🚗 [{direction_label}] {plate} — {camera_id} ({datetime.now().strftime('%H:%M:%S')})"
+    async with httpx.AsyncClient() as client:
+        await client.post(SLACK_WEBHOOK, json={"text": message})
+
+
+def get_gate_id_from_camera(camera_id: str) -&gt; str:
+    """Map camera ID → gate ID"""
+    mapping = {
+        "CAM_ENTRANCE_01": "GATE_01",
+        "CAM_ENTRANCE_02": "GATE_02",
+        "CAM_EXIT_01": "GATE_03",
+    }
+    return mapping.get(camera_id, "GATE_DEFAULT")</code></pre>
+
+      <h3>Example Implementation in Node.js (Express)</h3>
+
+      <pre><code>const express = require('express');
+const axios = require('axios');
+const Database = require('better-sqlite3');
+
+const app = express();
+app.use(express.json());
+
+const db = new Database('parking.db');
+const GATE_API_URL = 'http://gate-controller.local/api/v1';
+
+app.post('/webhook/nvr/events', async (req, res) =&gt; {
+  const { event_type, data, camera_id, timestamp } = req.body;
+
+  if (event_type !== 'lpr_detected') {
+    return res.json({ status: 'ignored' });
+  }
+
+  const { license_plate: plate, confidence, direction } = data;
+
+  if (confidence &lt; 0.85) {
+    return res.json({ status: 'low_confidence', plate });
+  }
+
+  const isRegistered = checkWhitelist(plate);
+
+  if (isRegistered) {
+    await Promise.all([
+      openGate(direction, camera_id),
+      recordParkingEvent(plate, direction, camera_id, timestamp),
+    ]);
+    return res.json({ status: 'access_granted', plate });
+  } else {
+    return res.json({ status: 'access_denied', plate });
+  }
+});
+
+function checkWhitelist(plate) {
+  const row = db.prepare(
+    'SELECT id FROM whitelist WHERE license_plate = ? AND is_active = 1'
+  ).get(plate);
+  return !!row;
+}
+
+async function openGate(direction, cameraId) {
+  const gateId = getGateId(cameraId);
+  await axios.post(`${GATE_API_URL}/gates/${gateId}/open`, {
+    duration_seconds: 10,
+    reason: 'lpr_access',
+  });
+}
+
+function recordParkingEvent(plate, direction, cameraId, timestamp) {
+  db.prepare(
+    `INSERT INTO parking_log (license_plate, direction, camera_id, event_time)
+     VALUES (?, ?, ?, ?)`
+  ).run(plate, direction, cameraId, timestamp);
+}
+
+function getGateId(cameraId) {
+  const mapping = {
+    CAM_ENTRANCE_01: 'GATE_01',
+    CAM_EXIT_01: 'GATE_02',
+  };
+  return mapping[cameraId] || 'GATE_DEFAULT';
+}
+
+app.listen(8080, () =&gt; console.log('WebHook server running on :8080'));</code></pre>
+
+      <h2>DB Schema</h2>
+
+      <pre><code>-- Whitelist (registered vehicles)
+CREATE TABLE whitelist (
+  id          INTEGER PRIMARY KEY AUTOINCREMENT,
+  license_plate TEXT NOT NULL UNIQUE,
+  owner_name  TEXT,
+  vehicle_type TEXT DEFAULT 'car',
+  is_active   INTEGER DEFAULT 1,
+  expires_at  TEXT,
+  created_at  TEXT DEFAULT (datetime('now'))
+);
+
+-- Entry/exit log
+CREATE TABLE parking_log (
+  id            INTEGER PRIMARY KEY AUTOINCREMENT,
+  license_plate TEXT NOT NULL,
+  direction     TEXT NOT NULL,  -- 'in' or 'out'
+  camera_id     TEXT NOT NULL,
+  event_time    TEXT NOT NULL,
+  created_at    TEXT DEFAULT (datetime('now'))
+);
+
+-- Unregistered vehicle log
+CREATE TABLE unknown_vehicles (
+  id            INTEGER PRIMARY KEY AUTOINCREMENT,
+  license_plate TEXT NOT NULL,
+  camera_id     TEXT NOT NULL,
+  event_time    TEXT NOT NULL,
+  image_url     TEXT,
+  created_at    TEXT DEFAULT (datetime('now'))
+);</code></pre>
+
+      <h2>Using the NOX NVR REST API</h2>
+
+      <p>If WebHooks push events in the <strong>NVR → external server</strong> direction, the REST API provides control in the <strong>external server → NVR</strong> direction. Used together, they enable full two-way automation.</p>
+
+      <h3>List Cameras</h3>
+
+      <pre><code>GET /api/v1/cameras
+Authorization: Bearer {api_token}</code></pre>
+
+      <p>Sample response:</p>
+
+      <pre><code>{
+  "cameras": [
+    {
+      "id": "CAM_ENTRANCE_01",
+      "name": "Entrance Camera",
+      "channel": 1,
+      "status": "online",
+      "resolution": "1920x1080",
+      "ai_enabled": true,
+      "ai_models": ["lpr", "motion"]
+    }
+  ]
+}</code></pre>
+
+      <h3>Request a Live Snapshot</h3>
+
+      <p>If you need an additional image when a particular event occurs, you can request a snapshot immediately via the REST API:</p>
+
+      <pre><code>GET /api/v1/cameras/CAM_ENTRANCE_01/snapshot
+Authorization: Bearer {api_token}</code></pre>
+
+      <h3>Query Event History</h3>
+
+      <pre><code>GET /api/v1/events?event_type=lpr_detected&amp;from=2026-04-21T00:00:00Z&amp;limit=100
+Authorization: Bearer {api_token}</code></pre>
+
+      <h2>Operational Tips</h2>
+
+      <h3>1. Handling WebHook Retries</h3>
+
+      <p>WebHook delivery can fail due to network issues. Design your handler to be idempotent:</p>
+
+      <pre><code>@app.post("/webhook/nvr/events")
+async def handle_nvr_event(request: Request):
+    payload = await request.json()
+
+    # Prevent duplicate processing: dedup by event_id
+    event_id = f"{payload['device_id']}_{payload['timestamp']}_{payload['data']['license_plate']}"
+    if is_already_processed(event_id):
+        return {"status": "duplicate", "event_id": event_id}
+
+    mark_processed(event_id)
+    # ... continue processing</code></pre>
+
+      <h3>2. Handling Gate API Timeouts</h3>
+
+      <p>If the gate control API call fails, log it and send an alert for manual handling. Return the WebHook response to the NVR immediately and process gate control asynchronously to avoid WebHook timeouts.</p>
+
+      <pre><code>@app.post("/webhook/nvr/events")
+async def handle_nvr_event(request: Request):
+    payload = await request.json()
+
+    # Return immediately (prevents timeouts on the NVR side)
+    asyncio.create_task(process_event(payload))
+    return {"status": "received"}</code></pre>
+
+      <h3>3. Tuning the Confidence Threshold</h3>
+
+      <p>The <code>confidence</code> value varies with camera image quality, lighting, and plate condition. Start at 0.85 and adjust based on real operating data. For night-time operation, you may consider lowering it to 0.80.</p>
+
+      <h2>Summary</h2>
+
+      <p>The core of Agentic AI parking automation with NOX NVR WebHooks is simple:</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Component</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>NOX NVR + LPR</td>
+            <td>Detects plates and sends WebHooks</td>
+          </tr>
+          <tr>
+            <td>WebHook server</td>
+            <td>Receives events, runs business logic</td>
+          </tr>
+          <tr>
+            <td>Whitelist DB</td>
+            <td>Manages registered vehicles</td>
+          </tr>
+          <tr>
+            <td>Gate API</td>
+            <td>Controls hardware</td>
+          </tr>
+          <tr>
+            <td>Parking DB</td>
+            <td>Records entries and exits</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>With fewer than 100 lines of code, you can connect plate recognition all the way to automatic gate control. If your existing systems already expose a REST API, integration costs drop even further.</p>
+
+      <p>Agentic AI is not a grandiose concept. It is implementing a <strong>detect → decide → act</strong> loop in code. NOX NVR provides the starting point of that loop.</p>
+
+      <hr />
+
+      <p>👉 <strong><a href="https://yiyol.com/#showroom" target="_blank" rel="noopener">See a live demo in the NOX Vision AI Showroom</a></strong> — watch how a WebHook automation system works in practice</p>
+
+      <p><em>Technical inquiries and POC requests for NOX NVR WebHook integration: <a href="https://yiyolcorp.github.io" target="_blank" rel="noopener">yiyolcorp.github.io</a></em></p>
+
+      <hr />
+
+      <h2>Related Posts</h2>
+      <ul>
+        <li><a href="/en/blog/agentic-ai-nvr-vs-ai-nvr-difference.html">What Is an Agentic AI NVR? The Decisive Difference from an AI NVR</a> — The three generations of video surveillance AI, up to LLM-based detection of unstructured events</li>
+        <li><a href="/en/blog/why-nvr-hardware-makers-need-software-partner.html">Why NVR Hardware Makers Need a Software Partner</a> — A partnership strategy for entering the Agentic AI NVR market without in-house development</li>
+      </ul>
+      </div>
+
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="yl-foot" role="contentinfo">
+      <div class="yl-shell">
+        <div class="yl-foot-mast">
+          <div>
+            <div class="yl-foot-word"><img class="yl-foot-mark" src="/assets/yiyol-mark.png" alt="" width="36" height="26" />YIYOL<span>.</span></div>
+            
+            <p class="yl-foot-tag en-only">NVR and VMS that store and manage your video — and the AI automation built on top of it.</p>
+          </div>
+          <nav class="yl-foot-links" aria-label="Footer navigation">
+            <a href="/company/"><span class="en-only">Company</span></a>
+            <a href="/products/"><span class="en-only">Products</span></a>
+            <a href="/services/"><span class="en-only">Services</span></a>
+            <a href="/api/"><span class="en-only">API Docs</span></a>
+            <a href="/en/blog/"><span class="en-only">Blog</span></a>
+            <a href="/contact/"><span class="en-only">Contact</span></a>
+          </nav>
+        </div>
+        <div class="yl-foot-meta">
+          
+          <span class="en-only">#326, 75-15 Gasan Digital 1-ro, Geumcheon-gu, Seoul</span>
+          <a href="mailto:yiyol@yiyol.com">yiyol@yiyol.com</a>
+          
+          <span class="en-only">Business Registration 186-34-01502</span>
+          
+          <span class="en-only">Mail-order License 2024-Seoul Geumcheon-1806</span>
+        </div>
+        <p class="yl-foot-copy">&copy; 2026 YIYOL. All rights reserved.</p>
+      </div>
+    </footer>
+
+  <script src="/assets/js/i18n.js?v=5"></script>
+</body>
+</html>
