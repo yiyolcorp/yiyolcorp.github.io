@@ -50,6 +50,18 @@
       "blogPost": [
         {
           "@type": "BlogPosting",
+          "headline": "NOX MCP 서버 개발기 — 읽기 전용으로 시작한 이유와, Claude Code가 먼저 찾아낸 버그",
+          "description": "NOX NVR 한 대를 그대로 MCP 서버로 만들어 Claude Code·Claude Desktop 같은 AI 에이전트가 카메라·이벤트·녹화·시스템 상태를 자연어로 조회하게 한 과정을 정리합니다. 읽기 전용과 권한 위임을 고른 이유, 출시 전 시험에서 에이전트가 먼저 드러낸 시간대 결함, 격리망의 NVR에 PC를 거쳐 연결하는 구조와 연결 방법을 담았습니다.",
+          "url": "https://yiyol.com/blog/nox-mcp-server-development-log.html",
+          "datePublished": "2026-10-07",
+          "author": {
+            "@type": "Organization",
+            "name": "YIYOL",
+            "url": "https://yiyol.com"
+          }
+        },
+        {
+          "@type": "BlogPosting",
           "headline": "NVR 페일오버 개발기 — n:1 이중화의 목표, 실패 사례, 베타를 떼기 위한 작업",
           "description": "NOX NVR의 n:1 페일오버를 설계·구현하며 정한 목표와 실제로 깨진 지점, 그리고 베타 배지를 떼기 위해 수행해 온 작업을 정리합니다. 장애 판정 기준, split-brain 중재, 장애 기간 영상을 되돌리는 record-back에서 겪은 결함과 그 수정 내역을 담았습니다.",
           "url": "https://yiyol.com/blog/nvr-n1-failover-development-log.html",
@@ -286,6 +298,24 @@
     <!-- Blog List -->
     <main class="blog-container">
       <div class="blog-grid">
+
+        <!-- Post: NOX MCP 서버 개발기 -->
+        <a href="/blog/nox-mcp-server-development-log.html" class="blog-card" style="text-decoration:none;">
+          <div class="blog-card-icon">
+          </div>
+          <div class="blog-card-body">
+            <span class="blog-card-tag">개발기</span>
+            <h2 class="blog-card-title ko-only">NOX MCP 서버 개발기 — 읽기 전용으로 시작한 이유와, Claude Code가 먼저 찾아낸 버그</h2>
+            <p class="blog-card-desc ko-only">NOX NVR 한 대를 그대로 MCP 서버로 만들어 Claude Code·Claude Desktop 같은 AI 에이전트가 카메라·이벤트·녹화·시스템 상태를 자연어로 조회하게 한 과정을 정리합니다. 읽기 전용과 권한 위임을 고른 이유, 출시 전 시험에서 에이전트가 먼저 드러낸 시간대 결함, 격리망의 NVR에 PC를 거쳐 연결하는 구조와 연결 방법을 담았습니다.</p>
+            <div class="blog-card-meta">
+              <span>2026.10.07</span>
+              <span class="blog-card-link">
+                <span class="ko-only">읽기</span>
+                <span class="en-only">Read</span>
+              </span>
+            </div>
+          </div>
+        </a>
 
         <!-- Post: NVR 페일오버 개발기 -->
         <a href="/blog/nvr-n1-failover-development-log.html" class="blog-card" style="text-decoration:none;">
