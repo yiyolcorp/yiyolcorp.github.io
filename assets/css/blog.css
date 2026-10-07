@@ -431,3 +431,14 @@ body.yl .calc-hdd-item.recommended.data {
 .privacy-contents li.privacy-l4 { margin-top: var(--space-2xs); }
 .privacy-contents li .privacy-l4 { margin-top: var(--space-3xs); padding-left: 0; }
 .privacy-contents li::before { top: 0.9em; }
+
+/* Inline demo video — same frame treatment as post images */
+.post-article video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-card);
+  background: var(--color-graphite);
+}
+.post-article figure video + figcaption { margin-top: var(--space-xs); }

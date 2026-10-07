@@ -9,9 +9,18 @@ keywords: [MCP 서버, Model Context Protocol, Claude Code MCP, Claude Desktop M
 
 **MCP(Model Context Protocol)**는 AI 에이전트가 외부 시스템의 기능을 '도구(tool)'로 불러 쓸 수 있게 하는 공개 규약이다. Claude Code 같은 에이전트에 MCP 서버를 하나 등록하면, 에이전트는 그 서버가 내놓은 도구 목록을 읽고 질문에 맞는 도구를 골라 호출한다.
 
-NOX에서는 장비 한 대가 그대로 MCP 서버가 된다. 관리자가 AI 에이전트 전용 키를 발급해 Claude Code에 등록하면, "어젯밤 녹화가 비었던 카메라 있어?" 같은 질문에 에이전트가 카메라 목록을 확인하고, 녹화 구간을 조회하고, 그 시각의 재생 링크까지 만들어 답한다. 장비 상태를 바꾸는 도구는 하나도 없다.
+NOX에서는 장비 한 대가 그대로 MCP 서버가 된다. 관리자가 AI 에이전트 전용 키를 발급해 Claude Code나 Claude Desktop에 등록하면, "어젯밤 녹화가 비었던 카메라 있어?" 같은 질문에 에이전트가 카메라 목록을 확인하고, 녹화 구간을 조회하고, 그 시각의 재생 링크까지 만들어 답한다. 장비 상태를 바꾸는 도구는 하나도 없다.
 
 이 글은 기능 소개가 아니라 개발 기록이다. 왜 지금 모양이 되었는지, 무엇을 일부러 하지 않기로 했는지, 그리고 리뷰와 실제 장비 시험에서 무엇이 깨졌는지를 적는다. 본문 내용은 저장소의 설계 문서와 리뷰·QA·시험 보고서, 커밋 기록에 근거한다.
+
+<figure>
+  <video controls muted playsinline preload="metadata" width="1920" height="1080" poster="/img/blog/nox-mcp/claude-desktop-demo-poster.jpg">
+    <source src="/img/blog/nox-mcp/claude-desktop-demo.mp4" type="video/mp4" />
+  </video>
+  <figcaption>Claude Desktop에서 MCP로 개발 장비의 NOX에 질문하는 모습(8배속). 카메라 상태, 녹화 문제, 한 카메라의 하루 녹화 누락 구간, 10분 전 재생 링크, 오늘의 사람·차량 객체 검색 순서로 물었다. 도구를 처음 부를 때마다 Claude Desktop이 사용 허락을 묻는다.</figcaption>
+</figure>
+
+영상에서 눈여겨볼 장면이 두 개 있다. 녹화에 문제 있는 카메라가 있느냐는 질문에 Claude는 문제 표시가 붙은 카메라는 없다고 답하면서도, **녹화 중인 세 카메라의 기록이 모두 같은 시각에 시작된다**는 점을 짚고 그 시각에 무슨 일이 있었는지 되물었다. 마지막 객체 검색은 결과가 0건이었는데, Claude는 0건이라고만 답하지 않고 같은 기간의 이벤트 통계를 함께 조회해 **이벤트는 있는데 객체 정보가 들어오지 않는 쪽**을 원인으로 짚었다. 아래에 적은 설계 원칙 대부분이 이런 답을 가능하게 하려고 정한 것이다.
 
 ## 출발은 두 번 멈췄다
 
@@ -209,9 +218,9 @@ Claude Desktop은 로컬 설정 파일(`claude_desktop_config.json`)에 MCP 서�
     "nox": {
       "command": "npx",
       "args": ["-y", "mcp-remote", "https://<장비 주소>/agent/mcp",
-               "--header", "Authorization:${NOX_AUTH}"],
+               "--header", "Authorization:Bearer ${NOX_KEY}"],
       "env": {
-        "NOX_AUTH": "Bearer <AI 에이전트 키>",
+        "NOX_KEY": "<AI 에이전트 키>",
         "NODE_EXTRA_CA_CERTS": "<CA 인증서 파일 경로>"
       }
     }
@@ -219,7 +228,8 @@ Claude Desktop은 로컬 설정 파일(`claude_desktop_config.json`)에 MCP 서�
 }
 ```
 
-- 설정을 저장한 뒤 Claude Desktop을 다시 시작하면 도구 목록에 NOX 도구가 나타난다.
+- 키는 `env`의 `NOX_KEY`에만 두고, `args`에서는 `${NOX_KEY}`로 불러 쓴다.
+- 설정을 저장한 뒤 Claude Desktop을 다시 시작하면 도구 목록에 NOX 도구가 나타난다. Claude Desktop으로 연결해 쓰는 모습은 글 앞쪽 영상에 담았다.
 - Cursor 같은 다른 에이전트도 같은 주소와 헤더를 원격(HTTP) MCP 서버 설정에 넣으면 된다. 어느 경우든 그 프로그램이 돌아가는 PC가 장비에 닿아야 한다.
 - 발급 화면에서 키마다 허용할 도구를 고를 수 있다. 고르지 않은 도구는 그 키의 도구 목록에 아예 나타나지 않는다.
 - AI 에이전트 키는 이 장비의 모든 카메라를 조회할 수 있다. 발급 화면에도 이 안내가 항상 표시된다.
