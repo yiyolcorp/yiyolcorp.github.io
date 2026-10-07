@@ -199,18 +199,18 @@
   <section class="post-hero">
     <div class="post-hero-content">
       <nav class="post-breadcrumb">
-        <a href="/">YIYOL</a><span>›</span><a href="/blog/">블로그</a><span>›</span> 현재 글
+        <a href="/">YIYOL</a><span>›</span><a href="/blog/"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a><span>›</span> <span class="ko-only">현재 글</span><span class="en-only">Current post</span>
       </nav>
-      <h1>중국산 IP카메라, 인터넷 차단으로 격리하고 NOX를 이용해서 안전하게 쓰는 법</h1>
+      <h1><span class="ko-only">중국산 IP카메라, 인터넷 차단으로 격리하고 NOX를 이용해서 안전하게 쓰는 법</span><span class="en-only">How to Isolate Chinese IP Cameras from the Internet and Use Them Safely with NOX</span></h1>
       <div class="post-meta">
         <span class="post-meta-date"> 2026.05.16</span>
         <div class="post-tags">
-          <span class="post-tag">IP카메라 보안</span>
-          <span class="post-tag">CCTV 보안</span>
+          <span class="post-tag"><span class="ko-only">IP카메라 보안</span><span class="en-only">IP Camera Security</span></span>
+          <span class="post-tag"><span class="ko-only">CCTV 보안</span><span class="en-only">CCTV Security</span></span>
           <span class="post-tag">ipTime</span>
           <span class="post-tag">VMS</span>
           <span class="post-tag">NOX</span>
-          <span class="post-tag">네트워크 분리</span>
+          <span class="post-tag"><span class="ko-only">네트워크 분리</span><span class="en-only">Network Separation</span></span>
         </div>
       </div>
     </div>
@@ -219,6 +219,7 @@
   <!-- Main -->
   <main class="post-container">
     <article class="post-article">
+      <div class="ko-only">
 
       <p><strong>중국산 IP카메라 보안</strong>은 더 이상 미룰 수 없는 숙제가 되었다. 2024년 9월, 한국의 산부인과·왁싱숍·룸카페·펜션 수영장에 설치된 IP카메라 영상이 중국 음란 사이트와 텔레그램으로 유출됐다는 보도가 잇따랐다. 보안뉴스는 텔레그램에 노출된 한국 사생활 영상이 <a href="https://m.boannews.com/html/detail.html?idx=125342" target="_blank" rel="noopener">약 4,500개에 달한다고 단독 보도</a>했고, 네이트뉴스는 같은 시기 <a href="https://news.nate.com/view/20240930n08225" target="_blank" rel="noopener">중국 사이트에서 800개 이상 확인</a>됐다고 전했다.</p>
 
@@ -369,6 +370,162 @@
         <li><a href="/blog/nis-security-requirements-v3-guide.html">NVR/VMS 국정원 보안요구사항 V3.0 인증 가이드</a> — 공공기관 납품 시 필수인 보안적합성 검증 절차와 핵심 기술 요건</li>
         <li><a href="/blog/agentic-ai-nvr-vs-ai-nvr-difference.html">Agentic AI NVR이란? AI NVR과의 결정적 차이</a> — 감지에서 자율 실행으로, LLM 기반 NOX NVR의 동작 원리</li>
       </ul>
+
+      </div>
+
+      <div class="en-only">
+
+      <p><strong>Securing Chinese-made IP cameras</strong> is no longer a task that can be postponed. In September 2024, a string of reports revealed that footage from IP cameras installed in Korean obstetrics clinics, waxing salons, room cafes and pension swimming pools had leaked to Chinese adult sites and Telegram. Boan News <a href="https://m.boannews.com/html/detail.html?idx=125342" target="_blank" rel="noopener">reported exclusively that some 4,500 private Korean videos</a> had been exposed on Telegram, and Nate News reported around the same time that <a href="https://news.nate.com/view/20240930n08225" target="_blank" rel="noopener">more than 800 were found on Chinese sites</a>.</p>
+
+      <p>This post does not tell you to rip out all your cameras. It is <strong>a practical guide to preventing IP camera hacking that keeps your existing cameras in place and sharply reduces the risk in about 30 minutes today</strong>. There are two key steps: (1) cut the cameras off from the internet with <strong>ipTime's external IP blocking</strong> feature, and (2) put <strong>NOX VMS</strong> in front of them as the single entry point (a security proxy).</p>
+
+      <h2>1. Why "just change the password" is not enough — the real issue with Chinese IP camera security</h2>
+
+      <p>Incident reports usually conclude with "the default password was never changed." But <a href="https://industryjournal.co.kr/news/239538" target="_blank" rel="noopener">roughly 80% of IP cameras in Korea are made in China</a>, and these products ship with <strong>several side doors</strong> open in addition to the front door, so a password alone is not enough.</p>
+
+      <p>The traffic a camera sends to the internet falls into three broad categories.</p>
+
+      <ul>
+        <li><strong>P2P cloud telemetry</strong> — XMEye, Hik-Connect and Dahua P2P keep an always-on connection to the vendor cloud from the moment the camera powers up. <a href="https://sec-consult.com/blog/detail/millions-of-xiongmai-video-surveillance-devices-can-be-hacked-via-cloud-feature-xmeye-p2p-cloud/" target="_blank" rel="noopener">All XMEye communication is unencrypted</a>, and even firmware updates travel in plaintext, leaving them open to man-in-the-middle attacks. <strong>The risks of XMEye</strong> have been flagged by the security industry for years.</li>
+        <li><strong>Firmware backdoors / RCE</strong> — <a href="https://ipvm.com/reports/hikvision-36260" target="_blank" rel="noopener">CVE-2021-36260</a>, the textbook <strong>Hikvision backdoor</strong> case, grants root without authentication, affects <strong>more than 100 million devices</strong>, and was <a href="https://www.fortinet.com/blog/threat-research/mirai-based-botnet-moobot-targets-hikvision-vulnerability" target="_blank" rel="noopener">actively exploited by the Moobot botnet</a>. A year after the patch, <a href="https://www.theregister.com/2022/08/24/hikvision_camera_patch/" target="_blank" rel="noopener">more than 80,000 devices were still unpatched</a>. More recently, <a href="https://github.com/LuisMirandaAcebedo/CVE-2025-65856" target="_blank" rel="noopener">CVE-2025-65856 (ONVIF authentication bypass, CVSS 9.8)</a> was reported in the Xiongmai XM530.</li>
+        <li><strong>Unprotected ONVIF/RTSP exposure</strong> — a single port forward is all it takes for video to float freely on the internet. Shodan shows <a href="https://cybernews.com/editorial/thousands-unprotected-security-cameras-surveilling-world/" target="_blank" rel="noopener">more than 8,373 unprotected RTSP cameras exposed</a>.</li>
+      </ul>
+
+      <p>The US has blocked new certifications through the <a href="https://www.fcc.gov/supplychain/coveredlist" target="_blank" rel="noopener">FCC Covered List</a>, the UK is <a href="https://ipvm.com/reports/sensitive-sites-uk" target="_blank" rel="noopener">phasing them out of sensitive sites</a>, and Korea is moving toward <a href="https://zdnet.co.kr/view/?no=20241114165647" target="_blank" rel="noopener">mandatory certification for multi-use facilities</a>. Governments, too, have concluded that "leaving them as they are is not an option."</p>
+
+      <h2>2. The principle — isolate cameras from the internet through CCTV network separation</h2>
+
+      <p>The common recommendation across IoT security guides is simple: <strong>put cameras on a separate network and block outbound internet traffic by default (default deny).</strong> This is the core principle of <strong>CCTV network separation</strong>, now an established best practice.</p>
+
+      <p>The ideal setup places cameras on a dedicated <strong>VLAN/SSID</strong>, blocks egress at the firewall, and whitelists only the NTP and DNS they need. That, however, requires prosumer gear such as UniFi or pfSense. Fortunately, ipTime's <strong>"Internet/WiFi Access Restriction"</strong> is essentially an egress filter, so even without VLANs you can achieve <strong>IP camera internet blocking</strong> — "this IP cannot reach the outside internet."</p>
+
+      <h2>3. Hands-on, part 1 — cutting cameras off the internet with ipTime external IP blocking</h2>
+
+      <h3>3.1 Preparation: pin the camera's internal IP</h3>
+
+      <p>The rule is keyed on the internal IP, so it stops working if DHCP changes the address. In the ipTime admin page (<code>http://192.168.0.1</code>) &gt; <strong>Advanced Setup &gt; Network &gt; DHCP Server Settings</strong>, move the camera's MAC address to <strong>manual assignment</strong>. This example uses <code>192.168.0.63</code> (cam1).</p>
+
+      <h3>3.2 Opening the menu and adding a rule</h3>
+
+      <p>Go to <strong>Advanced Setup &gt; Security &gt; Internet/WiFi Access Restriction</strong>, select <strong>"User Advanced Settings"</strong> mode, and enter the following.</p>
+
+      <ol>
+        <li><strong>Direction</strong>: <code>Internal → External</code></li>
+        <li><strong>Rule name</strong>: <code>cam1-egress-block</code></li>
+        <li><strong>Internal IP address</strong>: <code>192.168.0.63</code></li>
+        <li><strong>External destination</strong>: <code>ALL</code>, <strong>all external IPs</strong></li>
+        <li><strong>Port</strong>: leave blank or <code>ALL</code></li>
+        <li><strong>Action</strong>: <code>Block</code></li>
+        <li><strong>Schedule</strong>: <code>Every day, 24 hours</code></li>
+        <li><strong>Apply</strong> &gt; <strong>Register as new rule</strong></li>
+      </ol>
+
+      <p><img src="/img/blog/iptime-camera-isolation/iptime-rule-form.png" alt="ipTime external IP blocking rule form — IP camera isolation settings screen" /></p>
+
+      <p>Once registered, a <code>cam1</code> row appears in the list as active.</p>
+
+      <p><img src="/img/blog/iptime-camera-isolation/iptime-rule-applied.png" alt="ipTime internet access restriction rule applied — confirming the Chinese IP camera is blocked from the internet" /></p>
+
+      <p>If you have several cameras, group them in a contiguous DHCP range such as <code>192.168.0.60~70</code> and register them in a single line as an <strong>IP range</strong> to keep things tidy.</p>
+
+      <h3>3.3 Verifying the block</h3>
+
+      <p>If the camera vendor's app (XMEye, Hik-Connect, etc.) shows the camera as "offline", the isolation is in effect.</p>
+
+      <h2>4. Why egress blocking alone is not enough</h2>
+
+      <p>At this point the path by which cameras send telemetry to servers in China is cut. Two holes remain, however.</p>
+
+      <p><strong>First, lateral movement within the LAN.</strong> Egress blocking only stops outbound traffic; it does not stop other devices on the same LAN from connecting directly to the camera. If a family laptop gets infected, it can reach the camera's unprotected RTSP/ONVIF.</p>
+
+      <p><strong>Second, viewing from outside.</strong> Port forwarding to each camera is the worst option. A single authentication-bypass CVE is enough to expose your video to the whole world (recall the 8,000-odd cameras on Shodan above).</p>
+
+      <p>The fix is an industry-standard pattern: <strong>route all camera access through a single VMS server, and expose only that one VMS to the outside, protected by TLS and strong authentication</strong> — the <strong>VMS security proxy</strong> architecture known as the <a href="https://help.videoexpertsgroup.com/kb/gateway-nvr" target="_blank" rel="noopener">Gateway NVR pattern</a>.</p>
+
+      <h2>5. Hands-on, part 2 — a network design with NOX VMS as the security proxy</h2>
+
+      <div class="nd-diagram">
+        <img src="/img/blog/iptime-camera-isolation/nox-secure-network.svg" alt="Network diagram of IP camera isolation with NOX as the security proxy" loading="lazy" />
+      </div>
+
+      <p>The key flow in three lines:</p>
+
+      <ul>
+        <li><strong>The eight cameras are confined inside the dashed box.</strong> The ipTime egress rule blocks all external traffic, so P2P cloud signals such as XMEye or Hik-Connect cannot get out.</li>
+        <li><strong>The NOX host becomes the only bridge.</strong> It talks to the cameras over RTSP/ONVIF inside the isolated network, and to users (PCs, NOX Mobile) over LAN/HTTPS.</li>
+        <li><strong>Only NOX is exposed externally.</strong> ipTime port forwarding is opened only to the NOX HTTPS port, and NOX takes care of authentication, TLS and logging. Not a single byte from the cameras is exposed to the internet.</li>
+      </ul>
+
+      <h2>6. Security benefits of this design (checklist)</h2>
+
+      <ul>
+        <li><strong>External callbacks blocked regardless of camera firmware</strong> — backdoors, telemetry and malicious firmware updates are all stopped.</li>
+        <li><strong>Single entry point → unified security</strong> — TLS, user permissions and access logs are controlled in one place: NOX.</li>
+        <li><strong>No external configuration changes when adding or replacing cameras</strong> — just attach them to the isolated network and register them in NOX.</li>
+        <li><strong>Simpler incident tracing</strong> — investigating suspicious traffic starts from a single place, the NOX access log.</li>
+        <li><strong>Prepared for supply-chain risk</strong> — given the regulatory trend in the UK and Korea, the fact that you "already isolated them" becomes a line of defense in future audits and inspections.</li>
+      </ul>
+
+      <h2>7. Frequently asked questions (FAQ) — practical Q&amp;A on preventing IP camera hacking</h2>
+
+      <p><strong>Q1. I've only viewed the cameras through P2P apps (XMEye, Hik-Connect). Won't blocking make those apps unusable?</strong><br />
+      Yes. That is the intended result. The app working well meant the camera was connected bidirectionally to the vendor cloud at every moment, and this guide exists precisely to cut that connection. NOX VMS provides the same functions (remote viewing, alerts, recording) over a single authenticated, TLS-protected path.</p>
+
+      <p><strong>Q2. Can I come in through a VPN instead of port forwarding?</strong><br />
+      That is the safer option. Connecting through ipTime's VPN server feature or WireGuard and reaching NOX as if on the LAN reduces the attack surface compared with port forwarding. Bear in mind, though, the operational burden of having every staff member install and maintain a VPN.</p>
+
+      <p><strong>Q3. Does this work on routers other than ipTime?</strong><br />
+      The principle is the same. ASUS, Netgear, TP-Link and ISP-supplied routers all offer similar features under names like "Access Control" or "Outbound Firewall." Only the menu names differ; the behavior — "block outbound traffic from this internal IP" — is the same.</p>
+
+      <p><strong>Q4. If RTSP/ONVIF is blocked, won't NOX also lose access to the cameras?</strong><br />
+      NOX communicates with the cameras from inside the isolated network. The ipTime egress rule blocks only the <strong>camera → external internet</strong> direction; NOX → camera traffic within the same LAN is unaffected.</p>
+
+      <h2>8. Wrapping up — don't trust the camera, trust the network</h2>
+
+      <p>The essence of <strong>Chinese IP camera security</strong> is not "which brand you buy" but that <strong>"the network decides what the camera can do externally."</strong> Firmware is always exposed to variables like missing patches, end-of-life and zero-days, but router rules are 100% under your control.</p>
+
+      <p>Today's to-do list is three lines long.</p>
+
+      <ol>
+        <li>Pin the camera's internal IP.</li>
+        <li>Block that IP's external traffic with ipTime "Internet/WiFi Access Restriction" (= <strong>ipTime external IP blocking</strong>).</li>
+        <li>If you need outside access, put a VMS such as NOX in place as the single entry point (VMS security proxy), and access the cameras only from inside.</li>
+      </ol>
+
+      <p>NOX is one example of a tool that makes this pattern easy for ordinary users to follow. Whatever tool you use, the point is to make one line true today: <strong>"the camera never talks directly to the internet."</strong></p>
+
+      <h2>References</h2>
+
+      <ul>
+        <li><a href="https://industryjournal.co.kr/news/239538" target="_blank" rel="noopener">80% of IP cameras in Korea are Chinese-made… hacking concerns rise — Industry Journal (Korean)</a></li>
+        <li><a href="https://news.nate.com/view/20240930n08225" target="_blank" rel="noopener">Waxing salons and room cafes with Chinese IP cams: mass footage leak to Chinese adult sites — Seoul Shinmun/Nate (Korean)</a></li>
+        <li><a href="https://m.boannews.com/html/detail.html?idx=125342" target="_blank" rel="noopener">Chinese hackers breach Korean IP cameras… 4,500 private videos exposed on Telegram — Boan News (Korean)</a></li>
+        <li><a href="https://zdnet.co.kr/view/?no=20241114165647" target="_blank" rel="noopener">Government moves to close IP cam security holes — ZDNet Korea (Korean)</a></li>
+        <li><a href="https://www.korea.kr/briefing/policyBriefingView.do?newsId=156660546" target="_blank" rel="noopener">Measures to strengthen IP camera security — Korea Policy Briefing (Korean)</a></li>
+        <li><a href="https://ipvm.com/reports/hikvision-36260" target="_blank" rel="noopener">Hikvision CVE-2021-36260: 100 million devices affected — IPVM</a></li>
+        <li><a href="https://www.fortinet.com/blog/threat-research/mirai-based-botnet-moobot-targets-hikvision-vulnerability" target="_blank" rel="noopener">Mirai-based Botnet Moobot Targets Hikvision Vulnerability — Fortinet</a></li>
+        <li><a href="https://www.theregister.com/2022/08/24/hikvision_camera_patch/" target="_blank" rel="noopener">80,000 Hikvision cameras still vulnerable — The Register</a></li>
+        <li><a href="https://sec-consult.com/blog/detail/millions-of-xiongmai-video-surveillance-devices-can-be-hacked-via-cloud-feature-xmeye-p2p-cloud/" target="_blank" rel="noopener">Millions Of Xiongmai Devices Hacked Via XMEye Cloud — SEC Consult</a></li>
+        <li><a href="https://github.com/LuisMirandaAcebedo/CVE-2025-65856" target="_blank" rel="noopener">CVE-2025-65856 Xiongmai XM530 ONVIF authentication bypass</a></li>
+        <li><a href="https://www.fcc.gov/supplychain/coveredlist" target="_blank" rel="noopener">FCC Covered List</a></li>
+        <li><a href="https://ipvm.com/reports/sensitive-sites-uk" target="_blank" rel="noopener">UK Defines 'Sensitive Sites' Where PRC Cameras Are Banned — IPVM</a></li>
+        <li><a href="https://itons.net/iptime-%EA%B3%B5%EC%9C%A0%EA%B8%B0-%ED%8A%B9%EC%A0%95-%EA%B8%B0%EA%B8%B0-%EC%9D%B8%ED%84%B0%EB%84%B7-%EB%B0%8F-%EC%99%80%EC%9D%B4%ED%8C%8C%EC%9D%B4-%EC%B0%A8%EB%8B%A8-%EB%B0%A9%EB%B2%95/" target="_blank" rel="noopener">How to block internet and WiFi for a specific device on an ipTime router — itons.net (Korean)</a></li>
+        <li><a href="https://zipi.me/483" target="_blank" rel="noopener">Blocking a specific IP with an ipTIME router — zipi (Korean)</a></li>
+        <li><a href="https://stateofsurveillance.org/guides/advanced/home-network-vlans-segmentation/" target="_blank" rel="noopener">Home Network VLANs: Isolate IoT Devices for Security — State of Surveillance</a></li>
+        <li><a href="https://help.videoexpertsgroup.com/kb/gateway-nvr" target="_blank" rel="noopener">Gateway NVR — Video Experts Group</a></li>
+        <li><a href="https://www.genetec.com/blog/products/what-are-the-differences-between-a-vms-and-an-nvr" target="_blank" rel="noopener">VMS vs NVR — Genetec</a></li>
+        <li><a href="https://cybernews.com/editorial/thousands-unprotected-security-cameras-surveilling-world/" target="_blank" rel="noopener">Thousands of unprotected security cameras spying — Cybernews</a></li>
+      </ul>
+
+      <hr />
+
+      <h2>Related posts</h2>
+      <ul>
+        <li><a href="/blog/nis-security-requirements-v3-guide.html">NVR/VMS NIS Security Requirements V3.0 Certification Guide</a> — the security conformity verification process and key technical requirements mandatory for public-sector supply</li>
+        <li><a href="/blog/agentic-ai-nvr-vs-ai-nvr-difference.html">What is an Agentic AI NVR? The decisive difference from an AI NVR</a> — from detection to autonomous action: how the LLM-based NOX NVR works</li>
+      </ul>
+
+      </div>
 
     </article>
   </main>

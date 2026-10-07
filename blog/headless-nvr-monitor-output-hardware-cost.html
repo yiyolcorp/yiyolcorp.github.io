@@ -243,17 +243,17 @@
   <section class="post-hero">
     <div class="post-hero-content">
       <nav class="post-breadcrumb">
-        <a href="/">YIYOL</a><span>›</span><a href="/blog/">블로그</a><span>›</span> 현재 글
+        <a href="/">YIYOL</a><span>›</span><a href="/blog/"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a><span>›</span> <span class="ko-only">현재 글</span><span class="en-only">Current post</span>
       </nav>
-      <h1>헤드리스 NVR이란? 모니터 출력을 걷어낸 NVR의 사양과 원가 구조</h1>
+      <h1><span class="ko-only">헤드리스 NVR이란? 모니터 출력을 걷어낸 NVR의 사양과 원가 구조</span><span class="en-only">What Is a Headless NVR? Specs and Cost Structure of an NVR Without Monitor Output</span></h1>
       <div class="post-meta">
         <span class="post-meta-date"> 2026.09.15</span>
         <div class="post-tags">
           <span class="post-tag">NVR</span>
-          <span class="post-tag">헤드리스</span>
-          <span class="post-tag">GPU 디코딩</span>
-          <span class="post-tag">하드웨어 원가</span>
-          <span class="post-tag">국산 NVR</span>
+          <span class="post-tag"><span class="ko-only">헤드리스</span><span class="en-only">Headless</span></span>
+          <span class="post-tag"><span class="ko-only">GPU 디코딩</span><span class="en-only">GPU Decoding</span></span>
+          <span class="post-tag"><span class="ko-only">하드웨어 원가</span><span class="en-only">Hardware Cost</span></span>
+          <span class="post-tag"><span class="ko-only">국산 NVR</span><span class="en-only">Korean-Made NVR</span></span>
         </div>
       </div>
     </div>
@@ -262,6 +262,7 @@
   <!-- Main -->
   <main class="post-container">
     <article class="post-article">
+      <div class="ko-only">
 
       <p><strong>헤드리스 NVR</strong>은 본체의 로컬 모니터 출력을 제거하고, 라이브 영상의 디코딩과 화면 구성을 모바일·PC 클라이언트로 이전한 NVR 구조다. 서버는 녹화와 스트림 중계, AI 분석에만 자원을 사용한다.</p>
 
@@ -451,6 +452,199 @@
         <li><a href="/blog/agentic-ai-nvr-vs-ai-nvr-difference.html">Agentic AI NVR이란? AI NVR과의 결정적 차이</a> — 화면 출력에서 회수한 GPU 자원을 분석과 자동화에 적용하는 방향</li>
         <li><a href="/blog/nvr-disk-calculator.html">NVR 디스크 계산기</a> — 채널 수와 보관 기간 기준 필요 디스크 용량 산출</li>
       </ul>
+
+      </div>
+
+      <div class="en-only">
+      <p>A <strong>headless NVR</strong> is an NVR architecture that removes the unit's local monitor output and moves live-video decoding and screen composition to mobile and PC clients. The server spends its resources only on recording, stream relay, and AI analytics.</p>
+
+      <p>Most NVRs installed in Korea today run the opposite way: a monitor is attached to the unit and a 16-way grid is displayed around the clock. That makes sense in a control room where shift operators watch the screens. Factories, warehouses, schools, retail buildings, and small businesses, however, have no one watching full time. The screen is always on, but footage is actually viewed only after an incident, when someone plays back the relevant segment.</p>
+
+      <p><strong>The main driver of NVR specifications is not recording but display output.</strong> This post breaks down, stage by stage, the resources consumed by local output, then covers how specifications and cost change when that load moves to the client, and what to review before adopting the approach.</p>
+
+      <h2>The local grid display is a holdover from DVRs</h2>
+
+      <p>On analog DVRs, local output was the core function of the unit. Displaying camera signals received over coax was the whole point of the device, and operation and checks were done from the front panel.</p>
+
+      <p>After the move to IP, video became viewable from anywhere on the network, yet the setup of drawing a grid on a local monitor stayed. A typical sign is that procurement specs still list the number of HDMI outputs and split-screen divisions as line items. This is inherited from older specifications, not driven by operational requirements on site.</p>
+
+      <h2>Resources consumed by local output</h2>
+
+      <p>The recording path and the output path have different load profiles. Recording writes the H.264/H.265 stream sent by the camera to disk <strong>without decoding</strong>. It is just container storage and index generation, and the bottleneck is disk bandwidth, not compute. 32-channel recording runs even on low-end boards.</p>
+
+      <p>The load arises at the display stage. To compose a single live grid, each channel goes through the following steps.</p>
+
+      <figure class="nd-pipe">
+        <div class="nd-pipe-head">
+          <span>Input · camera stream H.264 / H.265</span>
+          <span>Output · 16-way monitor grid</span>
+        </div>
+        <div class="nd-pipe-rail">
+          <div class="nd-pipe-step">
+            <span class="nd-pipe-n">01</span>
+            <span class="nd-pipe-t">Stream reception and depacketization</span>
+            <span class="nd-pipe-u">NIC · CPU</span>
+          </div>
+          <span class="nd-pipe-arrow" aria-hidden="true">→</span>
+          <div class="nd-pipe-step is-gpu">
+            <span class="nd-pipe-n">02</span>
+            <span class="nd-pipe-t">H.264/H.265 decoding</span>
+            <span class="nd-pipe-u">Hardware decoder</span>
+          </div>
+          <span class="nd-pipe-arrow" aria-hidden="true">→</span>
+          <div class="nd-pipe-step is-gpu">
+            <span class="nd-pipe-n">03</span>
+            <span class="nd-pipe-t">Color space conversion</span>
+            <span class="nd-pipe-u">GPU</span>
+          </div>
+          <span class="nd-pipe-arrow" aria-hidden="true">→</span>
+          <div class="nd-pipe-step is-gpu">
+            <span class="nd-pipe-n">04</span>
+            <span class="nd-pipe-t">Scaling to tile size</span>
+            <span class="nd-pipe-u">GPU</span>
+          </div>
+          <span class="nd-pipe-arrow" aria-hidden="true">→</span>
+          <div class="nd-pipe-step is-gpu">
+            <span class="nd-pipe-n">05</span>
+            <span class="nd-pipe-t">Compositing into the full screen</span>
+            <span class="nd-pipe-u">GPU · framebuffer</span>
+          </div>
+        </div>
+        <figcaption>
+          <span class="nd-pipe-key" aria-hidden="true"></span>Shaded stages use the decoder and GPU. When the unit only records, step 01 leads straight to disk writes, and steps 02 through 05 never happen.
+        </figcaption>
+      </figure>
+
+      <p>This runs 30 times per second, in parallel across every channel. Decoding 16 channels of 4K main streams as-is exceeds what a typical integrated GPU can handle, so real products build the grid from substreams. Even so, they still need the same hardware decoder sessions, memory bandwidth, and framebuffer.</p>
+
+      <h3>Decoding load during playback</h3>
+
+      <p><strong>Playback is heavier than live view.</strong> A 4-way playback means decoding four channels at once, and every move along the timeline requires seeking to a keyframe and restarting decoding. Fast-forward processes additional frames in proportion to the speed. While the user is scrubbing the timeline, the decoder runs at full load.</p>
+
+      <p>These requirements translate directly into component choices: a higher integrated-GPU tier, more memory bandwidth, and, with increased heat, a beefier thermal design and larger power supply. On the BOM, not one line item but several go up at once.</p>
+
+      <h2>The headless architecture: moving decoding to the client</h2>
+
+      <p>The devices used to view video already have hardware decoders. Smartphones ship with H.265 hardware decoding as standard, and so does the integrated graphics in business PCs. When no one is viewing, those resources sit idle.</p>
+
+      <p>Moving where decoding happens changes when load occurs. <strong>Local output performs the same computation 24 hours a day, whether anyone is watching or not.</strong> With client-side processing, load scales only with the number of users and channels currently being viewed, and there is none when no one is viewing. The server simply relays the streams it receives, so the per-channel cost is low.</p>
+
+      <p><strong>Server-side transcoding is the exception.</strong> If the server re-encodes at a lower resolution for low-end devices, encoding load is added on top of decoding load and specifications actually go up. The right approach is to use the substreams the cameras already produce and send either the main stream or substream depending on tile size.</p>
+
+      <h2>Resource consumption: keeping local output vs. headless</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>With local output</th>
+            <th>Headless</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Live decoding</td>
+            <td>All channels, continuously</td>
+            <td>Only for users and channels currently viewing</td>
+          </tr>
+          <tr>
+            <td>Playback decoding</td>
+            <td>On the unit</td>
+            <td>On the client</td>
+          </tr>
+          <tr>
+            <td>GPU usage</td>
+            <td>Decoding, scaling, compositing</td>
+            <td>Allocated to AI analytics</td>
+          </tr>
+          <tr>
+            <td>Memory</td>
+            <td>Decode buffers + framebuffer</td>
+            <td>Mainly stream buffers</td>
+          </tr>
+          <tr>
+            <td>Thermal and power design</td>
+            <td>Higher</td>
+            <td>Lower</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>The key row is GPU usage. Today, the reason to put a GPU in an NVR is AI analytics, not display output. <strong>Whether the same GPU is spent on compositing a grid or on object detection determines what kind of product it is.</strong> Removing local output lets the same hardware run more AI analytics channels, or deliver the same analytics performance on a lower-spec board.</p>
+
+      <h2>Cost structure and the competitiveness of Korean-made NVRs</h2>
+
+      <p>Where Korean NVRs lose against Chinese products is price, not performance. Chinese manufacturers secure dedicated video-processing SoCs at their own volumes and drive the BOM down. Korean products are often built on general-purpose x86 or ARM boards, making it hard to compete on cost at the same channel count.</p>
+
+      <p>If a substantial part of the board specification comes from local output requirements, that is cost that can be cut. <strong>This is not cutting features; it is removing features nobody uses.</strong> If a board one tier higher was being used for a grid screen that no one looks at during operation, dropping a tier loses no functionality.</p>
+
+      <p>Demand for domestically made equipment already exists. After the 2024 IP camera footage leak incidents, both public agencies and private companies began including equipment origin in their purchasing criteria. The question is reaching the same price bracket, and removing unused output stages is a cost-reduction lever that can be applied immediately.</p>
+
+      <h2>Five things to review before adopting a headless NVR</h2>
+
+      <p><strong>1. Status checks during installation and failures</strong></p>
+
+      <p>Without a screen, you need a way to confirm that boot has completed and which IP was assigned. At least one of the following must be provided: a front LCD or status LEDs, an AP for initial setup, or automatic discovery on the same network. Without one, installation takes longer and the cost savings are eaten up by labor.</p>
+
+      <p><strong>2. Access path during network failures</strong></p>
+
+      <p>Local output works regardless of network status. In a headless setup, a switch failure makes viewing impossible, so there must be a path to connect directly to the unit.</p>
+
+      <p><strong>3. Output port requirements in procurement specs</strong></p>
+
+      <p>When public procurement specs require HDMI output, models without output ports cannot bid. <strong>This is a specification issue, not a technical one.</strong> The practical approach is to make output an optional feature and design the software so it does not assume local output. Output then becomes a hardware line-up choice.</p>
+
+      <p><strong>4. Client-side stream design</strong></p>
+
+      <p>Viewing a 16-way grid of main streams on mobile sharply increases device load and battery drain. The client must select streams by tile size and unsubscribe from tiles that scroll off screen. If this is done poorly, the headless architecture itself gets judged as slow.</p>
+
+      <p><strong>5. Network bandwidth</strong></p>
+
+      <p>Local output uses no network, but a headless architecture consumes bandwidth per connected user. On an internal network the impact is small, but sites with a high share of remote access must account for it at design time.</p>
+
+      <h2>How NOX implements the headless architecture</h2>
+
+      <p>NOX provides every feature in a web browser, with no dedicated client to install. Screen composition happens on the client: tile sizes and placement are freely configurable, and web pages and files can be placed on the same screen alongside cameras. This layout is not video composited and sent by the server; it is a screen rendered by the browser.</p>
+
+      <figure>
+        <img src="/img/nox/live-layout.jpeg" alt="NOX live layout: a browser screen mixing camera tiles and web page tiles on one screen" width="1200" height="714" loading="lazy" />
+        <figcaption>Grid compositing is done in the client browser, not on the server, and each user's tile layout is independent.</figcaption>
+      </figure>
+
+      <p>The server spends its resources on recording, relay, and AI analytics. The dashboard shows GPU utilization, memory, and temperature so you can check resource usage.</p>
+
+      <figure>
+        <img src="/img/nox/dashboard.jpeg" alt="NOX dashboard panels for GPU utilization, GPU memory, and GPU temperature, with a storage usage gauge" width="1200" height="675" loading="lazy" />
+        <figcaption>Utilization of integrated graphics and discrete GPUs is shown separately. On sites that do not use local output, those resources are allocated to analytics.</figcaption>
+      </figure>
+
+      <p>The NOX-A08 series provides two 4K HDMI ports and one VGA port. This configuration is for sites that need a monitoring screen, and the software does not assume local output. On sites that do not use the outputs, those resources are allocated to AI analytics.</p>
+
+      <h2>A common objection: without a screen, you can't confirm recording status</h2>
+
+      <p>Some point out that if the local screen is off, there is no way to tell whether recording is working. But <strong>display output does not guarantee recording status.</strong> Per-channel recording status, remaining disk space, and camera disconnection alerts are the accurate way to check, and this information is delivered as mobile notifications without any screen. Operationally, it is more efficient to monitor status through alerts and view footage on a client when needed.</p>
+
+      <h2>Conclusion: unused output stages drive cost</h2>
+
+      <p><strong>A headless NVR is not a cut-down product but an architecture that relocates where computation happens.</strong> Moving the decoding, scaling, and compositing load that was assigned to local output to the client at viewing time lowers GPU, memory, thermal, and power specifications together. The freed resources can be turned into AI analytics channels, or reflected in cost by dropping a board tier.</p>
+
+      <p>Control rooms need local output. Most other sites do not. Which side the default configuration targets is what decides the price competitiveness of Korean-made NVRs.</p>
+
+      <hr />
+
+      <p>👉 <strong><a href="https://yiyol.com/products/" target="_blank" rel="noopener">See real operating screens on the NOX product page</a></strong> — browser-based live layout and system dashboard</p>
+
+      <p><em>NOX NVR partnership and POC program inquiries: <a href="/contact/">yiyol.com/contact</a></em></p>
+
+      <hr />
+
+      <h2>Related posts</h2>
+      <ul>
+        <li><a href="/blog/why-nvr-hardware-makers-need-software-partner.html">Why NVR Hardware Makers Need a Software Partner</a> — why cutting hardware cost still doesn't make a product without software</li>
+        <li><a href="/blog/agentic-ai-nvr-vs-ai-nvr-difference.html">What Is an Agentic AI NVR? The Decisive Difference from an AI NVR</a> — applying GPU resources reclaimed from display output to analytics and automation</li>
+        <li><a href="/blog/nvr-disk-calculator.html">NVR Disk Calculator</a> — required disk capacity by channel count and retention period</li>
+      </ul>
+      </div>
 
     </article>
   </main>

@@ -130,9 +130,9 @@
   <section class="post-hero">
     <div class="post-hero-content">
       <nav class="post-breadcrumb">
-        <a href="/">YIYOL</a><span>›</span><a href="/blog/">블로그</a><span>›</span> 현재 글
+        <a href="/">YIYOL</a><span>›</span><a href="/blog/"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a><span>›</span> <span class="ko-only">현재 글</span><span class="en-only">Current post</span>
       </nav>
-      <h1>Agentic AI NVR이란? AI NVR과의 결정적 차이</h1>
+      <h1><span class="ko-only">Agentic AI NVR이란? AI NVR과의 결정적 차이</span><span class="en-only">What Is an Agentic AI NVR? The Decisive Difference from AI NVR</span></h1>
       <div class="post-meta">
         <span class="post-meta-date"> 2026.04.14</span>
         <div class="post-tags">
@@ -140,8 +140,8 @@
           <span class="post-tag">NVR</span>
           <span class="post-tag">VMS</span>
           <span class="post-tag">AI NVR</span>
-          <span class="post-tag">영상감시</span>
-          <span class="post-tag">보안솔루션</span>
+          <span class="post-tag"><span class="ko-only">영상감시</span><span class="en-only">Video Surveillance</span></span>
+          <span class="post-tag"><span class="ko-only">보안솔루션</span><span class="en-only">Security Solutions</span></span>
           <span class="post-tag">WebHook</span>
           <span class="post-tag">LLM</span>
         </div>
@@ -152,6 +152,7 @@
   <!-- Main -->
   <main class="post-container">
     <article class="post-article">
+      <div class="ko-only">
 
       <p>AI NVR을 도입했는데도 여전히 CCTV 영상을 사람이 확인하고 있다면, 그 AI는 진짜 AI가 아니다.</p>
 
@@ -326,6 +327,185 @@
         <li><a href="/blog/webhook-agentic-ai-parking-automation-guide.html">WebHook으로 구현하는 Agentic AI: 주차장 자동화 완전 구축 가이드</a> — NOX NVR WebHook으로 번호판 인식부터 차단기 자동 제어까지 실전 코드로 구현하는 방법</li>
         <li><a href="/blog/why-nvr-hardware-makers-need-software-partner.html">NVR 하드웨어 제조사가 소프트웨어 파트너를 선택해야 하는 이유</a> — 자체 개발 없이 Agentic AI NVR 시장에 진입하는 파트너십 전략</li>
       </ul>
+
+      </div>
+      <div class="en-only">
+
+      <p>If people are still checking CCTV footage by hand after you deployed an AI NVR, that AI is not really doing the job.</p>
+
+      <p>Products labeled "AI NVR" are everywhere. License plate recognition, intrusion detection, object classification — even with all of these features, security staff still stare at monitors and respond manually. Why?</p>
+
+      <p>Because conventional AI NVRs stop at being <strong>"AI that sees."</strong> They know what happened, but leave what to do about it to people.</p>
+
+      <p>An <strong>Agentic AI NVR</strong> is different. It detects, decides, and acts on its own.</p>
+
+      <h2>Three Generations of Video Surveillance AI</h2>
+
+      <p>The way AI has entered video surveillance falls into clearly distinct stages.</p>
+
+      <h3>Generation 1: Motion-Detection NVR (2000s)</h3>
+
+      <p>It detects movement to start recording or send an alert. Leaves swaying in the wind and a passing cat are both treated as "motion." False alarms are frequent, and there is no real judgment.</p>
+
+      <h3>Generation 2: AI NVR — AI That Detects and Notifies (2015–present)</h3>
+
+      <p>Deep learning models such as YOLOv8 recognize and classify objects. The system knows precisely that "a person has intruded" or "the plate is 12GA3456." But what comes next is up to people. Should the gate open, should an alarm sound, should data be pushed to related systems — all of it is manual.</p>
+
+      <h3>Generation 3: Agentic AI NVR — AI That Detects and Acts (2026 onward)</h3>
+
+      <p>This is where it gets real.</p>
+
+      <p><strong>Agentic AI</strong> pursues goals and executes actions autonomously. In video surveillance, that means:</p>
+
+      <pre><code>Detect → Assess situation → Automatically trigger external systems → Closed action loop</code></pre>
+
+      <p>When a license plate is recognized → check the whitelist → call the gate API → record it in the parking system DB → notify the control center. All without human intervention.</p>
+
+      <h2>AI NVR vs. Agentic AI NVR: What's Different</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Aspect</th>
+            <th>AI NVR (Gen 2)</th>
+            <th>Agentic AI NVR (Gen 3)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Role of AI</strong></td>
+            <td>Detection + classification</td>
+            <td>Detection + judgment + execution</td>
+          </tr>
+          <tr>
+            <td><strong>Event recognition scope</strong></td>
+            <td>Predefined, structured events</td>
+            <td>Unstructured situations too, via LLM</td>
+          </tr>
+          <tr>
+            <td><strong>External system integration</strong></td>
+            <td>Email/app notifications</td>
+            <td>Real-time REST API and WebHook calls</td>
+          </tr>
+          <tr>
+            <td><strong>Role of security staff</strong></td>
+            <td>Check alerts, respond manually</td>
+            <td>Handle exceptions only</td>
+          </tr>
+          <tr>
+            <td><strong>Level of automation</strong></td>
+            <td>Alert automation</td>
+            <td>Workflow automation</td>
+          </tr>
+          <tr>
+            <td><strong>System integration</strong></td>
+            <td>Standalone operation</td>
+            <td>Integrated with access control, parking, ERP</td>
+          </tr>
+          <tr>
+            <td><strong>Developers required?</strong></td>
+            <td>No</td>
+            <td>No, thanks to no-code WebHooks</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>In one sentence: <strong>an AI NVR reports to people; an Agentic AI NVR handles it itself.</strong></p>
+
+      <h2>How NOX NVR Implements Agentic AI</h2>
+
+      <p>NOX NVR delivers "autonomous execution," the core of Agentic AI, through a WebHook-based event automation system.</p>
+
+      <h3>WebHook: The Heart of the Agentic Loop</h3>
+
+      <p>The moment the AI detects an event, NOX NVR automatically sends an HTTP POST request to a preconfigured external URL. The WebHook payload includes the detection type, camera information, event time, cropped image URL, and more.</p>
+
+      <p><strong>Real-world example: parking lot automation</strong></p>
+
+      <pre><code>[NOX NVR]
+License plate recognized: 12GA3456
+↓ WebHook POST → Parking management server
+↓ Whitelist lookup → Registered vehicle confirmed
+↓ Gate API call → Open
+↓ DB record → Entry time, plate, camera ID
+↓ Slack/messenger alert → Real-time report to the manager</code></pre>
+
+      <p>The entire process completes <strong>within 1–2 seconds</strong> of the plate being captured by the camera. Security staff step in only when something is wrong.</p>
+
+      <h3>REST API-First Architecture</h3>
+
+      <p>Every NOX NVR function can be controlled via REST API. Listing cameras, event history, live snapshots, changing AI engine settings — all of it is programmatically accessible from outside.</p>
+
+      <p>Why does this matter? Because you can <strong>integrate NOX into existing systems</strong>. Building management systems (BMS), access control systems, ERP — NOX becomes a sensor data source for all of them.</p>
+
+      <p>This is why Chinese NVR vendors keep their ecosystems closed: open APIs make replacement easy. NOX chose the opposite direction. It opens its APIs to make integration easy, and finds the reason customers stay in the value of that integration.</p>
+
+      <h3>LLM Agent: AI That Understands Unstructured Events</h3>
+
+      <p>Conventional AI NVRs handle only <strong>structured events</strong>. "Person detected," "plate 12GA3456 recognized," "line crossing occurred" — they can only recognize situations that fit predefined categories.</p>
+
+      <p>Real-world security events are far more complex. "A customer has been lingering in front of the checkout for a long time," "someone appears to have collapsed in the parking lot," "at night, a person keeps approaching a specific area" — such <strong>unstructured situations</strong> cannot be detected by rule-based AI.</p>
+
+      <p>This is where NOX NVR is introducing an Agent based on LLMs (large language models).</p>
+
+      <p><strong>How it works:</strong></p>
+
+      <pre><code>[Camera video frame]
+       ↓
+[NOX Vision Agent]
+ - Scene analysis (Object Detection + Scene Understanding)
+ - Passes context to the LLM: "Entrance camera, 11 PM, a man in a hood
+   has been loitering near the entrance for 15 minutes, 3 approach attempts"
+       ↓
+[LLM situation assessment]
+ → "Abnormal loitering pattern — recommend sending a security alert"
+       ↓
+[Automatic action execution]
+ → Urgent alert to security staff + video clip attached + guard dispatched</code></pre>
+
+      <p>The LLM interprets even situations that were never predefined, in natural language, and triggers the appropriate action based on its judgment. "AI that understands without anyone writing rules" is being deployed in the field of video surveillance.</p>
+
+      <p><strong>Strengths of the NOX LLM Agent:</strong></p>
+      <ul>
+        <li><strong>Open detection scope:</strong> Instantly recognizes new types of situations without predefinition</li>
+        <li><strong>Contextual understanding:</strong> Goes beyond simple object detection to judge the combined meaning of time, place, and behavior patterns</li>
+        <li><strong>Natural-language alerts:</strong> Instead of "Intruder detected on camera 3," it says "Two men entered without authorization through the back door and are now moving toward the warehouse"</li>
+        <li><strong>Agentic execution:</strong> Carries the judgment through to automated response via WebHook and API calls</li>
+      </ul>
+
+      <p>This is why NOX is not just an AI NVR but an <strong>Agentic AI NVR</strong>. Structured events are handled quickly by rules; unstructured situations are understood in depth and acted on by the LLM Agent.</p>
+
+      <h2>Why Now — Why the Market Demands Agentic AI</h2>
+
+      <p><strong>Shortage of security personnel:</strong> Unmanned stores, remote work, small facility management — there is no one to watch CCTV 24 hours a day. Without Agentic AI automation, security gaps appear.</p>
+
+      <p><strong>Demand for system integration:</strong> The era of running video surveillance in isolation is over. Parking, access, inventory, safety — everything is connected. An NVR that isn't API-First becomes isolated in this ecosystem.</p>
+
+      <p><strong>Mandatory certification for the public sector:</strong> Since April 2024, NVR/VMS products supplied to Korean public institutions must be certified under the National Intelligence Service (NIS) Security Requirements V3.0. As the barrier to entry rises for Chinese NVRs in the public market, now is the opportunity for domestic Agentic AI NVRs.</p>
+
+      <h2>Agentic AI NVR Partnership with NOX NVR</h2>
+
+      <p>NOX NVR is a software platform. When an NVR hardware manufacturer ships NOX on its devices, it can bring an Agentic AI NVR to market immediately under its own brand.</p>
+
+      <p>Instead of investing 4–5 years and over 500 million to 1 billion KRW in in-house software development, you can validate first with a <strong>30-day POC program</strong> and then decide.</p>
+
+      <p><strong>From "AI that sees" to "AI that acts."</strong> Agentic AI NVRs are transforming the video surveillance industry, and NOX NVR aims to be your partner in that transition.</p>
+
+      <hr />
+
+      <p>👉 <strong><a href="https://yiyol.com/#showroom" target="_blank" rel="noopener">See live demos in the NOX Vision AI Showroom</a></strong> — from AI video analytics to fully automated monitoring</p>
+
+      <p><em>Inquiries about the NOX NVR Agentic AI Partnership Program: <a href="https://yiyolcorp.github.io" target="_blank" rel="noopener">yiyolcorp.github.io</a></em></p>
+
+      <hr />
+
+      <h2>Related Posts</h2>
+      <ul>
+        <li><a href="/blog/webhook-agentic-ai-parking-automation-guide.html">Agentic AI with WebHooks: A Complete Guide to Parking Lot Automation</a> — How to implement everything from license plate recognition to automatic gate control with NOX NVR WebHooks, using working code</li>
+        <li><a href="/blog/why-nvr-hardware-makers-need-software-partner.html">Why NVR Hardware Manufacturers Should Choose a Software Partner</a> — A partnership strategy for entering the Agentic AI NVR market without in-house development</li>
+      </ul>
+
+      </div>
 
     </article>
   </main>

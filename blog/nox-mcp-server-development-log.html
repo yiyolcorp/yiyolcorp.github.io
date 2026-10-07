@@ -139,16 +139,16 @@
   <section class="post-hero">
     <div class="post-hero-content">
       <nav class="post-breadcrumb">
-        <a href="/">YIYOL</a><span>›</span><a href="/blog/">블로그</a><span>›</span> 현재 글
+        <a href="/">YIYOL</a><span>›</span><a href="/blog/"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a><span>›</span> <span class="ko-only">현재 글</span><span class="en-only">Current post</span>
       </nav>
-      <h1>NOX MCP 서버 개발기 — 읽기 전용으로 시작한 이유와, Claude Code가 먼저 찾아낸 버그</h1>
+      <h1><span class="ko-only">NOX MCP 서버 개발기 — 읽기 전용으로 시작한 이유와, Claude Code가 먼저 찾아낸 버그</span><span class="en-only">Building the NOX MCP Server — Why We Started Read-Only, and the Bug Claude Code Found First</span></h1>
       <div class="post-meta">
         <span class="post-meta-date"> 2026.10.07</span>
         <div class="post-tags">
           <span class="post-tag">MCP</span>
           <span class="post-tag">Claude Code</span>
-          <span class="post-tag">AI 에이전트</span>
-          <span class="post-tag">개발기</span>
+          <span class="post-tag"><span class="ko-only">AI 에이전트</span><span class="en-only">AI Agents</span></span>
+          <span class="post-tag"><span class="ko-only">개발기</span><span class="en-only">Dev Log</span></span>
           <span class="post-tag">NOX</span>
         </div>
       </div>
@@ -158,6 +158,7 @@
   <!-- Main -->
   <main class="post-container">
     <article class="post-article">
+      <div class="ko-only">
 
       <p><strong>MCP(Model Context Protocol)</strong>는 AI 에이전트가 외부 시스템의 기능을 '도구(tool)'로 불러 쓸 수 있게 하는 공개 규약이다. Claude Code 같은 에이전트에 MCP 서버를 하나 등록하면, 에이전트는 그 서버가 내놓은 도구 목록을 읽고 질문에 맞는 도구를 골라 호출한다.</p>
 
@@ -448,6 +449,302 @@
         <li><a href="/blog/agentic-ai-nvr-vs-ai-nvr-difference.html">Agentic AI NVR이란? AI NVR과의 결정적 차이</a> — 감지에서 판단과 실행까지 이어지는 구조</li>
         <li><a href="/blog/webhook-agentic-ai-parking-automation-guide.html">WebHook으로 구현하는 Agentic AI: 주차장 자동화 완전 구축 가이드</a> — 에이전트와 외부 시스템을 잇는 또 다른 방법</li>
       </ul>
+
+      </div>
+
+      <div class="en-only">
+
+      <p><strong>MCP (Model Context Protocol)</strong> is an open protocol that lets AI agents call the functions of external systems as "tools." Register an MCP server with an agent such as Claude Code, and the agent reads the list of tools that server exposes, picks the ones that fit the question, and calls them.</p>
+
+      <p>In NOX, each device is itself an MCP server. Once an administrator issues a dedicated AI agent key and registers it in Claude Code or Claude Desktop, a question like "Did any camera have a gap in recording last night?" leads the agent to check the camera list, look up the recorded ranges, and even generate a playback link for that moment in its answer. Not a single tool changes the state of the device.</p>
+
+      <p>This post is not a feature introduction but a development log. It records why the server ended up in its current shape, what we deliberately chose not to do, and what broke during reviews and testing on real devices. The content is based on the design documents, review, QA and test reports, and commit history in our repository.</p>
+
+      <figure>
+        <video controls muted playsinline preload="metadata" width="1920" height="1080" poster="/img/blog/nox-mcp/claude-desktop-demo-poster.jpg">
+          <source src="/img/blog/nox-mcp/claude-desktop-demo.mp4" type="video/mp4" />
+        </video>
+        <figcaption>Asking NOX on a development device questions from Claude Desktop over MCP (8x speed; the demo was run in Korean). The questions, in order: camera status, recording problems, missing recording ranges for one camera over a day, a playback link from 10 minutes ago, and today's person and vehicle object search. Each time a tool is called for the first time, Claude Desktop asks for permission to use it.</figcaption>
+      </figure>
+
+      <p>Two moments in the video are worth noting. Asked whether any camera had a recording problem, Claude answered that no camera was flagged with a problem, yet it pointed out that <strong>the recordings of all three recording cameras start at the same moment</strong> and asked what had happened at that time. The final object search returned zero results, but instead of just answering "zero," Claude also looked up event statistics for the same period and identified the likely cause: <strong>events exist, but object information is not coming in</strong>. Most of the design principles described below were chosen to make answers like these possible.</p>
+
+      <h2>Two False Starts</h2>
+
+      <p>What we first had in mind was not an MCP server. In April 2026 we designed a feature that put a chat window inside the product UI, so users could talk to a language model inside the device. The documents went as far as review and security assessment, but never turned into code. Looking back, what we wanted to build was not a chat window but <strong>a channel through which agents can safely read the device's information</strong>. Chat windows are better built by Claude Code or Cursor, which users already use.</p>
+
+      <p>At the end of July we restarted with the direction changed to an MCP server. And then we lost the code for that work. The working folder holding the design documents had been excluded from git tracking, and the code had not yet been committed. What remained were a few empty directories, tables created in the development database, and the SDK version and download timestamp left in the Go module cache. A document that reconstructs the design by reading those traces backward is still in the repository. Its first line reads: "No MCP-related code has ever been committed to the repo."</p>
+
+      <p>Since then, all design documents are managed in git as well. That is also why this post could be written.</p>
+
+      <p>The third start came in early October. This time we narrowed the scope from the outset: <strong>no new authentication scheme, just a thin layer on top of the existing external API keys and permission system.</strong> The device-agent pairing, separate agent table, and agent-only access mode from the July design were not carried over.</p>
+
+      <h2>Six Decisions Made Up Front</h2>
+
+      <h3>1. Start read-only</h3>
+
+      <p>We did not include tools that pan cameras, turn recording on and off, or change settings. If an agent reads something wrong, the answer is merely wrong; if an agent writes something wrong, recording on site stops. We decided to first confirm that reading alone is useful, and to design writing separately as a later step.</p>
+
+      <h3>2. No new key — add one more "purpose" to keys</h3>
+
+      <p>NOX already has API keys for integrating with external systems. We added a purpose called <strong>AI Agent (MCP)</strong>. One option was to give agent keys a new role "instead of" the existing read role. But then three existing checks that verify a key is still valid, along with the permission cleanup job, would treat agent keys as revoked. So we chose to keep the existing read role and "add" an agent role on top. No existing code had to be touched.</p>
+
+      <p>The list of allowed tools is signed into the key itself. That way we know what a key can see without querying the database on every request. The trade-off is that changing a key's tool scope requires reissuing it. If the scope needs to be narrowed urgently, revoking the key and issuing a new one takes effect immediately.</p>
+
+      <h3>3. The MCP server never queries with its own privileges</h3>
+
+      <p>When the MCP server asks an internal service for data, it does not use its own service credentials; <strong>it forwards the identity of the calling key as is.</strong> Whether it is the camera list or events, the service that owns the data re-evaluates permissions using the original key and the real client IP. The checks on the MCP server side exist to reject early and leave a record; in the end, the side that owns the data makes the call.</p>
+
+      <p>This principle forced us to change one path. We could have routed internal queries through the device's web server one more time, but requests coming in that way are treated as "local access by an administrator sitting in front of the device," and the client IP is overwritten with the device's own address. That would have neutralized keys restricted to allowed IPs. So requests go directly to internal services, and delegated requests are always marked as remote access. The authentication key that internal services use among themselves is never attached to a delegated request. The moment that key is attached, it becomes a path that exceeds the caller's privileges.</p>
+
+      <h3>4. No sessions</h3>
+
+      <p>The July design maintained sessions. In October we switched to a sessionless approach that redoes authentication and permission checks from scratch for every single request. The fact that a previous request passed does not vouch for the next one. For the SDK we chose the official Go SDK 1.8, the latest at the time. The MCP protocol itself was also moving toward a sessionless model. Responses are returned as a single JSON body, without streaming.</p>
+
+      <h3>5. Tools cut from 14 to 10</h3>
+
+      <p>The July design had 14 tools. The tools that separately showed the dashboard, disks, and system metrics were merged into two, "system status" and "storage status," and person search was deferred to a later stage. In their place we added a tool that finds scenes in already-indexed recordings using natural language.</p>
+
+      <p>The more tools there are, the more an agent has to choose from, and the more conversation space the tool descriptions take up. The remaining 10 fall into five groups: cameras, events and objects, recording and playback, system, and AI. Each tool description names the tool that should come before it. For example, the camera list tool says it is "the source of the <code>camera_id</code> passed to other tools." That single line lets the agent work out on its own the order in which to chain tools.</p>
+
+      <h3>6. Never disguise failure as an empty result</h3>
+
+      <p>Errors during tool execution are returned not as protocol errors but as <strong>tool results</strong>. The result carries an error flag along with a code such as <code>RATE_LIMITED</code> or <code>PERMISSION_DENIED</code>, so the model can read it and adjust its next action on its own. The rule written in the design document is short: "No successful empty results." If permissions cannot be verified or an internal service does not respond, that is an error, not zero results. People are suspicious of zero results; agents take zero at face value and build an answer on it.</p>
+
+      <h2>Limits That Protect Recording and Live View</h2>
+
+      <p>Agents ask far faster and far more than people do. And an NVR's first job is recording. If an agent's questions cause recording or live video to fall behind, it would be better not to have this feature at all.</p>
+
+      <table>
+        <thead><tr><th>Scope</th><th>Default limit</th></tr></thead>
+        <tbody>
+          <tr><td>MCP requests per key</td><td>300 per minute</td></tr>
+          <tr><td>Tool calls per key</td><td>60 per minute, burst of 20</td></tr>
+          <tr><td>Natural-language scene searches per key</td><td>6 per minute</td></tr>
+          <tr><td>Concurrent executions per key</td><td>4</td></tr>
+          <tr><td>Concurrent scene searches, device-wide</td><td>2</td></tr>
+          <tr><td>Concurrent internal queries, device-wide</td><td>8</td></tr>
+        </tbody>
+      </table>
+
+      <p>The limits can be lowered or raised in settings, but not turned off. The query period is also capped at 31 or 7 days depending on the tool, and the size of the results returned at once is capped as well.</p>
+
+      <h2>What the Reviews Caught</h2>
+
+      <p>Once the feature roughly worked, we ran separate code, authentication, and UI reviews. The first verdict of the tool-side review was "changes requested."</p>
+
+      <h3>Tests passed, but raw queries were left in the audit log</h3>
+
+      <p>We decided not to keep natural-language queries and license plate strings verbatim in audit logs, since queries can contain personal information. The audit records written by the MCP server were masked properly, and the test checking that passed. But <strong>the search service that the MCP server sent delegated requests to was writing the raw text into its own audit log.</strong> The test passed because it only looked at rows written by the MCP server. Now, when the requester is an API key, the search service also masks queries and plates in its records.</p>
+
+      <h3>One heavy tool starved the rest</h3>
+
+      <p>A natural-language scene search can take up to two minutes. Because these searches shared the device-wide pool of 8 internal query slots, a few concurrent scene searches caused even a lightweight camera list query to be rejected as "temporarily unavailable." Scene searches now use their own 2 dedicated slots.</p>
+
+      <h3>Cameras outside the key's scope read as "zero"</h3>
+
+      <p>In event statistics, cameras outside the key's permissions were silently dropped from the results. A person would wonder, "Why is this camera missing?" but an agent would answer, "That camera had zero events." Now the dropped cameras are reported separately in <code>excluded_camera_ids</code>.</p>
+
+      <h3>Right shape, wrong values</h3>
+
+      <p>The defects found in QA had something in common. The shape of the response JSON was correct, but the side receiving those values handled them differently. Because we had hand-crafted the fake responses used in tests, the tests were only checking that our assumptions and our code agreed with each other.</p>
+
+      <ul>
+        <li>We built an "oldest first" option for event search, but the event service always sorted newest first. The option was accepted and had no effect. At first we removed the option; the next day we wired sorting all the way through and brought it back.</li>
+        <li>The recording range tool did not count the gap before the first recording block or after the last one. For a camera whose recording had stopped three hours earlier, it would answer "no gaps." Gaps are now calculated by subtracting the recorded ranges from the entire query range.</li>
+      </ul>
+
+      <h2>The Day We Connected Claude Code to a Real Device</h2>
+
+      <p>The final test was to actually connect Claude Code to a development device and ask questions. We downloaded and specified the device's CA certificate, registered it with <code>claude mcp add</code>, and confirmed <code>✔ Connected</code> in <code>claude mcp list</code>.</p>
+
+      <p>The first two questions went smoothly. Asked about camera status, it chained the camera list and health check tools and answered "all 9 online," matching the device dashboard. Event statistics for the past 24 hours also matched the dashboard numbers.</p>
+
+      <p>The third question was about missing recordings. The recording range tool said every currently recording camera had been empty for the full 24 hours, and the playback link tool said there was no video at that time. Claude did not simply relay these results as "All recordings are empty." It answered that <strong>"the information is contradictory."</strong></p>
+
+      <p>The cause was not MCP but something underneath it. The query that groups the recording timeline was converting time zones twice, so in Seoul time every recording block was shifted 18 hours later. A defect that had stayed hidden because no shipped feature called this path together with the device time zone surfaced for the first time through the agent's calls. Details are written up separately below.</p>
+
+      <p>After the fix, asked the same question again, Claude called the tools in the order camera list → recording ranges → playback link and answered, "Both channels have only about the last 25 minutes recorded, coverage 1.7%." The development device had only 8GB of recording storage, so old footage was constantly being deleted; the answer matched exactly the actual recording distribution left in the database.</p>
+
+      <p>Next, the playback link returned "no video" even at times when video existed. Once again, Claude was the first to point out that "the coverage and the link result don't match." This too was a defect in the same path. After the fix, the answer "There is video at that time" came back with an accurate playback link.</p>
+
+      <p>Finally, we revoked the key. The first rejection came about 0.2 seconds after the revocation time was recorded, and <code>claude mcp list</code> showed <code>✘ Failed to connect … HTTP 401 TOKEN_INVALIDATED</code>.</p>
+
+      <p>What stayed with us longest that day were the two "these don't match" moments. When tool results contradict each other, the agent notices. Put the other way, if a tool returns an empty result or a wrong value without any indication, the agent believes it as is. This test showed why the principle we set earlier, "never disguise failure as an empty result," is necessary.</p>
+
+      <h2>The Time Zone Defect Found in Pre-Release Testing</h2>
+
+      <p>First, the scope. <strong>Recorded video and recording records were not affected.</strong> What was wrong was a single line of calculation that groups a wide-range timeline for display. And because no shipped feature called this calculation with the device time zone, <strong>the defect never appeared on a customer's screen.</strong> We found and fixed it in real-device testing before releasing the MCP server. The fix commit landed before the MCP feature commit.</p>
+
+      <p>We still describe it in detail because what this defect causes you to miss ties directly to what we learned building the MCP server.</p>
+
+      <h3>What the query did</h3>
+
+      <p>When viewing the recording timeline over a wide range (a day or a week), the device does not return recording segments one by one; it groups them into blocks of a fixed length. The block boundaries must line up with <strong>the hour and midnight in the device's local time</strong>. For a device in Seoul, the "today 00:00 to 01:00" block must be based on Seoul time. This alignment was handled by a single line in a database (PostgreSQL) query.</p>
+
+      <pre><code>to_timestamp(FLOOR(EXTRACT(EPOCH FROM seg.start_time AT TIME ZONE $4) / $5) * $5) AT TIME ZONE $4 AS block_start</code></pre>
+
+      <p><code>$4</code> is the device time zone (e.g. <code>Asia/Seoul</code>) and <code>$5</code> is the block length in seconds.</p>
+
+      <h3>Following it step by step</h3>
+
+      <p>Let's trace an actual case where the first recording segment started at 09:38 UTC (18:38 Seoul).</p>
+
+      <ol>
+        <li><code>seg.start_time AT TIME ZONE 'Asia/Seoul'</code> — converts 09:38 UTC to Seoul local time. The result is <code>18:38</code> <strong>with the time zone information stripped</strong>. So far, this is as intended.</li>
+        <li><code>EXTRACT(EPOCH FROM …)</code> — computes seconds elapsed since 1970. But a value without time zone information is treated as UTC. Seoul 18:38 becomes <strong>18:38 UTC</strong>. Here the time is shifted by 9 hours once. Even so, dividing this value by the block length and truncating gives boundaries aligned to the local hour, so for alignment purposes it is still usable up to this step.</li>
+        <li><code>to_timestamp(…)</code> — turns the aligned seconds back into a timestamp. The result is <strong>18:38 UTC with a time zone attached</strong>. A value already shifted by 9 hours is now set in stone as if it were the real time.</li>
+        <li><code>… AT TIME ZONE 'Asia/Seoul'</code> — converts that 18:38 UTC to Seoul local time again: <strong>03:38 the next day</strong>, once more without time zone information. The time has been shifted by 9 hours a second time.</li>
+        <li>Finally, the Go database driver reads values without time zone information as UTC. The result is <strong>03:38 UTC the next day, or 12:38 noon in Seoul</strong>.</li>
+      </ol>
+
+      <p>A recording that actually started at 18:38 Seoul time appeared on the timeline as starting at 12:38 the next afternoon. In Seoul (UTC+9), it is shifted by twice the offset: <strong>18 hours</strong>.</p>
+
+      <h3>Why the test showed a 0% recording rate</h3>
+
+      <p>Every block was shifted 18 hours later, that is, <strong>into the future</strong>. The recording range tool treats anything after the current time as "time that hasn't arrived yet" and cuts it off. That leaves no blocks within the past 24 hours. This is why cameras that were recording normally and storing video showed up in tool results as "0% recording rate, gap across the full 24 hours." What was wrong was the calculation, not the recording. The playback link tool looks at the same timeline, so it returned "no video at that time."</p>
+
+      <h3>Why it had gone unnoticed</h3>
+
+      <p>Three things overlapped.</p>
+
+      <ul>
+        <li><strong>On devices whose time zone is UTC, the defect disappears.</strong> Shifted twice, the amount of shift is still zero. Calls that do not specify a time zone likewise come out correct.</li>
+        <li><strong>There was no test that actually executed the database query.</strong> Tests for this path used fake objects instead of a database, so the query statement itself had never run.</li>
+        <li><strong>No shipped feature called this query with the device time zone.</strong> The device web UI defined a function that called this aggregation API with a time zone, but it was not used on any actual screen, and no integration partner used this path through the external API. The MCP server always sends the device time zone with every internal query. <strong>The first caller to honestly follow this path all the way through was the agent.</strong></li>
+      </ul>
+
+      <h3>How we fixed it</h3>
+
+      <p>We inserted one <code>AT TIME ZONE 'UTC'</code> between steps 3 and 4.</p>
+
+      <pre><code>(to_timestamp(FLOOR(EXTRACT(EPOCH FROM seg.start_time AT TIME ZONE $4) / $5) * $5) AT TIME ZONE 'UTC') AT TIME ZONE $4 AS block_start</code></pre>
+
+      <p>After turning the aligned seconds back into a timestamp, it is immediately converted back into a "local time without time zone information," and that value is then interpreted as a time in the device time zone. This way the offset is never applied an extra time. In the same commit we added <strong>a regression test that connects to a real PostgreSQL instance and checks block times in the Seoul time zone</strong>. Since fake objects never execute this query, it was a defect that could only be caught by running against a real database.</p>
+
+      <h3>Another one from the same period</h3>
+
+      <p>The defect where the playback link returned "no video" even though video existed also came from code in the same path. It, too, never appeared on a shipped screen. The database stores track types as <code>Video</code>, <code>Audio</code>, and <code>Metadata</code>, but the code that converts the timeline into a response was comparing against lowercase <code>video</code>. As a result, the zoomed-in timeline always showed video as "absent." We made the comparison case-insensitive and added a test using the actual database values as is.</p>
+
+      <p>Both defects share the same root as the earlier QA defects: the tests were only looking at values we had crafted by hand.</p>
+
+      <h2>Connecting an Agent to an Air-Gapped NVR</h2>
+
+      <p>NVRs usually sit on an on-site network isolated from the internet. Camera video must not leave, and there must be no path from outside into the device. So how can Claude, running in the cloud, ask this device questions?</p>
+
+      <p>The answer is that <strong>the one actually calling the tools is not the Claude model but the user's PC</strong>.</p>
+
+      <pre><code>Claude model (cloud)  ⇄  Internet  ⇄  User PC: Claude Desktop · Claude Code  ⇄  On-site network  ⇄  NOX device /agent/mcp</code></pre>
+
+      <ol>
+        <li>The user asks a question in Claude Desktop or Claude Code on their PC.</li>
+        <li>The Claude model in the cloud only returns a request like "call the camera list tool with these arguments." The model never connects to the device directly.</li>
+        <li>Claude Desktop (or Claude Code) on the PC receives that request and calls the tool over HTTPS on the NOX device in the same on-site network.</li>
+        <li>The PC receives the device's result and passes it back to the model, which builds its answer from that result.</li>
+      </ol>
+
+      <p>That is why <strong>there is no need to expose the NVR to the internet.</strong> No port forwarding, no external relay server. Only one condition is required: the PC running Claude Desktop or Claude Code must reach both the internet (Claude) and the on-site network (the NVR). An operator PC in the control room is the typical place.</p>
+
+      <p>We do, however, make clear what leaves the site. Tool results — <strong>text</strong> such as camera names, status, event counts, recorded ranges, and playback links — are sent to the cloud model as part of the conversation. Video, thumbnails, camera access addresses, and credentials are never included in tool results in the first place. A playback link is only an address that opens the device's web UI, so it will not open outside the on-site network.</p>
+
+      <p>"Remote connectors," added by URL in the Claude app's settings, work differently. A remote connector connects to the MCP server from Anthropic's servers, so it cannot reach a device on an air-gapped network that is not reachable from the internet. For an isolated NVR, use Claude Desktop's local configuration or Claude Code, <strong>which connect directly from the PC</strong>.</p>
+
+      <h2>How to Connect Claude Code and Claude Desktop</h2>
+
+      <p>In the device web UI, go to Settings → API Keys, choose the purpose <strong>AI Agent (MCP)</strong>, and issue a key; the result dialog shows both the endpoint address and the registration command.</p>
+
+      <pre><code>claude mcp add --transport http nox-&lt;key name&gt; https://&lt;device address&gt;/agent/mcp \
+  --header "Authorization: Bearer &lt;AI agent key&gt;"</code></pre>
+
+      <ul>
+        <li>The device certificate is signed by the device's internal CA. Download the CA certificate from the web UI, set it with <code>NODE_EXTRA_CA_CERTS=&lt;file path&gt;</code>, and then launch Claude Code.</li>
+        <li>A trailing slash in the address results in a 404. It is <code>/agent/mcp</code>, not <code>/agent/mcp/</code>.</li>
+        <li>After registering, check the connection status with <code>claude mcp list</code>.</li>
+      </ul>
+
+      <p>Claude Desktop registers MCP servers in a local configuration file (<code>claude_desktop_config.json</code>). Servers registered in this file run on the PC, so they can reach devices on the on-site network. To connect to a remote HTTP server with a header, route through <code>mcp-remote</code>, a relay tool that runs on the PC (Node.js required).</p>
+
+      <pre><code>{
+  "mcpServers": {
+    "nox": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://&lt;device address&gt;/agent/mcp",
+               "--header", "Authorization:Bearer ${NOX_KEY}"],
+      "env": {
+        "NOX_KEY": "&lt;AI agent key&gt;",
+        "NODE_EXTRA_CA_CERTS": "&lt;CA certificate file path&gt;"
+      }
+    }
+  }
+}</code></pre>
+
+      <ul>
+        <li>Keep the key only in <code>NOX_KEY</code> under <code>env</code>, and reference it in <code>args</code> as <code>${NOX_KEY}</code>.</li>
+        <li>After saving the configuration, restart Claude Desktop and the NOX tools will appear in the tool list. The video at the top of this post shows it connected and in use with Claude Desktop.</li>
+        <li>Other agents such as Cursor work the same way: put the same address and header into their remote (HTTP) MCP server settings. In every case, the PC running the program must be able to reach the device.</li>
+        <li>On the issuance screen, you can choose which tools each key is allowed to use. Tools you do not select do not appear in that key's tool list at all.</li>
+        <li>An AI agent key can query every camera on the device. The issuance screen always displays this notice as well.</li>
+      </ul>
+
+      <p>Once connected, you can ask questions like these.</p>
+
+      <ul>
+        <li>"Are any cameras offline right now, or has any stopped recording?"</li>
+        <li>"Tell me the five cameras with the most events over the past week."</li>
+        <li>"Check whether the front gate camera had any gaps in yesterday's recording, and if so, give me a playback link from just before it."</li>
+        <li>"Is the free storage space and disk health okay?"</li>
+        <li>"Find the scene where a white truck passed through the parking lot yesterday evening." (devices with a natural-language scene search license)</li>
+      </ul>
+
+      <h2>By the Numbers</h2>
+
+      <table>
+        <thead><tr><th>Item</th><th>Details</th></tr></thead>
+        <tbody>
+          <tr><td>Tools</td><td>10 read, 0 write</td></tr>
+          <tr><td>Checks before a request reaches a tool</td><td>8 stages</td></tr>
+          <tr><td>MCP server tests</td><td>25 test files, 202 test functions</td></tr>
+          <tr><td>Additional tests in related services</td><td>13 files with agent or mcp in the name, 93 test functions</td></tr>
+          <tr><td>Audit records</td><td>One row per tool call, for both successes and failures</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Not Done Yet</h2>
+
+      <ul>
+        <li><strong>Write tools.</strong> There are no tools that change cameras, recording, or settings.</li>
+        <li><strong>Per-camera key scope.</strong> Narrowing a key so that only specific cameras are visible is not yet supported.</li>
+        <li><strong>Access with user accounts.</strong> Login tokens cannot be used; only AI agent keys are accepted.</li>
+        <li><strong>Sessions and streaming.</strong> There are no server notifications or tool list change notifications.</li>
+        <li><strong>Remote devices.</strong> Cameras on other devices connected via federation are not queried.</li>
+        <li><strong>NIS security mode.</strong> On devices with this mode enabled, the MCP endpoint does not exist at all.</li>
+      </ul>
+
+      <h2>Conclusion</h2>
+
+      <p>The skeleton of the MCP server — the path that accepts the protocol, serves the tool list, and answers by asking internal services — did not take long thanks to the official SDK. <strong>Where we spent our time was in limiting what an agent can do inside the device, and in making sure the answers an agent receives do not differ from the facts.</strong></p>
+
+      <p>The defects caught in review and those found on the real device were mostly of the same kind: a result that is empty or a value that is wrong, with no indication of it. A person looking at the screen senses something is off, but an agent trusts the value it received and calls the next tool. So we settled on one criterion: <strong>whether an MCP server is well built should be judged not by how many tools it has, but by how rarely an agent receives wrong values as fact.</strong></p>
+
+      <p>And the first to put that criterion to the test was not our test suite, but Claude Code.</p>
+
+      <hr />
+
+      <p>👉 <strong><a href="https://yiyol.com/products/" target="_blank" rel="noopener">See the real operating screens on the NOX product page</a></strong> — natural-language scene search and the system dashboard</p>
+
+      <p><em>For NOX-based AI agent integration and custom development inquiries: <a href="/contact/">yiyol.com/contact</a></em></p>
+
+      <hr />
+
+      <h2>Related Posts</h2>
+
+      <ul>
+        <li><a href="/blog/nvr-n1-failover-development-log.html">Building NVR Failover — Goals of n:1 Redundancy, Failure Cases, and the Work to Leave Beta</a> — Another development log written the same way</li>
+        <li><a href="/blog/agentic-ai-nvr-vs-ai-nvr-difference.html">What Is an Agentic AI NVR? The Decisive Difference from an AI NVR</a> — A structure that extends from detection to judgment and action</li>
+        <li><a href="/blog/webhook-agentic-ai-parking-automation-guide.html">Agentic AI with WebHooks: A Complete Guide to Parking Lot Automation</a> — Another way to connect agents with external systems</li>
+      </ul>
+
+      </div>
 
     </article>
   </main>
