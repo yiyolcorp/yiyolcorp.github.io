@@ -12,15 +12,15 @@
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>문의 — 해결하고 싶은 문제를 알려주세요 | YIYOL</title>
+    <title>문의 — 제품·개발·파트너십 문의 | YIYOL</title>
 
-    <meta name="description" content="YIYOL 상담 문의. NVR·VMS 도입부터 그 위의 AI 자동화 구축까지, 현장에서 해결하고 싶은 문제를 알려주시면 가능 여부와 방향을 함께 검토해 드립니다. OEM·파트너십 문의도 받습니다." />
-    <meta name="keywords" content="YIYOL 문의,AI 자동화 상담,AI 솔루션 문의,NOX 도입,OEM 파트너십,견적 문의" />
+    <meta name="description" content="YIYOL 문의. NOX 소프트웨어 등 제품 도입, NOX 기반 맞춤 개발, OEM·파트너십, 견적·구매 등 어떤 내용이든 남겨 주시면 검토 후 회신드립니다." />
+    <meta name="keywords" content="YIYOL 문의,NOX 도입 문의,NVR VMS 문의,맞춤 개발 문의,OEM 파트너십,견적 문의" />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://yiyol.com/contact/" />
     <meta property="og:title" content="문의 — 해결하고 싶은 문제를 알려주세요 | YIYOL" />
-    <meta property="og:description" content="\"이런 상황을 자동으로 처리하고 싶다\" — 그 한 문장이면 충분합니다." />
+    <meta property="og:description" content="제품, 맞춤 개발, 파트너십 등 무엇이든 편하게 문의해 주세요." />
     <meta property="og:image" content="https://yiyol.com/assets/yiyol-logo.png" />
     <meta property="og:site_name" content="YIYOL" />
 
@@ -36,7 +36,7 @@
     />
     <link rel="stylesheet" href="../assets/css/tokens.css?v=4" />
     <link rel="stylesheet" href="../assets/css/site.css?v=3" />
-    <link rel="stylesheet" href="../assets/css/page.css?v=3" />
+    <link rel="stylesheet" href="../assets/css/page.css?v=8" />
   </head>
   <body class="yl">
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -49,9 +49,9 @@
         </a>
         <div class="site-nav-right">
           <ul class="site-nav-links">
-            <li><a href="../company/"><span class="ko-only">회사소개</span><span class="en-only">About</span></a></li>
+            <li><a href="../company/"><span class="ko-only">회사</span><span class="en-only">Company</span></a></li>
             <li><a href="../products/"><span class="ko-only">제품</span><span class="en-only">Products</span></a></li>
-            <li><a href="../solutions/"><span class="ko-only">AI 솔루션</span><span class="en-only">AI Solutions</span></a></li>
+            <li><a href="../services/"><span class="ko-only">서비스</span><span class="en-only">Services</span></a></li>
             <li><a href="../blog/"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a></li>
             <li><a href="../contact/" class="nav-cta"><span class="ko-only">문의</span><span class="en-only">Contact</span></a></li>
           </ul>
@@ -89,10 +89,10 @@
         <div class="sv-wrap">
           <div class="sv-head">
             <div class="sv-eyebrow">Inquiry</div>
-            <h2 class="ko-only">자동화 과제 문의</h2>
-            <h2 class="en-only">Automation inquiry</h2>
-            <p class="ko-only">기술 사양을 사전에 정리하실 필요는 없습니다. 처리하고자 하는 상황을 한 문장으로 기재해 주셔도 충분합니다. 아래 항목을 작성해 전송하시면 기본 메일 앱이 열리며 작성 내용이 자동으로 입력됩니다.</p>
-            <p class="en-only">A technical specification is not required in advance; one sentence describing the situation is sufficient. Complete the form below and your mail app opens with the details already entered.</p>
+            <h2 class="ko-only">문의하기</h2>
+            <h2 class="en-only">Send us an inquiry</h2>
+            <p class="ko-only">제품 도입, 맞춤 개발, 파트너십, 견적 등 어떤 내용이든 편하게 남겨 주세요. 아래 항목을 작성해 전송하시면 기본 메일 앱이 열리며 작성 내용이 자동으로 입력됩니다.</p>
+            <p class="en-only">Products, custom development, partnerships, quotes: ask us anything. Complete the form below and your mail app opens with the details already entered.</p>
           </div>
 
           <form class="sv-form" id="inquiryForm" novalidate>
@@ -123,33 +123,34 @@
             <div class="sv-field">
               <label for="f-type"><span class="ko-only">문의 유형</span><span class="en-only">Inquiry type</span></label>
               <select id="f-type" name="type">
-                <option value="ai-automation" data-ko="AI 자동화 솔루션 상담" data-en="AI automation solution">AI 자동화 솔루션 상담</option>
-                <option value="platform" data-ko="NOX 소프트웨어 · 제품 도입" data-en="NOX software / product adoption">NOX 소프트웨어 · 제품 도입</option>
+                <option value="platform" data-ko="제품 문의 (NOX 소프트웨어 · NOX Mobile)" data-en="Products (NOX software / NOX Mobile)">제품 문의 (NOX 소프트웨어 · NOX Mobile)</option>
+                <option value="service" data-ko="맞춤 개발 서비스" data-en="Custom development service">맞춤 개발 서비스</option>
                 <option value="oem" data-ko="OEM · 파트너십" data-en="OEM / partnership">OEM · 파트너십</option>
+                <option value="quote" data-ko="견적 · 구매" data-en="Quote / purchase">견적 · 구매</option>
                 <option value="etc" data-ko="기타" data-en="Something else">기타</option>
               </select>
             </div>
 
             <div class="sv-field">
-              <label for="f-problem"><span class="ko-only">해결하고 싶은 문제</span><span class="en-only">The problem you want solved</span><span class="req">*</span></label>
+              <label for="f-problem"><span class="ko-only">문의 내용</span><span class="en-only">Your inquiry</span><span class="req">*</span></label>
               <textarea id="f-problem" name="problem" required></textarea>
-              <div class="sv-field-hint ko-only">예) 야간에 이 구역에 사람이 들어오면 즉시 방송하고 담당자를 호출하고 싶습니다 / 특정 설비가 평소와 다르게 움직일 때 라인을 세우고 싶습니다.</div>
-              <div class="sv-field-hint en-only">e.g. "If anyone enters this zone at night, announce it and page the duty officer" / "When this machine deviates from its normal cycle, stop the line."</div>
+              <div class="sv-field-hint ko-only">예) NOX 소프트웨어 도입을 검토하고 있습니다 / 기존 출입 통제 시스템과 연동이 가능한지 궁금합니다 / 야간에 위험구역에 사람이 들어오면 자동으로 방송하고 싶습니다.</div>
+              <div class="sv-field-hint en-only">e.g. "We are evaluating NOX software" / "Can NOX integrate with our access-control system?" / "Announce automatically when someone enters a restricted zone at night."</div>
             </div>
 
             <div class="sv-field">
-              <label for="f-assets"><span class="ko-only">현재 보유한 데이터 · 장비</span><span class="en-only">Data and equipment you already have</span></label>
+              <label for="f-assets"><span class="ko-only">참고 정보</span><span class="en-only">Reference details</span></label>
               <textarea id="f-assets" name="assets" style="min-height:110px"></textarea>
-              <div class="sv-field-hint ko-only">선택 항목입니다. 카메라 대수와 모델, 센서 종류, 기존 NVR·VMS, 연동 대상 시스템(ERP·MES 등)을 파악하신 범위에서 기재해 주십시오.</div>
-              <div class="sv-field-hint en-only">Optional. Camera count and models, sensor types, any existing NVR/VMS, and systems to integrate with (ERP, MES), to the extent known.</div>
+              <div class="sv-field-hint ko-only">선택 항목입니다. 현장 규모, 카메라 대수, 사용 중인 NVR·VMS, 연동 대상 시스템 등 참고할 내용이 있으면 적어 주십시오.</div>
+              <div class="sv-field-hint en-only">Optional. Site scale, camera count, the NVR/VMS you use today, systems to integrate with, or anything else useful.</div>
             </div>
 
             <div class="sv-form-note">
-              <h4 class="ko-only">사전 확인 항목</h4>
+              <h4 class="ko-only">알려주시면 검토가 빨라지는 항목</h4>
               <h4 class="en-only">Details that speed up our review</h4>
               <ul>
                 <li><span class="ko-only">현장 규모 (지점 수, 카메라·센서 수량)</span><span class="en-only">Site scale (number of locations, cameras, and sensors)</span></li>
-                <li><span class="ko-only">이상 상황 발생 빈도 및 현재 처리 방식</span><span class="en-only">Frequency of the situation and how it is handled today</span></li>
+                <li><span class="ko-only">사용 중인 NVR·VMS와 연동 대상 시스템</span><span class="en-only">The NVR/VMS in use today and systems to integrate with</span></li>
                 <li><span class="ko-only">영상·데이터의 외부(클라우드) 전송 가능 여부</span><span class="en-only">Whether video and data may leave the premises</span></li>
                 <li><span class="ko-only">희망 일정 및 예산 범위 (개략 수준 가능)</span><span class="en-only">Target timeline and budget range (an approximate figure is sufficient)</span></li>
               </ul>
@@ -232,10 +233,10 @@
             <p class="yl-foot-tag en-only">NVR and VMS that store and manage your video — and the AI automation built on top of it.</p>
           </div>
           <nav class="yl-foot-links" aria-label="Footer navigation">
-            <a href="../company/"><span class="ko-only">회사소개</span><span class="en-only">About</span></a>
+            <a href="../company/"><span class="ko-only">회사</span><span class="en-only">Company</span></a>
             <a href="../products/"><span class="ko-only">제품</span><span class="en-only">Products</span></a>
             <a href="/api/"><span class="ko-only">API 문서</span><span class="en-only">API Docs</span></a>
-            <a href="../solutions/"><span class="ko-only">AI 솔루션</span><span class="en-only">AI Solutions</span></a>
+            <a href="../services/"><span class="ko-only">서비스</span><span class="en-only">Services</span></a>
             <a href="../blog/"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a>
             <a href="../contact/"><span class="ko-only">문의</span><span class="en-only">Contact</span></a>
           </nav>
@@ -270,8 +271,8 @@
             email: "이메일",
             phone: "연락처",
             type: "문의 유형",
-            problem: "해결하고 싶은 문제",
-            assets: "보유한 데이터·장비",
+            problem: "문의 내용",
+            assets: "참고 정보",
             empty: "(미기재)",
             required: "필수 항목을 모두 입력해 주세요.",
             privacy: "개인정보 이용에 동의해 주세요."
@@ -283,8 +284,8 @@
             email: "Email",
             phone: "Phone",
             type: "Inquiry type",
-            problem: "Problem to solve",
-            assets: "Existing data & equipment",
+            problem: "Inquiry",
+            assets: "Reference details",
             empty: "(not provided)",
             required: "Please fill in all required fields.",
             privacy: "Please agree to the use of your details."

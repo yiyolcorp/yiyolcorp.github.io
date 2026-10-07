@@ -18,9 +18,16 @@ extended across the site. Where this file and the Hallmark references disagree,
 Pages within a family share the family's shape; they vary only in component
 archetypes.
 
-- **Marketing / home** — Split Studio. Alternating diptychs; every claim paired
-  with a proof column. Varies: hero archetype, enrichment tier.
-- **Section pages** (`solutions/`, `products/`, `company/`, `contact/`) — Split
+- **Marketing / home** — **Corporate Showcase** (amended 2026-10-07 at the
+  owner's request, structure studied from Korean video-security vendor sites).
+  Full-bleed graphite hero carousel over real NOX screens (counter, arrows,
+  pause) → numbered solution list driving one large graphite panel →
+  image-first product category cards → full-bleed company-values band →
+  dated blog cards → resource/contact tiles. Each block stays one heading +
+  one line; detail lives on section pages (`solutions/#compare`,
+  `solutions/#adopt`). The home is the one page allowed two dark beats (hero
+  and values band), and the nav takes its dark skin only while over the hero.
+- **Section pages** (`services/`, `solutions/`, `products/`, `company/`, `contact/`) — Split
   Studio entered through a tab rail. Page head → hairline tab rail → tab panels of
   alternating diptychs → closing CTA. Varies: which components fill the panels.
 - **Content pages** (`blog/`) — Long Document. Prose-led, single measure column,
@@ -95,7 +102,8 @@ display headings (`15ch` / `18ch`), the footer tagline (`34ch`), form fields
 
 ## Nav and footer — shared, identical on every page
 
-- **Nav: N1b** — eye mark + wordmark left · centred 4-link cluster · language + one filled CTA
+- **Nav: N1b** — eye mark + wordmark left · centred 4-link cluster (회사 · 제품 · 서비스 · 블로그,
+  set 2026-10-07; `solutions/` is reached from 서비스, not the nav) · language + one filled CTA
   right · transparent at rest, frosts on scroll (`.is-stuck`). Current section
   carries `.nav-active`.
 - **Footer: Ft1 Mast-headed** — eye mark + wordmark + tagline anchoring a band, inline link row

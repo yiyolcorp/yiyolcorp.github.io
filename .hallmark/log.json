@@ -1,5 +1,57 @@
 [
   {
+    "date": "2026-10-07",
+    "scope": "app",
+    "target": "index, products, company, 404, sitemap, llms.txt, nox-nvr*",
+    "brief": "NOX-A08 사이트 전체 비노출, 홈 순서 제품→서비스",
+    "note": "홈 히어로 3→2장, 제품 카드 2개(소프트웨어·Mobile), 제품 섹션을 서비스 앞으로. products/ A08 탭 제거, company/ 현장 장비 카드·어플라이언스 문구 제거. nox-nvr.html·nox-nvr-embed.html는 파일 유지 + noindex, 사이트맵·링크 제거. 블로그 본문 언급은 유지."
+  },
+  {
+    "date": "2026-10-07",
+    "scope": "app",
+    "target": "nav (24 pages) + services/ (new) + products/ + company/ + index.html",
+    "genre": "modern-minimal",
+    "design_system": "design.md",
+    "theme": "Cobalt (YIYOL brand-anchored)",
+    "nav": "N1b — 회사·제품·서비스·블로그 + 문의 CTA",
+    "footer": "Ft1 (link label updated)",
+    "brief": "메뉴 개편, NOX 기반 현장 맞춤 개발 서비스 페이지 신설",
+    "note": "services/: 개발 방식(NOX 기반층+현장 특화층 다이어그램), AI 분석·자동화, 외부 시스템 연동, 현장 전용 UI·기능, OEM(제품에서 이동), 진행 절차. solutions/는 'AI 적용 사례'로 유지·서비스에서 링크. products/#oem은 services/#oem으로 JS 리디렉트. 비용·기간·구축 사례는 사용자 미제공으로 기재하지 않음."
+  },
+  {
+    "date": "2026-10-07",
+    "scope": "page",
+    "target": "index.html",
+    "genre": "modern-minimal",
+    "design_system": "design.md",
+    "theme": "Cobalt (YIYOL brand-anchored)",
+    "theme_axes": "light / grotesk-sans / cool-226",
+    "macrostructure": "Corporate Showcase (studied)",
+    "studied": true,
+    "dna_source": "url: hanwhavision.com/ko, truen.co.kr — structure only",
+    "nav": "N1b (dark skin over hero)",
+    "footer": "Ft1 Mast-headed (shared)",
+    "enrichment": "full-bleed real NOX screenshots + product photo; Tier-A OEM diagram",
+    "brief": "한화비전·트루엔 홈 구조를 참조한 기업형 쇼케이스",
+    "note": "히어로 3장 캐러셀(일시정지·reduced-motion 대응), 솔루션 번호 탭(WAI-ARIA tabs), 제품 카드 4, 가치 밴드, 블로그 3건, 바로가기 3. 참조 사이트의 카피·이미지·로고·색은 사용하지 않음."
+  },
+  {
+    "date": "2026-10-07",
+    "scope": "page",
+    "target": "index.html (+ solutions/ receives moved content)",
+    "genre": "modern-minimal",
+    "design_system": "design.md",
+    "designed_as_app": true,
+    "theme": "Cobalt (YIYOL brand-anchored)",
+    "theme_axes": "light / grotesk-sans / cool-226",
+    "macrostructure": "Split Studio — overview cut",
+    "nav": "N1b (shared)",
+    "footer": "Ft1 Mast-headed (shared)",
+    "enrichment": "Tier-A CSS layer-stack diagram (hero), lane-flow diagram (band), in-house bracket, OEM nesting diagram + real product photography",
+    "brief": "홈 텍스트 부담 축소 — 회사·제품·사업을 한눈에, 상세는 하위 페이지로, 그래픽으로 완화",
+    "note": "홈 본문 문단을 섹션당 제목+한 줄+그래픽으로 압축. 7행 비교표는 solutions/#compare(graphite 밴드)로, 도입 절차 4단계는 solutions/#adopt로 이관. 파이프라인 상세(F4)와 용례 시트(F3)는 solutions/ 탭에 이미 있어 홈에서 제거하고 4개 링크로 대체. 신규 수치 0, 기존 제품 사양만 사용. 320/375/414/1024/1280 렌더 확인."
+  },
+  {
     "date": "2026-09-09",
     "scope": "copy",
     "target": "products/ — 한국어·영문 카피 레지스터 전환",

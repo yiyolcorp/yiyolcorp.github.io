@@ -36,7 +36,7 @@
     />
     <link rel="stylesheet" href="../assets/css/tokens.css?v=4" />
     <link rel="stylesheet" href="../assets/css/site.css?v=3" />
-    <link rel="stylesheet" href="../assets/css/page.css?v=3" />
+    <link rel="stylesheet" href="../assets/css/page.css?v=8" />
   </head>
   <body class="yl">
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -49,9 +49,9 @@
         </a>
         <div class="site-nav-right">
           <ul class="site-nav-links">
-            <li><a href="../company/"><span class="ko-only">회사소개</span><span class="en-only">About</span></a></li>
+            <li><a href="../company/"><span class="ko-only">회사</span><span class="en-only">Company</span></a></li>
             <li><a href="../products/"><span class="ko-only">제품</span><span class="en-only">Products</span></a></li>
-            <li><a href="../solutions/" class="nav-active"><span class="ko-only">AI 솔루션</span><span class="en-only">AI Solutions</span></a></li>
+            <li><a href="../services/" class="nav-active"><span class="ko-only">서비스</span><span class="en-only">Services</span></a></li>
             <li><a href="../blog/"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a></li>
             <li><a href="../contact/" class="nav-cta"><span class="ko-only">문의</span><span class="en-only">Contact</span></a></li>
           </ul>
@@ -539,6 +539,110 @@
         </div>
       </section>
 
+      <!-- ============ 감지형 vs 실행형 (탭과 무관하게 항상 노출) ============
+           홈에서 옮겨 온 비교표. 이 페이지의 유일한 graphite 밴드. -->
+      <section class="sv-band" id="compare">
+        <div class="sv-wrap">
+          <div class="sv-head sv-fade">
+            <div class="sv-eyebrow">Detection vs Execution</div>
+            <h2 class="ko-only">감지형 AI와 실행형 AI의 차이</h2>
+            <h2 class="en-only">Detection-only AI versus execution AI</h2>
+            <p class="ko-only">대부분의 AI 관제는 상황 검출 단계에서 종료됩니다. 후속 조치를 사람이 수행하는 구조에서는 야간·주말·인력 공백이 그대로 남습니다.</p>
+            <p class="en-only">Most AI monitoring ends at detection. Where a person must take it from there, nights, weekends, and staffing gaps remain unchanged.</p>
+          </div>
+
+          <div class="sv-compare-wrap sv-fade">
+            <table class="sv-compare">
+              <caption><span class="ko-only">일반 AI 관제와 YIYOL AI 자동화 비교</span><span class="en-only">Typical AI monitoring compared with YIYOL AI automation</span></caption>
+              <thead>
+                <tr>
+                  <th scope="col"><span class="ko-only">항목</span><span class="en-only">Item</span></th>
+                  <th scope="col"><span class="ko-only">일반 AI 관제</span><span class="en-only">Typical AI monitoring</span></th>
+                  <th scope="col" class="is-yiyol"><span class="ko-only">YIYOL AI 자동화</span><span class="en-only">YIYOL AI automation</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row"><span class="ko-only">역할</span><span class="en-only">Role</span></th>
+                  <td><span class="sv-tk"><span class="ko-only">일반 AI 관제</span><span class="en-only">Typical AI monitoring</span></span><span class="ko-only">이상을 감지해 알림을 보냄</span><span class="en-only">Detects and sends a notification</span></td>
+                  <td class="is-yiyol"><span class="sv-tk"><span class="ko-only">YIYOL AI 자동화</span><span class="en-only">YIYOL AI automation</span></span><span class="ko-only">상황을 판단하고 후속조치까지 실행</span><span class="en-only">Judges the situation and executes the follow-up</span></td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="ko-only">다루는 데이터</span><span class="en-only">Data handled</span></th>
+                  <td><span class="sv-tk"><span class="ko-only">일반 AI 관제</span><span class="en-only">Typical AI monitoring</span></span><span class="ko-only">영상 위주</span><span class="en-only">Mostly video</span></td>
+                  <td class="is-yiyol"><span class="sv-tk"><span class="ko-only">YIYOL AI 자동화</span><span class="en-only">YIYOL AI automation</span></span><span class="ko-only">영상 + 비정형 센서 + 설비 로그 + 외부 시스템</span><span class="en-only">Video + unstructured sensors + machine logs + external systems</span></td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="ko-only">판단 방식</span><span class="en-only">How it decides</span></th>
+                  <td><span class="sv-tk"><span class="ko-only">일반 AI 관제</span><span class="en-only">Typical AI monitoring</span></span><span class="ko-only">사전에 정의된 규칙과 객체 분류</span><span class="en-only">Predefined rules and object classes</span></td>
+                  <td class="is-yiyol"><span class="sv-tk"><span class="ko-only">YIYOL AI 자동화</span><span class="en-only">YIYOL AI automation</span></span><span class="ko-only">Vision AI 결과를 VLM·LLM Agent가 맥락으로 재해석</span><span class="en-only">Vision AI results re-read in context by a VLM / LLM agent</span></td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="ko-only">비정형 상황</span><span class="en-only">Irregular situations</span></th>
+                  <td><span class="sv-tk"><span class="ko-only">일반 AI 관제</span><span class="en-only">Typical AI monitoring</span></span><span class="ko-only">규칙에 없으면 놓침</span><span class="en-only">Missed if no rule covers it</span></td>
+                  <td class="is-yiyol"><span class="sv-tk"><span class="ko-only">YIYOL AI 자동화</span><span class="en-only">YIYOL AI automation</span></span><span class="ko-only">자연어로 정의한 상황까지 인식</span><span class="en-only">Recognizes situations described in plain language</span></td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="ko-only">사람의 역할</span><span class="en-only">The human's role</span></th>
+                  <td><span class="sv-tk"><span class="ko-only">일반 AI 관제</span><span class="en-only">Typical AI monitoring</span></span><span class="ko-only">알림을 하나씩 확인하고 직접 조치</span><span class="en-only">Reviews every alert and acts manually</span></td>
+                  <td class="is-yiyol"><span class="sv-tk"><span class="ko-only">YIYOL AI 자동화</span><span class="en-only">YIYOL AI automation</span></span><span class="ko-only">예외만 처리, 나머지는 자동 진행</span><span class="en-only">Handles exceptions only; the rest runs itself</span></td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="ko-only">남는 것</span><span class="en-only">What you're left with</span></th>
+                  <td><span class="sv-tk"><span class="ko-only">일반 AI 관제</span><span class="en-only">Typical AI monitoring</span></span><span class="ko-only">이벤트 로그</span><span class="en-only">An event log</span></td>
+                  <td class="is-yiyol"><span class="sv-tk"><span class="ko-only">YIYOL AI 자동화</span><span class="en-only">YIYOL AI automation</span></span><span class="ko-only">실행된 조치 이력 + 판단 근거 기록</span><span class="en-only">A record of actions taken, with the reasoning behind each</span></td>
+                </tr>
+                <tr>
+                  <th scope="row"><span class="ko-only">데이터 위치</span><span class="en-only">Where data lives</span></th>
+                  <td><span class="sv-tk"><span class="ko-only">일반 AI 관제</span><span class="en-only">Typical AI monitoring</span></span><span class="ko-only">클라우드 전송이 전제인 경우가 많음</span><span class="en-only">Often assumes upload to the cloud</span></td>
+                  <td class="is-yiyol"><span class="sv-tk"><span class="ko-only">YIYOL AI 자동화</span><span class="en-only">YIYOL AI automation</span></span><span class="ko-only">영상·데이터는 고객 장비(온프레미스)에 보관</span><span class="en-only">Video and data stay on your own hardware (on-prem)</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 도입 절차 (탭과 무관하게 항상 노출) ============ -->
+      <section class="sv-section" id="adopt">
+        <div class="sv-wrap">
+          <div class="sv-head sv-fade">
+            <div class="sv-eyebrow">Adoption</div>
+            <h2 class="ko-only">도입 절차</h2>
+            <h2 class="en-only">How adoption proceeds</h2>
+            <p class="ko-only">제품 소개에 앞서 어떤 상황이 문제인지, 그 상황에서 무엇이 실행되어야 하는지부터 함께 정리합니다.</p>
+            <p class="en-only">Before any product is presented, we establish with you which situation is the problem and what should happen when it occurs.</p>
+          </div>
+
+          <ol class="sv-steps sv-fade">
+            <li class="sv-step">
+              <span class="sv-step-no">01</span>
+              <h3 class="ko-only">문제 정의</h3><h3 class="en-only">Define the problem</h3>
+              <p class="ko-only">검출 대상 상황과 검출 시 수행할 조치를 현업과 함께 구체화합니다.</p>
+              <p class="en-only">Work with your operators to pin down which situations must be caught, and what should happen when they are.</p>
+            </li>
+            <li class="sv-step">
+              <span class="sv-step-no">02</span>
+              <h3 class="ko-only">PoC 검증</h3><h3 class="en-only">Prove it</h3>
+              <p class="ko-only">실제 현장 데이터로 판단 정확도를 검증합니다. 오탐·미탐 수준을 확인하신 후 도입 여부를 결정하실 수 있습니다.</p>
+              <p class="en-only">Accuracy is validated against your real data. The false-positive and miss rates are reviewed before any commitment.</p>
+            </li>
+            <li class="sv-step">
+              <span class="sv-step-no">03</span>
+              <h3 class="ko-only">구축 · 연동</h3><h3 class="en-only">Build &amp; integrate</h3>
+              <p class="ko-only">카메라·센서·설비와 기간계 시스템을 연결하고, 상황별 후속조치를 정의해 자동화합니다.</p>
+              <p class="en-only">Connect cameras, sensors, machines, and back-office systems, then define and automate the follow-up per situation.</p>
+            </li>
+            <li class="sv-step">
+              <span class="sv-step-no">04</span>
+              <h3 class="ko-only">운영 · 개선</h3><h3 class="en-only">Operate &amp; improve</h3>
+              <p class="ko-only">운영 중 발생한 오탐·미탐을 반영해 판단 기준과 조치 시나리오를 지속 보완합니다.</p>
+              <p class="en-only">Feed real misses and false alarms back in, and keep refining both the judgment criteria and the action scenarios.</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
       <!-- ============ 적용 산업 (탭과 무관하게 항상 노출) ============ -->
       <section class="sv-section alt">
         <div class="sv-wrap">
@@ -606,10 +710,10 @@
             <p class="yl-foot-tag en-only">NVR and VMS that store and manage your video — and the AI automation built on top of it.</p>
           </div>
           <nav class="yl-foot-links" aria-label="Footer navigation">
-            <a href="../company/"><span class="ko-only">회사소개</span><span class="en-only">About</span></a>
+            <a href="../company/"><span class="ko-only">회사</span><span class="en-only">Company</span></a>
             <a href="../products/"><span class="ko-only">제품</span><span class="en-only">Products</span></a>
             <a href="/api/"><span class="ko-only">API 문서</span><span class="en-only">API Docs</span></a>
-            <a href="../solutions/"><span class="ko-only">AI 솔루션</span><span class="en-only">AI Solutions</span></a>
+            <a href="../services/"><span class="ko-only">서비스</span><span class="en-only">Services</span></a>
             <a href="../blog/"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a>
             <a href="../contact/"><span class="ko-only">문의</span><span class="en-only">Contact</span></a>
           </nav>
