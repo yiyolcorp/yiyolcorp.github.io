@@ -182,7 +182,21 @@
 
       <img src="/img/blog/ai-chat-video-search/chat-result-playback.png" alt="Chat screen with the question on the left and recording playback in the result area on the right" width="1280" height="720" loading="lazy" />
 
-      <p>Administrators enter an API key and a model at Settings &gt; Services &gt; Chat, consent to external transmission, and then turn chat on.</p>
+      <h2>Turning Chat On: Administrator Settings</h2>
+
+      <p>Administrators turn chat on at Settings &gt; Services &gt; Chat. Choose Anthropic (Claude API) as the provider, enter your own API key, load the model list, and pick a model. Keys are stored encrypted and are not shown again after saving.</p>
+
+      <img src="/img/blog/ai-chat-video-search/chat-settings-consent.png" alt="Settings &gt; Services &gt; Chat screen with the chat switch, provider, saved API key field, model selector, and external transmission consent checkbox" width="1136" height="732" loading="lazy" />
+
+      <p>Chat stays off until the external transmission consent box is checked. The consent text says that question text, conversation history, camera names, the interpreted time, and whether video exists are sent to the provider, while video, images, license plates, and personal information are not. License plates or appearance descriptions typed into a question are part of the question text, so they are sent.</p>
+
+      <h2>Notes from Development</h2>
+
+      <p>The most useful lesson from building chat was that understanding a question and actually opening the video are two different things. At first, a question counted as a success as soon as the camera and time were resolved, so for a query with no recording, the answer text and the next-action button did not match. Now the outcome depends on whether the playback screen actually opened. Even if the answer says the video was opened, check the per-camera playback result on the result card.</p>
+
+      <p>The same device can also connect as an MCP server. Once registered in Claude Code or Claude Desktop, an AI agent can query the device read-only, and no tool changes device state. Like chat, MCP is an ENTERPRISE edition feature and cannot be used on devices with NIS security mode enabled.</p>
+
+      <p>We also remember the first day we connected Claude Code to a real device. When we asked about gaps in recordings, the recording-coverage tool and the playback-link tool gave conflicting answers. Claude Code did not repeat that all recordings were empty. Instead, it pointed out that the two results contradicted each other. The cause was a single timezone conversion in one query, and it was fixed before release. The full story is in the <a href="/en/blog/nox-mcp-server-development-log.html">MCP server development log</a>.</p>
 
       <h2>Current Support</h2>
 
