@@ -57,7 +57,7 @@ body.yl-home .site-nav:not(.is-stuck) .nav-hamburger { color: var(--color-on-dar
   transition: opacity var(--dur-reveal) var(--ease-out);
 }
 .yl-hero.has-video .yl-hero-video { opacity: 1; }
-.yl-hero.has-video .yl-slide-bg { display: none; }
+.yl-hero.has-video .yl-slide:not(.yl-slide--film) .yl-slide-bg { display: none; }
 .yl-slide {
   opacity: 0;
   visibility: hidden;
@@ -135,6 +135,112 @@ body.yl-home .yl-slide-title {
 .yl-slide-btn:hover { background: var(--color-accent-bright); border-color: var(--color-accent-bright); color: var(--color-graphite); }
 .yl-slide-btn:hover span[aria-hidden] { transform: translateX(3px); }
 
+/* AI chat slide — own film over its poster, chat card on the clear right */
+.yl-slide-film {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity var(--dur-reveal) var(--ease-out);
+}
+.yl-slide--film.is-playing .yl-slide-film { opacity: 1; }
+.yl-chat-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: var(--nav-h);
+  padding-bottom: var(--space-2xl);
+  pointer-events: none;
+}
+.yl-chat {
+  width: min(24rem, 38%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-xs);
+  padding: var(--space-md);
+  border: var(--rule-hair) solid var(--color-graphite-rule);
+  border-radius: var(--radius-card);
+  background: var(--color-graphite-veil);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--color-on-dark);
+  transition: opacity var(--dur-reveal) var(--ease-out);
+}
+.yl-chat-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  margin-bottom: var(--space-2xs);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  color: var(--color-on-dark-2);
+}
+.yl-chat-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent-bright);
+}
+.yl-chat-msg {
+  max-width: 88%;
+  padding: var(--space-2xs) var(--space-sm);
+  border-radius: var(--radius-card);
+  background: oklch(32% 0.02 252 / 0.9);
+}
+.yl-chat-msg--me {
+  align-self: flex-end;
+  background: var(--color-accent-bright);
+  color: var(--color-graphite);
+  font-weight: 500;
+}
+.yl-chat-typing { display: inline-flex; gap: 4px; padding-block: var(--space-xs); }
+.yl-chat-typing i {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--color-on-dark-2);
+  animation: yl-typing 1s ease-in-out infinite;
+}
+.yl-chat-typing i:nth-child(2) { animation-delay: 150ms; }
+.yl-chat-typing i:nth-child(3) { animation-delay: 300ms; }
+@keyframes yl-typing { 50% { opacity: 0.25; transform: translateY(-2px); } }
+.yl-chat-result {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  border: var(--rule-hair) solid var(--color-accent-bright);
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-mono);
+}
+.yl-chat-play { color: var(--color-accent-bright); }
+.yl-chat-live { color: var(--color-accent-bright); }
+.yl-chat-note {
+  margin-top: var(--space-2xs);
+  font-size: var(--text-xs);
+  color: var(--color-on-dark-2);
+}
+/* without the film (reduced motion, data saver, load failure) every line
+   shows; while it plays, lines enter on their film cue. The typing dots only
+   make sense in motion. */
+.yl-slide--film:not(.is-playing) .yl-chat-typing { display: none; }
+.yl-slide--film.is-playing [data-at] {
+  transition: opacity var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
+}
+.yl-slide--film.is-playing [data-at]:not(.is-on) {
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+}
+.yl-slide--film.is-playing .yl-chat-typing:not(.is-on) { display: none; }
+
 /* controls — counter with progress bar, arrows, pause */
 .yl-hero-ctrl {
   position: absolute;
@@ -169,7 +275,8 @@ body.yl-home .yl-slide-title {
   transform: scaleX(0);
   transform-origin: left;
 }
-.yl-hero.is-running .yl-count-bar span { animation: yl-progress 6500ms linear forwards; }
+.yl-hero.is-running .yl-count-bar span { animation: yl-progress var(--yl-slide-ms, 6500ms) linear forwards; }
+.yl-hero.is-film .yl-count-bar span { transform: scaleX(var(--yl-film-p, 0)); transition: transform 250ms linear; }
 .yl-hero.is-paused .yl-count-bar span { transform: scaleX(1); }
 @keyframes yl-progress { to { transform: scaleX(1); } }
 
@@ -569,6 +676,11 @@ body.yl-home .yl-values h2 { margin-top: var(--space-2xs); font-size: var(--text
   .yl-values-list li, .yl-values-list li + li { padding: var(--space-md) 0; border-left: 0; }
   .yl-values-list li + li { border-top: var(--rule-hair) solid var(--color-graphite-rule); }
   .yl-scroll { display: none; }
+  /* chat slide: headline up top, chat card above the controls */
+  .yl-slide--film .yl-slide-body { justify-content: flex-start; padding-top: calc(var(--nav-h) + var(--space-xl)); }
+  .yl-chat-wrap { align-items: flex-end; justify-content: stretch; padding-bottom: calc(var(--space-xl) + 3.5rem); }
+  .yl-chat { width: 100%; max-width: 26rem; margin-left: auto; }
+  .yl-chat-note { display: none; }
 }
 
 @media (max-width: 640px) {
@@ -586,46 +698,136 @@ body.yl-home .yl-values h2 { margin-top: var(--space-2xs); font-size: var(--text
 }
 
 /* ============================================================
-   First-screen notice — one-time AI chat announcement
+   First-screen notice — centred modal carrying the trial (lead) and the
+   AI chat feature. Native <dialog>: focus trap, Esc and ::backdrop come free.
    ============================================================ */
-.yl-chat-notice {
-  position: fixed;
-  right: var(--space-md);
-  bottom: var(--space-md);
-  z-index: 1200;
-  display: grid;
-  gap: var(--space-xs);
-  width: min(22rem, calc(100vw - 2 * var(--space-md)));
-  padding: var(--space-md);
-  background: var(--color-paper);
+html:has(.yl-notice[open]) { overflow: hidden; }
+.yl-notice {
+  width: min(46rem, calc(100vw - 2 * var(--space-md)));
+  max-width: none;
+  max-height: calc(100dvh - 2 * var(--space-md));
+  margin: auto;
+  padding: 0;
+  overflow: auto;
   color: var(--color-ink);
-  border: var(--rule-hair) solid var(--color-rule);
+  background: var(--color-paper);
+  border: 0;
   border-radius: var(--radius-card);
-  box-shadow: var(--shadow-pop);
+  box-shadow: var(--shadow-dark);
   word-break: keep-all;
 }
-.yl-chat-notice[hidden] { display: none; }
-.yl-chat-notice:focus { outline: none; }
-.yl-chat-notice-k { margin: 0; font-size: var(--text-xs); color: var(--color-muted); }
-.yl-chat-notice-t { margin: 0; font-size: var(--text-md); font-weight: 600; line-height: 1.4; }
-.yl-chat-notice-d { margin: 0; font-size: var(--text-sm); line-height: 1.6; color: var(--color-muted); }
-.yl-chat-notice-actions {
+.yl-notice::backdrop {
+  background: var(--color-graphite-veil);
+  backdrop-filter: blur(3px);
+}
+.yl-notice[open] { animation: yl-notice-in var(--dur-mid) var(--ease-out); }
+.yl-notice[open]::backdrop { animation: yl-notice-fade var(--dur-mid) var(--ease-out); }
+@keyframes yl-notice-in { from { opacity: 0; transform: translateY(12px); } }
+@keyframes yl-notice-fade { from { opacity: 0; } }
+body.yl .yl-notice:focus,
+body.yl .yl-notice:focus-visible { outline: none; }
+
+.yl-notice-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-sm);
-  margin-top: var(--space-2xs);
+  padding: var(--space-xs) var(--space-xs) var(--space-xs) var(--space-md);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
 }
-.yl-chat-notice-close {
-  padding: var(--space-2xs) var(--space-sm);
-  color: var(--color-ink);
-  background: var(--color-paper);
-  border: var(--rule-hair) solid var(--color-rule);
+.yl-notice-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  margin: 0;
+  font-size: var(--text-md);
+  font-weight: 600;
+}
+.yl-notice-x {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  color: var(--color-muted);
+  background: none;
+  border: 0;
   border-radius: var(--radius-ctl);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
 }
-.yl-chat-notice-close:hover { background: var(--color-accent-wash); }
-.yl-chat-notice-close:focus-visible,
-.yl-chat-notice .yl-link:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.yl-notice-x svg { width: 1.25rem; height: 1.25rem; }
+.yl-notice-x:hover { color: var(--color-ink); background: var(--color-paper-3); }
+.yl-notice-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.yl-notice-items { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.yl-notice-item { display: flex; flex-direction: column; min-width: 0; }
+.yl-notice-item + .yl-notice-item { border-left: var(--rule-hair) solid var(--color-rule); }
+.yl-notice-media {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--color-graphite);
+}
+.yl-notice-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.yl-notice-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  padding: var(--space-md);
+}
+.yl-notice-body h3 { margin: 0; font-size: var(--text-lg); font-weight: 600; line-height: 1.35; }
+.yl-notice-body p { margin: 0; font-size: var(--text-sm); line-height: 1.65; color: var(--color-ink-2); }
+.yl-notice-body .yl-label { color: var(--color-muted); }
+.yl-notice-body .yl-label--accent { color: var(--color-accent); }
+.yl-notice-go { margin-top: auto; padding-top: var(--space-xs); }
+
+.yl-notice-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: var(--space-2xs) var(--space-md);
+  background: var(--color-paper-2);
+  border-top: var(--rule-hair) solid var(--color-rule);
+}
+.yl-notice-text-btn {
+  padding: var(--space-2xs) 0;
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.yl-notice-text-btn:hover { color: var(--color-ink); text-decoration: underline; text-underline-offset: 3px; }
+.yl-notice-x:focus-visible,
+.yl-notice-text-btn:focus-visible,
+.yl-notice .yl-btn:focus-visible,
+.yl-notice .yl-link:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+
+/* Phones: a bottom sheet, the two items stacked, only the lead keeps its picture */
 @media (max-width: 640px) {
-  .yl-chat-notice { left: var(--space-sm); right: var(--space-sm); bottom: var(--space-sm); width: auto; }
+  .yl-notice {
+    width: 100vw;
+    max-height: 88dvh;
+    margin: auto 0 0;
+    border-radius: var(--radius-card) var(--radius-card) 0 0;
+  }
+  .yl-notice-items { grid-template-columns: minmax(0, 1fr); }
+  .yl-notice-item + .yl-notice-item { border-left: 0; border-top: var(--rule-hair) solid var(--color-rule); }
+  .yl-notice-media { aspect-ratio: 21 / 9; }
+  .yl-notice-item + .yl-notice-item .yl-notice-media { display: none; }
+  .yl-notice-body { padding: var(--space-sm) var(--space-md); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .yl-notice[open],
+  .yl-notice[open]::backdrop { animation: yl-notice-fade var(--dur-fast) linear; }
 }

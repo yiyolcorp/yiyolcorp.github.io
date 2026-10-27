@@ -96,7 +96,7 @@
     />
     <link rel="stylesheet" href="assets/css/tokens.css?v=4" />
     <link rel="stylesheet" href="assets/css/site.css?v=3" />
-    <link rel="stylesheet" href="assets/css/home.css?v=12" />
+    <link rel="stylesheet" href="assets/css/home.css?v=14" />
 
 <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
@@ -131,6 +131,18 @@
             "@type": "Service",
             "name": "NOX 소프트웨어 (NVR · VMS)",
             "description": "카메라 영상을 온프레미스로 저장·검색·관리하는 NVR·VMS 소프트웨어. 소프트웨어 단독 또는 파트너 장비 탑재로 공급합니다."
+          }
+        },
+        {
+          "@type": "Offer",
+          "name": "NOX 평가판",
+          "url": "https://yiyol.com/products/#trial",
+          "description": "신청한 채널 수(최대 16채널)로 30일 라이선스를 발급하는 NOX 소프트웨어 평가판. 설치 파일(ISO)을 받아 직접 설치합니다.",
+          "itemOffered": {
+            "@type": "SoftwareApplication",
+            "name": "NOX 소프트웨어 (NVR · VMS)",
+            "operatingSystem": "Ubuntu 24.04 LTS",
+            "applicationCategory": "BusinessApplication"
           }
         },
         {
@@ -195,17 +207,17 @@
     </nav>
 
     <!-- Hero — full-bleed carousel over real NOX screens. Three slides, one
-         per business line. Crossfade only; autoplay pauses on hover, focus,
+         per business line, then the AI chat film. Crossfade only; autoplay pauses on hover, focus,
          the pause button, and prefers-reduced-motion. -->
     <section class="yl-hero" id="hero" aria-roledescription="carousel" aria-label="YIYOL">
-      <!-- Background film — shared by every slide. Until it can play (file
+      <!-- Background film — shared by the first two slides. Until it can play (file
            missing, slow network, reduced motion) the per-slide stills show. -->
       <video class="yl-hero-video" muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1">
         <source src="assets/video/hero.webm" type="video/webm" />
         <source src="assets/video/hero.mp4" type="video/mp4" />
       </video>
       <div class="yl-slides">
-        <article class="yl-slide is-active" role="group" aria-roledescription="slide" aria-label="1 / 2">
+        <article class="yl-slide is-active" role="group" aria-roledescription="slide" aria-label="1 / 3">
           <img class="yl-slide-bg" src="img/home/hero-poster.jpg" alt="" width="1920" height="1080" fetchpriority="high" />
           <div class="yl-shell yl-slide-body">
             <p class="yl-slide-k">NOX Software · NVR / VMS</p>
@@ -216,7 +228,7 @@
           </div>
         </article>
 
-        <article class="yl-slide" role="group" aria-roledescription="slide" aria-label="2 / 2">
+        <article class="yl-slide" role="group" aria-roledescription="slide" aria-label="2 / 3">
           <img class="yl-slide-bg" src="img/home/hero-poster-2.jpg" alt="" width="1920" height="1080" loading="lazy" />
           <div class="yl-shell yl-slide-body">
             <p class="yl-slide-k">Services</p>
@@ -227,10 +239,38 @@
           </div>
         </article>
 
+        <!-- AI chat — its own 20s film, played once per visit to the slide.
+             The chat card replays the film's story; each line carries the
+             film time (s) it appears at. Without the film every line shows. -->
+        <article class="yl-slide yl-slide--film" role="group" aria-roledescription="slide" aria-label="3 / 3">
+          <img class="yl-slide-bg" src="img/home/hero-poster-ai-chat.jpg" alt="" width="1920" height="1080" loading="lazy" />
+          <video class="yl-slide-film" muted playsinline preload="none" aria-hidden="true" tabindex="-1">
+            <source src="assets/video/hero-ai-chat.webm" type="video/webm" />
+            <source src="assets/video/hero-ai-chat.mp4" type="video/mp4" />
+          </video>
+          <div class="yl-shell yl-slide-body" data-at="0">
+            <p class="yl-slide-k">NOX AI Chat</p>
+            <h2 class="yl-slide-title"><span class="ko-only">말로 물으면,<br />영상이 열립니다</span><span class="en-only">Just ask.<br />The video opens.</span></h2>
+            <p class="yl-slide-sub ko-only">카메라 이름과 시각을 문장으로 입력하면 AI 채팅이 해당 녹화를 바로 재생합니다.</p>
+            <p class="yl-slide-sub en-only">Type a camera name and a time in a sentence, and AI Chat plays that recording right away.</p>
+            <a href="blog/ai-chat-video-search.html" class="yl-slide-btn"><span class="ko-only">AI 채팅 알아보기</span><span class="en-only">About AI Chat</span><span aria-hidden="true">→</span></a>
+          </div>
+          <div class="yl-shell yl-chat-wrap">
+            <div class="yl-chat" data-at="0.6">
+              <p class="yl-chat-head"><span class="yl-chat-dot" aria-hidden="true"></span>NOX · <span class="ko-only">AI 채팅</span><span class="en-only">AI Chat</span></p>
+              <p class="yl-chat-msg yl-chat-msg--me" data-at="1"><span class="ko-only">어제 오전 9시 30분 현관 영상 보여줘</span><span class="en-only">Show me yesterday's 9:30 AM entrance footage</span></p>
+              <p class="yl-chat-msg yl-chat-typing" data-at="3" data-until="5.6" aria-hidden="true"><i></i><i></i><i></i></p>
+              <p class="yl-chat-msg yl-chat-msg--ai" data-at="5.6"><span class="ko-only">‘현관’ 카메라의 어제 09:30 녹화를 열었습니다.</span><span class="en-only">Opened yesterday's 09:30 recording from the “Entrance” camera.</span></p>
+              <p class="yl-chat-msg yl-chat-result" data-at="8"><span class="yl-chat-play" aria-hidden="true">▶</span><span><span class="ko-only">현관</span><span class="en-only">Entrance</span> · 09:30:00</span><span class="yl-chat-live"><span class="ko-only">재생 중</span><span class="en-only">Playing</span></span></p>
+              <p class="yl-chat-note" data-at="11"><span class="ko-only">메뉴·카메라 선택·시각 맞추기를 질문 한 줄로</span><span class="en-only">Menus, camera picking, and time-seeking in one question</span></p>
+            </div>
+          </div>
+        </article>
+
       </div>
 
       <div class="yl-shell yl-hero-ctrl">
-        <span class="yl-count"><b class="yl-count-now">01</b><span class="yl-count-bar"><span></span></span><span class="yl-count-all">02</span></span>
+        <span class="yl-count"><b class="yl-count-now">01</b><span class="yl-count-bar"><span></span></span><span class="yl-count-all">03</span></span>
         <button class="yl-ctrl" type="button" data-dir="-1" aria-label="이전 슬라이드"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5" /></svg></button>
         <button class="yl-ctrl" type="button" data-dir="1" aria-label="다음 슬라이드"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m6 3 5 5-5 5" /></svg></button>
         <button class="yl-ctrl yl-ctrl--pause" type="button" aria-label="자동 재생 정지" aria-pressed="false"><svg class="i-pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 3.5v9M10.5 3.5v9" /></svg><svg class="i-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7-4.5z" /></svg></button>
@@ -448,48 +488,87 @@
       </div>
     </footer>
 
-    <aside class="yl-chat-notice" data-chat-notice hidden tabindex="-1" role="dialog" aria-labelledby="yl-chat-notice-title" aria-describedby="yl-chat-notice-desc">
-      <p class="yl-chat-notice-k"><span class="ko-only">새 기능</span><span class="en-only">New feature</span></p>
-      <h2 class="yl-chat-notice-t" id="yl-chat-notice-title"><span class="ko-only">메뉴 대신 말로 영상을 찾습니다</span><span class="en-only">Find video by asking, not by menus</span></h2>
-      <p class="yl-chat-notice-d" id="yl-chat-notice-desc"><span class="ko-only">AI 채팅에 카메라 이름과 시각을 문장으로 입력하면 해당 녹화를 바로 재생합니다. ENTERPRISE 에디션에서 쓸 수 있으며, 현재는 Anthropic(Claude API)만 지원합니다.</span><span class="en-only">Type a camera name and a time into AI chat, and the matching recording plays right away. Available in the ENTERPRISE edition; currently only Anthropic (Claude API) is supported.</span></p>
-      <div class="yl-chat-notice-actions">
-        <a class="yl-link" href="blog/ai-chat-video-search.html" data-chat-notice-link><span class="ko-only">글 읽기</span><span class="en-only">Read the post</span><span class="yl-arrow" aria-hidden="true">→</span></a>
-        <button type="button" class="yl-chat-notice-close" data-chat-notice-close><span class="ko-only">닫기</span><span class="en-only">Close</span></button>
+    <dialog class="yl-notice" data-notice aria-labelledby="yl-notice-title" tabindex="-1">
+      <div class="yl-notice-head">
+        <h2 class="yl-notice-title" id="yl-notice-title">
+          <img src="assets/yiyol-mark.png" alt="" width="22" height="16" />
+          <span class="ko-only">YIYOL 소식</span><span class="en-only">What's new at YIYOL</span>
+        </h2>
+        <button type="button" class="yl-notice-x" data-notice-close>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+          <span class="yl-notice-sr"><span class="ko-only">닫기</span><span class="en-only">Close</span></span>
+        </button>
       </div>
-    </aside>
+      <div class="yl-notice-items">
+        <article class="yl-notice-item">
+          <div class="yl-notice-media"><img src="img/home/notice-trial.jpg" alt="" width="720" height="405" loading="lazy" /></div>
+          <div class="yl-notice-body">
+            <p class="yl-label yl-label--accent"><span class="ko-only">평가판</span><span class="en-only">Trial</span></p>
+            <h3><span class="ko-only">최대 16채널, 30일 동안 써 보세요</span><span class="en-only">Try NOX on up to 16 channels for 30 days</span></h3>
+            <p><span class="ko-only">설치 파일을 받아 직접 설치하고, 신청하신 채널 수로 30일 라이선스를 발급해 드립니다.</span><span class="en-only">Install NOX yourself from our installer, and we issue a 30-day license for the channel count you request.</span></p>
+            <div class="yl-notice-go">
+              <a class="yl-btn yl-btn--primary" href="/products/#trial"><span class="ko-only">평가판 신청하기</span><span class="en-only">Request a trial</span></a>
+            </div>
+          </div>
+        </article>
+        <article class="yl-notice-item">
+          <div class="yl-notice-media"><img src="img/home/notice-chat.jpg" alt="" width="720" height="405" loading="lazy" /></div>
+          <div class="yl-notice-body">
+            <p class="yl-label"><span class="ko-only">새 기능</span><span class="en-only">New feature</span></p>
+            <h3><span class="ko-only">메뉴 대신 말로 영상을 찾습니다</span><span class="en-only">Find video by asking, not by menus</span></h3>
+            <p><span class="ko-only">AI 채팅에 카메라 이름과 시각을 문장으로 입력하면 해당 녹화를 바로 재생합니다. ENTERPRISE 에디션에서 쓸 수 있으며, 현재는 Anthropic(Claude API)만 지원합니다.</span><span class="en-only">Type a camera name and a time into AI chat, and the matching recording plays right away. Available in the ENTERPRISE edition; currently only Anthropic (Claude API) is supported.</span></p>
+            <div class="yl-notice-go">
+              <a class="yl-link" href="/blog/ai-chat-video-search.html"><span class="ko-only">글 읽기</span><span class="en-only">Read the post</span><span class="yl-arrow" aria-hidden="true">→</span></a>
+            </div>
+          </div>
+        </article>
+      </div>
+      <div class="yl-notice-foot">
+        <button type="button" class="yl-notice-text-btn" data-notice-today><span class="ko-only">오늘 하루 보지 않기</span><span class="en-only">Don't show again today</span></button>
+        <button type="button" class="yl-notice-text-btn" data-notice-close><span class="ko-only">닫기</span><span class="en-only">Close</span></button>
+      </div>
+    </dialog>
 
     <script>
       (function () {
-        var KEY = 'yiyol.aiChatNotice.v1';
-        var box = document.querySelector('[data-chat-notice]');
-        if (!box) return;
+        var dlg = document.querySelector('[data-notice]');
+        if (!dlg || typeof dlg.showModal !== 'function') return;
 
-        var stored = null;
-        try { stored = window.localStorage.getItem(KEY); } catch (e) {}
-        if (stored === '1') return;
+        // 첫 페이지에 올 때마다 띄운다. "오늘 하루 보지 않기"를 누른 경우에만 날짜가 바뀔 때까지 숨긴다.
+        var DAY_KEY = 'yiyol.notice.hiddenOn';
+        var now = new Date();
+        var today = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
 
-        function remember() {
-          try { window.localStorage.setItem(KEY, '1'); } catch (e) {}
+        function read(store, key) {
+          try { return window[store].getItem(key); } catch (e) { return null; }
         }
-        function onKey(e) {
-          if (e.key === 'Escape') dismiss();
+        function write(store, key, value) {
+          try { window[store].setItem(key, value); } catch (e) {}
         }
-        function dismiss() {
-          remember();
-          document.removeEventListener('keydown', onKey);
-          box.hidden = true;
-        }
+        try { window.localStorage.removeItem('yiyol.aiChatNotice.v1'); } catch (e) {}
 
-        box.hidden = false;
-        box.focus({ preventScroll: true });
-        document.addEventListener('keydown', onKey);
-        box.querySelector('[data-chat-notice-close]').addEventListener('click', dismiss);
-        box.querySelector('[data-chat-notice-link]').addEventListener('click', remember);
+        if (read('localStorage', DAY_KEY) === today) return;
+
+        // 바깥(배경)을 누르면 닫는다. 내용 영역 클릭은 dialog 자신이 아닌 자식이 target 이 된다.
+        dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+        dlg.querySelectorAll('[data-notice-close]').forEach(function (btn) {
+          btn.addEventListener('click', function () { dlg.close(); });
+        });
+        dlg.querySelector('[data-notice-today]').addEventListener('click', function () {
+          write('localStorage', DAY_KEY, today);
+          dlg.close();
+        });
+
+        setTimeout(function () {
+          dlg.showModal();
+          // showModal 은 첫 버튼(X)에 포커스를 줘서 테두리가 보이므로, 대화상자 자체로 옮긴다
+          dlg.focus();
+        }, 900);
       })();
     </script>
 
     <script src="assets/js/i18n.js?v=5"></script>
-    <script src="assets/js/yiyol-tabs.js?v=1"></script>
+    <script src="assets/js/yiyol-tabs.js?v=2"></script>
 
     <script>
       (function () {
@@ -513,14 +592,56 @@
           var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
           var i = 0, timer = null, paused = reduce, hold = false;
           var film = hero.querySelector(".yl-hero-video");
+          var saveData = navigator.connection && navigator.connection.saveData;
+          var canFilm = !reduce && !saveData;
           if (film) {
             film.addEventListener("playing", function () { hero.classList.add("has-video"); });
-            var saveData = navigator.connection && navigator.connection.saveData;
-            if (!reduce && !saveData) {
+            if (canFilm) {
               var p = film.play();
               if (p && p.catch) p.catch(function () {});   // no file yet, or autoplay blocked: stills stay
             }
           }
+
+          // AI chat slide — its film sets the slide's length (advance on
+          // "ended") and cues the chat lines. If it can't play, the poster and
+          // every chat line show and the slide runs on a plain timer.
+          var chatSlide = hero.querySelector(".yl-slide--film");
+          var chat = chatSlide && chatSlide.querySelector(".yl-slide-film");
+          var chatOk = !!chat && canFilm;
+          var lines = chatSlide ? chatSlide.querySelectorAll("[data-at]") : [];
+          var CHAT_END = 17.4;                   // film's NOX end card: headline and chat step aside
+          function onChat() { return slides[i] === chatSlide; }
+          function cue(t) {
+            lines.forEach(function (l) {
+              var until = l.dataset.until ? Number(l.dataset.until) : CHAT_END;
+              l.classList.toggle("is-on", t >= Number(l.dataset.at) && t < until);
+            });
+          }
+          function chatFailed(e) {
+            if (e && e.name === "AbortError") return;   // play() cut short by pause(): not a failure
+            chatOk = false;
+            chatSlide.classList.remove("is-playing");
+            hero.classList.toggle("is-film", false);
+            if (onChat()) restart();
+          }
+          function playChat() {
+            var p = chat.play();
+            if (p && p.catch) p.catch(chatFailed);
+          }
+          if (chat) {
+            var srcs = chat.querySelectorAll("source");
+            if (srcs.length) srcs[srcs.length - 1].addEventListener("error", chatFailed);
+            chat.addEventListener("playing", function () { chatSlide.classList.add("is-playing"); });
+            chat.addEventListener("timeupdate", function () {
+              cue(chat.currentTime);
+              if (chat.duration) hero.style.setProperty("--yl-film-p", chat.currentTime / chat.duration);
+            });
+            chat.addEventListener("ended", function () {
+              cue(chat.duration);
+              if (onChat() && !paused && !hold) show(i + 1);
+            });
+          }
+
           function show(n) {
             i = (n + slides.length) % slides.length;
             slides.forEach(function (s, k) {
@@ -530,15 +651,42 @@
               if ("inert" in s) s.inert = !on;
             });
             if (now) now.textContent = ("0" + (i + 1)).slice(-2);
+            if (chatOk) {
+              // start fetching one slide ahead so the film is ready on arrival
+              if (slides[(i + 1) % slides.length] === chatSlide && chat.preload !== "auto") {
+                chat.preload = "auto";
+                chat.load();
+              }
+              if (onChat()) {
+                if (chat.readyState) chat.currentTime = 0;
+                cue(0);
+                hero.style.setProperty("--yl-film-p", 0);
+                if (!paused) playChat();
+              } else {
+                chat.pause();
+              }
+            }
+            // the shared film rests while the chat film runs
+            if (film && hero.classList.contains("has-video")) {
+              if (onChat() || paused) film.pause(); else film.play().catch(function () {});
+            }
+            hero.classList.toggle("is-film", onChat() && chatOk);
             restart();
           }
           function restart() {
             clearTimeout(timer);
             hero.classList.remove("is-running");
             if (paused || hold) return;
+            if (onChat() && chatOk) {
+              // the film's "ended" advances; if it ended while held, move on now
+              if (chat.ended) timer = setTimeout(function () { show(i + 1); }, 800);
+              return;
+            }
+            var ms = onChat() ? 9000 : 6500;     // static chat slide: time to read the lines
+            hero.style.setProperty("--yl-slide-ms", ms + "ms");
             void hero.offsetWidth;               // restart the progress bar
             hero.classList.add("is-running");
-            timer = setTimeout(function () { show(i + 1); }, 6500);
+            timer = setTimeout(function () { show(i + 1); }, ms);
           }
           hero.querySelectorAll(".yl-ctrl[data-dir]").forEach(function (b) {
             b.addEventListener("click", function () { show(i + Number(b.dataset.dir)); });
@@ -548,7 +696,11 @@
             hero.classList.toggle("is-paused", p);
             pauseBtn.setAttribute("aria-pressed", p ? "true" : "false");
             pauseBtn.setAttribute("aria-label", p ? "자동 재생 시작" : "자동 재생 정지");
-            if (film && hero.classList.contains("has-video")) { if (p) film.pause(); else film.play().catch(function () {}); }
+            if (onChat()) {
+              if (chatOk) { if (p) chat.pause(); else if (!chat.ended) playChat(); }
+            } else if (film && hero.classList.contains("has-video")) {
+              if (p) film.pause(); else film.play().catch(function () {});
+            }
             restart();
           }
           pauseBtn.addEventListener("click", function () { setPaused(!paused); });
