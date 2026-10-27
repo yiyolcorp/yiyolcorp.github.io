@@ -61,8 +61,8 @@
     "keywords": ["CCTV storage calculator", "NVR storage", "video retention", "recording capacity"]
   },
   "ai-chat-video-search": {
-    "title": "Find Video by Asking: NOX NVR AI Chat's Scope and Conditions",
-    "description": "NOX NVR AI Chat plays a recording when you type a camera name and time. It covers what it can and cannot do, and the conditions to check first.",
-    "keywords": ["AI chat NVR", "natural language video lookup", "NOX NVR", "AI NVR adoption conditions", "NVR chat playback", "external LLM data scope", "NIS security mode NVR"]
+    "title": "NOX NVR Adds AI Chat: Find Video by Asking",
+    "description": "NOX NVR now includes AI Chat, which plays a recording when you type a camera name and time. Currently only Anthropic (Claude API) is supported; other LLMs are planned.",
+    "keywords": ["AI chat NVR", "natural language video lookup", "NOX NVR", "NVR chat playback", "NIS security mode NVR"]
   }
 }
