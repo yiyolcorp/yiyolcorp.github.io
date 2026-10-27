@@ -57,7 +57,7 @@ body.yl-home .site-nav:not(.is-stuck) .nav-hamburger { color: var(--color-on-dar
   transition: opacity var(--dur-reveal) var(--ease-out);
 }
 .yl-hero.has-video .yl-hero-video { opacity: 1; }
-.yl-hero.has-video .yl-slide-bg { display: none; }
+.yl-hero.has-video .yl-slide:not(.yl-slide--film) .yl-slide-bg { display: none; }
 .yl-slide {
   opacity: 0;
   visibility: hidden;
@@ -135,6 +135,112 @@ body.yl-home .yl-slide-title {
 .yl-slide-btn:hover { background: var(--color-accent-bright); border-color: var(--color-accent-bright); color: var(--color-graphite); }
 .yl-slide-btn:hover span[aria-hidden] { transform: translateX(3px); }
 
+/* AI chat slide — own film over its poster, chat card on the clear right */
+.yl-slide-film {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity var(--dur-reveal) var(--ease-out);
+}
+.yl-slide--film.is-playing .yl-slide-film { opacity: 1; }
+.yl-chat-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: var(--nav-h);
+  padding-bottom: var(--space-2xl);
+  pointer-events: none;
+}
+.yl-chat {
+  width: min(24rem, 38%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-xs);
+  padding: var(--space-md);
+  border: var(--rule-hair) solid var(--color-graphite-rule);
+  border-radius: var(--radius-card);
+  background: var(--color-graphite-veil);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--color-on-dark);
+  transition: opacity var(--dur-reveal) var(--ease-out);
+}
+.yl-chat-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  margin-bottom: var(--space-2xs);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  color: var(--color-on-dark-2);
+}
+.yl-chat-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent-bright);
+}
+.yl-chat-msg {
+  max-width: 88%;
+  padding: var(--space-2xs) var(--space-sm);
+  border-radius: var(--radius-card);
+  background: oklch(32% 0.02 252 / 0.9);
+}
+.yl-chat-msg--me {
+  align-self: flex-end;
+  background: var(--color-accent-bright);
+  color: var(--color-graphite);
+  font-weight: 500;
+}
+.yl-chat-typing { display: inline-flex; gap: 4px; padding-block: var(--space-xs); }
+.yl-chat-typing i {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--color-on-dark-2);
+  animation: yl-typing 1s ease-in-out infinite;
+}
+.yl-chat-typing i:nth-child(2) { animation-delay: 150ms; }
+.yl-chat-typing i:nth-child(3) { animation-delay: 300ms; }
+@keyframes yl-typing { 50% { opacity: 0.25; transform: translateY(-2px); } }
+.yl-chat-result {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  border: var(--rule-hair) solid var(--color-accent-bright);
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-mono);
+}
+.yl-chat-play { color: var(--color-accent-bright); }
+.yl-chat-live { color: var(--color-accent-bright); }
+.yl-chat-note {
+  margin-top: var(--space-2xs);
+  font-size: var(--text-xs);
+  color: var(--color-on-dark-2);
+}
+/* without the film (reduced motion, data saver, load failure) every line
+   shows; while it plays, lines enter on their film cue. The typing dots only
+   make sense in motion. */
+.yl-slide--film:not(.is-playing) .yl-chat-typing { display: none; }
+.yl-slide--film.is-playing [data-at] {
+  transition: opacity var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
+}
+.yl-slide--film.is-playing [data-at]:not(.is-on) {
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+}
+.yl-slide--film.is-playing .yl-chat-typing:not(.is-on) { display: none; }
+
 /* controls — counter with progress bar, arrows, pause */
 .yl-hero-ctrl {
   position: absolute;
@@ -169,7 +275,8 @@ body.yl-home .yl-slide-title {
   transform: scaleX(0);
   transform-origin: left;
 }
-.yl-hero.is-running .yl-count-bar span { animation: yl-progress 6500ms linear forwards; }
+.yl-hero.is-running .yl-count-bar span { animation: yl-progress var(--yl-slide-ms, 6500ms) linear forwards; }
+.yl-hero.is-film .yl-count-bar span { transform: scaleX(var(--yl-film-p, 0)); transition: transform 250ms linear; }
 .yl-hero.is-paused .yl-count-bar span { transform: scaleX(1); }
 @keyframes yl-progress { to { transform: scaleX(1); } }
 
@@ -569,6 +676,11 @@ body.yl-home .yl-values h2 { margin-top: var(--space-2xs); font-size: var(--text
   .yl-values-list li, .yl-values-list li + li { padding: var(--space-md) 0; border-left: 0; }
   .yl-values-list li + li { border-top: var(--rule-hair) solid var(--color-graphite-rule); }
   .yl-scroll { display: none; }
+  /* chat slide: headline up top, chat card above the controls */
+  .yl-slide--film .yl-slide-body { justify-content: flex-start; padding-top: calc(var(--nav-h) + var(--space-xl)); }
+  .yl-chat-wrap { align-items: flex-end; justify-content: stretch; padding-bottom: calc(var(--space-xl) + 3.5rem); }
+  .yl-chat { width: 100%; max-width: 26rem; margin-left: auto; }
+  .yl-chat-note { display: none; }
 }
 
 @media (max-width: 640px) {
