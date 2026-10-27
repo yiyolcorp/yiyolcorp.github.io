@@ -64,7 +64,7 @@
     />
     <link rel="stylesheet" href="../assets/css/tokens.css?v=4" />
     <link rel="stylesheet" href="../assets/css/site.css?v=3" />
-    <link rel="stylesheet" href="../assets/css/page.css?v=8" />
+    <link rel="stylesheet" href="../assets/css/page.css?v=9" />
     <script>if (location.hash === "#oem") location.replace("../services/#oem");</script>
   </head>
   <body class="yl">
@@ -409,11 +409,32 @@
               <h3 class="en-only">Four channels at no cost (Free mode)</h3>
               <p class="ko-only">라이선스 등록 없이 4채널, 7일 보관으로 기간 제한 없이 사용합니다. 체험판이 아닌 동일 빌드로 동작하므로, 현장 적용 후 라이선스 등록만으로 채널을 확장합니다.</p>
               <p class="en-only">Four channels and seven days of retention run unlicensed with no expiry. It is the same build rather than a trial, so channels are expanded by registering a license after the site is already running.</p>
+              <p><a href="#trial" class="sv-btn sv-btn-ghost"><span class="ko-only">현장 규모로 검증하려면 평가판 신청</span><span class="en-only">To evaluate at site scale, request a trial</span></a></p>
             </div>
           </div>
 
-          <!-- 자료 요청 -->
+          <!-- 평가판 신청 -->
           <hr class="sv-request-sep" />
+          <div class="sv-request sv-anchor sv-fade" id="trial">
+            <div class="sv-request-body">
+              <h3 class="ko-only">NOX 평가판 신청</h3>
+              <h3 class="en-only">Request a NOX trial</h3>
+              <p class="ko-only">최대 16채널, 30일 라이선스로 실제 현장 규모에서 검증합니다. 라이선스는 신청하신 채널 수로 발급하며, 30일은 발급일부터 셉니다.</p>
+              <p class="en-only">Evaluate NOX at site scale with a 30-day license for up to 16 channels. The license is issued for the channel count you request, and the 30 days start on the day it is issued. The request form is in Korean.</p>
+              <ol class="sv-request-steps">
+                <li><span class="ko-only">신청서를 제출하면 접수번호와 설치 파일(ISO) 링크를 메일로 보내 드립니다. 링크는 3일간 열립니다.</span><span class="en-only">Submit the form and we email a reference number and a link to the installer ISO. The link stays open for three days.</span></li>
+                <li><span class="ko-only">ISO를 16GB 이상 USB에 기록해 장비에 설치합니다. 설치 직후부터 Free 모드(4채널)로 사용할 수 있습니다.</span><span class="en-only">Write the ISO to a USB drive of 16 GB or more and install it on the machine. It runs in Free mode (four channels) as soon as it is installed.</span></li>
+                <li><span class="ko-only">장비에서 받은 라이선스 요청 파일을 안내 메일에 답장으로 보내 주시면 평가판 라이선스를 보내 드립니다.</span><span class="en-only">Reply to our email with the license request file from the machine, and we send back the trial license.</span></li>
+              </ol>
+              <p class="sv-request-note ko-only">설치하면 장비 디스크의 데이터가 모두 지워집니다. 평가용 장비(x86_64, 최소 CPU 4코어 · RAM 8GB · SSD 100GB)를 준비해 주세요.</p>
+              <p class="sv-request-note en-only">Installing erases the machine's disk. Prepare a machine for the evaluation (x86_64, at least 4 CPU cores, 8 GB RAM, and a 100 GB SSD).</p>
+            </div>
+            <a href="https://forms.gle/Ws2J7oKUKSWALFNz5" target="_blank" rel="noopener noreferrer" class="sv-btn sv-btn-primary">
+              <span class="ko-only">평가판 신청하기</span><span class="en-only">Request a trial</span>
+            </a>
+          </div>
+
+          <!-- 자료 요청 -->
           <div class="sv-request sv-fade">
             <div class="sv-request-body">
               <h3 class="ko-only">NOX 자료 요청</h3>
@@ -421,7 +442,7 @@
               <p class="ko-only">본 페이지에 수록하지 않은 기능과 상세 규격은 제품 소개서, 기능 상세, 규격서로 발송해 드립니다. 검토 중인 현장 조건(카메라 대수, 보존 기간, 폐쇄망 여부)이나 필요한 항목을 함께 기재해 주시면 그에 맞추어 준비합니다.</p>
               <p class="en-only">Functions and specifications not covered on this page are sent as a product overview, a detailed feature list, and a spec sheet. Include the site conditions you are evaluating (camera count, retention period, whether the network is air-gapped) or the items you need, and we will prepare the documents accordingly.</p>
             </div>
-            <a href="https://forms.gle/bJ8oRfSpPoFPyTZy9" target="_blank" rel="noopener noreferrer" class="sv-btn sv-btn-primary">
+            <a href="https://forms.gle/bJ8oRfSpPoFPyTZy9" target="_blank" rel="noopener noreferrer" class="sv-btn sv-btn-ghost">
               <span class="ko-only">자료 요청하기</span><span class="en-only">Request materials</span>
             </a>
           </div>
@@ -545,6 +566,6 @@
     </footer>
 
     <script src="../assets/js/i18n.js?v=5"></script>
-    <script src="../assets/js/yiyol-tabs.js?v=1"></script>
+    <script src="../assets/js/yiyol-tabs.js?v=2"></script>
   </body>
 </html>

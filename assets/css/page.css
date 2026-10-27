@@ -507,6 +507,15 @@ a.sv-case-card:hover, a.sv-product-card:hover { background: var(--color-paper-2)
 .sv-request-body { flex: 1 1 34rem; min-width: 0; }
 .sv-request h3 { font-size: var(--text-lg); }
 .sv-request p { margin-top: var(--space-3xs); color: var(--color-ink-2); max-width: var(--measure); }
+.sv-request-steps {
+  margin-top: var(--space-xs);
+  padding-left: 1.25em;
+  list-style: decimal;
+  color: var(--color-ink-2);
+  max-width: var(--measure);
+}
+.sv-request-steps li + li { margin-top: var(--space-3xs); }
+.sv-request .sv-request-note { margin-top: var(--space-xs); font-size: var(--text-sm); }
 
 /* ============================================================
    Form — every field ships all eight states (gate 39)

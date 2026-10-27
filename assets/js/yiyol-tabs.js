@@ -32,9 +32,16 @@
 
     // Activate from hash, else first tab
     var hash = (location.hash || '').replace('#', '');
-    if (!hash || !activateTab(hash)) {
-      activateTab(tabs[0].dataset.tab);
+    if (hash && activateTab(hash)) return;
+    // A hash can also point at a block inside a panel (e.g. #trial): open that panel and scroll to it
+    var target = hash && document.getElementById(hash);
+    var panel = target && target.closest('.sv-tabpanel');
+    if (panel) {
+      activateTab(panel.dataset.tab);
+      requestAnimationFrame(function () { target.scrollIntoView(); });
+      return;
     }
+    activateTab(tabs[0].dataset.tab);
   }
 
   // ── Scroll fade-in ────────────────────────────────────────────
