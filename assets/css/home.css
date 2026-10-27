@@ -584,3 +584,48 @@ body.yl-home .yl-values h2 { margin-top: var(--space-2xs); font-size: var(--text
   .yl-slide, .yl-slide.is-active { transition: opacity 150ms linear, visibility 0s; }
   .yl-hero.is-running .yl-count-bar span { animation: none; }
 }
+
+/* ============================================================
+   First-screen notice — one-time AI chat announcement
+   ============================================================ */
+.yl-chat-notice {
+  position: fixed;
+  right: var(--space-md);
+  bottom: var(--space-md);
+  z-index: 1200;
+  display: grid;
+  gap: var(--space-xs);
+  width: min(22rem, calc(100vw - 2 * var(--space-md)));
+  padding: var(--space-md);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-pop);
+  word-break: keep-all;
+}
+.yl-chat-notice[hidden] { display: none; }
+.yl-chat-notice:focus { outline: none; }
+.yl-chat-notice-k { margin: 0; font-size: var(--text-xs); color: var(--color-muted); }
+.yl-chat-notice-t { margin: 0; font-size: var(--text-md); font-weight: 600; line-height: 1.4; }
+.yl-chat-notice-d { margin: 0; font-size: var(--text-sm); line-height: 1.6; color: var(--color-muted); }
+.yl-chat-notice-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  margin-top: var(--space-2xs);
+}
+.yl-chat-notice-close {
+  padding: var(--space-2xs) var(--space-sm);
+  color: var(--color-ink);
+  background: var(--color-paper);
+  border: var(--rule-hair) solid var(--color-rule);
+  border-radius: var(--radius-ctl);
+}
+.yl-chat-notice-close:hover { background: var(--color-accent-wash); }
+.yl-chat-notice-close:focus-visible,
+.yl-chat-notice .yl-link:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+@media (max-width: 640px) {
+  .yl-chat-notice { left: var(--space-sm); right: var(--space-sm); bottom: var(--space-sm); width: auto; }
+}

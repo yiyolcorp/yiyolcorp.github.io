@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="ko" data-lang-fixed="ko">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKJ4GX2KHS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-CKJ4GX2KHS');
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>메뉴 대신 말로 찾는 영상: NOX NVR AI 채팅이 하는 일과 조건 - YIYOL Blog</title>
+
+  <meta name="description" content="NOX NVR AI 채팅은 카메라 이름과 시각을 문장으로 입력하면 해당 녹화를 바로 재생한다. 할 수 있는 일, 할 수 없는 일, 도입 전 확인할 조건을 정리한다." />
+  <meta name="keywords" content="AI 채팅 NVR,NVR 자연어 영상 찾기,NOX NVR,AI NVR 도입 조건,NVR 채팅 재생,외부 LLM 전송 범위,NIS 보안 모드 NVR" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://yiyol.com/blog/ai-chat-video-search.html" />
+  <meta property="og:title" content="메뉴 대신 말로 찾는 영상: NOX NVR AI 채팅이 하는 일과 조건 — YIYOL" />
+  <meta property="og:description" content="NOX NVR AI 채팅은 카메라 이름과 시각을 문장으로 입력하면 해당 녹화를 바로 재생한다. 할 수 있는 일, 할 수 없는 일, 도입 전 확인할 조건을 정리한다." />
+  <meta property="og:image" content="https://yiyol.com/img/blog/ai-chat-video-search/chat-empty.png" />
+  <meta property="og:site_name" content="YIYOL" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="메뉴 대신 말로 찾는 영상: NOX NVR AI 채팅이 하는 일과 조건 — YIYOL" />
+  <meta name="twitter:description" content="NOX NVR AI 채팅은 카메라 이름과 시각을 문장으로 입력하면 해당 녹화를 바로 재생한다. 할 수 있는 일, 할 수 없는 일, 도입 전 확인할 조건을 정리한다." />
+  <meta name="twitter:image" content="https://yiyol.com/img/blog/ai-chat-video-search/chat-empty.png" />
+
+  <!-- hreflang:start -->
+  <link rel="alternate" hreflang="ko" href="https://yiyol.com/blog/ai-chat-video-search.html" />
+  <link rel="alternate" hreflang="en" href="https://yiyol.com/en/blog/ai-chat-video-search.html" />
+  <link rel="alternate" hreflang="x-default" href="https://yiyol.com/blog/ai-chat-video-search.html" />
+  <!-- hreflang:end -->
+  <link rel="canonical" href="https://yiyol.com/blog/ai-chat-video-search.html" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "메뉴 대신 말로 찾는 영상: NOX NVR AI 채팅이 하는 일과 조건",
+    "description": "NOX NVR AI 채팅은 카메라 이름과 시각을 문장으로 입력하면 해당 녹화를 바로 재생한다. 할 수 있는 일, 할 수 없는 일, 도입 전 확인할 조건을 정리한다.",
+    "url": "https://yiyol.com/blog/ai-chat-video-search.html",
+    "image": "https://yiyol.com/img/blog/ai-chat-video-search/chat-empty.png",
+    "datePublished": "2026-10-27",
+    "dateModified": "2026-10-27",
+    "author": {
+      "@type": "Organization",
+      "name": "YIYOL",
+      "url": "https://yiyol.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "YIYOL",
+      "url": "https://yiyol.com"
+    },
+    "keywords": [
+      "AI 채팅 NVR",
+      "NVR 자연어 영상 찾기",
+      "NOX NVR",
+      "AI NVR 도입 조건",
+      "NVR 채팅 재생",
+      "외부 LLM 전송 범위",
+      "NIS 보안 모드 NVR"
+    ],
+    "inLanguage": "ko"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "YIYOL",
+        "item": "https://yiyol.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "블로그",
+        "item": "https://yiyol.com/blog/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "메뉴 대신 말로 찾는 영상: NOX NVR AI 채팅이 하는 일과 조건",
+        "item": "https://yiyol.com/blog/ai-chat-video-search.html"
+      }
+    ]
+  }
+  </script>
+
+  <!-- Fonts & CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=3" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=2" />
+</head>
+<body class="yl">
+  <!-- Header -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+      <div class="site-nav-inner">
+        <a href="/" class="site-nav-brand">
+          <img class="site-nav-mark" src="/assets/yiyol-mark.png" alt="" width="33" height="24" /><span class="site-nav-logo">YIYOL<span>.</span></span>
+        </a>
+        <div class="site-nav-right">
+          <ul class="site-nav-links">
+            <li><a href="/company/"><span class="ko-only">회사</span><span class="en-only">Company</span></a></li>
+            <li><a href="/products/"><span class="ko-only">제품</span><span class="en-only">Products</span></a></li>
+            <li><a href="/services/"><span class="ko-only">서비스</span><span class="en-only">Services</span></a></li>
+            <li><a href="/blog/" class="nav-active"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a></li>
+            <li><a href="/contact/" class="nav-cta"><span class="ko-only">문의</span><span class="en-only">Contact</span></a></li>
+          </ul>
+          <div class="lang-switch">
+            <button class="lang-selector" type="button" aria-haspopup="true" aria-expanded="false">
+              <span class="lang-current">한국어</span>
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" /></svg>
+            </button>
+            <div class="lang-dropdown">
+              <a href="#" class="lang-option" data-lang="ko">한국어</a>
+              <a href="#" class="lang-option" data-lang="en">English</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+  <!-- Hero -->
+  <section class="post-hero">
+    <div class="post-hero-content">
+      <nav class="post-breadcrumb">
+        <a href="/">YIYOL</a><span>›</span><a href="/blog/"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a><span>›</span> <span class="ko-only">현재 글</span><span class="en-only">Current post</span>
+      </nav>
+      <h1><span class="ko-only">메뉴 대신 말로 찾는 영상: NOX NVR AI 채팅이 하는 일과 조건</span><span class="en-only">Find Video by Asking: NOX NVR AI Chat's Scope and Conditions</span></h1>
+      <div class="post-meta">
+        <span class="post-meta-date">2026.10.27</span>
+        <div class="post-tags">
+          <span class="post-tag">AI NVR</span>
+          <span class="post-tag"><span class="ko-only">AI 채팅</span><span class="en-only">AI Chat</span></span>
+          <span class="post-tag"><span class="ko-only">영상 재생</span><span class="en-only">Video Playback</span></span>
+          <span class="post-tag"><span class="ko-only">NVR 도입</span><span class="en-only">NVR Adoption</span></span>
+          <span class="post-tag">NOX</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main -->
+  <main class="post-container">
+    <article class="post-article">
+      <div class="ko-only">
+
+      <p>다음은 가상의 상황이다. 관제실에서 누군가 채팅창에 "어제 오전 9시 30분 현관 영상 보여줘"라고 입력한다. 보통은 메뉴를 열고, 카메라 목록에서 현관을 찾고, 날짜와 시각을 맞춘 뒤 재생 버튼을 누른다. NOX NVR의 AI 채팅은 이 여러 단계를 문장 한 줄로 줄인다.</p>
+
+      <p>다만 이 기능은 만능이 아니다. 무엇을 말로 할 수 있고 무엇은 할 수 없는지, 쓰기 전에 무엇이 갖춰져야 하는지를 함께 봐야 도입 판단이 선다. 이 글은 기능을 부풀리지 않고 경계와 조건을 분명히 하는 데 목적이 있다. 방문자는 기능의 범위를 판단하는 데, 설치업체는 현장에 들이기 전 확인할 항목을 정리하는 데 쓰면 된다. 아래 내용은 제품 사용자 매뉴얼을 기준으로 쓰고, 핵심 동작은 소스 코드로 대조했다.</p>
+
+      <h2>질문 한 줄이 재생 화면이 되기까지</h2>
+
+      <p>채팅은 SideNav의 홈과 탐색기 사이에 있다. 질문을 입력하고 Enter를 누르면, 장비는 문장에서 카메라 이름과 시각을 읽는다.</p>
+
+      <img src="/img/blog/ai-chat-video-search/chat-empty.png" alt="SideNav의 채팅 버튼으로 연 빈 대화 화면. 예시 질문이 라이브와 녹화 재생 항목으로 나뉘어 보인다" width="1280" height="720" loading="lazy" />
+
+      <p>카메라는 이름으로 찾는다. "현관"이 이름에 들어 있는 카메라가 후보가 된다. 맞는 카메라가 하나도 없으면 영상을 열지 않고, 볼 수 있는 카메라 이름 몇 개를 들어 어느 것인지 되묻는다. 후보가 여러 대면 한 화면에 나눠 연다. 네 대 이하는 기본 배치로, 5~9대는 3×3, 10대 이상은 4×4 화면으로 연다. 후보가 256개를 넘으면 앞의 256개만 해석한다.</p>
+
+      <img src="/img/blog/ai-chat-video-search/chat-result-playback.png" alt="녹화 재생 화면이 열린 결과. 임시 재생 표시와 카메라 이름·시각, 녹화 타임라인이 보인다" width="1280" height="720" loading="lazy" />
+
+      <p>시각은 장비에 설정된 표시 시간대로 해석한다. "어제"나 "지난 금요일" 같은 날짜 표현은 AI가 실제 날짜로 바꾼다. 오전과 오후를 말하지 않고 "9시 30분"이라고만 하면, 장비는 현재 시각에 가장 가까운 과거 시각을 고른다. 다음은 그 해석의 예다.</p>
+
+      <table>
+        <thead>
+          <tr><th>현재 시각</th><th>질문</th><th>열리는 시각</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>10월 21일 15:00</td><td>9시 30분</td><td>오늘 09:30 (21:30은 미래라 제외)</td></tr>
+          <tr><td>10월 21일 15:00</td><td>어제 9시 30분</td><td>어제 21:30 (09:30과 21:30 중 현재에 더 가까운 쪽)</td></tr>
+          <tr><td>10월 21일 08:00</td><td>9시 30분</td><td>어제 21:30 (오늘의 두 후보가 모두 미래이므로 하루 전)</td></tr>
+        </tbody>
+      </table>
+
+      <p>"아침"이나 "점심쯤"처럼 정확한 시각이 없는 말은 대표 시각(예: 아침 08:00)으로 잡고, 카드에 대략적인 시각으로 해석했다고 표시한다. 현재보다 뒤의 시각은 열지 않는다. "지난 금요일 오후 3시 주차장 영상"처럼 요일과 오전·오후를 함께 말하면 그대로 해석된다. 해석이 의도와 다르면 "오후 9시 30분으로"처럼 고쳐서 다시 물으면 된다. 그러니 현장에서 쓰기 전에 장비의 표시 시간대 설정이 실제 시각과 맞는지 먼저 확인해야 한다.</p>
+
+      <p>지정한 시각에 녹화가 있는 카메라가 하나도 없으면 영상은 열리지 않는다. 카드에는 그 시각 앞뒤로 녹화를 찾지 못했다고 표시된다. 가장 가까운 녹화 구간이 있으면 그 구간을 알려 주고, 구간의 시작 시각부터 여는 버튼을 함께 보여 준다. 카메라 중 일부만 녹화가 없으면 영상은 열리고, 녹화가 없는 칸에는 이 시각 녹화 없음이 표시된다. 녹화가 빠진 구간이 실제 장애인지는 장비의 녹화 기록으로 따로 확인해야 한다.</p>
+
+      <h2>말로 할 수 있는 것과 없는 것은 무엇인가</h2>
+
+      <p>할 수 있는 일은 두 가지다. 하나는 카메라 이름과 시각을 말해 녹화를 여는 것이다. 질문은 한국어로도 영어로도 된다. "yesterday 9:30 am entrance"처럼 영어로 입력해도 같은 방식으로 찾는다. 다른 하나는 대화 기록을 관리하는 것이다. 왼쪽 목록에서 지난 대화를 열어 보고, 이름을 바꾸고, 지울 수 있다. 목록은 오늘, 어제, 지난 7일처럼 기간별로 묶여 보이며, 삭제한 대화는 되돌릴 수 없다. 새 채팅을 누르면 빈 대화가 열리고, 첫 질문을 보내야 기록에 남는다. 제목은 처음에 첫 질문의 앞부분으로 정해지며 목록에서 바로 고칠 수 있다. 같은 계정으로 여러 창을 열어도 기록은 서버에 저장되어 함께 보인다.</p>
+
+      <p>열린 영상은 대화 화면 오른쪽의 결과 영역에 임시 재생 화면으로 나타난다. 임시 재생 화면은 서버에 저장되지 않는다. 결과 영역은 질문을 보낸 창에만 열리고, 한 번에 하나만 떠 있다. 새 질문의 결과가 열리면 이전 결과를 대신한다. 지난 결과는 대화의 결과 카드에서 다시 열 수 있다. 결과 카드에는 카메라 이름(후보가 많으면 앞의 몇 개 이름과 "외 N개"로 줄여 보여 준다), 시각, 카메라별 녹화 유무가 남는다.</p>
+
+      <p>결과 영역 상단에는 임시 재생 표시, 카메라와 시각을 적은 제목, 넓게 보기와 닫기 버튼이 있다. 넓게 보기는 대화를 좁은 띠로 접고 결과를 화면 전체 폭으로 넓힌다. 닫기를 누르면 결과 영역이 사라지고 대화가 다시 가운데로 돌아온다. 아래의 재생 타임라인은 재생 화면이 열려 있는 동안에만 나타나며, 같은 시각을 기준으로 열린 카메라가 모두 함께 이동한다. 좁은 화면에서는 대화와 결과가 탭으로 나뉘어 번갈아 보인다.</p>
+
+      <p>답변은 생성되는 대로 화면에 나타나고, 화면에는 AI 응답이 틀릴 수 있다는 안내가 함께 보인다. 답변은 굵은 글씨, 목록, 표, 코드, 링크를 지원하는 마크다운으로 표시된다. 보안을 위해 HTML과 이미지는 표시하지 않으며, 링크는 장비 내부 경로가 아니면 도메인을 함께 보여 준다. 영상이 실제로 열렸는지는 답변 문장이 아니라 결과 카드의 카메라별 재생 결과로 확인한다.</p>
+
+      <p>할 수 없는 일은 더 중요하다. 채팅은 설정을 바꾸지 않는다. 설정은 관리자가 관리 접속에서만 바꾼다. 이 기능은 영상을 찾아 열어 보는 데까지이며, 장비를 제어하지 않는다. 질문자가 볼 수 없는 카메라는 후보에도, 결과에도 나오지 않는다. 대화는 본인만 볼 수 있다. 관리자도 다른 사용자의 대화 기록은 볼 수 없다. 다만 답변에 좋아요·싫어요 평가를 남긴 질문과 답은 관리자가 평가 목록에서 볼 수 있고, 그 답 옆에는 이 사실을 알리는 안내가 나온다.</p>
+
+      <h2>쓰기 전에 충족해야 할 조건은 무엇인가</h2>
+
+      <p>도입 전에 다섯 가지를 확인해야 한다. 조건이 빠지면 채팅 버튼이 흐리게 표시되고 빠진 사유가 안내된다. 권한이 없는 사용자에게는 버튼 자체가 보이지 않는다.</p>
+
+      <table>
+        <thead>
+          <tr><th>조건</th><th>내용</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>에디션</td><td>AI 채팅은 ENTERPRISE 라이선스에 기본으로 포함된다. STANDARD와 FREE에는 포함되지 않는다.</td></tr>
+          <tr><td>공급자와 키</td><td>공급자는 Anthropic(Claude API) 하나다. 고객이 자신의 API 키를 넣고 모델을 고른다. 키는 암호화해 저장하며 다시 보여 주지 않는다.</td></tr>
+          <tr><td>외부 전송 동의</td><td>관리자가 외부 전송에 동의해야 켜진다. 동의하지 않으면 채팅을 쓸 수 없다.</td></tr>
+          <tr><td>권한</td><td>역할에 "AI 채팅 사용" 권한(<code>agent:chat</code>)이 있어야 한다. 운영자와 뷰어 역할에는 기본으로 주어진다. 영상을 열려면 녹화 조회 권한과 카메라 접근 범위가 따로 필요하다.</td></tr>
+          <tr><td>보안 모드</td><td>NIS 보안 모드가 활성인 장비에서는 채팅 공급자를 만들지 않으므로 쓸 수 없다. 질문은 거부되고 외부로 데이터가 나가지 않는다.</td></tr>
+        </tbody>
+      </table>
+
+      <p>여러 사유가 겹치면 버튼에는 하나만 보인다. 순서는 라이선스 포함 여부, 보안 모드, 공급자 설정, 외부 전송 동의, 채팅 서비스 연결 순이다. 공급자 설정과 동의는 관리자에게만 설정 화면으로 가는 바로가기가 함께 나온다. 일반 사용자에게는 관리자에게 문의하라는 안내만 보인다. 채팅을 쓰는 도중 기능이 꺼지면 입력창이 막히지만, 지난 대화 내용은 계속 읽을 수 있다.</p>
+
+      <p>라이선스가 없는 장비에서는 설정 메뉴가 보이지 않고, 사용자에게는 라이선스에 포함되지 않았다고 안내된다. 공급자가 Claude API 하나뿐이므로, 현장의 계정 정책이 이 공급자를 허용하는지 먼저 확인한다.</p>
+
+      <p>API 키는 저장한 뒤에는 다시 보이지 않는다. 키를 바꿀 때는 새 키를 입력해 저장한다. 입력란을 비워 저장하면 기존 키가 유지되고, 키 삭제를 누른 뒤 저장하면 키가 지워져 채팅을 쓸 수 없게 된다. 모델은 키로 불러온 목록에서 고르며, 모델을 골라야 채팅을 켤 수 있다.</p>
+
+      <p>설정은 Settings &gt; 서비스 &gt; 채팅에서 한다. API 키를 입력하고 모델 목록을 불러와 모델을 고른 뒤, 외부 전송 동의에 체크하고, 필요하면 일·월 토큰 예산을 입력한다. 마지막으로 채팅 사용을 켜고 저장한다. 저장하면 열려 있는 화면의 채팅 버튼도 곧 갱신된다. 이 설정 메뉴는 관리자로 접속했고, NIS 보안 모드가 꺼져 있으며, 라이선스에 채팅이 포함된 장비에서만 보인다.</p>
+
+      <img src="/img/blog/ai-chat-video-search/chat-settings-consent.png" alt="Settings &gt; 서비스 &gt; 채팅 화면. API 키는 저장됨으로만 표시되고 외부 전송 동의 체크박스가 보인다" width="1280" height="720" loading="lazy" />
+
+      <p>NIS 보안 모드가 필요한 현장이라면 이 기능은 처음부터 맞지 않는다. 보안 모드를 켜기 전에 저장해 둔 API 키와 설정이 있어도 외부 전송은 일어나지 않는다. 보안 요구를 먼저 확인하고, 그 다음에 에디션과 키를 정하는 순서가 맞다.</p>
+
+      <p>접속 방식도 확인 사항이다. 채팅 사용, 즉 질문과 기록 관리는 일반 접속에서도 된다. 설정 변경만 관리 접속이 필요하다. 채팅은 로그인한 사용자만 쓸 수 있으며, 외부 연동용 API 키나 AI 에이전트 키, 페더레이션 연결로는 쓸 수 없다.</p>
+
+      <h2>외부로 나가는 데이터는 정확히 무엇인가</h2>
+
+      <p>이 기능은 외부 LLM을 쓴다. 그래서 가장 먼저 확인할 것은 무엇이 나가느냐다. 질문 1건을 처리할 때 장비가 Claude API로 보내는 항목은 다음과 같다.</p>
+
+      <ul>
+        <li>질문 문장</li>
+        <li>이전 대화 기록 중 최근 일부</li>
+        <li>현재 시각과 장비 시간대</li>
+        <li>질문자가 볼 수 있는 카메라의 이름·위치·모델·상태</li>
+        <li>해석된 시각과 카메라별 녹화 유무, 녹화 구간 요약</li>
+      </ul>
+
+      <p>반대로 보내지 않는 것은 영상, 이미지(스냅샷·썸네일), 번호판, 인물 정보, 카메라 접속 주소(IP)와 자격증명, 사용자 비밀번호, 다른 사용자의 대화다.</p>
+
+      <p>여기서 "보내지 않는다"는 장비가 자동으로 붙이지 않는다는 뜻이다. 질문에 직접 쓴 내용은 그대로 전송된다. 번호판 일부나 사람의 외모를 질문 문장에 적으면 그 문장이 외부 공급자에게 간다. 현장 교육에서 반드시 짚어야 할 대목이다.</p>
+
+      <p>카메라 이름과 대화 기록도 주의할 부분이다. 둘 다 현장에서 설정했거나 질문자가 입력한 문자열이므로 개인정보나 민감한 현장 정보가 들어 있을 수 있다. 카메라 이름은 전송 데이터에 포함되므로, 실제 위치를 드러내는 이름인지 설치 단계에서 검토한다. 공급자의 데이터 처리 약관과 국외 이전 관련 법령을 검토한 뒤 동의하는 것이 순서다.</p>
+
+      <p>동의는 철회할 수 있다. 외부 전송 동의 체크를 해제하고 저장하거나 채팅 사용을 끄면 그 즉시 새 질문은 전송되지 않는다. 채팅을 쓸 수 있는 상태에서는 입력창 아래에 "외부 LLM 사용 중" 표시가 나타나므로, 쓰는 사람도 외부로 나가는 기능임을 알 수 있다.</p>
+
+      <h2>설치 현장에서 미리 준비할 것은 무엇인가</h2>
+
+      <p>채팅은 카메라를 이름으로 찾는다. 따라서 카메라 이름이 곧 찾는 말이 된다. 질문에 "현관"이라고 적어도 이름에 "현관"이 없는 카메라는 찾지 못한다. 현장에서 고객이 실제로 쓰는 말, 예를 들면 현관, 주차장, 1층 로비를 이름에 넣어 두면 질문과 이름이 맞아떨어진다.</p>
+
+      <p>같은 말을 가진 카메라가 많은 현장이라면 층이나 구역을 이름에 함께 넣는 편이 낫다. 이름이 겹쳐 후보가 많아지면 한 번의 질문에 열리는 카메라가 늘어나고, 원하지 않는 카메라까지 함께 열릴 수 있다. 이름이 모호할수록 이 일이 잦아진다.</p>
+
+      <p>빈 대화 화면에는 예시 질문이 나오고, 누르면 입력창에 채워진다. 현장에서 쓸 질문 문장을 고객과 미리 맞춰 두면 처음 쓰는 사람도 헤매지 않는다.</p>
+
+      <p>카메라 이름은 외부로 나가는 데이터에도 들어간다는 점을 잊지 말아야 한다. 이름에 현장의 민감한 정보를 적지 않는 것이 좋다. 이름을 고쳤다면 실제로 질문을 해 보고, 열린 카드가 기대한 카메라와 시각인지 확인한다. 시각 해석과 이름 매칭은 현장 표현에 따라 결과가 달라질 수 있다.</p>
+
+      <h2>사용 제한과 대화 기록은 어떻게 관리되나</h2>
+
+      <p>제한은 사용자별로 항상 걸린다. 예산 설정과 무관하며 바꿀 수 없다.</p>
+
+      <ul>
+        <li>동시에 만들 수 있는 응답은 사용자당 2개다. 같은 대화에서는 한 번에 하나만 진행된다.</li>
+        <li>질문은 사용자당 분당 10건이며, 순간적으로는 5건까지 받는다.</li>
+        <li>질문은 1자 이상 4,000자 이하로 쓴다.</li>
+        <li>질문 1건이 처리할 수 있는 횟수에도 상한이 있다. 넘으면 더 구체적으로 다시 물어 달라는 안내가 나온다.</li>
+      </ul>
+
+      <p>관리자는 일·월 토큰 예산을 정할 수 있다. 0으로 두면 제한하지 않는다. 설정 화면에는 오늘과 이번 달 사용량이 함께 표시된다. 예산을 넘으면 새 질문이 거부된다. 응답을 중간에 멈춰도 그때까지 공급자가 처리한 만큼은 사용량에 포함된다. 다만 예산은 비용 상한을 돕는 장치일 뿐이므로, 공급자 콘솔에서도 사용 한도를 따로 설정하는 것이 맞다.</p>
+
+      <p>감사 기록에는 질문 1건마다 한 줄이 남는다. 질문 원문은 기록하지 않고 길이만 남긴다. 누가 언제 질문했는지는 추적할 수 있지만, 질문 내용은 기록에 남지 않는다.</p>
+
+      <p>대화는 녹화 보존 기간을 따라 지워진다. 채팅만을 위한 별도 보존 설정은 없다. 보존 기간이 지나 영상이 지워진 뒤에는 지난 대화에서 다시 열어도 영상이 없을 수 있다.</p>
+
+      <h2>도입 현장에서 확인할 순서는 무엇인가</h2>
+
+      <p>말로 영상을 찾는 기능은 메뉴를 몰라도 쓸 수 있다는 점에서 현장의 부담을 줄인다. 대신 쓸 수 있는 조건이 여럿이고, 외부로 나가는 데이터가 있다는 점을 먼저 받아들여야 한다. 도입을 검토한다면 아래 순서를 따르는 것이 좋다.</p>
+
+      <ol>
+        <li>장비의 에디션과 보안 모드를 먼저 본다. ENTERPRISE가 아니거나 NIS 보안 모드가 활성이면 여기서 판단이 끝난다.</li>
+        <li>현장의 계정 정책과 데이터 처리 기준으로 Claude API 사용을 승인받는다. 외부 전송 항목과 카메라 이름을 함께 검토한다.</li>
+        <li>관리자가 API 키와 모델을 넣고 외부 전송에 동의한 뒤 채팅 사용을 켠다. 필요하면 토큰 예산을 정하고, 공급자 콘솔의 사용 한도도 함께 설정한다.</li>
+        <li>역할별로 "AI 채팅 사용" 권한, 녹화 조회 권한, 카메라 접근 범위를 나눠 준다.</li>
+        <li>카메라 이름을 현장의 말로 정리하고, 장비의 표시 시간대를 확인한다.</li>
+        <li>실제 질문 몇 개로 시험한다. 열린 카메라와 시각이 기대와 같은지, 사용자에게 질문 문장에 번호판이나 외모 묘사를 넣을 때의 전송 범위를 알렸는지 확인한다.</li>
+      </ol>
+
+      <p><em>설치 파트너 상담 신청: <a href="/contact/">yiyol.com/contact</a></em></p>
+
+      <hr />
+
+      <h2>관련 글</h2>
+
+      <ul>
+        <li><a href="/blog/nox-mcp-server-development-log.html">NOX MCP 서버 개발기 — 읽기 전용으로 시작한 이유와, Claude Code가 먼저 찾아낸 버그</a> — 같은 장비를 AI 에이전트에 연결하는 또 다른 경로</li>
+        <li><a href="/blog/agentic-ai-nvr-vs-ai-nvr-difference.html">Agentic AI NVR이란? AI NVR과의 결정적 차이</a> — 감지에서 판단과 실행까지 이어지는 구조</li>
+        <li><a href="/blog/webhook-agentic-ai-parking-automation-guide.html">WebHook으로 구현하는 Agentic AI: 주차장 자동화 완전 구축 가이드</a> — 에이전트와 외부 시스템을 잇는 또 다른 방법</li>
+      </ul>
+
+      </div>
+
+      <div class="en-only">
+
+      <p>The following is a hypothetical scene. In a control room, someone types "Show me yesterday's 9:30 AM entrance footage" into the chat window. Normally they would open a menu, find the entrance camera in a list, set the date and time, and press play. NOX NVR's AI Chat reduces those steps to a single sentence.</p>
+
+      <p>The feature is not a cure-all. To decide whether to adopt it, you need to see what can be done by speaking, what cannot, and what must be in place first. This article aims to make the boundaries and conditions clear rather than to inflate the feature. Visitors can use it to judge the scope of the feature, and installers can use it to list what to check before bringing it on site. The content is based on the product user manual, and the core behavior was checked against the source code.</p>
+
+      <h2>From One Question to a Playback Screen</h2>
+
+      <p>The chat sits between Home and Explorer in the SideNav. Type a question and press Enter. The device reads the camera name and the time from the sentence.</p>
+
+      <img src="/img/blog/ai-chat-video-search/chat-empty.png" alt="Empty conversation screen opened from the SideNav chat button. Example questions appear under Live and Playback" width="1280" height="720" loading="lazy" />
+
+      <p>Cameras are found by name. Any camera whose name contains "entrance" becomes a candidate. If no camera matches at all, no video opens, and the chat names a few cameras you can access and asks which one you mean. When several cameras match, they open together on one screen. Up to four candidates use the default layout, five to nine use a 3×3 grid, and ten or more use a 4×4 grid. If there are more than 256 candidates, only the first 256 are interpreted.</p>
+
+      <img src="/img/blog/ai-chat-video-search/chat-result-playback.png" alt="Recording playback opened in the result area. The temporary-playback label, camera name and time, and the recording timeline are visible" width="1280" height="720" loading="lazy" />
+
+      <p>Times are interpreted in the device's configured display time zone. Date expressions such as "yesterday" or "last Friday" are converted to actual dates by the AI. If you say "9:30" without AM or PM, the device picks the past time closest to the current time. The examples below show how this works.</p>
+
+      <table>
+        <thead>
+          <tr><th>Current time</th><th>Question</th><th>Opens</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Oct 21, 15:00</td><td>9:30</td><td>Today 09:30 (21:30 is in the future and excluded)</td></tr>
+          <tr><td>Oct 21, 15:00</td><td>yesterday 9:30</td><td>Yesterday 21:30 (of 09:30 and 21:30, the one closer to now)</td></tr>
+          <tr><td>Oct 21, 08:00</td><td>9:30</td><td>Yesterday 21:30 (both of today's candidates are in the future, so one day earlier)</td></tr>
+        </tbody>
+      </table>
+
+      <p>Vague expressions with no exact time, such as "morning" or "around noon," are set to a representative time (for example, 08:00 for morning), and the card shows that the time was interpreted approximately. Times later than now are never opened. A phrase that names a weekday together with AM or PM, such as "last Friday 3 PM parking lot footage," is read as written. If the reading is not what you meant, rephrase it, for example "9:30 PM instead." Before using the feature on site, confirm that the device's display time zone matches the actual time.</p>
+
+      <p>If no camera has a recording at the requested time, no video opens. The card reports that no recording was found around that time. If a nearest recording segment exists, the card shows it with a button that opens playback from the start of that segment. If only some cameras have no recording, the video opens, and the cameras without a recording are marked "no recording at this time." Whether a gap in recording is an actual fault must be checked separately in the device's own recording records.</p>
+
+      <h2>What Can and Cannot Be Done by Asking?</h2>
+
+      <p>There are two things you can do. The first is to open recordings by naming a camera and a time. Questions can be written in Korean or English, and "yesterday 9:30 am entrance" is found the same way. The second is to manage chat history. From the list on the left, you can reopen, rename, or delete past conversations. The list is grouped as Today, Yesterday, Past 7 days, and so on. A deleted conversation cannot be restored. "New Chat" opens an empty conversation, and a history entry is created when the first question is sent. The title is initially set from the beginning of the first question and can be changed directly in the list. Opening the same account in several windows shows the same history, because it is stored on the server.</p>
+
+      <p>Results open as temporary playback in the result area on the right side of the conversation. Temporary playback is not stored on the server. The result area opens only in the window that sent the question, and only one result is shown at a time. A new result replaces the previous one. Past results can be reopened from the result card in the conversation. Each result card shows the camera names (when there are many, the first few names followed by "N more"), the time, and whether each camera has a recording.</p>
+
+      <p>The top bar of the result area shows a temporary-playback label, a title with the camera and time, and "Wide" and "Close" buttons. Wide collapses the conversation into a narrow strip and widens the result to the full width. Pressing it again restores the layout. Close hides the result area and returns the conversation to the center. The timeline below the result area appears only while playback is open, and all open cameras move together along it. On a narrow screen, the conversation and the result are shown in separate tabs.</p>
+
+      <p>Answers appear as they are generated, and the screen shows a notice that AI responses can be wrong. Answers are displayed as Markdown, with support for bold text, lists, tables, code, and links. For safety, HTML and images are not displayed, and links show their domain unless they point to a path inside the device. Whether a video actually opened should be checked from the per-camera playback result on the result card, not from the wording of the answer.</p>
+
+      <p>What the feature cannot do matters more. The chat does not change settings. Only an administrator can change settings, and only in admin access mode. This feature stops at finding and opening recordings and does not control the device. Cameras the asker cannot access appear in neither the candidates nor the results. A conversation is visible only to its owner. Even administrators cannot see other users' conversation history. The exception is a question and its answer that the user rated with a thumbs up or down: administrators can see them in the feedback list, and a notice beside the answer says so.</p>
+
+      <h2>What Conditions Must Be Met Before Use?</h2>
+
+      <p>Five conditions must be checked before adoption. If a condition is missing, the chat button appears dimmed and the missing reason is shown. Users without the permission do not see the button at all.</p>
+
+      <table>
+        <thead>
+          <tr><th>Condition</th><th>Details</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Edition</td><td>AI Chat is included by default in the ENTERPRISE license. It is not included in STANDARD or FREE.</td></tr>
+          <tr><td>Provider and key</td><td>The only provider is Anthropic (Claude API). The customer enters their own API key and selects a model. The key is stored encrypted and is not shown again.</td></tr>
+          <tr><td>External transmission consent</td><td>Chat turns on only after an administrator consents to external transmission. Without consent, chat cannot be used.</td></tr>
+          <tr><td>Permissions</td><td>The role needs the "AI Chat Use" permission (<code>agent:chat</code>). Operator and viewer roles have it by default. Opening video additionally requires the recording view permission and the camera access scope.</td></tr>
+          <tr><td>Security mode</td><td>On a device with NIS security mode enabled, no chat provider is created, so chat cannot be used. Questions are rejected, and no data leaves the device.</td></tr>
+        </tbody>
+      </table>
+
+      <p>When several reasons overlap, only one is shown, in this order: license, security mode, provider setup, external transmission consent, and chat service connection. For provider setup and consent, administrators see a shortcut to the settings screen, while regular users see a message to contact an administrator. If the feature is turned off while a user is chatting, the input is locked, but past conversations remain readable.</p>
+
+      <p>On a device without a license, the settings menu does not appear, and users are told that the license does not include chat. Because Claude API is the only provider, confirm first that the site's account policy allows it.</p>
+
+      <p>The API key is not shown again after it is saved. To change it, enter a new key and save. If the field is left empty and saved, the existing key is kept. If you press "Delete Key" and then save, the key is removed and chat can no longer be used. The model is chosen from the list loaded with the key, and a model must be selected before chat can be turned on.</p>
+
+      <p>Settings are made at Settings &gt; Services &gt; Chat. Enter the API key, load the model list and select a model, check the external transmission consent, and enter daily and monthly token budgets if needed. Finally, turn on chat use and save. After saving, the chat button on any open screen is updated shortly. The settings menu appears only when you are logged in as an administrator, NIS security mode is off, and the license includes chat.</p>
+
+      <img src="/img/blog/ai-chat-video-search/chat-settings-consent.png" alt="Settings &gt; Services &gt; Chat screen. The API key shows only as saved, and the external transmission consent checkbox is visible" width="1280" height="720" loading="lazy" />
+
+      <p>For a site that requires NIS security mode, this feature does not fit from the start. Even if an API key and settings were saved before security mode was turned on, no external transmission takes place. Check the security requirements first, and then decide on the edition and the key.</p>
+
+      <p>Access mode also needs checking. Using chat (asking questions and managing history) works in normal access mode. Only changing settings requires admin access mode. Only logged-in users can use chat. External-integration API keys, AI agent keys, and federation connections cannot be used to access it.</p>
+
+      <h2>What Data Exactly Leaves the Device?</h2>
+
+      <p>This feature uses an external LLM, so the first thing to check is what leaves the device. For each question, the device sends the following to the Claude API:</p>
+
+      <ul>
+        <li>the question text</li>
+        <li>part of the recent conversation history</li>
+        <li>the current time and the device's time zone</li>
+        <li>the name, location, model, and status of the cameras the asker can access</li>
+        <li>the interpreted time, each camera's recording presence, and a summary of recording segments</li>
+      </ul>
+
+      <p>Not sent: video, images (snapshots and thumbnails), license plates, person information, camera IP addresses and credentials, user passwords, and other users' conversations.</p>
+
+      <p>"Not sent" means the device does not attach these items automatically. Anything typed directly into a question is sent as written. If a question includes part of a license plate or a description of a person's appearance, that sentence goes to the external provider. Site training should cover this point.</p>
+
+      <p>Camera names and conversation history also need care. Both are strings set on site or typed by the asker, so they may contain personal or sensitive site information. Camera names are included in the transmitted data, so during installation, check whether a name reveals an actual location. Review the provider's data processing terms and the laws on cross-border transfer before giving consent.</p>
+
+      <p>Consent can be withdrawn. Uncheck the external transmission consent and save, or turn off chat, and new questions are no longer sent from that moment. Where chat is available, an "External LLM in use" label appears below the input, so the person using it can tell that the feature sends data outside the device.</p>
+
+      <p>The empty conversation screen shows example questions, and clicking one fills the input. Agreeing with customers in advance on the questions they will ask keeps first-time users from getting stuck.</p>
+
+      <h2>What Should Be Prepared on Site During Installation?</h2>
+
+      <p>The chat finds cameras by name, so camera names are what questions match against. Even if a question says "entrance," a camera whose name does not contain "entrance" will not be found. Put the words customers actually use, such as entrance, parking lot, or first-floor lobby, into the names so that questions and names match.</p>
+
+      <p>If several cameras share a word, more cameras open at once, and some you did not want may open along with the ones you did. At sites with many similar cameras, include the floor or zone in the name. Vague names increase the number of candidates, and more steps are needed to pick the camera you want.</p>
+
+      <p>Camera names are also part of the external data, so do not put sensitive site information in them. After renaming cameras, ask a test question and confirm that the opened card shows the expected camera and time. How a site describes its locations can change how time expressions and names are matched.</p>
+
+      <h2>How Are Usage Limits and Chat History Managed?</h2>
+
+      <p>The limits always apply per user. They are independent of budget settings and cannot be changed.</p>
+
+      <ul>
+        <li>Each user can have up to two responses in progress at once. Within one conversation, only one runs at a time.</li>
+        <li>Each user can send up to 10 questions per minute, with a burst of up to 5.</li>
+        <li>A question must be between 1 and 4,000 characters.</li>
+        <li>Each question also has an upper limit on processing steps. If it is exceeded, the chat asks the user to ask something more specific.</li>
+      </ul>
+
+      <p>Administrators can set daily and monthly token budgets. A value of 0 means no limit. The settings screen shows today's and this month's usage. When a budget is exceeded, new questions are rejected. A response stopped midway still counts the tokens the provider has already processed. A budget helps cap costs but does not replace the usage limits in the provider's account, so set usage limits in the provider's console as well.</p>
+
+      <p>The audit log records one line for each question. It records the length of the question, not the question text. You can trace who asked and when, but the content of the question is not recorded.</p>
+
+      <p>Conversations are deleted according to the recording retention period. There is no separate retention setting for chat. After video is deleted under the retention period, reopening an old conversation's result may show no video.</p>
+
+      <h2>In What Order Should a Site Check Before Adoption?</h2>
+
+      <p>Asking for video removes the need to know the menus, which eases the burden on a site. But the feature has several conditions, and the fact that data leaves the device must be accepted first. If you are considering adoption, follow this order:</p>
+
+      <ol>
+        <li>Check the device's edition and security mode first. If the edition is not ENTERPRISE, or NIS security mode is on, the decision ends here.</li>
+        <li>Get approval for Claude API use under the site's account policy and data handling standards. Review the external transmission items and camera names together.</li>
+        <li>An administrator enters the API key and model, consents to external transmission, and turns on chat. Set a token budget if needed, and set usage limits in the provider's console as well.</li>
+        <li>Assign the "AI Chat Use" permission, the recording view permission, and the camera access scope by role.</li>
+        <li>Organize camera names in the site's own terms and check the device's display time zone.</li>
+        <li>Test with a few real questions. Confirm that the opened cameras and times match expectations, and make sure users know that a license plate or a description of a person typed into a question is sent to the provider.</li>
+      </ol>
+
+      <p><em>Apply for installation partner consultation: <a href="/contact/">yiyol.com/contact</a></em></p>
+
+      <hr />
+
+      <h2>Related Posts</h2>
+
+      <ul>
+        <li><a href="/blog/nox-mcp-server-development-log.html">Building the NOX MCP Server — Why We Started Read-Only, and the Bug Claude Code Found First</a> — Another route for AI agents to query the same device</li>
+        <li><a href="/blog/agentic-ai-nvr-vs-ai-nvr-difference.html">What Is an Agentic AI NVR? The Decisive Difference from an AI NVR</a> — A structure that extends from detection to judgment and action</li>
+        <li><a href="/blog/webhook-agentic-ai-parking-automation-guide.html">Agentic AI with WebHooks: A Complete Guide to Parking Lot Automation</a> — Another way to connect agents with external systems</li>
+      </ul>
+
+      </div>
+
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="yl-foot" role="contentinfo">
+      <div class="yl-shell">
+        <div class="yl-foot-mast">
+          <div>
+            <div class="yl-foot-word"><img class="yl-foot-mark" src="/assets/yiyol-mark.png" alt="" width="36" height="26" />YIYOL<span>.</span></div>
+            <p class="yl-foot-tag ko-only">영상을 저장하고 관리하는 NVR·VMS,<br />그 위에서 판단하고 실행하는 AI 자동화</p>
+            <p class="yl-foot-tag en-only">NVR and VMS that store and manage your video — and the AI automation built on top of it.</p>
+          </div>
+          <nav class="yl-foot-links" aria-label="Footer navigation">
+            <a href="/company/"><span class="ko-only">회사</span><span class="en-only">Company</span></a>
+            <a href="/products/"><span class="ko-only">제품</span><span class="en-only">Products</span></a>
+            <a href="/services/"><span class="ko-only">서비스</span><span class="en-only">Services</span></a>
+            <a href="/api/"><span class="ko-only">API 문서</span><span class="en-only">API Docs</span></a>
+            <a href="/blog/"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a>
+            <a href="/contact/"><span class="ko-only">문의</span><span class="en-only">Contact</span></a>
+          </nav>
+        </div>
+        <div class="yl-foot-meta">
+          <span class="ko-only">서울특별시 금천구 가산디지털1로 75-15, 하우스디 와이즈타워 326호</span>
+          <span class="en-only">#326, 75-15 Gasan Digital 1-ro, Geumcheon-gu, Seoul</span>
+          <a href="mailto:yiyol@yiyol.com">yiyol@yiyol.com</a>
+          <span class="ko-only">사업자등록번호 186-34-01502</span>
+          <span class="en-only">Business Registration 186-34-01502</span>
+          <span class="ko-only">통신판매업 제2024-서울금천-1806호</span>
+          <span class="en-only">Mail-order License 2024-Seoul Geumcheon-1806</span>
+        </div>
+        <p class="yl-foot-copy">&copy; 2026 YIYOL. All rights reserved.</p>
+      </div>
+    </footer>
+
+  <script src="/assets/js/i18n.js?v=5"></script>
+</body>
+</html>
