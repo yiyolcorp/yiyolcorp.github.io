@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ko" data-lang-fixed="ko">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKJ4GX2KHS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-CKJ4GX2KHS');
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NOX NVR AI 채팅 추가: 말로 영상 찾기 - YIYOL Blog</title>
+
+  <meta name="description" content="NOX NVR에 AI 채팅이 추가됐다. 카메라 이름과 시각을 문장으로 입력하면 녹화를 바로 재생한다. 현재는 Anthropic(Claude API)만 지원하며, 다른 LLM도 향후 지원할 예정이다." />
+  <meta name="keywords" content="AI 채팅 NVR,NVR 자연어 영상 찾기,NOX NVR,NVR 채팅 재생,NIS 보안 모드 NVR" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://yiyol.com/blog/ai-chat-video-search.html" />
+  <meta property="og:title" content="NOX NVR AI 채팅 추가: 말로 영상 찾기 — YIYOL" />
+  <meta property="og:description" content="NOX NVR에 AI 채팅이 추가됐다. 카메라 이름과 시각을 문장으로 입력하면 녹화를 바로 재생한다. 현재는 Anthropic(Claude API)만 지원하며, 다른 LLM도 향후 지원할 예정이다." />
+  <meta property="og:image" content="https://yiyol.com/img/blog/ai-chat-video-search/chat-result-playback.png" />
+  <meta property="og:site_name" content="YIYOL" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="NOX NVR AI 채팅 추가: 말로 영상 찾기 — YIYOL" />
+  <meta name="twitter:description" content="NOX NVR에 AI 채팅이 추가됐다. 카메라 이름과 시각을 문장으로 입력하면 녹화를 바로 재생한다. 현재는 Anthropic(Claude API)만 지원하며, 다른 LLM도 향후 지원할 예정이다." />
+  <meta name="twitter:image" content="https://yiyol.com/img/blog/ai-chat-video-search/chat-result-playback.png" />
+
+  <!-- hreflang:start -->
+  <link rel="alternate" hreflang="ko" href="https://yiyol.com/blog/ai-chat-video-search.html" />
+  <link rel="alternate" hreflang="en" href="https://yiyol.com/en/blog/ai-chat-video-search.html" />
+  <link rel="alternate" hreflang="x-default" href="https://yiyol.com/blog/ai-chat-video-search.html" />
+  <!-- hreflang:end -->
+  <link rel="canonical" href="https://yiyol.com/blog/ai-chat-video-search.html" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "NOX NVR AI 채팅 추가: 말로 영상 찾기",
+    "description": "NOX NVR에 AI 채팅이 추가됐다. 카메라 이름과 시각을 문장으로 입력하면 녹화를 바로 재생한다. 현재는 Anthropic(Claude API)만 지원하며, 다른 LLM도 향후 지원할 예정이다.",
+    "url": "https://yiyol.com/blog/ai-chat-video-search.html",
+    "image": "https://yiyol.com/img/blog/ai-chat-video-search/chat-result-playback.png",
+    "datePublished": "2026-10-27",
+    "dateModified": "2026-10-27",
+    "author": {
+      "@type": "Organization",
+      "name": "YIYOL",
+      "url": "https://yiyol.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "YIYOL",
+      "url": "https://yiyol.com"
+    },
+    "keywords": [
+      "AI 채팅 NVR",
+      "NVR 자연어 영상 찾기",
+      "NOX NVR",
+      "NVR 채팅 재생",
+      "NIS 보안 모드 NVR"
+    ],
+    "inLanguage": "ko"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "YIYOL",
+        "item": "https://yiyol.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "블로그",
+        "item": "https://yiyol.com/blog/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "NOX NVR AI 채팅 추가: 말로 영상 찾기",
+        "item": "https://yiyol.com/blog/ai-chat-video-search.html"
+      }
+    ]
+  }
+  </script>
+
+  <!-- Fonts & CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=3" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=2" />
+</head>
+<body class="yl">
+  <!-- Header -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+      <div class="site-nav-inner">
+        <a href="/" class="site-nav-brand">
+          <img class="site-nav-mark" src="/assets/yiyol-mark.png" alt="" width="33" height="24" /><span class="site-nav-logo">YIYOL<span>.</span></span>
+        </a>
+        <div class="site-nav-right">
+          <ul class="site-nav-links">
+            <li><a href="/company/"><span class="ko-only">회사</span><span class="en-only">Company</span></a></li>
+            <li><a href="/products/"><span class="ko-only">제품</span><span class="en-only">Products</span></a></li>
+            <li><a href="/services/"><span class="ko-only">서비스</span><span class="en-only">Services</span></a></li>
+            <li><a href="/blog/" class="nav-active"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a></li>
+            <li><a href="/contact/" class="nav-cta"><span class="ko-only">문의</span><span class="en-only">Contact</span></a></li>
+          </ul>
+          <div class="lang-switch">
+            <button class="lang-selector" type="button" aria-haspopup="true" aria-expanded="false">
+              <span class="lang-current">한국어</span>
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" /></svg>
+            </button>
+            <div class="lang-dropdown">
+              <a href="#" class="lang-option" data-lang="ko">한국어</a>
+              <a href="#" class="lang-option" data-lang="en">English</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+  <!-- Hero -->
+  <section class="post-hero">
+    <div class="post-hero-content">
+      <nav class="post-breadcrumb">
+        <a href="/">YIYOL</a><span>›</span><a href="/blog/"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a><span>›</span> <span class="ko-only">현재 글</span><span class="en-only">Current post</span>
+      </nav>
+      <h1><span class="ko-only">NOX NVR AI 채팅 추가: 말로 영상 찾기</span><span class="en-only">NOX NVR Adds AI Chat: Find Video by Asking</span></h1>
+      <div class="post-meta">
+        <span class="post-meta-date">2026.10.27</span>
+        <div class="post-tags">
+          <span class="post-tag">AI NVR</span>
+          <span class="post-tag"><span class="ko-only">AI 채팅</span><span class="en-only">AI Chat</span></span>
+          <span class="post-tag"><span class="ko-only">영상 재생</span><span class="en-only">Video Playback</span></span>
+          <span class="post-tag"><span class="ko-only">NVR 도입</span><span class="en-only">NVR Adoption</span></span>
+          <span class="post-tag">NOX</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main -->
+  <main class="post-container">
+    <article class="post-article">
+      <div class="ko-only">
+
+      <p>NOX NVR에 AI 채팅 기능이 추가됐다. 카메라 이름과 시각을 문장으로 입력하면 해당 녹화를 바로 재생한다. 메뉴를 열고, 카메라를 찾고, 시각을 맞추는 과정이 질문 한 줄로 줄어든다.</p>
+
+      <h2>사용 방법</h2>
+
+      <p>왼쪽 메뉴에서 채팅을 열고 질문을 입력한 뒤 Enter를 누른다. 예를 들면 이렇게 묻는다.</p>
+
+      <ul>
+        <li>어제 오전 9시 30분 현관 영상 보여줘</li>
+        <li>지난 금요일 오후 3시 주차장 영상</li>
+      </ul>
+
+      <p>카메라는 이름으로 찾는다. 질문에 '현관'이라고 쓰면 이름에 '현관'이 들어간 카메라를 연다. 그래서 카메라 이름은 현장에서 쓰는 말로 지어 두는 것이 좋다. 열린 영상은 오른쪽 결과 영역에서 재생된다. 채팅은 영상을 찾아 여는 데까지만 하며, 장비 설정은 바꾸지 않는다.</p>
+
+      <img src="/img/blog/ai-chat-video-search/chat-result-playback.png" alt="왼쪽에서 질문하고 오른쪽 결과 영역에서 녹화 재생 화면을 보는 채팅 화면" width="1280" height="720" loading="lazy" />
+
+      <h2>채팅 켜기: 관리자 설정</h2>
+
+      <p>관리자는 Settings &gt; 서비스 &gt; 채팅에서 채팅을 켠다. 공급자는 Anthropic(Claude API)으로 고르고, 고객 본인의 API 키를 입력한 뒤 모델 목록을 불러와 모델을 고른다. 키는 암호화해 저장하며, 저장한 뒤에는 다시 보이지 않는다.</p>
+
+      <img src="/img/blog/ai-chat-video-search/chat-settings-consent.png" alt="Settings &gt; 서비스 &gt; 채팅 화면. 채팅 사용 스위치, 공급자, 저장된 API 키 칸, 모델 선택, 외부 전송 동의 체크박스가 보인다" width="1136" height="732" loading="lazy" />
+
+      <p>외부 전송 동의에 체크하지 않으면 채팅은 켜지지 않는다. 동의 항목에는 질문 문장, 대화 기록, 카메라 이름, 해석된 시각, 영상 유무가 공급자에게 전송된다고 적혀 있고, 영상·이미지·번호판·인물 정보는 보내지 않는다. 다만 질문에 직접 쓴 번호판이나 인물 묘사는 질문 문장에 들어가므로 전송된다.</p>
+
+      <h2>개발 뒷이야기</h2>
+
+      <p>채팅을 만들면서 가장 재미있게 배운 것은 '해석했다'와 '열었다'가 같은 말이 아니라는 점이었다. 처음에는 카메라와 시각을 찾기만 해도 성공으로 보았다. 그 때문에 녹화가 없는 질문의 답변 본문과 다음 동작 버튼이 서로 어긋났다. 지금은 실제로 재생 화면이 열렸는지를 기준으로 판단한다. 답변 문장이 '열었습니다'라고 말해도, 확인은 결과 카드의 카메라별 재생 결과로 하면 된다.</p>
+
+      <p>같은 장비는 MCP 서버로도 연결할 수 있다. Claude Code나 Claude Desktop에 등록하면 AI 에이전트가 장비를 읽기 전용으로 조회하며, 장비 상태를 바꾸는 도구는 없다. 채팅과 마찬가지로 ENTERPRISE 에디션 기능이고, NIS 보안 모드가 켜진 장비에서는 쓸 수 없다.</p>
+
+      <p>처음 실제 장비에 Claude Code를 붙여 시험하던 날도 기억에 남는다. 녹화가 빠진 곳이 있는지 묻자 녹화 구간 도구와 재생 링크 도구가 서로 다른 말을 했다. Claude Code는 '녹화가 전부 비었다'고 옮기지 않고, 두 결과가 서로 맞지 않는다고 먼저 짚었다. 원인은 시간대 계산 한 줄이었고, 출시 전에 고쳤다. 자세한 과정은 <a href="/blog/nox-mcp-server-development-log.html">MCP 서버 개발기</a>에 적었다.</p>
+
+      <h2>현재 지원 범위</h2>
+
+      <ul>
+        <li><strong>에디션:</strong> ENTERPRISE 에디션에서 쓸 수 있다.</li>
+        <li><strong>AI 공급자:</strong> 현재는 Anthropic(Claude API)만 지원한다. 고객이 자신의 API 키를 넣어 쓴다. 다른 LLM도 향후 지원할 예정이다.</li>
+        <li><strong>외부 전송:</strong> 질문 문장과 카메라 이름 등이 공급자로 전송된다. 관리자가 동의해야 켜진다.</li>
+        <li><strong>보안 모드:</strong> NIS 보안 모드에서는 쓸 수 없다.</li>
+      </ul>
+
+      <p><em>설치 파트너 상담 신청: <a href="/contact/">yiyol.com/contact</a></em></p>
+
+      <hr />
+
+      <h2>관련 글</h2>
+
+      <ul>
+        <li><a href="/blog/nox-mcp-server-development-log.html">NOX MCP 서버 개발기 — 읽기 전용으로 시작한 이유와, Claude Code가 먼저 찾아낸 버그</a> — 같은 장비를 AI 에이전트에 연결하는 또 다른 경로</li>
+        <li><a href="/blog/agentic-ai-nvr-vs-ai-nvr-difference.html">Agentic AI NVR이란? AI NVR과의 결정적 차이</a> — 감지에서 판단과 실행까지 이어지는 구조</li>
+        <li><a href="/blog/webhook-agentic-ai-parking-automation-guide.html">WebHook으로 구현하는 Agentic AI: 주차장 자동화 완전 구축 가이드</a> — 에이전트와 외부 시스템을 잇는 또 다른 방법</li>
+      </ul>
+
+      </div>
+
+      <div class="en-only">
+
+      <p>NOX NVR now includes AI Chat. Type a camera name and a time in a sentence, and the matching recording plays right away. Opening a menu, finding the camera, and setting the time collapse into a single question.</p>
+
+      <h2>How to Use</h2>
+
+      <p>Open Chat from the left menu, type a question, and press Enter. For example:</p>
+
+      <ul>
+        <li>Show me yesterday's 9:30 AM entrance footage</li>
+        <li>Parking lot footage, last Friday at 3 PM</li>
+      </ul>
+
+      <p>Cameras are found by name. A question that says "entrance" opens the cameras whose names include "entrance," so it helps to name cameras with the words your site uses. Opened video plays in the result area on the right. Chat only finds and opens recordings; it does not change device settings.</p>
+
+      <img src="/img/blog/ai-chat-video-search/chat-result-playback.png" alt="Chat screen with the question on the left and recording playback in the result area on the right" width="1280" height="720" loading="lazy" />
+
+      <h2>Turning Chat On: Administrator Settings</h2>
+
+      <p>Administrators turn chat on at Settings &gt; Services &gt; Chat. Choose Anthropic (Claude API) as the provider, enter your own API key, load the model list, and pick a model. Keys are stored encrypted and are not shown again after saving.</p>
+
+      <img src="/img/blog/ai-chat-video-search/chat-settings-consent.png" alt="Settings &gt; Services &gt; Chat screen with the chat switch, provider, saved API key field, model selector, and external transmission consent checkbox" width="1136" height="732" loading="lazy" />
+
+      <p>Chat stays off until the external transmission consent box is checked. The consent text says that question text, conversation history, camera names, the interpreted time, and whether video exists are sent to the provider, while video, images, license plates, and personal information are not. License plates or appearance descriptions typed into a question are part of the question text, so they are sent.</p>
+
+      <h2>Notes from Development</h2>
+
+      <p>The most useful lesson from building chat was that understanding a question and actually opening the video are two different things. At first, a question counted as a success as soon as the camera and time were resolved, so for a query with no recording, the answer text and the next-action button did not match. Now the outcome depends on whether the playback screen actually opened. Even if the answer says the video was opened, check the per-camera playback result on the result card.</p>
+
+      <p>The same device can also connect as an MCP server. Once registered in Claude Code or Claude Desktop, an AI agent can query the device read-only, and no tool changes device state. Like chat, MCP is an ENTERPRISE edition feature and cannot be used on devices with NIS security mode enabled.</p>
+
+      <p>We also remember the first day we connected Claude Code to a real device. When we asked about gaps in recordings, the recording-coverage tool and the playback-link tool gave conflicting answers. Claude Code did not repeat that all recordings were empty. Instead, it pointed out that the two results contradicted each other. The cause was a single timezone conversion in one query, and it was fixed before release. The full story is in the <a href="/blog/nox-mcp-server-development-log.html">MCP server development log</a>.</p>
+
+      <h2>Current Support</h2>
+
+      <ul>
+        <li><strong>Edition:</strong> Available in the ENTERPRISE edition.</li>
+        <li><strong>AI provider:</strong> Currently Anthropic (Claude API) only. Customers use their own API key. Support for other LLMs is planned.</li>
+        <li><strong>External transmission:</strong> Question text and camera names are sent to the provider. Chat can be turned on only after an administrator consents.</li>
+        <li><strong>Security mode:</strong> Not available when NIS security mode is enabled.</li>
+      </ul>
+
+      <p><em>Apply for installation partner consultation: <a href="/contact/">yiyol.com/contact</a></em></p>
+
+      <hr />
+
+      <h2>Related Posts</h2>
+
+      <ul>
+        <li><a href="/blog/nox-mcp-server-development-log.html">Building the NOX MCP Server — Why We Started Read-Only, and the Bug Claude Code Found First</a> — Another route for AI agents to query the same device</li>
+        <li><a href="/blog/agentic-ai-nvr-vs-ai-nvr-difference.html">What Is an Agentic AI NVR? The Decisive Difference from an AI NVR</a> — A structure that extends from detection to judgment and action</li>
+        <li><a href="/blog/webhook-agentic-ai-parking-automation-guide.html">Agentic AI with WebHooks: A Complete Guide to Parking Lot Automation</a> — Another way to connect agents with external systems</li>
+      </ul>
+
+      </div>
+
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="yl-foot" role="contentinfo">
+      <div class="yl-shell">
+        <div class="yl-foot-mast">
+          <div>
+            <div class="yl-foot-word"><img class="yl-foot-mark" src="/assets/yiyol-mark.png" alt="" width="36" height="26" />YIYOL<span>.</span></div>
+            <p class="yl-foot-tag ko-only">영상을 저장하고 관리하는 NVR·VMS,<br />그 위에서 판단하고 실행하는 AI 자동화</p>
+            <p class="yl-foot-tag en-only">NVR and VMS that store and manage your video — and the AI automation built on top of it.</p>
+          </div>
+          <nav class="yl-foot-links" aria-label="Footer navigation">
+            <a href="/company/"><span class="ko-only">회사</span><span class="en-only">Company</span></a>
+            <a href="/products/"><span class="ko-only">제품</span><span class="en-only">Products</span></a>
+            <a href="/services/"><span class="ko-only">서비스</span><span class="en-only">Services</span></a>
+            <a href="/api/"><span class="ko-only">API 문서</span><span class="en-only">API Docs</span></a>
+            <a href="/blog/"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a>
+            <a href="/contact/"><span class="ko-only">문의</span><span class="en-only">Contact</span></a>
+          </nav>
+        </div>
+        <div class="yl-foot-meta">
+          <span class="ko-only">서울특별시 금천구 가산디지털1로 75-15, 하우스디 와이즈타워 326호</span>
+          <span class="en-only">#326, 75-15 Gasan Digital 1-ro, Geumcheon-gu, Seoul</span>
+          <a href="mailto:yiyol@yiyol.com">yiyol@yiyol.com</a>
+          <span class="ko-only">사업자등록번호 186-34-01502</span>
+          <span class="en-only">Business Registration 186-34-01502</span>
+          <span class="ko-only">통신판매업 제2024-서울금천-1806호</span>
+          <span class="en-only">Mail-order License 2024-Seoul Geumcheon-1806</span>
+        </div>
+        <p class="yl-foot-copy">&copy; 2026 YIYOL. All rights reserved.</p>
+      </div>
+    </footer>
+
+  <script src="/assets/js/i18n.js?v=5"></script>
+</body>
+</html>

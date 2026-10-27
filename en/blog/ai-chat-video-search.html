@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en" data-lang-fixed="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKJ4GX2KHS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-CKJ4GX2KHS');
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NOX NVR Adds AI Chat: Find Video by Asking - YIYOL Blog</title>
+
+  <meta name="description" content="NOX NVR now includes AI Chat, which plays a recording when you type a camera name and time. Currently only Anthropic (Claude API) is supported; other LLMs are planned." />
+  <meta name="keywords" content="AI chat NVR,natural language video lookup,NOX NVR,NVR chat playback,NIS security mode NVR" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://yiyol.com/en/blog/ai-chat-video-search.html" />
+  <meta property="og:title" content="NOX NVR Adds AI Chat: Find Video by Asking — YIYOL" />
+  <meta property="og:description" content="NOX NVR now includes AI Chat, which plays a recording when you type a camera name and time. Currently only Anthropic (Claude API) is supported; other LLMs are planned." />
+  <meta property="og:image" content="https://yiyol.com/img/blog/ai-chat-video-search/chat-result-playback.png" />
+  <meta property="og:site_name" content="YIYOL" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="ko_KR" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="NOX NVR Adds AI Chat: Find Video by Asking — YIYOL" />
+  <meta name="twitter:description" content="NOX NVR now includes AI Chat, which plays a recording when you type a camera name and time. Currently only Anthropic (Claude API) is supported; other LLMs are planned." />
+  <meta name="twitter:image" content="https://yiyol.com/img/blog/ai-chat-video-search/chat-result-playback.png" />
+
+  <!-- hreflang:start -->
+  <link rel="alternate" hreflang="ko" href="https://yiyol.com/blog/ai-chat-video-search.html" />
+  <link rel="alternate" hreflang="en" href="https://yiyol.com/en/blog/ai-chat-video-search.html" />
+  <link rel="alternate" hreflang="x-default" href="https://yiyol.com/blog/ai-chat-video-search.html" />
+  <!-- hreflang:end -->
+  <link rel="canonical" href="https://yiyol.com/en/blog/ai-chat-video-search.html" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "NOX NVR Adds AI Chat: Find Video by Asking",
+      "description": "NOX NVR now includes AI Chat, which plays a recording when you type a camera name and time. Currently only Anthropic (Claude API) is supported; other LLMs are planned.",
+      "url": "https://yiyol.com/en/blog/ai-chat-video-search.html",
+      "image": "https://yiyol.com/img/blog/ai-chat-video-search/chat-result-playback.png",
+      "datePublished": "2026-10-27",
+      "dateModified": "2026-10-27",
+      "author": {
+        "@type": "Organization",
+        "name": "YIYOL",
+        "url": "https://yiyol.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "YIYOL",
+        "url": "https://yiyol.com"
+      },
+      "keywords": [
+        "AI chat NVR",
+        "natural language video lookup",
+        "NOX NVR",
+        "NVR chat playback",
+        "NIS security mode NVR"
+      ],
+      "inLanguage": "en",
+      "translationOfWork": {
+        "@id": "https://yiyol.com/blog/ai-chat-video-search.html"
+      }
+    }
+  </script>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "YIYOL",
+          "item": "https://yiyol.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://yiyol.com/en/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "NOX NVR Adds AI Chat: Find Video by Asking",
+          "item": "https://yiyol.com/en/blog/ai-chat-video-search.html"
+        }
+      ]
+    }
+  </script>
+
+  <!-- Fonts & CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=3" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=2" />
+</head>
+<body class="yl">
+  <!-- Header -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+      <div class="site-nav-inner">
+        <a href="/" class="site-nav-brand">
+          <img class="site-nav-mark" src="/assets/yiyol-mark.png" alt="" width="33" height="24" /><span class="site-nav-logo">YIYOL<span>.</span></span>
+        </a>
+        <div class="site-nav-right">
+          <ul class="site-nav-links">
+            <li><a href="/company/"><span class="en-only">Company</span></a></li>
+            <li><a href="/products/"><span class="en-only">Products</span></a></li>
+            <li><a href="/services/"><span class="en-only">Services</span></a></li>
+            <li><a href="/en/blog/" class="nav-active"><span class="en-only">Blog</span></a></li>
+            <li><a href="/contact/" class="nav-cta"><span class="en-only">Contact</span></a></li>
+          </ul>
+          <div class="lang-switch">
+            <button class="lang-selector" type="button" aria-haspopup="true" aria-expanded="false">
+              <span class="lang-current">English</span>
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" /></svg>
+            </button>
+            <div class="lang-dropdown">
+              <a href="#" class="lang-option" data-lang="ko">한국어</a>
+              <a href="#" class="lang-option" data-lang="en">English</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+  <!-- Hero -->
+  <section class="post-hero">
+    <div class="post-hero-content">
+      <nav class="post-breadcrumb">
+        <a href="/">YIYOL</a><span>›</span><a href="/en/blog/"><span class="en-only">Blog</span></a><span>›</span> <span class="en-only">Current post</span>
+      </nav>
+      <h1><span class="en-only">NOX NVR Adds AI Chat: Find Video by Asking</span></h1>
+      <div class="post-meta">
+        <span class="post-meta-date">2026.10.27</span>
+        <div class="post-tags">
+          <span class="post-tag">AI NVR</span>
+          <span class="post-tag"><span class="en-only">AI Chat</span></span>
+          <span class="post-tag"><span class="en-only">Video Playback</span></span>
+          <span class="post-tag"><span class="en-only">NVR Adoption</span></span>
+          <span class="post-tag">NOX</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main -->
+  <main class="post-container">
+    <article class="post-article">
+      
+
+      <div class="en-only">
+
+      <p>NOX NVR now includes AI Chat. Type a camera name and a time in a sentence, and the matching recording plays right away. Opening a menu, finding the camera, and setting the time collapse into a single question.</p>
+
+      <h2>How to Use</h2>
+
+      <p>Open Chat from the left menu, type a question, and press Enter. For example:</p>
+
+      <ul>
+        <li>Show me yesterday's 9:30 AM entrance footage</li>
+        <li>Parking lot footage, last Friday at 3 PM</li>
+      </ul>
+
+      <p>Cameras are found by name. A question that says "entrance" opens the cameras whose names include "entrance," so it helps to name cameras with the words your site uses. Opened video plays in the result area on the right. Chat only finds and opens recordings; it does not change device settings.</p>
+
+      <img src="/img/blog/ai-chat-video-search/chat-result-playback.png" alt="Chat screen with the question on the left and recording playback in the result area on the right" width="1280" height="720" loading="lazy" />
+
+      <h2>Turning Chat On: Administrator Settings</h2>
+
+      <p>Administrators turn chat on at Settings &gt; Services &gt; Chat. Choose Anthropic (Claude API) as the provider, enter your own API key, load the model list, and pick a model. Keys are stored encrypted and are not shown again after saving.</p>
+
+      <img src="/img/blog/ai-chat-video-search/chat-settings-consent.png" alt="Settings &gt; Services &gt; Chat screen with the chat switch, provider, saved API key field, model selector, and external transmission consent checkbox" width="1136" height="732" loading="lazy" />
+
+      <p>Chat stays off until the external transmission consent box is checked. The consent text says that question text, conversation history, camera names, the interpreted time, and whether video exists are sent to the provider, while video, images, license plates, and personal information are not. License plates or appearance descriptions typed into a question are part of the question text, so they are sent.</p>
+
+      <h2>Notes from Development</h2>
+
+      <p>The most useful lesson from building chat was that understanding a question and actually opening the video are two different things. At first, a question counted as a success as soon as the camera and time were resolved, so for a query with no recording, the answer text and the next-action button did not match. Now the outcome depends on whether the playback screen actually opened. Even if the answer says the video was opened, check the per-camera playback result on the result card.</p>
+
+      <p>The same device can also connect as an MCP server. Once registered in Claude Code or Claude Desktop, an AI agent can query the device read-only, and no tool changes device state. Like chat, MCP is an ENTERPRISE edition feature and cannot be used on devices with NIS security mode enabled.</p>
+
+      <p>We also remember the first day we connected Claude Code to a real device. When we asked about gaps in recordings, the recording-coverage tool and the playback-link tool gave conflicting answers. Claude Code did not repeat that all recordings were empty. Instead, it pointed out that the two results contradicted each other. The cause was a single timezone conversion in one query, and it was fixed before release. The full story is in the <a href="/en/blog/nox-mcp-server-development-log.html">MCP server development log</a>.</p>
+
+      <h2>Current Support</h2>
+
+      <ul>
+        <li><strong>Edition:</strong> Available in the ENTERPRISE edition.</li>
+        <li><strong>AI provider:</strong> Currently Anthropic (Claude API) only. Customers use their own API key. Support for other LLMs is planned.</li>
+        <li><strong>External transmission:</strong> Question text and camera names are sent to the provider. Chat can be turned on only after an administrator consents.</li>
+        <li><strong>Security mode:</strong> Not available when NIS security mode is enabled.</li>
+      </ul>
+
+      <p><em>Apply for installation partner consultation: <a href="/contact/">yiyol.com/contact</a></em></p>
+
+      <hr />
+
+      <h2>Related Posts</h2>
+
+      <ul>
+        <li><a href="/en/blog/nox-mcp-server-development-log.html">Building the NOX MCP Server — Why We Started Read-Only, and the Bug Claude Code Found First</a> — Another route for AI agents to query the same device</li>
+        <li><a href="/en/blog/agentic-ai-nvr-vs-ai-nvr-difference.html">What Is an Agentic AI NVR? The Decisive Difference from an AI NVR</a> — A structure that extends from detection to judgment and action</li>
+        <li><a href="/en/blog/webhook-agentic-ai-parking-automation-guide.html">Agentic AI with WebHooks: A Complete Guide to Parking Lot Automation</a> — Another way to connect agents with external systems</li>
+      </ul>
+
+      </div>
+
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="yl-foot" role="contentinfo">
+      <div class="yl-shell">
+        <div class="yl-foot-mast">
+          <div>
+            <div class="yl-foot-word"><img class="yl-foot-mark" src="/assets/yiyol-mark.png" alt="" width="36" height="26" />YIYOL<span>.</span></div>
+            
+            <p class="yl-foot-tag en-only">NVR and VMS that store and manage your video — and the AI automation built on top of it.</p>
+          </div>
+          <nav class="yl-foot-links" aria-label="Footer navigation">
+            <a href="/company/"><span class="en-only">Company</span></a>
+            <a href="/products/"><span class="en-only">Products</span></a>
+            <a href="/services/"><span class="en-only">Services</span></a>
+            <a href="/api/"><span class="en-only">API Docs</span></a>
+            <a href="/en/blog/"><span class="en-only">Blog</span></a>
+            <a href="/contact/"><span class="en-only">Contact</span></a>
+          </nav>
+        </div>
+        <div class="yl-foot-meta">
+          
+          <span class="en-only">#326, 75-15 Gasan Digital 1-ro, Geumcheon-gu, Seoul</span>
+          <a href="mailto:yiyol@yiyol.com">yiyol@yiyol.com</a>
+          
+          <span class="en-only">Business Registration 186-34-01502</span>
+          
+          <span class="en-only">Mail-order License 2024-Seoul Geumcheon-1806</span>
+        </div>
+        <p class="yl-foot-copy">&copy; 2026 YIYOL. All rights reserved.</p>
+      </div>
+    </footer>
+
+  <script src="/assets/js/i18n.js?v=5"></script>
+</body>
+</html>

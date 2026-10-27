@@ -59,5 +59,10 @@
     "title": "CCTV Storage Calculator",
     "description": "Automatically calculate required storage capacity and retention period based on camera count, resolution, and recording hours.",
     "keywords": ["CCTV storage calculator", "NVR storage", "video retention", "recording capacity"]
+  },
+  "ai-chat-video-search": {
+    "title": "NOX NVR Adds AI Chat: Find Video by Asking",
+    "description": "NOX NVR now includes AI Chat, which plays a recording when you type a camera name and time. Currently only Anthropic (Claude API) is supported; other LLMs are planned.",
+    "keywords": ["AI chat NVR", "natural language video lookup", "NOX NVR", "NVR chat playback", "NIS security mode NVR"]
   }
 }
