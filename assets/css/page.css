@@ -517,6 +517,38 @@ a.sv-case-card:hover, a.sv-product-card:hover { background: var(--color-paper-2)
 .sv-request-steps li + li { margin-top: var(--space-3xs); }
 .sv-request .sv-request-note { margin-top: var(--space-xs); font-size: var(--text-sm); }
 
+/* Trial FAQ — native <details>, hairline rows, one accent on the marker */
+.sv-faq { margin-top: var(--space-xl); }
+.sv-faq h3 { font-size: var(--text-lg); }
+.sv-faq-list { margin-top: var(--space-sm); border-top: var(--rule-hair) solid var(--color-rule-strong); }
+.sv-faq-item { border-bottom: var(--rule-hair) solid var(--color-rule); }
+.sv-faq-item summary {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: var(--space-sm) 0;
+  font-weight: 500;
+  cursor: pointer;
+  list-style: none;
+}
+.sv-faq-item summary::-webkit-details-marker { display: none; }
+.sv-faq-item summary::after {
+  content: "+";
+  flex: none;
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  transition: transform var(--dur-short) var(--ease-out);
+}
+.sv-faq-item[open] summary::after { transform: rotate(45deg); }
+.sv-faq-item summary:hover { color: var(--color-accent); }
+.sv-faq-item summary:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.sv-faq-item p {
+  padding-bottom: var(--space-sm);
+  color: var(--color-ink-2);
+  max-width: var(--measure);
+  word-break: keep-all;
+}
+
 /* ============================================================
    Form — every field ships all eight states (gate 39)
    ============================================================ */

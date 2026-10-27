@@ -96,7 +96,7 @@
     />
     <link rel="stylesheet" href="assets/css/tokens.css?v=4" />
     <link rel="stylesheet" href="assets/css/site.css?v=3" />
-    <link rel="stylesheet" href="assets/css/home.css?v=12" />
+    <link rel="stylesheet" href="assets/css/home.css?v=13" />
 
 <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
@@ -131,6 +131,18 @@
             "@type": "Service",
             "name": "NOX 소프트웨어 (NVR · VMS)",
             "description": "카메라 영상을 온프레미스로 저장·검색·관리하는 NVR·VMS 소프트웨어. 소프트웨어 단독 또는 파트너 장비 탑재로 공급합니다."
+          }
+        },
+        {
+          "@type": "Offer",
+          "name": "NOX 평가판",
+          "url": "https://yiyol.com/products/#trial",
+          "description": "신청한 채널 수(최대 16채널)로 30일 라이선스를 발급하는 NOX 소프트웨어 평가판. 설치 파일(ISO)을 받아 직접 설치합니다.",
+          "itemOffered": {
+            "@type": "SoftwareApplication",
+            "name": "NOX 소프트웨어 (NVR · VMS)",
+            "operatingSystem": "Ubuntu 24.04 LTS",
+            "applicationCategory": "BusinessApplication"
           }
         },
         {
@@ -448,43 +460,82 @@
       </div>
     </footer>
 
-    <aside class="yl-chat-notice" data-chat-notice hidden tabindex="-1" role="dialog" aria-labelledby="yl-chat-notice-title" aria-describedby="yl-chat-notice-desc">
-      <p class="yl-chat-notice-k"><span class="ko-only">새 기능</span><span class="en-only">New feature</span></p>
-      <h2 class="yl-chat-notice-t" id="yl-chat-notice-title"><span class="ko-only">메뉴 대신 말로 영상을 찾습니다</span><span class="en-only">Find video by asking, not by menus</span></h2>
-      <p class="yl-chat-notice-d" id="yl-chat-notice-desc"><span class="ko-only">AI 채팅에 카메라 이름과 시각을 문장으로 입력하면 해당 녹화를 바로 재생합니다. ENTERPRISE 에디션에서 쓸 수 있으며, 현재는 Anthropic(Claude API)만 지원합니다.</span><span class="en-only">Type a camera name and a time into AI chat, and the matching recording plays right away. Available in the ENTERPRISE edition; currently only Anthropic (Claude API) is supported.</span></p>
-      <div class="yl-chat-notice-actions">
-        <a class="yl-link" href="blog/ai-chat-video-search.html" data-chat-notice-link><span class="ko-only">글 읽기</span><span class="en-only">Read the post</span><span class="yl-arrow" aria-hidden="true">→</span></a>
-        <button type="button" class="yl-chat-notice-close" data-chat-notice-close><span class="ko-only">닫기</span><span class="en-only">Close</span></button>
+    <dialog class="yl-notice" data-notice aria-labelledby="yl-notice-title" tabindex="-1">
+      <div class="yl-notice-head">
+        <h2 class="yl-notice-title" id="yl-notice-title">
+          <img src="assets/yiyol-mark.png" alt="" width="22" height="16" />
+          <span class="ko-only">YIYOL 소식</span><span class="en-only">What's new at YIYOL</span>
+        </h2>
+        <button type="button" class="yl-notice-x" data-notice-close>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+          <span class="yl-notice-sr"><span class="ko-only">닫기</span><span class="en-only">Close</span></span>
+        </button>
       </div>
-    </aside>
+      <div class="yl-notice-items">
+        <article class="yl-notice-item">
+          <div class="yl-notice-media"><img src="img/home/notice-trial.jpg" alt="" width="720" height="405" loading="lazy" /></div>
+          <div class="yl-notice-body">
+            <p class="yl-label yl-label--accent"><span class="ko-only">평가판</span><span class="en-only">Trial</span></p>
+            <h3><span class="ko-only">최대 16채널, 30일 동안 써 보세요</span><span class="en-only">Try NOX on up to 16 channels for 30 days</span></h3>
+            <p><span class="ko-only">설치 파일을 받아 직접 설치하고, 신청하신 채널 수로 30일 라이선스를 발급해 드립니다.</span><span class="en-only">Install NOX yourself from our installer, and we issue a 30-day license for the channel count you request.</span></p>
+            <div class="yl-notice-go">
+              <a class="yl-btn yl-btn--primary" href="/products/#trial"><span class="ko-only">평가판 신청하기</span><span class="en-only">Request a trial</span></a>
+            </div>
+          </div>
+        </article>
+        <article class="yl-notice-item">
+          <div class="yl-notice-media"><img src="img/home/notice-chat.jpg" alt="" width="720" height="405" loading="lazy" /></div>
+          <div class="yl-notice-body">
+            <p class="yl-label"><span class="ko-only">새 기능</span><span class="en-only">New feature</span></p>
+            <h3><span class="ko-only">메뉴 대신 말로 영상을 찾습니다</span><span class="en-only">Find video by asking, not by menus</span></h3>
+            <p><span class="ko-only">AI 채팅에 카메라 이름과 시각을 문장으로 입력하면 해당 녹화를 바로 재생합니다. ENTERPRISE 에디션에서 쓸 수 있으며, 현재는 Anthropic(Claude API)만 지원합니다.</span><span class="en-only">Type a camera name and a time into AI chat, and the matching recording plays right away. Available in the ENTERPRISE edition; currently only Anthropic (Claude API) is supported.</span></p>
+            <div class="yl-notice-go">
+              <a class="yl-link" href="/blog/ai-chat-video-search.html"><span class="ko-only">글 읽기</span><span class="en-only">Read the post</span><span class="yl-arrow" aria-hidden="true">→</span></a>
+            </div>
+          </div>
+        </article>
+      </div>
+      <div class="yl-notice-foot">
+        <button type="button" class="yl-notice-text-btn" data-notice-today><span class="ko-only">오늘 하루 보지 않기</span><span class="en-only">Don't show again today</span></button>
+        <button type="button" class="yl-notice-text-btn" data-notice-close><span class="ko-only">닫기</span><span class="en-only">Close</span></button>
+      </div>
+    </dialog>
 
     <script>
       (function () {
-        var KEY = 'yiyol.aiChatNotice.v1';
-        var box = document.querySelector('[data-chat-notice]');
-        if (!box) return;
+        var dlg = document.querySelector('[data-notice]');
+        if (!dlg || typeof dlg.showModal !== 'function') return;
 
-        var stored = null;
-        try { stored = window.localStorage.getItem(KEY); } catch (e) {}
-        if (stored === '1') return;
+        // 첫 페이지에 올 때마다 띄운다. "오늘 하루 보지 않기"를 누른 경우에만 날짜가 바뀔 때까지 숨긴다.
+        var DAY_KEY = 'yiyol.notice.hiddenOn';
+        var now = new Date();
+        var today = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
 
-        function remember() {
-          try { window.localStorage.setItem(KEY, '1'); } catch (e) {}
+        function read(store, key) {
+          try { return window[store].getItem(key); } catch (e) { return null; }
         }
-        function onKey(e) {
-          if (e.key === 'Escape') dismiss();
+        function write(store, key, value) {
+          try { window[store].setItem(key, value); } catch (e) {}
         }
-        function dismiss() {
-          remember();
-          document.removeEventListener('keydown', onKey);
-          box.hidden = true;
-        }
+        try { window.localStorage.removeItem('yiyol.aiChatNotice.v1'); } catch (e) {}
 
-        box.hidden = false;
-        box.focus({ preventScroll: true });
-        document.addEventListener('keydown', onKey);
-        box.querySelector('[data-chat-notice-close]').addEventListener('click', dismiss);
-        box.querySelector('[data-chat-notice-link]').addEventListener('click', remember);
+        if (read('localStorage', DAY_KEY) === today) return;
+
+        // 바깥(배경)을 누르면 닫는다. 내용 영역 클릭은 dialog 자신이 아닌 자식이 target 이 된다.
+        dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+        dlg.querySelectorAll('[data-notice-close]').forEach(function (btn) {
+          btn.addEventListener('click', function () { dlg.close(); });
+        });
+        dlg.querySelector('[data-notice-today]').addEventListener('click', function () {
+          write('localStorage', DAY_KEY, today);
+          dlg.close();
+        });
+
+        setTimeout(function () {
+          dlg.showModal();
+          // showModal 은 첫 버튼(X)에 포커스를 줘서 테두리가 보이므로, 대화상자 자체로 옮긴다
+          dlg.focus();
+        }, 900);
       })();
     </script>
 
