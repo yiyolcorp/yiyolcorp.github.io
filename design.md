@@ -102,8 +102,10 @@ display headings (`15ch` / `18ch`), the footer tagline (`34ch`), form fields
 
 ## Nav and footer — shared, identical on every page
 
-- **Nav: N1b** — eye mark + wordmark left · centred 4-link cluster (회사 · 제품 · 서비스 · 블로그,
-  set 2026-10-07; `solutions/` is reached from 서비스, not the nav) · language + one filled CTA
+- **Nav: N1b** — eye mark + wordmark left · centred link cluster (회사 · 제품 · 서비스 · 블로그,
+  set 2026-10-07; `solutions/` is reached from 서비스, not the nav) plus one external link
+  「개인·매장용 ↗」 to nox.yiyol.com (added 2026-10-30 — individuals and shops buy the
+  self-serve subscription there; the ↗ marks it as leaving the site) · language + one filled CTA
   right · transparent at rest, frosts on scroll (`.is-stuck`). Current section
   carries `.nav-active`.
 - **Footer: Ft1 Mast-headed** — eye mark + wordmark + tagline anchoring a band, inline link row

@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>문의 — 제품·개발·파트너십 문의 | YIYOL</title>
 
-    <meta name="description" content="YIYOL 문의. NOX 소프트웨어 등 제품 도입, NOX 기반 맞춤 개발, OEM·파트너십, 견적·구매 등 어떤 내용이든 남겨 주시면 검토 후 회신드립니다. NOX 평가판(최대 16채널·30일)은 제품 페이지에서 신청합니다." />
+    <meta name="description" content="YIYOL 문의. NOX 소프트웨어 등 제품 도입, NOX 기반 맞춤 개발, OEM·파트너십, 견적·구매 등 어떤 내용이든 남겨 주시면 검토 후 회신드립니다. NOX 평가 라이선스(최대 16채널·30일)도 이 문의로 요청합니다." />
     <meta name="keywords" content="YIYOL 문의,NOX 도입 문의,NOX 평가판,NVR VMS 문의,맞춤 개발 문의,OEM 파트너십,견적 문의" />
 
     <meta property="og:type" content="website" />
@@ -36,7 +36,7 @@
     />
     <link rel="stylesheet" href="../assets/css/tokens.css?v=4" />
     <link rel="stylesheet" href="../assets/css/site.css?v=3" />
-    <link rel="stylesheet" href="../assets/css/page.css?v=10" />
+    <link rel="stylesheet" href="../assets/css/page.css?v=12" />
   </head>
   <body class="yl">
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -53,6 +53,7 @@
             <li><a href="../products/"><span class="ko-only">제품</span><span class="en-only">Products</span></a></li>
             <li><a href="../services/"><span class="ko-only">서비스</span><span class="en-only">Services</span></a></li>
             <li><a href="../blog/"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a></li>
+            <li><a href="https://nox.yiyol.com/?utm_source=yiyol.com&amp;utm_medium=referral&amp;utm_campaign=nav" target="_blank" rel="noopener"><span class="ko-only">개인·매장용</span><span class="en-only">For home &amp; shop</span><span aria-hidden="true"> ↗</span></a></li>
             <li><a href="../contact/" class="nav-cta"><span class="ko-only">문의</span><span class="en-only">Contact</span></a></li>
           </ul>
           <div class="lang-switch">
@@ -126,6 +127,7 @@
               <label for="f-type"><span class="ko-only">문의 유형</span><span class="en-only">Inquiry type</span></label>
               <select id="f-type" name="type">
                 <option value="platform" data-ko="제품 문의 (NOX 소프트웨어 · NOX Mobile)" data-en="Products (NOX software / NOX Mobile)">제품 문의 (NOX 소프트웨어 · NOX Mobile)</option>
+                <option value="trial" data-ko="평가 라이선스 요청 (최대 16채널 · 30일)" data-en="Evaluation license (up to 16 channels, 30 days)">평가 라이선스 요청 (최대 16채널 · 30일)</option>
                 <option value="service" data-ko="맞춤 개발 서비스" data-en="Custom development service">맞춤 개발 서비스</option>
                 <option value="oem" data-ko="OEM · 파트너십" data-en="OEM / partnership">OEM · 파트너십</option>
                 <option value="quote" data-ko="견적 · 구매" data-en="Quote / purchase">견적 · 구매</option>
@@ -307,6 +309,15 @@
           });
         }
         syncTypeOptions();
+
+        // 제품 페이지의 「평가 라이선스 요청」 등이 ?type=trial 처럼 문의 유형을 미리 고른다.
+        var presetType = new URLSearchParams(location.search).get("type");
+        if (presetType) {
+          var typeEl = document.getElementById("f-type");
+          if (typeEl.querySelector('option[value="' + presetType.replace(/[^a-z]/g, "") + '"]')) {
+            typeEl.value = presetType;
+          }
+        }
 
         // i18n.js가 <html lang>을 바꾼 뒤에 동기화해야 한다. 클릭 리스너로는 등록 순서에 따라
         // 이전 언어로 동기화될 수 있어, lang 속성 변경 자체를 관찰한다.
