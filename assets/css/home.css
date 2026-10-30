@@ -449,6 +449,10 @@ body.yl-home .yl-sol-panel h3 { position: relative; font-size: var(--text-2xl); 
 .yl-cards--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .yl-cards--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .yl-cards--2 .yl-card-media { aspect-ratio: 16 / 9; }
+/* Secondary path under the product cards — typographic link, not a third card. */
+.yl-cards-note { margin-top: var(--space-md); color: var(--color-ink-2); font-size: var(--text-base); }
+.yl-cards-note a { color: var(--color-accent); font-weight: 600; border-bottom: 1px solid transparent; }
+.yl-cards-note a:hover { border-bottom-color: var(--color-accent); }
 .yl-card {
   display: flex;
   flex-direction: column;

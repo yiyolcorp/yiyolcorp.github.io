@@ -516,6 +516,31 @@ a.sv-case-card:hover, a.sv-product-card:hover { background: var(--color-paper-2)
 }
 .sv-request-steps li + li { margin-top: var(--space-3xs); }
 .sv-request .sv-request-note { margin-top: var(--space-xs); font-size: var(--text-sm); }
+.sv-request-body a { color: var(--color-accent); border-bottom: 1px solid currentColor; }
+.sv-request-body a:hover { color: var(--color-accent-hover); }
+
+/* Buying paths — business vs. home/shop. Two hairline columns, no cards. */
+.sv-paths {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-xl);
+  margin-top: var(--space-lg);
+  border-top: var(--rule-hair) solid var(--color-rule-strong);
+}
+.sv-path { padding-top: var(--space-md); min-width: 0; }
+.sv-path h4 { font-size: var(--text-md); font-weight: 600; color: var(--color-ink); }
+.sv-path p { margin-top: var(--space-3xs); color: var(--color-ink-2); }
+.sv-path ul {
+  margin-top: var(--space-xs);
+  padding-left: 1.1em;
+  list-style: disc;
+  color: var(--color-ink-2);
+}
+.sv-path li + li { margin-top: var(--space-3xs); }
+.sv-path .sv-more-wrap { margin-top: var(--space-sm); }
+@media (max-width: 760px) {
+  .sv-paths { grid-template-columns: minmax(0, 1fr); gap: 0; }
+}
 
 /* Trial FAQ — native <details>, hairline rows, one accent on the marker */
 .sv-faq { margin-top: var(--space-xl); }
