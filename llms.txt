@@ -44,7 +44,7 @@
   - **자료 요청**: 제품 소개서·기능 상세·규격서는 [자료 요청 폼](https://forms.gle/bJ8oRfSpPoFPyTZy9)으로 신청하면 메일로 발송.
   - **도입 방식** ([안내](https://yiyol.com/products/#buy)): 같은 소프트웨어를 두 경로로 공급.
     - 기업·기관·폐쇄망: Enterprise(견적·계약 후 온라인 구독 또는 영구 라이선스), 영구 라이선스(폐쇄망용, 첫 1년 업데이트·지원 포함, 이후 연간 유지보수 선택), 평가 라이선스. [도입 문의](https://yiyol.com/contact/).
-    - 개인·매장·소규모 사무실(셀프서비스 구독): [nox.yiyol.com](https://nox.yiyol.com/) 에서 직접 설치·결제. 카메라 4대까지 무료(가입 불필요), Standard 월 구독은 채널당 월 ₩1,000부터(VAT 별도, nox.yiyol.com 에는 부가세 포함 가격으로 표시 — 8대 ₩8,800 · 16대 ₩17,600), 첫 30일 무료(계정당 1회), 휴대폰 알림·원격 보기 포함. 결제는 Paddle(카드, 국내·해외 공통), 언제든 해지. [요금제](https://nox.yiyol.com/pricing).
+    - 개인·매장·소규모 사무실(셀프서비스 구독): [nox.yiyol.com](https://nox.yiyol.com/) 에서 직접 설치·결제. 카메라 4대까지 무료(가입 불필요, 기간 제한 없음), 더 필요하면 Standard 월 구독(카메라 8대·16대, 휴대폰 알림·원격 보기 포함). 가격은 Paddle 이 방문자 국가의 통화·세금 기준으로 요금제 페이지에 표시. 결제는 Paddle(카드, 국내·해외 공통), 언제든 해지. [요금제](https://nox.yiyol.com/pricing).
   - **설치 이미지(ISO)**: [nox.yiyol.com/install](https://nox.yiyol.com/install) 에서 가입·신청 없이 공개 다운로드(약 10GB). ISO를 16GB 이상 USB에 기록해 x86_64 장비를 USB 부팅 → OS부터 NOX까지 무인 설치(인터넷 불필요). 설치 디스크 데이터는 삭제됨. 설치 직후부터 Free 모드(4채널)로 사용 가능. 라즈베리파이 등 ARM 장비는 지원하지 않음.
   - **평가 라이선스** ([안내·FAQ](https://yiyol.com/products/#trial)): 기업·기관 대상. 요청한 채널 수(최대 16채널)로 30일 라이선스 발급, 카드 등록 불필요, 폐쇄망 가능. 30일은 요청일이 아니라 라이선스 발급일부터 계산.
     1. 설치 이미지를 받아 장비에 설치(위).
@@ -53,7 +53,7 @@
     - 필요 장비: x86_64, 최소 CPU 4코어 · RAM 8GB · SSD 100GB (권장 8코어 · 16GB · SSD 500GB 이상).
     - 폐쇄망: 설치 이미지를 미리 받아 USB로 반입, 요청 파일을 USB로 옮겨 다른 PC에서 보내고 .lic 파일을 업로드.
     - 만료 후: Free 모드로 전환되어 4채널 초과 채널은 자동 비활성화. 정식 라이선스(구독 또는 영구)를 등록하면 재설치 없이 계속 사용.
-    - 개인·매장은 평가 라이선스 대신 nox.yiyol.com 의 Standard 구독 첫 30일 무료로 평가.
+    - 개인·매장은 평가 라이선스 대신 Free 모드(카메라 4대, 기간 제한 없음)로 써 보고 nox.yiyol.com 에서 Standard 를 월 구독.
 - [NOX Mobile](https://yiyol.com/products/#mobile): 자동화가 담당자를 호출할 때 알림이 도착하는 곳. Android·iOS 전용 앱, 실시간 멀티뷰·녹화 재생·이벤트 푸시 알림.
 
 ## 개발자 문서 — NOX NVR REST API ([전체](https://yiyol.com/api/))
