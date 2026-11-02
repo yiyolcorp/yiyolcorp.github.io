@@ -43,13 +43,9 @@
     <priority>0.8</priority>
   </url>
 
-  <!-- NOX Product -->
-  <url>
-    <loc>https://yiyol.com/nox/</loc>
-    <lastmod>2026-08-19</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
+  <!-- NOX Product
+       NOX 홈(/nox/)은 nox.yiyol.com 으로 이동하는 noindex 페이지라 넣지 않는다.
+       제품 홈은 https://nox.yiyol.com/sitemap.xml 에 들어 있다. -->
   <url>
     <loc>https://yiyol.com/nox/intro.html</loc>
     <lastmod>2026-09-09</lastmod>
