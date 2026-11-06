@@ -54,7 +54,7 @@
     - 폐쇄망: 설치 이미지를 미리 받아 USB로 반입, 요청 파일을 USB로 옮겨 다른 PC에서 보내고 .lic 파일을 업로드.
     - 만료 후: Free 모드로 전환되어 4채널 초과 채널은 자동 비활성화. 정식 라이선스(구독 또는 영구)를 등록하면 재설치 없이 계속 사용.
     - 개인·매장은 평가 라이선스 대신 Free 모드(카메라 4대, 기간 제한 없음)로 써 보고 nox.yiyol.com 에서 Standard 를 월 구독.
-- [NOX Mobile](https://yiyol.com/products/#mobile): 자동화가 담당자를 호출할 때 알림이 도착하는 곳. Android·iOS 전용 앱, 실시간 멀티뷰·녹화 재생·이벤트 푸시 알림.
+- [NOX Mobile](https://yiyol.com/products/#mobile): 현장 외부에서 영상을 확인하는 전용 모바일 앱. Android·iOS 전용, 실시간 멀티뷰·녹화 재생.
 
 ## 개발자 문서 — NOX NVR REST API ([전체](https://yiyol.com/api/))
 NOX 소프트웨어의 REST API 를 공개 문서로 제공합니다. 서비스 15개 · 엔드포인트 386개. 모든 경로는 웹 서버(HTTPS) 아래 서비스별 접두로 접근하고, `POST /auth/api/v1/auth/login` 으로 받은 accessToken 을 `Authorization: Bearer {token}` 헤더에 담아 호출합니다. 각 문서에서 OpenAPI 명세(JSON)를 그대로 내려받아 Postman·코드 제너레이터에 넣을 수 있습니다.
