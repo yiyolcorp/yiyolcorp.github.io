@@ -93,6 +93,7 @@ NOX 소프트웨어의 REST API 를 공개 문서로 제공합니다. 서비스 
 ## 기술 블로그 — 글 목록
 답변 엔진이 개별 글을 직접 인용할 수 있도록 전체 목록을 둔다. 전 글 한국어 원문이며, 영어판은 아래 "Technical blog — English editions" 에 별도 URL 로 있다.
 
+- [유지보수 점검, 말로 묻고 기록으로 남기는 법 — NOX MCP로 녹화 누락·디스크·오프라인 카메라 확인하기](https://yiyol.com/blog/mcp-maintenance-check.html) (2026-11-09) — 녹화 누락·디스크·오프라인 카메라 점검을 MCP로 말로 묻는 방법을 설치업체 기준으로 정리했습니다. 연결 절차와 읽기 전용 안전장치, Enterprise 조건까지 담았습니다.
 - [NOX NVR AI 채팅 추가: 말로 영상 찾기](https://yiyol.com/blog/ai-chat-video-search.html) (2026-10-27) — NOX NVR AI 채팅에 카메라 이름과 시각을 문장으로 입력해 녹화를 여는 방법, ENTERPRISE 에디션 조건, 현재 Anthropic(Claude API)만 지원하며 다른 LLM 은 향후 지원 예정.
 - [NOX MCP 서버 개발기 — 읽기 전용으로 시작한 이유와, Claude Code가 먼저 찾아낸 버그](https://yiyol.com/blog/nox-mcp-server-development-log.html) (2026-10-07) — NOX 장비를 읽기 전용 MCP 서버로 만들어 Claude Code 등 AI 에이전트가 카메라·이벤트·녹화·시스템 상태를 조회하게 한 개발 기록. 기존 API 키에 에이전트 용도 추가, 호출자 권한 위임, 호출 상한, 출시 전 시험에서 에이전트가 먼저 드러낸 타임라인 시간대 이중 변환 결함(녹화 데이터 영향 없음), 격리망 NVR에 사용자 PC의 Claude Desktop·Claude Code를 거쳐 연결하는 구조와 설정 방법.
 - [NVR 페일오버 개발기 — n:1 이중화의 목표, 실패 사례, 베타를 떼기 위한 작업](https://yiyol.com/blog/nvr-n1-failover-development-log.html) (2026-09-17) — n:1 페일오버(takeover·failback·record-back)의 설계 목표와 구현 중 발견된 결함, 베타 배지를 떼기 위해 수행한 작업. 장애 판정 기준, split-brain 중재, record-back에서 겪은 결함과 한계 정리.
