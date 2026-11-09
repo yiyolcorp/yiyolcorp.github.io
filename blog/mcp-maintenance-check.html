@@ -31,6 +31,7 @@
 
   <!-- hreflang:start -->
   <link rel="alternate" hreflang="ko" href="https://yiyol.com/blog/mcp-maintenance-check.html" />
+  <link rel="alternate" hreflang="en" href="https://yiyol.com/en/blog/mcp-maintenance-check.html" />
   <link rel="alternate" hreflang="x-default" href="https://yiyol.com/blog/mcp-maintenance-check.html" />
   <!-- hreflang:end -->
   <link rel="canonical" href="https://yiyol.com/blog/mcp-maintenance-check.html" />
@@ -141,16 +142,16 @@
   <section class="post-hero">
     <div class="post-hero-content">
       <nav class="post-breadcrumb">
-        <a href="/">YIYOL</a><span>›</span><a href="/blog/">블로그</a><span>›</span> 현재 글
+        <a href="/">YIYOL</a><span>›</span><a href="/blog/"><span class="ko-only">블로그</span><span class="en-only">Blog</span></a><span>›</span> <span class="ko-only">현재 글</span><span class="en-only">Current post</span>
       </nav>
-      <h1>유지보수 점검, 말로 묻고 기록으로 남기는 법 — NOX MCP로 녹화 누락·디스크·오프라인 카메라 확인하기</h1>
+      <h1><span class="ko-only">유지보수 점검, 말로 묻고 기록으로 남기는 법 — NOX MCP로 녹화 누락·디스크·오프라인 카메라 확인하기</span><span class="en-only">Maintenance Checks You Ask For in Plain Language and Keep on Record — Using NOX MCP to Find Recording Gaps, Disk Issues, and Offline Cameras</span></h1>
       <div class="post-meta">
         <span class="post-meta-date">2026.11.09</span>
         <div class="post-tags">
           <span class="post-tag">NOX</span>
           <span class="post-tag">MCP</span>
-          <span class="post-tag">유지보수 점검</span>
-          <span class="post-tag">설치업체</span>
+          <span class="post-tag"><span class="ko-only">유지보수 점검</span><span class="en-only">Maintenance</span></span>
+          <span class="post-tag"><span class="ko-only">설치업체</span><span class="en-only">Installers</span></span>
         </div>
       </div>
     </div>
@@ -159,6 +160,8 @@
   <!-- Main -->
   <main class="post-container">
     <article class="post-article">
+      <div class="ko-only">
+
       <p>유지보수 계약 현장이 하나둘 늘면 점검은 어느 순간 병목이 됩니다. 현장마다 NVR 화면을 열고, 카메라 목록에서 끊긴 곳이 없는지 보고, 녹화 기록을 날짜별로 훑고, 저장소 상태를 따로 확인해야 합니다. 이 작업 하나하나는 어렵지 않습니다. 문제는 현장 수만큼 같은 절차를 반복해야 하고, 바쁜 주에는 점검이 뒤로 밀린다는 점입니다. 그리고 가장 곤란한 순간은 사고가 난 뒤에야 "그날 녹화가 빠져 있었다"는 사실을 알게 될 때입니다.</p>
 
       <p>NOX에는 이 반복 점검을 말로 묻는 방법이 있습니다. 장비가 읽기 전용 MCP 서버로 동작해서, Claude Code 같은 MCP 클라이언트가 장비에 접속해 "오프라인 카메라 있어?", "지난 7일간 이 카메라 녹화 빠진 구간은?", "디스크 상태는?" 같은 질문에 답을 가져옵니다. 이 글에서는 점검 세 가지를 말로 묻는 방법, 연결 절차, 안전장치, 그리고 반드시 알아야 할 조건과 한계를 순서대로 정리합니다.</p>
@@ -341,6 +344,195 @@ claude</code></pre>
         <li><a href="/blog/nox-mcp-server-development-log.html">NOX MCP 서버 개발기 — 읽기 전용으로 시작한 이유와, Claude Code가 먼저 찾아낸 버그</a></li>
         <li><a href="/blog/ai-chat-video-search.html">NOX NVR AI 채팅 추가: 말로 영상 찾기</a></li>
       </ul>
+
+      </div>
+
+      <div class="en-only">
+
+      <p>As the number of sites under maintenance contracts grows, inspections eventually become a bottleneck. At every site you open the NVR screen, scan the camera list for anything that has dropped off, skim recordings day by day, and check storage health separately. None of these steps is hard. The problem is that the same routine has to be repeated for every site, and in a busy week inspections get pushed back. The worst moment is finding out only after an incident that "the recording for that day was missing."</p>
+
+      <p>NOX gives you a way to ask for these repetitive checks in plain language. The device runs as a read-only MCP (Model Context Protocol) server, so an MCP client such as Claude Code can connect to it and bring back answers to questions like "Are any cameras offline?", "Where are the recording gaps on this camera over the last 7 days?", or "How are the disks?" This post walks through how to ask for the three core checks, how to connect, the safeguards, and the conditions and limits you must know.</p>
+
+      <p>Let's start with the conditions. MCP integration is an <strong>Enterprise edition feature</strong>. It is reachable only from the same network, it cannot be used in NIS (Korea's National Intelligence Service) security mode, and it is not available in Free mode (no license registered, or license expired). We cover these limits in more detail later.</p>
+
+      <h2>Ask for the three checks in plain language</h2>
+
+      <p>Maintenance inspections ultimately come down to three questions: are the cameras alive, has any recording been missed, and is the storage healthy? NOX MCP provides a tool for each.</p>
+
+      <table>
+        <thead>
+          <tr><th>Check</th><th>Ask it like this (example)</th><th>Tool</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Offline cameras and recording problems</td><td>"Are any cameras offline or not recording right now?"</td><td><code>nox_camera_health</code></td></tr>
+          <tr><td>Recording gaps</td><td>"Show me the recording gaps on the parking entrance camera over the last 7 days."</td><td><code>nox_recording_coverage</code></td></tr>
+          <tr><td>Disk and storage status</td><td>"How are storage capacity and disk health?"</td><td><code>nox_storage_status</code></td></tr>
+        </tbody>
+      </table>
+
+      <p>The questions in the table are examples to help you get the idea. In practice the MCP client interprets your question and picks the right tool to call, so there is no fixed phrasing to memorize. Below we go through what each tool checks.</p>
+
+      <h3>Offline cameras and recording problems: <code>nox_camera_health</code></h3>
+
+      <p>The camera health tool checks each camera's video reception and recording status (bitrate and measurement time) and flags cameras with problems. It flags the following:</p>
+
+      <ul>
+        <li>The camera is offline</li>
+        <li>There is a recording error</li>
+        <li>Recording data is not flowing</li>
+        <li>Recording has stopped because of licensing, a disabled channel, a deleted source, or similar reasons</li>
+      </ul>
+
+      <p>On screen, these are easy to miss unless you click into each camera one by one. The state where "the camera is online but no recording data is flowing" in particular tends to be found late, because the live video looks normal. A single question lets you sweep for this state as well.</p>
+
+      <p>If you need the camera list with online/offline status and a recording configuration summary, you can also use <code>nox_list_cameras</code>. It finds cameras by part of their name and provides the camera IDs that other tools take as input. That is why you can say something like "the parking lot camera" and the follow-up tool still finds the exact camera.</p>
+
+      <h3>Recording gaps: <code>nox_recording_coverage</code></h3>
+
+      <p>The recording coverage tool reports the recording rate and the gaps for a single camera over a period. A few things to know:</p>
+
+      <ul>
+        <li>It covers one camera at a time, for up to 7 days.</li>
+        <li>The recording rate is calculated over the part of the query range up to the current time. Future time that has not yet arrived is not included.</li>
+        <li>Gaps include gaps at the start and end of the query range.</li>
+        <li>By default, the gap list omits short gaps under 60 seconds.</li>
+      </ul>
+
+      <p>So this tool fits a flow where you first narrow down suspect cameras with <code>nox_camera_health</code> and then check that camera's recent recordings, rather than "checking last week's recording rate for every camera during a routine inspection." Camera health narrows the candidates; recording coverage pinpoints the hours that are actually missing.</p>
+
+      <h3>Storage and disks: <code>nox_storage_status</code>, <code>nox_system_health</code></h3>
+
+      <p>The storage status tool reports storage volume capacity and disk S.M.A.R.T. status. Disk problems often show warning signs before any symptom becomes visible, so it is worth making this a fixed item in every routine inspection.</p>
+
+      <p>If you want to know the state of the device itself, the system health tool (<code>nox_system_health</code>) reports service status, CPU, memory, GPU, and temperature, maintenance status, and the software version. During maintenance or an upgrade the service list can be empty, so read this tool's results together with the maintenance status.</p>
+
+      <p>Beyond the three checks, there are tools for event search and statistics, object search, and playback links — 10 tools in total. If you find a suspicious period during an inspection, the playback link tool creates a web UI link that opens the playback screen at that time. The video itself is not returned as an MCP result; you open the link and a person checks it directly.</p>
+
+      <h2>How to connect</h2>
+
+      <p>Connecting takes four steps: issue a key in the device's admin screen, register it with your MCP client, make the client trust the device certificate, and check the connection. The steps below are for Claude Code.</p>
+
+      <h3>Step 1: Issue an AI agent key</h3>
+
+      <p>On the API Keys screen under system settings, click <strong>Issue Key</strong> and enter a name, an expiry, and the allowed IPs. Then there are two important choices.</p>
+
+      <ol>
+        <li>Under <strong>Purpose</strong>, select <strong>AI agent (MCP)</strong>. If your license does not include the MCP feature, this purpose is locked and a notice is shown.</li>
+        <li>Choose the <strong>Allowed tools</strong> and the <strong>Camera scope</strong>. All 10 tools are selected by default, and at least one must be selected to issue the key. For camera scope, choose either all cameras or specific resource groups.</li>
+      </ol>
+
+      <p>If the key is only for inspections, we recommend keeping only the tools the inspection needs — for example camera health, recording coverage, storage status, system health, and the camera list. The tool selection is signed into the key, so changing it after issuance requires rotating the key.</p>
+
+      <p>Choose the camera scope carefully, too. What a key can query follows the camera scope chosen at issuance, not the permissions of the admin account that issued it. A key issued for all cameras can query data from every camera on that device, so the safer approach is to group only the cameras under maintenance into a resource group and assign that. Include only cameras whose data may be passed to the agent.</p>
+
+      <h3>Step 2: Register it with your MCP client</h3>
+
+      <p>Once the key is issued, a <strong>Connect an AI agent</strong> section appears in the result dialog. It shows a Claude Code registration command containing the endpoint and the key, along with a copy button. The format is:</p>
+
+      <pre><code>claude mcp add --transport http nox-&lt;key name&gt; https://&lt;device address&gt;/agent/mcp \
+  --header "Authorization: Bearer &lt;AI agent key&gt;"</code></pre>
+
+      <p>A few things to watch:</p>
+
+      <ul>
+        <li>Do not add a trailing slash to the endpoint. <code>/agent/mcp/</code> will not connect.</li>
+        <li>Always send the key in the <code>Authorization</code> header. It is not accepted as a URL query parameter.</li>
+        <li>The registration command contains the key itself, so running it leaves the key in your shell history. Delete that line after running it.</li>
+        <li>If you issued the key from the device's local screen (<code>localhost</code>), the command will contain <code>localhost</code>. When connecting from another PC, replace it with <code>https://&lt;device address&gt;</code>.</li>
+        <li>For other MCP clients such as Cursor, put the same endpoint and <code>Authorization</code> header into that client's remote (HTTP) MCP server settings.</li>
+      </ul>
+
+      <h3>Step 3: Trust the device CA certificate</h3>
+
+      <p>The device's HTTPS certificate is signed by the device's internal CA. The PC running the agent therefore has to trust that CA before it can connect.</p>
+
+      <ol>
+        <li>Click the <strong>Download the device CA certificate (ca.crt)</strong> link in the result dialog, or open <code>https://&lt;device address&gt;/ca.crt</code> in a browser to download the certificate. No login is required.</li>
+        <li>Set <code>NODE_EXTRA_CA_CERTS=&lt;path to the downloaded file&gt;</code> in the environment where the agent runs, then start the agent.</li>
+      </ol>
+
+      <pre><code>export NODE_EXTRA_CA_CERTS=$HOME/nox-ca.crt
+claude</code></pre>
+
+      <p>Also make sure the address the agent connects to (IP or domain) is included in the device certificate. If it is not, add it in the certificate address settings.</p>
+
+      <h3>Step 4: Check the connection and start asking</h3>
+
+      <p>Check the connection status with <code>claude mcp list</code>. Once it is connected, just ask something like "Are any cameras offline?" The client calls the relevant tool and summarizes the result for you.</p>
+
+      <h2>Why it is safe to use as an inspection tool</h2>
+
+      <p>When you talk about attaching an outside tool to on-site equipment, the first worry is usually "What if it changes a setting or stops recording?" NOX MCP reduces this worry by design.</p>
+
+      <p><strong>It is read-only.</strong> The device runs as a read-only MCP server, and no tools that change cameras, recording, or settings are provided at all. You can inspect and query in plain language, but you cannot change settings in plain language. When an inspection finds a problem, a person fixes it in the admin screen, as today.</p>
+
+      <p><strong>Tools and camera scope are restricted per key.</strong> As shown above, each key has its own allowed tools and camera scope. You can split them up — for example, technician A's key covers only their assigned site group, and an inspection-only key gets only inspection tools. Note, however, that the tool selection applies only to MCP access; if the same key is used to call the REST API directly, read-only API permissions apply. The camera scope applies in both cases. So store keys like passwords and keep their expiry short and their allowed IPs narrow.</p>
+
+      <p><strong>Sensitive information is not included in results.</strong> Tool results do not include camera connection addresses or credentials, device serial numbers, thumbnail images, or user names. Video itself is not returned either; a web UI playback link is created only when playback is needed. Opening the link requires a web login, and playback runs with the logged-in user's permissions.</p>
+
+      <p><strong>Every call is recorded in the audit log.</strong> Tool calls made with an AI agent key are recorded in the audit log, one row per call, whether they succeed or fail. You can check afterward which tool was called, whether the result was normal, and which PC it came from. Natural-language queries and sensitive strings such as license plates are stored in masked form, not as the original text. On the audit log screen, choose the <strong>AI agent</strong> category to see only agent calls.</p>
+
+      <p><strong>There is a call limit.</strong> To protect core functions such as recording and live view, MCP access has a per-key call limit. This keeps inspections from putting load on the device's primary functions.</p>
+
+      <p><strong>Errors and "no results" are never mixed up.</strong> If a permission check is temporarily impossible or an internal service does not respond, the tool returns an error, not an empty result. This distinction matters for inspections: if an empty result that looks like "no problems" was really a failed query, the inspection means nothing.</p>
+
+      <h2>Conditions and limits to know</h2>
+
+      <p>Here they are, plainly. Check the following before you adopt it.</p>
+
+      <ul>
+        <li><strong>It is an Enterprise edition feature.</strong> The MCP feature is included by default in the Enterprise license. It is not available in Free mode (no license registered, or license expired). Check the license edition of the on-site device first.</li>
+        <li><strong>It is reachable only from the same network.</strong> The PC running the agent must be able to reach the device's web server over HTTPS. Remote connection through the cloud is not provided. You need to inspect from inside the site network, or have an environment, agreed with the customer, from which you can reach the device.</li>
+        <li><strong>It cannot be used in NIS security mode.</strong> On a device with NIS security mode enabled, the entire API key feature is blocked and the MCP endpoint does not work. In addition, switching a regular device to NIS security mode permanently revokes all keys issued before the switch. If the delivery site falls under NIS security mode, this method cannot be used.</li>
+        <li><strong>It is query-only.</strong> Changing settings, starting or stopping recording, and adding or removing cameras cannot be done through MCP.</li>
+        <li><strong>You need a separate MCP client.</strong> The person doing the inspection must prepare an MCP client such as Claude Code. The client's terms of use are set by its provider and are not covered in this post.</li>
+        <li><strong>People check the results.</strong> You ask in plain language, but people make the judgments and take action. The questions in this post are examples, and the wording of actual answers may differ depending on the client you use. Check suspicious periods directly with the playback link.</li>
+        <li><strong>Include the time zone when you give a time.</strong> Times passed to the tools need a time zone offset (for example, <code>2026-10-01T22:00:00+09:00</code>). Most clients handle this for you, but if results look wrong, check this first.</li>
+      </ul>
+
+      <h2>Build an inspection routine like this</h2>
+
+      <p>Even with the tools in place, inspections still slip without a routine. Here is one example.</p>
+
+      <ol>
+        <li><strong>Issue an inspection-only key for each site.</strong> Limit the tools to what the inspection needs, and set the camera scope to that site's group.</li>
+        <li><strong>Put three fixed questions on the inspection checklist.</strong> Offline cameras and recording problems, recent recording gaps on suspect cameras, and storage and disk status.</li>
+        <li><strong>If something looks wrong, check the video directly with the playback link</strong> and take action in the admin screen.</li>
+        <li><strong>Attach the inspection results to your customer report.</strong> What was checked is also recorded in the audit log.</li>
+      </ol>
+
+      <p>If you standardize the inspection questions within your team, the same items get checked the same way even when the technician changes.</p>
+
+      <h2>How to explain it to your customer</h2>
+
+      <p>When you propose or renew a maintenance contract, what the end client wants to know is not the technical method but "evidence that regular inspections are being done." You can explain it like this:</p>
+
+      <blockquote>
+        <p>"We regularly check that there are no gaps in recording, no offline cameras, and that storage is healthy. The inspection is query-only, so it does not affect settings or recording, and every inspection call is recorded in the device's audit log."</p>
+      </blockquote>
+
+      <p>The fact that the inspection tool is read-only and leaves a record is also easy to explain to the customer's security staff. And as shown above, you can limit a key's camera scope to that site, so you can state clearly how far the inspection reaches.</p>
+
+      <h2>Wrapping up</h2>
+
+      <p>The goal of maintenance inspection is to find problems before they become incidents. NOX MCP turns three checks — camera status, recording gaps, and storage status — into questions you ask in plain language. Because it is read-only, restricts tools and camera scope per key, and records every call, it is easy to justify as an inspection tool attached to on-site equipment. Still, the conditions — an Enterprise edition feature, same-network access only, and no use in NIS security mode — must be checked for each site before adoption.</p>
+
+      <p>NOX is licensed per device, and adding channels does not add per-channel charges. So even as the number of cameras at your maintenance sites grows, the license structure gives you no reason to shrink the scope of inspection. We can confirm in a consultation which edition fits and whether MCP inspection is possible with your site setup.</p>
+
+      <p>If you would like to try MCP inspection on your sites, please <strong><a href="/contact/">apply for an installer partner consultation</a></strong>.</p>
+
+      <p><em>MCP integration is an Enterprise edition feature. It is reachable only from the same network and is not available in NIS security mode or Free mode. Edition configurations and costs are provided through consultation.</em></p>
+
+      <hr />
+
+      <h2>Related Posts</h2>
+
+      <ul>
+        <li><a href="/blog/nox-mcp-server-development-log.html">Building the NOX MCP Server — Why We Started Read-Only, and the Bug Claude Code Found First</a></li>
+        <li><a href="/blog/ai-chat-video-search.html">NOX NVR Adds AI Chat: Find Video by Asking</a></li>
+      </ul>
+
+      </div>
 
     </article>
   </main>
