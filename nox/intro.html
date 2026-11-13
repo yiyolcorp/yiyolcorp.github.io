@@ -579,7 +579,7 @@
           <p>대규모 초기 개발 투자 없이 도입할 수 있습니다. NOX의 마이크로서비스 아키텍처와 개방형 API 위에서, 귀사에 필요한 기능만 골라 귀사만의 솔루션을 완성하세요.</p>
           <ul class="custom-list">
             <li> <strong>UI 완전 커스터마이징</strong> · 로고, 컬러, 레이아웃, 메뉴 구조 모두 귀사 브랜드로</li>
-            <li> <strong>기능 선택 구성</strong> · 16개 마이크로서비스 중 필요한 것만 선택·조합</li>
+            <li> <strong>기능 선택 구성</strong> · 마이크로서비스 중 필요한 것만 선택·조합</li>
             <li> <strong>워크플로우 커스텀</strong> · 귀사의 업무 프로세스에 맞는 알림·자동화 규칙 설정</li>
             <li> <strong>외부 시스템 통합</strong> · Webhook·개방형 API로 ERP, 출입통제, 스마트빌딩과 연동</li>
             <li> <strong>AI 모델 교체·확장</strong> · 기본 YOLO 외에 고객 특화 AI 모델 탑재 가능</li>
@@ -719,7 +719,7 @@
           <div class="flow-arrow"></div>
           <div class="flow-node">모니터</div>
         </div>
-        <div class="flow-label">WebRTC WHIP → MediaMTX → WHEP</div>
+        <div class="flow-label">WebRTC WHIP → media server → WHEP</div>
         <div class="latency-badge">
           <div class="val">Sub-second <span class="unit">latency</span></div>
           <div class="unit" style="margin-top:0.2rem;">HLS 대비 압도적으로 낮은 지연</div>
@@ -828,16 +828,15 @@
       </div>
       <div class="usp-card">
         <h3>마이크로서비스 아키텍처</h3>
-        <p>16개 독립 서비스로 분리. 특정 서비스 장애가 전체를 멈추지 않습니다. 필요한 서비스만 업데이트해 무중단 운영을 유지합니다.</p>
-        <span class="usp-tag tag-blue">무중단 업데이트</span>
+        <p>기능별 독립 서비스로 분리. 특정 서비스 장애가 전체를 멈추지 않습니다.</p>
+        <span class="usp-tag tag-blue">서명 검증 업데이트</span>
         <span class="usp-tag tag-blue">수평 확장</span>
       </div>
       <div class="usp-card">
         <h3>멀티플랫폼 유연 배포</h3>
-        <p>Docker 멀티 아키텍처(linux/amd64, linux/arm64)로 라즈베리파이 엣지부터 클라우드 데이터센터, Kubernetes 클러스터까지 인프라를 가리지 않습니다.</p>
+        <p>Ubuntu 24.04 LTS가 설치된 x86_64(amd64) 범용 서버에 Docker 기반 패키지로 설치합니다.</p>
         <span class="usp-tag tag-purple">On-Premises</span>
-        <span class="usp-tag tag-purple">Cloud / K8s</span>
-        <span class="usp-tag tag-purple">Edge ARM</span>
+        <span class="usp-tag tag-purple">Air-Gapped</span>
       </div>
       <div class="usp-card">
         <h3>개방형 API + Webhook</h3>
@@ -897,8 +896,8 @@
             <div class="persona-badge">인프라 책임자 / SecOps</div>
           </div>
         </div>
-        <p class="persona-quote">"다운타임 없이 운영 가능한가? K8s·기존 인프라에 통합되나?"</p>
-        <div class="persona-usp">16개 마이크로서비스 · 무중단 업데이트 · K8s / Docker</div>
+        <p class="persona-quote">"다운타임 없이 운영 가능한가? 기존 인프라에 통합되나?"</p>
+        <div class="persona-usp">마이크로서비스 구조 · 서명 검증 업데이트 · Docker</div>
       </div>
       <div class="persona-card">
         <div class="persona-header">
@@ -937,12 +936,12 @@
         <div class="step-card">
           <div class="step-num">03</div>
           <h3>커스터마이징 & 배포</h3>
-          <p>UI, 기능, AI 모델을 귀사 요구사항에 맞게 구성합니다. 온프레미스·Docker·K8s 중 최적 배포 방식으로 설치합니다.</p>
+          <p>UI, 기능, AI 모델을 귀사 요구사항에 맞게 구성합니다. 온프레미스·Docker 중 최적 배포 방식으로 설치합니다.</p>
         </div>
         <div class="step-card">
           <div class="step-num">04</div>
           <h3>운영 & 지속 발전</h3>
-          <p>마이크로서비스 아키텍처로 무중단 업데이트. Vision AI에서 VLM·Agentic AI로 함께 진화합니다.</p>
+          <p>마이크로서비스 아키텍처로 기능별 장애를 격리합니다. Vision AI에서 VLM·Agentic AI로 함께 진화합니다.</p>
         </div>
       </div>
     </div>

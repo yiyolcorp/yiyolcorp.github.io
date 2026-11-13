@@ -572,7 +572,7 @@
           <p>No need to build from scratch at enormous cost. On top of NOX's microservice architecture and open APIs, select only the features you need and complete your own solution.</p>
           <ul class="custom-list">
             <li> <strong>Full UI Customization</strong> — Logo, colors, layout, and menu structure — all in your brand</li>
-            <li> <strong>Modular Feature Selection</strong> — Pick and combine only the microservices you need from 16 available</li>
+            <li> <strong>Modular Feature Selection</strong> — Pick and combine only the microservices you need</li>
             <li> <strong>Custom Workflow</strong> — Configure notifications and automation rules to fit your business processes</li>
             <li> <strong>External System Integration</strong> — Connect to ERP, access control, and smart buildings via Webhook & open API</li>
             <li> <strong>AI Model Swap & Extension</strong> — Add industry-specific AI models beyond the default YOLO</li>
@@ -712,7 +712,7 @@
           <div class="flow-arrow"></div>
           <div class="flow-node">Monitor</div>
         </div>
-        <div class="flow-label">WebRTC WHIP → MediaMTX → WHEP</div>
+        <div class="flow-label">WebRTC WHIP → media server → WHEP</div>
         <div class="latency-badge">
           <div class="val">Sub-second <span class="unit">latency</span></div>
           <div class="unit" style="margin-top:0.2rem;">Far lower latency than HLS</div>
@@ -821,16 +821,15 @@
       </div>
       <div class="usp-card">
         <h3>Microservice Architecture</h3>
-        <p>16 independent services. A failure in one service never brings down the whole system. Update only the services you need and maintain zero-downtime operations.</p>
-        <span class="usp-tag tag-blue">Zero-Downtime Updates</span>
+        <p>Independent services by function. A failure in one service never brings down the whole system.</p>
+        <span class="usp-tag tag-blue">Signed Updates</span>
         <span class="usp-tag tag-blue">Horizontal Scaling</span>
       </div>
       <div class="usp-card">
         <h3>Flexible Multi-Platform Deployment</h3>
-        <p>Docker multi-arch (linux/amd64, linux/arm64) runs everywhere — from Raspberry Pi edge devices to cloud data centers and Kubernetes clusters.</p>
+        <p>Installs on a general-purpose x86_64 (amd64) server running Ubuntu 24.04 LTS, using a Docker-based package.</p>
         <span class="usp-tag tag-purple">On-Premises</span>
-        <span class="usp-tag tag-purple">Cloud / K8s</span>
-        <span class="usp-tag tag-purple">Edge ARM</span>
+        <span class="usp-tag tag-purple">Air-Gapped</span>
       </div>
       <div class="usp-card">
         <h3>Open API + Webhook</h3>
@@ -890,8 +889,8 @@
             <div class="persona-badge">Infrastructure Lead / SecOps</div>
           </div>
         </div>
-        <p class="persona-quote">"Can it run without downtime? Does it integrate with K8s and our existing infrastructure?"</p>
-        <div class="persona-usp">16 Microservices · Zero-Downtime Updates · K8s / Docker</div>
+        <p class="persona-quote">"Can it run without downtime? Does it integrate with our existing infrastructure?"</p>
+        <div class="persona-usp">Microservice Architecture · Signed Updates · Docker</div>
       </div>
       <div class="persona-card">
         <div class="persona-header">
@@ -930,12 +929,12 @@
         <div class="step-card">
           <div class="step-num">03</div>
           <h3>Customization &amp; Deployment</h3>
-          <p>Configure UI, features, and AI models to your requirements. Install using the optimal deployment method — on-premises, Docker, or K8s.</p>
+          <p>Configure UI, features, and AI models to your requirements. Install using the optimal deployment method — on-premises or Docker.</p>
         </div>
         <div class="step-card">
           <div class="step-num">04</div>
           <h3>Operations &amp; Growth</h3>
-          <p>Zero-downtime updates via microservice architecture. We evolve together from Vision AI toward VLM and Agentic AI.</p>
+          <p>Microservice architecture isolates failures by function. We evolve together from Vision AI toward VLM and Agentic AI.</p>
         </div>
       </div>
     </div>
