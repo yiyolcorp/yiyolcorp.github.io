@@ -4,6 +4,16 @@
     "description": "Technical notes from YIYOL on NVR/VMS software, video security, and AI automation: development logs, integration guides, and calculators for NOX NVR.",
     "keywords": ["NVR", "VMS", "video security", "AI automation", "Agentic AI", "NOX NVR"]
   },
+  "cctv-ai-event-popup-monitoring": {
+    "title": "When One Operator Watches 300 Cameras — Moving to AI Event Popup Monitoring",
+    "description": "Using Changnyeong County's AI auto-display monitoring as a case, this post explains the three stages of event popup monitoring — detection, display, and handling records — plus cutting false alarms, multi-monitor setup, scaling to 1,500 cameras, and a pre-adoption checklist.",
+    "keywords": ["CCTV monitoring", "AI monitoring", "event popup", "control center", "VLM event detection", "NOX NVR"]
+  },
+  "ip-camera-security-inspection-checklist": {
+    "title": "3 in 10 IP Cameras Exposed Other Users' Video — A CCTV Security Checklist Built from the KISA Inspection",
+    "description": "Korea's Consumer Agency and KISA found weak authentication in 3 of 10 IP cameras. A CCTV security checklist in three layers — camera, network, and recording system — and what to do about older cameras.",
+    "keywords": ["IP camera security", "CCTV security checklist", "KISA IP camera inspection", "IP camera hacking", "NVR security", "NOX NVR"]
+  },
   "mcp-maintenance-check": {
     "title": "Maintenance Checks You Ask For in Plain Language and Keep on Record — Using NOX MCP to Find Recording Gaps, Disk Issues, and Offline Cameras",
     "description": "How installers can check recording gaps, disk health, and offline cameras by asking in plain language over MCP: connection steps, read-only safeguards, and the Enterprise edition conditions.",

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en" data-lang-fixed="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKJ4GX2KHS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-CKJ4GX2KHS');
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>When One Operator Watches 300 Cameras — Moving to AI Event Popup Monitoring - YIYOL Blog</title>
+
+  <meta name="description" content="Using Changnyeong County's AI auto-display monitoring as a case, this post explains the three stages of event popup monitoring — detection, display, and handling records — plus cutting false alarms, multi-monitor setup, scaling to 1,500 cameras, and a pre-adoption checklist." />
+  <meta name="keywords" content="CCTV monitoring,AI monitoring,event popup,control center,VLM event detection,NOX NVR" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://yiyol.com/en/blog/cctv-ai-event-popup-monitoring.html" />
+  <meta property="og:title" content="When One Operator Watches 300 Cameras — Moving to AI Event Popup Monitoring — YIYOL" />
+  <meta property="og:description" content="Using Changnyeong County's AI auto-display monitoring as a case, this post explains the three stages of event popup monitoring — detection, display, and handling records — plus cutting false alarms, multi-monitor setup, scaling to 1,500 cameras, and a pre-adoption checklist." />
+  <meta property="og:image" content="https://yiyol.com/img/nox-ui-001.jpeg" />
+  <meta property="og:site_name" content="YIYOL" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="ko_KR" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="When One Operator Watches 300 Cameras — Moving to AI Event Popup Monitoring — YIYOL" />
+  <meta name="twitter:description" content="Using Changnyeong County's AI auto-display monitoring as a case, this post explains the three stages of event popup monitoring — detection, display, and handling records — plus cutting false alarms, multi-monitor setup, scaling to 1,500 cameras, and a pre-adoption checklist." />
+  <meta name="twitter:image" content="https://yiyol.com/img/nox-ui-001.jpeg" />
+
+  <!-- hreflang:start -->
+  <link rel="alternate" hreflang="ko" href="https://yiyol.com/blog/cctv-ai-event-popup-monitoring.html" />
+  <link rel="alternate" hreflang="en" href="https://yiyol.com/en/blog/cctv-ai-event-popup-monitoring.html" />
+  <link rel="alternate" hreflang="x-default" href="https://yiyol.com/blog/cctv-ai-event-popup-monitoring.html" />
+  <!-- hreflang:end -->
+  <link rel="canonical" href="https://yiyol.com/en/blog/cctv-ai-event-popup-monitoring.html" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "When One Operator Watches 300 Cameras — Moving to AI Event Popup Monitoring",
+      "description": "Using Changnyeong County's AI auto-display monitoring as a case, this post explains the three stages of event popup monitoring — detection, display, and handling records — plus cutting false alarms, multi-monitor setup, scaling to 1,500 cameras, and a pre-adoption checklist.",
+      "url": "https://yiyol.com/en/blog/cctv-ai-event-popup-monitoring.html",
+      "image": "https://yiyol.com/img/nox-ui-001.jpeg",
+      "datePublished": "2026-11-17",
+      "dateModified": "2026-11-17",
+      "author": {
+        "@type": "Organization",
+        "name": "YIYOL",
+        "url": "https://yiyol.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "YIYOL",
+        "url": "https://yiyol.com"
+      },
+      "keywords": [
+        "CCTV monitoring",
+        "AI monitoring",
+        "event popup",
+        "control center",
+        "VLM event detection",
+        "NOX NVR"
+      ],
+      "inLanguage": "en",
+      "translationOfWork": {
+        "@id": "https://yiyol.com/blog/cctv-ai-event-popup-monitoring.html"
+      }
+    }
+  </script>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "YIYOL",
+          "item": "https://yiyol.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://yiyol.com/en/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "When One Operator Watches 300 Cameras — Moving to AI Event Popup Monitoring",
+          "item": "https://yiyol.com/en/blog/cctv-ai-event-popup-monitoring.html"
+        }
+      ]
+    }
+  </script>
+
+  <!-- Fonts & CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=3" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=2" />
+</head>
+<body class="yl">
+
+  <!-- Header -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+      <div class="site-nav-inner">
+        <a href="/" class="site-nav-brand">
+          <img class="site-nav-mark" src="/assets/yiyol-mark.png" alt="" width="33" height="24" /><span class="site-nav-logo">YIYOL<span>.</span></span>
+        </a>
+        <div class="site-nav-right">
+          <ul class="site-nav-links">
+            <li><a href="/company/"><span class="en-only">Company</span></a></li>
+            <li><a href="/products/"><span class="en-only">Products</span></a></li>
+            <li><a href="/services/"><span class="en-only">Services</span></a></li>
+            <li><a href="/en/blog/" class="nav-active"><span class="en-only">Blog</span></a></li>
+            <li><a href="https://nox.yiyol.com/?utm_source=yiyol.com&amp;utm_medium=referral&amp;utm_campaign=nav" target="_blank" rel="noopener"><span class="en-only">For home &amp; shop</span><span aria-hidden="true"> ↗</span></a></li>
+            <li><a href="/contact/" class="nav-cta"><span class="en-only">Contact</span></a></li>
+          </ul>
+          <div class="lang-switch">
+            <button class="lang-selector" type="button" aria-haspopup="true" aria-expanded="false">
+              <span class="lang-current">English</span>
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" /></svg>
+            </button>
+            <div class="lang-dropdown">
+              <a href="#" class="lang-option" data-lang="ko">한국어</a>
+              <a href="#" class="lang-option" data-lang="en">English</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+  <!-- Hero -->
+  <section class="post-hero">
+    <div class="post-hero-content">
+      <nav class="post-breadcrumb">
+        <a href="/">YIYOL</a><span>›</span><a href="/en/blog/"><span class="en-only">Blog</span></a><span>›</span> <span class="en-only">Current post</span>
+      </nav>
+      <h1><span class="en-only">When One Operator Watches 300 Cameras — Moving to AI Event Popup Monitoring</span></h1>
+      <div class="post-meta">
+        <span class="post-meta-date">2026.11.17</span>
+        <div class="post-tags">
+          <span class="post-tag">NOX</span>
+          <span class="post-tag"><span class="en-only">Monitoring</span></span>
+          <span class="post-tag"><span class="en-only">Event Popup</span></span>
+          <span class="post-tag"><span class="en-only">AI Analytics</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main -->
+  <main class="post-container">
+    <article class="post-article">
+      
+
+      <div class="en-only">
+
+      <p>The problem every CCTV control center faces is that people cannot keep up with how fast cameras are added. In sequential monitoring, where operators cycle through screens in turn, every new camera lengthens the time before a screen comes around again — and whatever happens in between goes unseen. A recent case from Changnyeong County in South Gyeongsang Province, Korea, puts numbers on it: 16 operators working in four teams on three shifts watched about 1,515 CCTV cameras, and the screens assigned to one operator on duty passed 300.</p>
+
+      <p>Changnyeong changed its monitoring so that when AI catches a dangerous situation, the video pops up on the operator's monitor automatically. This post breaks this kind of <strong>event popup monitoring</strong> into three stages — <strong>detection, display, and handling records</strong> — and explains how to set up each stage in NOX NVR/VMS. The same principles apply beyond municipal control centers, to industrial complexes, universities, and large facilities where there are few operators for the number of cameras.</p>
+
+      <h2>What did Changnyeong change?</h2>
+
+      <p>According to a report in Beauty Economy (2026-10-28), the county rebuilt its integrated monitoring management system, replaced aging equipment, and put in place automatic on-screen display of detected events. When AI catches dangerous behavior by a person or other object, the video is pushed to the operator's monitor with top priority. The report gives these cases:</p>
+
+      <ul>
+        <li>In March and July, two fires were caught early, and fire trucks arrived within 10 minutes.</li>
+        <li>In April and July, people at risk of suicide who were wandering or standing still on a bridge and at a reservoir were caught, and police arrived 5 minutes after the report.</li>
+      </ul>
+
+      <p>A county official said monitoring efficiency rose more than tenfold, and the article states that initial response to major incidents more than doubled year over year. The article does not say how either figure was measured, so they are not values you can carry over to another site. The direction is clear, though: instead of people watching every screen, <strong>the screens that need watching now come to the people</strong>.</p>
+
+      <p>The article also records a failure. The first intelligent system the county introduced in 2019 produced false alarms from changes in the weather and from animals moving. Whether event popup monitoring works comes down to <strong>how accurately it detects, what it shows and how much, and how what it shows gets handled</strong>.</p>
+
+      <h2>Stage 1, detection: what should it catch?</h2>
+
+      <p>Popup monitoring starts with detection. NOX takes in events through three paths.</p>
+
+      <table>
+        <thead>
+          <tr><th>Path</th><th>What it catches</th><th>Requirements</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>NOX real-time video analytics</td><td>Intrusion detection, line crossing detection, motion, license plate recognition (LPR)</td><td>A paid license (analytics are not available in Free mode)</td></tr>
+          <tr><td>Camera events</td><td>Events sent by ONVIF cameras, including the cameras' built-in analytics</td><td>Cameras that support ONVIF events</td></tr>
+          <tr><td>VLM event detection</td><td>8 scenarios — fighting, tailgating, falls, missing PPE, loitering, crowding, weapons, littering — plus custom situations defined in plain sentences</td><td>Enterprise edition + a VLM server (GPU) provided by the customer</td></tr>
+        </tbody>
+      </table>
+
+      <p>Situations that are hard to judge from object detection alone — like Changnyeong's "person wandering or standing still" — are handled by VLM (a language model that understands video) detection. Situations not on the list above, such as fire, can be tried with a custom prompt, but NOX does not provide them as verified scenarios, so test them thoroughly on site footage before putting them into operation.</p>
+
+      <h3>How do you cut false alarms?</h3>
+
+      <p>The false alarms Changnyeong's 2019 system suffered are popup monitoring's worst enemy. With too many false alarms, operators start ignoring popups — and then they miss real incidents. NOX's VLM detection works in stages to cut both cost and false alarms.</p>
+
+      <ol>
+        <li>Only frames with changes on screen move on to the next step.</li>
+        <li>Objects such as people and vehicles are detected.</li>
+        <li>Only when the configured target, object count, confidence, and size conditions <strong>keep holding for a set period</strong> does the case go to VLM judgment. One-off misdetections are filtered out here.</li>
+        <li>The VLM looks at frames from before and after the moment and judges whether the situation is real, and an event is raised only when confidence passes the threshold.</li>
+      </ol>
+
+      <p>A public control center also needs to decide where the VLM server lives. With an in-house (on-premises) VLM server, video frames never leave the site. If you choose an outside cloud VLM, frames are sent outside (face masking is then forced on), so check first that this fits your privacy policy. A VLM server needs a GPU; it does not run on CPU alone.</p>
+
+      <h2>Stage 2, display: what should pop up, and how much?</h2>
+
+      <p>Even with accurate detection, showing every event the same way buries the screen in popups. NOX's event popups show only events that match the <strong>popup rules</strong> an administrator registers, opening the camera's live video, and each rule sets the following.</p>
+
+      <table>
+        <thead>
+          <tr><th>Rule setting</th><th>Use in monitoring</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Priority (0–100)</td><td>When popups are full, lower-priority popups close first, and lower events do not pop up (they stay in the notification list)</td></tr>
+          <tr><td>Minimum severity</td><td>Only events at or above Info / Warning / Critical, as set, pop up</td></tr>
+          <tr><td>Schedule</td><td>Applies by day and time — for example, loitering events on bridge and reservoir cameras only at night</td></tr>
+          <tr><td>Target roles and users</td><td>Splits which operators receive which areas</td></tr>
+          <tr><td>Cooldown</td><td>Suppresses repeat popups from the same rule and camera for a set time</td></tr>
+          <tr><td>Playback start</td><td>Opens recorded video from 10–300 seconds before the event instead of live, so you see at once what happened</td></tr>
+          <tr><td>Linked cameras (up to 3)</td><td>Shows nearby cameras alongside to follow the direction of movement</td></tr>
+          <tr><td>Sound, repeat until acknowledged</td><td>For critical events, repeats the alarm sound until someone acknowledges it</td></tr>
+        </tbody>
+      </table>
+
+      <p>The screen itself also guards against overload. When events keep coming from the same camera, they are merged into one popup that just shows a count such as <code>×3</code>. If the camera is already on that screen, its tile border flashes in the severity color instead of opening a new window. Up to 4 popups show at once per window.</p>
+
+      <h3>How do you split multiple monitors?</h3>
+
+      <p>Control centers usually run several monitors. In NOX, each window (monitor) can be given a role: <strong>Popups</strong>, <strong>No popups</strong>, or <strong>Alarm monitor</strong>. A screen set as an alarm monitor shows only a 4-, 6-, or 9-tile alarm grid instead of a dashboard, pushing out the oldest tile when a new alarm arrives. For example:</p>
+
+      <ul>
+        <li><strong>Monitors 1–2</strong>: live grids and patrol (automatic layout rotation) — routine monitoring</li>
+        <li><strong>Monitor 3</strong>: alarm monitor — only the events AI has caught</li>
+        <li><strong>Monitor 4</strong>: E-map (cameras and event status on floor plans and maps) and search work — no popups</li>
+      </ul>
+
+      <h2>Stage 3, handling records: how do you close out an event?</h2>
+
+      <p>To show what popup monitoring achieves, you need a record of how many events popped up and who handled them when. In NOX, the popup's <strong>Acknowledge</strong> button marks the event as handled, recording who acknowledged it and when on the event and in the audit log. A note of up to 500 characters (for example, "Reported to police, patrol car dispatched") can be added.</p>
+
+      <ul>
+        <li><strong>Require acknowledgement</strong>: critical events can be set so they never close on their own, only when acknowledged.</li>
+        <li><strong>No double handling</strong>: once one person acknowledges, the same popup closes on every monitor and every user's screen. If two people press almost at once, only the first is recorded.</li>
+        <li><strong>Separated permissions</strong>: viewer accounts can only "hide in this window" instead of acknowledging, so the event stays unhandled.</li>
+        <li><strong>Recovering missed alarms</strong>: alarms that were pushed off screen before anyone handled them can be found again with the unacknowledged filter in event search.</li>
+      </ul>
+
+      <p>Results can be summarized in operations reports. Daily, weekly, or monthly event statistics, recording uptime, device status, and storage status are made into a PDF and emailed on schedule to registered users (up to 20). They give you evidence for before-and-after comparisons or reports to higher authorities.</p>
+
+      <p>Finding video after the fact is a big part of monitoring too. Changnyeong's county head said the county will add a real-time missing-person tracking system; the closest after-the-fact search in NOX is AI Search (Enterprise). It finds people and vehicles in recordings from a sentence such as "a person in red clothes," and area search finds targets that passed through a region you draw on screen. Keep in mind that this searches recordings; it is not real-time tracking.</p>
+
+      <h2>How do you set up a 1,500-camera site?</h2>
+
+      <p>One NOX device records up to 128 channels at once on the recommended specification (actual results vary with the network environment), so a 1,500-camera control center is split across several devices. With federation in the Enterprise edition, the main screen can handle live view, recording search, and playback for cameras on other NOX devices. To keep a device failure from turning into a recording gap, also consider n:1 failover (Enterprise), where one standby device protects several.</p>
+
+      <p>When several devices are combined, which device runs monitoring functions such as popups and acknowledgement, and how events from remote devices are handled, depend on the site setup, so confirm them at the design stage. If a public site needs to align with Korea's NIS (National Intelligence Service) security requirements, settle the conditions for running in NIS security mode at this stage as well (<a href="/en/blog/nis-security-requirements-v3-guide.html">related post</a>).</p>
+
+      <h2>What should you check before adopting it?</h2>
+
+      <ol>
+        <li><strong>Start with a list of situations.</strong> Make a table of what to catch in each area (intrusion, loitering, falls, and so on) and when.</li>
+        <li><strong>Look at false alarms in a pilot area first.</strong> Pick cameras with lots of weather, lighting changes, or animals, test for 2–4 weeks, and tune the rules' confidence and cooldown.</li>
+        <li><strong>Separate severity and priority.</strong> Use "require acknowledgement + repeating alarm sound" only for rules that truly need an immediate response. If everything is critical, nothing is.</li>
+        <li><strong>Assign monitor roles.</strong> Split them into routine monitoring, alarms only, and maps and search.</li>
+        <li><strong>Define the handling procedure and what to record.</strong> Deciding what goes into acknowledgement notes makes operations reports and incident reports easier.</li>
+        <li><strong>Decide where the VLM server goes and which GPU it uses.</strong> If video must not leave the site, go with an on-premises setup.</li>
+      </ol>
+
+      <h2>Wrapping up</h2>
+
+      <p>Cameras keep increasing, and monitoring staff do not increase as fast. As Changnyeong shows, the answer is not for people to watch every screen but for AI to send the screens it catches to people, so people can focus on judgment and response. That only works when three things are in place together: detection accuracy, display rules, and handling records. With too many false alarms, popups become noise; without records, you cannot show results.</p>
+
+      <p>NOX is NVR/VMS software installed on general-purpose x86 servers, so you can set up event popup monitoring while keeping your existing ONVIF cameras. VLM detection, AI Search, federation, and n:1 failover are Enterprise edition features. We can recommend the configuration and edition that fit your site's scale in a consultation.</p>
+
+      <p>If you would like to review an event popup monitoring setup for your control center, please <strong><a href="/contact/">request a NOX consultation</a></strong>.</p>
+
+      <p><em>The Changnyeong case is summarized from a Beauty Economy report (2026-10-28); the efficiency and response figures are a county official's explanation and the article's own statement. NOX has no connection with Changnyeong County's system.</em></p>
+
+      <hr />
+
+      <h2>Related Posts</h2>
+
+      <ul>
+        <li><a href="/en/blog/agentic-ai-nvr-vs-ai-nvr-difference.html">What Is an Agentic AI NVR? The Decisive Difference from AI NVR</a></li>
+        <li><a href="/en/blog/nvr-n1-failover-development-log.html">NVR Failover Development Log — Goals of n:1 Redundancy, What Broke, and the Work to Leave Beta</a></li>
+        <li><a href="/en/blog/nis-security-requirements-v3-guide.html">NVR/VMS Guide to NIS Security Requirements V3.0 Certification</a></li>
+      </ul>
+
+      </div>
+
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="yl-foot" role="contentinfo">
+      <div class="yl-shell">
+        <div class="yl-foot-mast">
+          <div>
+            <div class="yl-foot-word"><img class="yl-foot-mark" src="/assets/yiyol-mark.png" alt="" width="36" height="26" />YIYOL<span>.</span></div>
+            
+            <p class="yl-foot-tag en-only">NVR and VMS that store and manage your video — and the AI automation built on top of it.</p>
+          </div>
+          <nav class="yl-foot-links" aria-label="Footer navigation">
+            <a href="/company/"><span class="en-only">Company</span></a>
+            <a href="/products/"><span class="en-only">Products</span></a>
+            <a href="/services/"><span class="en-only">Services</span></a>
+            <a href="/api/"><span class="en-only">API Docs</span></a>
+            <a href="/en/blog/"><span class="en-only">Blog</span></a>
+            <a href="/contact/"><span class="en-only">Contact</span></a>
+          </nav>
+        </div>
+        <div class="yl-foot-meta">
+          
+          <span class="en-only">#326, 75-15 Gasan Digital 1-ro, Geumcheon-gu, Seoul</span>
+          <a href="mailto:yiyol@yiyol.com">yiyol@yiyol.com</a>
+          
+          <span class="en-only">Business Registration 186-34-01502</span>
+          
+          <span class="en-only">Mail-order License 2024-Seoul Geumcheon-1806</span>
+        </div>
+        <p class="yl-foot-copy">&copy; 2026 YIYOL. All rights reserved.</p>
+      </div>
+    </footer>
+
+  <script src="/assets/js/i18n.js?v=5"></script>
+</body>
+</html>
