@@ -93,6 +93,7 @@ NOX 소프트웨어의 REST API 를 공개 문서로 제공합니다. 서비스 
 ## 기술 블로그 — 글 목록
 답변 엔진이 개별 글을 직접 인용할 수 있도록 전체 목록을 둔다. 전 글 한국어 원문이며, 영어판은 아래 "Technical blog — English editions" 에 별도 URL 로 있다.
 
+- [기존 IP 카메라는 그대로 두고 NVR만 바꾸는 교체 제안 방법](https://yiyol.com/blog/onvif-camera-retain-nvr-swap.html) (2026-11-20) — 기존 ONVIF 카메라를 그대로 두고 NVR만 교체하자고 제안할 때의 현장 절차. 카메라 조건 확인, 자동·IP 검색, 채널과 스트림 등록, 발주처 설명 문장과 막히는 지점의 해결 방법을 담았습니다.
 - [관제요원 1명이 CCTV 300대를 볼 때 — AI 이벤트 팝업 관제로 바꾸는 법](https://yiyol.com/blog/cctv-ai-event-popup-monitoring.html) (2026-11-17) — 창녕군의 AI 자동 표출 관제 사례로 본 이벤트 팝업 관제의 세 단계(감지·표출·처리 기록)와 오탐 줄이기, 멀티 모니터 구성, 1,500대 규모 구성과 도입 전 점검표를 정리했습니다.
 - [IP카메라 10대 중 3대, 남의 영상이 열렸다 — 소비자원·KISA 점검으로 만든 CCTV 보안 점검표](https://yiyol.com/blog/ip-camera-security-inspection-checklist.html) (2026-11-17) — 소비자원·KISA 점검에서 IP카메라 10개 중 3개가 인증 취약으로 확인됐습니다. 카메라·네트워크·녹화 시스템 세 단계로 나눈 CCTV 보안 점검표와 구형 카메라 대처법을 정리했습니다.
 - [유지보수 점검, 말로 묻고 기록으로 남기는 법 — NOX MCP로 녹화 누락·디스크·오프라인 카메라 확인하기](https://yiyol.com/blog/mcp-maintenance-check.html) (2026-11-09) — 녹화 누락·디스크·오프라인 카메라 점검을 MCP로 말로 묻는 방법을 설치업체 기준으로 정리했습니다. 연결 절차와 읽기 전용 안전장치, Enterprise 조건까지 담았습니다.
@@ -111,6 +112,7 @@ NOX 소프트웨어의 REST API 를 공개 문서로 제공합니다. 서비스 
 ## Technical blog — English editions
 English translations of every post, each at its own URL (/en/blog/). Index: https://yiyol.com/en/blog/
 
+- [Keep Your IP Cameras and Replace Only the NVR: How to Make the Proposal](https://yiyol.com/en/blog/onvif-camera-retain-nvr-swap.html) (2026-11-20) — A step-by-step field guide to proposing an NVR replacement while keeping existing ONVIF cameras: camera checks, auto and IP discovery, channel and stream registration, client wording, and fixes for common blockers.
 - [When One Operator Watches 300 Cameras — Moving to AI Event Popup Monitoring](https://yiyol.com/en/blog/cctv-ai-event-popup-monitoring.html) (2026-11-17) — Using Changnyeong County's AI auto-display monitoring as a case, this post explains the three stages of event popup monitoring — detection, display, and handling records — plus cutting false alarms, multi-monitor setup, scaling to 1,500 cameras, and a pre-adoption checklist.
 - [3 in 10 IP Cameras Exposed Other Users' Video — A CCTV Security Checklist Built from the KISA Inspection](https://yiyol.com/en/blog/ip-camera-security-inspection-checklist.html) (2026-11-17) — Korea's Consumer Agency and KISA found weak authentication in 3 of 10 IP cameras. A CCTV security checklist in three layers — camera, network, and recording system — and what to do about older cameras.
 - [Maintenance Checks You Ask For in Plain Language and Keep on Record — Using NOX MCP to Find Recording Gaps, Disk Issues, and Offline Cameras](https://yiyol.com/en/blog/mcp-maintenance-check.html) (2026-11-09) — How installers can check recording gaps, disk health, and offline cameras by asking in plain language over MCP: connection steps, read-only safeguards, and the Enterprise edition conditions.
