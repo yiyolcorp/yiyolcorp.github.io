@@ -243,6 +243,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://yiyol.com/blog/cctv-ai-event-popup-monitoring.html"/>
   </url>
   <url>
+    <loc>https://yiyol.com/blog/onvif-camera-retain-nvr-swap.html</loc>
+    <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://yiyol.com/blog/onvif-camera-retain-nvr-swap.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://yiyol.com/en/blog/onvif-camera-retain-nvr-swap.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://yiyol.com/blog/onvif-camera-retain-nvr-swap.html"/>
+  </url>
+  <url>
+    <loc>https://yiyol.com/en/blog/onvif-camera-retain-nvr-swap.html</loc>
+    <lastmod>2026-11-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://yiyol.com/blog/onvif-camera-retain-nvr-swap.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://yiyol.com/en/blog/onvif-camera-retain-nvr-swap.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://yiyol.com/blog/onvif-camera-retain-nvr-swap.html"/>
+  </url>
+  <url>
     <loc>https://yiyol.com/blog/ip-camera-security-inspection-checklist.html</loc>
     <lastmod>2026-11-17</lastmod>
     <changefreq>monthly</changefreq>
