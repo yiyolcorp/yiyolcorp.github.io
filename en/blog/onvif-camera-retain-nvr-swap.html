@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en" data-lang-fixed="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKJ4GX2KHS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-CKJ4GX2KHS');
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Keep Your IP Cameras and Replace Only the NVR: How to Make the Proposal - YIYOL Blog</title>
+
+  <meta name="description" content="A field guide to proposing an NVR-only replacement while keeping existing ONVIF cameras: camera checks, auto and IP discovery, channel and stream setup, client wording, and fixes for common blockers." />
+  <meta name="keywords" content="NVR replacement,ONVIF camera,reuse existing cameras,camera discovery,RTSP registration,installer" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://yiyol.com/en/blog/onvif-camera-retain-nvr-swap.html" />
+  <meta property="og:title" content="Keep Your IP Cameras and Replace Only the NVR: How to Make the Proposal — YIYOL" />
+  <meta property="og:description" content="A field guide to proposing an NVR-only replacement while keeping existing ONVIF cameras: camera checks, auto and IP discovery, channel and stream setup, client wording, and fixes for common blockers." />
+  <meta property="og:image" content="https://yiyol.com/img/nox-ui-001.jpeg" />
+  <meta property="og:site_name" content="YIYOL" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="ko_KR" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Keep Your IP Cameras and Replace Only the NVR: How to Make the Proposal — YIYOL" />
+  <meta name="twitter:description" content="A field guide to proposing an NVR-only replacement while keeping existing ONVIF cameras: camera checks, auto and IP discovery, channel and stream setup, client wording, and fixes for common blockers." />
+  <meta name="twitter:image" content="https://yiyol.com/img/nox-ui-001.jpeg" />
+
+  <!-- hreflang:start -->
+  <link rel="alternate" hreflang="ko" href="https://yiyol.com/blog/onvif-camera-retain-nvr-swap.html" />
+  <link rel="alternate" hreflang="en" href="https://yiyol.com/en/blog/onvif-camera-retain-nvr-swap.html" />
+  <link rel="alternate" hreflang="x-default" href="https://yiyol.com/blog/onvif-camera-retain-nvr-swap.html" />
+  <!-- hreflang:end -->
+  <link rel="canonical" href="https://yiyol.com/en/blog/onvif-camera-retain-nvr-swap.html" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Keep Your IP Cameras and Replace Only the NVR: How to Make the Proposal",
+      "description": "A field guide to proposing an NVR-only replacement while keeping existing ONVIF cameras: camera checks, auto and IP discovery, channel and stream setup, client wording, and fixes for common blockers.",
+      "url": "https://yiyol.com/en/blog/onvif-camera-retain-nvr-swap.html",
+      "image": "https://yiyol.com/img/nox-ui-001.jpeg",
+      "datePublished": "2026-11-20",
+      "dateModified": "2026-11-20",
+      "author": {
+        "@type": "Organization",
+        "name": "YIYOL",
+        "url": "https://yiyol.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "YIYOL",
+        "url": "https://yiyol.com"
+      },
+      "keywords": [
+        "NVR replacement",
+        "ONVIF camera",
+        "reuse existing cameras",
+        "camera discovery",
+        "RTSP registration",
+        "installer"
+      ],
+      "inLanguage": "en",
+      "translationOfWork": {
+        "@id": "https://yiyol.com/blog/onvif-camera-retain-nvr-swap.html"
+      }
+    }
+  </script>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "YIYOL",
+          "item": "https://yiyol.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://yiyol.com/en/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Keep Your IP Cameras and Replace Only the NVR: How to Make the Proposal",
+          "item": "https://yiyol.com/en/blog/onvif-camera-retain-nvr-swap.html"
+        }
+      ]
+    }
+  </script>
+
+  <!-- Fonts & CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=3" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=2" />
+</head>
+<body class="yl">
+  <!-- Header -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+      <div class="site-nav-inner">
+        <a href="/" class="site-nav-brand">
+          <img class="site-nav-mark" src="/assets/yiyol-mark.png" alt="" width="33" height="24" /><span class="site-nav-logo">YIYOL<span>.</span></span>
+        </a>
+        <div class="site-nav-right">
+          <ul class="site-nav-links">
+            <li><a href="/company/"><span class="en-only">Company</span></a></li>
+            <li><a href="/products/"><span class="en-only">Products</span></a></li>
+            <li><a href="/services/"><span class="en-only">Services</span></a></li>
+            <li><a href="/en/blog/" class="nav-active"><span class="en-only">Blog</span></a></li>
+            <li><a href="https://nox.yiyol.com/?utm_source=yiyol.com&amp;utm_medium=referral&amp;utm_campaign=nav" target="_blank" rel="noopener"><span class="en-only">For home &amp; shop</span><span aria-hidden="true"> ↗</span></a></li>
+            <li><a href="/contact/" class="nav-cta"><span class="en-only">Contact</span></a></li>
+          </ul>
+          <div class="lang-switch">
+            <button class="lang-selector" type="button" aria-haspopup="true" aria-expanded="false">
+              <span class="lang-current">English</span>
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" /></svg>
+            </button>
+            <div class="lang-dropdown">
+              <a href="#" class="lang-option" data-lang="ko">한국어</a>
+              <a href="#" class="lang-option" data-lang="en">English</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+  <!-- Hero -->
+  <section class="post-hero">
+    <div class="post-hero-content">
+      <nav class="post-breadcrumb">
+        <a href="/">YIYOL</a><span>›</span><a href="/en/blog/"><span class="en-only">Blog</span></a><span>›</span> <span class="en-only">Current post</span>
+      </nav>
+      <h1><span class="en-only">Keep Your IP Cameras and Replace Only the NVR: How to Make the Proposal</span></h1>
+      <div class="post-meta">
+        <span class="post-meta-date">2026.11.20</span>
+        <div class="post-tags">
+          <span class="post-tag"><span class="en-only">NVR Replacement</span></span>
+          <span class="post-tag">ONVIF</span>
+          <span class="post-tag"><span class="en-only">Camera Registration</span></span>
+          <span class="post-tag"><span class="en-only">Installers</span></span>
+          <span class="post-tag">NOX</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main -->
+  <main class="post-container">
+    <article class="post-article">
+      
+
+      <div class="en-only">
+
+      <p>Many buildings already have ONVIF cameras installed, and clients sometimes ask to keep the cameras and replace only the NVR. This is the NVR replacement proposal. Installers welcome the request, but writing the proposal raises questions: can only the NVR be replaced without buying new cameras, how do you find cameras on another subnet, and will the registration process stretch the site visit? This post lays out, in the order you would work on site, how to replace the NVR while keeping the existing cameras.</p>
+
+      <h2>First, check whether the existing cameras can be reused</h2>
+
+      <p>Before you make the proposal, sort the site cameras into two groups. That makes the work easier to schedule. NOX registers cameras that support ONVIF Profile S and T through discovery. Cameras without ONVIF support are registered by entering the RTSP address directly. In the manual add screen, the name and RTSP address are required; the username and password are optional.</p>
+
+      <table>
+        <thead>
+          <tr><th>Camera type</th><th>How to register</th><th>Channels and streams</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>ONVIF camera (Profile S and T)</td><td>ONVIF discovery, then register</td><td>Channels and streams are pulled in by discovery</td></tr>
+          <tr><td>Camera without ONVIF support</td><td>Enter the RTSP address manually</td><td>Add channels and streams by hand</td></tr>
+        </tbody>
+      </table>
+
+      <p>When you add an RTSP camera, a "Main" channel and a "main" stream are created with it. In the manual add screen, the RTSP address must start with a lowercase <code>rtsp://</code>. An address written as <code>RTSP://</code> in uppercase is saved, but no video appears. If the address needs a space, encode it as <code>%20</code>.</p>
+
+      <h2>Step 1: Find cameras on the same subnet with auto discovery</h2>
+
+      <p>Before the site visit, list the camera models and count, each camera's IP address or range, and the administrator account. Having this ready means you will have fewer things to re-check on site. In particular, confirm that the network interface the cameras are connected to is attached to NOX.</p>
+
+      <p>Start ONVIF discovery from the <strong>ONVIF Discovery</strong> tab on the add camera screen. The default method is <strong>Auto Discovery</strong>. NOX uses multicast WS-Discovery on its physical network interfaces to find cameras on the same subnet. Virtual interfaces used only inside NOX (such as container bridges) and interfaces that are disconnected are skipped, and no discovery request is sent on them. Auto discovery has no input fields, so confirm the method and press <strong>Start Discovery</strong>.</p>
+
+      <p>When discovery finishes, the result is one of three things.</p>
+
+      <ul>
+        <li><strong>Cameras found</strong>: a results table appears.</li>
+        <li><strong>Completed with 0 cameras</strong>: the message "No cameras found" appears.</li>
+        <li><strong>Discovery itself failed</strong>: a red error and the reason for the failure appear.</li>
+      </ul>
+
+      <p>"0 cameras" and "discovery failed" are shown differently, so you can tell the causes apart. With 0 cameras, the cameras may be on another subnet or behind a switch that blocks multicast. In that case, use IP discovery, the next step. To narrow down the cause, check in this order.</p>
+
+      <ol>
+        <li>Confirm that the cameras are on the same network as NOX. Discovery only reaches cameras on a network interface that is connected to NOX.</li>
+        <li>Confirm that ONVIF is enabled on the cameras.</li>
+        <li>Check the firewall settings between NOX and the cameras.</li>
+        <li>If the result is "No cameras found", discovery worked and there are simply no cameras in that scope. If a red error appeared, discovery itself failed, so start with the reason shown.</li>
+        <li>If the results show only 169.254.x.x addresses, fix the camera network settings first (see "Common blockers and how to clear them" below).</li>
+      </ol>
+
+      <h2>Step 2: Use IP discovery for cameras beyond a router</h2>
+
+      <p>IP discovery sends discovery requests directly to the IP addresses you specify. Use it for cameras behind a router, on another subnet, or in an environment where multicast is blocked by switches. There are two discovery types.</p>
+
+      <ul>
+        <li><strong>Range discovery</strong> (default): enter a start IP and an end IP.</li>
+        <li><strong>Single discovery</strong>: enter one camera IP address.</li>
+      </ul>
+
+      <p>The <strong>Start Discovery</strong> button is enabled only when the input is valid. The <strong>N targets</strong> count appears below the button, so you can see how many addresses will be scanned before you start.</p>
+
+      <p>On site, pay particular attention to the size of the target range. One discovery can cover at most 254 targets, which is one <code>/24</code> subnet. For a wider range, split it by subnet and run several discoveries. For example, <code>10.0.0.1 ~ 10.0.15.254</code> should be run as 16 separate ranges: <code>10.0.0.1 ~ 10.0.0.254</code>, <code>10.0.1.1 ~ 10.0.1.254</code>, and so on. Scanning too many addresses at once loads the ARP and neighbor tables of network devices, and camera responses can be lost.</p>
+
+      <p>IP discovery does not try camera accounts during the scan. It sends only ONVIF discovery requests to the specified IPs and reads the name, manufacturer, and model that each responding camera reports about itself. The username and password are used only with the values you enter in the registration step, after the scan finishes.</p>
+
+      <p>IP discovery does not trust responses blindly. Responses from addresses outside the target range are ignored, so a device you did not specify cannot appear in the results. If the host in the access address the camera reports differs from the address that actually responded, NOX uses the address that actually responded.</p>
+
+      <p>IP discovery is recorded in the audit log as a <strong>Discovery</strong> action. The discovery method, target count, number of cameras found, and a summary of the scanned range are recorded, so you can trace who scanned which range and when. A discovery that is cancelled or fails after it starts is still recorded. Requests that end before the scan starts, such as an input format error or a target count over the limit, are not recorded.</p>
+
+      <p>Only one IP discovery runs at a time across the whole server. If another discovery is in progress in another window, the error "Another discovery is in progress" appears. Wait a moment and try again.</p>
+
+      <h2>Step 3: Register cameras and pull in channels and streams in one pass</h2>
+
+      <p>The discovery results table has these columns: select, name, IP address, manufacturer, model, username, and password. Name, manufacturer, and model are what the camera reports about itself. The username and password cells are for you to fill in. Check the cameras you want to register and enter the account for each camera. Fill in both cells or leave both empty. If any camera has only one of them filled in, registration does not start, and a warning appears with that camera's name.</p>
+
+      <p>The <strong>Add all channels and streams automatically</strong> option is on by default. With it on, NOX searches for and adds channels and streams after the camera is registered. With it off, only the camera is registered, and you must add channels and streams later by hand.</p>
+
+      <p>A camera that is already registered (same IP:port) gets a yellow <strong>Duplicate</strong> badge and cannot be selected. This prevents registering the same camera twice. If you restart the discovery, the previous results, selections, and any credentials you entered are all cleared, so it is safer to finish all discovery first and enter accounts afterward.</p>
+
+      <p>After registration, check the status badges in the camera list. Online is green, offline is red, and error is gray. The badges update in real time based on connection checks that run about every 10 seconds. A newly registered camera changes to online within the first check cycle, without a page refresh. Even if a badge shows online, confirm that channels and streams were actually created. Expand the camera node in the resource tree to see its channels, and expand a channel node to see its streams. It is a good idea to confirm that video appears in the live view before you leave the site.</p>
+
+      <p>If you have dozens of cameras, use the <strong>Import Cameras</strong> button on the camera list page to register many at once. Drag and drop or select a YAML file (<code>.yaml</code> or <code>.yml</code>) or an exported camera file (<code>.noxcam</code>). The camera list appears as a table, and only the checked cameras are registered. You can download the YAML template with the <strong>Download Template</strong> button. Each row gets a Valid, Invalid, or Duplicate badge, and invalid or duplicate cameras cannot be selected. Duplicates are judged by IP, port, and RTSP URL; the account and password inside the URL are excluded from the comparison. The same address with a different account counts as a duplicate. An encrypted <code>.noxcam</code> file does not contain passwords. A camera that had a password set shows a <strong>Re-enter password</strong> badge and a warning, so you must enter the password again after import.</p>
+
+      <h3>Discovering channels and streams manually</h3>
+
+      <p>Use manual discovery if automatic addition was turned off or the camera's profile has changed.</p>
+
+      <ul>
+        <li><strong>Channel discovery</strong>: hover over an ONVIF camera in the resource tree and press the <strong>Discover</strong> icon that appears, or choose <strong>Discover Channels</strong> from the right-click menu. Press <strong>Start Channel Discovery</strong> to get a channel list showing name, resolution, and FPS. Select the channels you need and press <strong>Create Selected Channels</strong>.</li>
+        <li><strong>Stream discovery</strong>: on an ONVIF channel, choose <strong>Discover Streams</strong> the same way. Each profile shows its main or sub type, resolution, FPS, bitrate, and codec, and the default transport is TCP. Selected streams are created one at a time, and if some fail, the rest are still attempted.</li>
+      </ul>
+
+      <p>The addresses in stream discovery results are display-only, with the username and password masked. When a stream is created, the device fetches the address from the camera again and stores it, so camera passwords are neither shown nor sent in the discovery results. The camera must respond when the stream is created. If you see an error saying stream information could not be retrieved, check the camera connection and try again. If you see "The selected stream could not be found on the camera", the camera profile has changed, so run stream discovery again and add the stream.</p>
+
+      <h2>Common blockers and how to clear them</h2>
+
+      <ul>
+        <li><strong>A camera found at 169.254.x.x</strong>: the camera did not get a DHCP lease and has assigned itself a link-local address. NOX does not register this address. Use the camera vendor's tool or the camera's web page to set a fixed IP on the device's network range, or switch the camera to DHCP, then discover again. You may need to change a camera setting once, so tell the client about this at the proposal stage.</li>
+        <li><strong>Addresses that cannot be registered</strong>: loopback addresses (<code>127.0.0.1</code>, <code>localhost</code>), <code>0.0.0.0</code>, and multicast addresses cannot be registered. An address made of the NOX device's own address plus the media server port is also blocked. In these cases, the message "This address cannot be used" appears.</li>
+        <li><strong>Discovery range includes addresses that cannot be scanned</strong>: if the range includes <code>0.0.0.0</code>, multicast (<code>224.0.0.0/4</code>), or reserved space (<code>240.0.0.0/4</code>), the scan does not start, and the blocked range is shown. Split the range and enter it again.</li>
+        <li><strong>Stream address format errors</strong>: an RTSP address must start with a lowercase <code>rtsp://</code> or <code>rtsps://</code>, and it cannot contain spaces or control characters. Addresses starting with <code>http://</code>, or values that contain only a path without a host, are not accepted.</li>
+        <li><strong>Video stopped after a camera's IP changed</strong>: do not delete the camera and register it again. Deleting it permanently erases its recordings. Instead, edit the camera, change the IP address to the device's new address, and confirm the address change. If camera IPs change often on site, set a fixed IP on the camera or reserve the address on the DHCP server.</li>
+      </ul>
+
+      <h2>How to explain it to the client</h2>
+
+      <p>Retail, industrial, and building operators on the client side want to know what keeping the existing cameras means on site. Here are sentences installers can reuse as they are.</p>
+
+      <blockquote>"The existing ONVIF cameras stay connected as they are, and only the NVR that handles recording and search is replaced with new equipment. Standard ONVIF and RTSP compatibility is included in the Standard edition, so no higher edition is needed to connect the cameras."</blockquote>
+
+      <blockquote>"Licenses are issued per device, and there is no additional license fee per channel. Adding channels does not add a cost for each one."</blockquote>
+
+      <blockquote>"IP discovery does not try camera accounts during the scan. It uses only the accounts you enter when registering cameras. Stream addresses in the results also show the account masked."</blockquote>
+
+      <p>If a camera takes its account directly in the RTSP address, you can explain one more point. When the account is written in the form <code>username:password@</code> and the account fields are left empty, the account is moved into the camera settings on save, and the password is encrypted. The account does not remain in the saved URL or the stream address.</p>
+
+      <p>Mention in advance any cases where camera network settings may be needed, such as a 169.254 address. That raises the credibility of the proposal. Rather than saying "it may or may not work," the installer should be able to say "it works under these conditions, and in these cases one camera setting has to be changed." That makes the decision easier for the client.</p>
+
+      <h2>Summary: five checks before you make the replacement proposal</h2>
+
+      <p>A replacement proposal comes down to checking five things.</p>
+
+      <ol>
+        <li>Separate ONVIF cameras from RTSP-only cameras.</li>
+        <li>Find cameras on the same subnet with auto discovery, and everything else with IP discovery. IP discovery covers at most one <code>/24</code> per run.</li>
+        <li>When registering, fill in both account fields or leave both empty, and keep <strong>Add all channels and streams automatically</strong> on.</li>
+        <li>Confirm that the status badges show online and that channels and streams were created.</li>
+        <li>If a 169.254 address appears, change the camera network settings first.</li>
+      </ol>
+
+      <p>Keep your findings as on-site notes. Capturing the discovery results screen and the camera list after registration helps both when you show the client the basis for your proposal and when you trace the cause of a connection problem after registration.</p>
+
+      <p>If you are preparing an NVR replacement proposal that keeps the existing cameras, list the camera models, the number of cameras, and the ranges to scan in advance, and send an <strong>installation partner consultation request</strong>.</p>
+
+      <p><em>Installation partner consultation: <a href="/contact/">yiyol.com/contact</a></em></p>
+
+      <hr />
+
+      <h2>Related Posts</h2>
+
+      <ul>
+        <li><a href="/en/blog/ai-chat-video-search.html">NOX NVR Adds AI Chat: Find Video by Asking</a> — How clients find video by asking after installation</li>
+        <li><a href="/en/blog/ip-camera-security-inspection-checklist.html">3 in 10 IP Cameras Exposed Other Users' Video — A CCTV Security Checklist Built from the KISA Inspection</a> — Certification and network checks to run before a replacement</li>
+        <li><a href="/en/blog/iptime-ip-camera-isolation-nox-vms.html">How to Isolate Chinese IP Cameras from the Internet and Use Them Safely with NOX</a> — Isolating the camera network and placing NOX as the single entry point</li>
+      </ul>
+
+      </div>
+
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="yl-foot" role="contentinfo">
+      <div class="yl-shell">
+        <div class="yl-foot-mast">
+          <div>
+            <div class="yl-foot-word"><img class="yl-foot-mark" src="/assets/yiyol-mark.png" alt="" width="36" height="26" />YIYOL<span>.</span></div>
+            
+            <p class="yl-foot-tag en-only">NVR and VMS that store and manage your video — and the AI automation built on top of it.</p>
+          </div>
+          <nav class="yl-foot-links" aria-label="Footer navigation">
+            <a href="/company/"><span class="en-only">Company</span></a>
+            <a href="/products/"><span class="en-only">Products</span></a>
+            <a href="/services/"><span class="en-only">Services</span></a>
+            <a href="/api/"><span class="en-only">API Docs</span></a>
+            <a href="/en/blog/"><span class="en-only">Blog</span></a>
+            <a href="/contact/"><span class="en-only">Contact</span></a>
+          </nav>
+        </div>
+        <div class="yl-foot-meta">
+          
+          <span class="en-only">#326, 75-15 Gasan Digital 1-ro, Geumcheon-gu, Seoul</span>
+          <a href="mailto:yiyol@yiyol.com">yiyol@yiyol.com</a>
+          
+          <span class="en-only">Business Registration 186-34-01502</span>
+          
+          <span class="en-only">Mail-order License 2024-Seoul Geumcheon-1806</span>
+        </div>
+        <p class="yl-foot-copy">&copy; 2026 YIYOL. All rights reserved.</p>
+      </div>
+    </footer>
+
+  <script src="/assets/js/i18n.js?v=5"></script>
+</body>
+</html>
