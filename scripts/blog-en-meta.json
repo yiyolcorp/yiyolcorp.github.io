@@ -79,5 +79,10 @@
     "title": "NOX NVR Adds AI Chat: Find Video by Asking",
     "description": "NOX NVR now includes AI Chat, which plays a recording when you type a camera name and time. Currently only Anthropic (Claude API) is supported; other LLMs are planned.",
     "keywords": ["AI chat NVR", "natural language video lookup", "NOX NVR", "NVR chat playback", "NIS security mode NVR"]
+  },
+  "onvif-camera-retain-nvr-swap": {
+    "title": "Keep Your IP Cameras and Replace Only the NVR: How to Make the Proposal",
+    "description": "A field guide to proposing an NVR-only replacement while keeping existing ONVIF cameras: camera checks, auto and IP discovery, channel and stream setup, client wording, and fixes for common blockers.",
+    "keywords": ["NVR replacement", "ONVIF camera", "reuse existing cameras", "camera discovery", "RTSP registration", "installer"]
   }
 }
