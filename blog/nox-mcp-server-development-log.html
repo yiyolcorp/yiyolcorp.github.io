@@ -14,7 +14,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>NOX MCP 서버 개발기 — 읽기 전용으로 시작한 이유와, Claude Code가 먼저 찾아낸 버그 - YIYOL Blog</title>
 
-  <meta name="description" content="NOX NVR 한 대를 그대로 MCP 서버로 만들어 Claude Code·Claude Desktop 같은 AI 에이전트가 카메라·이벤트·녹화·시스템 상태를 자연어로 조회하게 한 과정을 정리합니다. 읽기 전용과 권한 위임을 고른 이유, 출시 전 시험에서 에이전트가 먼저 드러낸 시간대 결함, 격리망의 NVR에 PC를 거쳐 연결하는 구조와 연결 방법을 담았습니다." />
+  <meta name="description" content="NOX NVR을 MCP 서버로 만들어 Claude Code·Claude Desktop 같은 AI 에이전트가 카메라·이벤트·녹화를 자연어로 조회하게 한 개발기입니다. 읽기 전용 설계와 격리망 NVR 연결 방법을 담았습니다." />
   <meta name="keywords" content="MCP 서버,Model Context Protocol,Claude Code MCP,Claude Desktop MCP,격리망 NVR,AI 에이전트 NVR,NVR MCP,VMS AI 에이전트,claude mcp add,Streamable HTTP,읽기 전용 MCP,NOX NVR" />
 
   <meta property="og:type" content="article" />
@@ -24,7 +24,13 @@
   <meta property="og:image" content="https://yiyol.com/img/blog/nox-mcp/claude-desktop-demo-poster.jpg" />
   <meta property="og:image:width" content="1920" />
   <meta property="og:image:height" content="1080" />
+  <meta property="og:image:alt" content="NOX MCP 서버 개발기 — 읽기 전용으로 시작한 이유와, Claude Code가 먼저 찾아낸 버그 — YIYOL" />
   <meta property="og:site_name" content="YIYOL" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="article:published_time" content="2026-10-07" />
+  <meta property="article:modified_time" content="2026-11-26" />
+  <meta property="article:publisher" content="https://yiyol.com/" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="NOX MCP 서버 개발기 — 읽기 전용으로 시작한 이유와, Claude Code가 먼저 찾아낸 버그 — YIYOL" />
@@ -44,11 +50,11 @@
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": "NOX MCP 서버 개발기 — 읽기 전용으로 시작한 이유와, Claude Code가 먼저 찾아낸 버그",
-    "description": "NOX NVR 한 대를 그대로 MCP 서버로 만들어 Claude Code·Claude Desktop 같은 AI 에이전트가 카메라·이벤트·녹화·시스템 상태를 자연어로 조회하게 한 과정을 정리합니다. 읽기 전용과 권한 위임을 고른 이유, 출시 전 시험에서 에이전트가 먼저 드러낸 시간대 결함, 격리망의 NVR에 PC를 거쳐 연결하는 구조와 연결 방법을 담았습니다.",
+    "description": "NOX NVR을 MCP 서버로 만들어 Claude Code·Claude Desktop 같은 AI 에이전트가 카메라·이벤트·녹화를 자연어로 조회하게 한 개발기입니다. 읽기 전용 설계와 격리망 NVR 연결 방법을 담았습니다.",
     "url": "https://yiyol.com/blog/nox-mcp-server-development-log.html",
     "image": "https://yiyol.com/img/blog/nox-mcp/claude-desktop-demo-poster.jpg",
     "datePublished": "2026-10-07",
-    "dateModified": "2026-10-07",
+    "dateModified": "2026-11-26",
     "author": {
       "@type": "Organization",
       "name": "YIYOL",
@@ -57,7 +63,13 @@
     "publisher": {
       "@type": "Organization",
       "name": "YIYOL",
-      "url": "https://yiyol.com"
+      "url": "https://yiyol.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://yiyol.com/assets/yiyol-logo.png",
+        "width": 1024,
+        "height": 1024
+      }
     },
     "keywords": [
       "MCP 서버",
@@ -69,7 +81,11 @@
       "NVR MCP",
       "VMS AI 에이전트"
     ],
-    "inLanguage": "ko"
+    "inLanguage": "ko",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://yiyol.com/blog/nox-mcp-server-development-log.html"
+    }
   }
   </script>
 
@@ -100,6 +116,55 @@
   }
   </script>
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "NOX NVR을 MCP 서버로 연결하면 AI 에이전트가 무엇을 할 수 있나?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "카메라 목록과 상태, 이벤트·객체, 녹화 구간과 재생 링크, 시스템·저장소 상태를 조회할 수 있고, 자연어 장면 검색 라이선스가 있는 장비에서는 녹화에서 장면도 찾는다. 도구는 조회 10종뿐이며 카메라·녹화·설정을 바꾸는 쓰기 도구는 없다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "인터넷과 분리된 격리망 NVR에도 Claude를 연결할 수 있나?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "연결할 수 있다. 도구를 실제로 호출하는 주체는 클라우드의 Claude 모델이 아니라 사용자 PC의 Claude Desktop이나 Claude Code이므로, NVR을 인터넷에 열거나 포트 포워딩을 할 필요가 없다. 그 PC가 인터넷과 현장망 양쪽에 닿기만 하면 된다. 다만 Claude 앱 설정에서 URL로 추가하는 원격 커넥터는 Anthropic 서버에서 접속하므로 격리망 장비에는 쓸 수 없다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "MCP로 연결하면 CCTV 영상이 클라우드로 전송되나?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "전송되지 않는다. 영상, 썸네일, 카메라 접속 주소와 자격증명은 도구 결과에 처음부터 담지 않는다. 카메라 이름, 상태, 이벤트 건수, 녹화 구간, 재생 링크 같은 텍스트만 대화 내용으로 모델에 전달되고, 재생 링크는 현장망 밖에서는 열리지 않는다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Claude Code에 NOX MCP 서버는 어떻게 등록하나?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "장비 웹 화면의 설정 → API 키에서 용도를 AI 에이전트(MCP)로 골라 키를 발급하면 접속 주소와 claude mcp add 등록 명령이 함께 나온다. 장비 CA 인증서를 내려받아 NODE_EXTRA_CA_CERTS로 지정한 뒤 실행하고, 주소는 끝에 슬래시 없이 /agent/mcp로 쓴다. 등록한 뒤 claude mcp list로 연결 상태를 확인한다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "AI 에이전트의 질문이 몰리면 NVR 녹화가 밀리지 않나?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "키별 상한과 장비 전체 상한을 둬서 녹화와 라이브 영상을 지킨다. 예를 들어 키별 도구 호출은 분당 60건, 장비 전체 자연어 장면 검색 동시 실행은 2건으로 제한한다. 상한은 설정으로 낮추거나 높일 수 있지만 끌 수는 없다."
+        }
+      }
+    ]
+  }
+  </script>
+
   <!-- Fonts & CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -109,7 +174,7 @@
     />
   <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
     <link rel="stylesheet" href="/assets/css/site.css?v=3" />
-    <link rel="stylesheet" href="/assets/css/blog.css?v=2" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=3" />
 </head>
 <body class="yl">
   <!-- Header -->
@@ -165,6 +230,16 @@
   <main class="post-container">
     <article class="post-article">
       <div class="ko-only">
+
+      <aside class="post-summary" aria-label="핵심 요약">
+        <p class="post-summary-label">핵심 요약</p>
+        <ul>
+          <li>NOX에서는 장비 한 대가 그대로 MCP 서버가 되어, Claude Code나 Claude Desktop 같은 AI 에이전트가 카메라·이벤트·녹화·시스템 정보를 조회할 수 있다.</li>
+          <li>도구는 조회 10종, 쓰기 0종이며, 장비 상태를 바꾸는 도구는 하나도 없다.</li>
+          <li>도구를 실제로 호출하는 주체는 사용자 PC이므로, NVR을 인터넷에 열지 않고도 격리망 장비에 연결할 수 있다.</li>
+          <li>출시 전 실제 장비 시험에서 Claude Code가 서로 모순된 도구 결과를 먼저 짚었고, 그 덕분에 시간대 계산 결함을 찾아 고쳤다.</li>
+        </ul>
+      </aside>
 
       <p><strong>MCP(Model Context Protocol)</strong>는 AI 에이전트가 외부 시스템의 기능을 '도구(tool)'로 불러 쓸 수 있게 하는 공개 규약이다. Claude Code 같은 에이전트에 MCP 서버를 하나 등록하면, 에이전트는 그 서버가 내놓은 도구 목록을 읽고 질문에 맞는 도구를 골라 호출한다.</p>
 
@@ -432,6 +507,23 @@
         <li><strong>국정원 보안 모드.</strong> 이 모드가 켜진 장비에는 MCP 접속 주소 자체가 없다.</li>
       </ul>
 
+      <h2>자주 묻는 질문</h2>
+
+      <h3>NOX NVR을 MCP 서버로 연결하면 AI 에이전트가 무엇을 할 수 있나?</h3>
+      <p>카메라 목록과 상태, 이벤트·객체, 녹화 구간과 재생 링크, 시스템·저장소 상태를 조회할 수 있고, 자연어 장면 검색 라이선스가 있는 장비에서는 녹화에서 장면도 찾는다. 도구는 조회 10종뿐이며 카메라·녹화·설정을 바꾸는 쓰기 도구는 없다.</p>
+
+      <h3>인터넷과 분리된 격리망 NVR에도 Claude를 연결할 수 있나?</h3>
+      <p>연결할 수 있다. 도구를 실제로 호출하는 주체는 클라우드의 Claude 모델이 아니라 사용자 PC의 Claude Desktop이나 Claude Code이므로, NVR을 인터넷에 열거나 포트 포워딩을 할 필요가 없다. 그 PC가 인터넷과 현장망 양쪽에 닿기만 하면 된다. 다만 Claude 앱 설정에서 URL로 추가하는 원격 커넥터는 Anthropic 서버에서 접속하므로 격리망 장비에는 쓸 수 없다.</p>
+
+      <h3>MCP로 연결하면 CCTV 영상이 클라우드로 전송되나?</h3>
+      <p>전송되지 않는다. 영상, 썸네일, 카메라 접속 주소와 자격증명은 도구 결과에 처음부터 담지 않는다. 카메라 이름, 상태, 이벤트 건수, 녹화 구간, 재생 링크 같은 텍스트만 대화 내용으로 모델에 전달되고, 재생 링크는 현장망 밖에서는 열리지 않는다.</p>
+
+      <h3>Claude Code에 NOX MCP 서버는 어떻게 등록하나?</h3>
+      <p>장비 웹 화면의 설정 → API 키에서 용도를 AI 에이전트(MCP)로 골라 키를 발급하면 접속 주소와 <code>claude mcp add</code> 등록 명령이 함께 나온다. 장비 CA 인증서를 내려받아 <code>NODE_EXTRA_CA_CERTS</code>로 지정한 뒤 실행하고, 주소는 끝에 슬래시 없이 <code>/agent/mcp</code>로 쓴다. 등록한 뒤 <code>claude mcp list</code>로 연결 상태를 확인한다.</p>
+
+      <h3>AI 에이전트의 질문이 몰리면 NVR 녹화가 밀리지 않나?</h3>
+      <p>키별 상한과 장비 전체 상한을 둬서 녹화와 라이브 영상을 지킨다. 예를 들어 키별 도구 호출은 분당 60건, 장비 전체 자연어 장면 검색 동시 실행은 2건으로 제한한다. 상한은 설정으로 낮추거나 높일 수 있지만 끌 수는 없다.</p>
+
       <h2>결론</h2>
 
       <p>MCP 서버의 뼈대, 즉 규약을 받고 도구 목록을 내주고 내부 서비스에 물어 답하는 경로는 공식 SDK 덕분에 오래 걸리지 않았다. <strong>시간을 쓴 곳은 에이전트가 장비 안에서 할 수 있는 일을 줄이는 것, 그리고 에이전트가 받는 답이 사실과 다르지 않게 하는 것이었다.</strong></p>
@@ -459,6 +551,16 @@
       </div>
 
       <div class="en-only">
+
+      <aside class="post-summary" aria-label="Key takeaways">
+        <p class="post-summary-label">Key takeaways</p>
+        <ul>
+          <li>In NOX, each device becomes an MCP server as-is, so AI agents such as Claude Code and Claude Desktop can query camera, event, recording, and system information.</li>
+          <li>There are 10 query tools and 0 write tools; no tool changes device state.</li>
+          <li>The one actually calling the tools is the user's PC, so an agent can connect to an air-gapped device without exposing the NVR to the internet.</li>
+          <li>In pre-release testing on a real device, Claude Code was the first to point out contradictory tool results, which led us to find and fix a time zone calculation defect.</li>
+        </ul>
+      </aside>
 
       <p><strong>MCP (Model Context Protocol)</strong> is an open protocol that lets AI agents call the functions of external systems as "tools." Register an MCP server with an agent such as Claude Code, and the agent reads the list of tools that server exposes, picks the ones that fit the question, and calls them.</p>
 
@@ -725,6 +827,23 @@
         <li><strong>Remote devices.</strong> Cameras on other devices connected via federation are not queried.</li>
         <li><strong>NIS security mode.</strong> On devices with this mode enabled, the MCP endpoint does not exist at all.</li>
       </ul>
+
+      <h2>Frequently asked questions</h2>
+
+      <h3>What can an AI agent do when NOX NVR is connected as an MCP server?</h3>
+      <p>It can query the camera list and status, events and objects, recorded ranges and playback links, and system and storage status, and on devices licensed for natural-language scene search it can also find scenes in recordings. There are only 10 query tools, and no write tools that change cameras, recording, or settings.</p>
+
+      <h3>Can Claude connect to an air-gapped NVR that is isolated from the internet?</h3>
+      <p>Yes. The one actually calling the tools is not the Claude model in the cloud but Claude Desktop or Claude Code on the user's PC, so there is no need to expose the NVR to the internet or set up port forwarding. The PC only needs to reach both the internet and the on-site network. Remote connectors added by URL in the Claude app's settings, however, connect from Anthropic's servers, so they cannot reach an air-gapped device.</p>
+
+      <h3>Does connecting over MCP send CCTV video to the cloud?</h3>
+      <p>No. Video, thumbnails, camera access addresses, and credentials are never included in tool results in the first place. Only text such as camera names, status, event counts, recorded ranges, and playback links reaches the model as part of the conversation, and playback links do not open outside the on-site network.</p>
+
+      <h3>How do I register the NOX MCP server in Claude Code?</h3>
+      <p>In the device web UI, go to Settings → API Keys, choose the purpose AI Agent (MCP), and issue a key; the result shows the endpoint address and the <code>claude mcp add</code> registration command. Download the device CA certificate, set it with <code>NODE_EXTRA_CA_CERTS</code> before launching, and use the address <code>/agent/mcp</code> without a trailing slash. After registering, check the connection with <code>claude mcp list</code>.</p>
+
+      <h3>Will a flood of AI agent queries slow down NVR recording?</h3>
+      <p>Per-key and device-wide limits protect recording and live view. For example, tool calls are limited to 60 per minute per key, and natural-language scene searches to 2 running at once across the device. The limits can be lowered or raised in settings but cannot be turned off.</p>
 
       <h2>Conclusion</h2>
 

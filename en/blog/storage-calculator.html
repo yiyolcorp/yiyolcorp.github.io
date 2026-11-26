@@ -24,9 +24,13 @@
     <meta property="og:image" content="https://yiyol.com/img/nox-ui-001.jpeg" />
   <meta property="og:image:width" content="3456" />
   <meta property="og:image:height" content="1916" />
+    <meta property="og:image:alt" content="CCTV Storage Calculator — YIYOL" />
   <meta property="og:site_name" content="YIYOL" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:locale:alternate" content="ko_KR" />
+    <meta property="article:published_time" content="2026-07-01" />
+    <meta property="article:modified_time" content="2026-11-26" />
+    <meta property="article:publisher" content="https://yiyol.com/" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="CCTV Storage Calculator — YIYOL" />
@@ -49,7 +53,7 @@
     />
     <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
     <link rel="stylesheet" href="/assets/css/site.css?v=3" />
-    <link rel="stylesheet" href="/assets/css/blog.css?v=1" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=3" />
 
     <style>
       /* Calculator Page Styles */
@@ -312,6 +316,8 @@
       .calc-related p { margin: 0.25rem 0 0; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.55; }
 
       /* Reference Table */
+      .calc-faq h3 { font-size: 1rem; font-weight: 600; color: var(--text-primary); margin: 1.25rem 0 0.35rem; }
+      .calc-faq p { margin: 0; color: var(--text-secondary); line-height: 1.7; }
       .calc-ref-section {
         margin-top: 3rem;
       }
@@ -409,9 +415,31 @@
         "applicationCategory": "UtilityApplication",
         "operatingSystem": "Web Browser",
         "description": "Automatically calculate required storage capacity and retention period based on camera count, resolution, and recording hours.",
+        "datePublished": "2026-07-01",
+        "dateModified": "2026-11-26",
         "provider": {
           "@type": "Organization",
           "name": "YIYOL"
+        },
+        "author": {
+          "@type": "Organization",
+          "name": "YIYOL",
+          "url": "https://yiyol.com"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "YIYOL",
+          "url": "https://yiyol.com",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://yiyol.com/assets/yiyol-logo.png",
+            "width": 1024,
+            "height": 1024
+          }
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://yiyol.com/en/blog/storage-calculator.html"
         },
         "inLanguage": "en",
         "translationOfWork": {
@@ -445,6 +473,54 @@
         ]
       }
     </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do you calculate CCTV storage capacity?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Compute daily data with Daily (GB) = Bitrate (Mbps) × (FPS ÷ 30) × 3,600 × Hours (h) × Channels ÷ 8 ÷ 1,000, then multiply by the retention days and divide by 1,000 to get the TB required. Enter channels, resolution, FPS, recording hours, and retention in the calculator above and it applies the same formula instantly."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How many GB per day does one 1080p CCTV camera use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Recording 24 hours a day at 30fps, it uses 43.2–86.4 GB per day, because the typical bitrate for 1080p is 4–8 Mbps. Fewer recording hours or a lower FPS reduce that proportionally."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much more storage does 4K CCTV need than 1080p?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The typical bitrate for 4K is 16–25 Mbps, far higher than 1080p (4–8 Mbps). Recording 24 hours at 30fps needs 172.8–270.0 GB per channel per day, so compared with 43.2–86.4 GB for 1080p you need disks several times larger."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does lowering FPS reduce CCTV storage?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The calculator's bitrate presets are based on 30fps, and changing FPS scales the bitrate by FPS ÷ 30. Halving the FPS at the same resolution halves the calculated storage."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which tab should I use if I already know the retention period?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use the \"Required Capacity\" tab. Enter the desired retention days and it shows the required storage (TB), daily and monthly data, and a recommended HDD configuration. If your disks are already fixed, enter the total storage in the \"Retention Period\" tab to see how many days it will hold."
+          }
+        }
+      ]
+    }
+  </script>
 </head>
   <body class="yl">
     <!-- Header -->
@@ -689,6 +765,20 @@
         </div>
       </div>
 
+      <!-- Summary -->
+      <div class="calc-ref-section calc-summary">
+        
+        <aside class="post-summary en-only" aria-label="Key takeaways">
+          <p class="post-summary-label">Key takeaways</p>
+          <ul>
+            <li>This calculator estimates the storage CCTV recording needs from camera channels, resolution (bitrate), FPS, and daily recording hours.</li>
+            <li>"Retention Period" tells you how many days your disks can hold; "Required Capacity" gives the TB needed for a target number of days and a recommended HDD configuration.</li>
+            <li>Daily data (GB) = Bitrate (Mbps) × (FPS ÷ 30) × 3,600 × Hours (h) × Channels ÷ 8 ÷ 1,000.</li>
+            <li>One 1080p camera recording 24 hours a day at 30fps produces 43.2–86.4 GB per day.</li>
+          </ul>
+        </aside>
+      </div>
+
       <!-- Reference Table -->
       <div class="calc-ref-section">
         
@@ -757,6 +847,29 @@
               ※ Bitrate presets are based on 30fps. Changing FPS scales the bitrate proportionally.
             </span>
           </code>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="calc-ref-section calc-faq">
+        
+        <h2 class="calc-ref-title en-only">Frequently asked questions</h2>
+        
+        <div class="en-only">
+          <h3>How do you calculate CCTV storage capacity?</h3>
+          <p>Compute daily data with Daily (GB) = Bitrate (Mbps) × (FPS ÷ 30) × 3,600 × Hours (h) × Channels ÷ 8 ÷ 1,000, then multiply by the retention days and divide by 1,000 to get the TB required. Enter channels, resolution, FPS, recording hours, and retention in the calculator above and it applies the same formula instantly.</p>
+
+          <h3>How many GB per day does one 1080p CCTV camera use?</h3>
+          <p>Recording 24 hours a day at 30fps, it uses 43.2–86.4 GB per day, because the typical bitrate for 1080p is 4–8 Mbps. Fewer recording hours or a lower FPS reduce that proportionally.</p>
+
+          <h3>How much more storage does 4K CCTV need than 1080p?</h3>
+          <p>The typical bitrate for 4K is 16–25 Mbps, far higher than 1080p (4–8 Mbps). Recording 24 hours at 30fps needs 172.8–270.0 GB per channel per day, so compared with 43.2–86.4 GB for 1080p you need disks several times larger.</p>
+
+          <h3>Does lowering FPS reduce CCTV storage?</h3>
+          <p>Yes. The calculator's bitrate presets are based on 30fps, and changing FPS scales the bitrate by FPS ÷ 30. Halving the FPS at the same resolution halves the calculated storage.</p>
+
+          <h3>Which tab should I use if I already know the retention period?</h3>
+          <p>Use the "Required Capacity" tab. Enter the desired retention days and it shows the required storage (TB), daily and monthly data, and a recommended HDD configuration. If your disks are already fixed, enter the total storage in the "Retention Period" tab to see how many days it will hold.</p>
         </div>
       </div>
 

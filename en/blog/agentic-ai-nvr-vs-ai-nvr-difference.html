@@ -14,23 +14,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>What Is an Agentic AI NVR? The Decisive Difference from AI NVR - YIYOL Blog</title>
 
-  <meta name="description" content="How an AI NVR and an Agentic AI NVR differ: the three stages of video surveillance AI, from detection to autonomous action, and how NOX NVR uses LLM-based agents to recognize and act on unstructured events." />
+  <meta name="description" content="AI NVR vs. Agentic AI NVR: the three stages of video surveillance AI, from detection to autonomous action, and how LLM agents act on unstructured events." />
   <meta name="keywords" content="Agentic AI NVR,AI NVR,video surveillance AI,LLM agent,NOX NVR" />
 
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://yiyol.com/en/blog/agentic-ai-nvr-vs-ai-nvr-difference.html" />
   <meta property="og:title" content="What Is an Agentic AI NVR? The Decisive Difference from AI NVR — YIYOL" />
-  <meta property="og:description" content="How an AI NVR and an Agentic AI NVR differ: the three stages of video surveillance AI, from detection to autonomous action, and how NOX NVR uses LLM-based agents to recognize and act on unstructured events." />
+  <meta property="og:description" content="AI NVR vs. Agentic AI NVR: the three stages of video surveillance AI, from detection to autonomous action, and how LLM agents act on unstructured events." />
   <meta property="og:image" content="https://yiyol.com/img/nox-ui-001.jpeg" />
   <meta property="og:image:width" content="3456" />
   <meta property="og:image:height" content="1916" />
+  <meta property="og:image:alt" content="What Is an Agentic AI NVR? The Decisive Difference from AI NVR — YIYOL" />
   <meta property="og:site_name" content="YIYOL" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:locale:alternate" content="ko_KR" />
+  <meta property="article:published_time" content="2026-04-14" />
+  <meta property="article:modified_time" content="2026-11-26" />
+  <meta property="article:publisher" content="https://yiyol.com/" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="What Is an Agentic AI NVR? The Decisive Difference from AI NVR — YIYOL" />
-  <meta name="twitter:description" content="How an AI NVR and an Agentic AI NVR differ: the three stages of video surveillance AI, from detection to autonomous action, and how NOX NVR uses LLM-based agents to recognize and act on unstructured events." />
+  <meta name="twitter:description" content="AI NVR vs. Agentic AI NVR: the three stages of video surveillance AI, from detection to autonomous action, and how LLM agents act on unstructured events." />
   <meta name="twitter:image" content="https://yiyol.com/img/nox-ui-001.jpeg" />
 
   <!-- hreflang:start -->
@@ -46,10 +50,10 @@
       "@context": "https://schema.org",
       "@type": "BlogPosting",
       "headline": "What Is an Agentic AI NVR? The Decisive Difference from AI NVR",
-      "description": "How an AI NVR and an Agentic AI NVR differ: the three stages of video surveillance AI, from detection to autonomous action, and how NOX NVR uses LLM-based agents to recognize and act on unstructured events.",
+      "description": "AI NVR vs. Agentic AI NVR: the three stages of video surveillance AI, from detection to autonomous action, and how LLM agents act on unstructured events.",
       "url": "https://yiyol.com/en/blog/agentic-ai-nvr-vs-ai-nvr-difference.html",
       "datePublished": "2026-04-14",
-      "dateModified": "2026-04-14",
+      "dateModified": "2026-11-26",
       "author": {
         "@type": "Organization",
         "name": "YIYOL",
@@ -58,7 +62,13 @@
       "publisher": {
         "@type": "Organization",
         "name": "YIYOL",
-        "url": "https://yiyol.com"
+        "url": "https://yiyol.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://yiyol.com/assets/yiyol-logo.png",
+          "width": 1024,
+          "height": 1024
+        }
       },
       "keywords": [
         "Agentic AI NVR",
@@ -68,6 +78,10 @@
         "NOX NVR"
       ],
       "inLanguage": "en",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://yiyol.com/en/blog/agentic-ai-nvr-vs-ai-nvr-difference.html"
+      },
       "translationOfWork": {
         "@id": "https://yiyol.com/blog/agentic-ai-nvr-vs-ai-nvr-difference.html"
       }
@@ -100,6 +114,54 @@
       ]
     }
   </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is an Agentic AI NVR?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "An Agentic AI NVR is an NVR that detects events, assesses the situation, and triggers external systems itself. When it recognizes a license plate, it checks the whitelist, calls the gate API, records the entry in the parking system DB, and notifies the control center without human intervention. Security staff only need to handle the exceptions."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between an AI NVR and an Agentic AI NVR?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "An AI NVR reports to people; an Agentic AI NVR handles things itself. An AI NVR detects and classifies predefined, structured events and sends email or app notifications, leaving the response to people. An Agentic AI NVR recognizes even unstructured situations with an LLM and calls REST APIs and WebHooks in real time to automate the whole workflow."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why can't conventional AI NVRs detect unstructured events?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Rule-based AI can only recognize situations that fit predefined categories. Situations like \"a customer has been loitering in front of the counter for a long time\" or \"someone seems to have collapsed in the parking lot\" do not fit any fixed category. NOX NVR passes scene analysis results along with time and location context to an LLM, which interprets the situation in natural language and triggers alerts or automated responses based on its judgment."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What can you automate with NVR WebHooks?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The moment the AI detects an event, NOX NVR sends an HTTP POST request to a preconfigured external URL, so any system that receives that request can be set in motion automatically. The payload includes the detection type, camera information, event time, and a cropped image URL. In a parking lot, everything from plate recognition to whitelist lookup, gate opening, DB recording, and messenger alerts completes within 1–2 seconds."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you need developers to use an Agentic AI NVR?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. NOX NVR integrates with external systems through no-code WebHooks. For deeper integration, every function, from listing cameras and event history to live snapshots and AI engine settings, can be controlled through the REST API."
+          }
+        }
+      ]
+    }
+  </script>
 
   <!-- Fonts & CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -110,7 +172,7 @@
     />
   <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
     <link rel="stylesheet" href="/assets/css/site.css?v=3" />
-    <link rel="stylesheet" href="/assets/css/blog.css?v=1" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=3" />
 
   </head>
 <body class="yl">
@@ -171,6 +233,16 @@
     <article class="post-article">
       
       <div class="en-only">
+
+      <aside class="post-summary" aria-label="Key takeaways">
+        <p class="post-summary-label">Key takeaways</p>
+        <ul>
+          <li>An AI NVR stops at detecting and classifying objects and notifying people; an Agentic AI NVR detects, assesses the situation, and triggers external systems itself.</li>
+          <li>Video surveillance AI has evolved from motion-detection NVRs (generation 1) to AI NVRs that detect and notify (generation 2) to Agentic AI NVRs that detect and act (generation 3).</li>
+          <li>NOX NVR calls external systems such as gates, parking, and access control automatically through WebHooks and a REST API, and uses an LLM-based Agent to assess unstructured situations that were never defined in advance.</li>
+          <li>NVR hardware manufacturers can ship NOX to bring an Agentic AI NVR to market under their own brand, and validate it first with a 30-day POC program.</li>
+        </ul>
+      </aside>
 
       <p>If people are still checking CCTV footage by hand after you deployed an AI NVR, that AI is not really doing the job.</p>
 
@@ -323,6 +395,23 @@ License plate recognized: 12GA3456
       <p><strong>Demand for system integration:</strong> The era of running video surveillance in isolation is over. Parking, access, inventory, safety — everything is connected. An NVR that isn't API-First becomes isolated in this ecosystem.</p>
 
       <p><strong>Mandatory certification for the public sector:</strong> Since April 2024, NVR/VMS products supplied to Korean public institutions must be certified under the National Intelligence Service (NIS) Security Requirements V3.0. As the barrier to entry rises for Chinese NVRs in the public market, now is the opportunity for domestic Agentic AI NVRs.</p>
+
+      <h2>Frequently asked questions</h2>
+
+      <h3>What is an Agentic AI NVR?</h3>
+      <p>An Agentic AI NVR is an NVR that detects events, assesses the situation, and triggers external systems itself. When it recognizes a license plate, it checks the whitelist, calls the gate API, records the entry in the parking system DB, and notifies the control center without human intervention. Security staff only need to handle the exceptions.</p>
+
+      <h3>What is the difference between an AI NVR and an Agentic AI NVR?</h3>
+      <p>An AI NVR reports to people; an Agentic AI NVR handles things itself. An AI NVR detects and classifies predefined, structured events and sends email or app notifications, leaving the response to people. An Agentic AI NVR recognizes even unstructured situations with an LLM and calls REST APIs and WebHooks in real time to automate the whole workflow.</p>
+
+      <h3>Why can't conventional AI NVRs detect unstructured events?</h3>
+      <p>Rule-based AI can only recognize situations that fit predefined categories. Situations like "a customer has been loitering in front of the counter for a long time" or "someone seems to have collapsed in the parking lot" do not fit any fixed category. NOX NVR passes scene analysis results along with time and location context to an LLM, which interprets the situation in natural language and triggers alerts or automated responses based on its judgment.</p>
+
+      <h3>What can you automate with NVR WebHooks?</h3>
+      <p>The moment the AI detects an event, NOX NVR sends an HTTP POST request to a preconfigured external URL, so any system that receives that request can be set in motion automatically. The payload includes the detection type, camera information, event time, and a cropped image URL. In a parking lot, everything from plate recognition to whitelist lookup, gate opening, DB recording, and messenger alerts completes within 1–2 seconds.</p>
+
+      <h3>Do you need developers to use an Agentic AI NVR?</h3>
+      <p>No. NOX NVR integrates with external systems through no-code WebHooks. For deeper integration, every function, from listing cameras and event history to live snapshots and AI engine settings, can be controlled through the REST API.</p>
 
       <h2>Agentic AI NVR Partnership with NOX NVR</h2>
 

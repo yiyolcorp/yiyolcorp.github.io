@@ -191,6 +191,22 @@
   background: var(--color-paper-2);
   color: var(--color-ink);
 }
+/* 글머리 핵심 요약 — 검색·AI 답변이 그대로 인용할 수 있는 짧은 결론 */
+.post-summary {
+  margin-block: 0 var(--space-lg);
+  padding: var(--space-md);
+  border-left: 3px solid var(--color-accent);
+  border-radius: var(--radius-card);
+  background: var(--color-accent-wash);
+  color: var(--color-ink);
+}
+.post-summary-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-accent);
+}
+.post-summary ul { margin-top: var(--space-2xs); }
 .post-article code {
   font-family: var(--font-mono);
   font-size: 0.9em;

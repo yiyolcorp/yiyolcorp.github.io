@@ -22,7 +22,15 @@
   <meta property="og:title" content="관리자 비밀번호를 넘기지 않는 원격 지원 — NOX 원격 지원 기능 정리 — YIYOL" />
   <meta property="og:description" content="NVR 원격 지원을 받을 때 관리자 비밀번호를 알려 주지 않아도 되는 방법을 정리했습니다. 켤 때만 열리는 경로, 2분짜리 일회용 비밀번호, 조회 전용, 감사 로그까지 실제 화면으로 설명합니다." />
   <meta property="og:image" content="https://yiyol.com/img/blog/remote-support/02-active.png" />
+  <meta property="og:image:width" content="1176" />
+  <meta property="og:image:height" content="940" />
+  <meta property="og:image:alt" content="관리자 비밀번호를 넘기지 않는 원격 지원 — NOX 원격 지원 기능 정리 — YIYOL" />
   <meta property="og:site_name" content="YIYOL" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="article:published_time" content="2026-11-26" />
+  <meta property="article:modified_time" content="2026-11-26" />
+  <meta property="article:publisher" content="https://yiyol.com/" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="관리자 비밀번호를 넘기지 않는 원격 지원 — NOX 원격 지원 기능 정리 — YIYOL" />
@@ -55,7 +63,13 @@
   "publisher": {
     "@type": "Organization",
     "name": "YIYOL",
-    "url": "https://yiyol.com"
+    "url": "https://yiyol.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://yiyol.com/assets/yiyol-logo.png",
+      "width": 1024,
+      "height": 1024
+    }
   },
   "keywords": [
     "NVR 원격 지원",
@@ -65,7 +79,11 @@
     "감사 로그",
     "설치업체"
   ],
-  "inLanguage": "ko"
+  "inLanguage": "ko",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://yiyol.com/blog/nox-remote-support.html"
+  }
 }
   </script>
 
@@ -95,6 +113,54 @@
   ]
 }
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "NVR 원격 지원을 받으려면 공유기 포트포워딩이 필요한가요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "필요 없습니다. 원격 지원을 켜면 장비가 본사 중계 서버(nox.yiyol.com) 쪽으로 바깥으로 나가는 연결을 만들고, 엔지니어는 그 중계 서버를 거쳐 장비에 들어옵니다. 현장 공유기에 포트를 열거나 고정 IP를 받을 필요가 없고, 장비가 인터넷에 연결되어 있으면 바로 동작합니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "원격 지원 엔지니어에게 관리자 비밀번호를 알려 줘야 하나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "알려 주지 않아도 됩니다. 엔지니어는 6자리 일회용 비밀번호로 로그인하며, 이 번호는 발급 후 2분 안에 써야 하고 한 번 로그인하면 사라집니다. 다섯 번 틀리면 폐기되어 다시 발급해야 합니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "원격 지원을 끄는 것을 잊으면 경로가 계속 열려 있나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "아닙니다. 켤 때 정한 유지 시간(30분, 1시간, 2시간, 4시간)이 지나면 장비가 스스로 경로를 닫고, 장비를 재부팅해도 경로는 다시 열리지 않습니다. 경로가 닫히면 일회용 번호와 SSH 키가 폐기되고 들어와 있던 엔지니어의 세션도 함께 끝납니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "원격 지원 엔지니어가 설정을 바꾸지 못하게 할 수 있나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "조회 전용을 체크하고 켜면 어떤 계정을 골랐든 모든 변경이 막힙니다. 관리 화면은 관리자와 똑같이 볼 수 있고 바꾸는 요청만 서버가 거부합니다. 조회 전용이 아니어도 녹화 영상의 영구 삭제, 카메라 장치 교체, 장비 전원 끄기는 원격 지원 세션에서 거부됩니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "외부 업체가 언제 장비에 접속했는지 확인할 수 있나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "감사 로그에서 확인할 수 있습니다. 원격 지원 활성화, 일회용 비밀번호 발급, 비활성화가 각각 시각과 실행한 관리자 이름과 함께 기록되고, 엔지니어의 로그인과 로그인 실패는 원격 지원 계정 이름으로 따로 남습니다."
+      }
+    }
+  ]
+}
+  </script>
 
   <!-- Fonts & CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -105,7 +171,7 @@
     />
   <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
     <link rel="stylesheet" href="/assets/css/site.css?v=3" />
-    <link rel="stylesheet" href="/assets/css/blog.css?v=2" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=3" />
 </head>
 <body class="yl">
 
@@ -161,6 +227,16 @@
   <main class="post-container">
     <article class="post-article">
       <div class="ko-only">
+      <aside class="post-summary" aria-label="핵심 요약">
+        <p class="post-summary-label">핵심 요약</p>
+        <ul>
+          <li>NOX 원격 지원은 관리자가 켠 동안에만 접속 경로가 열리고, 30분·1시간·2시간·4시간 중 정한 시간이 지나면 자동으로 닫힙니다.</li>
+          <li>엔지니어는 관리자 비밀번호 대신 발급 후 2분 안에 써야 하는 6자리 일회용 비밀번호로 로그인합니다.</li>
+          <li>조회 전용으로 열면 관리 화면은 모두 볼 수 있지만 바꾸는 요청은 모두 서버가 거부합니다.</li>
+          <li>경로를 열고 닫은 기록과 엔지니어의 로그인은 감사 로그에 남으며, NIS 보안 모드에서는 원격 지원을 쓸 수 없습니다.</li>
+        </ul>
+      </aside>
+
 
       <p>현장 NVR에 문제가 생기면 설치업체나 제조사 기술지원팀이 장비를 직접 봐야 할 때가 많습니다. 그런데 원격으로 들어가는 방법을 정하는 순간부터 고민이 시작됩니다. 공유기에 포트를 열어 두면 지원이 끝난 뒤에도 그 경로가 남기 쉽고, 관리자 계정의 비밀번호를 전화나 메신저로 알려 주면 그 비밀번호를 언제 바꿔야 할지 아무도 챙기지 않습니다. 원격 데스크톱 프로그램을 따로 설치하는 방식은 장비에 관리할 소프트웨어가 하나 더 늘어납니다.</p>
 
@@ -291,6 +367,23 @@
         <p>"원격 지원은 귀사 관리자가 직접 켤 때만 열리고, 정한 시간이 지나면 자동으로 닫힙니다. 저희는 관리자 비밀번호를 받지 않고, 2분 동안만 쓸 수 있는 일회용 번호로 들어갑니다. 점검만 할 때는 조회 전용으로 열어 설정을 바꿀 수 없게 할 수 있고, 언제 열고 닫았는지는 장비의 감사 로그에 남습니다."</p>
       </blockquote>
 
+      <h2>자주 묻는 질문</h2>
+
+      <h3>NVR 원격 지원을 받으려면 공유기 포트포워딩이 필요한가요?</h3>
+      <p>필요 없습니다. 원격 지원을 켜면 장비가 본사 중계 서버(nox.yiyol.com) 쪽으로 바깥으로 나가는 연결을 만들고, 엔지니어는 그 중계 서버를 거쳐 장비에 들어옵니다. 현장 공유기에 포트를 열거나 고정 IP를 받을 필요가 없고, 장비가 인터넷에 연결되어 있으면 바로 동작합니다.</p>
+
+      <h3>원격 지원 엔지니어에게 관리자 비밀번호를 알려 줘야 하나요?</h3>
+      <p>알려 주지 않아도 됩니다. 엔지니어는 6자리 일회용 비밀번호로 로그인하며, 이 번호는 발급 후 2분 안에 써야 하고 한 번 로그인하면 사라집니다. 다섯 번 틀리면 폐기되어 다시 발급해야 합니다.</p>
+
+      <h3>원격 지원을 끄는 것을 잊으면 경로가 계속 열려 있나요?</h3>
+      <p>아닙니다. 켤 때 정한 유지 시간(30분, 1시간, 2시간, 4시간)이 지나면 장비가 스스로 경로를 닫고, 장비를 재부팅해도 경로는 다시 열리지 않습니다. 경로가 닫히면 일회용 번호와 SSH 키가 폐기되고 들어와 있던 엔지니어의 세션도 함께 끝납니다.</p>
+
+      <h3>원격 지원 엔지니어가 설정을 바꾸지 못하게 할 수 있나요?</h3>
+      <p>조회 전용을 체크하고 켜면 어떤 계정을 골랐든 모든 변경이 막힙니다. 관리 화면은 관리자와 똑같이 볼 수 있고 바꾸는 요청만 서버가 거부합니다. 조회 전용이 아니어도 녹화 영상의 영구 삭제, 카메라 장치 교체, 장비 전원 끄기는 원격 지원 세션에서 거부됩니다.</p>
+
+      <h3>외부 업체가 언제 장비에 접속했는지 확인할 수 있나요?</h3>
+      <p>감사 로그에서 확인할 수 있습니다. 원격 지원 활성화, 일회용 비밀번호 발급, 비활성화가 각각 시각과 실행한 관리자 이름과 함께 기록되고, 엔지니어의 로그인과 로그인 실패는 원격 지원 계정 이름으로 따로 남습니다.</p>
+
       <h2>마치며</h2>
 
       <p>원격 지원에서 위험한 것은 접속 자체보다 <strong>지원이 끝난 뒤에 남는 것들</strong>입니다. 열어 둔 포트, 알려 준 비밀번호, 설치해 둔 원격 프로그램이 그렇습니다. NOX의 원격 지원은 켤 때만 경로를 열고, 비밀번호 대신 일회용 번호를 쓰고, 끝나면 키와 세션을 함께 폐기해서 지원이 끝난 뒤에 남는 것을 감사 기록 하나로 줄였습니다.</p>
@@ -311,6 +404,16 @@
       </div>
 
       <div class="en-only">
+      <aside class="post-summary" aria-label="Key takeaways">
+        <p class="post-summary-label">Key takeaways</p>
+        <ul>
+          <li>NOX remote support opens an access path only while an administrator has it switched on, and closes it automatically after the chosen time of 30 minutes, 1 hour, 2 hours, or 4 hours.</li>
+          <li>Instead of the admin password, the engineer signs in with a six-digit one-time code that must be used within two minutes of being issued.</li>
+          <li>When opened read-only, every management screen stays visible, but the server rejects every request that would change something.</li>
+          <li>Opening and closing the path and the engineer's sign-ins are recorded in the audit log, and remote support is not available in NIS security mode.</li>
+        </ul>
+      </aside>
+
 
       <p>When an NVR at a site starts misbehaving, the installer or the manufacturer's support team often needs to look at the device directly. The trouble starts the moment you decide how they will get in. Open a port on the router and that path tends to stay open long after the support call ends. Read the admin password out over the phone or a messenger app and nobody remembers to change it afterward. Install a separate remote desktop tool and the device now carries one more piece of software to maintain.</p>
 
@@ -440,6 +543,23 @@
       <blockquote>
         <p>"Remote support opens only when your administrator switches it on, and it closes automatically when the chosen time runs out. We never receive your admin password; we sign in with a one-time code that is valid for two minutes. For inspections we can be let in read-only so settings cannot be changed, and every time the path is opened or closed is recorded in the device's audit log."</p>
       </blockquote>
+
+      <h2>Frequently asked questions</h2>
+
+      <h3>Do I need port forwarding on the router for NVR remote support?</h3>
+      <p>No. When remote support is switched on, the device makes an outbound connection to our relay server (nox.yiyol.com), and the engineer reaches the device through that relay. There is no need to open a port on the site's router or get a static IP; if the device is connected to the internet, it works right away.</p>
+
+      <h3>Do I have to give the remote support engineer the admin password?</h3>
+      <p>No. The engineer signs in with a six-digit one-time code that must be used within two minutes of being issued and disappears after one successful sign-in. Five wrong attempts discard it, and a new one has to be issued.</p>
+
+      <h3>If I forget to switch off remote support, does the path stay open?</h3>
+      <p>No. When the duration chosen at switch-on (30 minutes, 1 hour, 2 hours, or 4 hours) runs out, the device closes the path by itself, and a reboot does not reopen it. When the path closes, the one-time code and SSH key are discarded and the engineer's session ends with it.</p>
+
+      <h3>Can I stop the remote support engineer from changing settings?</h3>
+      <p>Yes. Switch it on with read-only checked and every change is blocked, whichever account you picked. The engineer sees the same management screens as an administrator, and the server rejects only requests that change something. Even without read-only, permanently deleting recordings, replacing a camera device, and shutting down the device are rejected in a remote support session.</p>
+
+      <h3>Can I see when an outside vendor accessed our device?</h3>
+      <p>Yes, in the audit log. Switching remote support on, issuing a one-time code, and switching it off are each recorded with the time and the name of the administrator who did it, and the engineer's sign-ins and failed sign-ins are recorded separately under the remote support account name.</p>
 
       <h2>Closing</h2>
 

@@ -14,23 +14,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Building the NOX MCP Server — Why We Started Read-Only, and the Bug Claude Code Found First - YIYOL Blog</title>
 
-  <meta name="description" content="A development log of turning a NOX NVR into an MCP server so AI agents like Claude Code and Claude Desktop can query cameras, events, recordings, and system status in natural language: why it is read-only with delegated permissions, the time zone defect agents surfaced before release, and how to connect an air-gapped NVR through a PC." />
+  <meta name="description" content="How we turned a NOX NVR into a read-only MCP server so AI agents like Claude Code and Claude Desktop can query cameras, events, and recordings in plain text." />
   <meta name="keywords" content="MCP server,Model Context Protocol,Claude Code MCP,Claude Desktop MCP,air-gapped NVR,AI agent NVR,NVR MCP,NOX NVR" />
 
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://yiyol.com/en/blog/nox-mcp-server-development-log.html" />
   <meta property="og:title" content="Building the NOX MCP Server — Why We Started Read-Only, and the Bug Claude Code Found First — YIYOL" />
-  <meta property="og:description" content="A development log of turning a NOX NVR into an MCP server so AI agents like Claude Code and Claude Desktop can query cameras, events, recordings, and system status in natural language: why it is read-only with delegated permissions, the time zone defect agents surfaced before release, and how to connect an air-gapped NVR through a PC." />
+  <meta property="og:description" content="How we turned a NOX NVR into a read-only MCP server so AI agents like Claude Code and Claude Desktop can query cameras, events, and recordings in plain text." />
   <meta property="og:image" content="https://yiyol.com/img/blog/nox-mcp/claude-desktop-demo-poster.jpg" />
   <meta property="og:image:width" content="1920" />
   <meta property="og:image:height" content="1080" />
+  <meta property="og:image:alt" content="Building the NOX MCP Server — Why We Started Read-Only, and the Bug Claude Code Found First — YIYOL" />
   <meta property="og:site_name" content="YIYOL" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:locale:alternate" content="ko_KR" />
+  <meta property="article:published_time" content="2026-10-07" />
+  <meta property="article:modified_time" content="2026-11-26" />
+  <meta property="article:publisher" content="https://yiyol.com/" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Building the NOX MCP Server — Why We Started Read-Only, and the Bug Claude Code Found First — YIYOL" />
-  <meta name="twitter:description" content="A development log of turning a NOX NVR into an MCP server so AI agents like Claude Code and Claude Desktop can query cameras, events, recordings, and system status in natural language: why it is read-only with delegated permissions, the time zone defect agents surfaced before release, and how to connect an air-gapped NVR through a PC." />
+  <meta name="twitter:description" content="How we turned a NOX NVR into a read-only MCP server so AI agents like Claude Code and Claude Desktop can query cameras, events, and recordings in plain text." />
   <meta name="twitter:image" content="https://yiyol.com/img/blog/nox-mcp/claude-desktop-demo-poster.jpg" />
 
   <!-- hreflang:start -->
@@ -46,11 +50,11 @@
       "@context": "https://schema.org",
       "@type": "BlogPosting",
       "headline": "Building the NOX MCP Server — Why We Started Read-Only, and the Bug Claude Code Found First",
-      "description": "A development log of turning a NOX NVR into an MCP server so AI agents like Claude Code and Claude Desktop can query cameras, events, recordings, and system status in natural language: why it is read-only with delegated permissions, the time zone defect agents surfaced before release, and how to connect an air-gapped NVR through a PC.",
+      "description": "How we turned a NOX NVR into a read-only MCP server so AI agents like Claude Code and Claude Desktop can query cameras, events, and recordings in plain text.",
       "url": "https://yiyol.com/en/blog/nox-mcp-server-development-log.html",
       "image": "https://yiyol.com/img/blog/nox-mcp/claude-desktop-demo-poster.jpg",
       "datePublished": "2026-10-07",
-      "dateModified": "2026-10-07",
+      "dateModified": "2026-11-26",
       "author": {
         "@type": "Organization",
         "name": "YIYOL",
@@ -59,7 +63,13 @@
       "publisher": {
         "@type": "Organization",
         "name": "YIYOL",
-        "url": "https://yiyol.com"
+        "url": "https://yiyol.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://yiyol.com/assets/yiyol-logo.png",
+          "width": 1024,
+          "height": 1024
+        }
       },
       "keywords": [
         "MCP server",
@@ -72,6 +82,10 @@
         "NOX NVR"
       ],
       "inLanguage": "en",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://yiyol.com/en/blog/nox-mcp-server-development-log.html"
+      },
       "translationOfWork": {
         "@id": "https://yiyol.com/blog/nox-mcp-server-development-log.html"
       }
@@ -105,6 +119,55 @@
     }
   </script>
 
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What can an AI agent do when NOX NVR is connected as an MCP server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It can query the camera list and status, events and objects, recorded ranges and playback links, and system and storage status, and on devices licensed for natural-language scene search it can also find scenes in recordings. There are only 10 query tools, and no write tools that change cameras, recording, or settings."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can Claude connect to an air-gapped NVR that is isolated from the internet?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The one actually calling the tools is not the Claude model in the cloud but Claude Desktop or Claude Code on the user's PC, so there is no need to expose the NVR to the internet or set up port forwarding. The PC only needs to reach both the internet and the on-site network. Remote connectors added by URL in the Claude app's settings, however, connect from Anthropic's servers, so they cannot reach an air-gapped device."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does connecting over MCP send CCTV video to the cloud?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Video, thumbnails, camera access addresses, and credentials are never included in tool results in the first place. Only text such as camera names, status, event counts, recorded ranges, and playback links reaches the model as part of the conversation, and playback links do not open outside the on-site network."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I register the NOX MCP server in Claude Code?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In the device web UI, go to Settings → API Keys, choose the purpose AI Agent (MCP), and issue a key; the result shows the endpoint address and the claude mcp add registration command. Download the device CA certificate, set it with NODE_EXTRA_CA_CERTS before launching, and use the address /agent/mcp without a trailing slash. After registering, check the connection with claude mcp list."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will a flood of AI agent queries slow down NVR recording?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Per-key and device-wide limits protect recording and live view. For example, tool calls are limited to 60 per minute per key, and natural-language scene searches to 2 running at once across the device. The limits can be lowered or raised in settings but cannot be turned off."
+          }
+        }
+      ]
+    }
+  </script>
+
   <!-- Fonts & CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -114,7 +177,7 @@
     />
   <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
     <link rel="stylesheet" href="/assets/css/site.css?v=3" />
-    <link rel="stylesheet" href="/assets/css/blog.css?v=2" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=3" />
 </head>
 <body class="yl">
   <!-- Header -->
@@ -172,6 +235,16 @@
       
 
       <div class="en-only">
+
+      <aside class="post-summary" aria-label="Key takeaways">
+        <p class="post-summary-label">Key takeaways</p>
+        <ul>
+          <li>In NOX, each device becomes an MCP server as-is, so AI agents such as Claude Code and Claude Desktop can query camera, event, recording, and system information.</li>
+          <li>There are 10 query tools and 0 write tools; no tool changes device state.</li>
+          <li>The one actually calling the tools is the user's PC, so an agent can connect to an air-gapped device without exposing the NVR to the internet.</li>
+          <li>In pre-release testing on a real device, Claude Code was the first to point out contradictory tool results, which led us to find and fix a time zone calculation defect.</li>
+        </ul>
+      </aside>
 
       <p><strong>MCP (Model Context Protocol)</strong> is an open protocol that lets AI agents call the functions of external systems as "tools." Register an MCP server with an agent such as Claude Code, and the agent reads the list of tools that server exposes, picks the ones that fit the question, and calls them.</p>
 
@@ -438,6 +511,23 @@
         <li><strong>Remote devices.</strong> Cameras on other devices connected via federation are not queried.</li>
         <li><strong>NIS security mode.</strong> On devices with this mode enabled, the MCP endpoint does not exist at all.</li>
       </ul>
+
+      <h2>Frequently asked questions</h2>
+
+      <h3>What can an AI agent do when NOX NVR is connected as an MCP server?</h3>
+      <p>It can query the camera list and status, events and objects, recorded ranges and playback links, and system and storage status, and on devices licensed for natural-language scene search it can also find scenes in recordings. There are only 10 query tools, and no write tools that change cameras, recording, or settings.</p>
+
+      <h3>Can Claude connect to an air-gapped NVR that is isolated from the internet?</h3>
+      <p>Yes. The one actually calling the tools is not the Claude model in the cloud but Claude Desktop or Claude Code on the user's PC, so there is no need to expose the NVR to the internet or set up port forwarding. The PC only needs to reach both the internet and the on-site network. Remote connectors added by URL in the Claude app's settings, however, connect from Anthropic's servers, so they cannot reach an air-gapped device.</p>
+
+      <h3>Does connecting over MCP send CCTV video to the cloud?</h3>
+      <p>No. Video, thumbnails, camera access addresses, and credentials are never included in tool results in the first place. Only text such as camera names, status, event counts, recorded ranges, and playback links reaches the model as part of the conversation, and playback links do not open outside the on-site network.</p>
+
+      <h3>How do I register the NOX MCP server in Claude Code?</h3>
+      <p>In the device web UI, go to Settings → API Keys, choose the purpose AI Agent (MCP), and issue a key; the result shows the endpoint address and the <code>claude mcp add</code> registration command. Download the device CA certificate, set it with <code>NODE_EXTRA_CA_CERTS</code> before launching, and use the address <code>/agent/mcp</code> without a trailing slash. After registering, check the connection with <code>claude mcp list</code>.</p>
+
+      <h3>Will a flood of AI agent queries slow down NVR recording?</h3>
+      <p>Per-key and device-wide limits protect recording and live view. For example, tool calls are limited to 60 per minute per key, and natural-language scene searches to 2 running at once across the device. The limits can be lowered or raised in settings but cannot be turned off.</p>
 
       <h2>Conclusion</h2>
 

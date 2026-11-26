@@ -14,19 +14,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>중국산 IP카메라, 인터넷 차단으로 격리하고 NOX를 이용해서 안전하게 쓰는 법 - YIYOL Blog</title>
 
-  <meta name="description" content="2024년 한국 IP카메라 영상 유출 사건 이후, 소상공인·가정 사용자를 위한 현실적 중국산 IP카메라 보안 가이드. ipTime 외부 IP 차단으로 카메라 인터넷을 격리하고, NOX VMS를 보안 프록시 단일 진입점으로 두는 단계별 절차를 정리합니다." />
+  <meta name="description" content="중국산 IP카메라를 바꾸지 않고 지키는 방법입니다. ipTime 외부 IP 차단으로 카메라의 인터넷 연결을 끊고, NOX VMS를 유일한 접속 경로로 두는 절차를 단계별로 정리했습니다." />
   <meta name="keywords" content="중국산 IP카메라 보안,ipTime 외부 IP 차단,IP카메라 인터넷 차단,IP카메라 해킹 방지,CCTV 네트워크 분리,VMS 보안 프록시,NOX VMS,Hikvision 백도어,XMEye 위험성" />
 
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://yiyol.com/blog/iptime-ip-camera-isolation-nox-vms.html" />
   <meta property="og:title" content="중국산 IP카메라, 인터넷 차단으로 격리하고 NOX를 이용해서 안전하게 쓰는 법 — YIYOL" />
-  <meta property="og:description" content="2024년 한국 IP카메라 영상 유출 사건 이후, 소상공인·가정 사용자를 위한 현실적 중국산 IP카메라 보안 가이드. ipTime 외부 IP 차단으로 카메라 인터넷을 격리하고, NOX VMS를 보안 프록시 단일 진입점으로 두는 단계별 절차를 정리합니다." />
+  <meta property="og:description" content="중국산 IP카메라를 바꾸지 않고 지키는 방법입니다. ipTime 외부 IP 차단으로 카메라의 인터넷 연결을 끊고, NOX VMS를 유일한 접속 경로로 두는 절차를 단계별로 정리했습니다." />
   <meta property="og:image" content="https://yiyol.com/img/blog/iptime-camera-isolation/iptime-rule-applied.png" />
+  <meta property="og:image:width" content="2884" />
+  <meta property="og:image:height" content="1954" />
+  <meta property="og:image:alt" content="중국산 IP카메라, 인터넷 차단으로 격리하고 NOX를 이용해서 안전하게 쓰는 법 — YIYOL" />
   <meta property="og:site_name" content="YIYOL" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="article:published_time" content="2026-05-16" />
+  <meta property="article:modified_time" content="2026-11-26" />
+  <meta property="article:publisher" content="https://yiyol.com/" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="중국산 IP카메라, 인터넷 차단으로 격리하고 NOX를 이용해서 안전하게 쓰는 법 — YIYOL" />
-  <meta name="twitter:description" content="2024년 한국 IP카메라 영상 유출 사건 이후, 소상공인·가정 사용자를 위한 현실적 중국산 IP카메라 보안 가이드. ipTime 외부 IP 차단으로 카메라 인터넷을 격리하고, NOX VMS를 보안 프록시 단일 진입점으로 두는 단계별 절차를 정리합니다." />
+  <meta name="twitter:description" content="중국산 IP카메라를 바꾸지 않고 지키는 방법입니다. ipTime 외부 IP 차단으로 카메라의 인터넷 연결을 끊고, NOX VMS를 유일한 접속 경로로 두는 절차를 단계별로 정리했습니다." />
   <meta name="twitter:image" content="https://yiyol.com/img/blog/iptime-camera-isolation/iptime-rule-applied.png" />
 
   <!-- hreflang:start -->
@@ -42,10 +50,10 @@
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": "중국산 IP카메라, 인터넷 차단으로 격리하고 NOX를 이용해서 안전하게 쓰는 법",
-    "description": "2024년 한국 IP카메라 영상 유출 사건 이후, 소상공인·가정 사용자를 위한 현실적 중국산 IP카메라 보안 가이드. ipTime 외부 IP 차단으로 카메라 인터넷을 격리하고, NOX VMS를 보안 프록시 단일 진입점으로 두는 단계별 절차를 정리합니다.",
+    "description": "중국산 IP카메라를 바꾸지 않고 지키는 방법입니다. ipTime 외부 IP 차단으로 카메라의 인터넷 연결을 끊고, NOX VMS를 유일한 접속 경로로 두는 절차를 단계별로 정리했습니다.",
     "url": "https://yiyol.com/blog/iptime-ip-camera-isolation-nox-vms.html",
     "datePublished": "2026-05-16",
-    "dateModified": "2026-05-16",
+    "dateModified": "2026-11-26",
     "image": "https://yiyol.com/img/blog/iptime-camera-isolation/iptime-rule-applied.png",
     "author": {
       "@type": "Organization",
@@ -55,10 +63,30 @@
     "publisher": {
       "@type": "Organization",
       "name": "YIYOL",
-      "url": "https://yiyol.com"
+      "url": "https://yiyol.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://yiyol.com/assets/yiyol-logo.png",
+        "width": 1024,
+        "height": 1024
+      }
     },
-    "keywords": ["중국산 IP카메라 보안", "ipTime 외부 IP 차단", "IP카메라 인터넷 차단", "IP카메라 해킹 방지", "CCTV 네트워크 분리", "VMS 보안 프록시", "NOX VMS", "Hikvision 백도어", "XMEye 위험성"],
-    "inLanguage": "ko"
+    "keywords": [
+      "중국산 IP카메라 보안",
+      "ipTime 외부 IP 차단",
+      "IP카메라 인터넷 차단",
+      "IP카메라 해킹 방지",
+      "CCTV 네트워크 분리",
+      "VMS 보안 프록시",
+      "NOX VMS",
+      "Hikvision 백도어",
+      "XMEye 위험성"
+    ],
+    "inLanguage": "ko",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://yiyol.com/blog/iptime-ip-camera-isolation-nox-vms.html"
+    }
   }
   </script>
 
@@ -139,7 +167,7 @@
     />
   <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
     <link rel="stylesheet" href="/assets/css/site.css?v=3" />
-    <link rel="stylesheet" href="/assets/css/blog.css?v=1" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=3" />
 
   <style>
 .post-article .nd-diagram {
@@ -226,6 +254,16 @@
   <main class="post-container">
     <article class="post-article">
       <div class="ko-only">
+      <aside class="post-summary" aria-label="핵심 요약">
+        <p class="post-summary-label">핵심 요약</p>
+        <ul>
+          <li>비밀번호 변경만으로는 중국산 IP카메라를 지킬 수 없다. 카메라가 P2P 클라우드 연결, 펌웨어 취약점, ONVIF/RTSP 노출 같은 여러 경로로 외부와 통신하기 때문이다.</li>
+          <li>해결 원칙은 카메라를 외부 인터넷과 격리하고 outbound를 기본 차단하는 CCTV 네트워크 분리다.</li>
+          <li>ipTime의 "인터넷/WiFi 사용 제한"으로 카메라 IP의 외부 통신을 막으면 VLAN 장비 없이도 같은 효과를 낼 수 있다.</li>
+          <li>외부에서 영상을 봐야 한다면 NOX VMS를 단일 진입점(보안 프록시)으로 두고, 카메라는 내부에서만 접근한다.</li>
+        </ul>
+      </aside>
+
 
       <p><strong>중국산 IP카메라 보안</strong>은 더 이상 미룰 수 없는 숙제가 되었다. 2024년 9월, 한국의 산부인과·왁싱숍·룸카페·펜션 수영장에 설치된 IP카메라 영상이 중국 음란 사이트와 텔레그램으로 유출됐다는 보도가 잇따랐다. 보안뉴스는 텔레그램에 노출된 한국 사생활 영상이 <a href="https://m.boannews.com/html/detail.html?idx=125342" target="_blank" rel="noopener">약 4,500개에 달한다고 단독 보도</a>했고, 네이트뉴스는 같은 시기 <a href="https://news.nate.com/view/20240930n08225" target="_blank" rel="noopener">중국 사이트에서 800개 이상 확인</a>됐다고 전했다.</p>
 
@@ -380,6 +418,16 @@
       </div>
 
       <div class="en-only">
+      <aside class="post-summary" aria-label="Key takeaways">
+        <p class="post-summary-label">Key takeaways</p>
+        <ul>
+          <li>Changing the password alone cannot protect Chinese-made IP cameras, because the cameras talk to the outside through several paths: P2P cloud connections, firmware vulnerabilities, and exposed ONVIF/RTSP.</li>
+          <li>The guiding principle is CCTV network separation: isolate the cameras from the internet and block outbound traffic by default.</li>
+          <li>Blocking a camera IP's external traffic with ipTime's "Internet/WiFi usage restriction" achieves the same effect without VLAN-capable equipment.</li>
+          <li>If you need to view video from outside, put NOX VMS in front as the single entry point (security proxy) and access the cameras only from inside.</li>
+        </ul>
+      </aside>
+
 
       <p><strong>Securing Chinese-made IP cameras</strong> is no longer a task that can be postponed. In September 2024, a string of reports revealed that footage from IP cameras installed in Korean obstetrics clinics, waxing salons, room cafes and pension swimming pools had leaked to Chinese adult sites and Telegram. Boan News <a href="https://m.boannews.com/html/detail.html?idx=125342" target="_blank" rel="noopener">reported exclusively that some 4,500 private Korean videos</a> had been exposed on Telegram, and Nate News reported around the same time that <a href="https://news.nate.com/view/20240930n08225" target="_blank" rel="noopener">more than 800 were found on Chinese sites</a>.</p>
 

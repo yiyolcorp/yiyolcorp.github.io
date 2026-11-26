@@ -22,7 +22,15 @@
   <meta property="og:title" content="IP카메라 10대 중 3대, 남의 영상이 열렸다 — 소비자원·KISA 점검으로 만든 CCTV 보안 점검표 — YIYOL" />
   <meta property="og:description" content="소비자원·KISA 점검에서 IP카메라 10개 중 3개가 인증 취약으로 확인됐습니다. 카메라·네트워크·녹화 시스템 세 단계로 나눈 CCTV 보안 점검표와 구형 카메라 대처법을 정리했습니다." />
   <meta property="og:image" content="https://yiyol.com/img/nox-ui-001.jpeg" />
+  <meta property="og:image:width" content="3456" />
+  <meta property="og:image:height" content="1916" />
+  <meta property="og:image:alt" content="IP카메라 10대 중 3대, 남의 영상이 열렸다 — 소비자원·KISA 점검으로 만든 CCTV 보안 점검표 — YIYOL" />
   <meta property="og:site_name" content="YIYOL" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="article:published_time" content="2026-11-17" />
+  <meta property="article:modified_time" content="2026-11-26" />
+  <meta property="article:publisher" content="https://yiyol.com/" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="IP카메라 10대 중 3대, 남의 영상이 열렸다 — 소비자원·KISA 점검으로 만든 CCTV 보안 점검표 — YIYOL" />
@@ -46,7 +54,7 @@
   "url": "https://yiyol.com/blog/ip-camera-security-inspection-checklist.html",
   "image": "https://yiyol.com/img/nox-ui-001.jpeg",
   "datePublished": "2026-11-17",
-  "dateModified": "2026-11-17",
+  "dateModified": "2026-11-26",
   "author": {
     "@type": "Organization",
     "name": "YIYOL",
@@ -55,7 +63,13 @@
   "publisher": {
     "@type": "Organization",
     "name": "YIYOL",
-    "url": "https://yiyol.com"
+    "url": "https://yiyol.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://yiyol.com/assets/yiyol-logo.png",
+      "width": 1024,
+      "height": 1024
+    }
   },
   "keywords": [
     "IP카메라 보안",
@@ -65,7 +79,11 @@
     "NVR 보안",
     "관리사무소"
   ],
-  "inLanguage": "ko"
+  "inLanguage": "ko",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://yiyol.com/blog/ip-camera-security-inspection-checklist.html"
+  }
 }
   </script>
 
@@ -95,6 +113,54 @@
   ]
 }
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "우리 매장 IP카메라가 해킹에 안전한지 어떻게 확인하나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "먼저 카메라 라벨의 모델명과 제조 연월로 제조사 고객지원 페이지를 찾아 마지막 펌웨어 날짜와 지원 종료 여부를 확인합니다. 이어서 초기 비밀번호를 카메라마다 다르게 바꾸고, 쓰지 않는 P2P 클라우드 연결·원격 접속 앱 연동·UPnP를 끄고, 펌웨어를 최신으로 올립니다. 통신 암호화처럼 사용자가 바꿀 수 없는 부분은 네트워크와 녹화 시스템 단계에서 보완해야 합니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "소비자원·KISA IP카메라 점검에서 인증 취약점이 나온 제품은 무엇인가요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "사용자 인증이 미흡했던 3개 제품은 로보뷰 GI-ROBOA7, 브이스타캠 VSTARCAM-800X, 파인뷰 K11입니다. 보도 시점 기준으로 로보뷰와 파인뷰는 개선을 마쳤고 브이스타캠은 보완 작업을 진행 중이었습니다. 최신 상태는 각 제조사와 원문 기사를 확인하세요."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "IP카메라 보안을 위해 공유기에서 무엇을 설정해야 하나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "카메라로 직접 들어오는 포트 포워딩·UPnP 규칙을 지우고, 공유기의 외부 IP 차단(접근 제어) 기능으로 카메라가 바깥 인터넷으로 나가지 못하게 합니다. 원격에서 영상을 봐야 한다면 카메라가 아니라 NVR/VMS로 들어오게 하고, 가능하면 포트 개방보다 VPN을 거치게 합니다. 카메라 전원만 뽑아서는 공유기의 포트 개방 규칙이 사라지지 않습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "지원이 끝난 구형 IP카메라는 바로 교체해야 하나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "한 번에 모두 바꾸기 어렵다면 카메라를 외부 인터넷에서 차단하고, 같은 내부망의 NOX가 ONVIF·RTSP로 영상을 받아 녹화하게 하는 중간 단계가 있습니다. 이 방법은 위험을 줄일 뿐 없애지는 못하므로 지원이 끝난 카메라는 교체 일정을 함께 잡아 두는 것이 좋습니다. 가정용 홈캠이라면 네트워크에서 완전히 떼어 SD카드 녹화용으로만 쓰는 방법도 있습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "NVR/VMS는 어떤 보안 기능을 갖춰야 하나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "초기 계정 사용 차단, 약한 비밀번호 거부, 로그인 실패 시 계정 잠금, 자동 세션 종료, HTTPS 암호화, 카메라 비밀번호 암호화 저장, 사용자별 권한 분리, 위변조를 감지하는 감사 로그, 백업 영상 암호화를 확인합니다. 이 항목들은 국정원 영상처리기기 보안요구사항의 영역과 같은 축이라, 공공 현장이 아니더라도 이 기준으로 점검하면 빠지는 항목이 적습니다."
+      }
+    }
+  ]
+}
+  </script>
 
   <!-- Fonts & CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -105,7 +171,7 @@
     />
   <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
     <link rel="stylesheet" href="/assets/css/site.css?v=3" />
-    <link rel="stylesheet" href="/assets/css/blog.css?v=2" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=3" />
 </head>
 <body class="yl">
 
@@ -161,6 +227,16 @@
   <main class="post-container">
     <article class="post-article">
       <div class="ko-only">
+      <aside class="post-summary" aria-label="핵심 요약">
+        <p class="post-summary-label">핵심 요약</p>
+        <ul>
+          <li>2026년 11월 한국소비자원과 KISA가 IP카메라 10개 제품을 점검한 결과, 3개 제품에서 사용자 인증 취약점이 확인됐고 펌웨어 보안 설정은 10개 제품 모두 보완이 필요했습니다.</li>
+          <li>통신 암호화, 펌웨어 설정, 보안 업데이트 지원은 사용자가 바꿀 수 없어서 카메라만 바꿔서는 보안 문제가 끝나지 않습니다.</li>
+          <li>점검표는 카메라(비밀번호·원격 기능·펌웨어), 네트워크(포트 포워딩 제거·외부 인터넷 차단·입구 일원화), 녹화 시스템(인증·잠금·세션·암호화·감사 기록)의 세 단계로 나뉩니다.</li>
+          <li>카메라는 바깥 인터넷과 끊고, 영상을 보러 들어오는 입구는 NVR/VMS 하나로 모아 그 입구를 지키는 구조가 핵심입니다.</li>
+        </ul>
+      </aside>
+
 
       <p>2026년 11월 12일, 한국소비자원과 한국인터넷진흥원(KISA)이 시중에 유통되는 IP카메라 10개 제품의 보안 점검 결과를 발표했습니다. 이 중 3개 제품은 사용자 인증 절차가 미흡해, 공격자가 다른 사용자의 카메라 영상과 이미지를 내려받거나 카메라를 원격으로 조작할 수 있는 취약점이 확인됐습니다. 매장, 사무실, 아파트 관리사무소에서 IP카메라를 쓰고 있다면 "우리 카메라는 괜찮은가?"라는 질문이 먼저 떠오를 것입니다.</p>
 
@@ -270,6 +346,23 @@
 
       <p>여기에 위의 점검표를 정기 점검 항목으로 붙이면 유지보수 계약의 근거가 됩니다. 녹화 누락, 오프라인 카메라, 디스크 상태 같은 운영 점검과 함께 보안 점검을 묶어 보고하면 고객이 보는 가치가 분명해집니다.</p>
 
+      <h2>자주 묻는 질문</h2>
+
+      <h3>우리 매장 IP카메라가 해킹에 안전한지 어떻게 확인하나요?</h3>
+      <p>먼저 카메라 라벨의 모델명과 제조 연월로 제조사 고객지원 페이지를 찾아 마지막 펌웨어 날짜와 지원 종료 여부를 확인합니다. 이어서 초기 비밀번호를 카메라마다 다르게 바꾸고, 쓰지 않는 P2P 클라우드 연결·원격 접속 앱 연동·UPnP를 끄고, 펌웨어를 최신으로 올립니다. 통신 암호화처럼 사용자가 바꿀 수 없는 부분은 네트워크와 녹화 시스템 단계에서 보완해야 합니다.</p>
+
+      <h3>소비자원·KISA IP카메라 점검에서 인증 취약점이 나온 제품은 무엇인가요?</h3>
+      <p>사용자 인증이 미흡했던 3개 제품은 로보뷰 GI-ROBOA7, 브이스타캠 VSTARCAM-800X, 파인뷰 K11입니다. 보도 시점 기준으로 로보뷰와 파인뷰는 개선을 마쳤고 브이스타캠은 보완 작업을 진행 중이었습니다. 최신 상태는 각 제조사와 원문 기사를 확인하세요.</p>
+
+      <h3>IP카메라 보안을 위해 공유기에서 무엇을 설정해야 하나요?</h3>
+      <p>카메라로 직접 들어오는 포트 포워딩·UPnP 규칙을 지우고, 공유기의 외부 IP 차단(접근 제어) 기능으로 카메라가 바깥 인터넷으로 나가지 못하게 합니다. 원격에서 영상을 봐야 한다면 카메라가 아니라 NVR/VMS로 들어오게 하고, 가능하면 포트 개방보다 VPN을 거치게 합니다. 카메라 전원만 뽑아서는 공유기의 포트 개방 규칙이 사라지지 않습니다.</p>
+
+      <h3>지원이 끝난 구형 IP카메라는 바로 교체해야 하나요?</h3>
+      <p>한 번에 모두 바꾸기 어렵다면 카메라를 외부 인터넷에서 차단하고, 같은 내부망의 NOX가 ONVIF·RTSP로 영상을 받아 녹화하게 하는 중간 단계가 있습니다. 이 방법은 위험을 줄일 뿐 없애지는 못하므로 지원이 끝난 카메라는 교체 일정을 함께 잡아 두는 것이 좋습니다. 가정용 홈캠이라면 네트워크에서 완전히 떼어 SD카드 녹화용으로만 쓰는 방법도 있습니다.</p>
+
+      <h3>NVR/VMS는 어떤 보안 기능을 갖춰야 하나요?</h3>
+      <p>초기 계정 사용 차단, 약한 비밀번호 거부, 로그인 실패 시 계정 잠금, 자동 세션 종료, HTTPS 암호화, 카메라 비밀번호 암호화 저장, 사용자별 권한 분리, 위변조를 감지하는 감사 로그, 백업 영상 암호화를 확인합니다. 이 항목들은 국정원 영상처리기기 보안요구사항의 영역과 같은 축이라, 공공 현장이 아니더라도 이 기준으로 점검하면 빠지는 항목이 적습니다.</p>
+
       <h2>마치며</h2>
 
       <p>소비자원·KISA 점검이 보여 준 것은 특정 제품의 문제만이 아닙니다. 통신 암호화, 펌웨어 설정, 업데이트 지원처럼 사용자가 바꿀 수 없는 부분이 대부분의 카메라에 걸쳐 있다는 사실입니다. 그래서 카메라를 고르는 일만큼 <strong>카메라를 어떤 구조 안에 두는지</strong>가 중요합니다. 카메라는 바깥과 끊고, 입구는 녹화 시스템 하나로 모으고, 그 입구는 인증·잠금·세션·감사 기록으로 지킵니다.</p>
@@ -293,6 +386,16 @@
       </div>
 
       <div class="en-only">
+      <aside class="post-summary" aria-label="Key takeaways">
+        <p class="post-summary-label">Key takeaways</p>
+        <ul>
+          <li>In a November 2026 inspection of 10 IP camera products by the Korea Consumer Agency and KISA, 3 products had weak user authentication and all 10 needed better firmware security settings.</li>
+          <li>Communication encryption, firmware settings, and security update support cannot be changed by the user, so replacing the camera alone does not solve the problem.</li>
+          <li>The checklist has three layers: cameras (passwords, remote features, firmware), the network (remove port forwarding, block outside internet access, one way in), and the recording system (authentication, lockout, sessions, encryption, audit records).</li>
+          <li>The core idea is to cut cameras off from the internet, bring every way in to view video down to one NVR/VMS, and protect that one entrance.</li>
+        </ul>
+      </aside>
+
 
       <p>On November 12, 2026, the Korea Consumer Agency and the Korea Internet &amp; Security Agency (KISA) published the results of a security inspection of 10 IP camera products sold in Korea. In 3 of them, user authentication was weak enough that an attacker could download other users' camera video and images or control the camera remotely. If you run IP cameras in a shop, an office, or an apartment management office, the first question is probably "Are our cameras safe?"</p>
 
@@ -401,6 +504,23 @@
       </blockquote>
 
       <p>Add the checklist above as a routine inspection item and it becomes part of the case for a maintenance contract. Reporting security checks together with operational checks such as recording gaps, offline cameras, and disk health makes the value clear to the customer.</p>
+
+      <h2>Frequently asked questions</h2>
+
+      <h3>How can I tell whether the IP cameras in my store are safe from hacking?</h3>
+      <p>Start by finding the manufacturer's support page from the model name and manufacturing date on the camera label, and check the date of the last firmware release and whether the model has reached end of support. Then give each camera its own new password, turn off unused vendor P2P cloud connections, remote access app links, and UPnP, and update the firmware. Things you cannot change, such as communication encryption, have to be covered at the network and recording system layers.</p>
+
+      <h3>Which products had authentication flaws in the Korea Consumer Agency and KISA IP camera inspection?</h3>
+      <p>The 3 products with weak user authentication were the RoboView GI-ROBOA7, the VSTARCAM-800X, and the Fineview K11. As of the reports, RoboView and Fineview had completed their fixes and VSTARCAM's fix was still in progress. Check each manufacturer and the original articles for the latest status.</p>
+
+      <h3>What should I configure on the router to secure IP cameras?</h3>
+      <p>Delete port forwarding and UPnP rules that lead straight to cameras, and use the router's outbound IP blocking (access control) feature so cameras cannot reach the outside internet. If you need to view video remotely, come in through the NVR/VMS rather than the cameras, and through a VPN rather than an open port where possible. Unplugging a camera does not remove the router's port forwarding rules.</p>
+
+      <h3>Do unsupported older IP cameras need to be replaced right away?</h3>
+      <p>If replacing them all at once is not realistic, an intermediate step is to block the cameras from the outside internet and let NOX on the same internal network receive and record their video over ONVIF and RTSP. This reduces the risk but does not remove it, so set a replacement schedule for unsupported cameras as well. For a home camera, disconnecting it from the network entirely and using it only for SD card recording is another option.</p>
+
+      <h3>What security features should an NVR/VMS have?</h3>
+      <p>Check that it blocks the default account, rejects weak passwords, locks accounts after repeated failed logins, ends idle sessions automatically, encrypts connections with HTTPS, stores camera passwords encrypted, separates permissions by user, keeps a tamper-evident audit log, and encrypts exported backups. These items follow the same areas as the Korean NIS security requirements for video devices, so checking against them leaves few gaps even outside the public sector.</p>
 
       <h2>Wrapping up</h2>
 

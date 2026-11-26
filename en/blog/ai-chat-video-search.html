@@ -14,21 +14,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>NOX NVR Adds AI Chat: Find Video by Asking - YIYOL Blog</title>
 
-  <meta name="description" content="NOX NVR now includes AI Chat, which plays a recording when you type a camera name and time. Currently only Anthropic (Claude API) is supported; other LLMs are planned." />
+  <meta name="description" content="NOX NVR AI Chat plays a recording when you type a camera name and time. It currently supports Anthropic's Claude API, with other LLMs planned." />
   <meta name="keywords" content="AI chat NVR,natural language video lookup,NOX NVR,NVR chat playback,NIS security mode NVR" />
 
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://yiyol.com/en/blog/ai-chat-video-search.html" />
   <meta property="og:title" content="NOX NVR Adds AI Chat: Find Video by Asking — YIYOL" />
-  <meta property="og:description" content="NOX NVR now includes AI Chat, which plays a recording when you type a camera name and time. Currently only Anthropic (Claude API) is supported; other LLMs are planned." />
+  <meta property="og:description" content="NOX NVR AI Chat plays a recording when you type a camera name and time. It currently supports Anthropic's Claude API, with other LLMs planned." />
   <meta property="og:image" content="https://yiyol.com/img/blog/ai-chat-video-search/chat-result-playback.png" />
+  <meta property="og:image:width" content="1280" />
+  <meta property="og:image:height" content="720" />
+  <meta property="og:image:alt" content="NOX NVR Adds AI Chat: Find Video by Asking — YIYOL" />
   <meta property="og:site_name" content="YIYOL" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:locale:alternate" content="ko_KR" />
+  <meta property="article:published_time" content="2026-10-27" />
+  <meta property="article:modified_time" content="2026-11-26" />
+  <meta property="article:publisher" content="https://yiyol.com/" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="NOX NVR Adds AI Chat: Find Video by Asking — YIYOL" />
-  <meta name="twitter:description" content="NOX NVR now includes AI Chat, which plays a recording when you type a camera name and time. Currently only Anthropic (Claude API) is supported; other LLMs are planned." />
+  <meta name="twitter:description" content="NOX NVR AI Chat plays a recording when you type a camera name and time. It currently supports Anthropic's Claude API, with other LLMs planned." />
   <meta name="twitter:image" content="https://yiyol.com/img/blog/ai-chat-video-search/chat-result-playback.png" />
 
   <!-- hreflang:start -->
@@ -44,11 +50,11 @@
       "@context": "https://schema.org",
       "@type": "BlogPosting",
       "headline": "NOX NVR Adds AI Chat: Find Video by Asking",
-      "description": "NOX NVR now includes AI Chat, which plays a recording when you type a camera name and time. Currently only Anthropic (Claude API) is supported; other LLMs are planned.",
+      "description": "NOX NVR AI Chat plays a recording when you type a camera name and time. It currently supports Anthropic's Claude API, with other LLMs planned.",
       "url": "https://yiyol.com/en/blog/ai-chat-video-search.html",
       "image": "https://yiyol.com/img/blog/ai-chat-video-search/chat-result-playback.png",
       "datePublished": "2026-10-27",
-      "dateModified": "2026-10-27",
+      "dateModified": "2026-11-26",
       "author": {
         "@type": "Organization",
         "name": "YIYOL",
@@ -57,7 +63,13 @@
       "publisher": {
         "@type": "Organization",
         "name": "YIYOL",
-        "url": "https://yiyol.com"
+        "url": "https://yiyol.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://yiyol.com/assets/yiyol-logo.png",
+          "width": 1024,
+          "height": 1024
+        }
       },
       "keywords": [
         "AI chat NVR",
@@ -67,6 +79,10 @@
         "NIS security mode NVR"
       ],
       "inLanguage": "en",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://yiyol.com/en/blog/ai-chat-video-search.html"
+      },
       "translationOfWork": {
         "@id": "https://yiyol.com/blog/ai-chat-video-search.html"
       }
@@ -100,6 +116,55 @@
     }
   </script>
 
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I find a recording with NOX NVR AI Chat?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Type a camera name and a time as a sentence in the chat box and press Enter. For example, \"Show me yesterday's 9:30 AM entrance footage\" plays that time's recording from the cameras whose names include \"entrance\" in the result area on the right."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does AI Chat send video or images outside the device?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. What goes to the provider is the question text, conversation history, camera names, the interpreted time, and whether video exists; video, images, license plates, and personal information are not sent. License plates or appearance descriptions typed into a question are part of the question text, so they are sent."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which AI models does NOX NVR AI Chat support?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Currently only Anthropic (Claude API), with customers using their own API key. After entering the key, the administrator loads the model list and picks a model. Support for other LLMs is planned."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can AI Chat change NVR settings?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Chat only finds and opens recordings; it does not change device settings. When the same device is connected as an MCP server, AI agents also query it read-only, and no tool changes device state."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which edition includes AI Chat?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AI Chat is available in the ENTERPRISE edition. It cannot be used on devices with NIS security mode enabled, and it turns on only after an administrator consents to external transmission."
+          }
+        }
+      ]
+    }
+  </script>
+
   <!-- Fonts & CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -109,7 +174,7 @@
     />
   <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
     <link rel="stylesheet" href="/assets/css/site.css?v=3" />
-    <link rel="stylesheet" href="/assets/css/blog.css?v=2" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=3" />
 </head>
 <body class="yl">
   <!-- Header -->
@@ -168,6 +233,16 @@
 
       <div class="en-only">
 
+      <aside class="post-summary" aria-label="Key takeaways">
+        <p class="post-summary-label">Key takeaways</p>
+        <ul>
+          <li>In NOX NVR's AI Chat, typing a camera name and a time in a sentence plays the matching recording right away.</li>
+          <li>Cameras are found by name, so naming them with the words your site uses makes them easier to find.</li>
+          <li>Chat turns on only after an administrator sets Anthropic (Claude API) and the customer's own API key at Settings &gt; Services &gt; Chat and consents to external transmission.</li>
+          <li>It is an ENTERPRISE edition feature and cannot be used on devices with NIS security mode enabled.</li>
+        </ul>
+      </aside>
+
       <p>NOX NVR now includes AI Chat. Type a camera name and a time in a sentence, and the matching recording plays right away. Opening a menu, finding the camera, and setting the time collapse into a single question.</p>
 
       <h2>How to Use</h2>
@@ -207,6 +282,23 @@
         <li><strong>External transmission:</strong> Question text and camera names are sent to the provider. Chat can be turned on only after an administrator consents.</li>
         <li><strong>Security mode:</strong> Not available when NIS security mode is enabled.</li>
       </ul>
+
+      <h2>Frequently asked questions</h2>
+
+      <h3>How do I find a recording with NOX NVR AI Chat?</h3>
+      <p>Type a camera name and a time as a sentence in the chat box and press Enter. For example, "Show me yesterday's 9:30 AM entrance footage" plays that time's recording from the cameras whose names include "entrance" in the result area on the right.</p>
+
+      <h3>Does AI Chat send video or images outside the device?</h3>
+      <p>No. What goes to the provider is the question text, conversation history, camera names, the interpreted time, and whether video exists; video, images, license plates, and personal information are not sent. License plates or appearance descriptions typed into a question are part of the question text, so they are sent.</p>
+
+      <h3>Which AI models does NOX NVR AI Chat support?</h3>
+      <p>Currently only Anthropic (Claude API), with customers using their own API key. After entering the key, the administrator loads the model list and picks a model. Support for other LLMs is planned.</p>
+
+      <h3>Can AI Chat change NVR settings?</h3>
+      <p>No. Chat only finds and opens recordings; it does not change device settings. When the same device is connected as an MCP server, AI agents also query it read-only, and no tool changes device state.</p>
+
+      <h3>Which edition includes AI Chat?</h3>
+      <p>AI Chat is available in the ENTERPRISE edition. It cannot be used on devices with NIS security mode enabled, and it turns on only after an administrator consents to external transmission.</p>
 
       <p><em>Apply for installation partner consultation: <a href="/contact/">yiyol.com/contact</a></em></p>
 
