@@ -14,19 +14,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>중국산 IP카메라, 인터넷 차단으로 격리하고 NOX를 이용해서 안전하게 쓰는 법 - YIYOL Blog</title>
 
-  <meta name="description" content="2024년 한국 IP카메라 영상 유출 사건 이후, 소상공인·가정 사용자를 위한 현실적 중국산 IP카메라 보안 가이드. ipTime 외부 IP 차단으로 카메라 인터넷을 격리하고, NOX VMS를 보안 프록시 단일 진입점으로 두는 단계별 절차를 정리합니다." />
+  <meta name="description" content="중국산 IP카메라를 바꾸지 않고 지키는 방법입니다. ipTime 외부 IP 차단으로 카메라의 인터넷 연결을 끊고, NOX VMS를 유일한 접속 경로로 두는 절차를 단계별로 정리했습니다." />
   <meta name="keywords" content="중국산 IP카메라 보안,ipTime 외부 IP 차단,IP카메라 인터넷 차단,IP카메라 해킹 방지,CCTV 네트워크 분리,VMS 보안 프록시,NOX VMS,Hikvision 백도어,XMEye 위험성" />
 
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://yiyol.com/blog/iptime-ip-camera-isolation-nox-vms.html" />
   <meta property="og:title" content="중국산 IP카메라, 인터넷 차단으로 격리하고 NOX를 이용해서 안전하게 쓰는 법 — YIYOL" />
-  <meta property="og:description" content="2024년 한국 IP카메라 영상 유출 사건 이후, 소상공인·가정 사용자를 위한 현실적 중국산 IP카메라 보안 가이드. ipTime 외부 IP 차단으로 카메라 인터넷을 격리하고, NOX VMS를 보안 프록시 단일 진입점으로 두는 단계별 절차를 정리합니다." />
+  <meta property="og:description" content="중국산 IP카메라를 바꾸지 않고 지키는 방법입니다. ipTime 외부 IP 차단으로 카메라의 인터넷 연결을 끊고, NOX VMS를 유일한 접속 경로로 두는 절차를 단계별로 정리했습니다." />
   <meta property="og:image" content="https://yiyol.com/img/blog/iptime-camera-isolation/iptime-rule-applied.png" />
+  <meta property="og:image:width" content="2884" />
+  <meta property="og:image:height" content="1954" />
+  <meta property="og:image:alt" content="중국산 IP카메라, 인터넷 차단으로 격리하고 NOX를 이용해서 안전하게 쓰는 법 — YIYOL" />
   <meta property="og:site_name" content="YIYOL" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="article:published_time" content="2026-05-16" />
+  <meta property="article:modified_time" content="2026-11-26" />
+  <meta property="article:publisher" content="https://yiyol.com/" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="중국산 IP카메라, 인터넷 차단으로 격리하고 NOX를 이용해서 안전하게 쓰는 법 — YIYOL" />
-  <meta name="twitter:description" content="2024년 한국 IP카메라 영상 유출 사건 이후, 소상공인·가정 사용자를 위한 현실적 중국산 IP카메라 보안 가이드. ipTime 외부 IP 차단으로 카메라 인터넷을 격리하고, NOX VMS를 보안 프록시 단일 진입점으로 두는 단계별 절차를 정리합니다." />
+  <meta name="twitter:description" content="중국산 IP카메라를 바꾸지 않고 지키는 방법입니다. ipTime 외부 IP 차단으로 카메라의 인터넷 연결을 끊고, NOX VMS를 유일한 접속 경로로 두는 절차를 단계별로 정리했습니다." />
   <meta name="twitter:image" content="https://yiyol.com/img/blog/iptime-camera-isolation/iptime-rule-applied.png" />
 
   <!-- hreflang:start -->
@@ -42,7 +50,7 @@
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": "중국산 IP카메라, 인터넷 차단으로 격리하고 NOX를 이용해서 안전하게 쓰는 법",
-    "description": "2024년 한국 IP카메라 영상 유출 사건 이후, 소상공인·가정 사용자를 위한 현실적 중국산 IP카메라 보안 가이드. ipTime 외부 IP 차단으로 카메라 인터넷을 격리하고, NOX VMS를 보안 프록시 단일 진입점으로 두는 단계별 절차를 정리합니다.",
+    "description": "중국산 IP카메라를 바꾸지 않고 지키는 방법입니다. ipTime 외부 IP 차단으로 카메라의 인터넷 연결을 끊고, NOX VMS를 유일한 접속 경로로 두는 절차를 단계별로 정리했습니다.",
     "url": "https://yiyol.com/blog/iptime-ip-camera-isolation-nox-vms.html",
     "datePublished": "2026-05-16",
     "dateModified": "2026-11-26",
@@ -55,10 +63,30 @@
     "publisher": {
       "@type": "Organization",
       "name": "YIYOL",
-      "url": "https://yiyol.com"
+      "url": "https://yiyol.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://yiyol.com/assets/yiyol-logo.png",
+        "width": 1024,
+        "height": 1024
+      }
     },
-    "keywords": ["중국산 IP카메라 보안", "ipTime 외부 IP 차단", "IP카메라 인터넷 차단", "IP카메라 해킹 방지", "CCTV 네트워크 분리", "VMS 보안 프록시", "NOX VMS", "Hikvision 백도어", "XMEye 위험성"],
-    "inLanguage": "ko"
+    "keywords": [
+      "중국산 IP카메라 보안",
+      "ipTime 외부 IP 차단",
+      "IP카메라 인터넷 차단",
+      "IP카메라 해킹 방지",
+      "CCTV 네트워크 분리",
+      "VMS 보안 프록시",
+      "NOX VMS",
+      "Hikvision 백도어",
+      "XMEye 위험성"
+    ],
+    "inLanguage": "ko",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://yiyol.com/blog/iptime-ip-camera-isolation-nox-vms.html"
+    }
   }
   </script>
 

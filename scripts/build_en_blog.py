@@ -127,6 +127,8 @@ def translate_ld(d, slug, meta):
             d["keywords"] = meta["keywords"]
         d["inLanguage"] = "en"
         d["translationOfWork"] = {"@id": ko_url(slug)}
+        if "mainEntityOfPage" in d:
+            d["mainEntityOfPage"]["@id"] = en_url(slug)
     elif t == "BreadcrumbList":
         items = d["itemListElement"]
         for it in items:
@@ -206,6 +208,11 @@ def build_en(src_html, slug):
         html = re.sub(r'(\n([ \t]*)<meta property="og:site_name"[^>]*>)',
                       r'\1\n\2<meta property="og:locale" content="en_US" />\n\2<meta property="og:locale:alternate" content="ko_KR" />',
                       html, count=1)
+    else:
+        # 한국어 원본의 og:locale(ko_KR)·alternate(en_US) 를 뒤집는다.
+        html = set_meta(html, "property", "og:locale", "en_US")
+        html = set_meta(html, "property", "og:locale:alternate", "ko_KR")
+    html = set_meta(html, "property", "og:image:alt", social_title)
     html = replace_ld(html, slug, meta)
     html = html.replace('href="/blog/', 'href="/en/blog/')
     html = html.replace('<span class="lang-current">한국어</span>', '<span class="lang-current">English</span>')

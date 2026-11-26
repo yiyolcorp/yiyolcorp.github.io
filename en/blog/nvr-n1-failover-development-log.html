@@ -14,23 +14,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>NVR Failover Development Log — Goals of n:1 Redundancy, What Broke, and the Work to Leave Beta - YIYOL Blog</title>
 
-  <meta name="description" content="How NOX NVR built n:1 failover: the goals we set, where it actually broke in real operation, and the work underway to remove the Beta badge — failure detection, split-brain arbitration, and record-back of footage from the outage window." />
+  <meta name="description" content="How NOX NVR built n:1 failover: failure detection, split-brain arbitration, and record-back of footage from the outage window — and where it broke in real use." />
   <meta name="keywords" content="NVR failover,n:1 redundancy,split-brain,record-back,NVR high availability,NOX NVR" />
 
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://yiyol.com/en/blog/nvr-n1-failover-development-log.html" />
   <meta property="og:title" content="NVR Failover Development Log — Goals of n:1 Redundancy, What Broke, and the Work to Leave Beta — YIYOL" />
-  <meta property="og:description" content="How NOX NVR built n:1 failover: the goals we set, where it actually broke in real operation, and the work underway to remove the Beta badge — failure detection, split-brain arbitration, and record-back of footage from the outage window." />
+  <meta property="og:description" content="How NOX NVR built n:1 failover: failure detection, split-brain arbitration, and record-back of footage from the outage window — and where it broke in real use." />
   <meta property="og:image" content="https://yiyol.com/img/nox/failover.jpeg" />
   <meta property="og:image:width" content="1800" />
   <meta property="og:image:height" content="1011" />
+  <meta property="og:image:alt" content="NVR Failover Development Log — Goals of n:1 Redundancy, What Broke, and the Work to Leave Beta — YIYOL" />
   <meta property="og:site_name" content="YIYOL" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:locale:alternate" content="ko_KR" />
+  <meta property="article:published_time" content="2026-09-17" />
+  <meta property="article:modified_time" content="2026-11-26" />
+  <meta property="article:publisher" content="https://yiyol.com/" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="NVR Failover Development Log — Goals of n:1 Redundancy, What Broke, and the Work to Leave Beta — YIYOL" />
-  <meta name="twitter:description" content="How NOX NVR built n:1 failover: the goals we set, where it actually broke in real operation, and the work underway to remove the Beta badge — failure detection, split-brain arbitration, and record-back of footage from the outage window." />
+  <meta name="twitter:description" content="How NOX NVR built n:1 failover: failure detection, split-brain arbitration, and record-back of footage from the outage window — and where it broke in real use." />
   <meta name="twitter:image" content="https://yiyol.com/img/nox/failover.jpeg" />
 
   <!-- hreflang:start -->
@@ -46,7 +50,7 @@
       "@context": "https://schema.org",
       "@type": "BlogPosting",
       "headline": "NVR Failover Development Log — Goals of n:1 Redundancy, What Broke, and the Work to Leave Beta",
-      "description": "How NOX NVR built n:1 failover: the goals we set, where it actually broke in real operation, and the work underway to remove the Beta badge — failure detection, split-brain arbitration, and record-back of footage from the outage window.",
+      "description": "How NOX NVR built n:1 failover: failure detection, split-brain arbitration, and record-back of footage from the outage window — and where it broke in real use.",
       "url": "https://yiyol.com/en/blog/nvr-n1-failover-development-log.html",
       "image": "https://yiyol.com/img/nox/failover.jpeg",
       "datePublished": "2026-09-17",
@@ -59,7 +63,13 @@
       "publisher": {
         "@type": "Organization",
         "name": "YIYOL",
-        "url": "https://yiyol.com"
+        "url": "https://yiyol.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://yiyol.com/assets/yiyol-logo.png",
+          "width": 1024,
+          "height": 1024
+        }
       },
       "keywords": [
         "NVR failover",
@@ -70,6 +80,10 @@
         "NOX NVR"
       ],
       "inLanguage": "en",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://yiyol.com/en/blog/nvr-n1-failover-development-log.html"
+      },
       "translationOfWork": {
         "@id": "https://yiyol.com/blog/nvr-n1-failover-development-log.html"
       }

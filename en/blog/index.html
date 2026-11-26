@@ -24,6 +24,7 @@
     <meta property="og:image" content="https://yiyol.com/img/nox-ui-001.jpeg" />
     <meta property="og:image:width" content="3456" />
     <meta property="og:image:height" content="1916" />
+    <meta property="og:image:alt" content="Blog — Video Security &amp; AI Automation Notes | YIYOL" />
     <meta property="og:site_name" content="YIYOL" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:locale:alternate" content="ko_KR" />
@@ -52,13 +53,19 @@
         "publisher": {
           "@type": "Organization",
           "name": "YIYOL",
-          "url": "https://yiyol.com"
+          "url": "https://yiyol.com",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://yiyol.com/assets/yiyol-logo.png",
+            "width": 1024,
+            "height": 1024
+          }
         },
         "blogPost": [
           {
             "@type": "BlogPosting",
             "headline": "NOX NVR Adds AI Chat: Find Video by Asking",
-            "description": "NOX NVR now includes AI Chat, which plays a recording when you type a camera name and time. Currently only Anthropic (Claude API) is supported; other LLMs are planned.",
+            "description": "NOX NVR AI Chat plays a recording when you type a camera name and time. It currently supports Anthropic's Claude API, with other LLMs planned.",
             "url": "https://yiyol.com/en/blog/ai-chat-video-search.html",
             "image": "https://yiyol.com/img/blog/ai-chat-video-search/chat-result-playback.png",
             "datePublished": "2026-10-27",
@@ -72,7 +79,7 @@
           {
             "@type": "BlogPosting",
             "headline": "Building the NOX MCP Server — Why We Started Read-Only, and the Bug Claude Code Found First",
-            "description": "A development log of turning a NOX NVR into an MCP server so AI agents like Claude Code and Claude Desktop can query cameras, events, recordings, and system status in natural language: why it is read-only with delegated permissions, the time zone defect agents surfaced before release, and how to connect an air-gapped NVR through a PC.",
+            "description": "How we turned a NOX NVR into a read-only MCP server so AI agents like Claude Code and Claude Desktop can query cameras, events, and recordings in plain text.",
             "url": "https://yiyol.com/en/blog/nox-mcp-server-development-log.html",
             "datePublished": "2026-10-07",
             "author": {
@@ -84,7 +91,7 @@
           {
             "@type": "BlogPosting",
             "headline": "NVR Failover Development Log — Goals of n:1 Redundancy, What Broke, and the Work to Leave Beta",
-            "description": "How NOX NVR built n:1 failover: the goals we set, where it actually broke in real operation, and the work underway to remove the Beta badge — failure detection, split-brain arbitration, and record-back of footage from the outage window.",
+            "description": "How NOX NVR built n:1 failover: failure detection, split-brain arbitration, and record-back of footage from the outage window — and where it broke in real use.",
             "url": "https://yiyol.com/en/blog/nvr-n1-failover-development-log.html",
             "datePublished": "2026-09-17",
             "author": {
@@ -96,7 +103,7 @@
           {
             "@type": "BlogPosting",
             "headline": "What Is a Headless NVR? Specs and Cost Structure of an NVR Without Monitor Output",
-            "description": "What drives NVR specs is not recording but display output. This post breaks down the decoding, scaling, and compositing load of a live grid, how specs and cost change when that work moves to mobile and PC clients, and what to check before adopting a headless NVR.",
+            "description": "NVR specs are driven by display output, not recording. How moving live-grid decoding to mobile and PC clients changes NVR specs and hardware cost.",
             "url": "https://yiyol.com/en/blog/headless-nvr-monitor-output-hardware-cost.html",
             "datePublished": "2026-09-15",
             "author": {
@@ -108,7 +115,7 @@
           {
             "@type": "BlogPosting",
             "headline": "NVR Disk Calculator (System + Data)",
-            "description": "Calculate the data disk that holds recordings and the system disk that holds the OS and DB metadata separately, from channel count, resolution, FPS, and retention.",
+            "description": "Size the recording data disk and the system disk for OS and DB metadata separately, from channel count, resolution, FPS, and retention.",
             "url": "https://yiyol.com/en/blog/nvr-disk-calculator.html",
             "datePublished": "2026-08-19",
             "author": {
@@ -120,7 +127,7 @@
           {
             "@type": "BlogPosting",
             "headline": "How to Isolate Chinese IP Cameras from the Internet and Use Them Safely with NOX",
-            "description": "A practical guide to securing Chinese-made IP cameras: block camera internet access with ipTime egress rules and put NOX VMS in front as the single, TLS-protected entry point — without replacing existing cameras.",
+            "description": "Secure Chinese-made IP cameras without replacing them: block internet access with ipTime egress rules and use NOX VMS as the single TLS entry point.",
             "url": "https://yiyol.com/en/blog/iptime-ip-camera-isolation-nox-vms.html",
             "datePublished": "2026-05-16",
             "author": {
@@ -132,7 +139,7 @@
           {
             "@type": "BlogPosting",
             "headline": "Why NVR Hardware Makers Should Choose a Software Partner",
-            "description": "Building great hardware and making it sell are different jobs. How a software partnership shortens time-to-market and cuts development cost for NVR hardware makers.",
+            "description": "Building great hardware and selling it are different jobs. How a software partnership shortens time-to-market and cuts development cost for NVR makers.",
             "url": "https://yiyol.com/en/blog/why-nvr-hardware-makers-need-software-partner.html",
             "datePublished": "2026-04-28",
             "author": {
@@ -144,7 +151,7 @@
           {
             "@type": "BlogPosting",
             "headline": "Agentic AI with WebHooks: A Complete Guide to Building Parking Lot Automation",
-            "description": "A hands-on guide to building parking lot automation with NOX NVR WebHooks — from license plate recognition (LPR) events to automatic gate control, parking logs, and alerts, with Python and Node.js code.",
+            "description": "Build parking lot automation with NOX NVR WebHooks: from license plate recognition events to automatic gate control, parking logs, and alerts, with code.",
             "url": "https://yiyol.com/en/blog/webhook-agentic-ai-parking-automation-guide.html",
             "datePublished": "2026-04-21",
             "author": {
@@ -156,7 +163,7 @@
           {
             "@type": "BlogPosting",
             "headline": "What Is an Agentic AI NVR? The Decisive Difference from AI NVR",
-            "description": "How an AI NVR and an Agentic AI NVR differ: the three stages of video surveillance AI, from detection to autonomous action, and how NOX NVR uses LLM-based agents to recognize and act on unstructured events.",
+            "description": "AI NVR vs. Agentic AI NVR: the three stages of video surveillance AI, from detection to autonomous action, and how LLM agents act on unstructured events.",
             "url": "https://yiyol.com/en/blog/agentic-ai-nvr-vs-ai-nvr-difference.html",
             "datePublished": "2026-04-14",
             "author": {
@@ -168,7 +175,7 @@
           {
             "@type": "BlogPosting",
             "headline": "NVR/VMS Guide to NIS Security Requirements V3.0 Certification",
-            "description": "A practical guide to Korea's NIS Security Requirements V3.0 for NVR and VMS products: the security functional requirements for video information processing devices, the Security Function Confirmation process, cost and timeline, and a readiness checklist.",
+            "description": "A practical guide to Korea's NIS Security Requirements V3.0 for NVR and VMS: the Security Function Confirmation process, cost, timeline, and a checklist.",
             "url": "https://yiyol.com/en/blog/nis-security-requirements-v3-guide.html",
             "datePublished": "2026-04-01",
             "author": {

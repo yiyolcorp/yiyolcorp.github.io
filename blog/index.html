@@ -24,7 +24,10 @@
     <meta property="og:image" content="https://yiyol.com/img/nox-ui-001.jpeg" />
     <meta property="og:image:width" content="3456" />
     <meta property="og:image:height" content="1916" />
+    <meta property="og:image:alt" content="블로그 — 영상 보안·AI 자동화 기술 노트 | YIYOL" />
     <meta property="og:site_name" content="YIYOL" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:locale:alternate" content="en_US" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="블로그 — 영상 보안·AI 자동화 기술 노트 | YIYOL" />
@@ -50,7 +53,13 @@
       "publisher": {
         "@type": "Organization",
         "name": "YIYOL",
-        "url": "https://yiyol.com"
+        "url": "https://yiyol.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://yiyol.com/assets/yiyol-logo.png",
+          "width": 1024,
+          "height": 1024
+        }
       },
       "blogPost": [
         {
@@ -70,7 +79,7 @@
         {
           "@type": "BlogPosting",
           "headline": "NOX MCP 서버 개발기 — 읽기 전용으로 시작한 이유와, Claude Code가 먼저 찾아낸 버그",
-          "description": "NOX NVR 한 대를 그대로 MCP 서버로 만들어 Claude Code·Claude Desktop 같은 AI 에이전트가 카메라·이벤트·녹화·시스템 상태를 자연어로 조회하게 한 과정을 정리합니다. 읽기 전용과 권한 위임을 고른 이유, 출시 전 시험에서 에이전트가 먼저 드러낸 시간대 결함, 격리망의 NVR에 PC를 거쳐 연결하는 구조와 연결 방법을 담았습니다.",
+          "description": "NOX NVR을 MCP 서버로 만들어 Claude Code·Claude Desktop 같은 AI 에이전트가 카메라·이벤트·녹화를 자연어로 조회하게 한 개발기입니다. 읽기 전용 설계와 격리망 NVR 연결 방법을 담았습니다.",
           "url": "https://yiyol.com/blog/nox-mcp-server-development-log.html",
           "datePublished": "2026-10-07",
           "author": {
@@ -82,7 +91,7 @@
         {
           "@type": "BlogPosting",
           "headline": "NVR 페일오버 개발기 — n:1 이중화의 목표, 실패 사례, 베타를 떼기 위한 작업",
-          "description": "NOX NVR의 n:1 페일오버를 설계·구현하며 정한 목표와 실제로 깨진 지점, 그리고 베타 배지를 떼기 위해 수행해 온 작업을 정리합니다. 장애 판정 기준, split-brain 중재, 장애 기간 영상을 되돌리는 record-back에서 겪은 결함과 그 수정 내역을 담았습니다.",
+          "description": "NOX NVR n:1 페일오버 개발기입니다. 장애 판정 기준, split-brain 중재, 장애 기간 영상을 되찾는 record-back을 만들며 실제로 문제가 된 지점과 고친 내용을 정리했습니다.",
           "url": "https://yiyol.com/blog/nvr-n1-failover-development-log.html",
           "datePublished": "2026-09-17",
           "author": {
@@ -118,7 +127,7 @@
         {
           "@type": "BlogPosting",
           "headline": "중국산 IP카메라, 인터넷 차단으로 격리하고 NOX를 이용해서 안전하게 쓰는 법",
-          "description": "2024년 한국 IP카메라 영상 유출 사건 이후, 소상공인·가정 사용자를 위한 현실적 중국산 IP카메라 보안 가이드. ipTime 외부 IP 차단으로 카메라 인터넷을 격리하고, NOX VMS를 보안 프록시 단일 진입점으로 두는 단계별 절차를 정리합니다.",
+          "description": "중국산 IP카메라를 바꾸지 않고 지키는 방법입니다. ipTime 외부 IP 차단으로 카메라의 인터넷 연결을 끊고, NOX VMS를 유일한 접속 경로로 두는 절차를 단계별로 정리했습니다.",
           "url": "https://yiyol.com/blog/iptime-ip-camera-isolation-nox-vms.html",
           "datePublished": "2026-05-16",
           "author": {
@@ -423,7 +432,7 @@
             <span class="blog-card-tag"><span class="ko-only">개발기</span><span class="en-only">Dev Log</span></span>
             <h2 class="blog-card-title ko-only">NOX MCP 서버 개발기 — 읽기 전용으로 시작한 이유와, Claude Code가 먼저 찾아낸 버그</h2>
             <h2 class="blog-card-title en-only">Building the NOX MCP Server — Why We Started Read-Only, and the Bug Claude Code Found First</h2>
-            <p class="blog-card-desc ko-only">NOX NVR 한 대를 그대로 MCP 서버로 만들어 Claude Code·Claude Desktop 같은 AI 에이전트가 카메라·이벤트·녹화·시스템 상태를 자연어로 조회하게 한 과정을 정리합니다. 읽기 전용과 권한 위임을 고른 이유, 출시 전 시험에서 에이전트가 먼저 드러낸 시간대 결함, 격리망의 NVR에 PC를 거쳐 연결하는 구조와 연결 방법을 담았습니다.</p>
+            <p class="blog-card-desc ko-only">NOX NVR을 MCP 서버로 만들어 Claude Code·Claude Desktop 같은 AI 에이전트가 카메라·이벤트·녹화를 자연어로 조회하게 한 개발기입니다. 읽기 전용 설계와 격리망 NVR 연결 방법을 담았습니다.</p>
             <p class="blog-card-desc en-only">A development log of the NOX MCP server: why it is read-only by design, the time zone defect that real-appliance testing caught before release, and how agents reach an air-gapped NVR.</p>
             <div class="blog-card-meta">
               <span>2026.10.07</span>
@@ -443,7 +452,7 @@
             <span class="blog-card-tag"><span class="ko-only">개발기</span><span class="en-only">Dev Log</span></span>
             <h2 class="blog-card-title ko-only">NVR 페일오버 개발기 — n:1 이중화의 목표, 실패 사례, 베타를 떼기 위한 작업</h2>
             <h2 class="blog-card-title en-only">NVR Failover Development Log — Goals of n:1 Redundancy, What Broke, and the Work to Leave Beta</h2>
-            <p class="blog-card-desc ko-only">NOX NVR의 n:1 페일오버를 설계·구현하며 정한 목표와 실제로 깨진 지점, 그리고 베타 배지를 떼기 위해 수행해 온 작업을 정리합니다. 장애 판정 기준, split-brain 중재, 장애 기간 영상을 되돌리는 record-back에서 겪은 결함과 그 수정 내역을 담았습니다.</p>
+            <p class="blog-card-desc ko-only">NOX NVR n:1 페일오버 개발기입니다. 장애 판정 기준, split-brain 중재, 장애 기간 영상을 되찾는 record-back을 만들며 실제로 문제가 된 지점과 고친 내용을 정리했습니다.</p>
             <p class="blog-card-desc en-only">How NOX built n:1 NVR failover: the targets we set, the defects we found in real operation, and the work still needed to remove the Beta badge.</p>
             <div class="blog-card-meta">
               <span>2026.09.17</span>
@@ -503,7 +512,7 @@
             <span class="blog-card-tag"><span class="ko-only">IP카메라 보안</span><span class="en-only">IP Camera Security</span></span>
             <h2 class="blog-card-title ko-only">중국산 IP카메라, 인터넷 차단으로 격리하고 NOX를 이용해서 안전하게 쓰는 법</h2>
             <h2 class="blog-card-title en-only">How to Isolate Chinese IP Cameras from the Internet and Use Them Safely with NOX</h2>
-            <p class="blog-card-desc ko-only">2024년 한국 IP카메라 영상 유출 사건 이후, 소상공인·가정 사용자를 위한 현실적 중국산 IP카메라 보안 가이드. ipTime 외부 IP 차단으로 카메라 인터넷을 격리하고, NOX VMS를 보안 프록시 단일 진입점으로 두는 단계별 절차를 정리합니다.</p>
+            <p class="blog-card-desc ko-only">중국산 IP카메라를 바꾸지 않고 지키는 방법입니다. ipTime 외부 IP 차단으로 카메라의 인터넷 연결을 끊고, NOX VMS를 유일한 접속 경로로 두는 절차를 단계별로 정리했습니다.</p>
             <p class="blog-card-desc en-only">A practical guide to blocking camera internet access with ipTime rules and putting NOX VMS in front as the single, TLS-protected entry point.</p>
             <div class="blog-card-meta">
               <span>2026.05.16</span>

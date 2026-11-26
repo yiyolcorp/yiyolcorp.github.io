@@ -14,23 +14,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Building the NOX MCP Server — Why We Started Read-Only, and the Bug Claude Code Found First - YIYOL Blog</title>
 
-  <meta name="description" content="A development log of turning a NOX NVR into an MCP server so AI agents like Claude Code and Claude Desktop can query cameras, events, recordings, and system status in natural language: why it is read-only with delegated permissions, the time zone defect agents surfaced before release, and how to connect an air-gapped NVR through a PC." />
+  <meta name="description" content="How we turned a NOX NVR into a read-only MCP server so AI agents like Claude Code and Claude Desktop can query cameras, events, and recordings in plain text." />
   <meta name="keywords" content="MCP server,Model Context Protocol,Claude Code MCP,Claude Desktop MCP,air-gapped NVR,AI agent NVR,NVR MCP,NOX NVR" />
 
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://yiyol.com/en/blog/nox-mcp-server-development-log.html" />
   <meta property="og:title" content="Building the NOX MCP Server — Why We Started Read-Only, and the Bug Claude Code Found First — YIYOL" />
-  <meta property="og:description" content="A development log of turning a NOX NVR into an MCP server so AI agents like Claude Code and Claude Desktop can query cameras, events, recordings, and system status in natural language: why it is read-only with delegated permissions, the time zone defect agents surfaced before release, and how to connect an air-gapped NVR through a PC." />
+  <meta property="og:description" content="How we turned a NOX NVR into a read-only MCP server so AI agents like Claude Code and Claude Desktop can query cameras, events, and recordings in plain text." />
   <meta property="og:image" content="https://yiyol.com/img/blog/nox-mcp/claude-desktop-demo-poster.jpg" />
   <meta property="og:image:width" content="1920" />
   <meta property="og:image:height" content="1080" />
+  <meta property="og:image:alt" content="Building the NOX MCP Server — Why We Started Read-Only, and the Bug Claude Code Found First — YIYOL" />
   <meta property="og:site_name" content="YIYOL" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:locale:alternate" content="ko_KR" />
+  <meta property="article:published_time" content="2026-10-07" />
+  <meta property="article:modified_time" content="2026-11-26" />
+  <meta property="article:publisher" content="https://yiyol.com/" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Building the NOX MCP Server — Why We Started Read-Only, and the Bug Claude Code Found First — YIYOL" />
-  <meta name="twitter:description" content="A development log of turning a NOX NVR into an MCP server so AI agents like Claude Code and Claude Desktop can query cameras, events, recordings, and system status in natural language: why it is read-only with delegated permissions, the time zone defect agents surfaced before release, and how to connect an air-gapped NVR through a PC." />
+  <meta name="twitter:description" content="How we turned a NOX NVR into a read-only MCP server so AI agents like Claude Code and Claude Desktop can query cameras, events, and recordings in plain text." />
   <meta name="twitter:image" content="https://yiyol.com/img/blog/nox-mcp/claude-desktop-demo-poster.jpg" />
 
   <!-- hreflang:start -->
@@ -46,7 +50,7 @@
       "@context": "https://schema.org",
       "@type": "BlogPosting",
       "headline": "Building the NOX MCP Server — Why We Started Read-Only, and the Bug Claude Code Found First",
-      "description": "A development log of turning a NOX NVR into an MCP server so AI agents like Claude Code and Claude Desktop can query cameras, events, recordings, and system status in natural language: why it is read-only with delegated permissions, the time zone defect agents surfaced before release, and how to connect an air-gapped NVR through a PC.",
+      "description": "How we turned a NOX NVR into a read-only MCP server so AI agents like Claude Code and Claude Desktop can query cameras, events, and recordings in plain text.",
       "url": "https://yiyol.com/en/blog/nox-mcp-server-development-log.html",
       "image": "https://yiyol.com/img/blog/nox-mcp/claude-desktop-demo-poster.jpg",
       "datePublished": "2026-10-07",
@@ -59,7 +63,13 @@
       "publisher": {
         "@type": "Organization",
         "name": "YIYOL",
-        "url": "https://yiyol.com"
+        "url": "https://yiyol.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://yiyol.com/assets/yiyol-logo.png",
+          "width": 1024,
+          "height": 1024
+        }
       },
       "keywords": [
         "MCP server",
@@ -72,6 +82,10 @@
         "NOX NVR"
       ],
       "inLanguage": "en",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://yiyol.com/en/blog/nox-mcp-server-development-log.html"
+      },
       "translationOfWork": {
         "@id": "https://yiyol.com/blog/nox-mcp-server-development-log.html"
       }

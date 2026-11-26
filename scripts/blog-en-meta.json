@@ -6,7 +6,7 @@
   },
   "nox-remote-support": {
     "title": "Remote Support Without Handing Over the Admin Password — A Guide to NOX Remote Support",
-    "description": "How to get NVR remote support without giving out the admin password: a path that opens only when switched on, a two-minute one-time code, read-only access, and the audit log, shown on real screens.",
+    "description": "Get NVR remote support without sharing the admin password: a path that opens only on demand, a two-minute one-time code, read-only access, and an audit log.",
     "keywords": ["NVR remote support", "CCTV remote inspection", "one-time password", "read-only access", "audit log", "installer"],
     "faq": [
       ["Do I need port forwarding on the router for NVR remote support?", "No. When remote support is switched on, the device makes an outbound connection to our relay server (nox.yiyol.com), and the engineer reaches the device through that relay. There is no need to open a port on the site's router or get a static IP; if the device is connected to the internet, it works right away."],
@@ -18,7 +18,7 @@
   },
   "cctv-ai-event-popup-monitoring": {
     "title": "When One Operator Watches 300 Cameras — Moving to AI Event Popup Monitoring",
-    "description": "Using Changnyeong County's AI auto-display monitoring as a case, this post explains the three stages of event popup monitoring — detection, display, and handling records — plus cutting false alarms, multi-monitor setup, scaling to 1,500 cameras, and a pre-adoption checklist.",
+    "description": "AI event popup monitoring in three stages — detection, display, and handling records — based on Changnyeong County's case, with ways to cut false alarms.",
     "keywords": ["CCTV monitoring", "AI monitoring", "event popup", "control center", "VLM event detection", "NOX NVR"],
     "faq": [
       ["What is CCTV event popup monitoring?", "It is a monitoring method in which, when AI detects a dangerous situation, that camera's video automatically pops up on the operator's monitor. Instead of people cycling through every screen, the screens that need attention come to people. It only works when the three stages of detection, display, and handling records are all in place."],
@@ -30,7 +30,7 @@
   },
   "ip-camera-security-inspection-checklist": {
     "title": "3 in 10 IP Cameras Exposed Other Users' Video — A CCTV Security Checklist Built from the KISA Inspection",
-    "description": "Korea's Consumer Agency and KISA found weak authentication in 3 of 10 IP cameras. A CCTV security checklist in three layers — camera, network, and recording system — and what to do about older cameras.",
+    "description": "Korea's Consumer Agency and KISA found weak authentication in 3 of 10 IP cameras. A three-layer CCTV security checklist: camera, network, and recorder.",
     "keywords": ["IP camera security", "CCTV security checklist", "KISA IP camera inspection", "IP camera hacking", "NVR security", "NOX NVR"],
     "faq": [
       ["How can I tell whether the IP cameras in my store are safe from hacking?", "Start by finding the manufacturer's support page from the model name and manufacturing date on the camera label, and check the date of the last firmware release and whether the model has reached end of support. Then give each camera its own new password, turn off unused vendor P2P cloud connections, remote access app links, and UPnP, and update the firmware. Things you cannot change, such as communication encryption, have to be covered at the network and recording system layers."],
@@ -42,7 +42,7 @@
   },
   "mcp-maintenance-check": {
     "title": "Maintenance Checks You Ask For in Plain Language and Keep on Record — Using NOX MCP to Find Recording Gaps, Disk Issues, and Offline Cameras",
-    "description": "How installers can check recording gaps, disk health, and offline cameras by asking in plain language over MCP: connection steps, read-only safeguards, and the Enterprise edition conditions.",
+    "description": "Installers can check recording gaps, disk health, and offline cameras by asking in plain language over MCP: setup steps, read-only safeguards, and editions.",
     "keywords": ["CCTV maintenance", "recording gap check", "NVR disk check", "MCP", "offline camera", "installer"],
     "faq": [
       ["Is there a way to check NVR recording gaps automatically?", "On NOX, ask your MCP client something like \"Show me the recording gaps from the last 7 days\" and the nox_recording_coverage tool returns the recording rate and gaps for one camera over that period. It covers one camera at a time for up to 7 days, and by default the gap list omits short gaps under 60 seconds. It works best after narrowing down suspect cameras with nox_camera_health."],
@@ -54,7 +54,7 @@
   },
   "nox-mcp-server-development-log": {
     "title": "Building the NOX MCP Server — Why We Started Read-Only, and the Bug Claude Code Found First",
-    "description": "A development log of turning a NOX NVR into an MCP server so AI agents like Claude Code and Claude Desktop can query cameras, events, recordings, and system status in natural language: why it is read-only with delegated permissions, the time zone defect agents surfaced before release, and how to connect an air-gapped NVR through a PC.",
+    "description": "How we turned a NOX NVR into a read-only MCP server so AI agents like Claude Code and Claude Desktop can query cameras, events, and recordings in plain text.",
     "keywords": ["MCP server", "Model Context Protocol", "Claude Code MCP", "Claude Desktop MCP", "air-gapped NVR", "AI agent NVR", "NVR MCP", "NOX NVR"],
     "faq": [
       ["What can an AI agent do when NOX NVR is connected as an MCP server?", "It can query the camera list and status, events and objects, recorded ranges and playback links, and system and storage status, and on devices licensed for natural-language scene search it can also find scenes in recordings. There are only 10 query tools, and no write tools that change cameras, recording, or settings."],
@@ -66,7 +66,7 @@
   },
   "nvr-n1-failover-development-log": {
     "title": "NVR Failover Development Log — Goals of n:1 Redundancy, What Broke, and the Work to Leave Beta",
-    "description": "How NOX NVR built n:1 failover: the goals we set, where it actually broke in real operation, and the work underway to remove the Beta badge — failure detection, split-brain arbitration, and record-back of footage from the outage window.",
+    "description": "How NOX NVR built n:1 failover: failure detection, split-brain arbitration, and record-back of footage from the outage window — and where it broke in real use.",
     "keywords": ["NVR failover", "n:1 redundancy", "split-brain", "record-back", "NVR high availability", "NOX NVR"],
     "faq": [
       ["How quickly does NVR failover detect a failure?", "NOX declares a failure in about 10 seconds. The standby checks the primary's status every 2 seconds and treats 5 consecutive failures as a failure. The takeover target is within 30 seconds from the trigger to the first recorded segment."],
@@ -78,7 +78,7 @@
   },
   "headless-nvr-monitor-output-hardware-cost": {
     "title": "What Is a Headless NVR? Specs and Cost Structure of an NVR Without Monitor Output",
-    "description": "What drives NVR specs is not recording but display output. This post breaks down the decoding, scaling, and compositing load of a live grid, how specs and cost change when that work moves to mobile and PC clients, and what to check before adopting a headless NVR.",
+    "description": "NVR specs are driven by display output, not recording. How moving live-grid decoding to mobile and PC clients changes NVR specs and hardware cost.",
     "keywords": ["headless NVR", "NVR hardware cost", "NVR monitor output", "NVR GPU", "NVR design", "NOX NVR"],
     "faq": [
       ["What is a headless NVR?", "A headless NVR is an NVR that removes the unit's local monitor output and moves live-video decoding and screen composition to mobile and PC clients. The server spends its resources only on recording, stream relay, and AI analytics."],
@@ -90,7 +90,7 @@
   },
   "nvr-disk-calculator": {
     "title": "NVR Disk Calculator (System + Data)",
-    "description": "Calculate the data disk that holds recordings and the system disk that holds the OS and DB metadata separately, from channel count, resolution, FPS, and retention.",
+    "description": "Size the recording data disk and the system disk for OS and DB metadata separately, from channel count, resolution, FPS, and retention.",
     "keywords": ["NVR disk calculator", "NVR storage", "CCTV storage calculator", "system disk", "retention"],
     "faq": [
       ["What is the difference between an NVR system disk and data disk?", "The Data Disk stores the video files recorded from camera RTSP streams, while the System Disk stores the OS/Docker images and PostgreSQL metadata. Video is never stored in PostgreSQL, only metadata such as the segment index and events, so the System Disk is far smaller than the Data Disk. That is why the Data Disk usually uses large HDDs and the System Disk an SSD."],
@@ -102,7 +102,7 @@
   },
   "iptime-ip-camera-isolation-nox-vms": {
     "title": "How to Isolate Chinese IP Cameras from the Internet and Use Them Safely with NOX",
-    "description": "A practical guide to securing Chinese-made IP cameras: block camera internet access with ipTime egress rules and put NOX VMS in front as the single, TLS-protected entry point — without replacing existing cameras.",
+    "description": "Secure Chinese-made IP cameras without replacing them: block internet access with ipTime egress rules and use NOX VMS as the single TLS entry point.",
     "keywords": ["IP camera security", "IP camera hacking", "Chinese IP camera", "camera network isolation", "ipTime", "NOX VMS"],
     "faq": [
       ["I only used a P2P app (XMEye, Hik-Connect). If I block the camera, won't that app stop working?", "Yes, and that is the intended result. The app worked because the camera kept a two-way connection to the manufacturer's cloud at every moment, and this guide exists precisely to cut that connection. NOX VMS provides the same functions (remote viewing, alerts, recording) through a single authenticated, TLS-protected path."],
@@ -113,7 +113,7 @@
   },
   "why-nvr-hardware-makers-need-software-partner": {
     "title": "Why NVR Hardware Makers Should Choose a Software Partner",
-    "description": "Building great hardware and making it sell are different jobs. How a software partnership shortens time-to-market and cuts development cost for NVR hardware makers.",
+    "description": "Building great hardware and selling it are different jobs. How a software partnership shortens time-to-market and cuts development cost for NVR makers.",
     "keywords": ["NVR software partner", "VMS software", "NVR OEM", "time-to-market", "B2B", "NOX NVR"],
     "faq": [
       ["How much does it cost and how long does it take to build NVR software in-house?", "Completing core features takes at least 18–24 months and a minimum of six people: 3 backend, 2 frontend, and 1 QA. Total initial investment is at least 500 million to 1 billion KRW, and annual maintenance adds 20–30% of development cost. Earning the NIS Security Function Verification takes an additional 6–12 months."],
@@ -125,7 +125,7 @@
   },
   "webhook-agentic-ai-parking-automation-guide": {
     "title": "Agentic AI with WebHooks: A Complete Guide to Building Parking Lot Automation",
-    "description": "A hands-on guide to building parking lot automation with NOX NVR WebHooks — from license plate recognition (LPR) events to automatic gate control, parking logs, and alerts, with Python and Node.js code.",
+    "description": "Build parking lot automation with NOX NVR WebHooks: from license plate recognition events to automatic gate control, parking logs, and alerts, with code.",
     "keywords": ["NVR WebHook", "Agentic AI", "parking automation", "LPR", "license plate recognition", "NOX NVR API"],
     "faq": [
       ["How do I open a parking gate automatically with license plate recognition?", "Run a server that receives NOX NVR LPR event WebHooks, and when the recognized plate is in your whitelist DB, call the gate API to open it. Register the WebHook server URL in the NOX NVR admin console under Event Settings → WebHook Configuration. The whole process finishes within 1–2 seconds of plate recognition."],
@@ -137,7 +137,7 @@
   },
   "agentic-ai-nvr-vs-ai-nvr-difference": {
     "title": "What Is an Agentic AI NVR? The Decisive Difference from AI NVR",
-    "description": "How an AI NVR and an Agentic AI NVR differ: the three stages of video surveillance AI, from detection to autonomous action, and how NOX NVR uses LLM-based agents to recognize and act on unstructured events.",
+    "description": "AI NVR vs. Agentic AI NVR: the three stages of video surveillance AI, from detection to autonomous action, and how LLM agents act on unstructured events.",
     "keywords": ["Agentic AI NVR", "AI NVR", "video surveillance AI", "LLM agent", "NOX NVR"],
     "faq": [
       ["What is an Agentic AI NVR?", "An Agentic AI NVR is an NVR that detects events, assesses the situation, and triggers external systems itself. When it recognizes a license plate, it checks the whitelist, calls the gate API, records the entry in the parking system DB, and notifies the control center without human intervention. Security staff only need to handle the exceptions."],
@@ -149,7 +149,7 @@
   },
   "nis-security-requirements-v3-guide": {
     "title": "NVR/VMS Guide to NIS Security Requirements V3.0 Certification",
-    "description": "A practical guide to Korea's NIS Security Requirements V3.0 for NVR and VMS products: the security functional requirements for video information processing devices, the Security Function Confirmation process, cost and timeline, and a readiness checklist.",
+    "description": "A practical guide to Korea's NIS Security Requirements V3.0 for NVR and VMS: the Security Function Confirmation process, cost, timeline, and a checklist.",
     "keywords": ["NIS security requirements", "Security Function Confirmation", "NVR certification", "VMS certification", "Korea public sector CCTV", "KCMVP"],
     "faq": [
       ["Do NVRs and VMS need CC certification?", "No. NVR/VMS are subject to a Security Function Confirmation, not CC certification. Unlike the 21 product types subject to CC certification, such as firewalls, the process is simpler, and testing takes only about 30 days."],
@@ -173,7 +173,7 @@
   },
   "ai-chat-video-search": {
     "title": "NOX NVR Adds AI Chat: Find Video by Asking",
-    "description": "NOX NVR now includes AI Chat, which plays a recording when you type a camera name and time. Currently only Anthropic (Claude API) is supported; other LLMs are planned.",
+    "description": "NOX NVR AI Chat plays a recording when you type a camera name and time. It currently supports Anthropic's Claude API, with other LLMs planned.",
     "keywords": ["AI chat NVR", "natural language video lookup", "NOX NVR", "NVR chat playback", "NIS security mode NVR"],
     "faq": [
       ["How do I find a recording with NOX NVR AI Chat?", "Type a camera name and a time as a sentence in the chat box and press Enter. For example, \"Show me yesterday's 9:30 AM entrance footage\" plays that time's recording from the cameras whose names include \"entrance\" in the result area on the right."],
