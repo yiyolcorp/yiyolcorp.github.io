@@ -46,7 +46,7 @@
   "url": "https://yiyol.com/blog/cctv-ai-event-popup-monitoring.html",
   "image": "https://yiyol.com/img/nox-ui-001.jpeg",
   "datePublished": "2026-11-17",
-  "dateModified": "2026-11-17",
+  "dateModified": "2026-11-26",
   "author": {
     "@type": "Organization",
     "name": "YIYOL",
@@ -95,6 +95,54 @@
   ]
 }
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "CCTV 이벤트 팝업 관제란 무엇인가요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AI가 위험 상황을 감지하면 해당 카메라 영상을 관제요원 모니터에 자동으로 띄우는 관제 방식입니다. 사람이 모든 화면을 순서대로 넘겨 보는 대신, 봐야 할 화면이 사람에게 오게 바꾼 것입니다. 감지 · 표출 · 처리 기록 세 단계가 함께 갖춰져야 제대로 돌아갑니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "AI 관제의 오탐은 어떻게 줄이나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "NOX의 VLM 검출은 단계적으로 걸러 냅니다. 화면 변화가 있는 프레임만 넘기고, 객체를 검출한 뒤, 설정한 조건이 정해진 시간 동안 계속 맞을 때만 VLM 판정으로 넘기며, 신뢰도가 기준을 넘을 때만 이벤트를 냅니다. 도입 전에는 날씨 · 조명 · 동물이 많은 카메라를 골라 2~4주 시범 운영하며 규칙의 신뢰도와 쿨다운을 조정하는 것이 좋습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "이벤트 팝업이 너무 많이 뜨면 어떻게 하나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "팝업 규칙마다 우선순위, 최소 심각도, 시간대, 대상 사용자, 쿨다운을 정해 꼭 필요한 이벤트만 띄웁니다. 같은 카메라에서 이벤트가 잇따르면 한 팝업으로 합쳐 횟수만 표시하고, 한 창에 동시에 뜨는 팝업은 최대 4개입니다. 우선순위가 낮아 팝업되지 않은 이벤트도 알림 목록에는 남습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "관제요원이 이벤트를 처리한 기록은 어떻게 남나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "팝업의 확인 버튼을 누르면 누가 · 언제 확인했는지가 이벤트와 감사 로그에 기록되고, 최대 500자의 메모를 함께 남길 수 있습니다. 한 명이 확인하면 모든 모니터와 사용자 화면에서 같은 팝업이 함께 닫힙니다. 처리하지 못하고 놓친 알람은 이벤트 검색의 미확인 필터로 다시 찾을 수 있습니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "CCTV 1,500대 규모 관제센터는 어떻게 구성하나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "NOX 장비 1대는 권장 사양 기준 최대 128채널까지 동시에 녹화하므로(네트워크 환경에 따라 다름) 여러 대로 나눠 구성합니다. Enterprise 에디션의 페더레이션을 쓰면 본체 화면에서 다른 장비의 라이브, 녹화 검색, 재생을 함께 다룰 수 있습니다. 장비 장애에 대비하려면 n:1 페일오버를 함께 검토합니다."
+      }
+    }
+  ]
+}
+  </script>
 
   <!-- Fonts & CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -105,7 +153,7 @@
     />
   <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
     <link rel="stylesheet" href="/assets/css/site.css?v=3" />
-    <link rel="stylesheet" href="/assets/css/blog.css?v=2" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=3" />
 </head>
 <body class="yl">
 
@@ -161,6 +209,16 @@
   <main class="post-container">
     <article class="post-article">
       <div class="ko-only">
+      <aside class="post-summary" aria-label="핵심 요약">
+        <p class="post-summary-label">핵심 요약</p>
+        <ul>
+          <li>이벤트 팝업 관제는 AI가 위험 상황을 감지하면 해당 카메라 영상을 관제요원 모니터에 자동으로 띄우는 방식으로, 경남 창녕군이 1,515여 대 CCTV 관제에 도입했습니다.</li>
+          <li>이 방식이 제대로 돌아가려면 감지 정확도, 표출 규칙, 처리 기록 세 가지가 함께 갖춰져야 하며, 오탐이 많으면 팝업은 소음이 됩니다.</li>
+          <li>NOX는 실시간 영상 분석, 카메라 자체 이벤트, VLM 검출로 감지하고 우선순위 · 심각도 · 시간대 · 쿨다운 규칙으로 띄울 이벤트를 고릅니다.</li>
+          <li>확인 처리는 누가 · 언제 했는지 감사 로그에 남고, 운영 리포트로 일 · 주 · 월 단위 통계를 PDF로 받아 볼 수 있습니다.</li>
+        </ul>
+      </aside>
+
 
       <p>CCTV 관제센터의 고민은 카메라가 늘어나는 속도를 사람이 따라갈 수 없다는 데 있습니다. 화면을 순서대로 넘겨 보는 순차 관제에서는 카메라가 늘수록 한 화면을 다시 보기까지 걸리는 시간이 길어지고, 그 사이에 일어난 일은 사람이 볼 수 없습니다. 최근 경남 창녕군 사례는 이 문제를 숫자로 보여 줍니다. 1,515여 대의 CCTV를 관제요원 16명이 4조 3교대로 보면서, 근무자 1명이 맡는 화면이 300대를 넘어섰다는 것입니다.</p>
 
@@ -273,6 +331,23 @@
         <li><strong>VLM 서버 위치와 GPU를 정합니다.</strong> 영상이 외부로 나가지 않아야 한다면 온프레미스 구성으로 갑니다.</li>
       </ol>
 
+      <h2>자주 묻는 질문</h2>
+
+      <h3>CCTV 이벤트 팝업 관제란 무엇인가요?</h3>
+      <p>AI가 위험 상황을 감지하면 해당 카메라 영상을 관제요원 모니터에 자동으로 띄우는 관제 방식입니다. 사람이 모든 화면을 순서대로 넘겨 보는 대신, 봐야 할 화면이 사람에게 오게 바꾼 것입니다. 감지 · 표출 · 처리 기록 세 단계가 함께 갖춰져야 제대로 돌아갑니다.</p>
+
+      <h3>AI 관제의 오탐은 어떻게 줄이나요?</h3>
+      <p>NOX의 VLM 검출은 단계적으로 걸러 냅니다. 화면 변화가 있는 프레임만 넘기고, 객체를 검출한 뒤, 설정한 조건이 정해진 시간 동안 계속 맞을 때만 VLM 판정으로 넘기며, 신뢰도가 기준을 넘을 때만 이벤트를 냅니다. 도입 전에는 날씨 · 조명 · 동물이 많은 카메라를 골라 2~4주 시범 운영하며 규칙의 신뢰도와 쿨다운을 조정하는 것이 좋습니다.</p>
+
+      <h3>이벤트 팝업이 너무 많이 뜨면 어떻게 하나요?</h3>
+      <p>팝업 규칙마다 우선순위, 최소 심각도, 시간대, 대상 사용자, 쿨다운을 정해 꼭 필요한 이벤트만 띄웁니다. 같은 카메라에서 이벤트가 잇따르면 한 팝업으로 합쳐 횟수만 표시하고, 한 창에 동시에 뜨는 팝업은 최대 4개입니다. 우선순위가 낮아 팝업되지 않은 이벤트도 알림 목록에는 남습니다.</p>
+
+      <h3>관제요원이 이벤트를 처리한 기록은 어떻게 남나요?</h3>
+      <p>팝업의 확인 버튼을 누르면 누가 · 언제 확인했는지가 이벤트와 감사 로그에 기록되고, 최대 500자의 메모를 함께 남길 수 있습니다. 한 명이 확인하면 모든 모니터와 사용자 화면에서 같은 팝업이 함께 닫힙니다. 처리하지 못하고 놓친 알람은 이벤트 검색의 미확인 필터로 다시 찾을 수 있습니다.</p>
+
+      <h3>CCTV 1,500대 규모 관제센터는 어떻게 구성하나요?</h3>
+      <p>NOX 장비 1대는 권장 사양 기준 최대 128채널까지 동시에 녹화하므로(네트워크 환경에 따라 다름) 여러 대로 나눠 구성합니다. Enterprise 에디션의 페더레이션을 쓰면 본체 화면에서 다른 장비의 라이브, 녹화 검색, 재생을 함께 다룰 수 있습니다. 장비 장애에 대비하려면 n:1 페일오버를 함께 검토합니다.</p>
+
       <h2>마치며</h2>
 
       <p>카메라는 늘고 관제 인력은 그만큼 늘지 않습니다. 창녕군 사례가 보여 주듯 해법은 사람이 모든 화면을 보는 것이 아니라, AI가 잡은 화면을 사람에게 보내고 사람은 판단과 대응에 집중하게 하는 것입니다. 다만 이 방식은 감지 정확도, 표출 규칙, 처리 기록 세 가지가 함께 갖춰져야 제대로 돌아갑니다. 오탐이 많으면 팝업은 소음이 되고, 기록이 없으면 성과를 말할 수 없습니다.</p>
@@ -296,6 +371,16 @@
       </div>
 
       <div class="en-only">
+      <aside class="post-summary" aria-label="Key takeaways">
+        <p class="post-summary-label">Key takeaways</p>
+        <ul>
+          <li>Event popup monitoring automatically shows a camera's video on the operator's monitor when AI detects a dangerous situation; Changnyeong County in South Gyeongsang Province adopted it for about 1,515 CCTV cameras.</li>
+          <li>It only works when detection accuracy, display rules, and handling records are all in place; with too many false alarms, popups become noise.</li>
+          <li>NOX detects events through real-time video analytics, cameras' own events, and VLM detection, and picks what to pop up with priority, severity, schedule, and cooldown rules.</li>
+          <li>Who acknowledged an event and when is kept in the audit log, and operations reports deliver daily, weekly, or monthly statistics as a PDF.</li>
+        </ul>
+      </aside>
+
 
       <p>The problem every CCTV control center faces is that people cannot keep up with how fast cameras are added. In sequential monitoring, where operators cycle through screens in turn, every new camera lengthens the time before a screen comes around again — and whatever happens in between goes unseen. A recent case from Changnyeong County in South Gyeongsang Province, Korea, puts numbers on it: 16 operators working in four teams on three shifts watched about 1,515 CCTV cameras, and the screens assigned to one operator on duty passed 300.</p>
 
@@ -407,6 +492,23 @@
         <li><strong>Define the handling procedure and what to record.</strong> Deciding what goes into acknowledgement notes makes operations reports and incident reports easier.</li>
         <li><strong>Decide where the VLM server goes and which GPU it uses.</strong> If video must not leave the site, go with an on-premises setup.</li>
       </ol>
+
+      <h2>Frequently asked questions</h2>
+
+      <h3>What is CCTV event popup monitoring?</h3>
+      <p>It is a monitoring method in which, when AI detects a dangerous situation, that camera's video automatically pops up on the operator's monitor. Instead of people cycling through every screen, the screens that need attention come to people. It only works when the three stages of detection, display, and handling records are all in place.</p>
+
+      <h3>How do you reduce false alarms in AI monitoring?</h3>
+      <p>NOX's VLM detection filters in stages. It passes on only frames with on-screen change, detects objects, sends a case to VLM judgment only when the configured conditions hold for a set time, and raises an event only when confidence exceeds the threshold. Before adoption, pick cameras with lots of weather, lighting changes, or animals, run a 2–4 week pilot, and tune the rules' confidence and cooldown.</p>
+
+      <h3>What if too many event popups appear?</h3>
+      <p>Each popup rule sets priority, minimum severity, schedule, target users, and cooldown so that only the events that matter pop up. Repeated events from the same camera are merged into one popup that shows the count, and at most 4 popups appear in a window at once. Events that did not pop up because of low priority still remain in the notification list.</p>
+
+      <h3>How is an operator's handling of an event recorded?</h3>
+      <p>Pressing the popup's Acknowledge button records who acknowledged it and when on the event and in the audit log, and a note of up to 500 characters can be added. Once one person acknowledges, the same popup closes on every monitor and every user's screen. Alarms that were missed can be found again with the unacknowledged filter in event search.</p>
+
+      <h3>How do you set up a control center with 1,500 CCTV cameras?</h3>
+      <p>One NOX device records up to 128 channels at once on the recommended specification (actual results vary with the network environment), so the site is split across several devices. With federation in the Enterprise edition, the main screen can handle live view, recording search, and playback for the other devices. To prepare for device failures, also consider n:1 failover.</p>
 
       <h2>Wrapping up</h2>
 

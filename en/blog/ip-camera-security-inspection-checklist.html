@@ -48,7 +48,7 @@
       "url": "https://yiyol.com/en/blog/ip-camera-security-inspection-checklist.html",
       "image": "https://yiyol.com/img/nox-ui-001.jpeg",
       "datePublished": "2026-11-17",
-      "dateModified": "2026-11-17",
+      "dateModified": "2026-11-26",
       "author": {
         "@type": "Organization",
         "name": "YIYOL",
@@ -100,6 +100,54 @@
       ]
     }
   </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How can I tell whether the IP cameras in my store are safe from hacking?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Start by finding the manufacturer's support page from the model name and manufacturing date on the camera label, and check the date of the last firmware release and whether the model has reached end of support. Then give each camera its own new password, turn off unused vendor P2P cloud connections, remote access app links, and UPnP, and update the firmware. Things you cannot change, such as communication encryption, have to be covered at the network and recording system layers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which products had authentication flaws in the Korea Consumer Agency and KISA IP camera inspection?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The 3 products with weak user authentication were the RoboView GI-ROBOA7, the VSTARCAM-800X, and the Fineview K11. As of the reports, RoboView and Fineview had completed their fixes and VSTARCAM's fix was still in progress. Check each manufacturer and the original articles for the latest status."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What should I configure on the router to secure IP cameras?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Delete port forwarding and UPnP rules that lead straight to cameras, and use the router's outbound IP blocking (access control) feature so cameras cannot reach the outside internet. If you need to view video remotely, come in through the NVR/VMS rather than the cameras, and through a VPN rather than an open port where possible. Unplugging a camera does not remove the router's port forwarding rules."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do unsupported older IP cameras need to be replaced right away?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If replacing them all at once is not realistic, an intermediate step is to block the cameras from the outside internet and let NOX on the same internal network receive and record their video over ONVIF and RTSP. This reduces the risk but does not remove it, so set a replacement schedule for unsupported cameras as well. For a home camera, disconnecting it from the network entirely and using it only for SD card recording is another option."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What security features should an NVR/VMS have?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Check that it blocks the default account, rejects weak passwords, locks accounts after repeated failed logins, ends idle sessions automatically, encrypts connections with HTTPS, stores camera passwords encrypted, separates permissions by user, keeps a tamper-evident audit log, and encrypts exported backups. These items follow the same areas as the Korean NIS security requirements for video devices, so checking against them leaves few gaps even outside the public sector."
+          }
+        }
+      ]
+    }
+  </script>
 
   <!-- Fonts & CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -110,7 +158,7 @@
     />
   <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
     <link rel="stylesheet" href="/assets/css/site.css?v=3" />
-    <link rel="stylesheet" href="/assets/css/blog.css?v=2" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=3" />
 </head>
 <body class="yl">
 
@@ -168,6 +216,16 @@
       
 
       <div class="en-only">
+      <aside class="post-summary" aria-label="Key takeaways">
+        <p class="post-summary-label">Key takeaways</p>
+        <ul>
+          <li>In a November 2026 inspection of 10 IP camera products by the Korea Consumer Agency and KISA, 3 products had weak user authentication and all 10 needed better firmware security settings.</li>
+          <li>Communication encryption, firmware settings, and security update support cannot be changed by the user, so replacing the camera alone does not solve the problem.</li>
+          <li>The checklist has three layers: cameras (passwords, remote features, firmware), the network (remove port forwarding, block outside internet access, one way in), and the recording system (authentication, lockout, sessions, encryption, audit records).</li>
+          <li>The core idea is to cut cameras off from the internet, bring every way in to view video down to one NVR/VMS, and protect that one entrance.</li>
+        </ul>
+      </aside>
+
 
       <p>On November 12, 2026, the Korea Consumer Agency and the Korea Internet &amp; Security Agency (KISA) published the results of a security inspection of 10 IP camera products sold in Korea. In 3 of them, user authentication was weak enough that an attacker could download other users' camera video and images or control the camera remotely. If you run IP cameras in a shop, an office, or an apartment management office, the first question is probably "Are our cameras safe?"</p>
 
@@ -276,6 +334,23 @@
       </blockquote>
 
       <p>Add the checklist above as a routine inspection item and it becomes part of the case for a maintenance contract. Reporting security checks together with operational checks such as recording gaps, offline cameras, and disk health makes the value clear to the customer.</p>
+
+      <h2>Frequently asked questions</h2>
+
+      <h3>How can I tell whether the IP cameras in my store are safe from hacking?</h3>
+      <p>Start by finding the manufacturer's support page from the model name and manufacturing date on the camera label, and check the date of the last firmware release and whether the model has reached end of support. Then give each camera its own new password, turn off unused vendor P2P cloud connections, remote access app links, and UPnP, and update the firmware. Things you cannot change, such as communication encryption, have to be covered at the network and recording system layers.</p>
+
+      <h3>Which products had authentication flaws in the Korea Consumer Agency and KISA IP camera inspection?</h3>
+      <p>The 3 products with weak user authentication were the RoboView GI-ROBOA7, the VSTARCAM-800X, and the Fineview K11. As of the reports, RoboView and Fineview had completed their fixes and VSTARCAM's fix was still in progress. Check each manufacturer and the original articles for the latest status.</p>
+
+      <h3>What should I configure on the router to secure IP cameras?</h3>
+      <p>Delete port forwarding and UPnP rules that lead straight to cameras, and use the router's outbound IP blocking (access control) feature so cameras cannot reach the outside internet. If you need to view video remotely, come in through the NVR/VMS rather than the cameras, and through a VPN rather than an open port where possible. Unplugging a camera does not remove the router's port forwarding rules.</p>
+
+      <h3>Do unsupported older IP cameras need to be replaced right away?</h3>
+      <p>If replacing them all at once is not realistic, an intermediate step is to block the cameras from the outside internet and let NOX on the same internal network receive and record their video over ONVIF and RTSP. This reduces the risk but does not remove it, so set a replacement schedule for unsupported cameras as well. For a home camera, disconnecting it from the network entirely and using it only for SD card recording is another option.</p>
+
+      <h3>What security features should an NVR/VMS have?</h3>
+      <p>Check that it blocks the default account, rejects weak passwords, locks accounts after repeated failed logins, ends idle sessions automatically, encrypts connections with HTTPS, stores camera passwords encrypted, separates permissions by user, keeps a tamper-evident audit log, and encrypts exported backups. These items follow the same areas as the Korean NIS security requirements for video devices, so checking against them leaves few gaps even outside the public sector.</p>
 
       <h2>Wrapping up</h2>
 

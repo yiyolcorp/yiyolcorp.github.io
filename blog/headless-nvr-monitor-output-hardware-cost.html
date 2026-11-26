@@ -48,7 +48,7 @@
     "url": "https://yiyol.com/blog/headless-nvr-monitor-output-hardware-cost.html",
     "image": "https://yiyol.com/img/nox/live-layout.jpeg",
     "datePublished": "2026-09-15",
-    "dateModified": "2026-09-15",
+    "dateModified": "2026-11-26",
     "author": {
       "@type": "Organization",
       "name": "YIYOL",
@@ -91,6 +91,55 @@
   }
   </script>
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "헤드리스 NVR이란 무엇인가?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "헤드리스 NVR은 본체의 로컬 모니터 출력을 제거하고, 라이브 영상의 디코딩과 화면 구성을 모바일·PC 클라이언트로 이전한 NVR이다. 서버는 녹화와 스트림 중계, AI 분석에만 자원을 사용한다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "NVR에 모니터를 연결하지 않으면 녹화가 되는지 어떻게 확인하나?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "채널별 기록 상태와 디스크 잔량, 카메라 연결 끊김 알림으로 확인한다. 화면 출력은 녹화 상태를 보장하지 않으며, 이 정보는 화면 없이 모바일 알림으로 전달된다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "NVR 녹화에도 GPU가 필요한가?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "녹화만 수행할 때는 디코딩과 GPU 처리 단계가 발생하지 않는다. 녹화는 카메라가 보낸 H.264/H.265 스트림을 디코딩 없이 디스크에 기록하고, 병목은 연산이 아니라 디스크 대역폭이다. 32채널 녹화는 저사양 보드에서도 동작한다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "모니터 출력이 없는 NVR도 공공 조달에 참여할 수 있나?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "조달 규격에 HDMI 출력이 명시돼 있으면 출력단이 없는 모델은 입찰 참여가 제한된다. 현실적인 방안은 출력을 옵션 사양으로 두고, 소프트웨어가 로컬 출력을 전제로 동작하지 않도록 설계하는 것이다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "헤드리스 NVR은 네트워크 대역폭을 더 쓰나?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "그렇다. 로컬 출력은 네트워크를 사용하지 않지만, 헤드리스 구조는 접속 사용자 수만큼 대역폭을 사용한다. 사내망에서는 영향이 크지 않으나 원격 접속 비중이 높은 현장은 설계 단계에서 반영해야 한다."
+        }
+      }
+    ]
+  }
+  </script>
+
   <!-- Fonts & CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -100,7 +149,7 @@
     />
   <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
     <link rel="stylesheet" href="/assets/css/site.css?v=3" />
-    <link rel="stylesheet" href="/assets/css/blog.css?v=1" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=3" />
 
   <style>
     /* Live-grid pipeline — hairline diagram, tokens only, reflows to a column
@@ -270,6 +319,16 @@
     <article class="post-article">
       <div class="ko-only">
 
+      <aside class="post-summary" aria-label="핵심 요약">
+        <p class="post-summary-label">핵심 요약</p>
+        <ul>
+          <li>헤드리스 NVR은 본체의 로컬 모니터 출력을 없애고, 라이브 영상 디코딩과 화면 구성을 모바일·PC 클라이언트로 옮긴 NVR 구조다.</li>
+          <li>NVR 사양을 결정하는 주 요인은 녹화가 아니라 화면 출력이다. 녹화는 디코딩 없이 디스크에 기록하지만, 격자 출력은 채널마다 디코딩·색공간 변환·스케일링·합성을 거친다.</li>
+          <li>로컬 출력을 걷어내면 GPU·메모리·방열·전원 사양이 함께 내려가고, 남는 GPU 자원을 AI 분석에 쓸 수 있다.</li>
+          <li>도입 전에는 설치 시 상태 확인 수단, 네트워크 장애 시 접근 경로, 조달 규격의 출력 단자 요구, 클라이언트 스트림 설계, 네트워크 대역폭을 검토해야 한다.</li>
+        </ul>
+      </aside>
+
       <p><strong>헤드리스 NVR</strong>은 본체의 로컬 모니터 출력을 제거하고, 라이브 영상의 디코딩과 화면 구성을 모바일·PC 클라이언트로 이전한 NVR 구조다. 서버는 녹화와 스트림 중계, AI 분석에만 자원을 사용한다.</p>
 
       <p>현재 국내에 설치된 대부분의 NVR은 반대 구성으로 운영된다. 본체에 모니터를 연결하고 16분할 격자를 상시 출력한다. 교대 인력이 화면을 감시하는 관제센터에서는 타당한 구성이다. 그러나 공장, 물류창고, 학교, 상가, 중소 사업장에는 상주 감시 인력이 없다. 화면은 상시 출력되지만 실제 열람은 사고 발생 이후 해당 구간을 재생할 때 이뤄진다.</p>
@@ -438,6 +497,23 @@
 
       <p>로컬 화면이 꺼져 있으면 녹화 여부를 확인할 수 없다는 지적이 있다. 그러나 <strong>화면 출력은 녹화 상태를 보장하지 않는다.</strong> 채널별 기록 상태와 디스크 잔량, 카메라 연결 끊김 알림으로 확인하는 것이 정확하며, 이 정보는 화면 없이 모바일 알림으로 전달된다. 상태 확인은 알림으로, 영상 열람은 필요 시점에 클라이언트로 수행하는 것이 운영 관점에서 효율적이다.</p>
 
+      <h2>자주 묻는 질문</h2>
+
+      <h3>헤드리스 NVR이란 무엇인가?</h3>
+      <p>헤드리스 NVR은 본체의 로컬 모니터 출력을 제거하고, 라이브 영상의 디코딩과 화면 구성을 모바일·PC 클라이언트로 이전한 NVR이다. 서버는 녹화와 스트림 중계, AI 분석에만 자원을 사용한다.</p>
+
+      <h3>NVR에 모니터를 연결하지 않으면 녹화가 되는지 어떻게 확인하나?</h3>
+      <p>채널별 기록 상태와 디스크 잔량, 카메라 연결 끊김 알림으로 확인한다. 화면 출력은 녹화 상태를 보장하지 않으며, 이 정보는 화면 없이 모바일 알림으로 전달된다.</p>
+
+      <h3>NVR 녹화에도 GPU가 필요한가?</h3>
+      <p>녹화만 수행할 때는 디코딩과 GPU 처리 단계가 발생하지 않는다. 녹화는 카메라가 보낸 H.264/H.265 스트림을 디코딩 없이 디스크에 기록하고, 병목은 연산이 아니라 디스크 대역폭이다. 32채널 녹화는 저사양 보드에서도 동작한다.</p>
+
+      <h3>모니터 출력이 없는 NVR도 공공 조달에 참여할 수 있나?</h3>
+      <p>조달 규격에 HDMI 출력이 명시돼 있으면 출력단이 없는 모델은 입찰 참여가 제한된다. 현실적인 방안은 출력을 옵션 사양으로 두고, 소프트웨어가 로컬 출력을 전제로 동작하지 않도록 설계하는 것이다.</p>
+
+      <h3>헤드리스 NVR은 네트워크 대역폭을 더 쓰나?</h3>
+      <p>그렇다. 로컬 출력은 네트워크를 사용하지 않지만, 헤드리스 구조는 접속 사용자 수만큼 대역폭을 사용한다. 사내망에서는 영향이 크지 않으나 원격 접속 비중이 높은 현장은 설계 단계에서 반영해야 한다.</p>
+
       <h2>결론: 사용하지 않는 출력단이 원가를 결정한다</h2>
 
       <p><strong>헤드리스 NVR은 기능을 축소한 제품이 아니라 연산 위치를 재배치한 구조다.</strong> 로컬 출력에 할당되던 디코딩·스케일링·합성 부하를 조회 시점의 클라이언트로 이전하면 GPU와 메모리, 방열, 전원 사양이 함께 내려간다. 확보한 자원은 AI 분석 채널로 전환하거나 보드 등급 하향을 통해 원가에 반영할 수 있다.</p>
@@ -462,6 +538,16 @@
       </div>
 
       <div class="en-only">
+
+      <aside class="post-summary" aria-label="Key takeaways">
+        <p class="post-summary-label">Key takeaways</p>
+        <ul>
+          <li>A headless NVR removes the unit's local monitor output and moves live-video decoding and screen composition to mobile and PC clients.</li>
+          <li>The main driver of NVR specifications is display output, not recording: recording writes streams to disk without decoding, while a grid display decodes, color-converts, scales, and composites every channel.</li>
+          <li>Removing local output lowers GPU, memory, thermal, and power specifications together, and the freed GPU resources can go to AI analytics.</li>
+          <li>Before adopting it, review status checks during installation, the access path during network failures, output port requirements in procurement specs, client-side stream design, and network bandwidth.</li>
+        </ul>
+      </aside>
       <p>A <strong>headless NVR</strong> is an NVR architecture that removes the unit's local monitor output and moves live-video decoding and screen composition to mobile and PC clients. The server spends its resources only on recording, stream relay, and AI analytics.</p>
 
       <p>Most NVRs installed in Korea today run the opposite way: a monitor is attached to the unit and a 16-way grid is displayed around the clock. That makes sense in a control room where shift operators watch the screens. Factories, warehouses, schools, retail buildings, and small businesses, however, have no one watching full time. The screen is always on, but footage is actually viewed only after an incident, when someone plays back the relevant segment.</p>
@@ -629,6 +715,23 @@
       <h2>A common objection: without a screen, you can't confirm recording status</h2>
 
       <p>Some point out that if the local screen is off, there is no way to tell whether recording is working. But <strong>display output does not guarantee recording status.</strong> Per-channel recording status, remaining disk space, and camera disconnection alerts are the accurate way to check, and this information is delivered as mobile notifications without any screen. Operationally, it is more efficient to monitor status through alerts and view footage on a client when needed.</p>
+
+      <h2>Frequently asked questions</h2>
+
+      <h3>What is a headless NVR?</h3>
+      <p>A headless NVR is an NVR that removes the unit's local monitor output and moves live-video decoding and screen composition to mobile and PC clients. The server spends its resources only on recording, stream relay, and AI analytics.</p>
+
+      <h3>Without a monitor attached, how do you confirm an NVR is recording?</h3>
+      <p>Check per-channel recording status, remaining disk space, and camera disconnection alerts. Display output does not guarantee recording status, and this information is delivered as mobile notifications without any screen.</p>
+
+      <h3>Does NVR recording need a GPU?</h3>
+      <p>When the NVR only records, the decoding and GPU stages do not occur. Recording writes the H.264/H.265 stream sent by the camera to disk without decoding, and the bottleneck is disk bandwidth, not compute. 32-channel recording runs even on low-end boards.</p>
+
+      <h3>Can an NVR without monitor output bid in public procurement?</h3>
+      <p>When public procurement specs require HDMI output, models without output ports cannot bid. The practical approach is to make output an optional feature and design the software so it does not assume local output.</p>
+
+      <h3>Does a headless NVR use more network bandwidth?</h3>
+      <p>Yes. Local output uses no network, but a headless architecture consumes bandwidth per connected user. On an internal network the impact is small, but sites with a high share of remote access must account for it at design time.</p>
 
       <h2>Conclusion: unused output stages drive cost</h2>
 

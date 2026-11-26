@@ -47,7 +47,7 @@
     />
     <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
     <link rel="stylesheet" href="/assets/css/site.css?v=3" />
-    <link rel="stylesheet" href="/assets/css/blog.css?v=1" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=3" />
 
     <style>
       /* Calculator Page Styles */
@@ -460,6 +460,8 @@
       .calc-related p { margin: 0.25rem 0 0; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.55; }
 
       /* Reference Table */
+      .calc-faq h3 { font-size: 1rem; font-weight: 600; color: var(--text-primary); margin: 1.25rem 0 0.35rem; }
+      .calc-faq p { margin: 0; color: var(--text-secondary); line-height: 1.7; }
       .calc-ref-section {
         margin-top: 3rem;
       }
@@ -563,6 +565,8 @@
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web Browser",
       "description": "Calculate required capacity for both the video Data Disk and the OS/database System Disk of an NVR.",
+      "datePublished": "2026-03-29",
+      "dateModified": "2026-11-26",
       "provider": {
         "@type": "Organization",
         "name": "YIYOL"
@@ -591,6 +595,54 @@
         "position": 3,
         "name": "NVR 디스크 용량 계산기 (시스템 + 데이터)",
         "item": "https://yiyol.com/blog/nvr-disk-calculator.html"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "NVR 시스템 디스크와 데이터 디스크는 무엇이 다른가요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "데이터 디스크에는 카메라 RTSP 스트림을 녹화한 영상 파일이 저장되고, 시스템 디스크에는 OS·Docker 이미지와 PostgreSQL 메타데이터가 저장됩니다. 영상 원본은 PostgreSQL에 들어가지 않고 세그먼트 인덱스·이벤트 같은 메타데이터만 기록되므로 시스템 디스크는 데이터 디스크보다 훨씬 작습니다. 그래서 데이터 디스크는 대용량 HDD, 시스템 디스크는 SSD를 쓰는 것이 일반적입니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "NVR 시스템 디스크(SSD)는 몇 GB가 필요한가요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "보통 수십 GB 규모입니다. 계산기는 OS·Docker 기본 용량(기본 40GB)에 PostgreSQL 메타데이터를 더하고, 시스템 디스크를 가득 채우지 않도록 여유 마진을 붙여 계산합니다. 채널 수, 녹화 시간, 보관 일수가 늘면 메타데이터도 함께 늘어납니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "NVR의 PostgreSQL 메타데이터 용량은 어떻게 계산하나요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "1분 단위 세그먼트 기준으로 행 수(60 × 녹화시간 × 보관일수 × 채널수)를 구하고 행당 크기(암호화 5KB, 비암호화 3KB)를 곱합니다. 여기에 이벤트·분석 활동량 비율과 WAL·인덱스·VACUUM 여유분 1.25를 곱하며, 오디오를 함께 녹화하면 트랙당 1.5KB가 더해집니다. 실제 사용량은 PostgreSQL의 TOAST 압축 덕분에 더 작을 수 있습니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "녹화 암호화를 켜면 시스템 디스크가 더 필요한가요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "그렇습니다. 녹화 암호화(NOXV / NIS)를 켜면 메타데이터 행 크기가 비암호화 3KB에서 5KB로 커집니다. 계산기에서 녹화 암호화 옵션을 선택하면 이 차이가 시스템 디스크 용량에 반영됩니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "NVR 데이터 디스크 용량은 어떻게 정하나요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "일일 용량(GB) = 비트레이트(Mbps) × (FPS ÷ 30) × 3,600 × 녹화시간(h) × 채널수 ÷ 8 ÷ 1,000으로 하루치를 구하고, 보관 일수를 곱한 뒤 1,000으로 나누면 필요한 TB가 나옵니다. 예를 들어 1080p 카메라 1대를 30fps로 24시간 녹화하면 하루 43.2~86.4GB가 쌓입니다. 계산기의 '디스크 용량 산정' 탭은 이 값과 권장 HDD 구성을 함께 보여 줍니다."
+        }
       }
     ]
   }
@@ -954,6 +1006,28 @@
         </div>
       </div>
 
+      <!-- Summary -->
+      <div class="calc-ref-section calc-summary">
+        <aside class="post-summary ko-only" aria-label="핵심 요약">
+          <p class="post-summary-label">핵심 요약</p>
+          <ul>
+            <li>NVR 디스크는 영상 파일을 담는 데이터 디스크와 OS·Docker·PostgreSQL 메타데이터를 담는 시스템 디스크로 나눠 산정해야 합니다.</li>
+            <li>데이터 디스크는 채널·비트레이트·보관 기간에 비례해 수 TB~수십 TB로 커지며, 보통 대용량 HDD를 씁니다.</li>
+            <li>시스템 디스크에는 영상이 아니라 녹화 세그먼트 인덱스·이벤트 같은 색인만 기록되므로 수십 GB 규모이고, 보통 SSD를 씁니다.</li>
+            <li>녹화 암호화, 오디오 녹화, 이벤트·분석 활동량에 따라 메타데이터 크기가 달라지며, 계산기 옵션으로 반영합니다.</li>
+          </ul>
+        </aside>
+        <aside class="post-summary en-only" aria-label="Key takeaways">
+          <p class="post-summary-label">Key takeaways</p>
+          <ul>
+            <li>NVR storage should be sized as two disks: a Data Disk for video files and a System Disk for the OS, Docker, and PostgreSQL metadata.</li>
+            <li>The Data Disk grows to many TB with channels, bitrate, and retention, and usually uses large HDDs.</li>
+            <li>The System Disk holds only an index such as recording segment entries and events, not video, so it is only tens of GB and usually an SSD.</li>
+            <li>Encrypted recording, audio recording, and event/analytics activity change the metadata size, and the calculator accounts for them as options.</li>
+          </ul>
+        </aside>
+      </div>
+
       <!-- Reference Table -->
       <div class="calc-ref-section">
         <h2 class="calc-ref-title ko-only">
@@ -1044,6 +1118,44 @@
               ※ Video is never stored in PostgreSQL (metadata only).
             </span>
           </code>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="calc-ref-section calc-faq">
+        <h2 class="calc-ref-title ko-only">자주 묻는 질문</h2>
+        <h2 class="calc-ref-title en-only">Frequently asked questions</h2>
+        <div class="ko-only">
+          <h3>NVR 시스템 디스크와 데이터 디스크는 무엇이 다른가요?</h3>
+          <p>데이터 디스크에는 카메라 RTSP 스트림을 녹화한 영상 파일이 저장되고, 시스템 디스크에는 OS·Docker 이미지와 PostgreSQL 메타데이터가 저장됩니다. 영상 원본은 PostgreSQL에 들어가지 않고 세그먼트 인덱스·이벤트 같은 메타데이터만 기록되므로 시스템 디스크는 데이터 디스크보다 훨씬 작습니다. 그래서 데이터 디스크는 대용량 HDD, 시스템 디스크는 SSD를 쓰는 것이 일반적입니다.</p>
+
+          <h3>NVR 시스템 디스크(SSD)는 몇 GB가 필요한가요?</h3>
+          <p>보통 수십 GB 규모입니다. 계산기는 OS·Docker 기본 용량(기본 40GB)에 PostgreSQL 메타데이터를 더하고, 시스템 디스크를 가득 채우지 않도록 여유 마진을 붙여 계산합니다. 채널 수, 녹화 시간, 보관 일수가 늘면 메타데이터도 함께 늘어납니다.</p>
+
+          <h3>NVR의 PostgreSQL 메타데이터 용량은 어떻게 계산하나요?</h3>
+          <p>1분 단위 세그먼트 기준으로 행 수(60 × 녹화시간 × 보관일수 × 채널수)를 구하고 행당 크기(암호화 5KB, 비암호화 3KB)를 곱합니다. 여기에 이벤트·분석 활동량 비율과 WAL·인덱스·VACUUM 여유분 1.25를 곱하며, 오디오를 함께 녹화하면 트랙당 1.5KB가 더해집니다. 실제 사용량은 PostgreSQL의 TOAST 압축 덕분에 더 작을 수 있습니다.</p>
+
+          <h3>녹화 암호화를 켜면 시스템 디스크가 더 필요한가요?</h3>
+          <p>그렇습니다. 녹화 암호화(NOXV / NIS)를 켜면 메타데이터 행 크기가 비암호화 3KB에서 5KB로 커집니다. 계산기에서 녹화 암호화 옵션을 선택하면 이 차이가 시스템 디스크 용량에 반영됩니다.</p>
+
+          <h3>NVR 데이터 디스크 용량은 어떻게 정하나요?</h3>
+          <p>일일 용량(GB) = 비트레이트(Mbps) × (FPS ÷ 30) × 3,600 × 녹화시간(h) × 채널수 ÷ 8 ÷ 1,000으로 하루치를 구하고, 보관 일수를 곱한 뒤 1,000으로 나누면 필요한 TB가 나옵니다. 예를 들어 1080p 카메라 1대를 30fps로 24시간 녹화하면 하루 43.2~86.4GB가 쌓입니다. 계산기의 '디스크 용량 산정' 탭은 이 값과 권장 HDD 구성을 함께 보여 줍니다.</p>
+        </div>
+        <div class="en-only">
+          <h3>What is the difference between an NVR system disk and data disk?</h3>
+          <p>The Data Disk stores the video files recorded from camera RTSP streams, while the System Disk stores the OS/Docker images and PostgreSQL metadata. Video is never stored in PostgreSQL, only metadata such as the segment index and events, so the System Disk is far smaller than the Data Disk. That is why the Data Disk usually uses large HDDs and the System Disk an SSD.</p>
+
+          <h3>How many GB does an NVR system disk (SSD) need?</h3>
+          <p>Usually only tens of GB. The calculator adds PostgreSQL metadata to the base OS/Docker size (default 40GB) and applies a safety margin so the system disk never fills up. Metadata grows as channels, recording hours, and retention days increase.</p>
+
+          <h3>How is NVR PostgreSQL metadata size calculated?</h3>
+          <p>Count rows on a 1-minute segment basis (60 × Hours × Days × Channels) and multiply by the row size (5KB encrypted, 3KB plain). Then multiply by the event/analytics activity ratio and by 1.25 for WAL, index, and VACUUM headroom, adding 1.5KB per row per track if audio is recorded. Actual usage may be smaller thanks to PostgreSQL TOAST compression.</p>
+
+          <h3>Does encrypted recording need a larger system disk?</h3>
+          <p>Yes. With encrypted recording (NOXV / NIS) turned on, each metadata row grows from 3KB to 5KB. Selecting the encrypted recording option in the calculator reflects that difference in the System Disk size.</p>
+
+          <h3>How do you size an NVR data disk?</h3>
+          <p>Compute daily data with Daily (GB) = Bitrate (Mbps) × (FPS ÷ 30) × 3,600 × Hours (h) × Channels ÷ 8 ÷ 1,000, then multiply by retention days and divide by 1,000 to get the TB required. For example, one 1080p camera recording 24 hours at 30fps produces 43.2–86.4 GB per day. The calculator's Disk Sizing tab shows this value together with a recommended HDD configuration.</p>
         </div>
       </div>
 

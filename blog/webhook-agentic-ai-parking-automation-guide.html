@@ -47,7 +47,7 @@
     "description": "NOX NVR WebHook을 활용해 번호판 인식(LPR)부터 차단기 자동 제어까지 — 주차장 Agentic AI 자동화 시스템을 단계별로 구현하는 실전 개발 가이드입니다.",
     "url": "https://yiyol.com/blog/webhook-agentic-ai-parking-automation-guide.html",
     "datePublished": "2026-04-21",
-    "dateModified": "2026-04-21",
+    "dateModified": "2026-11-26",
     "author": {
       "@type": "Organization",
       "name": "YIYOL",
@@ -89,6 +89,54 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "번호판 인식으로 주차장 차단기를 자동으로 여는 방법은?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "NOX NVR의 LPR 이벤트 WebHook을 받는 서버를 두고, 인식된 번호판이 화이트리스트 DB에 있으면 차단기 API를 호출해 개방한다. WebHook 서버 URL은 NOX NVR 관리 콘솔의 이벤트 설정 → WebHook 구성에서 등록한다. 전체 처리는 번호판 인식 후 1~2초 이내에 끝난다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "NOX NVR WebHook 페이로드에는 어떤 정보가 들어 있나?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "event_type, timestamp, camera_id, camera_name, channel, device_id, site_id와 함께 data 안에 인식된 번호판(license_plate), 인식 정확도(confidence), 입차·출차 방향(direction), 스냅샷 이미지 URL이 담긴다. 이벤트 종류는 event_type으로 구분하며 lpr_detected, motion_detected, line_crossing 등이 있다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "번호판 인식 신뢰도(confidence) 기준은 얼마로 잡아야 하나?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "처음에는 0.85로 시작하고 실제 운영 데이터를 보면서 조정한다. confidence 값은 카메라 화질, 조명, 번호판 상태에 따라 달라지며, 야간 운영 환경이라면 0.80으로 낮추는 것도 고려할 수 있다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "같은 WebHook 이벤트가 두 번 들어오면 어떻게 처리하나?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "네트워크 문제로 WebHook 수신에 실패할 수 있으므로, 같은 이벤트를 여러 번 받아도 한 번만 처리되도록(멱등성) 설계한다. device_id, timestamp, 번호판을 묶어 event_id를 만들고, 이미 처리한 event_id면 처리하지 않고 넘어간다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "차단기 API가 느릴 때 WebHook 타임아웃은 어떻게 피하나?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "WebHook 응답은 NVR에 즉시 반환하고 차단기 제어는 비동기로 처리한다. 차단기 제어 API 호출이 실패하면 로그에 기록하고 수동 처리를 위한 알림을 발송한다."
+      }
+    }
+  ]
+}
+  </script>
 
   <!-- Fonts & CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -99,7 +147,7 @@
     />
   <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
     <link rel="stylesheet" href="/assets/css/site.css?v=3" />
-    <link rel="stylesheet" href="/assets/css/blog.css?v=1" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=3" />
 
   </head>
 <body class="yl">
@@ -159,6 +207,16 @@
     <article class="post-article">
 
       <div class="ko-only">
+      <aside class="post-summary" aria-label="핵심 요약">
+        <p class="post-summary-label">핵심 요약</p>
+        <ul>
+          <li>NOX NVR은 번호판(LPR) 인식 즉시 외부 서버로 WebHook을 HTTP POST로 보내고, 그 이후의 판단과 제어 로직은 개발자가 자유롭게 구성한다.</li>
+          <li>WebHook 서버는 신뢰도가 낮은 인식을 걸러 낸 뒤 화이트리스트 DB를 조회하고, 등록 차량이면 차단기 API 호출·주차 기록·알림을 병렬로 처리한다.</li>
+          <li>WebHook은 NVR에서 외부 서버로 이벤트를 보내고, REST API는 외부 서버에서 NVR의 카메라 목록·스냅샷·이벤트 기록을 조회한다. 둘을 함께 쓰면 양방향 자동화가 된다.</li>
+          <li>운영에서는 중복 이벤트 처리 방지, 즉시 응답 후 비동기 처리, 신뢰도 임계값 조정이 중요하다.</li>
+        </ul>
+      </aside>
+
       <p>번호판이 카메라에 잡히는 순간, 차단기가 열린다. 사람의 개입은 없다.</p>
 
       <p>이것이 Agentic AI 주차장 자동화의 결과다. 그리고 이 결과를 만드는 건 복잡한 AI 인프라가 아니다. NVR의 WebHook 하나면 충분하다.</p>
@@ -500,6 +558,23 @@ async def handle_nvr_event(request: Request):
 
       <p><code>confidence</code> 값은 카메라 화질, 조명, 번호판 상태에 따라 달라진다. 처음에는 0.85로 시작하고, 실제 운영 데이터를 보면서 조정한다. 야간 운영 환경이라면 0.80으로 낮추는 것도 고려할 수 있다.</p>
 
+      <h2>자주 묻는 질문</h2>
+
+      <h3>번호판 인식으로 주차장 차단기를 자동으로 여는 방법은?</h3>
+      <p>NOX NVR의 LPR 이벤트 WebHook을 받는 서버를 두고, 인식된 번호판이 화이트리스트 DB에 있으면 차단기 API를 호출해 개방한다. WebHook 서버 URL은 NOX NVR 관리 콘솔의 이벤트 설정 → WebHook 구성에서 등록한다. 전체 처리는 번호판 인식 후 1~2초 이내에 끝난다.</p>
+
+      <h3>NOX NVR WebHook 페이로드에는 어떤 정보가 들어 있나?</h3>
+      <p>event_type, timestamp, camera_id, camera_name, channel, device_id, site_id와 함께 data 안에 인식된 번호판(license_plate), 인식 정확도(confidence), 입차·출차 방향(direction), 스냅샷 이미지 URL이 담긴다. 이벤트 종류는 event_type으로 구분하며 lpr_detected, motion_detected, line_crossing 등이 있다.</p>
+
+      <h3>번호판 인식 신뢰도(confidence) 기준은 얼마로 잡아야 하나?</h3>
+      <p>처음에는 0.85로 시작하고 실제 운영 데이터를 보면서 조정한다. confidence 값은 카메라 화질, 조명, 번호판 상태에 따라 달라지며, 야간 운영 환경이라면 0.80으로 낮추는 것도 고려할 수 있다.</p>
+
+      <h3>같은 WebHook 이벤트가 두 번 들어오면 어떻게 처리하나?</h3>
+      <p>네트워크 문제로 WebHook 수신에 실패할 수 있으므로, 같은 이벤트를 여러 번 받아도 한 번만 처리되도록(멱등성) 설계한다. device_id, timestamp, 번호판을 묶어 event_id를 만들고, 이미 처리한 event_id면 처리하지 않고 넘어간다.</p>
+
+      <h3>차단기 API가 느릴 때 WebHook 타임아웃은 어떻게 피하나?</h3>
+      <p>WebHook 응답은 NVR에 즉시 반환하고 차단기 제어는 비동기로 처리한다. 차단기 제어 API 호출이 실패하면 로그에 기록하고 수동 처리를 위한 알림을 발송한다.</p>
+
       <h2>정리</h2>
 
       <p>NOX NVR WebHook을 활용한 주차장 Agentic AI 자동화의 핵심은 단순하다:</p>
@@ -555,6 +630,16 @@ async def handle_nvr_event(request: Request):
       </div>
 
       <div class="en-only">
+      <aside class="post-summary" aria-label="Key takeaways">
+        <p class="post-summary-label">Key takeaways</p>
+        <ul>
+          <li>NOX NVR sends a WebHook as an HTTP POST to an external server the instant it recognizes a license plate (LPR), and developers are free to build the decision and control logic that follows.</li>
+          <li>The WebHook server filters out low-confidence reads, checks a whitelist DB, and for registered vehicles opens the gate, records the parking event, and sends a notification in parallel.</li>
+          <li>The WebHook pushes events from the NVR to your server, and the REST API lets your server query the NVR's camera list, snapshots, and event history; together they give two-way automation.</li>
+          <li>In operation, the keys are preventing duplicate processing, responding immediately and processing asynchronously, and tuning the confidence threshold.</li>
+        </ul>
+      </aside>
+
       <p>The moment a license plate is caught on camera, the gate opens. No human involvement.</p>
 
       <p>That is the outcome of Agentic AI parking automation. And what makes it possible is not complex AI infrastructure. A single NVR WebHook is enough.</p>
@@ -895,6 +980,23 @@ async def handle_nvr_event(request: Request):
       <h3>3. Tuning the Confidence Threshold</h3>
 
       <p>The <code>confidence</code> value varies with camera image quality, lighting, and plate condition. Start at 0.85 and adjust based on real operating data. For night-time operation, you may consider lowering it to 0.80.</p>
+
+      <h2>Frequently asked questions</h2>
+
+      <h3>How do I open a parking gate automatically with license plate recognition?</h3>
+      <p>Run a server that receives NOX NVR LPR event WebHooks, and when the recognized plate is in your whitelist DB, call the gate API to open it. Register the WebHook server URL in the NOX NVR admin console under Event Settings → WebHook Configuration. The whole process finishes within 1–2 seconds of plate recognition.</p>
+
+      <h3>What does the NOX NVR WebHook payload contain?</h3>
+      <p>It carries event_type, timestamp, camera_id, camera_name, channel, device_id, and site_id, and inside data the recognized plate (license_plate), recognition confidence (confidence), entry or exit direction (direction), and snapshot image URLs. The event kind is identified by event_type, such as lpr_detected, motion_detected, or line_crossing.</p>
+
+      <h3>What confidence threshold should I use for license plate recognition?</h3>
+      <p>Start at 0.85 and adjust based on real operating data. The confidence value varies with camera image quality, lighting, and plate condition, and for night-time operation you may consider lowering it to 0.80.</p>
+
+      <h3>How do I handle the same WebHook event arriving twice?</h3>
+      <p>WebHook delivery can fail due to network issues, so design the handler to be idempotent: receiving the same event more than once must process it only once. Build an event_id from device_id, timestamp, and the plate, and skip any event_id that has already been processed.</p>
+
+      <h3>How do I avoid WebHook timeouts when the gate API is slow?</h3>
+      <p>Return the WebHook response to the NVR immediately and process gate control asynchronously. If the gate control API call fails, log it and send an alert for manual handling.</p>
 
       <h2>Summary</h2>
 

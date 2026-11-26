@@ -50,7 +50,7 @@
       "url": "https://yiyol.com/en/blog/headless-nvr-monitor-output-hardware-cost.html",
       "image": "https://yiyol.com/img/nox/live-layout.jpeg",
       "datePublished": "2026-09-15",
-      "dateModified": "2026-09-15",
+      "dateModified": "2026-11-26",
       "author": {
         "@type": "Organization",
         "name": "YIYOL",
@@ -103,6 +103,55 @@
     }
   </script>
 
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a headless NVR?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A headless NVR is an NVR that removes the unit's local monitor output and moves live-video decoding and screen composition to mobile and PC clients. The server spends its resources only on recording, stream relay, and AI analytics."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Without a monitor attached, how do you confirm an NVR is recording?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Check per-channel recording status, remaining disk space, and camera disconnection alerts. Display output does not guarantee recording status, and this information is delivered as mobile notifications without any screen."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does NVR recording need a GPU?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "When the NVR only records, the decoding and GPU stages do not occur. Recording writes the H.264/H.265 stream sent by the camera to disk without decoding, and the bottleneck is disk bandwidth, not compute. 32-channel recording runs even on low-end boards."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can an NVR without monitor output bid in public procurement?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "When public procurement specs require HDMI output, models without output ports cannot bid. The practical approach is to make output an optional feature and design the software so it does not assume local output."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does a headless NVR use more network bandwidth?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Local output uses no network, but a headless architecture consumes bandwidth per connected user. On an internal network the impact is small, but sites with a high share of remote access must account for it at design time."
+          }
+        }
+      ]
+    }
+  </script>
+
   <!-- Fonts & CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -112,7 +161,7 @@
     />
   <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
     <link rel="stylesheet" href="/assets/css/site.css?v=3" />
-    <link rel="stylesheet" href="/assets/css/blog.css?v=1" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=3" />
 
   <style>
     /* Live-grid pipeline — hairline diagram, tokens only, reflows to a column
@@ -283,6 +332,16 @@
       
 
       <div class="en-only">
+
+      <aside class="post-summary" aria-label="Key takeaways">
+        <p class="post-summary-label">Key takeaways</p>
+        <ul>
+          <li>A headless NVR removes the unit's local monitor output and moves live-video decoding and screen composition to mobile and PC clients.</li>
+          <li>The main driver of NVR specifications is display output, not recording: recording writes streams to disk without decoding, while a grid display decodes, color-converts, scales, and composites every channel.</li>
+          <li>Removing local output lowers GPU, memory, thermal, and power specifications together, and the freed GPU resources can go to AI analytics.</li>
+          <li>Before adopting it, review status checks during installation, the access path during network failures, output port requirements in procurement specs, client-side stream design, and network bandwidth.</li>
+        </ul>
+      </aside>
       <p>A <strong>headless NVR</strong> is an NVR architecture that removes the unit's local monitor output and moves live-video decoding and screen composition to mobile and PC clients. The server spends its resources only on recording, stream relay, and AI analytics.</p>
 
       <p>Most NVRs installed in Korea today run the opposite way: a monitor is attached to the unit and a 16-way grid is displayed around the clock. That makes sense in a control room where shift operators watch the screens. Factories, warehouses, schools, retail buildings, and small businesses, however, have no one watching full time. The screen is always on, but footage is actually viewed only after an incident, when someone plays back the relevant segment.</p>
@@ -450,6 +509,23 @@
       <h2>A common objection: without a screen, you can't confirm recording status</h2>
 
       <p>Some point out that if the local screen is off, there is no way to tell whether recording is working. But <strong>display output does not guarantee recording status.</strong> Per-channel recording status, remaining disk space, and camera disconnection alerts are the accurate way to check, and this information is delivered as mobile notifications without any screen. Operationally, it is more efficient to monitor status through alerts and view footage on a client when needed.</p>
+
+      <h2>Frequently asked questions</h2>
+
+      <h3>What is a headless NVR?</h3>
+      <p>A headless NVR is an NVR that removes the unit's local monitor output and moves live-video decoding and screen composition to mobile and PC clients. The server spends its resources only on recording, stream relay, and AI analytics.</p>
+
+      <h3>Without a monitor attached, how do you confirm an NVR is recording?</h3>
+      <p>Check per-channel recording status, remaining disk space, and camera disconnection alerts. Display output does not guarantee recording status, and this information is delivered as mobile notifications without any screen.</p>
+
+      <h3>Does NVR recording need a GPU?</h3>
+      <p>When the NVR only records, the decoding and GPU stages do not occur. Recording writes the H.264/H.265 stream sent by the camera to disk without decoding, and the bottleneck is disk bandwidth, not compute. 32-channel recording runs even on low-end boards.</p>
+
+      <h3>Can an NVR without monitor output bid in public procurement?</h3>
+      <p>When public procurement specs require HDMI output, models without output ports cannot bid. The practical approach is to make output an optional feature and design the software so it does not assume local output.</p>
+
+      <h3>Does a headless NVR use more network bandwidth?</h3>
+      <p>Yes. Local output uses no network, but a headless architecture consumes bandwidth per connected user. On an internal network the impact is small, but sites with a high share of remote access must account for it at design time.</p>
 
       <h2>Conclusion: unused output stages drive cost</h2>
 

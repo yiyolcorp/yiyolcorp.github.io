@@ -47,7 +47,7 @@
     />
     <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
     <link rel="stylesheet" href="/assets/css/site.css?v=3" />
-    <link rel="stylesheet" href="/assets/css/blog.css?v=1" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=3" />
 
     <style>
       /* Calculator Page Styles */
@@ -310,6 +310,8 @@
       .calc-related p { margin: 0.25rem 0 0; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.55; }
 
       /* Reference Table */
+      .calc-faq h3 { font-size: 1rem; font-weight: 600; color: var(--text-primary); margin: 1.25rem 0 0.35rem; }
+      .calc-faq p { margin: 0; color: var(--text-secondary); line-height: 1.7; }
       .calc-ref-section {
         margin-top: 3rem;
       }
@@ -407,6 +409,8 @@
       "applicationCategory": "UtilityApplication",
       "operatingSystem": "Web Browser",
       "description": "Calculate CCTV recording storage capacity based on camera count, resolution, FPS, and recording hours.",
+      "datePublished": "2026-07-01",
+      "dateModified": "2026-11-26",
       "provider": {
         "@type": "Organization",
         "name": "YIYOL"
@@ -435,6 +439,54 @@
         "position": 3,
         "name": "CCTV 저장 용량 계산기",
         "item": "https://yiyol.com/blog/storage-calculator.html"
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "CCTV 저장 용량은 어떻게 계산하나요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "일일 용량(GB) = 비트레이트(Mbps) × (FPS ÷ 30) × 3,600 × 녹화시간(h) × 채널수 ÷ 8 ÷ 1,000으로 하루치 데이터량을 구한 뒤, 보관 일수를 곱하고 1,000으로 나누면 필요한 TB가 나옵니다. 위 계산기에 채널 수, 해상도, FPS, 녹화 시간, 보관 기간을 넣으면 같은 공식으로 바로 계산합니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "1080p CCTV 카메라 한 대는 하루에 몇 GB를 쓰나요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "30fps로 24시간 연속 녹화하면 하루 43.2~86.4GB입니다. 1080p의 일반 비트레이트가 4~8Mbps이기 때문입니다. 녹화 시간을 줄이거나 FPS를 낮추면 그에 비례해 줄어듭니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "4K CCTV는 1080p보다 저장 공간이 얼마나 더 필요한가요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "4K의 일반 비트레이트는 16~25Mbps로 1080p(4~8Mbps)보다 훨씬 높습니다. 30fps로 24시간 녹화하면 채널당 하루 172.8~270.0GB가 필요해, 1080p의 43.2~86.4GB와 비교하면 몇 배 큰 디스크를 준비해야 합니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "FPS를 낮추면 CCTV 저장 용량이 줄어드나요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "줄어듭니다. 이 계산기의 비트레이트 프리셋은 30fps 기준이며, FPS를 바꾸면 비트레이트가 FPS ÷ 30 비율로 조정됩니다. 같은 해상도에서 FPS를 절반으로 낮추면 용량도 절반으로 계산됩니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "보관 기간을 먼저 정했다면 어떤 탭을 써야 하나요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "'필요 용량 계산' 탭을 쓰세요. 원하는 보관 일수를 넣으면 필요한 저장 용량(TB), 일일·월간 데이터량, 권장 HDD 구성을 보여 줍니다. 반대로 디스크가 이미 정해져 있다면 '저장 기간 계산' 탭에 총 저장 용량을 넣어 예상 보관 일수를 확인합니다."
+        }
       }
     ]
   }
@@ -683,6 +735,28 @@
         </div>
       </div>
 
+      <!-- Summary -->
+      <div class="calc-ref-section calc-summary">
+        <aside class="post-summary ko-only" aria-label="핵심 요약">
+          <p class="post-summary-label">핵심 요약</p>
+          <ul>
+            <li>이 계산기는 카메라 채널 수, 해상도(비트레이트), FPS, 일일 녹화 시간으로 CCTV 녹화에 필요한 저장 용량을 계산합니다.</li>
+            <li>'저장 기간 계산'은 가진 디스크로 며칠을 보관할 수 있는지, '필요 용량 계산'은 원하는 보관 일수에 필요한 TB와 권장 HDD 구성을 알려 줍니다.</li>
+            <li>일일 용량(GB)은 비트레이트(Mbps) × (FPS ÷ 30) × 3,600 × 녹화시간(h) × 채널수 ÷ 8 ÷ 1,000으로 구합니다.</li>
+            <li>1080p 카메라 1대를 30fps로 24시간 녹화하면 하루 43.2~86.4GB가 쌓입니다.</li>
+          </ul>
+        </aside>
+        <aside class="post-summary en-only" aria-label="Key takeaways">
+          <p class="post-summary-label">Key takeaways</p>
+          <ul>
+            <li>This calculator estimates the storage CCTV recording needs from camera channels, resolution (bitrate), FPS, and daily recording hours.</li>
+            <li>"Retention Period" tells you how many days your disks can hold; "Required Capacity" gives the TB needed for a target number of days and a recommended HDD configuration.</li>
+            <li>Daily data (GB) = Bitrate (Mbps) × (FPS ÷ 30) × 3,600 × Hours (h) × Channels ÷ 8 ÷ 1,000.</li>
+            <li>One 1080p camera recording 24 hours a day at 30fps produces 43.2–86.4 GB per day.</li>
+          </ul>
+        </aside>
+      </div>
+
       <!-- Reference Table -->
       <div class="calc-ref-section">
         <h2 class="calc-ref-title ko-only">
@@ -759,6 +833,44 @@
               ※ Bitrate presets are based on 30fps. Changing FPS scales the bitrate proportionally.
             </span>
           </code>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="calc-ref-section calc-faq">
+        <h2 class="calc-ref-title ko-only">자주 묻는 질문</h2>
+        <h2 class="calc-ref-title en-only">Frequently asked questions</h2>
+        <div class="ko-only">
+          <h3>CCTV 저장 용량은 어떻게 계산하나요?</h3>
+          <p>일일 용량(GB) = 비트레이트(Mbps) × (FPS ÷ 30) × 3,600 × 녹화시간(h) × 채널수 ÷ 8 ÷ 1,000으로 하루치 데이터량을 구한 뒤, 보관 일수를 곱하고 1,000으로 나누면 필요한 TB가 나옵니다. 위 계산기에 채널 수, 해상도, FPS, 녹화 시간, 보관 기간을 넣으면 같은 공식으로 바로 계산합니다.</p>
+
+          <h3>1080p CCTV 카메라 한 대는 하루에 몇 GB를 쓰나요?</h3>
+          <p>30fps로 24시간 연속 녹화하면 하루 43.2~86.4GB입니다. 1080p의 일반 비트레이트가 4~8Mbps이기 때문입니다. 녹화 시간을 줄이거나 FPS를 낮추면 그에 비례해 줄어듭니다.</p>
+
+          <h3>4K CCTV는 1080p보다 저장 공간이 얼마나 더 필요한가요?</h3>
+          <p>4K의 일반 비트레이트는 16~25Mbps로 1080p(4~8Mbps)보다 훨씬 높습니다. 30fps로 24시간 녹화하면 채널당 하루 172.8~270.0GB가 필요해, 1080p의 43.2~86.4GB와 비교하면 몇 배 큰 디스크를 준비해야 합니다.</p>
+
+          <h3>FPS를 낮추면 CCTV 저장 용량이 줄어드나요?</h3>
+          <p>줄어듭니다. 이 계산기의 비트레이트 프리셋은 30fps 기준이며, FPS를 바꾸면 비트레이트가 FPS ÷ 30 비율로 조정됩니다. 같은 해상도에서 FPS를 절반으로 낮추면 용량도 절반으로 계산됩니다.</p>
+
+          <h3>보관 기간을 먼저 정했다면 어떤 탭을 써야 하나요?</h3>
+          <p>'필요 용량 계산' 탭을 쓰세요. 원하는 보관 일수를 넣으면 필요한 저장 용량(TB), 일일·월간 데이터량, 권장 HDD 구성을 보여 줍니다. 반대로 디스크가 이미 정해져 있다면 '저장 기간 계산' 탭에 총 저장 용량을 넣어 예상 보관 일수를 확인합니다.</p>
+        </div>
+        <div class="en-only">
+          <h3>How do you calculate CCTV storage capacity?</h3>
+          <p>Compute daily data with Daily (GB) = Bitrate (Mbps) × (FPS ÷ 30) × 3,600 × Hours (h) × Channels ÷ 8 ÷ 1,000, then multiply by the retention days and divide by 1,000 to get the TB required. Enter channels, resolution, FPS, recording hours, and retention in the calculator above and it applies the same formula instantly.</p>
+
+          <h3>How many GB per day does one 1080p CCTV camera use?</h3>
+          <p>Recording 24 hours a day at 30fps, it uses 43.2–86.4 GB per day, because the typical bitrate for 1080p is 4–8 Mbps. Fewer recording hours or a lower FPS reduce that proportionally.</p>
+
+          <h3>How much more storage does 4K CCTV need than 1080p?</h3>
+          <p>The typical bitrate for 4K is 16–25 Mbps, far higher than 1080p (4–8 Mbps). Recording 24 hours at 30fps needs 172.8–270.0 GB per channel per day, so compared with 43.2–86.4 GB for 1080p you need disks several times larger.</p>
+
+          <h3>Does lowering FPS reduce CCTV storage?</h3>
+          <p>Yes. The calculator's bitrate presets are based on 30fps, and changing FPS scales the bitrate by FPS ÷ 30. Halving the FPS at the same resolution halves the calculated storage.</p>
+
+          <h3>Which tab should I use if I already know the retention period?</h3>
+          <p>Use the "Required Capacity" tab. Enter the desired retention days and it shows the required storage (TB), daily and monthly data, and a recommended HDD configuration. If your disks are already fixed, enter the total storage in the "Retention Period" tab to see how many days it will hold.</p>
         </div>
       </div>
 

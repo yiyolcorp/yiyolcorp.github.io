@@ -48,7 +48,7 @@
       "url": "https://yiyol.com/en/blog/cctv-ai-event-popup-monitoring.html",
       "image": "https://yiyol.com/img/nox-ui-001.jpeg",
       "datePublished": "2026-11-17",
-      "dateModified": "2026-11-17",
+      "dateModified": "2026-11-26",
       "author": {
         "@type": "Organization",
         "name": "YIYOL",
@@ -100,6 +100,54 @@
       ]
     }
   </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is CCTV event popup monitoring?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It is a monitoring method in which, when AI detects a dangerous situation, that camera's video automatically pops up on the operator's monitor. Instead of people cycling through every screen, the screens that need attention come to people. It only works when the three stages of detection, display, and handling records are all in place."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you reduce false alarms in AI monitoring?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "NOX's VLM detection filters in stages. It passes on only frames with on-screen change, detects objects, sends a case to VLM judgment only when the configured conditions hold for a set time, and raises an event only when confidence exceeds the threshold. Before adoption, pick cameras with lots of weather, lighting changes, or animals, run a 2–4 week pilot, and tune the rules' confidence and cooldown."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What if too many event popups appear?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Each popup rule sets priority, minimum severity, schedule, target users, and cooldown so that only the events that matter pop up. Repeated events from the same camera are merged into one popup that shows the count, and at most 4 popups appear in a window at once. Events that did not pop up because of low priority still remain in the notification list."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is an operator's handling of an event recorded?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pressing the popup's Acknowledge button records who acknowledged it and when on the event and in the audit log, and a note of up to 500 characters can be added. Once one person acknowledges, the same popup closes on every monitor and every user's screen. Alarms that were missed can be found again with the unacknowledged filter in event search."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you set up a control center with 1,500 CCTV cameras?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "One NOX device records up to 128 channels at once on the recommended specification (actual results vary with the network environment), so the site is split across several devices. With federation in the Enterprise edition, the main screen can handle live view, recording search, and playback for the other devices. To prepare for device failures, also consider n:1 failover."
+          }
+        }
+      ]
+    }
+  </script>
 
   <!-- Fonts & CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -110,7 +158,7 @@
     />
   <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
     <link rel="stylesheet" href="/assets/css/site.css?v=3" />
-    <link rel="stylesheet" href="/assets/css/blog.css?v=2" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=3" />
 </head>
 <body class="yl">
 
@@ -168,6 +216,16 @@
       
 
       <div class="en-only">
+      <aside class="post-summary" aria-label="Key takeaways">
+        <p class="post-summary-label">Key takeaways</p>
+        <ul>
+          <li>Event popup monitoring automatically shows a camera's video on the operator's monitor when AI detects a dangerous situation; Changnyeong County in South Gyeongsang Province adopted it for about 1,515 CCTV cameras.</li>
+          <li>It only works when detection accuracy, display rules, and handling records are all in place; with too many false alarms, popups become noise.</li>
+          <li>NOX detects events through real-time video analytics, cameras' own events, and VLM detection, and picks what to pop up with priority, severity, schedule, and cooldown rules.</li>
+          <li>Who acknowledged an event and when is kept in the audit log, and operations reports deliver daily, weekly, or monthly statistics as a PDF.</li>
+        </ul>
+      </aside>
+
 
       <p>The problem every CCTV control center faces is that people cannot keep up with how fast cameras are added. In sequential monitoring, where operators cycle through screens in turn, every new camera lengthens the time before a screen comes around again — and whatever happens in between goes unseen. A recent case from Changnyeong County in South Gyeongsang Province, Korea, puts numbers on it: 16 operators working in four teams on three shifts watched about 1,515 CCTV cameras, and the screens assigned to one operator on duty passed 300.</p>
 
@@ -279,6 +337,23 @@
         <li><strong>Define the handling procedure and what to record.</strong> Deciding what goes into acknowledgement notes makes operations reports and incident reports easier.</li>
         <li><strong>Decide where the VLM server goes and which GPU it uses.</strong> If video must not leave the site, go with an on-premises setup.</li>
       </ol>
+
+      <h2>Frequently asked questions</h2>
+
+      <h3>What is CCTV event popup monitoring?</h3>
+      <p>It is a monitoring method in which, when AI detects a dangerous situation, that camera's video automatically pops up on the operator's monitor. Instead of people cycling through every screen, the screens that need attention come to people. It only works when the three stages of detection, display, and handling records are all in place.</p>
+
+      <h3>How do you reduce false alarms in AI monitoring?</h3>
+      <p>NOX's VLM detection filters in stages. It passes on only frames with on-screen change, detects objects, sends a case to VLM judgment only when the configured conditions hold for a set time, and raises an event only when confidence exceeds the threshold. Before adoption, pick cameras with lots of weather, lighting changes, or animals, run a 2–4 week pilot, and tune the rules' confidence and cooldown.</p>
+
+      <h3>What if too many event popups appear?</h3>
+      <p>Each popup rule sets priority, minimum severity, schedule, target users, and cooldown so that only the events that matter pop up. Repeated events from the same camera are merged into one popup that shows the count, and at most 4 popups appear in a window at once. Events that did not pop up because of low priority still remain in the notification list.</p>
+
+      <h3>How is an operator's handling of an event recorded?</h3>
+      <p>Pressing the popup's Acknowledge button records who acknowledged it and when on the event and in the audit log, and a note of up to 500 characters can be added. Once one person acknowledges, the same popup closes on every monitor and every user's screen. Alarms that were missed can be found again with the unacknowledged filter in event search.</p>
+
+      <h3>How do you set up a control center with 1,500 CCTV cameras?</h3>
+      <p>One NOX device records up to 128 channels at once on the recommended specification (actual results vary with the network environment), so the site is split across several devices. With federation in the Enterprise edition, the main screen can handle live view, recording search, and playback for the other devices. To prepare for device failures, also consider n:1 failover.</p>
 
       <h2>Wrapping up</h2>
 

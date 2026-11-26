@@ -49,7 +49,7 @@
       "description": "A hands-on guide to building parking lot automation with NOX NVR WebHooks — from license plate recognition (LPR) events to automatic gate control, parking logs, and alerts, with Python and Node.js code.",
       "url": "https://yiyol.com/en/blog/webhook-agentic-ai-parking-automation-guide.html",
       "datePublished": "2026-04-21",
-      "dateModified": "2026-04-21",
+      "dateModified": "2026-11-26",
       "author": {
         "@type": "Organization",
         "name": "YIYOL",
@@ -101,6 +101,54 @@
       ]
     }
   </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I open a parking gate automatically with license plate recognition?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Run a server that receives NOX NVR LPR event WebHooks, and when the recognized plate is in your whitelist DB, call the gate API to open it. Register the WebHook server URL in the NOX NVR admin console under Event Settings → WebHook Configuration. The whole process finishes within 1–2 seconds of plate recognition."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does the NOX NVR WebHook payload contain?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It carries event_type, timestamp, camera_id, camera_name, channel, device_id, and site_id, and inside data the recognized plate (license_plate), recognition confidence (confidence), entry or exit direction (direction), and snapshot image URLs. The event kind is identified by event_type, such as lpr_detected, motion_detected, or line_crossing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What confidence threshold should I use for license plate recognition?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Start at 0.85 and adjust based on real operating data. The confidence value varies with camera image quality, lighting, and plate condition, and for night-time operation you may consider lowering it to 0.80."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I handle the same WebHook event arriving twice?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "WebHook delivery can fail due to network issues, so design the handler to be idempotent: receiving the same event more than once must process it only once. Build an event_id from device_id, timestamp, and the plate, and skip any event_id that has already been processed."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I avoid WebHook timeouts when the gate API is slow?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Return the WebHook response to the NVR immediately and process gate control asynchronously. If the gate control API call fails, log it and send an alert for manual handling."
+          }
+        }
+      ]
+    }
+  </script>
 
   <!-- Fonts & CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -111,7 +159,7 @@
     />
   <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
     <link rel="stylesheet" href="/assets/css/site.css?v=3" />
-    <link rel="stylesheet" href="/assets/css/blog.css?v=1" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=3" />
 
   </head>
 <body class="yl">
@@ -173,6 +221,16 @@
       
 
       <div class="en-only">
+      <aside class="post-summary" aria-label="Key takeaways">
+        <p class="post-summary-label">Key takeaways</p>
+        <ul>
+          <li>NOX NVR sends a WebHook as an HTTP POST to an external server the instant it recognizes a license plate (LPR), and developers are free to build the decision and control logic that follows.</li>
+          <li>The WebHook server filters out low-confidence reads, checks a whitelist DB, and for registered vehicles opens the gate, records the parking event, and sends a notification in parallel.</li>
+          <li>The WebHook pushes events from the NVR to your server, and the REST API lets your server query the NVR's camera list, snapshots, and event history; together they give two-way automation.</li>
+          <li>In operation, the keys are preventing duplicate processing, responding immediately and processing asynchronously, and tuning the confidence threshold.</li>
+        </ul>
+      </aside>
+
       <p>The moment a license plate is caught on camera, the gate opens. No human involvement.</p>
 
       <p>That is the outcome of Agentic AI parking automation. And what makes it possible is not complex AI infrastructure. A single NVR WebHook is enough.</p>
@@ -513,6 +571,23 @@ async def handle_nvr_event(request: Request):
       <h3>3. Tuning the Confidence Threshold</h3>
 
       <p>The <code>confidence</code> value varies with camera image quality, lighting, and plate condition. Start at 0.85 and adjust based on real operating data. For night-time operation, you may consider lowering it to 0.80.</p>
+
+      <h2>Frequently asked questions</h2>
+
+      <h3>How do I open a parking gate automatically with license plate recognition?</h3>
+      <p>Run a server that receives NOX NVR LPR event WebHooks, and when the recognized plate is in your whitelist DB, call the gate API to open it. Register the WebHook server URL in the NOX NVR admin console under Event Settings → WebHook Configuration. The whole process finishes within 1–2 seconds of plate recognition.</p>
+
+      <h3>What does the NOX NVR WebHook payload contain?</h3>
+      <p>It carries event_type, timestamp, camera_id, camera_name, channel, device_id, and site_id, and inside data the recognized plate (license_plate), recognition confidence (confidence), entry or exit direction (direction), and snapshot image URLs. The event kind is identified by event_type, such as lpr_detected, motion_detected, or line_crossing.</p>
+
+      <h3>What confidence threshold should I use for license plate recognition?</h3>
+      <p>Start at 0.85 and adjust based on real operating data. The confidence value varies with camera image quality, lighting, and plate condition, and for night-time operation you may consider lowering it to 0.80.</p>
+
+      <h3>How do I handle the same WebHook event arriving twice?</h3>
+      <p>WebHook delivery can fail due to network issues, so design the handler to be idempotent: receiving the same event more than once must process it only once. Build an event_id from device_id, timestamp, and the plate, and skip any event_id that has already been processed.</p>
+
+      <h3>How do I avoid WebHook timeouts when the gate API is slow?</h3>
+      <p>Return the WebHook response to the NVR immediately and process gate control asynchronously. If the gate control API call fails, log it and send an alert for manual handling.</p>
 
       <h2>Summary</h2>
 

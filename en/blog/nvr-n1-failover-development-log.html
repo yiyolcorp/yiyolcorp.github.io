@@ -50,7 +50,7 @@
       "url": "https://yiyol.com/en/blog/nvr-n1-failover-development-log.html",
       "image": "https://yiyol.com/img/nox/failover.jpeg",
       "datePublished": "2026-09-17",
-      "dateModified": "2026-09-17",
+      "dateModified": "2026-11-26",
       "author": {
         "@type": "Organization",
         "name": "YIYOL",
@@ -102,6 +102,54 @@
       ]
     }
   </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How quickly does NVR failover detect a failure?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "NOX declares a failure in about 10 seconds. The standby checks the primary's status every 2 seconds and treats 5 consecutive failures as a failure. The takeover target is within 30 seconds from the trigger to the first recorded segment."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can one standby device protect several NVRs at the same time?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. A single standby takes over multiple primaries at once as far as its licensed channel capacity allows; if capacity runs short it raises an alert and continues the takeover once capacity frees up. Configurations where registered channels exceed capacity are allowed, with a warning on the dashboard."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does failover cover an NVR whose disk failed and only recording stopped?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. NOX uses the heartbeat to check whether streams that should be stored are actually being stored, not just whether the device answers ping. So a disk or storage failure, where the device stays on but does not record, is detected as a failure."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens to video recorded during failover?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The standby records it, and after failback record-back moves it into the primary's timeline. Past video that the dead device recorded before the failure, however, exists only on that device's local disk, so the standby cannot show it in its place."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will rebooting or updating an NVR trigger a false failover?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No, because the primary notifies the standby before starting a reboot, shutdown, maintenance mode, or update. The notice travels in the response to the standby's heartbeat, and the primary waits up to 6–8 seconds before proceeding. If the device does not return to a recording-capable state after the planned task, monitoring resumes after 10 minutes."
+          }
+        }
+      ]
+    }
+  </script>
 
   <!-- Fonts & CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -112,7 +160,7 @@
     />
   <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
     <link rel="stylesheet" href="/assets/css/site.css?v=3" />
-    <link rel="stylesheet" href="/assets/css/blog.css?v=1" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=3" />
 </head>
 <body class="yl">
   <!-- Header -->
@@ -170,6 +218,16 @@
       
 
       <div class="en-only">
+      <aside class="post-summary" aria-label="Key takeaways">
+        <p class="post-summary-label">Key takeaways</p>
+        <ul>
+          <li>NOX NVR failover uses an n:1 structure in which a single standby device backs up multiple production devices (primaries).</li>
+          <li>A failure is declared in about 10 seconds (2-second heartbeat × 5 consecutive failures), and takeover targets the first recorded segment within 30 seconds of the trigger.</li>
+          <li>Failure is judged by "is it recording?" rather than a ping response, so a device that is powered on but cannot record, such as one with a failed disk, is also detected.</li>
+          <li>Video recorded during the outage is moved into the primary's timeline by record-back after failback; because defects keep turning up on real devices, the beta badge is still in place.</li>
+        </ul>
+      </aside>
+
 
       <p><strong>NVR failover</strong> is the feature that lets another device take over camera ingest and recording when the device that was recording stops. NOX built it as an <strong>n:1</strong> structure, where a single standby device backs up multiple production devices (primaries).</p>
 
@@ -446,6 +504,23 @@
       <p>The two most recent fixes, the issue where record-back video falling outside the retention period was deleted on arrival, and the leftovers that no path would delete, were made this month. Both were <strong>found on devices actually running in the field, not in code review.</strong> Until we have gone through enough real-world scenarios, such as repeated takeovers and failbacks, outages lasting more than a day and overlapping with the retention period, and another failure during record-back, it is safer to assume that more defects of the same kind remain.</p>
 
       <p>Here is the criterion for removing the badge: <strong>when we have repeatedly confirmed at multiple sites that a full cycle from takeover through failback and record-back completes without administrator intervention, and the problems that come up along the way are not big enough to require a new status or a new cleanup path.</strong> The very fact that each of the last three fixes was only finished after creating a new status value, a new cleanup path, and a new query function is a sign that it is still too early.</p>
+
+      <h2>Frequently asked questions</h2>
+
+      <h3>How quickly does NVR failover detect a failure?</h3>
+      <p>NOX declares a failure in about 10 seconds. The standby checks the primary's status every 2 seconds and treats 5 consecutive failures as a failure. The takeover target is within 30 seconds from the trigger to the first recorded segment.</p>
+
+      <h3>Can one standby device protect several NVRs at the same time?</h3>
+      <p>Yes. A single standby takes over multiple primaries at once as far as its licensed channel capacity allows; if capacity runs short it raises an alert and continues the takeover once capacity frees up. Configurations where registered channels exceed capacity are allowed, with a warning on the dashboard.</p>
+
+      <h3>Does failover cover an NVR whose disk failed and only recording stopped?</h3>
+      <p>Yes. NOX uses the heartbeat to check whether streams that should be stored are actually being stored, not just whether the device answers ping. So a disk or storage failure, where the device stays on but does not record, is detected as a failure.</p>
+
+      <h3>What happens to video recorded during failover?</h3>
+      <p>The standby records it, and after failback record-back moves it into the primary's timeline. Past video that the dead device recorded before the failure, however, exists only on that device's local disk, so the standby cannot show it in its place.</p>
+
+      <h3>Will rebooting or updating an NVR trigger a false failover?</h3>
+      <p>No, because the primary notifies the standby before starting a reboot, shutdown, maintenance mode, or update. The notice travels in the response to the standby's heartbeat, and the primary waits up to 6–8 seconds before proceeding. If the device does not return to a recording-capable state after the planned task, monitoring resumes after 10 minutes.</p>
 
       <h2>Conclusion</h2>
 

@@ -48,7 +48,7 @@
     "url": "https://yiyol.com/blog/nis-security-requirements-v3-guide.html",
     "image": "https://yiyol.com/img/nox-ui-001.jpeg",
     "datePublished": "2026-04-01",
-    "dateModified": "2026-04-01",
+    "dateModified": "2026-11-26",
     "author": {
       "@type": "Organization",
       "name": "YIYOL",
@@ -100,6 +100,55 @@
   }
   </script>
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "NVR·VMS도 CC인증을 받아야 하나?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "아니다. NVR·VMS는 CC인증 대상이 아니라 보안기능확인서 대상 제품이다. CC인증 대상인 침입차단시스템 등 21종과 달리 절차가 간소하고, 시험 기간도 약 30일로 짧다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "NVR 보안기능확인서 비용은 얼마인가?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "NVR·VMS(저장·관리 제품) 기준 시험 비용은 1,630만 원이며, 중소기업은 20% 할인을 받을 수 있다. IP카메라는 1,490만 원이다. 인증 뒤 제품이 바뀌면 동일성 확인(311만 원, 3일 소요) 또는 재시험이 필요하다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "보안기능확인서 유효기간은 몇 년인가?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "보안요구사항 V3.0을 적용하면 5년, 기본 보안요구사항(V2.0)을 적용하면 2년이다. 유효기간을 생각하면 처음부터 V3.0 기준으로 준비하는 것이 유리하다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "공공기관 납품용 NVR에 AES 암호화를 써도 되나?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "국내 공공기관 납품용 NVR·VMS에는 ARIA 또는 SEED를 사용해야 한다. DES와 AES는 KCMVP 검증 대상 알고리즘이 아니기 때문이다. 암호화를 구현할 때 KCMVP 검증필 암호모듈을 활용하면 인증 심사에서 유리하다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "NVR 보안기능확인서를 받기까지 얼마나 걸리나?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "공인시험기관의 보안기능 시험에 약 30일이 걸린다. 제품 상태에 따라 그 전에 3~6개월의 기술 보완이 필요할 수 있고, 인증 수요가 늘면서 시험기관 대기 시간도 길어지고 있다."
+        }
+      }
+    ]
+  }
+  </script>
+
   <!-- Fonts & CSS -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -109,7 +158,7 @@
     />
   <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
     <link rel="stylesheet" href="/assets/css/site.css?v=3" />
-    <link rel="stylesheet" href="/assets/css/blog.css?v=1" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=3" />
 
   </head>
 <body class="yl">
@@ -170,6 +219,16 @@
   <main class="post-container">
     <article class="post-article">
       <div class="ko-only">
+
+      <aside class="post-summary" aria-label="핵심 요약">
+        <p class="post-summary-label">핵심 요약</p>
+        <ul>
+          <li>2024년 4월부터 공공기관에 NVR·VMS를 납품하려면 국정원 보안적합성 검증을 통과해야 한다.</li>
+          <li>NVR·VMS는 CC인증이 아니라 보안기능확인서 대상이며, 보안기능 시험은 약 30일, 시험 비용은 1,630만 원(중소기업 20% 할인 가능) 수준이다.</li>
+          <li>V3.0 기준으로 받은 보안기능확인서는 유효기간이 5년으로, V2.0 기준(2년)보다 길다.</li>
+          <li>식별 및 인증, 접근통제, 암호화, 감사기록, 보안관리, 자체보호, 영상정보 보호의 7개 영역을 요구 수준에 맞게 구현해야 한다.</li>
+        </ul>
+      </aside>
 
       <p>2024년 4월부터 NVR(네트워크 비디오 레코더)과 VMS(영상관리시스템)를 공공기관에 납품하려면 국정원 보안적합성 검증을 반드시 통과해야 한다. <a href="https://zdnet.co.kr/view/?no=20240328101353" target="_blank" rel="noopener">중국산 CCTV의 해킹과 백도어 위협</a>이 사회적 이슈로 부각되면서, 영상정보처리기기가 국정원 보안요구사항 V3.0의 신규 제품군으로 추가된 것이다.</p>
 
@@ -490,6 +549,23 @@
         <li><strong>공공기관 교체 수요</strong>: 보안적합성 검증을 통과하지 못한 기존 설치 제품의 교체 수요가 발생하면서, 인증을 조기에 취득한 제조사가 시장 선점 기회를 잡게 된다.</li>
       </ul>
 
+      <h2>자주 묻는 질문</h2>
+
+      <h3>NVR·VMS도 CC인증을 받아야 하나?</h3>
+      <p>아니다. NVR·VMS는 CC인증 대상이 아니라 보안기능확인서 대상 제품이다. CC인증 대상인 침입차단시스템 등 21종과 달리 절차가 간소하고, 시험 기간도 약 30일로 짧다.</p>
+
+      <h3>NVR 보안기능확인서 비용은 얼마인가?</h3>
+      <p>NVR·VMS(저장·관리 제품) 기준 시험 비용은 1,630만 원이며, 중소기업은 20% 할인을 받을 수 있다. IP카메라는 1,490만 원이다. 인증 뒤 제품이 바뀌면 동일성 확인(311만 원, 3일 소요) 또는 재시험이 필요하다.</p>
+
+      <h3>보안기능확인서 유효기간은 몇 년인가?</h3>
+      <p>보안요구사항 V3.0을 적용하면 5년, 기본 보안요구사항(V2.0)을 적용하면 2년이다. 유효기간을 생각하면 처음부터 V3.0 기준으로 준비하는 것이 유리하다.</p>
+
+      <h3>공공기관 납품용 NVR에 AES 암호화를 써도 되나?</h3>
+      <p>국내 공공기관 납품용 NVR·VMS에는 ARIA 또는 SEED를 사용해야 한다. DES와 AES는 KCMVP 검증 대상 알고리즘이 아니기 때문이다. 암호화를 구현할 때 KCMVP 검증필 암호모듈을 활용하면 인증 심사에서 유리하다.</p>
+
+      <h3>NVR 보안기능확인서를 받기까지 얼마나 걸리나?</h3>
+      <p>공인시험기관의 보안기능 시험에 약 30일이 걸린다. 제품 상태에 따라 그 전에 3~6개월의 기술 보완이 필요할 수 있고, 인증 수요가 늘면서 시험기관 대기 시간도 길어지고 있다.</p>
+
       <h2>결론: NVR/VMS 제조사, 지금 V3.0 인증을 시작해야 하는 이유</h2>
 
       <p>국정원 보안요구사항 V3.0은 NVR/VMS 제조사에게 위기이자 기회다. 핵심을 정리하면 다음과 같다.</p>
@@ -528,6 +604,16 @@
       </div>
 
       <div class="en-only">
+
+      <aside class="post-summary" aria-label="Key takeaways">
+        <p class="post-summary-label">Key takeaways</p>
+        <ul>
+          <li>Since April 2024, NVRs and VMS must pass the NIS security conformity verification before they can be supplied to Korean public institutions.</li>
+          <li>NVR/VMS are subject to a Security Function Confirmation, not CC certification; testing takes about 30 days and costs KRW 16.3 million (a 20% SME discount may apply).</li>
+          <li>A Security Function Confirmation issued under V3.0 is valid for 5 years, compared with 2 years under V2.0.</li>
+          <li>Manufacturers must implement seven areas to the required level: identification and authentication, access control, encryption and data protection, audit, security management, self-protection, and video information protection.</li>
+        </ul>
+      </aside>
 
       <p>Since April 2024, NVRs (network video recorders) and VMS (video management systems) must pass the National Intelligence Service (NIS) security conformity verification before they can be supplied to Korean public institutions. As <a href="https://zdnet.co.kr/view/?no=20240328101353" target="_blank" rel="noopener">hacking and backdoor threats in Chinese-made CCTV</a> became a public concern, video information processing devices were added as a new product category in the NIS Security Requirements V3.0.</p>
 
@@ -847,6 +933,23 @@
         <li><strong>Stricter requirements expected</strong>: just as quantum cryptography communication equipment was added, requirements for video information processing devices are expected to tighten gradually. Security criteria for new technologies such as AI-based video analytics and cloud VMS are likely to be added.</li>
         <li><strong>Replacement demand in the public sector</strong>: as demand arises to replace installed products that have not passed security conformity verification, manufacturers that obtain certification early will have the chance to capture the market first.</li>
       </ul>
+
+      <h2>Frequently asked questions</h2>
+
+      <h3>Do NVRs and VMS need CC certification?</h3>
+      <p>No. NVR/VMS are subject to a Security Function Confirmation, not CC certification. Unlike the 21 product types subject to CC certification, such as firewalls, the process is simpler, and testing takes only about 30 days.</p>
+
+      <h3>How much does a Security Function Confirmation cost for an NVR?</h3>
+      <p>Testing costs KRW 16.3 million for NVR/VMS (storage and management products), and a 20% SME discount may apply. For IP cameras it is KRW 14.9 million. If the product changes after certification, an identity check (KRW 3.11 million, 3 days) or re-testing is required.</p>
+
+      <h3>How long is a Security Function Confirmation valid?</h3>
+      <p>It is valid for 5 years under Security Requirements V3.0 and 2 years under the basic security requirements (V2.0). In terms of validity, preparing against V3.0 from the start is the better choice.</p>
+
+      <h3>Can an NVR supplied to Korean public institutions use AES encryption?</h3>
+      <p>NVR/VMS supplied to Korean public institutions must use ARIA or SEED, because DES and AES are not covered by KCMVP validation. Using a KCMVP-validated cryptographic module when implementing encryption works in your favor during the certification review.</p>
+
+      <h3>How long does it take to get a Security Function Confirmation for an NVR?</h3>
+      <p>Security function testing at an accredited laboratory takes about 30 days. Depending on product status, 3–6 months of technical remediation may be needed beforehand, and laboratory waiting times are growing as certification demand rises.</p>
 
       <h2>Conclusion: Why NVR/VMS Manufacturers Should Start V3.0 Certification Now</h2>
 
