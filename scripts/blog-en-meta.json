@@ -4,6 +4,11 @@
     "description": "Technical notes from YIYOL on NVR/VMS software, video security, and AI automation: development logs, integration guides, and calculators for NOX NVR.",
     "keywords": ["NVR", "VMS", "video security", "AI automation", "Agentic AI", "NOX NVR"]
   },
+  "nox-remote-support": {
+    "title": "Remote Support Without Handing Over the Admin Password — A Guide to NOX Remote Support",
+    "description": "How to get NVR remote support without giving out the admin password: a path that opens only when switched on, a two-minute one-time code, read-only access, and the audit log, shown on real screens.",
+    "keywords": ["NVR remote support", "CCTV remote inspection", "one-time password", "read-only access", "audit log", "installer"]
+  },
   "cctv-ai-event-popup-monitoring": {
     "title": "When One Operator Watches 300 Cameras — Moving to AI Event Popup Monitoring",
     "description": "Using Changnyeong County's AI auto-display monitoring as a case, this post explains the three stages of event popup monitoring — detection, display, and handling records — plus cutting false alarms, multi-monitor setup, scaling to 1,500 cameras, and a pre-adoption checklist.",

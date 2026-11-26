@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en" data-lang-fixed="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKJ4GX2KHS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-CKJ4GX2KHS');
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Remote Support Without Handing Over the Admin Password — A Guide to NOX Remote Support - YIYOL Blog</title>
+
+  <meta name="description" content="How to get NVR remote support without giving out the admin password: a path that opens only when switched on, a two-minute one-time code, read-only access, and the audit log, shown on real screens." />
+  <meta name="keywords" content="NVR remote support,CCTV remote inspection,one-time password,read-only access,audit log,installer" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://yiyol.com/en/blog/nox-remote-support.html" />
+  <meta property="og:title" content="Remote Support Without Handing Over the Admin Password — A Guide to NOX Remote Support — YIYOL" />
+  <meta property="og:description" content="How to get NVR remote support without giving out the admin password: a path that opens only when switched on, a two-minute one-time code, read-only access, and the audit log, shown on real screens." />
+  <meta property="og:image" content="https://yiyol.com/img/blog/remote-support/02-active.png" />
+  <meta property="og:site_name" content="YIYOL" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="ko_KR" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Remote Support Without Handing Over the Admin Password — A Guide to NOX Remote Support — YIYOL" />
+  <meta name="twitter:description" content="How to get NVR remote support without giving out the admin password: a path that opens only when switched on, a two-minute one-time code, read-only access, and the audit log, shown on real screens." />
+  <meta name="twitter:image" content="https://yiyol.com/img/blog/remote-support/02-active.png" />
+
+  <!-- hreflang:start -->
+  <link rel="alternate" hreflang="ko" href="https://yiyol.com/blog/nox-remote-support.html" />
+  <link rel="alternate" hreflang="en" href="https://yiyol.com/en/blog/nox-remote-support.html" />
+  <link rel="alternate" hreflang="x-default" href="https://yiyol.com/blog/nox-remote-support.html" />
+  <!-- hreflang:end -->
+  <link rel="canonical" href="https://yiyol.com/en/blog/nox-remote-support.html" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Remote Support Without Handing Over the Admin Password — A Guide to NOX Remote Support",
+      "description": "How to get NVR remote support without giving out the admin password: a path that opens only when switched on, a two-minute one-time code, read-only access, and the audit log, shown on real screens.",
+      "url": "https://yiyol.com/en/blog/nox-remote-support.html",
+      "image": "https://yiyol.com/img/blog/remote-support/02-active.png",
+      "datePublished": "2026-11-26",
+      "dateModified": "2026-11-26",
+      "author": {
+        "@type": "Organization",
+        "name": "YIYOL",
+        "url": "https://yiyol.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "YIYOL",
+        "url": "https://yiyol.com"
+      },
+      "keywords": [
+        "NVR remote support",
+        "CCTV remote inspection",
+        "one-time password",
+        "read-only access",
+        "audit log",
+        "installer"
+      ],
+      "inLanguage": "en",
+      "translationOfWork": {
+        "@id": "https://yiyol.com/blog/nox-remote-support.html"
+      }
+    }
+  </script>
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "YIYOL",
+          "item": "https://yiyol.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://yiyol.com/en/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Remote Support Without Handing Over the Admin Password — A Guide to NOX Remote Support",
+          "item": "https://yiyol.com/en/blog/nox-remote-support.html"
+        }
+      ]
+    }
+  </script>
+
+  <!-- Fonts & CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  <link rel="stylesheet" href="/assets/css/tokens.css?v=4" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=3" />
+    <link rel="stylesheet" href="/assets/css/blog.css?v=2" />
+</head>
+<body class="yl">
+
+  <!-- Header -->
+  <nav class="site-nav" role="navigation" aria-label="Main navigation">
+      <div class="site-nav-inner">
+        <a href="/" class="site-nav-brand">
+          <img class="site-nav-mark" src="/assets/yiyol-mark.png" alt="" width="33" height="24" /><span class="site-nav-logo">YIYOL<span>.</span></span>
+        </a>
+        <div class="site-nav-right">
+          <ul class="site-nav-links">
+            <li><a href="/company/"><span class="en-only">Company</span></a></li>
+            <li><a href="/products/"><span class="en-only">Products</span></a></li>
+            <li><a href="/services/"><span class="en-only">Services</span></a></li>
+            <li><a href="/en/blog/" class="nav-active"><span class="en-only">Blog</span></a></li>
+            <li><a href="https://nox.yiyol.com/?utm_source=yiyol.com&amp;utm_medium=referral&amp;utm_campaign=nav" target="_blank" rel="noopener"><span class="en-only">For home &amp; shop</span><span aria-hidden="true"> ↗</span></a></li>
+            <li><a href="/contact/" class="nav-cta"><span class="en-only">Contact</span></a></li>
+          </ul>
+          <div class="lang-switch">
+            <button class="lang-selector" type="button" aria-haspopup="true" aria-expanded="false">
+              <span class="lang-current">English</span>
+              <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" /></svg>
+            </button>
+            <div class="lang-dropdown">
+              <a href="#" class="lang-option" data-lang="ko">한국어</a>
+              <a href="#" class="lang-option" data-lang="en">English</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+  <!-- Hero -->
+  <section class="post-hero">
+    <div class="post-hero-content">
+      <nav class="post-breadcrumb">
+        <a href="/">YIYOL</a><span>›</span><a href="/en/blog/"><span class="en-only">Blog</span></a><span>›</span> <span class="en-only">Current post</span>
+      </nav>
+      <h1><span class="en-only">Remote Support Without Handing Over the Admin Password — A Guide to NOX Remote Support</span></h1>
+      <div class="post-meta">
+        <span class="post-meta-date">2026.11.26</span>
+        <div class="post-tags">
+          <span class="post-tag">NOX</span>
+          <span class="post-tag"><span class="en-only">Remote Support</span></span>
+          <span class="post-tag"><span class="en-only">Security</span></span>
+          <span class="post-tag"><span class="en-only">Installers</span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main -->
+  <main class="post-container">
+    <article class="post-article">
+      
+
+      <div class="en-only">
+
+      <p>When an NVR at a site starts misbehaving, the installer or the manufacturer's support team often needs to look at the device directly. The trouble starts the moment you decide how they will get in. Open a port on the router and that path tends to stay open long after the support call ends. Read the admin password out over the phone or a messenger app and nobody remembers to change it afterward. Install a separate remote desktop tool and the device now carries one more piece of software to maintain.</p>
+
+      <p>NOX remote support solves this inside the device. The access path opens only while an administrator has switched it on, and it closes by itself when the chosen time runs out. The engineer signs in with a one-time code that is valid for two minutes instead of the admin password, and you can let them in read-only so they cannot change anything. Every time the path is opened or closed, the audit log records who did it and when.</p>
+
+      <p>This post walks through the feature in order, using screenshots taken while we switched remote support on and off on a test device. The screenshots show the Korean UI; the captions explain each one.</p>
+
+      <h2>Opens only when switched on, closes when time runs out</h2>
+
+      <p>Remote support lives under <strong>Settings → System → Remote Support</strong>. The menu is visible only to an administrator signed in with admin access.</p>
+
+      <figure>
+        <img src="/img/blog/remote-support/01-setup.png" alt="NOX remote support settings (Korean UI) — 30-minute duration, access account, and the read-only option" loading="lazy" />
+        <figcaption>NOX remote support settings (Korean UI) — 30-minute duration, access account, and the read-only option</figcaption>
+      </figure>
+
+      <p>You decide three things before switching it on.</p>
+
+      <ul>
+        <li><strong>Duration</strong>: 30 minutes, 1 hour, 2 hours, or 4 hours. When the time is up, the path closes automatically, so it does not stay open just because someone forgot to switch it off.</li>
+        <li><strong>Access account</strong>: The default is the dedicated remote support account. If you pick a specific user registered on the device, the engineer signs in with exactly that user's permissions and can reproduce the problem on the same screens and menus that user sees.</li>
+        <li><strong>Read-only</strong>: When checked, every change is blocked no matter which account you picked. If the goal is to find the cause of a problem, we recommend checking it.</li>
+      </ul>
+
+      <p>Click <strong>Activate remote support</strong>, confirm once more that an external access path will be opened, and the path opens.</p>
+
+      <p>A word on how the connection works. When remote support is switched on, the device makes an <strong>outbound connection</strong> to our relay server (<code>nox.yiyol.com</code>), and the engineer reaches the device through that relay. Because the device starts the connection, there is no need to open a port on the site's router or get a static IP. As long as the device has internet access, it works with no extra configuration.</p>
+
+      <h2>A two-minute one-time code instead of a password</h2>
+
+      <p>Once the path is open, the card shows what to hand over to the engineer.</p>
+
+      <figure>
+        <img src="/img/blog/remote-support/02-active.png" alt="Remote support active (Korean UI) — session SSH private key, one-time code, web and SSH addresses, time remaining. The key, code, and ports are blurred." loading="lazy" />
+        <figcaption>Remote support active (Korean UI) — session SSH private key, one-time code, web and SSH addresses, time remaining. The key, code, and ports are blurred.</figcaption>
+      </figure>
+
+      <ul>
+        <li><strong>Web access address</strong>: Where the engineer opens the device's management UI. The device's own HTTPS and sign-in rules still apply.</li>
+        <li><strong>One-time code</strong>: Six digits. It must be used within <strong>two minutes</strong> and disappears after <strong>one</strong> successful sign-in. Five wrong attempts discard it, and a new one has to be issued.</li>
+        <li><strong>Current access level and time remaining</strong>: What permissions the path is open with, and when it will close.</li>
+        <li><strong>Session SSH private key</strong>: A key for SSH access, for problems that cannot be diagnosed from the UI. The device generates a new one every time remote support is switched on and shows it <strong>only once, on this screen</strong>. It is not stored on the server, so it cannot be viewed again, and it is discarded when remote support is switched off.</li>
+      </ul>
+
+      <p>The engineer opens the web address, chooses <strong>OTP login</strong> on the sign-in screen, and enters the code. No username is needed; the server works out which account to sign in from the code. If the two minutes pass before they sign in, click <strong>Reissue one-time code</strong> to get a new one, and the old code stops working immediately.</p>
+
+      <p>The key point is that <strong>the customer's admin password never leaves the device</strong>. All the engineer receives is a code that is useless two minutes later.</p>
+
+      <h2>Engineers get their own accounts</h2>
+
+      <p>When you choose the dedicated remote support account, the engineer signs in with a system account built into the device. The user management screen shows these accounts separately from regular users.</p>
+
+      <figure>
+        <img src="/img/blog/remote-support/03-system-accounts.png" alt="User management (Korean UI) — nox-support and nox-support-readonly are marked as system accounts and have no edit or delete buttons" loading="lazy" />
+        <figcaption>User management (Korean UI) — nox-support and nox-support-readonly are marked as system accounts and have no edit or delete buttons</figcaption>
+      </figure>
+
+      <ul>
+        <li><code>nox-support</code>: The remote support account that can change settings.</li>
+        <li><code>nox-support-readonly</code>: The account used when remote support is switched on read-only.</li>
+      </ul>
+
+      <p>Neither account has a regular password, so the only way to sign in is with a one-time code. As the screenshot shows, there are no edit or delete buttons either; requests to rename them, set a password, or change their roles are all rejected. Everything the engineer does is recorded under these account names, so the audit log later shows clearly what the device's administrator did and what the engineer did.</p>
+
+      <p>When the engineer signs in as a registered user, actions are recorded under that user's name, but each record also carries a marker showing it came from a remote support session.</p>
+
+      <h2>What read-only changes</h2>
+
+      <p>Most remote support requests are about finding a cause, such as "why does recording on this camera keep dropping?" For those, read-only is the safest choice.</p>
+
+      <table>
+        <thead>
+          <tr><th></th><th>In a read-only session</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Can view</td><td>Live view, recordings, search, events, and every management screen: settings, users, network, storage, logs, and update status</td></tr>
+          <tr><td>Cannot do</td><td>Any change: adding cameras, saving settings, creating users, storage operations, file uploads, saving layouts, and so on</td></tr>
+          <tr><td>Also blocked</td><td>Running AI search. It looks like a read, but it uses GPU and storage, so it is blocked. Viewing existing results is allowed</td></tr>
+        </tbody>
+      </table>
+
+      <p>Read-only does not hide any screens. The engineer sees the same diagnostic information as an administrator, and the server rejects <strong>only the requests that change something</strong>. The block is applied once, at the server's authentication step, rather than screen by screen, so a change cannot slip through because one screen or API was missed.</p>
+
+      <p>Even with read-only off, a few things cannot be done remotely. Permanently deleting a camera or recording that still has footage, replacing a camera device, and shutting the device down are all rejected in a remote support session. Actions that cannot be undone are left to the administrator on site.</p>
+
+      <h2>A record of who opened and closed it, and when</h2>
+
+      <p>Switching remote support on and off is recorded in the audit log. Below are the records from our test device: remote support switched on, and switched off again once the screenshots were done.</p>
+
+      <figure>
+        <img src="/img/blog/remote-support/04-audit-log.png" alt="Audit log (Korean UI) — remote support activated, one-time code issued, remote support deactivated" loading="lazy" />
+        <figcaption>Audit log (Korean UI) — remote support activated, one-time code issued, remote support deactivated</figcaption>
+      </figure>
+
+      <p>Activation, code issuance, and deactivation each appear with the time and the administrator who did it. Closing because the duration ran out, and cleanup after a reboot, are recorded the same way. The engineer's sign-ins and failed sign-ins are recorded separately under the remote support account name.</p>
+
+      <p>When a customer's security officer asks "when did an outside vendor get into our device?", this record is the answer.</p>
+
+      <h2>Closed as soon as it is done</h2>
+
+      <p>Remote support closes in three ways.</p>
+
+      <ol>
+        <li><strong>The administrator switches it off</strong>: Clicking <strong>Deactivate</strong> on the card closes the path immediately.</li>
+        <li><strong>The duration runs out</strong>: The device closes the path itself when the time is up.</li>
+        <li><strong>A reboot</strong>: Once the device restarts, the remote support path does not reopen.</li>
+      </ol>
+
+      <p>In every case, the issued one-time code and SSH key are discarded and the engineer's session ends with it. Only the engineer's session ends; the administrator on site and other users keep their screens.</p>
+
+      <p>Working side by side is accounted for too. The engineer signing in does not end the session of the administrator who switched remote support on, and a banner stays at the top of the engineer's screen showing that this is a remote support session, with what permissions and how much time is left, so both sides see the same thing.</p>
+
+      <h2>When it is not available</h2>
+
+      <p>Check these conditions before relying on it.</p>
+
+      <ul>
+        <li><strong>Not available in NIS security mode.</strong> In NIS (Korea's National Intelligence Service) security mode, outbound connections to an external relay are not allowed by policy, so the menu does not appear. For public-sector sites, check this first.</li>
+        <li><strong>Cannot be newly switched on when the license is unregistered or expired (Free mode).</strong> Switching it <strong>off is always possible</strong>, though. This ensures an open path can still be closed if the license expires while remote support is on.</li>
+        <li><strong>The device needs internet access.</strong> It must be able to make the outbound connection to our relay server. If remote access is not possible, the device's local console is the fallback.</li>
+      </ul>
+
+      <h2>How to explain it to customers</h2>
+
+      <p>When installers propose a maintenance contract, the end customer's concern about remote support is usually "can outsiders get into our device whenever they like?" You can explain it like this:</p>
+
+      <blockquote>
+        <p>"Remote support opens only when your administrator switches it on, and it closes automatically when the chosen time runs out. We never receive your admin password; we sign in with a one-time code that is valid for two minutes. For inspections we can be let in read-only so settings cannot be changed, and every time the path is opened or closed is recorded in the device's audit log."</p>
+      </blockquote>
+
+      <h2>Closing</h2>
+
+      <p>The risk in remote support is less the access itself than <strong>what is left behind after the support ends</strong>: an open port, a password that was shared, a remote access tool that was installed. NOX remote support opens the path only when switched on, uses a one-time code instead of a password, and discards the key and session when it ends, so the only thing left behind is the audit record.</p>
+
+      <p>If you want to know how to run remote support at your sites, or how support works at NIS security mode sites, please <strong><a href="/contact/">request an installer partner consultation</a></strong>.</p>
+
+      <p><em>Remote support is available on licensed devices and is not offered in NIS security mode. The device needs internet access.</em></p>
+
+      <hr />
+
+      <h2>Related Posts</h2>
+
+      <ul>
+        <li><a href="/en/blog/nis-security-requirements-v3-guide.html">NVR/VMS Guide to NIS Security Requirements V3.0 Certification</a></li>
+        <li><a href="/en/blog/mcp-maintenance-check.html">Maintenance Checks You Ask For in Plain Language and Keep on Record — Using NOX MCP to Find Recording Gaps, Disk Issues, and Offline Cameras</a></li>
+      </ul>
+
+      </div>
+
+
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="yl-foot" role="contentinfo">
+      <div class="yl-shell">
+        <div class="yl-foot-mast">
+          <div>
+            <div class="yl-foot-word"><img class="yl-foot-mark" src="/assets/yiyol-mark.png" alt="" width="36" height="26" />YIYOL<span>.</span></div>
+            
+            <p class="yl-foot-tag en-only">NVR and VMS that store and manage your video — and the AI automation built on top of it.</p>
+          </div>
+          <nav class="yl-foot-links" aria-label="Footer navigation">
+            <a href="/company/"><span class="en-only">Company</span></a>
+            <a href="/products/"><span class="en-only">Products</span></a>
+            <a href="/services/"><span class="en-only">Services</span></a>
+            <a href="/api/"><span class="en-only">API Docs</span></a>
+            <a href="/en/blog/"><span class="en-only">Blog</span></a>
+            <a href="/contact/"><span class="en-only">Contact</span></a>
+          </nav>
+        </div>
+        <div class="yl-foot-meta">
+          
+          <span class="en-only">#326, 75-15 Gasan Digital 1-ro, Geumcheon-gu, Seoul</span>
+          <a href="mailto:yiyol@yiyol.com">yiyol@yiyol.com</a>
+          
+          <span class="en-only">Business Registration 186-34-01502</span>
+          
+          <span class="en-only">Mail-order License 2024-Seoul Geumcheon-1806</span>
+        </div>
+        <p class="yl-foot-copy">&copy; 2026 YIYOL. All rights reserved.</p>
+      </div>
+    </footer>
+
+  <script src="/assets/js/i18n.js?v=5"></script>
+</body>
+</html>
